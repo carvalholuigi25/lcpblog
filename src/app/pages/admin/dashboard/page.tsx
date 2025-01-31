@@ -73,6 +73,8 @@ export default function AdminDashboard() {
                                     Home
                                 </h3>
                                 <p className="text-center mt-3">Welcome {getDisplayName()}</p>
+                            </div>
+                            <div className="col-12">
                                 <div className="mt-3 mx-auto text-center">
                                     <Link href={'/'} className="btn btn-primary btn-rounded">Back</Link>
                                 </div>

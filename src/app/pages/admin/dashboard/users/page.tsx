@@ -3,19 +3,35 @@ import { getFromStorage } from "@/app/hooks/localstorage";
 import { useEffect, useState } from "react";
 import styles from "@/app/page.module.scss";
 import Link from "next/link";
+import { User } from "@/app/interfaces/user";
+import FetchData from "@/app/utils/fetchdata";
 
 export default function AdminUsers() {
     const [logInfo, setLogInfo] = useState("");
     const [isAuthorized, setIsAuthorized] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [users, setUsers] = useState(new Array<User>());
 
     useEffect(() => {
-        if(!logInfo) {
+        async function fetchUsers() {
+            const data = await FetchData({
+                url: 'api/users',
+                method: 'get',
+                reqAuthorize: true
+            });
+
+            if (data.data) {
+                setUsers(JSON.parse(JSON.stringify(data.data)));
+                setLoading(false);
+            }
+        }
+
+        if (!logInfo) {
             setLogInfo(getFromStorage("logInfo")!);
         }
 
         setIsAuthorized(logInfo && JSON.parse(logInfo)[0].role == "admin" ? true : false);
-        setLoading(false);
+        fetchUsers();
     }, [logInfo, isAuthorized]);
 
     if (loading) {
@@ -25,7 +41,7 @@ export default function AdminUsers() {
                     <div className='row justify-content-center align-items-center p-3'>
                         <div className='col-12 card p-3 text-center'>
                             <div className='card-body'>
-                                <i className="bi-clock" style={{ fontSize: "4rem" }}></i>
+                                <i className="bi bi-clock" style={{ fontSize: "4rem" }}></i>
                                 <p>Loading...</p>
                             </div>
                         </div>
@@ -34,7 +50,7 @@ export default function AdminUsers() {
             </div>
         );
     }
-    
+
     return (
         <div className={styles.padmdashboard}>
             <div className="container-fluid">
@@ -68,18 +84,64 @@ export default function AdminUsers() {
                                     <i className="bi bi-people me-2"></i>
                                     Users
                                 </h3>
+                                <div className="container-fluid">
+                                    <div className="row">
+                                        {!!users && (
+                                            <div className="col-12">
+                                                <div className="table-responsive">
+                                                    <table className="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Id</th>
+                                                                <th>Display name</th>
+                                                                <th>Email</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {users.map((user: User) => (
+                                                                <tr key={user.userId}>
+                                                                    <td>{user.userId}</td>
+                                                                    <td>{user.displayName}</td>
+                                                                    <td>{user.email}</td>
+                                                                </tr>
+                                                            ))}
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <td colSpan={3}>
+                                                                    Total users: {users.length}
+                                                                </td>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        {!users && (
+                                            <div className='col-12 card p-3 text-center'>
+                                                <div className='card-body'>
+                                                    <i className="bi bi-people" style={{ fontSize: "4rem" }}></i>
+                                                    <p>0 users</p>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-12">
                                 <div className="mt-3 mx-auto text-center">
                                     <Link href={'/'} className="btn btn-primary btn-rounded">Back</Link>
                                 </div>
                             </div>
                         </>
-                    )} 
+                    )}
 
                     {!isAuthorized && (
                         <div className="col-12">
                             <div className="card mx-auto">
                                 <div className="card-body text-center">
-                                    <i className="bi bi-exclamation-triangle" style={{fontSize: "4rem"}} />
+                                    <i className="bi bi-exclamation-triangle" style={{ fontSize: "4rem" }} />
                                     <h3>Warning</h3>
                                     <p>You are not authorized to view this page!</p>
                                 </div>

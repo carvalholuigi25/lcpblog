@@ -3,19 +3,35 @@ import { getFromStorage } from "@/app/hooks/localstorage";
 import { useEffect, useState } from "react";
 import styles from "@/app/page.module.scss";
 import Link from "next/link";
+import FetchData from "@/app/utils/fetchdata";
+import { Posts } from "@/app/interfaces/posts";
 
 export default function AdminPosts() {
     const [logInfo, setLogInfo] = useState("");
     const [isAuthorized, setIsAuthorized] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [posts, setPosts] = useState(new Array<Posts>());
 
     useEffect(() => {
-        if(!logInfo) {
+        async function fetchPosts() {
+            const data = await FetchData({
+                url: 'api/posts',
+                method: 'get',
+                reqAuthorize: false
+            });
+
+            if (data.data) {
+                setPosts(JSON.parse(JSON.stringify(data.data)));
+                setLoading(false);
+            }
+        }
+
+        if (!logInfo) {
             setLogInfo(getFromStorage("logInfo")!);
         }
 
         setIsAuthorized(logInfo && JSON.parse(logInfo)[0].role == "admin" ? true : false);
-        setLoading(false);
+        fetchPosts();
     }, [logInfo, isAuthorized]);
 
     if (loading) {
@@ -25,7 +41,7 @@ export default function AdminPosts() {
                     <div className='row justify-content-center align-items-center p-3'>
                         <div className='col-12 card p-3 text-center'>
                             <div className='card-body'>
-                                <i className="bi-clock" style={{ fontSize: "4rem" }}></i>
+                                <i className="bi bi-clock" style={{ fontSize: "4rem" }}></i>
                                 <p>Loading...</p>
                             </div>
                         </div>
@@ -34,7 +50,7 @@ export default function AdminPosts() {
             </div>
         );
     }
-    
+
     return (
         <div className={styles.padmdashboard}>
             <div className="container-fluid">
@@ -68,18 +84,64 @@ export default function AdminPosts() {
                                     <i className="bi bi-file-post me-2"></i>
                                     Posts
                                 </h3>
+                                <div className="container-fluid">
+                                    <div className="row">
+                                        {!!posts && (
+                                            <div className="col-12">
+                                                <div className="table-responsive">
+                                                    <table className="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Id</th>
+                                                                <th>Title</th>
+                                                                <th>User Id</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {posts.map((post: Posts) => (
+                                                                <tr key={post.postId}>
+                                                                    <td>{post.postId}</td>
+                                                                    <td>{post.title}</td>
+                                                                    <td>{post.userId}</td>
+                                                                </tr>
+                                                            ))}
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <td colSpan={3}>
+                                                                    Total posts: {posts.length}
+                                                                </td>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        {!posts && (
+                                            <div className='col-12 card p-3 text-center'>
+                                                <div className='card-body'>
+                                                    <i className="bi bi-file-post" style={{ fontSize: "4rem" }}></i>
+                                                    <p>0 posts</p>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-12">
                                 <div className="mt-3 mx-auto text-center">
                                     <Link href={'/'} className="btn btn-primary btn-rounded">Back</Link>
                                 </div>
                             </div>
                         </>
-                    )} 
+                    )}
 
                     {!isAuthorized && (
                         <div className="col-12">
                             <div className="card mx-auto">
                                 <div className="card-body text-center">
-                                    <i className="bi bi-exclamation-triangle" style={{fontSize: "4rem"}} />
+                                    <i className="bi bi-exclamation-triangle" style={{ fontSize: "4rem" }} />
                                     <h3>Warning</h3>
                                     <p>You are not authorized to view this page!</p>
                                 </div>
