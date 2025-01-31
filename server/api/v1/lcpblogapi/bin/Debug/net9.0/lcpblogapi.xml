@@ -1,0 +1,346 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>lcpblogapi</name>
+    </assembly>
+    <members>
+        <member name="M:lcpblogapi.Controllers.AuthController.Authenticate(lcpblogapi.Models.UsersAuth.AuthenticateRequest)">
+            <summary>
+            User login
+            </summary>
+            <param name="model"></param>
+            <returns>User login</returns>
+            <response code="201">Returns the user is logged in or not by his authentication credientials</response>
+            <response code="400">If the user is not logged in by his authentication credientials</response>
+        </member>
+        <member name="M:lcpblogapi.Controllers.AuthController.RefreshToken">
+            <summary>
+            Refresh Token 
+            </summary>
+            <returns>Refresh token and updates his user session</returns>
+            <response code="201">Returns the token info and updates his user session</response>
+            <response code="400">If the user is not updated about his session and token info</response>
+        </member>
+        <member name="M:lcpblogapi.Controllers.AuthController.RevokeToken(lcpblogapi.Models.UsersAuth.RevokeTokenRequest)">
+            <summary>
+            Revoke Token 
+            </summary>
+            <param name="model"></param>
+            <returns>Revokes token and removes his user session</returns>
+            <response code="201">Returns the token info and removed the current user session</response>
+            <response code="400">If the user is not removed about his session and token info</response>
+        </member>
+        <member name="M:lcpblogapi.Controllers.AuthController.GetAll">
+            <summary>
+            Gets all list of users 
+            </summary>
+            <returns>Gets all list of users</returns>
+            <response code="201">Returns of all list of users</response>
+            <response code="400">If the user list is empty</response>
+        </member>
+        <member name="M:lcpblogapi.Controllers.AuthController.GetById(System.Int32)">
+            <summary>
+            Gets all list of users by id 
+            </summary>
+            <returns>Gets all list of users by id</returns>
+            <response code="201">Returns of all list of users by id</response>
+            <response code="400">If the user list by id is empty</response>
+        </member>
+        <member name="M:lcpblogapi.Controllers.AuthController.GetRefreshTokens(System.Int32)">
+            <summary>
+            Refreshes tokens by user id 
+            </summary>
+            <param name="id"></param>
+            <returns>Refreshes tokens the current user session by id</returns>
+            <response code="201">Returns and refreshes the current user session by id</response>
+            <response code="400">If the current user session by id is empty</response>
+        </member>
+        <member name="M:lcpblogapi.Controllers.CategoriesController.GetCategories(lcpblogapi.Models.QParams.QueryParams)">
+            <summary>
+            Gets all categories.
+            </summary>
+            <param name="queryParams"></param>
+            <returns>Gets all users categories</returns>
+            <response code="201">Returns the all categoreies</response>
+            <response code="400">If the categories are empty</response>
+        </member>
+        <member name="M:lcpblogapi.Controllers.CategoriesController.GetCategory(System.Int32)">
+            <summary>
+            Gets all categories by id.
+            </summary>
+            <param name="id"></param>
+            <returns>Gets all users categories by id</returns>
+            <response code="201">Returns the all categories by id</response>
+            <response code="400">If the category is empty</response>
+        </member>
+        <member name="M:lcpblogapi.Controllers.CategoriesController.PutCategory(System.Int32,lcpblogapi.Models.Category)">
+            <summary>
+            Updates the category by id and body.
+            </summary>
+            <param name="id"></param>
+            <param name="Category"></param>
+            <returns>Updates the category by id and body</returns>
+            <response code="201">Returns the all updated categories by id</response>
+            <response code="400">If the updated category is empty</response>
+        </member>
+        <member name="M:lcpblogapi.Controllers.CategoriesController.CreateCategory(lcpblogapi.Models.Category)">
+            <summary>
+            Creates the category by body.
+            </summary>
+            <param name="Category"></param>
+            <returns>Creates the category by body</returns>
+            <response code="201">Returns the new created category</response>
+            <response code="400">If the new created category is empty</response>
+        </member>
+        <member name="M:lcpblogapi.Controllers.CategoriesController.DeleteCategory(System.Int32)">
+            <summary>
+            Deletes the category by id.
+            </summary>
+            <param name="id"></param>
+            <returns>Deletes the category by id</returns>
+            <response code="201">Returns the deleted category</response>
+            <response code="400">If the deleted category is empty</response>
+        </member>
+        <member name="M:lcpblogapi.Controllers.CommentsController.GetComments(lcpblogapi.Models.QParams.QueryParams)">
+            <summary>
+            Gets all comments.
+            </summary>
+            <param name="queryParams"></param>
+            <returns>Gets all comments</returns>
+            <response code="201">Returns the all categoreies</response>
+            <response code="400">If the comments are empty</response>
+        </member>
+        <member name="M:lcpblogapi.Controllers.CommentsController.GetComment(System.Int32)">
+            <summary>
+            Gets all comments by id.
+            </summary>
+            <param name="id"></param>
+            <returns>Gets all comments by id</returns>
+            <response code="201">Returns the all comments by id</response>
+            <response code="400">If the comment is empty</response>
+        </member>
+        <member name="M:lcpblogapi.Controllers.CommentsController.PutComment(System.Int32,lcpblogapi.Models.Comment)">
+            <summary>
+            Updates the comment by id and body.
+            </summary>
+            <param name="id"></param>
+            <param name="Comment"></param>
+            <returns>Updates the comment by id and body</returns>
+            <response code="201">Returns the all updated comments by id</response>
+            <response code="400">If the updated comment is empty</response>
+        </member>
+        <member name="M:lcpblogapi.Controllers.CommentsController.CreateComment(lcpblogapi.Models.Comment)">
+            <summary>
+            Creates the comment by body.
+            </summary>
+            <param name="Comment"></param>
+            <returns>Creates the comment by body</returns>
+            <response code="201">Returns the new created comment</response>
+            <response code="400">If the new created comment is empty</response>
+        </member>
+        <member name="M:lcpblogapi.Controllers.CommentsController.DeleteComment(System.Int32)">
+            <summary>
+            Deletes the comment by id.
+            </summary>
+            <param name="id"></param>
+            <returns>Deletes the comment by id</returns>
+            <response code="201">Returns the deleted comment</response>
+            <response code="400">If the deleted comment is empty</response>
+        </member>
+        <member name="M:lcpblogapi.Controllers.PostsController.GetPosts(lcpblogapi.Models.QParams.QueryParams)">
+            <summary>
+            Gets all posts.
+            </summary>
+            <param name="queryParams"></param>
+            <returns>Gets all users posts</returns>
+            <response code="201">Returns the all categoreies</response>
+            <response code="400">If the posts are empty</response>
+        </member>
+        <member name="M:lcpblogapi.Controllers.PostsController.GetPost(System.Int32)">
+            <summary>
+            Gets all posts by id.
+            </summary>
+            <param name="id"></param>
+            <returns>Gets all users posts by id</returns>
+            <response code="201">Returns the all posts by id</response>
+            <response code="400">If the post is empty</response>
+        </member>
+        <member name="M:lcpblogapi.Controllers.PostsController.PutPost(System.Int32,lcpblogapi.Models.Post)">
+            <summary>
+            Updates the post by id and body.
+            </summary>
+            <param name="id"></param>
+            <param name="Post"></param>
+            <returns>Updates the post by id and body</returns>
+            <response code="201">Returns the all updated posts by id</response>
+            <response code="400">If the updated post is empty</response>
+        </member>
+        <member name="M:lcpblogapi.Controllers.PostsController.CreatePost(lcpblogapi.Models.Post)">
+            <summary>
+            Creates the post by body.
+            </summary>
+            <param name="Post"></param>
+            <returns>Creates the post by body</returns>
+            <response code="201">Returns the new created post</response>
+            <response code="400">If the new created post is empty</response>
+        </member>
+        <member name="M:lcpblogapi.Controllers.PostsController.DeletePost(System.Int32)">
+            <summary>
+            Deletes the post by id.
+            </summary>
+            <param name="id"></param>
+            <returns>Deletes the post by id</returns>
+            <response code="201">Returns the deleted post</response>
+            <response code="400">If the deleted post is empty</response>
+        </member>
+        <member name="M:lcpblogapi.Controllers.TagsController.GetTags(lcpblogapi.Models.QParams.QueryParams)">
+            <summary>
+            Gets all tags.
+            </summary>
+            <param name="queryParams"></param>
+            <returns>Gets all tags</returns>
+            <response code="201">Returns the all categoreies</response>
+            <response code="400">If the tags are empty</response>
+        </member>
+        <member name="M:lcpblogapi.Controllers.TagsController.GetTag(System.Int32)">
+            <summary>
+            Gets all tags by id.
+            </summary>
+            <param name="id"></param>
+            <returns>Gets all tags by id</returns>
+            <response code="201">Returns the all tags by id</response>
+            <response code="400">If the tag is empty</response>
+        </member>
+        <member name="M:lcpblogapi.Controllers.TagsController.PutTag(System.Int32,lcpblogapi.Models.Tag)">
+            <summary>
+            Updates the tag by id and body.
+            </summary>
+            <param name="id"></param>
+            <param name="Tag"></param>
+            <returns>Updates the tag by id and body</returns>
+            <response code="201">Returns the all updated tags by id</response>
+            <response code="400">If the updated tag is empty</response>
+        </member>
+        <member name="M:lcpblogapi.Controllers.TagsController.CreateTag(lcpblogapi.Models.Tag)">
+            <summary>
+            Creates the tag by body.
+            </summary>
+            <param name="Tag"></param>
+            <returns>Creates the tag by body</returns>
+            <response code="201">Returns the new created tag</response>
+            <response code="400">If the new created tag is empty</response>
+        </member>
+        <member name="M:lcpblogapi.Controllers.TagsController.DeleteTag(System.Int32)">
+            <summary>
+            Deletes the tag by id.
+            </summary>
+            <param name="id"></param>
+            <returns>Deletes the tag by id</returns>
+            <response code="201">Returns the deleted tag</response>
+            <response code="400">If the deleted tag is empty</response>
+        </member>
+        <member name="M:lcpblogapi.Controllers.UsersController.GetUsers(lcpblogapi.Models.QParams.QueryParams)">
+            <summary>
+            Gets all users infos.
+            </summary>
+            <param name="queryParams"></param>
+            <returns>Gets all users infos</returns>
+            <response code="201">Returns the all infos about users</response>
+            <response code="400">If the users infos are empty</response>
+        </member>
+        <member name="M:lcpblogapi.Controllers.UsersController.GetUser(System.Nullable{System.Int32})">
+            <summary>
+            Gets user info by id.
+            </summary>
+            <param name="id"></param>
+            <returns>Gets user info by id</returns>
+            <response code="201">Returns the info about user</response>
+            <response code="400">If the user info is empty</response>
+        </member>
+        <member name="M:lcpblogapi.Controllers.UsersController.GetUserAvatar(lcpblogapi.Models.UserAvatarSearch)">
+            <summary>
+            Gets user avatar by email.
+            </summary>
+            <param name="uavatarsrch"></param>
+            <returns>Gets user avatar by email</returns>
+            <response code="201">Returns the user's avatar</response>
+            <response code="400">If the user's avatar is empty</response>
+        </member>
+        <member name="M:lcpblogapi.Controllers.UsersController.PostUser(lcpblogapi.Models.User)">
+            <summary>
+            Creates a user.
+            </summary>
+            <param name="user"></param>
+            <returns>A newly created user</returns>
+            <response code="201">Returns the newly created user info</response>
+            <response code="400">If the user info is empty</response>
+        </member>
+        <member name="M:lcpblogapi.Controllers.UsersController.PutUser(System.Nullable{System.Int32},lcpblogapi.Models.User)">
+            <summary>
+            Updates specific user info by id
+            </summary>
+            <param name="id"></param>
+            <param name="user"></param>
+            <returns>Updates specific user info by id</returns>
+            <response code="201">Returns the all users infos updated by id and its body</response>
+            <response code="400">If the users infos updated are empty by id and its body</response>
+        </member>
+        <member name="M:lcpblogapi.Controllers.UsersController.DeleteUser(System.Nullable{System.Int32})">
+            <summary>
+            Deletes specific user info by id.
+            </summary>
+            <param name="id"></param>
+            <returns>Deletes the specific user info by id</returns>
+            <response code="201">Returns the all users infos are deleted by id</response>
+            <response code="400">If the users infos are deleted by id</response>
+        </member>
+        <member name="T:lcpblogapi.Migrations.MySQL.InitialCreateMySQL">
+            <inheritdoc />
+        </member>
+        <member name="M:lcpblogapi.Migrations.MySQL.InitialCreateMySQL.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:lcpblogapi.Migrations.MySQL.InitialCreateMySQL.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:lcpblogapi.Migrations.MySQL.InitialCreateMySQL.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:lcpblogapi.Migrations.PostgresSQL.InitialCreatePostgresSQL">
+            <inheritdoc />
+        </member>
+        <member name="M:lcpblogapi.Migrations.PostgresSQL.InitialCreatePostgresSQL.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:lcpblogapi.Migrations.PostgresSQL.InitialCreatePostgresSQL.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:lcpblogapi.Migrations.PostgresSQL.InitialCreatePostgresSQL.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:lcpblogapi.Migrations.SQLite.InitialCreateSQLite">
+            <inheritdoc />
+        </member>
+        <member name="M:lcpblogapi.Migrations.SQLite.InitialCreateSQLite.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:lcpblogapi.Migrations.SQLite.InitialCreateSQLite.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:lcpblogapi.Migrations.SQLite.InitialCreateSQLite.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:lcpblogapi.Migrations.SQLServer.InitialCreateSQLServer">
+            <inheritdoc />
+        </member>
+        <member name="M:lcpblogapi.Migrations.SQLServer.InitialCreateSQLServer.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:lcpblogapi.Migrations.SQLServer.InitialCreateSQLServer.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:lcpblogapi.Migrations.SQLServer.InitialCreateSQLServer.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>

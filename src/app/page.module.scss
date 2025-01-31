@@ -1,0 +1,427 @@
+.page {
+  display: block;
+  width: auto;
+  max-width: 100%;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  padding: 15px;
+  height: 50vh;
+  font-family: var(--font-orbitron);
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.52), rgba(0, 0, 0, 0.73)), url('/images/blog.jpg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  box-shadow: 0 .5rem 1rem #00000026 !important;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(216, 216, 216);
+  padding: 15px;
+}
+
+.ctjustify {
+  text-align: justify;
+  line-height: 2rem !important;
+}
+
+.carimg {
+  display: block;
+  width: 100%;
+  height: 50vh;
+  max-width: 100%;
+  max-height: 100%;
+  margin: auto auto;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.textlong {
+  display: block;
+  white-space: nowrap;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: inherit;
+}
+
+/* .textlong:hover {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+} */
+
+.carousel-item {
+  position: relative !important;
+}
+
+.drk:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: black;
+  opacity: 0.6;
+  z-index: 1;
+}
+
+.pusers {
+  text-align: center;
+}
+
+.cuser {
+  display: inherit;
+}
+
+.cuserimg {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.cuserbody {
+  display: inherit;
+}
+
+.cunauth {
+  display: inherit;
+}
+
+.cunauthbody {
+  display: inherit;
+}
+
+.padmdashboard {
+  display: block;
+}
+
+.plogin {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url('/images/blog.jpg'); 
+  background-size: cover; 
+  background-position: center center;
+  width: auto;
+  height: 100vh;
+  max-width: 100%; 
+  max-height: 100%; 
+  padding: 15px;
+}
+
+.slogin {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center; 
+  padding: 15px;
+  margin: 0 auto;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  background-color: rgba(181, 181, 181, 0.7);
+  border-radius: 15px;
+  overflow: hidden; 
+}
+
+.slogintitle {
+  display: flex;
+  flex-direction: row;
+  justify-content: center; 
+  align-items: center;
+}
+
+.slogintitleico {
+  font-size: 2.5rem;
+}
+
+.slogintitletxt {
+  font-size: 2.5rem;
+  margin-left: 15px;
+  margin-top: 0px; 
+  margin-bottom: 0px;
+}
+
+.pregister {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url('/images/blog.jpg'); 
+  background-size: cover; 
+  background-position: center center;
+  width: auto;
+  min-height: 100vh;
+  max-width: 100%; 
+  padding: 15px;
+}
+
+.sregister {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center; 
+  padding: 15px;
+  margin: 0 auto;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  background-color: rgba(181, 181, 181, 0.7);
+  border-radius: 15px;
+  overflow: hidden; 
+}
+
+.sregistertitle, .sregistertitlefrm {
+  display: flex;
+  flex-direction: row;
+  justify-content: center; 
+  align-items: center;
+}
+
+.sregistertitleico {
+  font-size: 2.5rem;
+}
+
+.sregistertitletxt {
+  font-size: 2.5rem;
+  margin-left: 15px;
+  margin-top: 0px; 
+  margin-bottom: 0px;
+}
+
+.sregistertitlefrmtxt {
+  font-size: calc(1.3rem + .6vw);
+}
+
+.sregistertermsinp {
+  width: 30px;
+  height: 30px; 
+  border-radius: 50%;
+}
+
+.sregistertermstxt {
+  margin: auto 15px;
+}
+
+.sformgroup {
+  position: relative;
+}
+
+.sformgroup .sformgroupico {
+  position: absolute;
+  left: 0;
+  right: auto;
+  top: 0;
+  padding: 7px 10px;
+  bottom: auto;
+  z-index: 1;
+  border-right: 1px solid #b5b5b5b3;
+}
+
+.sformgroup .sformgroupinp {
+  position: relative;
+  padding-left: 3rem;
+}
+
+.logavatar {
+  display: block;
+  margin: 15px auto;
+  width: 130px;
+  height: 130px;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  border-radius: 50%;
+  border: 1px solid black;
+  -webkit-box-shadow: 0px 1px 5px 3px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 1px 5px 3px rgba(0,0,0,0.75);
+  box-shadow: 0px 1px 5px 3px rgba(0,0,0,0.75);
+}
+
+.frmreg, .frmregstep {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: stretch;
+  margin: 15px auto;
+  width: 100%;
+  max-width: 100%;
+}
+
+.mstepper {
+  position: relative;
+}
+
+.stepper {
+  position: relative;
+  text-align: center;
+
+  &:last-child{
+    &:after {
+      content: '';
+      display: none;
+    }
+  }
+
+  &:after {
+    content: url('/stepperline.svg');
+    position: absolute;
+    top: 50%;
+    bottom: -50%;
+    right: 0;
+    left: 0;
+    width: auto;
+    max-width: 100%;
+    transform: translate(100%, -50%);
+  }
+}
+
+.stepperactive .stepperind {
+  background-color: skyblue;
+}
+
+.steppercomplete .stepperind {
+  background-color: rgb(129, 215, 1);
+}
+
+.stepperind {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 1.3rem;
+  line-height: 1.3rem;
+  border-radius: 50%;
+  text-align: center;
+  vertical-align: middle;
+  margin: 0 auto;
+  background-color: rgb(0, 199, 238);
+}
+
+.steppertext {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.stepperbar {
+  display: block;
+  border: 1px solid black;
+}
+
+.imgavatarheader {
+  display: inline-flex;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 50%;
+  margin-right: .5rem;
+}
+
+.error {
+  color: red;
+  margin: 15px auto;
+}
+
+.pstretch {
+  display: flex;
+  justify-content: stretch;
+  align-items: stretch;
+}
+
+.cardwrapper {
+  position: relative;
+}
+
+.alluserinfocover {
+  display: block;
+  border-radius: 25px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  width: 100%;
+  height: 20vh;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  padding: 0;
+}
+
+.alluserinfoavatar {
+  position: absolute;
+  top: auto;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  max-width: 100%;
+  max-height: 100%;
+  background-color: white;
+}
+
+.userinfocover {
+  display: block;
+  border-radius: 25px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  width: 100%;
+  height: 40vh;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  padding: 0;
+}
+
+.userinfoavatar {
+  position: absolute;
+  top: auto;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  max-width: 100%;
+  max-height: 100%;
+  background-color: white;
+}
+
+@media all and (width >= 1000px) {
+  .plogin .slogin, .pregister .sregister {
+    width: 50%;
+  }
+}
+
+@media all and (width < 1000px) {
+  .plogin .slogin, .pregister .sregister {
+    width: auto;
+  }
+}
+
+@media all and (max-width: 998px) {
+  .userinfocover {
+    height: 20vh;
+  }
+}

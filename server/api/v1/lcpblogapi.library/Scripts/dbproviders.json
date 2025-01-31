@@ -1,0 +1,20 @@
+{
+    "dbproviders": [
+        {
+            "id": 1,
+            "name": "SQLite"
+        },
+        {
+            "id": 2,
+            "name": "SQLServer"
+        },
+        {
+            "id": 3,
+            "name": "MySQL"
+        },
+        {
+            "id": 4,
+            "name": "PostgresSQL"
+        }
+    ]
+}
