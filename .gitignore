@@ -39,3 +39,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# bin and obj folders from server (+library)
+/server/api/v1/lcpblogapi/[Bb]in/
+/server/api/v1/lcpblogapi/[Oo]bj/
+/server/api/v1/lcpblogapi.library/[Bb]in/
+/server/api/v1/lcpblogapi.library/[Oo]bj/
+
+# bin and obj folders
+**/[Bb]in/
+**/[Oo]bj/
