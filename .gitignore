@@ -66,3 +66,30 @@ next-env.d.ts
 /server/api/v1/lcpblogapi/Database/SQLite/*.*
 /server/api/v1/lcpblogapi/Database/MySQL/*.*
 /server/api/v1/lcpblogapi/Database/PostgresSQL/*.*
+
+# bin and obj folders from server (+library)
+/server/api/v1/lcpblogapi/[Bb]in/
+/server/api/v1/lcpblogapi/[Oo]bj/
+/server/api/v1/lcpblogapi.library/[Bb]in/
+/server/api/v1/lcpblogapi.library/[Oo]bj/
+
+# bin and obj folders
+**/[Bb]in/
+**/[Oo]bj/
+
+# log files
+**/*.log
+*.log
+/server/api/v1/lcpblogapi/Logs/*.log
+
+# db files
+**/*.db
+**/*.mdf
+**/*.ldf
+*.db
+*.mdf
+*.ldf
+/server/api/v1/lcpblogapi/Database/SQLServer/*.*
+/server/api/v1/lcpblogapi/Database/SQLite/*.*
+/server/api/v1/lcpblogapi/Database/MySQL/*.*
+/server/api/v1/lcpblogapi/Database/PostgresSQL/*.*
