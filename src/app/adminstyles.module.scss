@@ -1,0 +1,77 @@
+.admdashboard {
+    display: block;
+
+    .navbartopadmdb {
+        display: inherit;
+        background-color: #212529 !important;
+        color: white !important;
+
+        * {
+            color: inherit !important;
+        }
+    }
+
+    .navlinksadmdb {
+        background-color: #212529;
+        color: white;
+        position: fixed;
+        left: 0;
+        right: auto;
+        top: 72px;
+        width: 250px;
+        height: 100vh;
+        max-width: 100%;
+        max-height: 100%;
+        padding: 15px;
+
+        * {
+            color: inherit;
+        }
+    }
+
+    .imgavatar {
+        width: 40px;
+        height: 40px;
+        max-width: 100%;
+        max-height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center center;
+    }
+
+    .btnshside {
+        display: inherit;
+        align-items: center;
+    }
+
+    .btnshsidebynav {
+        display: inherit;
+        align-items: center;
+    }
+
+    .navbar-toggler {
+        border-color: white;
+        color: white;
+
+        * {
+            border-color: inherit;
+            color: inherit;
+        }
+    }
+
+    .hidden .btnshside, .hidden .btnshsidebynav {
+        display: none;
+    }
+}
+
+.hidden {
+    display: none !important;
+}
+
+@media all and (max-width: 992px) {
+    .admdashboard {
+        .navlinksadmdb {
+            top: 0;
+        }
+    }
+}
