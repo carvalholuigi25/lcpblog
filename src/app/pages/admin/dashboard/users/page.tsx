@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { getFromStorage } from "@/app/hooks/localstorage";
 import { useEffect, useState } from "react";
@@ -51,6 +52,14 @@ export default function AdminUsers() {
         );
     }
 
+    const tableHeaders = [
+        { dataIndex: 'userId', title: 'User Id' },
+        { dataIndex: 'username', title: 'Username' },
+        { dataIndex: 'email', title: 'Email' },
+        { dataIndex: 'displayName', title: 'Display Name' },
+        { dataIndex: 'role', title: 'Role' },
+    ];
+
     return (
         <div className={styles.padmdashboard}>
             <div className="container-fluid">
@@ -92,23 +101,27 @@ export default function AdminUsers() {
                                                     <table className="table table-bordered">
                                                         <thead>
                                                             <tr>
-                                                                <th>Id</th>
-                                                                <th>Display name</th>
-                                                                <th>Email</th>
+                                                                {tableHeaders.map((header, i) => (
+                                                                    <th key={"thv"+i}>{header.title}</th>
+                                                                ))}
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            {users.map((user: User) => (
-                                                                <tr key={user.userId}>
-                                                                    <td>{user.userId}</td>
-                                                                    <td>{user.displayName}</td>
-                                                                    <td>{user.email}</td>
-                                                                </tr>
-                                                            ))}
+                                                            {users.map((user: any, i: number) => {
+                                                                const values = tableHeaders.map((thx) => user[thx.dataIndex]);
+
+                                                                return (
+                                                                    <tr key={"x"+i}>
+                                                                        {values.map((v, k) => (
+                                                                            <td key={"tdx"+k}>{v}</td>
+                                                                        ))}
+                                                                    </tr>
+                                                                );
+                                                            })}
                                                         </tbody>
                                                         <tfoot>
                                                             <tr>
-                                                                <td colSpan={3}>
+                                                                <td colSpan={tableHeaders.length}>
                                                                     Total users: {users.length}
                                                                 </td>
                                                             </tr>

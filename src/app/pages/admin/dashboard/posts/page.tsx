@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { getFromStorage } from "@/app/hooks/localstorage";
 import { useEffect, useState } from "react";
@@ -51,6 +52,15 @@ export default function AdminPosts() {
         );
     }
 
+    const tableHeaders = [
+        { dataIndex: 'postId', title: 'Post Id' },
+        { dataIndex: 'title', title: 'Title' },
+        { dataIndex: 'content', title: 'Content' },
+        { dataIndex: 'createdAt', title: 'Created At' },
+        { dataIndex: 'updatedAt', title: 'Updated At' },
+        { dataIndex: 'userId', title: 'User Id' },
+    ];
+
     return (
         <div className={styles.padmdashboard}>
             <div className="container-fluid">
@@ -92,23 +102,27 @@ export default function AdminPosts() {
                                                     <table className="table table-bordered">
                                                         <thead>
                                                             <tr>
-                                                                <th>Id</th>
-                                                                <th>Title</th>
-                                                                <th>User Id</th>
+                                                                {tableHeaders.map((header, i) => (
+                                                                    <th key={"thv"+i}>{header.title}</th>
+                                                                ))}
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            {posts.map((post: Posts) => (
-                                                                <tr key={post.postId}>
-                                                                    <td>{post.postId}</td>
-                                                                    <td>{post.title}</td>
-                                                                    <td>{post.userId}</td>
-                                                                </tr>
-                                                            ))}
+                                                            {posts.map((post: any, i: number) => {
+                                                                const values = tableHeaders.map((thx) => post[thx.dataIndex]);
+
+                                                                return (
+                                                                    <tr key={"x"+i}>
+                                                                        {values.map((v, k) => (
+                                                                            <td key={"tdx"+k}>{v}</td>
+                                                                        ))}
+                                                                    </tr>
+                                                                );
+                                                            })}
                                                         </tbody>
                                                         <tfoot>
                                                             <tr>
-                                                                <td colSpan={3}>
+                                                                <td colSpan={tableHeaders.length}>
                                                                     Total posts: {posts.length}
                                                                 </td>
                                                             </tr>
