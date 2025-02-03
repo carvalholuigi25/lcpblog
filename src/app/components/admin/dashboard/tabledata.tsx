@@ -5,9 +5,15 @@ export interface THeadersModel {
 }
 
 export default function TableData({ theaders, tdata }: { theaders: THeadersModel[], tdata: any }) {
+    const isBorderEnabled = true;
+    const isRoundedEnabled = false;
+
+    const isBorderEnabledCl = isBorderEnabled ? "bordered" : "nobordered";
+    const isRoundedEnabledCl = isRoundedEnabled ? "table-rounded" : "";
+
     return (
         <div className="table-responsive">
-            <table className="table table-bordered">
+            <table className={"table table-" + isBorderEnabledCl + " " + isRoundedEnabledCl}>
                 <thead>
                     <tr>
                         {theaders.map((theader: any, i: number) => (

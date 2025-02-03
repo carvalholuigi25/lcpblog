@@ -72,7 +72,9 @@ export default function AdminPosts() {
 
     return (
         <div className={astyles.admdashboard}>
-            <AdminNavbarDashboard logInfo={logInfo} sidebarToggle={sidebarToggle} toggleSidebar={toggleSidebar} />
+            {!!isAuthorized && (
+                <AdminNavbarDashboard logInfo={logInfo} sidebarToggle={sidebarToggle} toggleSidebar={toggleSidebar} />
+            )}
 
             <div className="container-fluid">
                 <div className="row p-3">

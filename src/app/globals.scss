@@ -71,6 +71,36 @@ p {
 
 .table {
   margin-bottom: 0 !important;
+  border-collapse: collapse;
+
+  &.table-rounded {
+    border-collapse: separate !important;
+    border-spacing: 0;
+
+    td {
+      border: solid 1px;
+      border-style: none solid solid none;
+      padding: 10px;
+    }
+
+    thead tr:first-child th:first-child { border-top-left-radius: 10px; }
+    thead tr:first-child th:last-child { border-top-right-radius: 10px; }
+
+    tfoot tr:last-child td:first-child { border-bottom-left-radius: 10px; }
+    tfoot tr:last-child td:last-child { border-bottom-right-radius: 10px; }
+
+    tbody tr:first-child td { border-top-style: solid; }
+    tbody tr td:first-child { border-left-style: solid; }
+  }
+
+  &.table-nobordered {
+    border: 0 !important;
+  }
+
+  &.table-bordered * {
+    border: 0;
+    border: 1px solid rgb(221, 221, 221) !important;
+  }
 
   &.tfixed {
     table-layout: fixed;
@@ -79,6 +109,17 @@ p {
 
   &.tauto {
     table-layout: auto;
+  }
+
+  thead th, tfoot td {
+    background-color: #212529;
+    color: white;
+    border: 0;
+  }
+
+  tbody td {
+    color: black;
+    border: 0;
   }
 
   th, td {
@@ -324,6 +365,10 @@ form {
 .card.card-transparent {
   background-color: transparent;
   border-color: transparent;
+}
+
+.navbar-brand {
+  font-family: 'Orbitron';
 }
 
 @media all and (width <= 1199px) {

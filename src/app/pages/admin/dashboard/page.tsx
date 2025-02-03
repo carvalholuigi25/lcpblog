@@ -50,7 +50,9 @@ export default function AdminDashboard() {
 
     return (
         <div className={astyles.admdashboard}>
-            <AdminNavbarDashboard logInfo={logInfo} sidebarToggle={sidebarToggle} toggleSidebar={toggleSidebar} />
+            {!!isAuthorized && (
+                <AdminNavbarDashboard logInfo={logInfo} sidebarToggle={sidebarToggle} toggleSidebar={toggleSidebar} />
+            )}
 
             <div className="container-fluid mt-3">
                 <div className="row p-3">
