@@ -67,3 +67,4 @@ next-env.d.ts
 /server/api/v1/lcpblogapi/Database/MySQL/*.*
 /server/api/v1/lcpblogapi/Database/PostgresSQL/*.*
 server/api/v1/lcpblogapi/Database/SQLite/lcpblogapidb.db
+package-lock.json

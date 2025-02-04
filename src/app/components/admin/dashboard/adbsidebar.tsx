@@ -29,6 +29,7 @@ export default function AdminSidebarDashboard({sidebarToggle, toggleSidebar}: {s
     const mlinks: any = [];
     const prefix = "/pages/admin/dashboard";
     const pathname = usePathname();
+    const showIconName = false;
 
     const getIsActive = (pathname: string, prefix: string, i: number, x: any) => {
         return pathname === prefix && i == 0 ? "active" : (pathname == prefix + x.link ? "active" : "");
@@ -46,16 +47,16 @@ export default function AdminSidebarDashboard({sidebarToggle, toggleSidebar}: {s
             <li className="nav-item" key={i}>
                 <Link className={"nav-link " + isActive} aria-current={isPageCurrent} href={prefix+x.link}>
                     <i className={"bi " + x.icon + " me-2"}></i>
-                    {x.name}
+                    <span className={"navlinkname" + (showIconName ? " hidden" : "")}>{x.name}</span>
                 </Link>
             </li>
         );
     });
 
     return (
-        <ul className={"nav flex-column nav-pills " + astyles.navlinksadmdb + (sidebarToggle ? " hidden" : "")}>
+        <ul className={"nav flex-column nav-pills " + astyles.navlinksadmdb + (sidebarToggle ? " hidden " : " ") + (showIconName ? " w-auto" : "")}>
             <li className={"nav-item d-flex justify-content-between align-items-center mb-3"}>
-                <Link className={"navbar-brand"} href="/">LCPBlog</Link>
+                <Link className={"navbar-brand" + (showIconName ? " hidden" : "")} href="/">LCPBlog</Link>
                 <button type="button" className={"nav-link " + astyles.btnshside} onClick={toggleSidebar}>
                     {!!sidebarToggle ? <i className="bi bi-list"></i> : <i className="bi bi-x-lg"></i>}
                 </button>

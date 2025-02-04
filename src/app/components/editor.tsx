@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import ReactQuill from 'react-quill-new';
+import SanitizeHTML from '../utils/sanitizehtml';
 
 export default function Editor() {
     const [value, setValue] = useState('');
@@ -53,15 +54,33 @@ export default function Editor() {
         <>
             <ReactQuill modules={modules} formats={formats} value={value} onChange={setValue} theme="snow" />
             <div className='col-12 mt-3'>
+                <p>Preview:</p>
+                
+                <p className='mt-3'>JSON:</p>
+                <pre style={{background: 'black', color: 'white', padding: '15px', maxHeight: '500px', overflow: 'auto'}}>
+                    <code style={{ whiteSpace: 'pre-wrap' }}>
+                        {JSON.stringify({ data: value }, null, 4)}
+                    </code>
+                </pre>
+
+                <p className='mt-3'>JSON (minified):</p>
+                <pre style={{background: 'black', color: 'white', padding: '15px', maxHeight: '500px', overflow: 'auto'}}>
+                    <code style={{ whiteSpace: 'pre-wrap' }}>
+                        {JSON.stringify({ data: value }, null, 0)}
+                    </code>
+                </pre>
+                
+                <p className='mt-3'>HTML (dirty): </p>
                 <pre style={{background: 'black', color: 'white', padding: '15px', maxHeight: '500px', overflow: 'auto'}}>
                     <code style={{ whiteSpace: 'pre-line' }}>
-                        <p>Preview:</p>
-                        <p className='mt-3'>JSON:</p>
-                        {JSON.stringify({ data: value })}
-                        <p className='mt-3'>HTML: </p>
                         {value}
                     </code>
                 </pre>
+                
+                <p className='mt-3'>HTML (clean): </p>
+                <div className='ql-snow'>
+                    <div dangerouslySetInnerHTML={{ __html: SanitizeHTML(value) }} className='ql-editor' style={{background: 'black', color: 'white', padding: '15px', maxHeight: '500px', overflow: 'auto', fontFamily: 'inherit'}} />
+                </div>
             </div>
         </>
     )
