@@ -371,6 +371,11 @@ form {
   font-family: 'Orbitron';
 }
 
+.quill {
+  background-color: white;
+  color: black;
+}
+
 @media all and (width <= 1199px) {
   .card-author {
     flex-direction: column;
