@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Orbitron, Poppins, Roboto } from "next/font/google";
 import Frameworks from "@/app/frameworks/frameworks";
 import "@/app/globals.scss";
+import { ThemeProvider } from "./components/context/themecontext";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -35,10 +36,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-bs-theme="system">
       <body className={`${poppins.variable} ${roboto.variable} ${orbitron.variable}`}>
         <div id="modal-root"></div>
-        {children}
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
         <Frameworks />
       </body>
     </html>
