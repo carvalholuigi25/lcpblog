@@ -13,7 +13,7 @@ const ThemeSwitcher = () => {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
             >
-                Theme: {theme.charAt(0).toUpperCase() + theme.slice(1)}
+                {theme.charAt(0).toUpperCase() + theme.slice(1)}
             </button>
             <ul className="dropdown-menu">
                 <li><button className="dropdown-item" onClick={() => setTheme("light")}>Light</button></li>
