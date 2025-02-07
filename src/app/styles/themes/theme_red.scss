@@ -1,65 +1,10 @@
-// Required
+@use "content.scss" as c;
+
 [data-bs-theme="red"] {
     $bgcolor: #ff2c2c;
-    $bgcolor2: #fd1d0d;
+    $bgcolor2: #d31002;
     $fgcolor: white;
     $fgcolor2: black;
 
-    --bs-body-color: #{$fgcolor};
-    --bs-body-bg: #{$bgcolor};
-
-    .navbar {
-        --background: #{$bgcolor2};
-        background: var(--background) !important;
-
-        .navbar-brand {
-            color: $fgcolor;
-        }
-
-        input {
-            background-color: inherit;
-            color: $fgcolor;
-        }
-
-        form {
-            .btn {
-                color: $bgcolor2;
-            }
-        }
-
-        .btn {
-            color: $fgcolor;
-        }
-    }
-
-    .dropdown-menu {
-        background-color: $bgcolor;
-        color: $fgcolor;
-
-        & {
-            :active, :focus, :hover {
-                background-color: $bgcolor2 !important;
-                color: $fgcolor !important;
-            }
-        }
-    }
-
-    header {
-        background-color: inherit;
-    }
-
-    section {
-        background-color: inherit;
-    }
-
-    footer {
-        --background: #{$bgcolor2};
-        background: var(--background) !important;
-        color: $fgcolor;
-
-        .btn {
-            background-color: $bgcolor !important;
-            color: $fgcolor;
-        }
-    }
+    @include c.themecontent($bgcolor, $bgcolor2, $fgcolor, $fgcolor2);
 }
