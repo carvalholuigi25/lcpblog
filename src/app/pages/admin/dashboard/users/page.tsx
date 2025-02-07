@@ -3,7 +3,7 @@
 import { getFromStorage } from "@/app/hooks/localstorage";
 import { useEffect, useState } from "react";
 import { User } from "@/app/interfaces/user";
-import astyles from "@/app/adminstyles.module.scss";
+import astyles from "@/app/styles/adminstyles.module.scss";
 import FetchData from "@/app/utils/fetchdata";
 import AdminSidebarDashboard from "@/app/components/admin/dashboard/adbsidebar";
 import AdminNavbarDashboard from "@/app/components/admin/dashboard/adbnavbar";

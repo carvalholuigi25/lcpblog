@@ -2,7 +2,7 @@
 "use client";
 import { getFromStorage } from "@/app/hooks/localstorage";
 import { useEffect, useState } from "react";
-import astyles from "@/app/adminstyles.module.scss";
+import astyles from "@/app/styles/adminstyles.module.scss";
 import AdminSidebarDashboard from "@/app/components/admin/dashboard/adbsidebar";
 import AdminNavbarDashboard from "@/app/components/admin/dashboard/adbnavbar";
 import Link from "next/link";

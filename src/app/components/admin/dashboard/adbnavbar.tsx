@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import astyles from "@/app/adminstyles.module.scss";
+import astyles from "@/app/styles/adminstyles.module.scss";
 import Link from "next/link";
 import Image from "next/image";
 

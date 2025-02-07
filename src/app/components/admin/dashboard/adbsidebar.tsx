@@ -2,7 +2,7 @@
 "use client";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import astyles from "@/app/adminstyles.module.scss";
+import astyles from "@/app/styles/adminstyles.module.scss";
 
 export default function AdminSidebarDashboard({sidebarToggle, toggleSidebar}: {sidebarToggle: boolean, toggleSidebar: any}) {    
     const links = [
