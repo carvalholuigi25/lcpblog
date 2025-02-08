@@ -1,76 +1,94 @@
 @use "functions.scss" as f;
 
 @mixin themecontent($propstheme) {
-    $bgcolor: f.getvalmap($propstheme, "bgcolor");
-    $bgcolor2: f.getvalmap($propstheme, "bgcolor2");
-    $fgcolor: f.getvalmap($propstheme, "fgcolor");
-    $fgcolor2: f.getvalmap($propstheme, "fgcolor2");
+    $bgcolorprimary: f.getvalmap($propstheme, "bgcolorprimary"); //background color primary
+    $bgcolorsecondary: f.getvalmap($propstheme, "bgcolorsecondary"); //background color secondary
+    $fgcolorprimary: f.getvalmap($propstheme, "fgcolorprimary"); //color primary
+    $fgcolorsecondary: f.getvalmap($propstheme, "fgcolorsecondary"); //color secondary
 
-    --bs-body-color: #{$fgcolor};
-    --bs-body-bg: #{$bgcolor};
+    --bs-body-color: #{$fgcolorprimary};
+    --bs-body-bg: #{$bgcolorprimary};
 
     .navbar {
-        --background: #{$bgcolor2};
+        --background: #{$bgcolorsecondary};
         background: var(--background) !important;
 
         .navbar-brand {
-            color: $fgcolor;
+            color: $fgcolorprimary;
         }
 
         input {
             background-color: inherit;
-            color: $fgcolor2;
+            color: $fgcolorsecondary;
         }
 
         form {
             input {
-                border-color: $fgcolor;
-                color: $fgcolor;
+                border-color: $fgcolorprimary;
+                color: $fgcolorprimary;
             }
 
             ::placeholder {
-                color: $fgcolor;
+                color: $fgcolorprimary;
             }
 
             .btn {
-                color: $fgcolor;
+                color: $fgcolorprimary;
             }
         }
 
         .btn {
-            color: $fgcolor;
+            color: $fgcolorprimary;
+        }
+
+        .btnsearch {
+            background-color: transparent !important;
+        }
+
+        .collapse {
+            .btn {
+                border-color: var(--bs-btn-close-color);
+            }
         }
     }
 
     .offcanvas {
         .btn-close {
-            --bs-btn-close-color: #{$fgcolor};
-            --bs-btn-close-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$fgcolor}'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e");
+            --bs-btn-close-color: #{$fgcolorprimary};
+            --bs-btn-close-bg: url("/icons/close/closeico.svg");
+            background: transparent var(--bs-btn-close-bg) center / 1em auto no-repeat;
+            color: var(--bs-btn-close-color);
+            stroke: var(--bs-btn-close-color);
+            fill: var(--bs-btn-close-color);
         }
     }
 
     .modal {
-        color: $fgcolor;
-        border-color: $fgcolor;
+        color: $fgcolorprimary;
+        border-color: $fgcolorprimary;
 
         .modal-header, .modal-body, .modal-footer {
-            border-color: $fgcolor;
+            border-color: $fgcolorprimary;
         }
 
         .btn-close {
-            --bs-btn-close-color: #{$fgcolor};
-            --bs-btn-close-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$fgcolor}'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e");
+            --bs-btn-close-color: #{$fgcolorprimary};
+            --bs-btn-close-bg: url("/icons/close/closeico.svg");
+            background: transparent var(--bs-btn-close-bg) center / 1em auto no-repeat;
+            color: var(--bs-btn-close-color);
+            stroke: var(--bs-btn-close-color);
+            fill: var(--bs-btn-close-color);
         }
     }
 
     .dropdown-menu {
-        background-color: $bgcolor;
-        color: $fgcolor;
+        background-color: $bgcolorprimary;
+        color: $fgcolorprimary;
 
         & {
             :active, :focus, :hover {
-                background-color: $bgcolor2 !important;
-                color: $fgcolor !important;
+                background-color: $bgcolorsecondary !important;
+                color: $fgcolorprimary !important;
             }
         }
     }
@@ -79,68 +97,68 @@
         background-color: inherit;
     }
 
-    section {
+    section, .container, .container-fluid {
         .btn {
-            background-color: $bgcolor2;
-            border-color: $bgcolor2;
-            color: $fgcolor;
+            background-color: $bgcolorsecondary;
+            border-color: $bgcolorsecondary;
+            color: $fgcolorprimary;
         }
     }
 
     #login section {
-        background-color: #{$bgcolor2 + "b3"} !important;
-        color: $fgcolor2;
+        background-color: #{$bgcolorsecondary + "b3"} !important;
+        color: $fgcolorsecondary;
 
         label, p, i, a {
-            color: $fgcolor;
+            color: $fgcolorprimary;
         }
 
         form {
             input {
                 background-color: transparent;
-                color: $fgcolor;
+                color: $fgcolorprimary;
 
                 &::placeholder {
-                    color: $fgcolor;
+                    color: $fgcolorprimary;
+                }
+            }
+        }
+    }
+
+    #register section {
+        background-color: #{$bgcolorsecondary + "b3"} !important;
+        color: $fgcolorsecondary;
+
+        label, p, i, a {
+            color: $fgcolorprimary;
+        }
+
+        form {
+            input {
+                background-color: transparent;
+                color: $fgcolorprimary;
+
+                &::placeholder {
+                    color: $fgcolorprimary;
                 }
             }
         }
     }
 
     .alert {
-        background-color: #{$bgcolor2 + "b3"} !important;
-        color: $fgcolor;
-        border-color: $fgcolor;
-    }
-
-    #register section {
-        background-color: #{$bgcolor2 + "b3"} !important;
-        color: $fgcolor2;
-
-        label, p, i, a {
-            color: $fgcolor;
-        }
-
-        form {
-            input {
-                background-color: transparent;
-                color: $fgcolor;
-
-                &::placeholder {
-                    color: $fgcolor;
-                }
-            }
-        }
+        background-color: #{$bgcolorsecondary + "b3"} !important;
+        color: $fgcolorprimary;
+        border-color: $fgcolorprimary;
     }
 
     footer {
-        --background: #{$bgcolor2};
+        --background: #{$bgcolorsecondary};
         background: var(--background) !important;
-        color: $fgcolor;
+        color: $fgcolorprimary;
 
         .btn {
-            background-color: $bgcolor !important;
-            color: $fgcolor;
+            background-color: $bgcolorprimary !important;
+            color: $fgcolorprimary;
         }
     }
 }

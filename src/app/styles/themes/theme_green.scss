@@ -4,10 +4,10 @@ $themename: "green";
 
 [data-bs-theme=#{$themename}] {
     $propstheme: (
-        "bgcolor": #41ff2c,
-        "bgcolor2": #0aca02,
-        "fgcolor": #000000,
-        "fgcolor2": #ffffff
+        "bgcolorprimary": #41ff2c,
+        "bgcolorsecondary": #0aca02,
+        "fgcolorprimary": #000000,
+        "fgcolorsecondary": #ffffff
     );
 
     @include c.themecontent($propstheme);
