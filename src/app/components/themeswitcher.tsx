@@ -8,7 +8,7 @@ export interface ThemesModel {
 }
 
 export function getMyCustomThemes() {
-    return [
+    const ary = [
         {
             id: 1,
             theme: "light",
@@ -38,8 +38,15 @@ export function getMyCustomThemes() {
             id: 6,
             theme: "blue",
             title: "Blue"
+        },
+        {
+            id: 7,
+            theme: "yellow",
+            title: "Yellow"
         }
     ];
+
+    return [...new Map(ary.map(item => [item.id, item])).values()];
 }
 
 const ThemeSwitcher = () => {

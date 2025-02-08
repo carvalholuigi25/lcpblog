@@ -1,0 +1,6 @@
+@use "sass:map";
+
+@function getvalmap($ary, $keyname) {
+    $v: map.get($ary, $keyname);
+    @return $v;
+}

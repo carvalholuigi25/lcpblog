@@ -1,11 +1,11 @@
 @use "content.scss" as c;
 
-$themename: "green";
+$themename: "yellow";
 
 [data-bs-theme=#{$themename}] {
     $propstheme: (
-        "bgcolor": #41ff2c,
-        "bgcolor2": #0aca02,
+        "bgcolor": #ffff2c,
+        "bgcolor2": #d7d702,
         "fgcolor": #000000,
         "fgcolor2": #ffffff
     );

@@ -1,10 +1,14 @@
 @use "content.scss" as c;
 
-[data-bs-theme="red"] {
-    $bgcolor: #ff2c2c;
-    $bgcolor2: #d31002;
-    $fgcolor: white;
-    $fgcolor2: black;
+$themename: "red";
 
-    @include c.themecontent($bgcolor, $bgcolor2, $fgcolor, $fgcolor2);
+[data-bs-theme=#{$themename}] {
+    $propstheme: (
+        "bgcolor": #ff2c2c,
+        "bgcolor2": #d31002,
+        "fgcolor": #ffffff,
+        "fgcolor2": #000000
+    );
+
+    @include c.themecontent($propstheme);
 }

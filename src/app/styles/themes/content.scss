@@ -1,4 +1,11 @@
-@mixin themecontent($bgcolor, $bgcolor2, $fgcolor, $fgcolor2) {
+@use "functions.scss" as f;
+
+@mixin themecontent($propstheme) {
+    $bgcolor: f.getvalmap($propstheme, "bgcolor");
+    $bgcolor2: f.getvalmap($propstheme, "bgcolor2");
+    $fgcolor: f.getvalmap($propstheme, "fgcolor");
+    $fgcolor2: f.getvalmap($propstheme, "fgcolor2");
+
     --bs-body-color: #{$fgcolor};
     --bs-body-bg: #{$bgcolor};
 
