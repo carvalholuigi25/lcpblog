@@ -55,7 +55,15 @@
     .offcanvas {
         .btn-close {
             --bs-btn-close-color: #{$fgcolorprimary};
-            --bs-btn-close-bg: url("/icons/close/closeico.svg");
+            
+            @if $fgcolorprimary == white or $fgcolorprimary == #ffffff {
+                --bs-btn-close-bg: url("/icons/close/closeico_light.svg");
+            } @else if $fgcolorprimary == black or $fgcolorprimary == #000000 {
+                --bs-btn-close-bg: url("/icons/close/closeico_dark.svg");
+            } @else {
+                --bs-btn-close-bg: url("/icons/close/closeico.svg");
+            }
+
             background: transparent var(--bs-btn-close-bg) center / 1em auto no-repeat;
             color: var(--bs-btn-close-color);
             stroke: var(--bs-btn-close-color);
@@ -73,7 +81,15 @@
 
         .btn-close {
             --bs-btn-close-color: #{$fgcolorprimary};
-            --bs-btn-close-bg: url("/icons/close/closeico.svg");
+            
+            @if $fgcolorprimary == white or $fgcolorprimary == #ffffff {
+                --bs-btn-close-bg: url("/icons/close/closeico_light.svg");
+            } @else if $fgcolorprimary == black or $fgcolorprimary == #000000 {
+                --bs-btn-close-bg: url("/icons/close/closeico_dark.svg");
+            } @else {
+                --bs-btn-close-bg: url("/icons/close/closeico.svg");
+            }
+
             background: transparent var(--bs-btn-close-bg) center / 1em auto no-repeat;
             color: var(--bs-btn-close-color);
             stroke: var(--bs-btn-close-color);
