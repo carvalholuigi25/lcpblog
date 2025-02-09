@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Orbitron, Poppins, Roboto } from "next/font/google";
+import { ThemeProvider } from "./components/context/themecontext";
 import Frameworks from "@/app/frameworks/frameworks";
 import "@/app/globals.scss";
-import { ThemeProvider } from "./components/context/themecontext";
 
 const poppins = Poppins({
   subsets: ["latin"],
