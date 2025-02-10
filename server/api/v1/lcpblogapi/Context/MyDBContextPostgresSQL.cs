@@ -1,4 +1,6 @@
+using lcpblogapi.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace lcpblogapi.Context;
 
@@ -14,7 +16,11 @@ public class MyDBContextPostgresSQL : MyDBContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if(!optionsBuilder.IsConfigured) {
-            optionsBuilder.UseNpgsql(_config.GetConnectionString("PostgresSQL")!);
+            optionsBuilder.UseNpgsql(_config.GetConnectionString("PostgresSQL")!)
+            .UseSeeding(MyDBFunctions.GenSeedData)
+            .UseAsyncSeeding(MyDBFunctions.GenSeedAsyncData)
+            .ConfigureWarnings(w => w.Ignore(RelationalEventId.PendingModelChangesWarning))
+            .EnableDetailedErrors();
         }
 
         base.OnConfiguring(optionsBuilder);

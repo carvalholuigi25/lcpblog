@@ -2,10 +2,12 @@ using lcpblogapi.Models;
 using lcpblogapi.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 
+namespace lcpblogapi.Context;
+
 public class MyDBSeed
 {
     private readonly ModelBuilder _modelBuilder;
-    
+
     public MyDBSeed(ModelBuilder modelBuilder)
     {
         _modelBuilder = modelBuilder;
@@ -13,16 +15,10 @@ public class MyDBSeed
 
     public void Seed(bool isseed = false)
     {
-        if(isseed) {
-            _modelBuilder.Entity<User>().HasData(
-                new User() { 
-                    UserId = 1, 
-                    Username = "admin", 
-                    DisplayName = "Luis Carvalho", 
-                    Password = BCrypt.Net.BCrypt.HashPassword("1234", 10, false), 
-                    Role = EUsersRoles.admin 
-                }
-            );
+        if (isseed)
+        {
+            _modelBuilder.Entity<User>().HasData(MyDBFunctions.GetNewUsersData());
+            _modelBuilder.Entity<Post>().HasData(MyDBFunctions.GetNewPostsData());
         }
     }
 }

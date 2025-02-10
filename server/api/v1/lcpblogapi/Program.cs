@@ -154,9 +154,9 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 
     if(automigruntime == true) {
-        using (var serviceScope = app.Services.CreateScope())
-        {
-            var dbContext = serviceScope.ServiceProvider.GetRequiredService<MyDBContext>();
+        using var serviceScope = app.Services.CreateScope();
+        var dbContext = serviceScope.ServiceProvider.GetRequiredService<MyDBContext>();
+        if (dbContext.Database.GetPendingMigrations().Any()) {
             await dbContext.Database.MigrateAsync();
         }
     }

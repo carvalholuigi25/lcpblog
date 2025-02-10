@@ -10,14 +10,14 @@ public class Post
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [Key]
     public int PostId { get; set; }
-    public string? Title { get; set; }
-    public string? Content { get; set; }
-    public string? Image { get; set; }
-    public string? Slug { get; set; }
+    public string? Title { get; set; } = "";
+    public string? Content { get; set; } = "";
+    public string? Image { get; set; } = "blog.jpg";
+    public string? Slug { get; set; } = "/";
     public DateTime? CreatedAt { get; set; } = DateTime.Now;
     public DateTime? UpdatedAt { get; set; } = DateTime.Now;
     public EPostStatus? Status { get; set; } = EPostStatus.all;
-    public int? UserId { get; set; }
+    public int? UserId { get; set; } = 1;
     
     [JsonIgnore]
     public User? User { get; set; }

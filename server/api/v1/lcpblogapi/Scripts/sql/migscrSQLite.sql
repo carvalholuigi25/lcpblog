@@ -89,6 +89,11 @@ CREATE TABLE "PostTags" (
     CONSTRAINT "FK_PostTags_Tags_TagId" FOREIGN KEY ("TagId") REFERENCES "Tags" ("TagId") ON DELETE CASCADE
 );
 
+INSERT INTO "Users" ("UserId", "About", "Avatar", "Cover", "DisplayName", "Email", "Password", "Privacy", "Role", "Username", "UsersInfoId")
+VALUES (1, 'Luis Carvalho', 'avatars/luis.jpg', 'covers/luis.jpg', 'Luis Carvalho', 'luiscarvalho239@gmail.com', '$2a$10$ibCS5iZ5gXs5nVhOUnWODeLrKEIMLvaOsQYg9igS1.F/sD.EqQrMa', 0, 6, 'admin', 1);
+SELECT changes();
+
+
 CREATE INDEX "IX_Comments_PostId" ON "Comments" ("PostId");
 
 CREATE INDEX "IX_Comments_UserId" ON "Comments" ("UserId");
@@ -102,7 +107,7 @@ CREATE INDEX "IX_PostTags_TagId" ON "PostTags" ("TagId");
 CREATE INDEX "IX_RefreshToken_UserId" ON "RefreshToken" ("UserId");
 
 INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
-VALUES ('20250116154144_InitialCreateSQLite', '9.0.0');
+VALUES ('20250210110246_InitialCreateSQLite', '9.0.0');
 
 COMMIT;
 

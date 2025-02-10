@@ -15,11 +15,11 @@ public class User
     public string Username { get; set; } = null!;
     [IgnoreDataMember]
     public string Password { get; set; } = null!;
-    public string? Email { get; set; }
-    public string? DisplayName { get; set; }
+    public string? Email { get; set; } = "";
+    public string? DisplayName { get; set; } = "";
     public string? Avatar { get; set; } = "avatars/user.png";
     public string? Cover { get; set; } = "covers/user.png";
-    public string? About { get; set; }
+    public string? About { get; set; } = "";
     public EUsersRoles? Role { get; set; } = EUsersRoles.user;
     public EUserPrivacy? Privacy { get; set; } = EUserPrivacy.locked;
     public int? UsersInfoId { get; set; } = 1;

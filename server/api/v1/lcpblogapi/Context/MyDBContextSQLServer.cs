@@ -1,4 +1,6 @@
+using lcpblogapi.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace lcpblogapi.Context;
 
@@ -14,7 +16,11 @@ public class MyDBContextSQLServer : MyDBContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if(!optionsBuilder.IsConfigured) {
-            optionsBuilder.UseSqlServer(_config.GetConnectionString("SQLServer")!);
+            optionsBuilder.UseSqlServer(_config.GetConnectionString("SQLServer")!)
+            .UseSeeding(MyDBFunctions.GenSeedData)
+            .UseAsyncSeeding(MyDBFunctions.GenSeedAsyncData)
+            .ConfigureWarnings(w => w.Ignore(RelationalEventId.PendingModelChangesWarning))
+            .EnableDetailedErrors();
         }
 
         base.OnConfiguring(optionsBuilder);

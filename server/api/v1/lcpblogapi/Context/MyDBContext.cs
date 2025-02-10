@@ -1,5 +1,6 @@
 using lcpblogapi.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace lcpblogapi.Context;
 
@@ -27,7 +28,11 @@ public class MyDBContext : DbContext
             var defdbm = _config.GetSection("DefDBMode").Value ?? "MemoryDB";
 
             if(defdbm == "MemoryDB") {
-                optionsBuilder.UseInMemoryDatabase("DBContext");
+                optionsBuilder.UseInMemoryDatabase("DBContext")
+                .UseSeeding(MyDBFunctions.GenSeedData)
+                .UseAsyncSeeding(MyDBFunctions.GenSeedAsyncData)
+                .ConfigureWarnings(w => w.Ignore(RelationalEventId.PendingModelChangesWarning))
+                .EnableDetailedErrors();
             }
         }
 
