@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
@@ -10,12 +11,21 @@ public class Comment
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [Key]
     public int CommentId { get; set; }
-    public string? Content { get; set; }
+    
+    [DefaultValue("")]
+    public string? Content { get; set; } = "";
+    
     public DateTime? CreatedAt { get; set; } = DateTime.Now;
     public DateTime? UpdatedAt { get; set; } = DateTime.Now;
+
+    [DefaultValue(ECommentStatus.all)]
     public ECommentStatus? Status { get; set; } = ECommentStatus.all;
-    public int? UserId { get; set; }
-    public int? PostId { get; set; }
+
+    [DefaultValue(1)]
+    public int? UserId { get; set; } = 1;
+
+    [DefaultValue(1)]
+    public int? PostId { get; set; } = 1;
 
     [JsonIgnore]
     public Post? Post { get; set; }

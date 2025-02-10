@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
@@ -10,13 +11,26 @@ public class Post
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [Key]
     public int PostId { get; set; }
+
+    [DefaultValue("")]
     public string? Title { get; set; } = "";
+
+    [DefaultValue("")]
     public string? Content { get; set; } = "";
+
+    [DefaultValue("blog.jpg")]
     public string? Image { get; set; } = "blog.jpg";
+
+    [DefaultValue("/")]
     public string? Slug { get; set; } = "/";
+
     public DateTime? CreatedAt { get; set; } = DateTime.Now;
     public DateTime? UpdatedAt { get; set; } = DateTime.Now;
+
+    [DefaultValue(EPostStatus.all)]
     public EPostStatus? Status { get; set; } = EPostStatus.all;
+
+    [DefaultValue(1)]
     public int? UserId { get; set; } = 1;
     
     [JsonIgnore]
@@ -33,8 +47,11 @@ public class Post
 }
 
 public class PostCategory {
-    public int PostId { get; set; }
-    public int? CategoryId { get; set; }
+    [DefaultValue(1)]
+    public int PostId { get; set; } = 1;
+
+    [DefaultValue(1)]
+    public int? CategoryId { get; set; } = 1;
 
     [JsonIgnore]
     public Post? Post { get; set; }
@@ -44,8 +61,11 @@ public class PostCategory {
 }
 
 public class PostTag {
-    public int PostId { get; set; }
-    public int? TagId { get; set; }
+    [DefaultValue(1)]
+    public int PostId { get; set; } = 1;
+
+    [DefaultValue(1)]
+    public int? TagId { get; set; } = 1;
 
     [JsonIgnore]
     public Post? Post { get; set; }

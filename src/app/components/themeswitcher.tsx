@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useTheme } from "@/app/components/context/themecontext";
 
@@ -56,6 +57,15 @@ const ThemeSwitcher = () => {
         return val.charAt(0).toUpperCase() + val.slice(1);
     }
 
+    const setMyTheme = (e: any, x: string): any => {
+        e.preventDefault();
+        setTheme(x);
+    }
+
+    const activeTheme = (x: string) => {
+        return x == theme ? " active" : "";
+    }
+
     return (
         <>
             {!!themesary && (
@@ -71,7 +81,10 @@ const ThemeSwitcher = () => {
                     <ul className="dropdown-menu">
                         {themesary.map(x => (
                             <li key={x.id}>
-                                <button className={"dropdown-item btntheme"+x.theme} onClick={() => setTheme(x.theme)}>
+                                <button 
+                                    className={"dropdown-item btntheme" + x.theme + activeTheme(x.theme)} 
+                                    onClick={(e) => setMyTheme(e, x.theme)}
+                                >
                                     {x.title}
                                 </button>
                             </li>

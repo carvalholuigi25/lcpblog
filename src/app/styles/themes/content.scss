@@ -102,6 +102,11 @@
         color: $fgcolorprimary;
 
         & {
+            .active {
+                --bs-dropdown-link-active-bg: #{$bgcolorsecondary};
+                --bs-dropdown-link-active-color: #{$fgcolorprimary};
+            }
+
             :active, :focus, :hover {
                 background-color: $bgcolorsecondary !important;
                 color: $fgcolorprimary !important;
