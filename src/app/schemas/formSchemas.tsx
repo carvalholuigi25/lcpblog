@@ -43,3 +43,18 @@ export const fsearchSchema = z.object({
 
 export type TFormSearchData = z.infer<typeof fsearchSchema>;
 /* end of form search */
+
+/* start of form news */
+
+export const fnewsSchema = z.object({
+    title: z.coerce.string().min(1, { message: "The title is required to be filled" }),
+    content: z.coerce.string().min(1, { message: "The content is required to be filled" }),
+    image: z.coerce.string().optional(),
+    slug: z.coerce.string().optional(),
+    status: z.coerce.string().optional(),
+    userId: z.coerce.number().optional()
+});
+
+export type TFormNews = z.infer<typeof fnewsSchema>;
+
+/* end of form news */

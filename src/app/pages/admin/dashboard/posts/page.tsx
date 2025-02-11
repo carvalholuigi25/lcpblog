@@ -90,14 +90,20 @@ export default function AdminPosts() {
                                 </h3>
                                 <div className="container-fluid">
                                     <div className="row">
+                                        <div className="col-12">
+                                            <div className="btn-group" role="group" aria-label="News data actions">
+                                                <Link href={'/pages/news/add'} className="btn btn-primary btn-rounded btncreatenews">Add news</Link>
+                                            </div>
+                                        </div>
+
                                         {!!posts && (
-                                            <div className="col-12">
+                                            <div className="col-12 mt-3">
                                                 <TableData theaders={tableHeaders} tdata={posts} />
                                             </div>
                                         )}
 
                                         {!posts && (
-                                            <div className='col-12 card p-3 text-center'>
+                                            <div className='col-12 card p-3 mt-3 text-center'>
                                                 <div className='card-body'>
                                                     <i className="bi bi-file-post" style={{ fontSize: "4rem" }}></i>
                                                     <p>0 posts</p>
