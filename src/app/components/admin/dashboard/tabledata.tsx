@@ -29,6 +29,7 @@ export default function TableData({ theaders, tdata }: { theaders: THeadersModel
                 <tbody>
                     {tdata.map((tdataitem: any, i: number) => {
                         const values = theaders.map((thx: any) => tdataitem[thx.dataIndex]);
+                        const vid = tdataitem["postId"] ?? (i+1);
 
                         return (
                             <tr key={"x" + i}>
@@ -37,10 +38,10 @@ export default function TableData({ theaders, tdata }: { theaders: THeadersModel
                                 ))}
 
                                 <td>
-                                    <Link href={'/pages/news/edit/'+(i+1)} className="btn btn-primary btnedit">
+                                    <Link href={'/pages/news/edit/'+vid} className="btn btn-primary btnedit">
                                         <i className="bi bi-pencil-fill" style={{border: 0}}></i>
                                     </Link>
-                                    <Link href={'/pages/news/delete/'+(i+1)} className="btn btn-primary btndel">
+                                    <Link href={'/pages/news/delete/'+vid} className="btn btn-primary btndel">
                                         <i className="bi bi-trash3-fill" style={{border: 0}}></i>
                                     </Link>
                                 </td>

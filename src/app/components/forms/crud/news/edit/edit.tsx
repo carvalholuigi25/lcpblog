@@ -1,26 +1,28 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useEffect, useState } from "react";
+import { TFormNews, fnewsSchema } from "@/app/schemas/formSchemas";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getFromStorage } from "@/app/hooks/localstorage";
-import { TFormNews, fnewsSchema } from "@/app/schemas/formSchemas";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import { Posts } from "@/app/interfaces/posts";
 import ShowAlert from "@/app/components/alerts";
 import styles from "@/app/page.module.scss";
 import Image from "next/image";
 import Link from "next/link";
-import axios from "axios";
+import FetchDataAxios from "@/app/utils/fetchdataaxios";
 
-const AddNewsForm = () => {
+const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
     const [formData, setFormData] = useState({
-        title: "",
-        content: "",
-        image: "blog.jpg",
-        slug: "/news/1",
-        status: "0",
-        userId: 1,
+        postId: data.postId ?? 1,
+        title: data.title ?? "",
+        content: data.content ?? "",
+        image: data.image ?? "blog.jpg",
+        slug: data.slug ?? "/news/1",
+        status: data.status ?? "0",
+        userId: data.userId ?? 1,
     });
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -38,19 +40,20 @@ const AddNewsForm = () => {
     useEffect(() => {
         if(!!isResetedForm) {
             setFormData({
-                title: "",
-                content: "",
-                image: "blog.jpg",
-                slug: "/news/1",
-                status: "0",
-                userId: getUserId() ?? 1,
+                postId: data.postId ?? 1,
+                title: data.title ?? "",
+                content: data.content ?? "",
+                image: data.image ?? "blog.jpg",
+                slug: data.slug ?? "/news/1",
+                status: data.status ?? "0",
+                userId: getUserId() ?? data.userId ?? 1,
             });
         }
 
         if(logInfo) {
             setIsLoggedIn(true);
         }
-    }, [isResetedForm, logInfo]);
+    }, [isResetedForm, logInfo, data]);
 
     const getUserId = () => {
         return getFromStorage("logInfo") ? JSON.parse(getFromStorage("logInfo")!)[0].userId : null;
@@ -69,15 +72,15 @@ const AddNewsForm = () => {
         e.preventDefault();
 
         try {
-            await axios({
-                url: `${process.env.apiURL}/api/posts`,
-                method: 'post',
+            await FetchDataAxios({
+                url: `api/posts/`+id,
+                method: 'put',
                 data: formData
             }).then((r) => {
                 console.log(r);
 
                 setTimeout(() => {
-                    alert("The news post has been added sucessfully!");
+                    alert("The news post (id: "+id+") has been updated sucessfully!");
                     push("/");
                 }, 1000 / 2);
             }).catch((err) => {
@@ -106,8 +109,8 @@ const AddNewsForm = () => {
 
             {!!isLoggedIn && (
                 <>
-                    <h3 className="title mx-auto text-center">Add news</h3>
-                    <form className={styles.frmaddnews}>
+                    <h3 className="title mx-auto text-center">Edit news</h3>
+                    <form className={styles.frmeditnews}>
                         <div className="form-group mt-3 text-center">
                             <label htmlFor="title">Title</label>
                             <div className={styles.sformgroup}>
@@ -120,7 +123,7 @@ const AddNewsForm = () => {
                         <div className="form-group mt-3 text-center">
                             <label htmlFor="content">Content</label>
                             <div className={styles.sformgroup}>
-                                <textarea {...register("content")} id="content" name="content" className={"form-control content mt-3 " + styles.sformgroupinp} placeholder="Write any content here..." value={formData.content} onChange={handleChange} rows={10} cols={1} required />
+                                <textarea {...register("content")} id="content" name="content" className={"form-control content mt-3 " + styles.sformgroupinp} placeholder="Write any content here..." value={formData.content} onChange={handleChange} rows={10} cols={1} />
                             </div>
 
                             {errors.content && ShowAlert("danger", errors.content.message)}
@@ -183,7 +186,7 @@ const AddNewsForm = () => {
 
                         <div className="d-inline-block mx-auto mt-3">
                             <button className="btn btn-secondary btnreset btn-rounded" type="reset" onClick={handleReset}>Reset</button>
-                            <button className="btn btn-primary btnadd btn-rounded ms-3" type="button" onClick={handleSubmit} disabled={isSubmitting}>Add</button>
+                            <button className="btn btn-primary btnedit btn-rounded ms-3" type="button" onClick={handleSubmit} disabled={isSubmitting}>Edit</button>
                         </div>
                     </form>
                     
@@ -198,4 +201,4 @@ const AddNewsForm = () => {
     );
 }
 
-export default AddNewsForm;
+export default EditNewsForm;

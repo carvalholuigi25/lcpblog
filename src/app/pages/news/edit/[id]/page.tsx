@@ -6,7 +6,7 @@ import { Posts } from "@/app/interfaces/posts";
 import styles from "@/app/page.module.scss";
 import Header from "@/app/ui/header";
 import Footer from "@/app/ui/footer";
-import EditNewsForm from "@/app/components/forms/editnews/editnews";
+import EditNewsForm from "@/app/components/forms/crud/news/edit/edit";
 import FetchDataAxios from "@/app/utils/fetchdataaxios";
 import Link from "next/link";
 

@@ -11,23 +11,23 @@ import ShowAlert from "@/app/components/alerts";
 import styles from "@/app/page.module.scss";
 import Image from "next/image";
 import Link from "next/link";
-import axios from "axios";
-import { Posts } from "@/app/interfaces/posts";
+import FetchDataAxios from "@/app/utils/fetchdataaxios";
+// import MyEditor from "@/app/components/editor/myeditor";
 
-const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
+const AddNewsForm = () => {
     const [formData, setFormData] = useState({
-        postId: data.postId ?? 1,
-        title: data.title ?? "",
-        content: data.content ?? "",
-        image: data.image ?? "blog.jpg",
-        slug: data.slug ?? "/news/1",
-        status: data.status ?? "0",
-        userId: data.userId ?? 1,
+        title: "",
+        content: "",
+        image: "blog.jpg",
+        slug: "/news/1",
+        status: "0",
+        userId: 1,
     });
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isResetedForm, setIsResetedForm] = useState(false);
     const [logInfo] = useState(getFromStorage("logInfo"));
+    // const [editorState, setEditorState] = useState("");
     const { push } = useRouter();
 
     const {
@@ -40,20 +40,19 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
     useEffect(() => {
         if(!!isResetedForm) {
             setFormData({
-                postId: data.postId ?? 1,
-                title: data.title ?? "",
-                content: data.content ?? "",
-                image: data.image ?? "blog.jpg",
-                slug: data.slug ?? "/news/1",
-                status: data.status ?? "0",
-                userId: getUserId() ?? data.userId ?? 1,
+                title: "",
+                content: "",
+                image: "blog.jpg",
+                slug: "/news/1",
+                status: "0",
+                userId: getUserId() ?? 1,
             });
         }
 
         if(logInfo) {
             setIsLoggedIn(true);
         }
-    }, [isResetedForm, logInfo, data]);
+    }, [isResetedForm, logInfo]);
 
     const getUserId = () => {
         return getFromStorage("logInfo") ? JSON.parse(getFromStorage("logInfo")!)[0].userId : null;
@@ -72,15 +71,16 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
         e.preventDefault();
 
         try {
-            await axios({
-                url: `${process.env.apiURL}/api/posts/`+id,
-                method: 'put',
-                data: formData
+            await FetchDataAxios({
+                url: `api/posts`,
+                method: 'post',
+                data: formData,
+                reqAuthorize: false
             }).then((r) => {
                 console.log(r);
 
                 setTimeout(() => {
-                    alert("The news post (id: "+id+") has been updated sucessfully!");
+                    alert("The news post has been added sucessfully!");
                     push("/");
                 }, 1000 / 2);
             }).catch((err) => {
@@ -90,6 +90,12 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
             console.error(error);
         }
     };
+
+    // const onChangeEditor = (editorState: any) => {
+    //     const editorStateJSON = JSON.stringify(editorState.toJSON());
+    //     setEditorState(editorStateJSON);
+    //     setFormData({ ...formData, content: editorStateJSON });
+    // }
 
     return (
         <div className="container">
@@ -109,8 +115,8 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
 
             {!!isLoggedIn && (
                 <>
-                    <h3 className="title mx-auto text-center">Edit news</h3>
-                    <form className={styles.frmeditnews}>
+                    <h3 className="title mx-auto text-center">Add news</h3>
+                    <form className={styles.frmaddnews}>
                         <div className="form-group mt-3 text-center">
                             <label htmlFor="title">Title</label>
                             <div className={styles.sformgroup}>
@@ -123,7 +129,9 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
                         <div className="form-group mt-3 text-center">
                             <label htmlFor="content">Content</label>
                             <div className={styles.sformgroup}>
-                                <textarea {...register("content")} id="content" name="content" className={"form-control content mt-3 " + styles.sformgroupinp} placeholder="Write any content here..." value={formData.content} onChange={handleChange} rows={10} cols={1} required />
+                                {/* <MyEditor value={editorState} onChange={onChangeEditor} /> */}
+                                
+                                <textarea {...register("content")} id="content" name="content" className={"form-control content mt-3 " + styles.sformgroupinp} placeholder="Write any content here..." value={formData.content} onChange={handleChange} rows={10} cols={1} />
                             </div>
 
                             {errors.content && ShowAlert("danger", errors.content.message)}
@@ -186,7 +194,7 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
 
                         <div className="d-inline-block mx-auto mt-3">
                             <button className="btn btn-secondary btnreset btn-rounded" type="reset" onClick={handleReset}>Reset</button>
-                            <button className="btn btn-primary btnedit btn-rounded ms-3" type="button" onClick={handleSubmit} disabled={isSubmitting}>Edit</button>
+                            <button className="btn btn-primary btnadd btn-rounded ms-3" type="button" onClick={handleSubmit} disabled={isSubmitting}>Add</button>
                         </div>
                     </form>
                     
@@ -201,4 +209,4 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
     );
 }
 
-export default EditNewsForm;
+export default AddNewsForm;

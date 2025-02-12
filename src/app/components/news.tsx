@@ -107,7 +107,7 @@ export default function News({ pid }: { pid: number }) {
                                     <p className={"card-text text-center " + styles.textlong + " " + styles.ctjustify}>
                                         {newsi.content}
                                     </p>
-        
+
                                     {pid == -1 && (
                                         <Link href={"/pages/news/" + newsi.postId} className="btn btn-primary btn-rounded mt-3 mx-auto d-inline-block">Read more</Link>
                                     )}

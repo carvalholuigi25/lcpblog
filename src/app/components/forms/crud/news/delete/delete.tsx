@@ -6,7 +6,7 @@ import { getFromStorage } from "@/app/hooks/localstorage";
 import { useRouter } from "next/navigation";
 import { Posts } from "@/app/interfaces/posts";
 import Link from "next/link";
-import axios from "axios";
+import FetchDataAxios from "@/app/utils/fetchdataaxios";
 
 const DeleteNewsForm = ({id, data}: {id: number, data: Posts}) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -23,7 +23,7 @@ const DeleteNewsForm = ({id, data}: {id: number, data: Posts}) => {
         e.preventDefault();
 
         try {
-            await axios({
+            await FetchDataAxios({
                 url: `${process.env.apiURL}/api/posts/`+id,
                 method: 'delete',
                 data: data

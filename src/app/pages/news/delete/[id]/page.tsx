@@ -6,7 +6,7 @@ import { Posts } from "@/app/interfaces/posts";
 import styles from "@/app/page.module.scss";
 import Header from "@/app/ui/header";
 import Footer from "@/app/ui/footer";
-import DeleteNewsForm from "@/app/components/forms/deletenews/deletenews";
+import DeleteNewsForm from "@/app/components/forms/crud/news/delete/delete";
 import FetchDataAxios from "@/app/utils/fetchdataaxios";
 import Link from "next/link";
 
