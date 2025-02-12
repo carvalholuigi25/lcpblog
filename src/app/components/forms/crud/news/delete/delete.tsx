@@ -24,7 +24,7 @@ const DeleteNewsForm = ({id, data}: {id: number, data: Posts}) => {
 
         try {
             await FetchDataAxios({
-                url: `${process.env.apiURL}/api/posts/`+id,
+                url: `api/posts/`+id,
                 method: 'delete',
                 data: data
             }).then((r) => {
@@ -93,12 +93,6 @@ const DeleteNewsForm = ({id, data}: {id: number, data: Posts}) => {
                             <button className="btn btn-secondary btnback btn-rounded ms-3" type="button" onClick={handleBack}>No</button>
                         </div>
                     </form>
-                    
-                    <div className="col-12">
-                        <div className="mt-3 mx-auto text-center">
-                            <Link href={'/'} className="btn btn-primary btn-rounded">Back</Link>
-                        </div>
-                    </div>
                 </>
             )}  
         </div>
