@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface THeadersModel {
     dataIndex: string;
@@ -10,6 +12,7 @@ export default function TableData({ theaders, tdata }: { theaders: THeadersModel
 
     const isBorderEnabledCl = isBorderEnabled ? "bordered" : "nobordered";
     const isRoundedEnabledCl = isRoundedEnabled ? "table-rounded" : "";
+    const totaltheaders = theaders.length + 1;
 
     return (
         <div className="table-responsive">
@@ -19,6 +22,8 @@ export default function TableData({ theaders, tdata }: { theaders: THeadersModel
                         {theaders.map((theader: any, i: number) => (
                             <th key={"thv" + i}>{theader.title}</th>
                         ))}
+
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,13 +35,22 @@ export default function TableData({ theaders, tdata }: { theaders: THeadersModel
                                 {values.map((v: number, k: number) => (
                                     <td key={"tdx" + k}>{v}</td>
                                 ))}
+
+                                <td>
+                                    <Link href={'/pages/news/edit/'+(i+1)} className="btn btn-primary btnedit">
+                                        <i className="bi bi-pencil-fill" style={{border: 0}}></i>
+                                    </Link>
+                                    <Link href={'/pages/news/delete/'+(i+1)} className="btn btn-primary btndel">
+                                        <i className="bi bi-trash3-fill" style={{border: 0}}></i>
+                                    </Link>
+                                </td>
                             </tr>
                         );
                     })}
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colSpan={theaders.length ?? 1}>
+                        <td colSpan={totaltheaders ?? 1}>
                             Total posts: {tdata.length}
                         </td>
                     </tr>

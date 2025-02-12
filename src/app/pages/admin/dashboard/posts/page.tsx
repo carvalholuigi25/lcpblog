@@ -64,9 +64,9 @@ export default function AdminPosts() {
     const tableHeaders = [
         { dataIndex: 'postId', title: 'Post Id' },
         { dataIndex: 'title', title: 'Title' },
-        { dataIndex: 'content', title: 'Content' },
         { dataIndex: 'createdAt', title: 'Created At' },
         { dataIndex: 'updatedAt', title: 'Updated At' },
+        { dataIndex: 'slug', title: 'Slug' },
         { dataIndex: 'userId', title: 'User Id' },
     ];
 
