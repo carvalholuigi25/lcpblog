@@ -11,6 +11,7 @@ import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import ToolbarPlugin from "@/app/plugins/toolbarplugins";
 import HtmlPlugin from "@/app/plugins/htmlplugin";
+import SanitizeHTML from "@/app/utils/sanitizehtml";
 
 interface MyLexicalEditorProps {
     field: ControllerRenderProps<any>;
@@ -62,7 +63,8 @@ export const MyLexicalEditor = ({ field }: MyLexicalEditorProps) => {
                                 initialHtml={""}
                                 onHtmlChanged={onChangeHtml}
                             />
-                            <pre><code>{contentHTML}</code></pre>
+                            <div className="d-block mt-3" dangerouslySetInnerHTML={{ __html: SanitizeHTML(contentHTML) }}></div>
+                            <pre className="d-block mt-3"><code>{contentHTML}</code></pre>
                         </div>
 
                         <div className="editorresblkjson">
