@@ -10,10 +10,12 @@ namespace lcpblogapi.Repositories;
 public class CategoriesRepo : ControllerBase, ICategoriesRepo
 {
     private readonly MyDBContext _context;
+private MyDBSQLFunctions _myDBSQLFunctions;
 
-    public CategoriesRepo(MyDBContext context)
+    public CategoriesRepo(MyDBContext context, MyDBSQLFunctions myDBSQLFunctions)
     {
         _context = context;
+        _myDBSQLFunctions = myDBSQLFunctions;
     }
 
     public async Task<ActionResult<IEnumerable<Category>>> GetCategories(QueryParams queryParams)
@@ -97,6 +99,7 @@ public class CategoriesRepo : ControllerBase, ICategoriesRepo
         }
 
         _context.Categories.Remove(Category);
+        await _myDBSQLFunctions.ResetAIID("categories", 0);
         await _context.SaveChangesAsync();
 
         return NoContent();

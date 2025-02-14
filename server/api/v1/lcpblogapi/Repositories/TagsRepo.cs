@@ -10,10 +10,12 @@ namespace lcpblogapi.Repositories;
 public class TagsRepo : ControllerBase, ITagsRepo
 {
     private readonly MyDBContext _context;
+private MyDBSQLFunctions _myDBSQLFunctions;
 
-    public TagsRepo(MyDBContext context)
+    public TagsRepo(MyDBContext context, MyDBSQLFunctions myDBSQLFunctions)
     {
         _context = context;
+        _myDBSQLFunctions = myDBSQLFunctions;
     }
 
     public async Task<ActionResult<IEnumerable<Tag>>> GetTags(QueryParams queryParams)
@@ -98,6 +100,7 @@ public class TagsRepo : ControllerBase, ITagsRepo
         }
 
         _context.Tags.Remove(Tag);
+        await _myDBSQLFunctions.ResetAIID("tags", 0);
         await _context.SaveChangesAsync();
 
         return NoContent();

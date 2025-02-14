@@ -11,10 +11,12 @@ namespace lcpblogapi.Repositories;
 public class UsersRepo : ControllerBase, IUsersRepo
 {
     private readonly MyDBContext _context;
+    private MyDBSQLFunctions _myDBSQLFunctions;
 
-    public UsersRepo(MyDBContext context)
+    public UsersRepo(MyDBContext context, MyDBSQLFunctions myDBSQLFunctions)
     {
         _context = context;
+        _myDBSQLFunctions = myDBSQLFunctions;
     }
 
     public async Task<ActionResult<IEnumerable<User>>> GetUsers(QueryParams queryParams)
@@ -135,12 +137,14 @@ public class UsersRepo : ControllerBase, IUsersRepo
     public async Task<IActionResult> DeleteUser(int? id)
     {
         var user = await _context.Users.FindAsync(id);
+
         if (user == null)
         {
             return NotFound();
         }
 
         _context.Users.Remove(user);
+        await _myDBSQLFunctions.ResetAIID("users", 0);
         await _context.SaveChangesAsync();
 
         return NoContent();

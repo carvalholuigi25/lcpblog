@@ -10,10 +10,12 @@ namespace lcpblogapi.Repositories;
 public class CommentsRepo : ControllerBase, ICommentsRepo
 {
     private readonly MyDBContext _context;
+    private MyDBSQLFunctions _myDBSQLFunctions;
 
-    public CommentsRepo(MyDBContext context)
+    public CommentsRepo(MyDBContext context, MyDBSQLFunctions myDBSQLFunctions)
     {
         _context = context;
+        _myDBSQLFunctions = myDBSQLFunctions;
     }
 
     public async Task<ActionResult<IEnumerable<Comment>>> GetComments(QueryParams queryParams)
@@ -98,6 +100,7 @@ public class CommentsRepo : ControllerBase, ICommentsRepo
         }
 
         _context.Comments.Remove(Comment);
+        await _myDBSQLFunctions.ResetAIID("comments", 0);
         await _context.SaveChangesAsync();
 
         return NoContent();

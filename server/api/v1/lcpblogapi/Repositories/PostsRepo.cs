@@ -10,10 +10,12 @@ namespace lcpblogapi.Repositories;
 public class PostsRepo : ControllerBase, IPostsRepo
 {
     private readonly MyDBContext _context;
+    private MyDBSQLFunctions _myDBSQLFunctions;
 
-    public PostsRepo(MyDBContext context)
+    public PostsRepo(MyDBContext context, MyDBSQLFunctions myDBSQLFunctions)
     {
         _context = context;
+        _myDBSQLFunctions = myDBSQLFunctions;
     }
 
     public async Task<ActionResult<IEnumerable<Post>>> GetPosts(QueryParams queryParams)
@@ -99,6 +101,7 @@ public class PostsRepo : ControllerBase, IPostsRepo
         }
 
         _context.Posts.Remove(post);
+        await _myDBSQLFunctions.ResetAIID("posts", 0);
         await _context.SaveChangesAsync();
 
         return NoContent();
