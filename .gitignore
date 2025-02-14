@@ -60,6 +60,8 @@ next-env.d.ts
 **/*.mdf
 **/*.ldf
 *.db
+*.db.*
+*Db.*
 *.mdf
 *.ldf
 /server/api/v1/lcpblogapi/Database/SQLServer/*.*

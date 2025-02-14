@@ -28,7 +28,7 @@ export default function MyEditor() {
                         name="editorContent"
                         control={control}
                         render={({ field }: {field: ControllerRenderProps<any>}) => (
-                            <MyLexicalEditor field={field} />
+                            <MyLexicalEditor field={field} typeContent="all" previewContent={true} />
                         )}
                     />
                 </LexicalComposer>

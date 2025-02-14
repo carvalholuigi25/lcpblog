@@ -15,14 +15,14 @@ import SanitizeHTML from "@/app/utils/sanitizehtml";
 
 interface MyLexicalEditorProps {
     field: ControllerRenderProps<any>;
+    typeContent: string;
+    previewContent: boolean;
 }
 
-export const MyLexicalEditor = ({ field }: MyLexicalEditorProps) => {
+export const MyLexicalEditor = ({ field, typeContent, previewContent }: MyLexicalEditorProps) => {
     const [editor] = useLexicalComposerContext();
     const [content, setContent] = useState("");
     const [contentHTML, setContentHTML] = useState("");
-    const typeContent: string = "all";
-    const previewContent: boolean = true;
 
     const onChange = useCallback((editorState: EditorState) => {
         const mycnt = JSON.stringify(editorState.toJSON(), null, 2);
@@ -41,6 +41,45 @@ export const MyLexicalEditor = ({ field }: MyLexicalEditorProps) => {
         });
     }, [editor, onChange, content]);
 
+    const getHTMLContent = () => {
+        return (
+            <div className="editorresblkhtml">
+                <HtmlPlugin 
+                    initialHtml={""}
+                    onHtmlChanged={onChangeHtml}
+                />
+
+                {!!previewContent && (
+                    <>
+                        <div className="d-block mt-3" dangerouslySetInnerHTML={{ __html: SanitizeHTML(contentHTML) }}></div>
+                        <pre><code>{contentHTML}</code></pre>       
+                    </>
+                )}
+            </div>
+        );
+    }
+
+    const getJSONContent = () => {
+        return (
+            <div className="editorresblkjson">
+                <OnChangePlugin onChange={onChange} />
+
+                {!!previewContent && (
+                    <pre><code>{content}</code></pre>
+                )}
+            </div>
+        );
+    }
+
+    const getAllContent = () => {
+        return (
+            <>
+                {getHTMLContent()}
+                {getJSONContent()}
+            </>
+        );
+    }
+
     return (
         <div className="editor-container-fluid">
             <ToolbarPlugin />
@@ -56,40 +95,9 @@ export const MyLexicalEditor = ({ field }: MyLexicalEditorProps) => {
                 <AutoFocusPlugin />
                 <HistoryPlugin />
 
-                {!!previewContent && typeContent == "all" && (
-                    <>
-                        <div className="editorresblkhtml">
-                            <HtmlPlugin 
-                                initialHtml={""}
-                                onHtmlChanged={onChangeHtml}
-                            />
-                            <div className="d-block mt-3" dangerouslySetInnerHTML={{ __html: SanitizeHTML(contentHTML) }}></div>
-                            <pre className="d-block mt-3"><code>{contentHTML}</code></pre>
-                        </div>
-
-                        <div className="editorresblkjson">
-                            <OnChangePlugin onChange={onChange} />
-                            <pre><code>{content}</code></pre>
-                        </div>
-                    </>
-                )}
-
-                {!!previewContent && typeContent == "html" && (
-                    <div className="editorresblkhtml">
-                        <HtmlPlugin 
-                            initialHtml={""}
-                            onHtmlChanged={onChangeHtml}
-                        />
-                        <pre><code>{contentHTML}</code></pre>
-                    </div>
-                )}
-
-                {!!previewContent && typeContent == "json" && (
-                    <div className="editorresblkjson">
-                        <OnChangePlugin onChange={onChange} />
-                        <pre><code>{content}</code></pre>
-                    </div>
-                )}
+                {typeContent == "all" && getAllContent()}
+                {typeContent == "html" && getHTMLContent()}
+                {typeContent == "json" && getJSONContent()}
             </div>
         </div>
     );
