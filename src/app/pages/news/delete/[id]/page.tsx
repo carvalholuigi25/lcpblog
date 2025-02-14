@@ -79,7 +79,9 @@ export default function DeleteNews() {
         {!news && getEmptyNews(pathname)}
 
         {!!news && (
-          <DeleteNewsForm id={parseInt("" + id, 0)} data={news} />
+          <>
+            <DeleteNewsForm id={parseInt("" + id, 0)} data={news} />
+          </>
         )}
 
         {pathname !== "/" && getBackLink(pathname)}

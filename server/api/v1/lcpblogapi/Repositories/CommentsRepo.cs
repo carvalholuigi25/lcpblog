@@ -30,7 +30,8 @@ public class CommentsRepo : ControllerBase, ICommentsRepo
         // Pagination
         query = GetPaginationData(query, queryParams);
 
-        var response = new QueryParamsResp<Comment> {
+        var response = new QueryParamsResp<Comment>
+        {
             TotalCount = totalCount,
             Page = queryParams.Page,
             PageSize = queryParams.PageSize,
@@ -55,51 +56,51 @@ public class CommentsRepo : ControllerBase, ICommentsRepo
     public async Task<ActionResult<Comment>> CreateComment(Comment Comment)
     {
         _context.Comments.Add(Comment);
-            await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetComment), new { id = Comment.CommentId }, Comment);
+        return CreatedAtAction(nameof(GetComment), new { id = Comment.CommentId }, Comment);
     }
 
     public async Task<IActionResult> PutComment(int? id, Comment Comment)
     {
         if (id != Comment.CommentId)
-            {
-                return BadRequest();
-            }
+        {
+            return BadRequest();
+        }
 
-            _context.Entry(Comment).State = EntityState.Modified;
+        _context.Entry(Comment).State = EntityState.Modified;
 
-            try
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!CommentExists(id))
             {
-                await _context.SaveChangesAsync();
+                return NotFound();
             }
-            catch (DbUpdateConcurrencyException)
+            else
             {
-                if (!CommentExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                throw;
             }
+        }
 
-            return NoContent();
+        return NoContent();
     }
 
     public async Task<IActionResult> DeleteComment(int? id)
     {
         var Comment = await _context.Comments.FindAsync(id);
-            if (Comment == null)
-            {
-                return NotFound();
-            }
+        if (Comment == null)
+        {
+            return NotFound();
+        }
 
-            _context.Comments.Remove(Comment);
-            await _context.SaveChangesAsync();
+        _context.Comments.Remove(Comment);
+        await _context.SaveChangesAsync();
 
-            return NoContent();
+        return NoContent();
     }
 
     public async Task<int> GetTotalCountAsync(QueryParams queryParams)
@@ -117,7 +118,8 @@ public class CommentsRepo : ControllerBase, ICommentsRepo
         return _context.Comments.Any(e => e.CommentId == id);
     }
 
-    private static IQueryable<Comment> GetFilterData(IQueryable<Comment> query, QueryParams queryParams) {
+    private static IQueryable<Comment> GetFilterData(IQueryable<Comment> query, QueryParams queryParams)
+    {
         if (!string.IsNullOrEmpty(queryParams.Search))
         {
             if (!string.IsNullOrEmpty(queryParams.SortBy))
@@ -133,7 +135,8 @@ public class CommentsRepo : ControllerBase, ICommentsRepo
         return query;
     }
 
-    private static IQueryable<Comment> GetSortByData(IQueryable<Comment> query, QueryParams queryParams) {
+    private static IQueryable<Comment> GetSortByData(IQueryable<Comment> query, QueryParams queryParams)
+    {
         if (!string.IsNullOrEmpty(queryParams.SortBy))
         {
             var sortorderval = queryParams.SortOrder!.Value.ToString();
@@ -148,7 +151,8 @@ public class CommentsRepo : ControllerBase, ICommentsRepo
         return query;
     }
 
-    private static IQueryable<Comment> GetPaginationData(IQueryable<Comment> query, QueryParams queryParams) {
+    private static IQueryable<Comment> GetPaginationData(IQueryable<Comment> query, QueryParams queryParams)
+    {
         return query.Skip((queryParams.Page - 1) * queryParams.PageSize).Take(queryParams.PageSize);
     }
 }

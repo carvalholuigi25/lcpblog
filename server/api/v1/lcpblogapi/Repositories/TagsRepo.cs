@@ -30,7 +30,8 @@ public class TagsRepo : ControllerBase, ITagsRepo
         // Pagination
         query = GetPaginationData(query, queryParams);
 
-        var response = new QueryParamsResp<Tag> {
+        var response = new QueryParamsResp<Tag>
+        {
             TotalCount = totalCount,
             Page = queryParams.Page,
             PageSize = queryParams.PageSize,
@@ -55,51 +56,51 @@ public class TagsRepo : ControllerBase, ITagsRepo
     public async Task<ActionResult<Tag>> CreateTag(Tag Tag)
     {
         _context.Tags.Add(Tag);
-            await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetTag), new { id = Tag.TagId }, Tag);
+        return CreatedAtAction(nameof(GetTag), new { id = Tag.TagId }, Tag);
     }
 
     public async Task<IActionResult> PutTag(int? id, Tag Tag)
     {
         if (id != Tag.TagId)
-            {
-                return BadRequest();
-            }
+        {
+            return BadRequest();
+        }
 
-            _context.Entry(Tag).State = EntityState.Modified;
+        _context.Entry(Tag).State = EntityState.Modified;
 
-            try
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!TagExists(id))
             {
-                await _context.SaveChangesAsync();
+                return NotFound();
             }
-            catch (DbUpdateConcurrencyException)
+            else
             {
-                if (!TagExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                throw;
             }
+        }
 
-            return NoContent();
+        return NoContent();
     }
 
     public async Task<IActionResult> DeleteTag(int? id)
     {
         var Tag = await _context.Tags.FindAsync(id);
-            if (Tag == null)
-            {
-                return NotFound();
-            }
+        if (Tag == null)
+        {
+            return NotFound();
+        }
 
-            _context.Tags.Remove(Tag);
-            await _context.SaveChangesAsync();
+        _context.Tags.Remove(Tag);
+        await _context.SaveChangesAsync();
 
-            return NoContent();
+        return NoContent();
     }
 
     public async Task<int> GetTotalCountAsync(QueryParams queryParams)
@@ -117,7 +118,8 @@ public class TagsRepo : ControllerBase, ITagsRepo
         return _context.Tags.Any(e => e.TagId == id);
     }
 
-    private static IQueryable<Tag> GetFilterData(IQueryable<Tag> query, QueryParams queryParams) {
+    private static IQueryable<Tag> GetFilterData(IQueryable<Tag> query, QueryParams queryParams)
+    {
         if (!string.IsNullOrEmpty(queryParams.Search))
         {
             if (!string.IsNullOrEmpty(queryParams.SortBy))
@@ -133,7 +135,8 @@ public class TagsRepo : ControllerBase, ITagsRepo
         return query;
     }
 
-    private static IQueryable<Tag> GetSortByData(IQueryable<Tag> query, QueryParams queryParams) {
+    private static IQueryable<Tag> GetSortByData(IQueryable<Tag> query, QueryParams queryParams)
+    {
         if (!string.IsNullOrEmpty(queryParams.SortBy))
         {
             var sortorderval = queryParams.SortOrder!.Value.ToString();
@@ -148,7 +151,8 @@ public class TagsRepo : ControllerBase, ITagsRepo
         return query;
     }
 
-    private static IQueryable<Tag> GetPaginationData(IQueryable<Tag> query, QueryParams queryParams) {
+    private static IQueryable<Tag> GetPaginationData(IQueryable<Tag> query, QueryParams queryParams)
+    {
         return query.Skip((queryParams.Page - 1) * queryParams.PageSize).Take(queryParams.PageSize);
     }
 }

@@ -4,7 +4,7 @@ using lcpblogapi.Context;
 using lcpblogapi.Models;
 using lcpblogapi.Interfaces;
 using lcpblogapi.Models.QParams;
-using lcpblogapi.Authorization;
+using lcpblogapi.Helpers;
 
 namespace lcpblogapi.Repositories;
 

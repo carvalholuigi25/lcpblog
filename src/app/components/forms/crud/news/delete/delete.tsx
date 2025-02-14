@@ -8,13 +8,13 @@ import { Posts } from "@/app/interfaces/posts";
 import Link from "next/link";
 import FetchDataAxios from "@/app/utils/fetchdataaxios";
 
-const DeleteNewsForm = ({id, data}: {id: number, data: Posts}) => {
+const DeleteNewsForm = ({ id, data }: { id: number, data: Posts }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [logInfo] = useState(getFromStorage("logInfo"));
     const { push } = useRouter();
 
     useEffect(() => {
-        if(logInfo) {
+        if (logInfo) {
             setIsLoggedIn(true);
         }
     }, [logInfo]);
@@ -24,14 +24,14 @@ const DeleteNewsForm = ({id, data}: {id: number, data: Posts}) => {
 
         try {
             await FetchDataAxios({
-                url: `api/posts/`+id,
+                url: `api/posts/` + id,
                 method: 'delete',
                 data: data
             }).then((r) => {
                 console.log(r);
 
                 setTimeout(() => {
-                    alert("The news post (id: "+id+") has been deleted sucessfully!");
+                    alert("The news post (id: " + id + ") has been deleted sucessfully!");
                     push("/");
                 }, 1000 / 2);
             }).catch((err) => {
@@ -51,10 +51,10 @@ const DeleteNewsForm = ({id, data}: {id: number, data: Posts}) => {
         <div className="container">
             {!isLoggedIn && (
                 <>
-                    <div className="col-12 mx-auto p-3" style={{marginTop: '3rem'}}>
+                    <div className="col-12 mx-auto p-3" style={{ marginTop: '3rem' }}>
                         <div className="card">
                             <div className="card-body text-center">
-                                <i className="bi bi-exclamation-triangle mx-auto" style={{fontSize: '4rem'}} />
+                                <i className="bi bi-exclamation-triangle mx-auto" style={{ fontSize: '4rem' }} />
                                 <p className="mt-3">You are not authorized to see this page!</p>
                                 <Link className="btn btn-primary btn-rounded ms-3 mt-3" href={'/'}>Back</Link>
                             </div>
@@ -94,7 +94,7 @@ const DeleteNewsForm = ({id, data}: {id: number, data: Posts}) => {
                         </div>
                     </form>
                 </>
-            )}  
+            )}
         </div>
     );
 }

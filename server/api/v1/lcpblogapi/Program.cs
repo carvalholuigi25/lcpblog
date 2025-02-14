@@ -119,6 +119,7 @@ builder.Services.AddDistributedMemoryCache();
 builder.Services.AddMemoryCache();
 builder.Services.AddInMemoryRateLimiting();
 
+builder.Services.AddScoped<MyDBSQLFunctions>();
 builder.Services.AddScoped<IUsersRepo, UsersRepo>();
 builder.Services.AddScoped<IPostsRepo, PostsRepo>();
 builder.Services.AddScoped<ICategoriesRepo, CategoriesRepo>();

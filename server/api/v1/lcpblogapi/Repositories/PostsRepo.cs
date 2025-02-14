@@ -92,6 +92,7 @@ public class PostsRepo : ControllerBase, IPostsRepo
     public async Task<IActionResult> DeletePost(int? id)
     {
         var post = await _context.Posts.FindAsync(id);
+
         if (post == null)
         {
             return NotFound();
