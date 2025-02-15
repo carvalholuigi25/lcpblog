@@ -79,7 +79,8 @@ export default function ToolbarPlugin() {
     <div className="toolbar" ref={toolbarRef}>
       <button
         disabled={!canUndo}
-        onClick={() => {
+        onClick={(e) => {
+          e.preventDefault();
           editor.dispatchCommand(UNDO_COMMAND, undefined);
         }}
         className="toolbar-item spaced"
@@ -88,7 +89,8 @@ export default function ToolbarPlugin() {
       </button>
       <button
         disabled={!canRedo}
-        onClick={() => {
+        onClick={(e) => {
+          e.preventDefault();
           editor.dispatchCommand(REDO_COMMAND, undefined);
         }}
         className="toolbar-item"
@@ -97,7 +99,8 @@ export default function ToolbarPlugin() {
       </button>
       <Divider />
       <button
-        onClick={() => {
+        onClick={(e) => {
+          e.preventDefault();
           editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold');
         }}
         className={'toolbar-item spaced ' + (isBold ? 'active' : '')}
@@ -105,7 +108,8 @@ export default function ToolbarPlugin() {
         <i className="format bold" />
       </button>
       <button
-        onClick={() => {
+        onClick={(e) => {
+          e.preventDefault();
           editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic');
         }}
         className={'toolbar-item spaced ' + (isItalic ? 'active' : '')}
@@ -113,7 +117,8 @@ export default function ToolbarPlugin() {
         <i className="format italic" />
       </button>
       <button
-        onClick={() => {
+        onClick={(e) => {
+          e.preventDefault();
           editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline');
         }}
         className={'toolbar-item spaced ' + (isUnderline ? 'active' : '')}
@@ -121,7 +126,8 @@ export default function ToolbarPlugin() {
         <i className="format underline" />
       </button>
       <button
-        onClick={() => {
+        onClick={(e) => {
+          e.preventDefault();
           editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'strikethrough');
         }}
         className={'toolbar-item spaced ' + (isStrikethrough ? 'active' : '')}
@@ -130,7 +136,8 @@ export default function ToolbarPlugin() {
       </button>
       <Divider />
       <button
-        onClick={() => {
+        onClick={(e) => {
+          e.preventDefault();
           editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'left');
         }}
         className="toolbar-item spaced"
@@ -138,7 +145,8 @@ export default function ToolbarPlugin() {
         <i className="format left-align" />
       </button>
       <button
-        onClick={() => {
+        onClick={(e) => {
+          e.preventDefault();
           editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'center');
         }}
         className="toolbar-item spaced"
@@ -146,7 +154,8 @@ export default function ToolbarPlugin() {
         <i className="format center-align" />
       </button>
       <button
-        onClick={() => {
+        onClick={(e) => {
+          e.preventDefault();
           editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'right');
         }}
         className="toolbar-item spaced"
@@ -154,7 +163,8 @@ export default function ToolbarPlugin() {
         <i className="format right-align" />
       </button>
       <button
-        onClick={() => {
+        onClick={(e) => {
+          e.preventDefault();
           editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'justify');
         }}
         className="toolbar-item"

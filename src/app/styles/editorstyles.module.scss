@@ -107,6 +107,11 @@
     display: inline-block;
     pointer-events: none;
   }
+
+  .no-bordered {
+    border: 0 !important;
+    border-color: transparent !important;
+  }
   
   .editor-text-bold {
     font-weight: bold;

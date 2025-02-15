@@ -3,12 +3,13 @@
 import { useEffect, useState } from "react";
 import { usePathname } from 'next/navigation';
 import { Posts } from "@/app/interfaces/posts";
+import { FetchMultipleData } from "@/app/utils/fetchdata";
+import { User } from "@/app/interfaces/user";
 import CarouselNews from "./carouselnews";
 import styles from "@/app/page.module.scss";
-import { FetchMultipleData } from "@/app/utils/fetchdata";
 import Image from "next/image";
 import Link from "next/link";
-import { User } from "@/app/interfaces/user";
+import MyEditorPost from "./editor/myeditorpost";
 
 export default function News({ pid }: { pid: number }) {
     const [news, setNews] = useState(new Array<Posts>());
@@ -104,9 +105,10 @@ export default function News({ pid }: { pid: number }) {
                                     </div>
         
                                     <h5 className="card-title text-center">{newsi.title}</h5>
-                                    <p className={"card-text text-center " + styles.textlong + " " + styles.ctjustify}>
-                                        {newsi.content}
-                                    </p>
+                                    
+                                    {pid != -1 && (
+                                        <MyEditorPost value={newsi.content} editable={false} onChange={() => {}}  />
+                                    )}
 
                                     {pid == -1 && (
                                         <Link href={"/pages/news/" + newsi.postId} className="btn btn-primary btn-rounded mt-3 mx-auto d-inline-block">Read more</Link>
@@ -162,3 +164,4 @@ export default function News({ pid }: { pid: number }) {
         </div>
     );
 }
+

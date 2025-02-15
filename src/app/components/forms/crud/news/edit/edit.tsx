@@ -13,6 +13,8 @@ import styles from "@/app/page.module.scss";
 import Image from "next/image";
 import Link from "next/link";
 import FetchDataAxios from "@/app/utils/fetchdataaxios";
+import MyEditorPost from "@/app/components/editor/myeditorpost";
+import { EditorState } from "lexical";
 
 const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
     const [formData, setFormData] = useState({
@@ -27,6 +29,7 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isResetedForm, setIsResetedForm] = useState(false);
+    const [editorState, setEditorState] = useState("");
     const [logInfo] = useState(getFromStorage("logInfo"));
     const { push } = useRouter();
 
@@ -90,6 +93,12 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
             console.error(error);
         }
     };
+    
+    const onChangeEditor = (editorState: EditorState) => {
+        const editorStateJSON = JSON.stringify(editorState.toJSON());
+        setEditorState(editorStateJSON);
+        setFormData({ ...formData, content: editorStateJSON });
+    };
 
     return (
         <div className="container">
@@ -123,7 +132,9 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
                         <div className="form-group mt-3 text-center">
                             <label htmlFor="content">Content</label>
                             <div className={styles.sformgroup}>
-                                <textarea {...register("content")} id="content" name="content" className={"form-control content mt-3 " + styles.sformgroupinp} placeholder="Write any content here..." value={formData.content} onChange={handleChange} rows={10} cols={1} />
+                                <MyEditorPost {...register("content")} value={formData.content ?? editorState} editable={true} onChange={onChangeEditor} />
+                                
+                                {/* <textarea {...register("content")} id="content" name="content" className={"form-control content mt-3 " + styles.sformgroupinp} placeholder="Write any content here..." value={formData.content} onChange={handleChange} rows={10} cols={1} /> */}
                             </div>
 
                             {errors.content && ShowAlert("danger", errors.content.message)}

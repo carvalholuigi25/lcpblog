@@ -12,7 +12,8 @@ import styles from "@/app/page.module.scss";
 import Image from "next/image";
 import Link from "next/link";
 import FetchDataAxios from "@/app/utils/fetchdataaxios";
-// import MyEditor from "@/app/components/editor/myeditor";
+import MyEditorPost from "@/app/components/editor/myeditorpost";
+import { EditorState } from "lexical";
 
 const AddNewsForm = () => {
     const [formData, setFormData] = useState({
@@ -26,8 +27,8 @@ const AddNewsForm = () => {
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isResetedForm, setIsResetedForm] = useState(false);
+    const [editorState, setEditorState] = useState("");
     const [logInfo] = useState(getFromStorage("logInfo"));
-    // const [editorState, setEditorState] = useState("");
     const { push } = useRouter();
 
     const {
@@ -91,11 +92,11 @@ const AddNewsForm = () => {
         }
     };
 
-    // const onChangeEditor = (editorState: any) => {
-    //     const editorStateJSON = JSON.stringify(editorState.toJSON());
-    //     setEditorState(editorStateJSON);
-    //     setFormData({ ...formData, content: editorStateJSON });
-    // }
+    const onChangeEditor = (editorState: EditorState) => {
+        const editorStateJSON = JSON.stringify(editorState.toJSON());
+        setEditorState(editorStateJSON);
+        setFormData({ ...formData, content: editorStateJSON });
+    };
 
     return (
         <div className="container">
@@ -129,9 +130,9 @@ const AddNewsForm = () => {
                         <div className="form-group mt-3 text-center">
                             <label htmlFor="content">Content</label>
                             <div className={styles.sformgroup}>
-                                {/* <MyEditor value={editorState} onChange={onChangeEditor} /> */}
+                                <MyEditorPost {...register("content")} value={formData.content ?? editorState} editable={true} onChange={onChangeEditor} />
                                 
-                                <textarea {...register("content")} id="content" name="content" className={"form-control content mt-3 " + styles.sformgroupinp} placeholder="Write any content here..." value={formData.content} onChange={handleChange} rows={10} cols={1} />
+                                {/* <textarea {...register("content")} id="content" name="content" className={"form-control content mt-3 " + styles.sformgroupinp} placeholder="Write any content here..." value={formData.content} onChange={handleChange} rows={10} cols={1} /> */}
                             </div>
 
                             {errors.content && ShowAlert("danger", errors.content.message)}
