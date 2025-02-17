@@ -9,6 +9,7 @@ import AdminSidebarDashboard from "@/app/components/admin/dashboard/adbsidebar";
 import AdminNavbarDashboard from "@/app/components/admin/dashboard/adbnavbar";
 import TableData from "@/app/components/admin/dashboard/tabledata";
 import Link from "next/link";
+import Footer from "@/app/ui/footer";
 
 export default function AdminUsers() {
     const [logInfo, setLogInfo] = useState("");
@@ -127,6 +128,8 @@ export default function AdminUsers() {
                     )}
                 </div>
             </div>
+
+            <Footer />
         </div>
     )
 }

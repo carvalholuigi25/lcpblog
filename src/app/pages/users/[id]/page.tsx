@@ -6,6 +6,8 @@ import { User } from '@/app/interfaces/user';
 import Image from 'next/image';
 import Link from 'next/link';
 import FetchData from '@/app/utils/fetchdata';
+import Header from "@/app/ui/header";
+import Footer from "@/app/ui/footer";
 
 export default function UserPage() {
   const { id } = useParams();
@@ -40,7 +42,9 @@ export default function UserPage() {
   }
 
   return (
-    <div className='container'>
+    <>
+    <Header />
+    <div className='container' style={{paddingTop: '5rem', paddingBottom: '5rem'}}>
       {!users.userId && (
         <div className='row justify-content-center align-items-center p-3'>
           <div className='col-12 card p-3 text-center'>
@@ -83,5 +87,7 @@ export default function UserPage() {
         </div>
       </div>
     </div>
+    <Footer />
+    </>
   );
 }

@@ -5,7 +5,7 @@ import Footer from "@/app/ui/footer";
 
 export default function AddNews() {
   return (
-    <div className={styles.page} id="addnewsmpage" style={{padding: '5rem 15px 0rem 15px'}}>
+    <div className={styles.page} id="addnewsmpage" style={{paddingTop: '5rem'}}>
         <Header />
         <section className={styles.section + " " + styles.pstretch}>
             <AddNewsForm />    

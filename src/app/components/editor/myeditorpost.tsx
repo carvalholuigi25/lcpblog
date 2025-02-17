@@ -42,7 +42,7 @@ export default function MyEditorPost({ value, editable, onChange }: MyLexicalEdi
 
     return (
         <div className={"myeditorblk"}>
-            <div className="container-fluid">
+            <div className="container-fluid p-0">
                 <LexicalComposer initialConfig={initialConfig}>
                     <div className="editor-container-fluid">
                         {editable && <ToolbarPlugin />}
@@ -50,7 +50,7 @@ export default function MyEditorPost({ value, editable, onChange }: MyLexicalEdi
                         <div className="editor-inner">
                             <RichTextPlugin
                                 contentEditable={
-                                    <ContentEditable className={"form-control editor-input" + (!editable ? " " + "no-bordered" : "")} />
+                                    <ContentEditable className={"form-control editor-input-prev" + (!editable ? " " + "no-bordered" : "")} />
                                 }
                                 placeholder={<p className="txted p-3">Start typing...</p>}
                                 ErrorBoundary={({ children }) => <>{children}</>}

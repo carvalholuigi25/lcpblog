@@ -6,6 +6,7 @@ import astyles from "@/app/styles/adminstyles.module.scss";
 import AdminSidebarDashboard from "@/app/components/admin/dashboard/adbsidebar";
 import AdminNavbarDashboard from "@/app/components/admin/dashboard/adbnavbar";
 import Link from "next/link";
+import Footer from "@/app/ui/footer";
 
 export default function AdminDashboard() {
     const [logInfo, setLogInfo] = useState("");
@@ -89,6 +90,8 @@ export default function AdminDashboard() {
                     )}
                 </div>
             </div>
+
+            <Footer />
         </div>
     )
 }

@@ -73,7 +73,7 @@ export default function EditNews() {
   };
 
   return (
-    <div className={styles.page} id="editnewsmpage" style={{ padding: '5rem 15px 0rem 15px' }}>
+    <div className={styles.page} id="editnewsmpage" style={{ paddingTop: '5rem' }}>
       <Header />
       <section className={styles.section + " " + styles.pstretch}>
         {!news && getEmptyNews(pathname)}

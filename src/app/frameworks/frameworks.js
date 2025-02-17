@@ -8,22 +8,7 @@ export default function Frameworks()
     useEffect(() => {
         import("bootstrap/dist/js/bootstrap.bundle.min.js");
         import("@fortawesome/fontawesome-free/js/all.min.js");
-        import("@/app/scripts/scripts.js");
-
-        function setMySystemTheme() {
-            const htmlth = document.querySelector('html');
-            if(htmlth && htmlth.getAttribute("data-bs-theme") == "system") {
-                const hours = new Date().getHours();
-                htmlth.setAttribute("data-bs-theme", (hours >= 6 && hours < 18 ? "light" : "dark"));
-            }
-        }
-        
-        setMySystemTheme();
-
-        clearInterval();
-        setInterval(() => {
-            setMySystemTheme();
-        }, 1000 * 60 * 60);
+        import("@/app/scripts/scripts.js");        
     }, []);
     
     return (

@@ -5,7 +5,7 @@ import Header from "@/app/ui/header";
 
 export default function EditingPage() {
   return (
-    <div className={styles.page} id="editingpage" style={{ padding: '5rem 15px 0rem 15px' }}>
+    <div className={styles.page} id="editingpage" style={{ paddingTop: '5rem' }}>
       <Header />
       <section>
         <MyEditor />

@@ -5,6 +5,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import styles from "@/app/page.module.scss";
 import FetchData from '@/app/utils/fetchdata';
+import Header from '@/app/ui/header';
+import Footer from '@/app/ui/footer';
 
 export default function AllUsersPage() {
   const [users, setUsers] = useState(new Array<User>());
@@ -40,7 +42,9 @@ export default function AllUsersPage() {
   }
 
   return (
-    <div className='container'>
+    <>
+    <Header />
+    <div className='container' style={{paddingTop: '5rem', paddingBottom: '5rem'}}>
       {!users || users.length == 0 && ( 
         <div className='row justify-content-center align-items-center p-3'>
           <div className='col-12 card p-3 text-center'>
@@ -78,5 +82,7 @@ export default function AllUsersPage() {
         </div>
       </div>
     </div>
+    <Footer />
+    </>
   );
 }
