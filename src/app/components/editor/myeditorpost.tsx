@@ -20,16 +20,20 @@ interface MyLexicalEditorPostProps {
 function MyOnChangePlugin({ onChange }: any) {
     const [editor] = useLexicalComposerContext();
     useEffect(() => {
-      return editor.registerUpdateListener(({editorState}) => {
-        onChange(editorState);
-      });
+        return editor.registerUpdateListener(({ editorState }) => {
+            onChange(editorState);
+        });
     }, [editor, onChange]);
     return null;
-  }
+}
 
-export default function MyEditorPost({value, editable, onChange}: MyLexicalEditorPostProps) {
+export default function MyEditorPost({ value, editable, onChange }: MyLexicalEditorPostProps) {
+    const objeditp = value.includes('children') ? value : '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"'+value+'","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}';
+
+    const objeditpem = '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}';
+
     const initialConfig = {
-        editorState: !!value ? value : '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
+        editorState: !!value ? objeditp : objeditpem,
         namespace: 'MyEditorPost',
         theme: ExampleTheme(),
         editable: editable,
@@ -58,7 +62,7 @@ export default function MyEditorPost({value, editable, onChange}: MyLexicalEdito
                                     <HistoryPlugin />
                                 </>
                             )}
-                            
+
                             <MyOnChangePlugin onChange={onChange} />
                         </div>
                     </div>
