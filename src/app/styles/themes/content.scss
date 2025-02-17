@@ -52,7 +52,7 @@
         }
     }
 
-    .offcanvas {
+    .offcanvas {        
         .btn-close {
             --bs-btn-close-color: #{$fgcolorprimary};
             --bs-btn-close-white-filter: invert(1) grayscale(100%) brightness(200%);
@@ -62,7 +62,7 @@
                 --bs-btn-close-white-filter: invert(0) grayscale(100%) brightness(200%);
             } @else if $fgcolorprimary == black or $fgcolorprimary == #000000 {
                 --bs-btn-close-bg: url("/icons/close/closeico_dark.svg");
-                --bs-btn-close-white-filter: invert(1) grayscale(100%) brightness(100%);
+                --bs-btn-close-white-filter: invert(1) grayscale(100%) brightness(0%);
             } @else {
                 --bs-btn-close-bg: url("/icons/close/closeico.svg");
                 --bs-btn-close-white-filter: invert(0) grayscale(100%) brightness(200%);
@@ -93,7 +93,7 @@
                 --bs-btn-close-white-filter: invert(0) grayscale(100%) brightness(200%);
             } @else if $fgcolorprimary == black or $fgcolorprimary == #000000 {
                 --bs-btn-close-bg: url("/icons/close/closeico_dark.svg");
-                --bs-btn-close-white-filter: invert(1) grayscale(100%) brightness(100%);
+                --bs-btn-close-white-filter: invert(1) grayscale(100%) brightness(0%);
             } @else {
                 --bs-btn-close-bg: url("/icons/close/closeico.svg");
                 --bs-btn-close-white-filter: invert(0) grayscale(100%) brightness(200%);
@@ -124,25 +124,58 @@
         }
     }
 
-    .table {
-        .thead, .tfoot {
-            background-color: $bgcolorsecondary;
+    #navlinksadmdb {
+        background-color: $bgcolorsecondary;
+        color: $fgcolorprimary;
+
+        .nav-link {
+            &.active {
+                background-color: $bgcolorprimary;
+                color: $fgcolorprimary;
+            }
         }
+    }
 
-
-        th, td {
+    .table {
+        thead, tfoot {
+            background-color: $bgcolorsecondary;
             color: $fgcolorprimary;
 
-            * {
+            th, td {
+                background-color: inherit;
+                color: $fgcolorprimary;
+            }
+        }
+
+        tbody {
+            background-color: $bgcolorsecondary;
+            color: $fgcolorprimary;            
+
+            th, td {
                 color: inherit;
             }
+        }
+
+        .btn {
+            background-color: $bgcolorsecondary;
+            color: inherit;
         }
     }
 
     .myeditorblk {
         .editor-input-prev {
-            background-color: $bgcolorsecondary;
-            caret-color: $bgcolorsecondary;
+            background-color: $bgcolorprimary;
+            caret-color: $bgcolorprimary;
+        }
+    }
+    
+    .card {
+        background-color: $bgcolorsecondary;
+        color: $fgcolorprimary;
+
+        .btn {
+            background-color: $bgcolorprimary !important;
+            color: $fgcolorprimary !important;
         }
     }
 
@@ -168,13 +201,21 @@
 
         form {
             input {
-                background-color: transparent;
+                background-color: $bgcolorprimary;
                 color: $fgcolorprimary;
 
                 &::placeholder {
                     color: $fgcolorprimary;
                 }
             }
+
+            .btn {
+                background-color: $bgcolorprimary;
+            }
+        }
+
+        .btn {
+            background-color: $bgcolorprimary;
         }
     }
 
@@ -188,14 +229,32 @@
 
         form {
             input {
-                background-color: transparent;
+                background-color: $bgcolorprimary;
                 color: $fgcolorprimary;
 
                 &::placeholder {
                     color: $fgcolorprimary;
                 }
             }
+
+            .btn {
+                background-color: $bgcolorprimary;
+            }
         }
+
+        .btn {
+            background-color: $bgcolorprimary;
+        }
+    }
+
+    .madmdashboard {
+        background-color: $bgcolorprimary;
+        color: $fgcolorprimary;
+    }
+
+    #navbartopadmdb {
+        background-color: $bgcolorprimary;
+        color: $fgcolorprimary;
     }
 
     .alert {

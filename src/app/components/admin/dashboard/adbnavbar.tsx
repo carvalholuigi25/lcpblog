@@ -18,7 +18,7 @@ export default function AdminNavbarDashboard({logInfo, sidebarToggle, toggleSide
     }
 
     return (
-        <nav className={"navbar navbar-expand-lg bg-body-tertiary " + astyles.navbartopadmdb}>
+        <nav className={"navbar navbar-expand-lg bg-body-tertiary " + astyles.navbartopadmdb} id="navbartopadmdb">
             <div className="container-fluid">
                 <Link className={"navbar-brand"} href="/">LCPBlog</Link>
 

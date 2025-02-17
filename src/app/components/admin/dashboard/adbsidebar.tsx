@@ -54,7 +54,7 @@ export default function AdminSidebarDashboard({sidebarToggle, toggleSidebar}: {s
     });
 
     return (
-        <ul className={"nav flex-column nav-pills " + astyles.navlinksadmdb + (sidebarToggle ? " hidden " : " ") + (showIconName ? " w-auto" : "")}>
+        <ul className={"nav flex-column nav-pills " + astyles.navlinksadmdb + (sidebarToggle ? " hidden " : " ") + (showIconName ? " w-auto" : "")} id="navlinksadmdb">
             <li className={"nav-item d-flex justify-content-between align-items-center mb-3"}>
                 <Link className={"navbar-brand" + (showIconName ? " hidden" : "")} href="/">LCPBlog</Link>
                 <button type="button" className={"nav-link " + astyles.btnshside} onClick={toggleSidebar}>

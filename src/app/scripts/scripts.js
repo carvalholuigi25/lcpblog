@@ -4,7 +4,7 @@ function setMySystemTheme() {
     const htmlth = document.querySelector('html');
     if(htmlth && htmlth.getAttribute("data-bs-theme") == "system") {
         const hours = new Date().getHours();
-        htmlth.setAttribute("data-bs-theme", (hours >= 6 && hours < 12 ? "light" : "dark"));
+        htmlth.setAttribute("data-bs-theme", (hours >= 6 && hours < 18 ? "light" : "dark"));
     }
 }
 

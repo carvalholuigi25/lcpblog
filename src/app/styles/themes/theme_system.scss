@@ -1,0 +1,14 @@
+@use "content.scss" as c;
+
+$themename: "system";
+
+[data-bs-theme=#{$themename}] {
+    $propstheme: (
+        "bgcolorprimary": #ffffff,
+        "bgcolorsecondary": #f1f1f1,
+        "fgcolorprimary": #212529,
+        "fgcolorsecondary": #000000,
+    );
+
+    @include c.themecontent($propstheme);
+}

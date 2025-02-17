@@ -44,6 +44,11 @@ export function getMyCustomThemes() {
             id: 7,
             theme: "yellow",
             title: "Yellow"
+        },
+        {
+            id: 8,
+            theme: "vanilla",
+            title: "Vanilla"
         }
     ];
 
