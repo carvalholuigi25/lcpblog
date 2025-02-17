@@ -1,0 +1,14 @@
+@use "content.scss" as c;
+
+$themename: "dark";
+
+[data-bs-theme=#{$themename}] {
+    $propstheme: (
+        "bgcolorprimary": #000000,
+        "bgcolorsecondary": #212529,
+        "fgcolorprimary": #ffffff,
+        "fgcolorsecondary": #f1f1f1,
+    );
+
+    @include c.themecontent($propstheme);
+}

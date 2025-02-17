@@ -55,19 +55,24 @@
     .offcanvas {
         .btn-close {
             --bs-btn-close-color: #{$fgcolorprimary};
+            --bs-btn-close-white-filter: invert(1) grayscale(100%) brightness(200%);
             
             @if $fgcolorprimary == white or $fgcolorprimary == #ffffff {
                 --bs-btn-close-bg: url("/icons/close/closeico_light.svg");
+                --bs-btn-close-white-filter: invert(0) grayscale(100%) brightness(200%);
             } @else if $fgcolorprimary == black or $fgcolorprimary == #000000 {
                 --bs-btn-close-bg: url("/icons/close/closeico_dark.svg");
+                --bs-btn-close-white-filter: invert(1) grayscale(100%) brightness(100%);
             } @else {
                 --bs-btn-close-bg: url("/icons/close/closeico.svg");
+                --bs-btn-close-white-filter: invert(0) grayscale(100%) brightness(200%);
             }
 
             background: transparent var(--bs-btn-close-bg) center / 1em auto no-repeat;
             color: var(--bs-btn-close-color);
             stroke: var(--bs-btn-close-color);
             fill: var(--bs-btn-close-color);
+            filter: var(--bs-btn-close-white-filter) !important;
         }
     }
 
@@ -81,19 +86,24 @@
 
         .btn-close {
             --bs-btn-close-color: #{$fgcolorprimary};
+            --bs-btn-close-white-filter: invert(1) grayscale(100%) brightness(200%);
             
             @if $fgcolorprimary == white or $fgcolorprimary == #ffffff {
                 --bs-btn-close-bg: url("/icons/close/closeico_light.svg");
+                --bs-btn-close-white-filter: invert(0) grayscale(100%) brightness(200%);
             } @else if $fgcolorprimary == black or $fgcolorprimary == #000000 {
                 --bs-btn-close-bg: url("/icons/close/closeico_dark.svg");
+                --bs-btn-close-white-filter: invert(1) grayscale(100%) brightness(100%);
             } @else {
                 --bs-btn-close-bg: url("/icons/close/closeico.svg");
+                --bs-btn-close-white-filter: invert(0) grayscale(100%) brightness(200%);
             }
 
             background: transparent var(--bs-btn-close-bg) center / 1em auto no-repeat;
             color: var(--bs-btn-close-color);
             stroke: var(--bs-btn-close-color);
             fill: var(--bs-btn-close-color);
+            filter: var(--bs-btn-close-white-filter) !important;
         }
     }
 
@@ -111,6 +121,28 @@
                 background-color: $bgcolorsecondary !important;
                 color: $fgcolorprimary !important;
             }
+        }
+    }
+
+    .table {
+        .thead, .tfoot {
+            background-color: $bgcolorsecondary;
+        }
+
+
+        th, td {
+            color: $fgcolorprimary;
+
+            * {
+                color: inherit;
+            }
+        }
+    }
+
+    .myeditorblk {
+        .editor-input-prev {
+            background-color: $bgcolorsecondary;
+            caret-color: $bgcolorsecondary;
         }
     }
 

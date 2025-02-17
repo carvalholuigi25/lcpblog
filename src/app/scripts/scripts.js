@@ -4,7 +4,7 @@ function setMySystemTheme() {
     const htmlth = document.querySelector('html');
     if(htmlth && htmlth.getAttribute("data-bs-theme") == "system") {
         const hours = new Date().getHours();
-        htmlth.setAttribute("data-bs-theme", (hours >= 6 && hours < 18 ? "light" : "dark"));
+        htmlth.setAttribute("data-bs-theme", (hours >= 6 && hours < 12 ? "light" : "dark"));
     }
 }
 
@@ -12,10 +12,6 @@ function RemovePaddingOffCanvas() {
     const myoffcanvas = document.querySelectorAll('.offcanvas')[0];
 
     if(myoffcanvas) {
-        if(document.body.style.getPropertyValue("padding-right")) {
-            document.body.style.removeProperty("padding-right");
-        }
-
         myoffcanvas.addEventListener('show.bs.offcanvas', () => {
             if(document.body.style.getPropertyValue("padding-right")) {
                 document.body.style.removeProperty("padding-right");
