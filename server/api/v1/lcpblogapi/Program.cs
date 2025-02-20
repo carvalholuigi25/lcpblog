@@ -198,5 +198,6 @@ app.UseMiddleware<JwtMiddleware>();
 
 app.MapControllers();
 app.MapHub<ChatHub>("/chathub");
+app.MapHub<DataHub>("/datahub");
 
 app.Run();

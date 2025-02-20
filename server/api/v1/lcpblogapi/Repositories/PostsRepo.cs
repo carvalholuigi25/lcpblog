@@ -4,18 +4,23 @@ using lcpblogapi.Context;
 using lcpblogapi.Models;
 using lcpblogapi.Interfaces;
 using lcpblogapi.Models.QParams;
+using lcpblogapi.Hubs;
+using Microsoft.AspNetCore.SignalR;
 
 namespace lcpblogapi.Repositories;
 
 public class PostsRepo : ControllerBase, IPostsRepo
 {
     private readonly MyDBContext _context;
+    private readonly IHubContext<DataHub> _hub;
+
     private MyDBSQLFunctions _myDBSQLFunctions;
 
-    public PostsRepo(MyDBContext context, MyDBSQLFunctions myDBSQLFunctions)
+    public PostsRepo(MyDBContext context, MyDBSQLFunctions myDBSQLFunctions, IHubContext<DataHub> hub)
     {
         _context = context;
         _myDBSQLFunctions = myDBSQLFunctions;
+        _hub = hub;
     }
 
     public async Task<ActionResult<IEnumerable<Post>>> GetPosts(QueryParams queryParams)
@@ -59,6 +64,7 @@ public class PostsRepo : ControllerBase, IPostsRepo
     {
         _context.Posts.Add(post);
         await _context.SaveChangesAsync();
+        await _hub.Clients.All.SendAsync("ReceiveMessage", post);
 
         return CreatedAtAction(nameof(GetPost), new { id = post.PostId }, post);
     }
@@ -75,6 +81,7 @@ public class PostsRepo : ControllerBase, IPostsRepo
         try
         {
             await _context.SaveChangesAsync();
+            await _hub.Clients.All.SendAsync("ReceiveMessage", post);
         }
         catch (DbUpdateConcurrencyException)
         {
@@ -103,6 +110,7 @@ public class PostsRepo : ControllerBase, IPostsRepo
         _context.Posts.Remove(post);
         await _myDBSQLFunctions.ResetAIID("posts", 0);
         await _context.SaveChangesAsync();
+        await _hub.Clients.All.SendAsync("ReceiveMessage", post);
 
         return NoContent();
     }
