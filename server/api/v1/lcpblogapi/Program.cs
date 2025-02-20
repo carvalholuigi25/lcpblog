@@ -169,8 +169,9 @@ else
 
 app.UseCors(x => x
     .SetIsOriginAllowed(origin => true)
-    .AllowAnyMethod()
     .AllowAnyHeader()
+    .AllowAnyMethod()
+    .WithOrigins("https://localhost:5000", "http://localhost:5001")
     .AllowCredentials());
 
 app.UseRequestLocalization(options);

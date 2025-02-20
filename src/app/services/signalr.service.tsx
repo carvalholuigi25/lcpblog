@@ -5,7 +5,11 @@ let connection: any;
 
 export const startConnection = async () => {
   connection = new signalR.HubConnectionBuilder()
-    .withUrl('https://localhost:5000/datahub')
+    .withUrl('https://localhost:5000/datahub', {
+      skipNegotiation: true,
+      transport: signalR.HttpTransportType.WebSockets,
+      accessTokenFactory: async () => { return "" }
+    })
     .withAutomaticReconnect()
     .build();
 
@@ -19,5 +23,7 @@ export const startConnection = async () => {
 
 export const getConnection = () => connection;
 export const disposeConnection = () => {
-  connection.stop().then(() => console.log('Connection disposed')).catch((err: any) => console.error('Error disposing connection: ', err));
+  if(connection) {
+    connection.stop().then(() => console.log('Connection disposed')).catch((err: any) => console.error('Error disposing connection: ', err));
+  }
 }
