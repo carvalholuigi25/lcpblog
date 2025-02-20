@@ -3,14 +3,16 @@ import * as signalR from '@microsoft/signalr';
 
 let connection: any;
 
-export const startConnection = async () => {
+export const startConnection = async (hubname: string = "datahub", skipNegotiation: boolean = true) => {
   connection = new signalR.HubConnectionBuilder()
-    .withUrl('https://localhost:5000/datahub', {
-      skipNegotiation: true,
-      transport: signalR.HttpTransportType.WebSockets,
+    .withUrl(`${process.env.apiURL}/${hubname}`, {
+      skipNegotiation: skipNegotiation,
+      transport: skipNegotiation ? signalR.HttpTransportType.WebSockets : signalR.HttpTransportType.None,
+      withCredentials: skipNegotiation ? true : false,
       accessTokenFactory: async () => { return "" }
     })
     .withAutomaticReconnect()
+    .configureLogging(signalR.LogLevel.Information)
     .build();
 
   try {
