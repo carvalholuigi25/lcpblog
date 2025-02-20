@@ -1,6 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import { startConnection, getConnection } from "./services/signalr.service";
+import { startConnection, getConnection, disposeConnection } from "./services/signalr.service";
 import styles from "@/app/page.module.scss";
 import Footer from "@/app/ui/footer";
 import Header from "@/app/ui/header";
@@ -14,6 +14,10 @@ export default function Home() {
         console.log('Received');               
       });
     });
+
+    return () => {
+      disposeConnection();
+    };
   }, []);
   
   return (

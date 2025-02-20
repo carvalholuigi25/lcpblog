@@ -15,8 +15,9 @@ export const startConnection = async () => {
   } catch (err) {
     console.error('Error while starting connection: ', err);
   }
-
-  return () => connection.stop();
 };
 
 export const getConnection = () => connection;
+export const disposeConnection = () => {
+  connection.stop().then(() => console.log('Connection disposed')).catch((err: any) => console.error('Error disposing connection: ', err));
+}
