@@ -127,6 +127,7 @@ builder.Services.AddScoped<ICommentsRepo, CommentsRepo>();
 builder.Services.AddScoped<ITagsRepo, TagsRepo>();
 builder.Services.AddScoped<IJwtUtils, JwtUtils>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IFileService, FileService>();
 
 builder.Services.AddSingleton<LocalizationMiddleware>();
 builder.Services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();

@@ -21,6 +21,7 @@ public class MyDBContext : DbContext
     public DbSet<Tag> Tags { get; set; } = null!;
     public DbSet<PostCategory> PostCategories { get; set; } = null!;
     public DbSet<PostTag> PostTags { get; set; } = null!;
+    public DbSet<FileMetadata> FilesMetadata { get; set; } = null!;
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
