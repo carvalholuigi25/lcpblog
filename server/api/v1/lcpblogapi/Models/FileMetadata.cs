@@ -14,5 +14,5 @@ public class FileMetadata
     public string FileName { get; set; } = null!;
     public string FilePath { get; set; } = null!;
     public string? ContentType { get; set; }
-    public DateTime? UploadedAt { get; set; }
+    public DateTimeOffset? UploadedAt { get; set; } = DateTimeOffset.Now;
 }

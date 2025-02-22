@@ -15,8 +15,8 @@ public class Category
     [DefaultValue("")]
     public string? Name { get; set; } = "";
     
-    public DateTime? CreatedAt { get; set; } = DateTime.Now;
-    public DateTime? UpdatedAt { get; set; } = DateTime.Now;
+    public DateTimeOffset? CreatedAt { get; set; } = DateTimeOffset.Now;
+    public DateTimeOffset? UpdatedAt { get; set; } = DateTimeOffset.Now;
 
     [DefaultValue(ECategoryStatus.all)]
     public ECategoryStatus? Status { get; set; } = ECategoryStatus.all;

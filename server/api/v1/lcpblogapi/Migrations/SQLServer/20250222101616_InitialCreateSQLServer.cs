@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace lcpblogapi.Migrations.SQLite
+namespace lcpblogapi.Migrations.SQLServer
 {
     /// <inheritdoc />
-    public partial class InitialCreateSQLite : Migration
+    public partial class InitialCreateSQLServer : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,12 +15,12 @@ namespace lcpblogapi.Migrations.SQLite
                 name: "Categories",
                 columns: table => new
                 {
-                    CategoryId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    Status = table.Column<int>(type: "INTEGER", nullable: true)
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -28,15 +28,32 @@ namespace lcpblogapi.Migrations.SQLite
                 });
 
             migrationBuilder.CreateTable(
+                name: "FilesMetadata",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    gId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FilePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ContentType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UploadedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FilesMetadata", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Tags",
                 columns: table => new
                 {
-                    TagId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    Status = table.Column<int>(type: "INTEGER", nullable: true)
+                    TagId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -47,18 +64,18 @@ namespace lcpblogapi.Migrations.SQLite
                 name: "Users",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Username = table.Column<string>(type: "TEXT", nullable: false),
-                    Password = table.Column<string>(type: "TEXT", nullable: false),
-                    Email = table.Column<string>(type: "TEXT", nullable: true),
-                    DisplayName = table.Column<string>(type: "TEXT", nullable: true),
-                    Avatar = table.Column<string>(type: "TEXT", nullable: true),
-                    Cover = table.Column<string>(type: "TEXT", nullable: true),
-                    About = table.Column<string>(type: "TEXT", nullable: true),
-                    Role = table.Column<int>(type: "INTEGER", nullable: true),
-                    Privacy = table.Column<int>(type: "INTEGER", nullable: true),
-                    UsersInfoId = table.Column<int>(type: "INTEGER", nullable: true)
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Avatar = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Cover = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    About = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Role = table.Column<int>(type: "int", nullable: true),
+                    Privacy = table.Column<int>(type: "int", nullable: true),
+                    UsersInfoId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -69,16 +86,16 @@ namespace lcpblogapi.Migrations.SQLite
                 name: "Posts",
                 columns: table => new
                 {
-                    PostId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Title = table.Column<string>(type: "TEXT", nullable: true),
-                    Content = table.Column<string>(type: "TEXT", nullable: true),
-                    Image = table.Column<string>(type: "TEXT", nullable: true),
-                    Slug = table.Column<string>(type: "TEXT", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    Status = table.Column<int>(type: "INTEGER", nullable: true),
-                    UserId = table.Column<int>(type: "INTEGER", nullable: true)
+                    PostId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Slug = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: true),
+                    UserId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -94,17 +111,17 @@ namespace lcpblogapi.Migrations.SQLite
                 name: "RefreshToken",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Token = table.Column<string>(type: "TEXT", nullable: false),
-                    Expires = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Created = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    CreatedByIp = table.Column<string>(type: "TEXT", nullable: false),
-                    Revoked = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    RevokedByIp = table.Column<string>(type: "TEXT", nullable: false),
-                    ReplacedByToken = table.Column<string>(type: "TEXT", nullable: false),
-                    ReasonRevoked = table.Column<string>(type: "TEXT", nullable: false),
-                    UserId = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Token = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Expires = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    CreatedByIp = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Revoked = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    RevokedByIp = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ReplacedByToken = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ReasonRevoked = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -121,14 +138,14 @@ namespace lcpblogapi.Migrations.SQLite
                 name: "Comments",
                 columns: table => new
                 {
-                    CommentId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Content = table.Column<string>(type: "TEXT", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    Status = table.Column<int>(type: "INTEGER", nullable: true),
-                    UserId = table.Column<int>(type: "INTEGER", nullable: true),
-                    PostId = table.Column<int>(type: "INTEGER", nullable: true)
+                    CommentId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: true),
+                    UserId = table.Column<int>(type: "int", nullable: true),
+                    PostId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -149,8 +166,8 @@ namespace lcpblogapi.Migrations.SQLite
                 name: "PostCategories",
                 columns: table => new
                 {
-                    PostId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CategoryId = table.Column<int>(type: "INTEGER", nullable: false)
+                    PostId = table.Column<int>(type: "int", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -173,8 +190,8 @@ namespace lcpblogapi.Migrations.SQLite
                 name: "PostTags",
                 columns: table => new
                 {
-                    PostId = table.Column<int>(type: "INTEGER", nullable: false),
-                    TagId = table.Column<int>(type: "INTEGER", nullable: false)
+                    PostId = table.Column<int>(type: "int", nullable: false),
+                    TagId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -192,11 +209,6 @@ namespace lcpblogapi.Migrations.SQLite
                         principalColumn: "TagId",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.InsertData(
-                table: "Users",
-                columns: new[] { "UserId", "About", "Avatar", "Cover", "DisplayName", "Email", "Password", "Privacy", "Role", "Username", "UsersInfoId" },
-                values: new object[] { 1, "Luis Carvalho", "avatars/luis.jpg", "covers/luis.jpg", "Luis Carvalho", "luiscarvalho239@gmail.com", "$2a$10$ibCS5iZ5gXs5nVhOUnWODeLrKEIMLvaOsQYg9igS1.F/sD.EqQrMa", 0, 6, "admin", 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_PostId",
@@ -234,6 +246,9 @@ namespace lcpblogapi.Migrations.SQLite
         {
             migrationBuilder.DropTable(
                 name: "Comments");
+
+            migrationBuilder.DropTable(
+                name: "FilesMetadata");
 
             migrationBuilder.DropTable(
                 name: "PostCategories");

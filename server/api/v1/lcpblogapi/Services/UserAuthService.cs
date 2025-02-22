@@ -145,7 +145,7 @@ public class UserService : IUserService
         // remove old inactive refresh tokens from user based on TTL in app settings
         user.RefreshTokens!.RemoveAll(x => 
             !x.IsActive && 
-            x.Created.AddDays(_appSettings.RefreshTokenTTL) <= DateTime.UtcNow);
+            x.Created.AddDays(_appSettings.RefreshTokenTTL) <= DateTimeOffset.Now);
     }
 
     private void revokeDescendantRefreshTokens(RefreshToken refreshToken, User user, string ipAddress, string reason)
@@ -163,7 +163,7 @@ public class UserService : IUserService
 
     private void revokeRefreshToken(RefreshToken token, string ipAddress, string reason = "", string replacedByToken = "")
     {
-        token.Revoked = DateTime.UtcNow;
+        token.Revoked = DateTimeOffset.Now;
         token.RevokedByIp = ipAddress;
         token.ReasonRevoked = reason;
         token.ReplacedByToken = replacedByToken;

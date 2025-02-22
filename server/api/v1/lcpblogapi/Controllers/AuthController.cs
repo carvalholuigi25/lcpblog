@@ -137,7 +137,7 @@ public class AuthController : ControllerBase
         var cookieOptions = new CookieOptions
         {
             HttpOnly = true,
-            Expires = DateTime.UtcNow.AddDays(7)
+            Expires = DateTimeOffset.Now.AddDays(7)
         };
         Response.Cookies.Append("refreshToken", token, cookieOptions);
     }

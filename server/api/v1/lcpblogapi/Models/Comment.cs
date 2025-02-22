@@ -15,8 +15,8 @@ public class Comment
     [DefaultValue("")]
     public string? Content { get; set; } = "";
     
-    public DateTime? CreatedAt { get; set; } = DateTime.Now;
-    public DateTime? UpdatedAt { get; set; } = DateTime.Now;
+    public DateTimeOffset? CreatedAt { get; set; } = DateTimeOffset.Now;
+    public DateTimeOffset? UpdatedAt { get; set; } = DateTimeOffset.Now;
 
     [DefaultValue(ECommentStatus.all)]
     public ECommentStatus? Status { get; set; } = ECommentStatus.all;

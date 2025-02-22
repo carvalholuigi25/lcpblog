@@ -12,17 +12,27 @@ BEGIN TRANSACTION;
 CREATE TABLE [Categories] (
     [CategoryId] int NOT NULL IDENTITY,
     [Name] nvarchar(max) NULL,
-    [CreatedAt] datetime2 NULL,
-    [UpdatedAt] datetime2 NULL,
+    [CreatedAt] datetimeoffset NULL,
+    [UpdatedAt] datetimeoffset NULL,
     [Status] int NULL,
     CONSTRAINT [PK_Categories] PRIMARY KEY ([CategoryId])
+);
+
+CREATE TABLE [FilesMetadata] (
+    [Id] int NOT NULL IDENTITY,
+    [gId] uniqueidentifier NOT NULL,
+    [FileName] nvarchar(max) NOT NULL,
+    [FilePath] nvarchar(max) NOT NULL,
+    [ContentType] nvarchar(max) NULL,
+    [UploadedAt] datetimeoffset NULL,
+    CONSTRAINT [PK_FilesMetadata] PRIMARY KEY ([Id])
 );
 
 CREATE TABLE [Tags] (
     [TagId] int NOT NULL IDENTITY,
     [Name] nvarchar(max) NULL,
-    [CreatedAt] datetime2 NULL,
-    [UpdatedAt] datetime2 NULL,
+    [CreatedAt] datetimeoffset NULL,
+    [UpdatedAt] datetimeoffset NULL,
     [Status] int NULL,
     CONSTRAINT [PK_Tags] PRIMARY KEY ([TagId])
 );
@@ -48,8 +58,8 @@ CREATE TABLE [Posts] (
     [Content] nvarchar(max) NULL,
     [Image] nvarchar(max) NULL,
     [Slug] nvarchar(max) NULL,
-    [CreatedAt] datetime2 NULL,
-    [UpdatedAt] datetime2 NULL,
+    [CreatedAt] datetimeoffset NULL,
+    [UpdatedAt] datetimeoffset NULL,
     [Status] int NULL,
     [UserId] int NULL,
     CONSTRAINT [PK_Posts] PRIMARY KEY ([PostId]),
@@ -59,10 +69,10 @@ CREATE TABLE [Posts] (
 CREATE TABLE [RefreshToken] (
     [Id] int NOT NULL IDENTITY,
     [Token] nvarchar(max) NOT NULL,
-    [Expires] datetime2 NOT NULL,
-    [Created] datetime2 NOT NULL,
+    [Expires] datetimeoffset NOT NULL,
+    [Created] datetimeoffset NOT NULL,
     [CreatedByIp] nvarchar(max) NOT NULL,
-    [Revoked] datetime2 NULL,
+    [Revoked] datetimeoffset NULL,
     [RevokedByIp] nvarchar(max) NOT NULL,
     [ReplacedByToken] nvarchar(max) NOT NULL,
     [ReasonRevoked] nvarchar(max) NOT NULL,
@@ -74,8 +84,8 @@ CREATE TABLE [RefreshToken] (
 CREATE TABLE [Comments] (
     [CommentId] int NOT NULL IDENTITY,
     [Content] nvarchar(max) NULL,
-    [CreatedAt] datetime2 NULL,
-    [UpdatedAt] datetime2 NULL,
+    [CreatedAt] datetimeoffset NULL,
+    [UpdatedAt] datetimeoffset NULL,
     [Status] int NULL,
     [UserId] int NULL,
     [PostId] int NULL,
@@ -113,7 +123,7 @@ CREATE INDEX [IX_PostTags_TagId] ON [PostTags] ([TagId]);
 CREATE INDEX [IX_RefreshToken_UserId] ON [RefreshToken] ([UserId]);
 
 INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
-VALUES (N'20250116154236_InitialCreateSQLServer', N'9.0.0');
+VALUES (N'20250222101616_InitialCreateSQLServer', N'9.0.0');
 
 COMMIT;
 GO

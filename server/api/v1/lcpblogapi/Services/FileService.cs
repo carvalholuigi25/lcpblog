@@ -67,7 +67,7 @@ public class FileService : IFileService
             FileName = fileName,
             FilePath = filePath,
             ContentType = file.ContentType,
-            UploadedAt = DateTime.UtcNow
+            UploadedAt = DateTimeOffset.Now
         };
 
         _context.FilesMetadata.Add(metadata);

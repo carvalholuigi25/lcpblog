@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using lcpblogapi.Context;
 
@@ -10,9 +11,11 @@ using lcpblogapi.Context;
 namespace lcpblogapi.Migrations.SQLite
 {
     [DbContext(typeof(MyDBContextSQLite))]
-    partial class MyDBContextSQLiteModelSnapshot : ModelSnapshot
+    [Migration("20250222101533_InitialCreateSQLite")]
+    partial class InitialCreateSQLite
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.0");

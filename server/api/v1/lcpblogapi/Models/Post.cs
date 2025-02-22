@@ -24,8 +24,8 @@ public class Post
     [DefaultValue("/")]
     public string? Slug { get; set; } = "/";
 
-    public DateTime? CreatedAt { get; set; } = DateTime.Now;
-    public DateTime? UpdatedAt { get; set; } = DateTime.Now;
+    public DateTimeOffset? CreatedAt { get; set; } = DateTimeOffset.Now;
+    public DateTimeOffset? UpdatedAt { get; set; } = DateTimeOffset.Now;
 
     [DefaultValue(EPostStatus.all)]
     public EPostStatus? Status { get; set; } = EPostStatus.all;

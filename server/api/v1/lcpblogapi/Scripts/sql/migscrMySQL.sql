@@ -16,6 +16,16 @@ CREATE TABLE `Categories` (
     CONSTRAINT `PK_Categories` PRIMARY KEY (`CategoryId`)
 ) CHARACTER SET=utf8mb4;
 
+CREATE TABLE `FilesMetadata` (
+    `Id` int NOT NULL AUTO_INCREMENT,
+    `gId` char(36) COLLATE ascii_general_ci NOT NULL,
+    `FileName` longtext CHARACTER SET utf8mb4 NOT NULL,
+    `FilePath` longtext CHARACTER SET utf8mb4 NOT NULL,
+    `ContentType` longtext CHARACTER SET utf8mb4 NULL,
+    `UploadedAt` datetime NULL,
+    CONSTRAINT `PK_FilesMetadata` PRIMARY KEY (`Id`)
+) CHARACTER SET=utf8mb4;
+
 CREATE TABLE `Tags` (
     `TagId` int NOT NULL AUTO_INCREMENT,
     `Name` longtext CHARACTER SET utf8mb4 NULL,
@@ -111,7 +121,7 @@ CREATE INDEX `IX_PostTags_TagId` ON `PostTags` (`TagId`);
 CREATE INDEX `IX_RefreshToken_UserId` ON `RefreshToken` (`UserId`);
 
 INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
-VALUES ('20250116154315_InitialCreateMySQL', '9.0.0');
+VALUES ('20250222101700_InitialCreateMySQL', '9.0.0');
 
 COMMIT;
 

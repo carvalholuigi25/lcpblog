@@ -128,6 +128,7 @@ builder.Services.AddScoped<ITagsRepo, TagsRepo>();
 builder.Services.AddScoped<IJwtUtils, JwtUtils>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IFileService, FileService>();
+builder.Services.AddScoped<IFileMetadataRepo, FileMetadataRepo>();
 
 builder.Services.AddSingleton<LocalizationMiddleware>();
 builder.Services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();

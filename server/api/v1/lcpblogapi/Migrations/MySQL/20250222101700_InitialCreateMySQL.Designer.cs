@@ -2,38 +2,48 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using lcpblogapi.Context;
 
 #nullable disable
 
-namespace lcpblogapi.Migrations.SQLite
+namespace lcpblogapi.Migrations.MySQL
 {
-    [DbContext(typeof(MyDBContextSQLite))]
-    partial class MyDBContextSQLiteModelSnapshot : ModelSnapshot
+    [DbContext(typeof(MyDBContextMySQL))]
+    [Migration("20250222101700_InitialCreateMySQL")]
+    partial class InitialCreateMySQL
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "9.0.0");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "9.0.0")
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
             modelBuilder.Entity("lcpblogapi.Models.Category", b =>
                 {
                     b.Property<int>("CategoryId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("CategoryId"));
 
                     b.Property<DateTimeOffset?>("CreatedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<int?>("Status")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<DateTimeOffset?>("UpdatedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime");
 
                     b.HasKey("CategoryId");
 
@@ -44,25 +54,27 @@ namespace lcpblogapi.Migrations.SQLite
                 {
                     b.Property<int>("CommentId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("CommentId"));
 
                     b.Property<string>("Content")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTimeOffset?>("CreatedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime");
 
                     b.Property<int?>("PostId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int?>("Status")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<DateTimeOffset?>("UpdatedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime");
 
                     b.Property<int?>("UserId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("CommentId");
 
@@ -77,24 +89,26 @@ namespace lcpblogapi.Migrations.SQLite
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ContentType")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("FileName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("FilePath")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTimeOffset?>("UploadedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime");
 
                     b.Property<Guid>("gId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
@@ -105,31 +119,33 @@ namespace lcpblogapi.Migrations.SQLite
                 {
                     b.Property<int>("PostId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("PostId"));
 
                     b.Property<string>("Content")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTimeOffset?>("CreatedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("Image")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Slug")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<int?>("Status")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTimeOffset?>("UpdatedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime");
 
                     b.Property<int?>("UserId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("PostId");
 
@@ -141,10 +157,10 @@ namespace lcpblogapi.Migrations.SQLite
             modelBuilder.Entity("lcpblogapi.Models.PostCategory", b =>
                 {
                     b.Property<int>("PostId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("CategoryId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("PostId", "CategoryId");
 
@@ -156,10 +172,10 @@ namespace lcpblogapi.Migrations.SQLite
             modelBuilder.Entity("lcpblogapi.Models.PostTag", b =>
                 {
                     b.Property<int>("PostId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("TagId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("PostId", "TagId");
 
@@ -172,19 +188,21 @@ namespace lcpblogapi.Migrations.SQLite
                 {
                     b.Property<int>("TagId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("TagId"));
 
                     b.Property<DateTimeOffset?>("CreatedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<int?>("Status")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<DateTimeOffset?>("UpdatedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime");
 
                     b.HasKey("TagId");
 
@@ -195,39 +213,41 @@ namespace lcpblogapi.Migrations.SQLite
                 {
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("UserId"));
 
                     b.Property<string>("About")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Avatar")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Cover")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("DisplayName")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Email")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<int?>("Privacy")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int?>("Role")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<int?>("UsersInfoId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("UserId");
 
@@ -302,39 +322,41 @@ namespace lcpblogapi.Migrations.SQLite
                         {
                             b1.Property<int>("Id")
                                 .ValueGeneratedOnAdd()
-                                .HasColumnType("INTEGER");
+                                .HasColumnType("int");
+
+                            MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b1.Property<int>("Id"));
 
                             b1.Property<DateTimeOffset>("Created")
-                                .HasColumnType("TEXT");
+                                .HasColumnType("datetime");
 
                             b1.Property<string>("CreatedByIp")
                                 .IsRequired()
-                                .HasColumnType("TEXT");
+                                .HasColumnType("longtext");
 
                             b1.Property<DateTimeOffset>("Expires")
-                                .HasColumnType("TEXT");
+                                .HasColumnType("datetime");
 
                             b1.Property<string>("ReasonRevoked")
                                 .IsRequired()
-                                .HasColumnType("TEXT");
+                                .HasColumnType("longtext");
 
                             b1.Property<string>("ReplacedByToken")
                                 .IsRequired()
-                                .HasColumnType("TEXT");
+                                .HasColumnType("longtext");
 
                             b1.Property<DateTimeOffset?>("Revoked")
-                                .HasColumnType("TEXT");
+                                .HasColumnType("datetime");
 
                             b1.Property<string>("RevokedByIp")
                                 .IsRequired()
-                                .HasColumnType("TEXT");
+                                .HasColumnType("longtext");
 
                             b1.Property<string>("Token")
                                 .IsRequired()
-                                .HasColumnType("TEXT");
+                                .HasColumnType("longtext");
 
                             b1.Property<int>("UserId")
-                                .HasColumnType("INTEGER");
+                                .HasColumnType("int");
 
                             b1.HasKey("Id");
 
