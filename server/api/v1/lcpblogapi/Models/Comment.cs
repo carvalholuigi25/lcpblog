@@ -10,7 +10,7 @@ public class Comment
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [Key]
-    public int? CommentId { get; set; } = 0;
+    public int? CommentId { get; set; }
     
     [DefaultValue("")]
     public string? Content { get; set; } = "";

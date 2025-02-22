@@ -84,8 +84,8 @@ public class JwtUtils : IJwtUtils
         {
             Token = getUniqueToken(),
             // token is valid for 7 days
-            Expires = DateTimeOffset.Now.AddDays(7),
-            Created = DateTimeOffset.Now,
+            Expires = DateTime.UtcNow.AddDays(7),
+            Created = DateTime.UtcNow,
             CreatedByIp = ipAddress
         };
 

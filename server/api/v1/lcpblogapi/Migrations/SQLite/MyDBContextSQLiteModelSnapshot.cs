@@ -93,7 +93,7 @@ namespace lcpblogapi.Migrations.SQLite
                     b.Property<DateTimeOffset?>("UploadedAt")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("gId")
+                    b.Property<Guid?>("gId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -142,12 +142,12 @@ namespace lcpblogapi.Migrations.SQLite
                         {
                             PostId = 1,
                             Content = "Welcome to LCPBlog!",
-                            CreatedAt = new DateTimeOffset(new DateTime(2025, 2, 22, 16, 27, 44, 410, DateTimeKind.Unspecified).AddTicks(744), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2025, 2, 22, 17, 1, 20, 884, DateTimeKind.Unspecified).AddTicks(5786), new TimeSpan(0, 0, 0, 0, 0)),
                             Image = "blog.jpg",
                             Slug = "/",
                             Status = 0,
                             Title = "Welcome to LCPBlog!",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2025, 2, 22, 16, 27, 44, 410, DateTimeKind.Unspecified).AddTicks(1043), new TimeSpan(0, 0, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2025, 2, 22, 17, 1, 20, 884, DateTimeKind.Unspecified).AddTicks(6077), new TimeSpan(0, 0, 0, 0, 0)),
                             UserId = 1
                         });
                 });
@@ -256,7 +256,7 @@ namespace lcpblogapi.Migrations.SQLite
                             Cover = "covers/luis.jpg",
                             DisplayName = "Luis Carvalho",
                             Email = "luiscarvalho239@gmail.com",
-                            Password = "$2a$10$5xwOpE/poVblasUh/b3hR.zJiJcONLCLXLsBt2BfQ9wEASh3RW8yy",
+                            Password = "$2a$10$m9p22D4NIS1mXvgCRn1ume4avdPtBQ1LSeYMeJEtrw9gsG0wLfU6m",
                             Privacy = 0,
                             Role = 6,
                             Username = "admin",
@@ -334,14 +334,14 @@ namespace lcpblogapi.Migrations.SQLite
                                 .ValueGeneratedOnAdd()
                                 .HasColumnType("INTEGER");
 
-                            b1.Property<DateTimeOffset>("Created")
+                            b1.Property<DateTime>("Created")
                                 .HasColumnType("TEXT");
 
                             b1.Property<string>("CreatedByIp")
                                 .IsRequired()
                                 .HasColumnType("TEXT");
 
-                            b1.Property<DateTimeOffset>("Expires")
+                            b1.Property<DateTime>("Expires")
                                 .HasColumnType("TEXT");
 
                             b1.Property<string>("ReasonRevoked")
@@ -352,7 +352,7 @@ namespace lcpblogapi.Migrations.SQLite
                                 .IsRequired()
                                 .HasColumnType("TEXT");
 
-                            b1.Property<DateTimeOffset?>("Revoked")
+                            b1.Property<DateTime?>("Revoked")
                                 .HasColumnType("TEXT");
 
                             b1.Property<string>("RevokedByIp")

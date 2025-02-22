@@ -10,7 +10,7 @@ public class Category
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [Key]
-    public int? CategoryId { get; set; } = 0;
+    public int? CategoryId { get; set; }
 
     [DefaultValue("")]
     public string? Name { get; set; } = "";

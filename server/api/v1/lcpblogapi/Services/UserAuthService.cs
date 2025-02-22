@@ -163,7 +163,7 @@ public class UserService : IUserService
 
     private void revokeRefreshToken(RefreshToken token, string ipAddress, string reason = "", string replacedByToken = "")
     {
-        token.Revoked = DateTimeOffset.Now;
+        token.Revoked = DateTime.UtcNow;
         token.RevokedByIp = ipAddress;
         token.ReasonRevoked = reason;
         token.ReplacedByToken = replacedByToken;

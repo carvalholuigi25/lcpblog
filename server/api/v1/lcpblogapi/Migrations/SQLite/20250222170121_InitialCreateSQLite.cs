@@ -33,7 +33,7 @@ namespace lcpblogapi.Migrations.SQLite
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    gId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    gId = table.Column<Guid>(type: "TEXT", nullable: true),
                     FileName = table.Column<string>(type: "TEXT", nullable: false),
                     FilePath = table.Column<string>(type: "TEXT", nullable: false),
                     ContentType = table.Column<string>(type: "TEXT", nullable: true),
@@ -114,10 +114,10 @@ namespace lcpblogapi.Migrations.SQLite
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Token = table.Column<string>(type: "TEXT", nullable: false),
-                    Expires = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
-                    Created = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
+                    Expires = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Created = table.Column<DateTime>(type: "TEXT", nullable: false),
                     CreatedByIp = table.Column<string>(type: "TEXT", nullable: false),
-                    Revoked = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
+                    Revoked = table.Column<DateTime>(type: "TEXT", nullable: true),
                     RevokedByIp = table.Column<string>(type: "TEXT", nullable: false),
                     ReplacedByToken = table.Column<string>(type: "TEXT", nullable: false),
                     ReasonRevoked = table.Column<string>(type: "TEXT", nullable: false),
@@ -213,12 +213,12 @@ namespace lcpblogapi.Migrations.SQLite
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "UserId", "About", "Avatar", "Cover", "DisplayName", "Email", "Password", "Privacy", "Role", "Username", "UsersInfoId" },
-                values: new object[] { 1, "Luis Carvalho", "avatars/luis.jpg", "covers/luis.jpg", "Luis Carvalho", "luiscarvalho239@gmail.com", "$2a$10$5xwOpE/poVblasUh/b3hR.zJiJcONLCLXLsBt2BfQ9wEASh3RW8yy", 0, 6, "admin", 1 });
+                values: new object[] { 1, "Luis Carvalho", "avatars/luis.jpg", "covers/luis.jpg", "Luis Carvalho", "luiscarvalho239@gmail.com", "$2a$10$m9p22D4NIS1mXvgCRn1ume4avdPtBQ1LSeYMeJEtrw9gsG0wLfU6m", 0, 6, "admin", 1 });
 
             migrationBuilder.InsertData(
                 table: "Posts",
                 columns: new[] { "PostId", "Content", "CreatedAt", "Image", "Slug", "Status", "Title", "UpdatedAt", "UserId" },
-                values: new object[] { 1, "Welcome to LCPBlog!", new DateTimeOffset(new DateTime(2025, 2, 22, 16, 27, 44, 410, DateTimeKind.Unspecified).AddTicks(744), new TimeSpan(0, 0, 0, 0, 0)), "blog.jpg", "/", 0, "Welcome to LCPBlog!", new DateTimeOffset(new DateTime(2025, 2, 22, 16, 27, 44, 410, DateTimeKind.Unspecified).AddTicks(1043), new TimeSpan(0, 0, 0, 0, 0)), 1 });
+                values: new object[] { 1, "Welcome to LCPBlog!", new DateTimeOffset(new DateTime(2025, 2, 22, 17, 1, 20, 884, DateTimeKind.Unspecified).AddTicks(5786), new TimeSpan(0, 0, 0, 0, 0)), "blog.jpg", "/", 0, "Welcome to LCPBlog!", new DateTimeOffset(new DateTime(2025, 2, 22, 17, 1, 20, 884, DateTimeKind.Unspecified).AddTicks(6077), new TimeSpan(0, 0, 0, 0, 0)), 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_PostId",

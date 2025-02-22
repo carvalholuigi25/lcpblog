@@ -10,7 +10,7 @@ public class Tag
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [Key]
-    public int? TagId { get; set; } = 0;
+    public int? TagId { get; set; }
 
     [DefaultValue("")]
     public string? Name { get; set; }

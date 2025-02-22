@@ -14,7 +14,7 @@ CREATE TABLE "Categories" (
 
 CREATE TABLE "FilesMetadata" (
     "Id" INTEGER NOT NULL CONSTRAINT "PK_FilesMetadata" PRIMARY KEY AUTOINCREMENT,
-    "gId" TEXT NOT NULL,
+    "gId" TEXT NULL,
     "FileName" TEXT NOT NULL,
     "FilePath" TEXT NOT NULL,
     "ContentType" TEXT NULL,
@@ -99,12 +99,12 @@ CREATE TABLE "PostTags" (
 );
 
 INSERT INTO "Users" ("UserId", "About", "Avatar", "Cover", "DisplayName", "Email", "Password", "Privacy", "Role", "Username", "UsersInfoId")
-VALUES (1, 'Luis Carvalho', 'avatars/luis.jpg', 'covers/luis.jpg', 'Luis Carvalho', 'luiscarvalho239@gmail.com', '$2a$10$5xwOpE/poVblasUh/b3hR.zJiJcONLCLXLsBt2BfQ9wEASh3RW8yy', 0, 6, 'admin', 1);
+VALUES (1, 'Luis Carvalho', 'avatars/luis.jpg', 'covers/luis.jpg', 'Luis Carvalho', 'luiscarvalho239@gmail.com', '$2a$10$m9p22D4NIS1mXvgCRn1ume4avdPtBQ1LSeYMeJEtrw9gsG0wLfU6m', 0, 6, 'admin', 1);
 SELECT changes();
 
 
 INSERT INTO "Posts" ("PostId", "Content", "CreatedAt", "Image", "Slug", "Status", "Title", "UpdatedAt", "UserId")
-VALUES (1, 'Welcome to LCPBlog!', '2025-02-22 16:27:44.4100744+00:00', 'blog.jpg', '/', 0, 'Welcome to LCPBlog!', '2025-02-22 16:27:44.4101043+00:00', 1);
+VALUES (1, 'Welcome to LCPBlog!', '2025-02-22 17:01:20.8845786+00:00', 'blog.jpg', '/', 0, 'Welcome to LCPBlog!', '2025-02-22 17:01:20.8846077+00:00', 1);
 SELECT changes();
 
 
@@ -121,7 +121,7 @@ CREATE INDEX "IX_PostTags_TagId" ON "PostTags" ("TagId");
 CREATE INDEX "IX_RefreshToken_UserId" ON "RefreshToken" ("UserId");
 
 INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
-VALUES ('20250222162745_InitialCreateSQLite', '9.0.0');
+VALUES ('20250222170121_InitialCreateSQLite', '9.0.0');
 
 COMMIT;
 
