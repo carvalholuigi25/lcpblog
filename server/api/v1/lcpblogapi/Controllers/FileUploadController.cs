@@ -74,15 +74,22 @@ public class FileUploadController : ControllerBase
     /// <param name="fileName"></param>
     /// <returns></returns>
     [HttpGet("download/{fileName}")]
-    public IActionResult DownloadFile(string fileName)
+    public async Task<IActionResult> DownloadFileAsync(string fileName)
     {
         var filePath = Path.Combine("uploads", fileName);
-        
+
         if (!System.IO.File.Exists(filePath))
             return NotFound(new { Error = "File not found" });
 
+        var memory = new MemoryStream();
+        using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+        {
+            await stream.CopyToAsync(memory);
+        }
+        memory.Position = 0; // Reset stream position
+
         var contentType = GetContentType(filePath);
-        return PhysicalFile(filePath, contentType, fileName);
+        return File(memory, contentType, fileName);
     }
 
     /// <summary>
