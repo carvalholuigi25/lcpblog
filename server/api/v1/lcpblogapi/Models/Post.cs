@@ -10,7 +10,7 @@ public class Post
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [Key]
-    public int PostId { get; set; }
+    public int? PostId { get; set; } = 0;
 
     [DefaultValue("")]
     public string? Title { get; set; } = "";

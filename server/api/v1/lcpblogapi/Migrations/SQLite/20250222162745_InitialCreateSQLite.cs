@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace lcpblogapi.Migrations.SQLServer
+namespace lcpblogapi.Migrations.SQLite
 {
     /// <inheritdoc />
-    public partial class InitialCreateSQLServer : Migration
+    public partial class InitialCreateSQLite : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,12 +15,12 @@ namespace lcpblogapi.Migrations.SQLServer
                 name: "Categories",
                 columns: table => new
                 {
-                    CategoryId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    Status = table.Column<int>(type: "int", nullable: true)
+                    CategoryId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
+                    Status = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -31,13 +31,13 @@ namespace lcpblogapi.Migrations.SQLServer
                 name: "FilesMetadata",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    gId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FilePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ContentType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UploadedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    gId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    FileName = table.Column<string>(type: "TEXT", nullable: false),
+                    FilePath = table.Column<string>(type: "TEXT", nullable: false),
+                    ContentType = table.Column<string>(type: "TEXT", nullable: true),
+                    UploadedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -48,12 +48,12 @@ namespace lcpblogapi.Migrations.SQLServer
                 name: "Tags",
                 columns: table => new
                 {
-                    TagId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    Status = table.Column<int>(type: "int", nullable: true)
+                    TagId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
+                    Status = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -64,18 +64,18 @@ namespace lcpblogapi.Migrations.SQLServer
                 name: "Users",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Avatar = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Cover = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    About = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Role = table.Column<int>(type: "int", nullable: true),
-                    Privacy = table.Column<int>(type: "int", nullable: true),
-                    UsersInfoId = table.Column<int>(type: "int", nullable: true)
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Username = table.Column<string>(type: "TEXT", nullable: false),
+                    Password = table.Column<string>(type: "TEXT", nullable: false),
+                    Email = table.Column<string>(type: "TEXT", nullable: true),
+                    DisplayName = table.Column<string>(type: "TEXT", nullable: true),
+                    Avatar = table.Column<string>(type: "TEXT", nullable: true),
+                    Cover = table.Column<string>(type: "TEXT", nullable: true),
+                    About = table.Column<string>(type: "TEXT", nullable: true),
+                    Role = table.Column<int>(type: "INTEGER", nullable: true),
+                    Privacy = table.Column<int>(type: "INTEGER", nullable: true),
+                    UsersInfoId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -86,16 +86,16 @@ namespace lcpblogapi.Migrations.SQLServer
                 name: "Posts",
                 columns: table => new
                 {
-                    PostId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Slug = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    Status = table.Column<int>(type: "int", nullable: true),
-                    UserId = table.Column<int>(type: "int", nullable: true)
+                    PostId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Title = table.Column<string>(type: "TEXT", nullable: true),
+                    Content = table.Column<string>(type: "TEXT", nullable: true),
+                    Image = table.Column<string>(type: "TEXT", nullable: true),
+                    Slug = table.Column<string>(type: "TEXT", nullable: true),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
+                    Status = table.Column<int>(type: "INTEGER", nullable: true),
+                    UserId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -111,17 +111,17 @@ namespace lcpblogapi.Migrations.SQLServer
                 name: "RefreshToken",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Token = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Expires = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    CreatedByIp = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Revoked = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    RevokedByIp = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ReplacedByToken = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ReasonRevoked = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Token = table.Column<string>(type: "TEXT", nullable: false),
+                    Expires = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
+                    Created = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
+                    CreatedByIp = table.Column<string>(type: "TEXT", nullable: false),
+                    Revoked = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
+                    RevokedByIp = table.Column<string>(type: "TEXT", nullable: false),
+                    ReplacedByToken = table.Column<string>(type: "TEXT", nullable: false),
+                    ReasonRevoked = table.Column<string>(type: "TEXT", nullable: false),
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -138,14 +138,14 @@ namespace lcpblogapi.Migrations.SQLServer
                 name: "Comments",
                 columns: table => new
                 {
-                    CommentId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    Status = table.Column<int>(type: "int", nullable: true),
-                    UserId = table.Column<int>(type: "int", nullable: true),
-                    PostId = table.Column<int>(type: "int", nullable: true)
+                    CommentId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Content = table.Column<string>(type: "TEXT", nullable: true),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
+                    Status = table.Column<int>(type: "INTEGER", nullable: true),
+                    UserId = table.Column<int>(type: "INTEGER", nullable: true),
+                    PostId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -166,8 +166,8 @@ namespace lcpblogapi.Migrations.SQLServer
                 name: "PostCategories",
                 columns: table => new
                 {
-                    PostId = table.Column<int>(type: "int", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false)
+                    PostId = table.Column<int>(type: "INTEGER", nullable: false),
+                    CategoryId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -190,8 +190,8 @@ namespace lcpblogapi.Migrations.SQLServer
                 name: "PostTags",
                 columns: table => new
                 {
-                    PostId = table.Column<int>(type: "int", nullable: false),
-                    TagId = table.Column<int>(type: "int", nullable: false)
+                    PostId = table.Column<int>(type: "INTEGER", nullable: false),
+                    TagId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -209,6 +209,16 @@ namespace lcpblogapi.Migrations.SQLServer
                         principalColumn: "TagId",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "UserId", "About", "Avatar", "Cover", "DisplayName", "Email", "Password", "Privacy", "Role", "Username", "UsersInfoId" },
+                values: new object[] { 1, "Luis Carvalho", "avatars/luis.jpg", "covers/luis.jpg", "Luis Carvalho", "luiscarvalho239@gmail.com", "$2a$10$5xwOpE/poVblasUh/b3hR.zJiJcONLCLXLsBt2BfQ9wEASh3RW8yy", 0, 6, "admin", 1 });
+
+            migrationBuilder.InsertData(
+                table: "Posts",
+                columns: new[] { "PostId", "Content", "CreatedAt", "Image", "Slug", "Status", "Title", "UpdatedAt", "UserId" },
+                values: new object[] { 1, "Welcome to LCPBlog!", new DateTimeOffset(new DateTime(2025, 2, 22, 16, 27, 44, 410, DateTimeKind.Unspecified).AddTicks(744), new TimeSpan(0, 0, 0, 0, 0)), "blog.jpg", "/", 0, "Welcome to LCPBlog!", new DateTimeOffset(new DateTime(2025, 2, 22, 16, 27, 44, 410, DateTimeKind.Unspecified).AddTicks(1043), new TimeSpan(0, 0, 0, 0, 0)), 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_PostId",

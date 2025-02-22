@@ -108,6 +108,12 @@ CREATE TABLE `PostTags` (
     CONSTRAINT `FK_PostTags_Tags_TagId` FOREIGN KEY (`TagId`) REFERENCES `Tags` (`TagId`) ON DELETE CASCADE
 ) CHARACTER SET=utf8mb4;
 
+INSERT INTO `Users` (`UserId`, `About`, `Avatar`, `Cover`, `DisplayName`, `Email`, `Password`, `Privacy`, `Role`, `Username`, `UsersInfoId`)
+VALUES (1, 'Luis Carvalho', 'avatars/luis.jpg', 'covers/luis.jpg', 'Luis Carvalho', 'luiscarvalho239@gmail.com', '$2a$10$YTr02syt4cQVfc3Kr4NeMuJrJq/sW7WTp6KbRE9tA/qDEiZTo2z4e', 0, 6, 'admin', 1);
+
+INSERT INTO `Posts` (`PostId`, `Content`, `CreatedAt`, `Image`, `Slug`, `Status`, `Title`, `UpdatedAt`, `UserId`)
+VALUES (1, 'Welcome to LCPBlog!', TIMESTAMP '2025-02-22 16:28:52', 'blog.jpg', '/', 0, 'Welcome to LCPBlog!', TIMESTAMP '2025-02-22 16:28:52', 1);
+
 CREATE INDEX `IX_Comments_PostId` ON `Comments` (`PostId`);
 
 CREATE INDEX `IX_Comments_UserId` ON `Comments` (`UserId`);
@@ -121,7 +127,7 @@ CREATE INDEX `IX_PostTags_TagId` ON `PostTags` (`TagId`);
 CREATE INDEX `IX_RefreshToken_UserId` ON `RefreshToken` (`UserId`);
 
 INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
-VALUES ('20250222101700_InitialCreateMySQL', '9.0.0');
+VALUES ('20250222162853_InitialCreateMySQL', '9.0.0');
 
 COMMIT;
 

@@ -149,6 +149,20 @@ namespace lcpblogapi.Migrations.MySQL
                     b.HasIndex("UserId");
 
                     b.ToTable("Posts");
+
+                    b.HasData(
+                        new
+                        {
+                            PostId = 1,
+                            Content = "Welcome to LCPBlog!",
+                            CreatedAt = new DateTimeOffset(new DateTime(2025, 2, 22, 16, 28, 52, 938, DateTimeKind.Unspecified).AddTicks(8573), new TimeSpan(0, 0, 0, 0, 0)),
+                            Image = "blog.jpg",
+                            Slug = "/",
+                            Status = 0,
+                            Title = "Welcome to LCPBlog!",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2025, 2, 22, 16, 28, 52, 938, DateTimeKind.Unspecified).AddTicks(8874), new TimeSpan(0, 0, 0, 0, 0)),
+                            UserId = 1
+                        });
                 });
 
             modelBuilder.Entity("lcpblogapi.Models.PostCategory", b =>
@@ -249,6 +263,22 @@ namespace lcpblogapi.Migrations.MySQL
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            About = "Luis Carvalho",
+                            Avatar = "avatars/luis.jpg",
+                            Cover = "covers/luis.jpg",
+                            DisplayName = "Luis Carvalho",
+                            Email = "luiscarvalho239@gmail.com",
+                            Password = "$2a$10$YTr02syt4cQVfc3Kr4NeMuJrJq/sW7WTp6KbRE9tA/qDEiZTo2z4e",
+                            Privacy = 0,
+                            Role = 6,
+                            Username = "admin",
+                            UsersInfoId = 1
+                        });
                 });
 
             modelBuilder.Entity("lcpblogapi.Models.Comment", b =>

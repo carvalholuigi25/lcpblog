@@ -110,6 +110,20 @@ CREATE TABLE [PostTags] (
     CONSTRAINT [FK_PostTags_Tags_TagId] FOREIGN KEY ([TagId]) REFERENCES [Tags] ([TagId]) ON DELETE CASCADE
 );
 
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'UserId', N'About', N'Avatar', N'Cover', N'DisplayName', N'Email', N'Password', N'Privacy', N'Role', N'Username', N'UsersInfoId') AND [object_id] = OBJECT_ID(N'[Users]'))
+    SET IDENTITY_INSERT [Users] ON;
+INSERT INTO [Users] ([UserId], [About], [Avatar], [Cover], [DisplayName], [Email], [Password], [Privacy], [Role], [Username], [UsersInfoId])
+VALUES (1, N'Luis Carvalho', N'avatars/luis.jpg', N'covers/luis.jpg', N'Luis Carvalho', N'luiscarvalho239@gmail.com', N'$2a$10$mXtC305.hkCDpJxsqUd.4upZYJZD6VrCz698O75DliuC4OK3nWC0i', 0, 6, N'admin', 1);
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'UserId', N'About', N'Avatar', N'Cover', N'DisplayName', N'Email', N'Password', N'Privacy', N'Role', N'Username', N'UsersInfoId') AND [object_id] = OBJECT_ID(N'[Users]'))
+    SET IDENTITY_INSERT [Users] OFF;
+
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'PostId', N'Content', N'CreatedAt', N'Image', N'Slug', N'Status', N'Title', N'UpdatedAt', N'UserId') AND [object_id] = OBJECT_ID(N'[Posts]'))
+    SET IDENTITY_INSERT [Posts] ON;
+INSERT INTO [Posts] ([PostId], [Content], [CreatedAt], [Image], [Slug], [Status], [Title], [UpdatedAt], [UserId])
+VALUES (1, N'Welcome to LCPBlog!', '2025-02-22T16:26:48.4501653+00:00', N'blog.jpg', N'/', 0, N'Welcome to LCPBlog!', '2025-02-22T16:26:48.4501960+00:00', 1);
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'PostId', N'Content', N'CreatedAt', N'Image', N'Slug', N'Status', N'Title', N'UpdatedAt', N'UserId') AND [object_id] = OBJECT_ID(N'[Posts]'))
+    SET IDENTITY_INSERT [Posts] OFF;
+
 CREATE INDEX [IX_Comments_PostId] ON [Comments] ([PostId]);
 
 CREATE INDEX [IX_Comments_UserId] ON [Comments] ([UserId]);
@@ -123,7 +137,7 @@ CREATE INDEX [IX_PostTags_TagId] ON [PostTags] ([TagId]);
 CREATE INDEX [IX_RefreshToken_UserId] ON [RefreshToken] ([UserId]);
 
 INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
-VALUES (N'20250222101616_InitialCreateSQLServer', N'9.0.0');
+VALUES (N'20250222162649_InitialCreateSQLServer', N'9.0.0');
 
 COMMIT;
 GO

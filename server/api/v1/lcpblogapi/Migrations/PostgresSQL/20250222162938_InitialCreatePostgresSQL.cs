@@ -211,6 +211,16 @@ namespace lcpblogapi.Migrations.PostgresSQL
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "UserId", "About", "Avatar", "Cover", "DisplayName", "Email", "Password", "Privacy", "Role", "Username", "UsersInfoId" },
+                values: new object[] { 1, "Luis Carvalho", "avatars/luis.jpg", "covers/luis.jpg", "Luis Carvalho", "luiscarvalho239@gmail.com", "$2a$10$gkXD.CeFANpYcWPszE/Wv.goIQ.ueboXZOBRd/FktTsW9bs/0okhm", 0, 6, "admin", 1 });
+
+            migrationBuilder.InsertData(
+                table: "Posts",
+                columns: new[] { "PostId", "Content", "CreatedAt", "Image", "Slug", "Status", "Title", "UpdatedAt", "UserId" },
+                values: new object[] { 1, "Welcome to LCPBlog!", new DateTimeOffset(new DateTime(2025, 2, 22, 16, 29, 37, 411, DateTimeKind.Unspecified).AddTicks(4565), new TimeSpan(0, 0, 0, 0, 0)), "blog.jpg", "/", 0, "Welcome to LCPBlog!", new DateTimeOffset(new DateTime(2025, 2, 22, 16, 29, 37, 411, DateTimeKind.Unspecified).AddTicks(4848), new TimeSpan(0, 0, 0, 0, 0)), 1 });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_PostId",
                 table: "Comments",

@@ -12,7 +12,7 @@ public class User
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [Key]
-    public int UserId { get; set; }
+    public int? UserId { get; set; } = 0;
 
     [DefaultValue("")]
     public string Username { get; set; } = null!;
@@ -58,7 +58,7 @@ public class User
 public class UsersInfo {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [Key]
-    public int? UsersInfoId { get; set; }
+    public int? UsersInfoId { get; set; } = 0;
 
     [DefaultValue("")]
     public string? PhoneUser { get; set; }

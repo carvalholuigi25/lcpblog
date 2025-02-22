@@ -245,6 +245,16 @@ namespace lcpblogapi.Migrations.MySQL
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "UserId", "About", "Avatar", "Cover", "DisplayName", "Email", "Password", "Privacy", "Role", "Username", "UsersInfoId" },
+                values: new object[] { 1, "Luis Carvalho", "avatars/luis.jpg", "covers/luis.jpg", "Luis Carvalho", "luiscarvalho239@gmail.com", "$2a$10$YTr02syt4cQVfc3Kr4NeMuJrJq/sW7WTp6KbRE9tA/qDEiZTo2z4e", 0, 6, "admin", 1 });
+
+            migrationBuilder.InsertData(
+                table: "Posts",
+                columns: new[] { "PostId", "Content", "CreatedAt", "Image", "Slug", "Status", "Title", "UpdatedAt", "UserId" },
+                values: new object[] { 1, "Welcome to LCPBlog!", new DateTimeOffset(new DateTime(2025, 2, 22, 16, 28, 52, 938, DateTimeKind.Unspecified).AddTicks(8573), new TimeSpan(0, 0, 0, 0, 0)), "blog.jpg", "/", 0, "Welcome to LCPBlog!", new DateTimeOffset(new DateTime(2025, 2, 22, 16, 28, 52, 938, DateTimeKind.Unspecified).AddTicks(8874), new TimeSpan(0, 0, 0, 0, 0)), 1 });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_PostId",
                 table: "Comments",

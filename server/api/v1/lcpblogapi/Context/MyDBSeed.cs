@@ -13,9 +13,9 @@ public class MyDBSeed
         _modelBuilder = modelBuilder;
     }
 
-    public void Seed(bool isseed = false)
+    public void Seed(bool enableSeedDataDef = false)
     {
-        if (isseed)
+        if (enableSeedDataDef)
         {
             _modelBuilder.Entity<User>().HasData(MyDBFunctions.GetNewUsersData());
             _modelBuilder.Entity<Post>().HasData(MyDBFunctions.GetNewPostsData());

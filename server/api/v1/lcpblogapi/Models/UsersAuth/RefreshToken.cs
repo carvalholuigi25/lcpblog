@@ -9,7 +9,7 @@ public class RefreshToken
 {
     [Key]
     [JsonIgnore]
-    public int Id { get; set; }
+    public int? Id { get; set; } = 0;
     public string Token { get; set; } = null!;
     public DateTimeOffset Expires { get; set; }
     public DateTimeOffset Created { get; set; }

@@ -25,15 +25,27 @@ public class MyDBContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        if(!optionsBuilder.IsConfigured) {
-            var defdbm = _config.GetSection("DefDBMode").Value ?? "MemoryDB";
+        var defdbm = _config.GetSection("DefDBMode").Value ?? "MemoryDB";
+        var enableSeedDataDef = Convert.ToBoolean(_config.GetSection("SeedDataDefDB").Value!.ToString() ?? "false");
 
-            if(defdbm == "MemoryDB") {
-                optionsBuilder.UseInMemoryDatabase("DBContext")
-                .UseSeeding(MyDBFunctions.GenSeedData)
-                .UseAsyncSeeding(MyDBFunctions.GenSeedAsyncData)
-                .ConfigureWarnings(w => w.Ignore(RelationalEventId.PendingModelChangesWarning))
-                .EnableDetailedErrors();
+        if (!optionsBuilder.IsConfigured)
+        {
+            if (defdbm == "MemoryDB")
+            {
+                if (!!enableSeedDataDef)
+                {
+                    optionsBuilder.UseInMemoryDatabase("DBContext")
+                    .UseSeeding(MyDBFunctions.GenSeedData)
+                    .UseAsyncSeeding(MyDBFunctions.GenSeedAsyncData)
+                    .ConfigureWarnings(w => w.Ignore(RelationalEventId.PendingModelChangesWarning))
+                    .EnableDetailedErrors();
+                }
+                else
+                {
+                    optionsBuilder.UseInMemoryDatabase("DBContext")
+                    .ConfigureWarnings(w => w.Ignore(RelationalEventId.PendingModelChangesWarning))
+                    .EnableDetailedErrors();
+                }
             }
         }
 
@@ -42,8 +54,10 @@ public class MyDBContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        var enableSeedDataDef = Convert.ToBoolean(_config.GetSection("SeedDataDefDB").Value!.ToString() ?? "false");
+
         base.OnModelCreating(modelBuilder);
-        new MyDBSeed(modelBuilder).Seed(false);
+        new MyDBSeed(modelBuilder).Seed(enableSeedDataDef);
         new MyDBRelationships(modelBuilder).DoIt();
     }
 }

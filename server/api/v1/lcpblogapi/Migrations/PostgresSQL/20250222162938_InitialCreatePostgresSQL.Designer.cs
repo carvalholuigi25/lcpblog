@@ -4,39 +4,46 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using lcpblogapi.Context;
 
 #nullable disable
 
-namespace lcpblogapi.Migrations.SQLite
+namespace lcpblogapi.Migrations.PostgresSQL
 {
-    [DbContext(typeof(MyDBContextSQLite))]
-    [Migration("20250222101533_InitialCreateSQLite")]
-    partial class InitialCreateSQLite
+    [DbContext(typeof(MyDBContextPostgresSQL))]
+    [Migration("20250222162938_InitialCreatePostgresSQL")]
+    partial class InitialCreatePostgresSQL
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "9.0.0");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "9.0.0")
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("lcpblogapi.Models.Category", b =>
                 {
                     b.Property<int>("CategoryId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CategoryId"));
 
                     b.Property<DateTimeOffset?>("CreatedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<int?>("Status")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.Property<DateTimeOffset?>("UpdatedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("CategoryId");
 
@@ -47,25 +54,27 @@ namespace lcpblogapi.Migrations.SQLite
                 {
                     b.Property<int>("CommentId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CommentId"));
 
                     b.Property<string>("Content")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<DateTimeOffset?>("CreatedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int?>("PostId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.Property<int?>("Status")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.Property<DateTimeOffset?>("UpdatedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int?>("UserId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.HasKey("CommentId");
 
@@ -80,24 +89,26 @@ namespace lcpblogapi.Migrations.SQLite
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ContentType")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("FileName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("FilePath")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<DateTimeOffset?>("UploadedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("gId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -108,46 +119,62 @@ namespace lcpblogapi.Migrations.SQLite
                 {
                     b.Property<int>("PostId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("PostId"));
 
                     b.Property<string>("Content")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<DateTimeOffset?>("CreatedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Image")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Slug")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<int?>("Status")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Title")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<DateTimeOffset?>("UpdatedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int?>("UserId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.HasKey("PostId");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Posts");
+
+                    b.HasData(
+                        new
+                        {
+                            PostId = 1,
+                            Content = "Welcome to LCPBlog!",
+                            CreatedAt = new DateTimeOffset(new DateTime(2025, 2, 22, 16, 29, 37, 411, DateTimeKind.Unspecified).AddTicks(4565), new TimeSpan(0, 0, 0, 0, 0)),
+                            Image = "blog.jpg",
+                            Slug = "/",
+                            Status = 0,
+                            Title = "Welcome to LCPBlog!",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2025, 2, 22, 16, 29, 37, 411, DateTimeKind.Unspecified).AddTicks(4848), new TimeSpan(0, 0, 0, 0, 0)),
+                            UserId = 1
+                        });
                 });
 
             modelBuilder.Entity("lcpblogapi.Models.PostCategory", b =>
                 {
                     b.Property<int>("PostId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.Property<int>("CategoryId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.HasKey("PostId", "CategoryId");
 
@@ -159,10 +186,10 @@ namespace lcpblogapi.Migrations.SQLite
             modelBuilder.Entity("lcpblogapi.Models.PostTag", b =>
                 {
                     b.Property<int>("PostId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.Property<int>("TagId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.HasKey("PostId", "TagId");
 
@@ -175,19 +202,21 @@ namespace lcpblogapi.Migrations.SQLite
                 {
                     b.Property<int>("TagId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TagId"));
 
                     b.Property<DateTimeOffset?>("CreatedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<int?>("Status")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.Property<DateTimeOffset?>("UpdatedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("TagId");
 
@@ -198,43 +227,61 @@ namespace lcpblogapi.Migrations.SQLite
                 {
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("UserId"));
 
                     b.Property<string>("About")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Avatar")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Cover")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("DisplayName")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Email")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<int?>("Privacy")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.Property<int?>("Role")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<int?>("UsersInfoId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            About = "Luis Carvalho",
+                            Avatar = "avatars/luis.jpg",
+                            Cover = "covers/luis.jpg",
+                            DisplayName = "Luis Carvalho",
+                            Email = "luiscarvalho239@gmail.com",
+                            Password = "$2a$10$gkXD.CeFANpYcWPszE/Wv.goIQ.ueboXZOBRd/FktTsW9bs/0okhm",
+                            Privacy = 0,
+                            Role = 6,
+                            Username = "admin",
+                            UsersInfoId = 1
+                        });
                 });
 
             modelBuilder.Entity("lcpblogapi.Models.Comment", b =>
@@ -305,39 +352,41 @@ namespace lcpblogapi.Migrations.SQLite
                         {
                             b1.Property<int>("Id")
                                 .ValueGeneratedOnAdd()
-                                .HasColumnType("INTEGER");
+                                .HasColumnType("integer");
+
+                            NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b1.Property<int>("Id"));
 
                             b1.Property<DateTimeOffset>("Created")
-                                .HasColumnType("TEXT");
+                                .HasColumnType("timestamp with time zone");
 
                             b1.Property<string>("CreatedByIp")
                                 .IsRequired()
-                                .HasColumnType("TEXT");
+                                .HasColumnType("text");
 
                             b1.Property<DateTimeOffset>("Expires")
-                                .HasColumnType("TEXT");
+                                .HasColumnType("timestamp with time zone");
 
                             b1.Property<string>("ReasonRevoked")
                                 .IsRequired()
-                                .HasColumnType("TEXT");
+                                .HasColumnType("text");
 
                             b1.Property<string>("ReplacedByToken")
                                 .IsRequired()
-                                .HasColumnType("TEXT");
+                                .HasColumnType("text");
 
                             b1.Property<DateTimeOffset?>("Revoked")
-                                .HasColumnType("TEXT");
+                                .HasColumnType("timestamp with time zone");
 
                             b1.Property<string>("RevokedByIp")
                                 .IsRequired()
-                                .HasColumnType("TEXT");
+                                .HasColumnType("text");
 
                             b1.Property<string>("Token")
                                 .IsRequired()
-                                .HasColumnType("TEXT");
+                                .HasColumnType("text");
 
                             b1.Property<int>("UserId")
-                                .HasColumnType("INTEGER");
+                                .HasColumnType("integer");
 
                             b1.HasKey("Id");
 
