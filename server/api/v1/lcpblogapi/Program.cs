@@ -134,7 +134,11 @@ builder.Services.AddSingleton<LocalizationMiddleware>();
 builder.Services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
 builder.Services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
 
-builder.Services.AddSignalR();
+builder.Services.AddSignalR(c => {
+    c.EnableDetailedErrors = true;
+    c.ClientTimeoutInterval = TimeSpan.FromSeconds(30);
+    c.KeepAliveInterval = TimeSpan.FromSeconds(15);
+});
 
 var app = builder.Build();
 
@@ -171,9 +175,9 @@ else
 
 app.UseCors(x => x
     .SetIsOriginAllowed(origin => true)
+    .WithOrigins("https://localhost:5000", "http://localhost:5001", "http://localhost:3000", "https://localhost:3000")
     .AllowAnyHeader()
     .AllowAnyMethod()
-    .WithOrigins("https://localhost:5000", "http://localhost:5001", "http://localhost:3000", "https://localhost:3000")
     .AllowCredentials());
 
 app.UseRequestLocalization(options);
