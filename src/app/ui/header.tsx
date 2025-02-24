@@ -1,10 +1,11 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import { delFromStorage, getFromStorage } from '@/app/hooks/localstorage';
-import Search from './search';
 import Link from 'next/link';
 import Image from "next/image";
 import styles from "@/app/page.module.scss";
+import dynamic from 'next/dynamic';
+const SearchComponent = dynamic(() => import('./search'), { ssr: false })
 
 const HeaderMenu = () => {
     const [logInfo, setLogInfo] = useState("");
@@ -109,7 +110,7 @@ const Header = () => {
                         <div className="collapse navbar-collapse" id="navbarMain">
                             <ul className="navbar-nav mx-auto me-0">
                                 <li className="nav-item">
-                                    <Search />
+                                    <SearchComponent />
                                 </li>
                             </ul>
                             <ul className="navbar-nav ms-auto me-0">

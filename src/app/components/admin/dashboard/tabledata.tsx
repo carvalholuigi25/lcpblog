@@ -6,7 +6,7 @@ export interface THeadersModel {
     title: string;
 }
 
-export default function TableData({ theaders, tdata }: { theaders: THeadersModel[], tdata: any }) {
+export default function TableData({ theaders, tdata, namep }: { theaders: THeadersModel[], tdata: any, namep: string }) {
     const isBorderEnabled = true;
     const isRoundedEnabled = false;
     const isBorderEnabledCl = isBorderEnabled ? "bordered" : "nobordered";
@@ -51,10 +51,10 @@ export default function TableData({ theaders, tdata }: { theaders: THeadersModel
                                     ))}
 
                                     <td>
-                                        <Link href={'/pages/news/edit/' + vid} className="btn btn-primary btnedit">
+                                        <Link href={'/pages/'+namep+'/edit/' + vid} className="btn btn-primary btnedit">
                                             <i className="bi bi-pencil-fill" style={{ border: 0 }}></i>
                                         </Link>
-                                        <Link href={'/pages/news/delete/' + vid} className="btn btn-primary btndel">
+                                        <Link href={'/pages/'+namep+'/delete/' + vid} className="btn btn-primary btndel">
                                             <i className="bi bi-trash3-fill" style={{ border: 0 }}></i>
                                         </Link>
                                     </td>

@@ -99,7 +99,7 @@ export default function AdminPosts() {
 
                                         {!!posts && (
                                             <div className="col-12 mt-3">
-                                                <TableData theaders={tableHeaders} tdata={posts} />
+                                                <TableData theaders={tableHeaders} tdata={posts} namep="news" />
                                             </div>
                                         )}
 

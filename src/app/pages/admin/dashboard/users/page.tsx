@@ -92,7 +92,7 @@ export default function AdminUsers() {
                                     <div className="row">
                                         {!!users && (
                                             <div className="col-12">
-                                                <TableData theaders={tableHeaders} tdata={users} />
+                                                <TableData theaders={tableHeaders} tdata={users} namep="users" />
                                             </div>
                                         )}
 
