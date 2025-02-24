@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useCallback, useState } from 'react';
+import React, { Suspense, useCallback, useState } from 'react';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { TFormSearchData, fsearchSchema } from "@/app/schemas/formSchemas";
 import { useForm } from 'react-hook-form';
@@ -54,7 +54,7 @@ const Search = () => {
     }
 
     return (
-        <>
+        <Suspense>
             <form className="d-flex frmsearch">
                 <input
                     {...register("search")}
@@ -75,7 +75,7 @@ const Search = () => {
             </form>
 
             {showModal && <ModalSearch statusModal={showModal} onClose={closeModal} />}
-        </>
+        </Suspense>
     );
 }
 

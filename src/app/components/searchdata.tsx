@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Posts } from "@/app/interfaces/posts";
 import FetchData from "@/app/utils/fetchdata";
 import { useSearchParams } from "next/navigation";
@@ -44,15 +44,17 @@ export default function SearchData() {
         });
 
         return ( 
-            <div>
-                <p>You searched for: {search}</p>
-                {items}
-            </div>
+            <>
+                <div>
+                    <p>You searched for: {search}</p>
+                    {items}
+                </div>
+            </>
         );
     }
 
     return (
-        <>
+        <Suspense>
             {!loading && fetchSearchItems()}
 
             {!!loading && (
@@ -61,6 +63,6 @@ export default function SearchData() {
                     <p>Loading...</p>
                 </div>
             )}
-        </>
+        </Suspense>
     );
 }
