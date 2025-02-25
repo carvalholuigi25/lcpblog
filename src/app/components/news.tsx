@@ -41,7 +41,10 @@ export default function News({ pid }: { pid: number }) {
         }
 
         fetchNews();
-        loadMyRealData({hubname: "datahub", skipNegotiation: false, fetchData: fetchNews});
+
+        if(!loading) {
+            loadMyRealData({hubname: "datahub", skipNegotiation: false, fetchData: fetchNews});
+        }
     }, [pid, loading]);
 
     if (loading) {

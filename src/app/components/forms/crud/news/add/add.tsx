@@ -31,6 +31,7 @@ const AddNewsForm = () => {
     const [isResetedForm, setIsResetedForm] = useState(false);
     const [editorState, setEditorState] = useState("");
     const [logInfo] = useState(getFromStorage("logInfo"));
+    const [loading, setLoading] = useState(true);
     const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
 
     const { push } = useRouter();
@@ -75,10 +76,43 @@ const AddNewsForm = () => {
 
         if(logInfo) {
             setIsLoggedIn(true);
+            setLoading(false);
         }
 
-        addMyRealData();
-    }, [isResetedForm, logInfo]);
+        if(!loading) {
+            addMyRealData();
+        }
+    }, [isResetedForm, logInfo, loading]);
+
+    if (loading) {
+        return (
+            <div className='container'>
+                <div className='row justify-content-center align-items-center p-3'>
+                    <div className='col-12 card p-3 text-center'>
+                        <div className='card-body'>
+                            <i className="bi-clock" style={{ fontSize: "4rem" }}></i>
+                            <p>Loading...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    if (loading) {
+        return (
+            <div className='container'>
+                <div className='row justify-content-center align-items-center p-3'>
+                    <div className='col-12 card p-3 text-center'>
+                        <div className='card-body'>
+                            <i className="bi-clock" style={{ fontSize: "4rem" }}></i>
+                            <p>Loading...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     const getUserId = () => {
         return getFromStorage("logInfo") ? JSON.parse(getFromStorage("logInfo")!)[0].userId : null;
