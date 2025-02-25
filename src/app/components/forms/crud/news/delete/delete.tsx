@@ -5,18 +5,40 @@ import { useEffect, useState } from "react";
 import { getFromStorage } from "@/app/hooks/localstorage";
 import { useRouter } from "next/navigation";
 import { Posts } from "@/app/interfaces/posts";
+import { buildMyConnection, sendMessage } from "@/app/functions/functions";
 import Link from "next/link";
 import FetchDataAxios from "@/app/utils/fetchdataaxios";
 
 const DeleteNewsForm = ({ id, data }: { id: number, data: Posts }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [logInfo] = useState(getFromStorage("logInfo"));
+    const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
     const { push } = useRouter();
-
+    
     useEffect(() => {
+        async function deleteMyRealData() {
+            const connect = await buildMyConnection("datahub", false);
+            setConnection(connect);
+        
+            try {
+                await connect.start();
+                console.log("Connection started");
+            } catch (e) {
+                console.log(e);
+            }
+        
+            connect.on("ReceiveMessage", () => {
+                console.log("message deleted");
+            });
+        
+            return () => connect.stop();
+        }
+
         if (logInfo) {
             setIsLoggedIn(true);
         }
+
+        deleteMyRealData();
     }, [logInfo]);
 
     const handleSubmit = async (e: any) => {
@@ -27,8 +49,9 @@ const DeleteNewsForm = ({ id, data }: { id: number, data: Posts }) => {
                 url: `api/posts/` + id,
                 method: 'delete',
                 data: data
-            }).then((r) => {
+            }).then(async (r) => {
                 console.log(r);
+                await sendMessage(connection!, r.data);
 
                 setTimeout(() => {
                     alert("The news post (id: " + id + ") has been deleted sucessfully!");

@@ -8,13 +8,14 @@ import { getFromStorage } from "@/app/hooks/localstorage";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Posts } from "@/app/interfaces/posts";
+import { EditorState } from "lexical";
+import { buildMyConnection, sendMessage } from "@/app/functions/functions";
 import ShowAlert from "@/app/components/alerts";
 import styles from "@/app/page.module.scss";
 import Image from "next/image";
 import Link from "next/link";
 import FetchDataAxios from "@/app/utils/fetchdataaxios";
 import MyEditorPost from "@/app/components/editor/myeditorpost";
-import { EditorState } from "lexical";
 
 const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
     const [formData, setFormData] = useState({
@@ -31,6 +32,7 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
     const [isResetedForm, setIsResetedForm] = useState(false);
     const [editorState, setEditorState] = useState("");
     const [logInfo] = useState(getFromStorage("logInfo"));
+    const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
     const { push } = useRouter();
 
     const {
@@ -41,6 +43,24 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
     });
 
     useEffect(() => {
+        async function updateMyRealData() {
+            const connect = await buildMyConnection("datahub", false);
+            setConnection(connect);
+        
+            try {
+                await connect.start();
+                console.log("Connection started");
+            } catch (e) {
+                console.log(e);
+            }
+        
+            connect.on("ReceiveMessage", () => {
+                console.log("message updated");
+            });
+        
+            return () => connect.stop();
+        }
+
         if(!!isResetedForm) {
             setFormData({
                 postId: data.postId ?? 1,
@@ -56,6 +76,8 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
         if(logInfo) {
             setIsLoggedIn(true);
         }
+
+        updateMyRealData();
     }, [isResetedForm, logInfo, data]);
 
     const getUserId = () => {
@@ -79,8 +101,9 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
                 url: `api/posts/`+id,
                 method: 'put',
                 data: formData
-            }).then((r) => {
+            }).then(async (r) => {
                 console.log(r);
+                await sendMessage(connection!, r.data);
 
                 setTimeout(() => {
                     alert("The news post (id: "+id+") has been updated sucessfully!");

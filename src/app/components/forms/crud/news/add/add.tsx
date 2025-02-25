@@ -8,6 +8,7 @@ import { TFormNews, fnewsSchema } from "@/app/schemas/formSchemas";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { EditorState } from "lexical";
+import { buildMyConnection, sendMessage } from "@/app/functions/functions";
 import ShowAlert from "@/app/components/alerts";
 import styles from "@/app/page.module.scss";
 import Image from "next/image";
@@ -42,18 +43,8 @@ const AddNewsForm = () => {
     });
 
     useEffect(() => {
-        async function loadMyRealData() {
-            const connect = new signalR.HubConnectionBuilder()
-                .withUrl(`${process.env.apiURL}/datahub`, {
-                    skipNegotiation: false,
-                    transport: signalR.HttpTransportType.None,
-                    withCredentials: false,
-                    accessTokenFactory: async () => { return "" }
-                })
-                .withAutomaticReconnect()
-                .configureLogging(signalR.LogLevel.Information)
-                .build();
-
+        async function addMyRealData() {
+            const connect = await buildMyConnection("datahub", false);
             setConnection(connect);
         
             try {
@@ -64,7 +55,7 @@ const AddNewsForm = () => {
             }
         
             connect.on("ReceiveMessage", () => {
-                console.log("message received");
+                console.log("message added");
             });
         
             return () => connect.stop();
@@ -85,7 +76,7 @@ const AddNewsForm = () => {
             setIsLoggedIn(true);
         }
 
-        loadMyRealData();
+        addMyRealData();
     }, [isResetedForm, logInfo]);
 
     const getUserId = () => {
@@ -112,10 +103,7 @@ const AddNewsForm = () => {
                 reqAuthorize: false
             }).then(async (r) => {
                 console.log(r);
-                
-                if(connection) {
-                    await connection.send("SendMessage", r.data);
-                }
+                await sendMessage(connection!, r.data);
 
                 setTimeout(() => {
                     alert("The news post has been added sucessfully!");
