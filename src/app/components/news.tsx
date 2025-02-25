@@ -10,6 +10,8 @@ import styles from "@/app/page.module.scss";
 import Image from "next/image";
 import Link from "next/link";
 import MyEditorPost from "./editor/myeditorpost";
+import * as signalR from "@microsoft/signalr";
+// import useMyHub from "../hooks/hub";
 
 export default function News({ pid }: { pid: number }) {
     const [news, setNews] = useState(new Array<Posts>());
@@ -38,7 +40,36 @@ export default function News({ pid }: { pid: number }) {
             setUsers(JSON.parse(JSON.stringify(usersdata)));
             setLoading(false);
         }
-        fetchNews()
+
+        async function loadMyRealData() {
+            const connection = new signalR.HubConnectionBuilder()
+                .withUrl(`${process.env.apiURL}/datahub`, {
+                    skipNegotiation: false,
+                    transport: signalR.HttpTransportType.None,
+                    withCredentials: false,
+                    accessTokenFactory: async () => { return "" }
+                })
+                .withAutomaticReconnect()
+                .configureLogging(signalR.LogLevel.Information)
+                .build();
+        
+            try {
+                await connection.start();
+                console.log("Connection started");
+            } catch (e) {
+                console.log(e);
+            }
+        
+            connection.on("ReceiveMessage", () => {
+                console.log("message received");
+                fetchNews();
+            });
+        
+            return () => connection.stop();
+        }
+
+        fetchNews();
+        loadMyRealData();
     }, [pid, loading]);
 
     if (loading) {

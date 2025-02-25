@@ -7,13 +7,14 @@ import { getFromStorage } from "@/app/hooks/localstorage";
 import { TFormNews, fnewsSchema } from "@/app/schemas/formSchemas";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import { EditorState } from "lexical";
 import ShowAlert from "@/app/components/alerts";
 import styles from "@/app/page.module.scss";
 import Image from "next/image";
 import Link from "next/link";
 import FetchDataAxios from "@/app/utils/fetchdataaxios";
 import MyEditorPost from "@/app/components/editor/myeditorpost";
-import { EditorState } from "lexical";
+import * as signalR from "@microsoft/signalr";
 
 const AddNewsForm = () => {
     const [formData, setFormData] = useState({
@@ -29,6 +30,8 @@ const AddNewsForm = () => {
     const [isResetedForm, setIsResetedForm] = useState(false);
     const [editorState, setEditorState] = useState("");
     const [logInfo] = useState(getFromStorage("logInfo"));
+    const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
+
     const { push } = useRouter();
 
     const {
@@ -39,6 +42,34 @@ const AddNewsForm = () => {
     });
 
     useEffect(() => {
+        async function loadMyRealData() {
+            const connect = new signalR.HubConnectionBuilder()
+                .withUrl(`${process.env.apiURL}/datahub`, {
+                    skipNegotiation: false,
+                    transport: signalR.HttpTransportType.None,
+                    withCredentials: false,
+                    accessTokenFactory: async () => { return "" }
+                })
+                .withAutomaticReconnect()
+                .configureLogging(signalR.LogLevel.Information)
+                .build();
+
+            setConnection(connect);
+        
+            try {
+                await connect.start();
+                console.log("Connection started");
+            } catch (e) {
+                console.log(e);
+            }
+        
+            connect.on("ReceiveMessage", () => {
+                console.log("message received");
+            });
+        
+            return () => connect.stop();
+        }
+
         if(!!isResetedForm) {
             setFormData({
                 title: "",
@@ -53,6 +84,8 @@ const AddNewsForm = () => {
         if(logInfo) {
             setIsLoggedIn(true);
         }
+
+        loadMyRealData();
     }, [isResetedForm, logInfo]);
 
     const getUserId = () => {
@@ -77,8 +110,12 @@ const AddNewsForm = () => {
                 method: 'post',
                 data: formData,
                 reqAuthorize: false
-            }).then((r) => {
+            }).then(async (r) => {
                 console.log(r);
+                
+                if(connection) {
+                    await connection.send("SendMessage", r.data);
+                }
 
                 setTimeout(() => {
                     alert("The news post has been added sucessfully!");
