@@ -2,7 +2,7 @@ import { MyHubData } from '../interfaces/myhubdata';
 import * as signalR from '@microsoft/signalr';
 
 export async function buildMyConnection(hubname: string, skipNegotiation: boolean) {
-  const connect = new signalR.HubConnectionBuilder()
+  return new signalR.HubConnectionBuilder()
   .withUrl(`${process.env.apiURL}/${hubname}`, {
     skipNegotiation: skipNegotiation,
     transport: skipNegotiation ? signalR.HttpTransportType.WebSockets : signalR.HttpTransportType.None,
@@ -12,14 +12,13 @@ export async function buildMyConnection(hubname: string, skipNegotiation: boolea
   .withAutomaticReconnect()
   .configureLogging(signalR.LogLevel.Information)
   .build();
-
-  return connect;
 }
 
 export async function loadMyRealData({ hubname, skipNegotiation, fetchData }: MyHubData) {
   const connection = await buildMyConnection(hubname, skipNegotiation);
 
   try {
+    await connection.stop();
     await connection.start();
     console.log("Connection started");
   } catch (e) {

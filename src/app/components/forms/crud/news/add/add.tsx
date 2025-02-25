@@ -48,6 +48,7 @@ const AddNewsForm = () => {
             setConnection(connect);
         
             try {
+                await connect.stop();
                 await connect.start();
                 console.log("Connection started");
             } catch (e) {
@@ -103,10 +104,10 @@ const AddNewsForm = () => {
                 reqAuthorize: false
             }).then(async (r) => {
                 console.log(r);
-                await sendMessage(connection!, r.data);
 
-                setTimeout(() => {
+                setTimeout(async () => {
                     alert("The news post has been added sucessfully!");
+                    await sendMessage(connection!, r.data);
                     push("/");
                 }, 1000 / 2);
             }).catch((err) => {
