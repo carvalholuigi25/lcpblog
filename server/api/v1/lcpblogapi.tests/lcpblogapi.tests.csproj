@@ -9,6 +9,11 @@
 
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.2" />
+    <PackageReference Include="coverlet.msbuild" Version="6.0.4">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+	<PackageReference Include="ReportGenerator" Version="5.4.4" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
     <PackageReference Include="xunit" Version="2.9.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
@@ -54,10 +59,13 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+  	<Target Name="GenerateHtmlCoverageReport" AfterTargets="GenerateCoverageResultAfterTest">
+		<ReportGenerator ReportFiles="@(CoverletReport)" TargetDirectory="C:\Users\luisc\Documents\projects\lcpblog\server\api\v1\lcpblogapi.tests\TestResults\coverage\report" />
+	</Target>
+
 	<ItemGroup>
 		<ProjectReference Include="..\lcpblogapi\lcpblogapi.csproj" />
 	</ItemGroup>
-
 
 	<ItemGroup>
 		<ProjectReference Include="..\lcpblogapi.library\lcpblogapi.library.csproj" />

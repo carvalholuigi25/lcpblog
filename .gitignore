@@ -69,4 +69,15 @@ next-env.d.ts
 /server/api/v1/lcpblogapi/Database/MySQL/*.*
 /server/api/v1/lcpblogapi/Database/PostgresSQL/*.*
 server/api/v1/lcpblogapi/Database/SQLite/lcpblogapidb.db
+
+# npm package-lock files
 package-lock.json
+
+/server/api/v1/lcpblogapi.tests/TestResults/
+/server/api/v1/lcpblogapi.tests/coverage.cobertura.xml
+
+/server/api/v1/lcpblogapi/.vs/
+/server/api/v1/lcpblogapi.library/.vs/
+/server/api/v1/lcpblogapi.Tests/.vs/
+.vs/
+**/.vs/
