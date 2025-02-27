@@ -43,10 +43,10 @@ namespace lcpblogapi.tests
         {
             // Arrange
             var users = new User { UserId = 1, Username = "admin" };
-            _mockRepo.Setup(repo => repo.GetUser(1)).ReturnsAsync(users);
+            _mockRepo.Setup(repo => repo.GetUser(users.UserId)).ReturnsAsync(users);
 
             // Act
-            var result = await _controller.GetUser(1);
+            var result = await _controller.GetUser(users.UserId);
 
             // Assert
             var okResult = Assert.IsType<ActionResult<User>>(result);
@@ -110,7 +110,7 @@ namespace lcpblogapi.tests
             _mockRepo.Setup(repo => repo.PutUser(user.UserId, user)).ReturnsAsync(Ok(false));
 
             // Act
-            var result = await _controller.PutUser(1, user);
+            var result = await _controller.PutUser(user.UserId.Value, user);
 
             // Assert
             Assert.IsType<OkObjectResult>(result);
@@ -138,7 +138,7 @@ namespace lcpblogapi.tests
             _mockRepo.Setup(repo => repo.DeleteUser(userid)).ReturnsAsync(Ok(false));
 
             // Act
-            var result = await _controller.DeleteUser(1);
+            var result = await _controller.DeleteUser(userid);
 
             // Assert
             Assert.IsType<OkObjectResult>(result);
