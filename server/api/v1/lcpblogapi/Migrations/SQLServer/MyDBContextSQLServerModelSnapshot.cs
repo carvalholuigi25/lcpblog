@@ -36,6 +36,9 @@ namespace lcpblogapi.Migrations.SQLServer
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Slug")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("Status")
                         .HasColumnType("int");
 
@@ -45,6 +48,35 @@ namespace lcpblogapi.Migrations.SQLServer
                     b.HasKey("CategoryId");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryId = 1,
+                            CreatedAt = new DateTimeOffset(new DateTime(2025, 2, 28, 16, 41, 58, 397, DateTimeKind.Unspecified).AddTicks(446), new TimeSpan(0, 0, 0, 0, 0)),
+                            Name = "Geral",
+                            Slug = "/geral",
+                            Status = 0,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2025, 2, 28, 16, 41, 58, 397, DateTimeKind.Unspecified).AddTicks(735), new TimeSpan(0, 0, 0, 0, 0))
+                        },
+                        new
+                        {
+                            CategoryId = 2,
+                            CreatedAt = new DateTimeOffset(new DateTime(2025, 2, 28, 16, 41, 58, 397, DateTimeKind.Unspecified).AddTicks(1008), new TimeSpan(0, 0, 0, 0, 0)),
+                            Name = "Tecnologia",
+                            Slug = "/tecnologia",
+                            Status = 0,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2025, 2, 28, 16, 41, 58, 397, DateTimeKind.Unspecified).AddTicks(1010), new TimeSpan(0, 0, 0, 0, 0))
+                        },
+                        new
+                        {
+                            CategoryId = 3,
+                            CreatedAt = new DateTimeOffset(new DateTime(2025, 2, 28, 16, 41, 58, 397, DateTimeKind.Unspecified).AddTicks(1017), new TimeSpan(0, 0, 0, 0, 0)),
+                            Name = "Outros",
+                            Slug = "/outros",
+                            Status = 0,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2025, 2, 28, 16, 41, 58, 397, DateTimeKind.Unspecified).AddTicks(1019), new TimeSpan(0, 0, 0, 0, 0))
+                        });
                 });
 
             modelBuilder.Entity("lcpblogapi.Models.Comment", b =>
@@ -120,6 +152,9 @@ namespace lcpblogapi.Migrations.SQLServer
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PostId"));
 
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
 
@@ -144,6 +179,9 @@ namespace lcpblogapi.Migrations.SQLServer
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("Views")
+                        .HasColumnType("int");
+
                     b.HasKey("PostId");
 
                     b.HasIndex("UserId");
@@ -154,14 +192,16 @@ namespace lcpblogapi.Migrations.SQLServer
                         new
                         {
                             PostId = 1,
+                            CategoryId = 1,
                             Content = "Welcome to LCPBlog!",
-                            CreatedAt = new DateTimeOffset(new DateTime(2025, 2, 22, 17, 23, 17, 925, DateTimeKind.Unspecified).AddTicks(3052), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2025, 2, 28, 16, 41, 58, 396, DateTimeKind.Unspecified).AddTicks(4171), new TimeSpan(0, 0, 0, 0, 0)),
                             Image = "blog.jpg",
                             Slug = "/",
                             Status = 0,
                             Title = "Welcome to LCPBlog!",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2025, 2, 22, 17, 23, 17, 925, DateTimeKind.Unspecified).AddTicks(3343), new TimeSpan(0, 0, 0, 0, 0)),
-                            UserId = 1
+                            UpdatedAt = new DateTimeOffset(new DateTime(2025, 2, 28, 16, 41, 58, 396, DateTimeKind.Unspecified).AddTicks(4472), new TimeSpan(0, 0, 0, 0, 0)),
+                            UserId = 1,
+                            Views = 0
                         });
                 });
 
@@ -273,7 +313,7 @@ namespace lcpblogapi.Migrations.SQLServer
                             Cover = "covers/luis.jpg",
                             DisplayName = "Luis Carvalho",
                             Email = "luiscarvalho239@gmail.com",
-                            Password = "$2a$10$ZUb8oSRl.5Mww9cLgewhceUGdPfGRy4ErwLlpw1VJUqDC/mTD4bNi",
+                            Password = "$2a$10$NzYb.7d/LrfJtL5VYt1fK.klCQXgB4p2br1DaYzrFstv7ZzcvNNCC",
                             Privacy = 0,
                             Role = 6,
                             Username = "admin",

@@ -24,6 +24,12 @@ public class Post
     [DefaultValue("/")]
     public string? Slug { get; set; } = "/";
 
+    [DefaultValue(0)]
+    public int? Views { get; set; } = 0;
+
+    [DefaultValue(1)]
+    public int? CategoryId { get; set; } = 1;
+
     public DateTimeOffset? CreatedAt { get; set; } = DateTimeOffset.Now;
     public DateTimeOffset? UpdatedAt { get; set; } = DateTimeOffset.Now;
 

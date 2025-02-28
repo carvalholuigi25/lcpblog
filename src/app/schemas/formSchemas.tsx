@@ -52,6 +52,7 @@ export const fnewsSchema = z.object({
     image: z.coerce.string().optional(),
     slug: z.coerce.string().optional(),
     status: z.coerce.string().optional(),
+    categoryId: z.coerce.number().optional(),
     userId: z.coerce.number().optional()
 });
 

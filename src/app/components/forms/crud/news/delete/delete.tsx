@@ -116,6 +116,7 @@ const DeleteNewsForm = ({ id, data }: { id: number, data: Posts }) => {
                                     <tr>
                                         <th>Id</th>
                                         <th>Title</th>
+                                        <th>Category Id</th>
                                         <th>User Id</th>
                                     </tr>
                                 </thead>
@@ -123,6 +124,7 @@ const DeleteNewsForm = ({ id, data }: { id: number, data: Posts }) => {
                                     <tr>
                                         <td>{data.postId}</td>
                                         <td>{data.title}</td>
+                                        <td>{data.categoryId}</td>
                                         <td>{data.userId}</td>
                                     </tr>
                                 </tbody>

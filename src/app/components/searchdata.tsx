@@ -34,7 +34,7 @@ export default function SearchData() {
                 <div key={i}>
                     <ul>
                         <li>
-                            <Link href={'/pages/news/'+nitem.postId}>
+                            <Link href={'/pages/news/'+nitem.categoryId+'/'+nitem.postId}>
                                 {nitem.title}
                             </Link>
                         </li>

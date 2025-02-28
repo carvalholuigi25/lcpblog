@@ -6,13 +6,13 @@ import Footer from "@/app/ui/footer";
 import Header from "@/app/ui/header";
 
 export default function NewsPage() {
-  const { id } = useParams();
+  const { cid } = useParams();
 
   return (    
     <div className={styles.page} id="mallnewspage" style={{paddingTop: '5rem'}}>
     <Header />
     <section>
-    <News pid={parseInt(""+id, 0)} />
+    <News cid={parseInt(""+cid, 0)} pid={-1} />
     </section>
     <Footer />
     </div>

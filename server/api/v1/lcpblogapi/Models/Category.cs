@@ -12,8 +12,11 @@ public class Category
     [Key]
     public int? CategoryId { get; set; }
 
-    [DefaultValue("")]
+    [DefaultValue("Geral")]
     public string? Name { get; set; } = "";
+    
+    [DefaultValue("/geral")]
+    public string? Slug { get; set; } = "";
     
     public DateTimeOffset? CreatedAt { get; set; } = DateTimeOffset.Now;
     public DateTimeOffset? UpdatedAt { get; set; } = DateTimeOffset.Now;

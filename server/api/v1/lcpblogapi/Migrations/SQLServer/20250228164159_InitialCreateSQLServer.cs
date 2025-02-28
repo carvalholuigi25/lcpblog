@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace lcpblogapi.Migrations.SQLServer
 {
     /// <inheritdoc />
@@ -18,6 +20,7 @@ namespace lcpblogapi.Migrations.SQLServer
                     CategoryId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Slug = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     Status = table.Column<int>(type: "int", nullable: true)
@@ -92,6 +95,8 @@ namespace lcpblogapi.Migrations.SQLServer
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Slug = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Views = table.Column<int>(type: "int", nullable: true),
+                    CategoryId = table.Column<int>(type: "int", nullable: true),
                     CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     Status = table.Column<int>(type: "int", nullable: true),
@@ -211,14 +216,24 @@ namespace lcpblogapi.Migrations.SQLServer
                 });
 
             migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "CategoryId", "CreatedAt", "Name", "Slug", "Status", "UpdatedAt" },
+                values: new object[,]
+                {
+                    { 1, new DateTimeOffset(new DateTime(2025, 2, 28, 16, 41, 58, 397, DateTimeKind.Unspecified).AddTicks(446), new TimeSpan(0, 0, 0, 0, 0)), "Geral", "/geral", 0, new DateTimeOffset(new DateTime(2025, 2, 28, 16, 41, 58, 397, DateTimeKind.Unspecified).AddTicks(735), new TimeSpan(0, 0, 0, 0, 0)) },
+                    { 2, new DateTimeOffset(new DateTime(2025, 2, 28, 16, 41, 58, 397, DateTimeKind.Unspecified).AddTicks(1008), new TimeSpan(0, 0, 0, 0, 0)), "Tecnologia", "/tecnologia", 0, new DateTimeOffset(new DateTime(2025, 2, 28, 16, 41, 58, 397, DateTimeKind.Unspecified).AddTicks(1010), new TimeSpan(0, 0, 0, 0, 0)) },
+                    { 3, new DateTimeOffset(new DateTime(2025, 2, 28, 16, 41, 58, 397, DateTimeKind.Unspecified).AddTicks(1017), new TimeSpan(0, 0, 0, 0, 0)), "Outros", "/outros", 0, new DateTimeOffset(new DateTime(2025, 2, 28, 16, 41, 58, 397, DateTimeKind.Unspecified).AddTicks(1019), new TimeSpan(0, 0, 0, 0, 0)) }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "UserId", "About", "Avatar", "Cover", "DisplayName", "Email", "Password", "Privacy", "Role", "Username", "UsersInfoId" },
-                values: new object[] { 1, "Luis Carvalho", "avatars/luis.jpg", "covers/luis.jpg", "Luis Carvalho", "luiscarvalho239@gmail.com", "$2a$10$ZUb8oSRl.5Mww9cLgewhceUGdPfGRy4ErwLlpw1VJUqDC/mTD4bNi", 0, 6, "admin", 1 });
+                values: new object[] { 1, "Luis Carvalho", "avatars/luis.jpg", "covers/luis.jpg", "Luis Carvalho", "luiscarvalho239@gmail.com", "$2a$10$NzYb.7d/LrfJtL5VYt1fK.klCQXgB4p2br1DaYzrFstv7ZzcvNNCC", 0, 6, "admin", 1 });
 
             migrationBuilder.InsertData(
                 table: "Posts",
-                columns: new[] { "PostId", "Content", "CreatedAt", "Image", "Slug", "Status", "Title", "UpdatedAt", "UserId" },
-                values: new object[] { 1, "Welcome to LCPBlog!", new DateTimeOffset(new DateTime(2025, 2, 22, 17, 23, 17, 925, DateTimeKind.Unspecified).AddTicks(3052), new TimeSpan(0, 0, 0, 0, 0)), "blog.jpg", "/", 0, "Welcome to LCPBlog!", new DateTimeOffset(new DateTime(2025, 2, 22, 17, 23, 17, 925, DateTimeKind.Unspecified).AddTicks(3343), new TimeSpan(0, 0, 0, 0, 0)), 1 });
+                columns: new[] { "PostId", "CategoryId", "Content", "CreatedAt", "Image", "Slug", "Status", "Title", "UpdatedAt", "UserId", "Views" },
+                values: new object[] { 1, 1, "Welcome to LCPBlog!", new DateTimeOffset(new DateTime(2025, 2, 28, 16, 41, 58, 396, DateTimeKind.Unspecified).AddTicks(4171), new TimeSpan(0, 0, 0, 0, 0)), "blog.jpg", "/", 0, "Welcome to LCPBlog!", new DateTimeOffset(new DateTime(2025, 2, 28, 16, 41, 58, 396, DateTimeKind.Unspecified).AddTicks(4472), new TimeSpan(0, 0, 0, 0, 0)), 1, 0 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_PostId",

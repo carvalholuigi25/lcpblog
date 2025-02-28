@@ -16,6 +16,7 @@ import Link from "next/link";
 import FetchDataAxios from "@/app/utils/fetchdataaxios";
 import MyEditorPost from "@/app/components/editor/myeditorpost";
 import * as signalR from "@microsoft/signalr";
+import { Categories } from "@/app/interfaces/categories";
 
 const AddNewsForm = () => {
     const [formData, setFormData] = useState({
@@ -24,6 +25,7 @@ const AddNewsForm = () => {
         image: "blog.jpg",
         slug: "/news/1",
         status: "0",
+        categoryId: 1,
         userId: 1,
     });
 
@@ -32,6 +34,7 @@ const AddNewsForm = () => {
     const [editorState, setEditorState] = useState("");
     const [logInfo] = useState(getFromStorage("logInfo"));
     const [loading, setLoading] = useState(true);
+    const [listCategories, setListCategories] = useState([]);
     const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
 
     const { push } = useRouter();
@@ -63,6 +66,25 @@ const AddNewsForm = () => {
             return () => connect.stop();
         }
 
+        async function getCategories() {
+            try {
+                await FetchDataAxios({
+                    url: `api/categories`,
+                    method: 'get',
+                    reqAuthorize: false
+                }).then((r) => {
+                    setListCategories(r.data.data ?? r.data);
+                }).catch((err) => {
+                    console.error(err);
+                });
+            }
+            catch (error) {
+                console.error(error);
+            }
+        }
+
+        getCategories();
+
         if(!!isResetedForm) {
             setFormData({
                 title: "",
@@ -70,6 +92,7 @@ const AddNewsForm = () => {
                 image: "blog.jpg",
                 slug: "/news/1",
                 status: "0",
+                categoryId: 1,
                 userId: getUserId() ?? 1,
             });
         }
@@ -217,6 +240,22 @@ const AddNewsForm = () => {
                             </div>
 
                             {errors.slug && ShowAlert("danger", errors.slug.message)}
+                        </div>
+
+                        <div className="form-group mt-3 text-center">
+                            <label htmlFor="categoryId">Category:</label>
+                            <div className={styles.sformgroup}>
+                                <select {...register("categoryId")} id="categoryId" name="categoryId" className={"form-control categoryId mt-3 " + styles.sformgroupinp} value={formData.categoryId} onChange={handleChange}>
+                                    <option disabled>Select the option of category</option>
+                                    {!!listCategories && listCategories.map((category: Categories) => (
+                                        <option key={category.categoryId} value={category.categoryId}>{category.name}</option>
+                                    ))}
+
+                                    {!listCategories && <option value={1}>Geral</option>}
+                                </select>
+                            </div>
+
+                            {errors.categoryId && ShowAlert("danger", errors.categoryId.message)}
                         </div>
 
                         <div className="form-group mt-3 text-center">

@@ -16,6 +16,7 @@ import Image from "next/image";
 import Link from "next/link";
 import FetchDataAxios from "@/app/utils/fetchdataaxios";
 import MyEditorPost from "@/app/components/editor/myeditorpost";
+import { Categories } from "@/app/interfaces/categories";
 
 const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
     const [formData, setFormData] = useState({
@@ -25,6 +26,7 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
         image: data.image ?? "blog.jpg",
         slug: data.slug ?? "/news/1",
         status: data.status ?? "0",
+        categoryId: data.categoryId ?? 1,
         userId: data.userId ?? 1,
     });
 
@@ -32,6 +34,7 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
     const [isResetedForm, setIsResetedForm] = useState(false);
     const [editorState, setEditorState] = useState("");
     const [logInfo] = useState(getFromStorage("logInfo"));
+    const [listCategories, setListCategories] = useState([]);
     const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
     const [loading, setLoading] = useState(true);
     const { push } = useRouter();
@@ -63,6 +66,25 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
             return () => connect.stop();
         }
 
+        async function getCategories() {
+            try {
+                await FetchDataAxios({
+                    url: `api/categories`,
+                    method: 'get',
+                    reqAuthorize: false
+                }).then((r) => {
+                    setListCategories(r.data.data ?? r.data);
+                }).catch((err) => {
+                    console.error(err);
+                });
+            }
+            catch (error) {
+                console.error(error);
+            }
+        }
+
+        getCategories();
+
         if(!!isResetedForm) {
             setFormData({
                 postId: data.postId ?? 1,
@@ -71,6 +93,7 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
                 image: data.image ?? "blog.jpg",
                 slug: data.slug ?? "/news/1",
                 status: data.status ?? "0",
+                categoryId: data.categoryId ?? 1,
                 userId: getUserId() ?? data.userId ?? 1,
             });
         }
@@ -217,6 +240,22 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
                             </div>
 
                             {errors.slug && ShowAlert("danger", errors.slug.message)}
+                        </div>
+
+                        <div className="form-group mt-3 text-center">
+                            <label htmlFor="categoryId">Category:</label>
+                            <div className={styles.sformgroup}>
+                                <select {...register("categoryId")} id="categoryId" name="categoryId" className={"form-control categoryId mt-3 " + styles.sformgroupinp} value={formData.categoryId} onChange={handleChange}>
+                                    <option disabled>Select the option of category</option>
+                                    {!!listCategories && listCategories.map((category: Categories) => (
+                                        <option key={category.categoryId} value={category.categoryId}>{category.name}</option>
+                                    ))}
+                                    
+                                    {!listCategories && <option value={1}>Geral</option>}
+                                </select>
+                            </div>
+
+                            {errors.categoryId && ShowAlert("danger", errors.categoryId.message)}
                         </div>
 
                         <div className="form-group mt-3 text-center">

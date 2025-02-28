@@ -12,6 +12,7 @@ public static class MyDBFunctions {
         {
             context.Set<User>().AddRange(GetNewUsersData());
             context.Set<Post>().AddRange(GetNewPostsData());
+            context.Set<Category>().AddRange(GetNewCategoriesData());
             context.SaveChanges();
         }
     }
@@ -23,6 +24,7 @@ public static class MyDBFunctions {
         {
             context.Set<User>().AddRange(GetNewUsersData());
             context.Set<Post>().AddRange(GetNewPostsData());
+            context.Set<Category>().AddRange(GetNewCategoriesData());
             await context.SaveChangesAsync(cancellationToken);
         }
     }
@@ -57,6 +59,35 @@ public static class MyDBFunctions {
                 UpdatedAt = DateTimeOffset.Now,
                 Status = EPostStatus.all,
                 UserId = 1
+            }
+        ];
+    }
+
+    public static Category[] GetNewCategoriesData() {
+        return [
+            new Category() {
+                CategoryId = 1,
+                Name = "Geral",
+                Slug = "/geral",
+                Status = ECategoryStatus.all,
+                CreatedAt = DateTimeOffset.Now,
+                UpdatedAt = DateTimeOffset.Now
+            },
+            new Category() {
+                CategoryId = 2,
+                Name = "Tecnologia",
+                Slug = "/tecnologia",
+                Status = ECategoryStatus.all,
+                CreatedAt = DateTimeOffset.Now,
+                UpdatedAt = DateTimeOffset.Now
+            },
+            new Category() {
+                CategoryId = 3,
+                Name = "Outros",
+                Slug = "/outros",
+                Status = ECategoryStatus.all,
+                CreatedAt = DateTimeOffset.Now,
+                UpdatedAt = DateTimeOffset.Now
             }
         ];
     }

@@ -7,6 +7,7 @@ export interface Posts {
     createdAt: string | Date;
     updatedAt: string | Date;
     status: string;
+    categoryId: number;
     userId: number;
 }
 
