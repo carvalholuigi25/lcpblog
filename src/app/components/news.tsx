@@ -40,7 +40,7 @@ export default function News({ cid, pid }: { cid: number, pid: number }) {
                 }
             ]);
 
-            const newsdata = pid > -1 ? data[0].data.filter((item: Posts) => item.postId == pid) : data[0].data;
+            const newsdata = pid > -1 && cid > -1 ? data[0].data.filter((item: Posts) => item.categoryId == cid && item.postId == pid) : cid > -1 ? data[0].data.filter((item: Posts) => item.categoryId == cid) : data[0].data;
             const categories = cid > -1 ? data[1].data.filter((item: Categories) => item.categoryId == cid) : data[1].data;
             const usersdata = data[2].data;
             setNews(JSON.parse(JSON.stringify(newsdata)));
@@ -92,11 +92,17 @@ export default function News({ cid, pid }: { cid: number, pid: number }) {
 
         users.map((useri) => {
             news.map((newsi, i) => {
-                if (newsi.userId == useri.userId) {
-                    categories.map((categoryi) => {
+                categories.map((categoryi) => {
+                    if (newsi.userId == useri.userId) {
                         if (newsi.categoryId == categoryi.categoryId) {
                             items.push(
                                 <div className={`col-12 col-sm-6 col-md-${getMultiCols(i, true)} col-lg-${getMultiCols(i, true)} col-xl-${getMultiCols(i, true)} mb-4`} key={"news" + i}>
+                                    {cid > -1 && pid == -1 && (
+                                        <div className="col-12 text-center mb-3" key={"category" + i}>
+                                            <h2 className="txtcategory">{categoryi.name}</h2>
+                                        </div>
+                                    )}
+
                                     <div className="card cardnews shadow rounded">
                                         <Image
                                             src={`/images/${newsi.image}`}
@@ -125,8 +131,8 @@ export default function News({ cid, pid }: { cid: number, pid: number }) {
                                                         <>
                                                             <span className="linesep"></span>
                                                             <i className="bi bi-bookmark"></i>
-                                                            <Link href={"/pages/news/" + newsi.categoryId} className="txtcategory ms-2">
-                                                                Categoria: {categoryi.name}
+                                                            <Link href={"/pages/news/" + newsi.categoryId} className="txtcategory ms-2" title={"Categoria: " + categoryi.name}>
+                                                                {categoryi.name}
                                                             </Link>
                                                         </>
                                                     )}
@@ -148,8 +154,8 @@ export default function News({ cid, pid }: { cid: number, pid: number }) {
                                 </div>
                             );
                         }
-                    });
-                }
+                    }
+                });
             });
         });
 
