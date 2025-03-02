@@ -6,6 +6,7 @@ export interface Posts {
     slug: string;
     createdAt: string | Date;
     updatedAt: string | Date;
+    views?: number;
     status: string;
     categoryId: number;
     userId: number;

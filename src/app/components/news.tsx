@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useEffect, useState } from "react";
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { FetchMultipleData } from "@/app/utils/fetchdata";
 import { Posts } from "@/app/interfaces/posts";
 import { User } from "@/app/interfaces/user";
@@ -12,13 +12,16 @@ import styles from "@/app/page.module.scss";
 import Image from "next/image";
 import Link from "next/link";
 import MyEditorPost from "./editor/myeditorpost";
+import FetchDataAxios from "../utils/fetchdataaxios";
 
 export default function News({ cid, pid }: { cid: number, pid: number }) {
     const [news, setNews] = useState(new Array<Posts>());
     const [users, setUsers] = useState(new Array<User>());
     const [categories, setCategories] = useState(new Array<Categories>());
     const [loading, setLoading] = useState(true);
+    const [views, setViews] = useState(0);
     const pathname = usePathname();
+    const router = useRouter();
 
     useEffect(() => {
         async function fetchNews() {
@@ -46,6 +49,7 @@ export default function News({ cid, pid }: { cid: number, pid: number }) {
             setNews(JSON.parse(JSON.stringify(newsdata)));
             setUsers(JSON.parse(JSON.stringify(usersdata)));
             setCategories(JSON.parse(JSON.stringify(categories)));
+            setViews(newsdata.length > 0 ? newsdata[0].views : 0);
             setLoading(false);
         }
 
@@ -54,7 +58,7 @@ export default function News({ cid, pid }: { cid: number, pid: number }) {
         if (!loading) {
             loadMyRealData({ hubname: "datahub", skipNegotiation: false, fetchData: fetchNews });
         }
-    }, [cid, pid, loading]);
+    }, [cid, pid, views, loading]);
 
     if (loading) {
         return (
@@ -85,6 +89,25 @@ export default function News({ cid, pid }: { cid: number, pid: number }) {
                 </div>
             </div>
         ) : "";
+    };
+
+    const redirectToPost = async (e: any, newsi: Posts) => {
+        e.preventDefault();
+        setViews(views + 1);
+        
+        const body = {...newsi, ["views"]: views + 1 };
+
+        await FetchDataAxios({
+            url: "api/posts/" + newsi.postId,
+            method: "put",
+            data: body,
+            reqAuthorize: false
+        }).then(() => {
+            console.log("Views updated");
+            router.push("/pages/news/" + newsi.categoryId + "/" + newsi.postId);
+        }).catch((err) => {
+            console.log(err);
+        });
     };
 
     const fetchNewsItems = (): any => {
@@ -136,7 +159,6 @@ export default function News({ cid, pid }: { cid: number, pid: number }) {
                                                             </Link>
                                                         </>
                                                     )}
-
                                                 </div>
                                             </div>
 
@@ -147,7 +169,16 @@ export default function News({ cid, pid }: { cid: number, pid: number }) {
                                             )}
 
                                             {pid == -1 && (
-                                                <Link href={"/pages/news/" + newsi.categoryId + "/" + newsi.postId} className="btn btn-primary btn-rounded mt-3 mx-auto d-inline-block">Read more</Link>
+                                                <button className="btn btn-primary btn-rounded mt-3 mx-auto d-inline-block" onClick={(e: any) => redirectToPost(e, newsi)}>Read more</button>
+                                            )}
+
+                                            {pathname == "/pages/news/"+newsi.categoryId+"/"+newsi.postId && (
+                                                <div className="card-footer">
+                                                    <div className="card-info">
+                                                        <i className="bi bi-eye"></i>
+                                                        <span className="txtviews">{"Views: " + newsi.views}</span>
+                                                    </div>
+                                                </div>
                                             )}
                                         </div>
                                     </div>

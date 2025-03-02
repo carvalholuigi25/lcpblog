@@ -262,6 +262,23 @@ footer {
   object-position: left center;
 }
 
+.cardnews {
+  .card-footer {
+    margin: 15px -15px -15px -15px;
+
+    .card-info {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      text-align: left;
+      
+      *:not(:first-child) {
+        margin-left: .8rem;
+      }
+    }
+  }
+}
+
 .cardnews .card-img-top {
   max-height: 40vh;
   object-fit: cover;
@@ -451,6 +468,16 @@ form {
 @media all and (width <= 992px) {
   .navbar-collapse > * {
     margin: 15px auto;
+  }
+
+  .cardnews {
+    .card-footer {
+      .card-info {
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+    }
   }
 }
 
