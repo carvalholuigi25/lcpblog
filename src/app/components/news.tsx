@@ -13,8 +13,6 @@ import Image from "next/image";
 import Link from "next/link";
 import MyEditorPost from "./editor/myeditorpost";
 import FetchDataAxios from "../utils/fetchdataaxios";
-import Pagination from "./pagination";
-import { paginate } from "../helpers/paginate";
 
 export default function News({ cid, pid }: { cid: number, pid: number }) {
     const [news, setNews] = useState(new Array<Posts>());
@@ -22,9 +20,6 @@ export default function News({ cid, pid }: { cid: number, pid: number }) {
     const [categories, setCategories] = useState(new Array<Categories>());
     const [loading, setLoading] = useState(true);
     const [views, setViews] = useState(0);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [totalPaginatedPosts, setTotalPaginatedPosts] = useState(0);
-    const pageSize = 10;
     const pathname = usePathname();
     const router = useRouter();
 
@@ -32,7 +27,7 @@ export default function News({ cid, pid }: { cid: number, pid: number }) {
         async function fetchNews() {
             const data = await FetchMultipleData([
                 {
-                    url: `api/posts${pageSize > 0 ? `?pageSize=${pageSize}&page=${currentPage}` : ""}`,
+                    url: "api/posts",
                     method: 'get',
                     reqAuthorize: false
                 },
@@ -52,11 +47,11 @@ export default function News({ cid, pid }: { cid: number, pid: number }) {
             const categories = cid > -1 ? data[1].data.filter((item: Categories) => item.categoryId == cid) : data[1].data;
             const usersdata = data[2].data;
 
-            setTotalPaginatedPosts(paginate(newsdata, currentPage, pageSize).length+1);
             setNews(JSON.parse(JSON.stringify(newsdata)));
             setUsers(JSON.parse(JSON.stringify(usersdata)));
             setCategories(JSON.parse(JSON.stringify(categories)));
             setViews(newsdata.length > 0 ? newsdata[0].views : 0);
+
             setLoading(false);
         }
 
@@ -65,7 +60,7 @@ export default function News({ cid, pid }: { cid: number, pid: number }) {
         if (!loading) {
             loadMyRealData({ hubname: "datahub", skipNegotiation: false, fetchData: fetchNews });
         }
-    }, [cid, pid, views, currentPage, loading]);
+    }, [cid, pid, views, loading]);
 
     if (loading) {
         return (
@@ -81,10 +76,6 @@ export default function News({ cid, pid }: { cid: number, pid: number }) {
             </div>
         );
     }
-
-    const onPageChange = (page: number) => {
-        setCurrentPage(page);
-    };
 
     const getMultiCols = (i: number, isMulticolsEnabled: boolean) => {
         const cols = i <= 2 ? 6 : 4;
@@ -230,19 +221,6 @@ export default function News({ cid, pid }: { cid: number, pid: number }) {
         );
     };
 
-    const getMyPagination = () => {
-        return <>
-            {cid === -1 && pid === -1 && (
-                <Pagination
-                    items={totalPaginatedPosts}
-                    pageSize={pageSize}
-                    currentPage={currentPage}
-                    onPageChange={onPageChange}
-                />
-            )}
-        </>
-    };
-
     return (
         <div className={styles.page}>
             <CarouselNews news={news} pathname={pathname} />
@@ -250,12 +228,7 @@ export default function News({ cid, pid }: { cid: number, pid: number }) {
             <div className="container">
                 <div className="row justify-content-center align-items-center mt-5 mb-5">
                     {!news || news.length == 0 && getEmptyNews(pathname)}
-                    {!!news && news.length > 0 && (
-                        <>
-                            {fetchNewsItems()}
-                            {getMyPagination()}
-                        </>
-                    )}
+                    {!!news && news.length > 0 && fetchNewsItems()}
                     {pathname !== "/" && news.length > 0 && getBackLink(pathname)}
                 </div>
             </div>
