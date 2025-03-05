@@ -8,7 +8,7 @@ export default function AllNewsPage() {
     <div className={styles.page} id="mallnewspage" style={{paddingTop: '5rem'}}>
     <Header />
     <section>
-    <News pid={-1} />
+    <News cid={-1} pid={-1} />
     </section>
     <Footer />
     </div>

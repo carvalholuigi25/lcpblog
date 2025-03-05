@@ -1,0 +1,37 @@
+.containerpag {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 0 15px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+}
+
+.pageLink {
+    cursor: pointer;
+}
+
+.pageItem, .pageItemActive {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2rem;
+    height: 2rem;
+    background-color: #eaeaea;
+    border: 1px solid #eaeaea;
+    border-radius: 1rem;
+    cursor: pointer;
+}
+
+.pageItemActive {
+    background-color: yellow;
+}
+
+.pageItem, .pageItemActive {
+    margin: auto 0.3rem;
+}

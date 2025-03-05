@@ -14,7 +14,7 @@ export default function Home() {
         <h1>LCP Blog</h1>
       </main>
       <section className={styles.section + " " + styles.pstretch}>
-        <News pid={-1} />
+        <News cid={-1} pid={-1} />
       </section>
       <Footer />
     </div>

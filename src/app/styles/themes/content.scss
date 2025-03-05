@@ -263,6 +263,12 @@
         border-color: $fgcolorprimary;
     }
 
+    .pageItem, .pageItemActive {
+        background-color: $bgcolorsecondary !important;
+        border-color: $bgcolorsecondary !important;
+        color: $fgcolorprimary !important;
+    }
+
     footer {
         --background: #{$bgcolorsecondary};
         background: var(--background) !important;
