@@ -22,7 +22,7 @@ export default function NewsPaginated({ cid, pid }: { cid: number, pid: number }
     const [views, setViews] = useState(0);
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
-    const pageSize = 1;
+    const pageSize = 10;
     const pathname = usePathname();
     const router = useRouter();
     const searchParams = useSearchParams();
