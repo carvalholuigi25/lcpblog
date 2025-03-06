@@ -6,7 +6,7 @@ import { FetchMultipleData } from "@/app/utils/fetchdata";
 import { Posts } from "@/app/interfaces/posts";
 import { User } from "@/app/interfaces/user";
 import { Categories } from "../interfaces/categories";
-import { loadMyRealData } from "../functions/functions";
+import { loadMyRealData, shortenLargeNumber } from "../functions/functions";
 import CarouselNews from "./carouselnews";
 import styles from "@/app/page.module.scss";
 import Image from "next/image";
@@ -185,7 +185,7 @@ export default function News({ cid, pid }: { cid: number, pid: number }) {
                                                 <div className="card-footer">
                                                     <div className="card-info">
                                                         <i className="bi bi-eye"></i>
-                                                        <span className="txtviews">{"Views: " + newsi.views}</span>
+                                                        <span className="txtviews">{"Views: " + shortenLargeNumber(newsi.views!, 1)}</span>
                                                     </div>
                                                 </div>
                                             )}

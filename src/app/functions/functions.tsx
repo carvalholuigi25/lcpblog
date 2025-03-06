@@ -33,6 +33,21 @@ export async function loadMyRealData({ hubname, skipNegotiation, fetchData }: My
   return () => connection.stop();
 }
 
+export function shortenLargeNumber(num: number, digits: number) {
+  const units = ['k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'];
+  let decimal;
+
+  for(let i=units.length-1; i>=0; i--) {
+    decimal = Math.pow(1000, i+1);
+
+    if(Math.abs(num) >= decimal) {
+      return +(num / decimal).toFixed(digits) + units[i];
+    }
+  }
+
+  return num;
+}
+
 export async function sendMessage(connection: signalR.HubConnection, message: string) {
   if (connection) {
     await connection.send("SendMessage", message);
