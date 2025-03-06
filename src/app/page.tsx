@@ -1,10 +1,8 @@
 "use client";
-// import { useEffect } from "react";
-// import { startConnection, getConnection, disposeConnection } from "./services/signalr.service";
 import styles from "@/app/page.module.scss";
 import Footer from "@/app/ui/footer";
 import Header from "@/app/ui/header";
-import News from "@/app/components/news";
+import NewsPaginated from "./components/newspaginated";
 
 export default function Home() {
   return (
@@ -14,7 +12,7 @@ export default function Home() {
         <h1>LCP Blog</h1>
       </main>
       <section className={styles.section + " " + styles.pstretch}>
-        <News cid={-1} pid={-1} />
+        <NewsPaginated cid={-1} pid={-1} />
       </section>
       <Footer />
     </div>

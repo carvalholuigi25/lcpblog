@@ -34,6 +34,7 @@ private MyDBSQLFunctions _myDBSQLFunctions;
 
         var response = new QueryParamsResp<Category> {
             TotalCount = totalCount,
+            TotalPages = (int)Math.Ceiling((double)totalCount / queryParams.PageSize),
             Page = queryParams.Page,
             PageSize = queryParams.PageSize,
             Data = await query.ToListAsync()

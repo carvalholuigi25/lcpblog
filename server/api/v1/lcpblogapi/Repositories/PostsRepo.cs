@@ -40,6 +40,7 @@ public class PostsRepo : ControllerBase, IPostsRepo
         var response = new QueryParamsResp<Post>
         {
             TotalCount = totalCount,
+            TotalPages = (int)Math.Ceiling((double)totalCount / queryParams.PageSize),
             Page = queryParams.Page,
             PageSize = queryParams.PageSize,
             Data = await query.ToListAsync()
