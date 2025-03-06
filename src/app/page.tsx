@@ -3,6 +3,7 @@ import styles from "@/app/page.module.scss";
 import Footer from "@/app/ui/footer";
 import Header from "@/app/ui/header";
 import NewsPaginated from "./components/newspaginated";
+import { Suspense } from "react";
 
 export default function Home() {
   return (
@@ -12,7 +13,9 @@ export default function Home() {
         <h1>LCP Blog</h1>
       </main>
       <section className={styles.section + " " + styles.pstretch}>
+        <Suspense>
         <NewsPaginated cid={-1} pid={-1} />
+        </Suspense>
       </section>
       <Footer />
     </div>

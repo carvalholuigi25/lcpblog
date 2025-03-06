@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import { useEffect, useState } from "react";
-import { usePathname, useRouter } from 'next/navigation';
+import { useCallback, useEffect, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { FetchMultipleData } from "@/app/utils/fetchdata";
 import { Posts } from "@/app/interfaces/posts";
 import { User } from "@/app/interfaces/user";
@@ -22,9 +22,20 @@ export default function NewsPaginated({ cid, pid }: { cid: number, pid: number }
     const [views, setViews] = useState(0);
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
-    const pageSize = 10;
+    const pageSize = 1;
     const pathname = usePathname();
     const router = useRouter();
+    const searchParams = useSearchParams();
+
+    const createQueryVal = useCallback(
+        (name: string, value: string) => {
+          const params = new URLSearchParams(searchParams.toString())
+          params.set(name, value)
+     
+          return params.toString()
+        },
+        [searchParams]
+    );
 
     useEffect(() => {
         async function fetchNews() {
@@ -61,10 +72,14 @@ export default function NewsPaginated({ cid, pid }: { cid: number, pid: number }
 
         fetchNews();
 
-        if (!loading) {
+        if (!!loading) {
             loadMyRealData({ hubname: "datahub", skipNegotiation: false, fetchData: fetchNews });
+            
+            if(!!new URLSearchParams(searchParams.toString()).get("page")) {
+                setPage(parseInt(new URLSearchParams(searchParams.toString()).get("page")!.toString(), 0));
+            }
         }
-    }, [cid, pid, views, page, loading]);
+    }, [cid, pid, page, views, loading, searchParams]);
 
     if (loading) {
         return (
@@ -226,40 +241,79 @@ export default function NewsPaginated({ cid, pid }: { cid: number, pid: number }
     };
 
     const getMyPagination = (): any => {
+        const firstPage = () => {
+            const indval = (page - page) + 1;
+            setPage(indval);
+            router.push(pathname + "?" + createQueryVal("page", ""+indval));
+        };
+
+        const previousPage = () => {
+            const indval = (page > 1 ? page - 1 : 1);
+            setPage(indval);
+            router.push(pathname + "?" + createQueryVal("page", ""+indval));
+        };
+
+        const itemPage = (index: number) => {
+            const indval = index + 1;
+            setPage(indval);
+            router.push(pathname + "?" + createQueryVal("page", ""+indval));
+        };
+
+        const nextPage = () => {
+            const indval = (page < totalPages ? page + 1 : totalPages);
+            setPage(indval);
+            router.push(pathname + "?" + createQueryVal("page", ""+indval));
+        };
+
+        const lastPage = () => {
+            const indval = totalPages;
+            setPage(indval);
+            router.push(pathname + "?" + createQueryVal("page", ""+indval));
+        };
+
         return (
             <nav className="d-flex mx-auto text-center">
                 <ul className="pagination mt-3 mx-auto">
                     <li className={`page-item ${page === 1 ? "disabled" : ""}`}>
-                        <button className="page-link" onClick={() => setPage((page - page) + 1)}>
+                        <button className="page-link" onClick={() => firstPage()}>
                             <i className="bi bi-chevron-double-left"></i>
                         </button>
                     </li>
                     <li className={`page-item ${page === 1 ? "disabled" : ""}`}>
-                        <button className="page-link" onClick={() => setPage(page > 1 ? page - 1 : 1)}>
+                        <button className="page-link" onClick={() => previousPage()}>
                             <i className="bi bi-chevron-left"></i>
                         </button>
                     </li>
                     
                     {[...Array(totalPages)].map((_, index) => (
                         <li key={index} className={`page-item ${page === index + 1 ? "active" : ""}`}>
-                            <button className="page-link" onClick={() => setPage(index + 1)}>
+                            <button className="page-link" onClick={() => itemPage(index)}>
                                 {index + 1}
                             </button>
                         </li>
                     ))}
 
                     <li className={`page-item ${page === totalPages ? "disabled" : ""}`}>
-                        <button className="page-link" onClick={() => setPage(page < totalPages ? page + 1 : totalPages)}>
+                        <button className="page-link" onClick={() => nextPage()}>
                             <i className="bi bi-chevron-right"></i>
                         </button>
                     </li>
                     <li className={`page-item ${page === totalPages ? "disabled" : ""}`}>
-                        <button className="page-link" onClick={() => setPage(totalPages)}>
+                        <button className="page-link" onClick={() => lastPage()}>
                             <i className="bi bi-chevron-double-right"></i>
                         </button>
                     </li>
                 </ul>
             </nav>
+        );
+    }
+
+    const getContent = () => {
+        return (
+            <>
+                {fetchNewsItems()}
+                {getMyPagination()}
+            </>
         );
     }
 
@@ -270,12 +324,7 @@ export default function NewsPaginated({ cid, pid }: { cid: number, pid: number }
             <div className="container">
                 <div className="row justify-content-center align-items-center mt-5 mb-5">
                     {!news || news.length == 0 && getEmptyNews(pathname)}
-                    {!!news && news.length > 0 && (
-                        <>
-                            {fetchNewsItems()}
-                            {getMyPagination()}
-                        </>
-                    )}
+                    {!!news && news.length > 0 && getContent()}
                     {pathname !== "/" && news.length > 0 && getBackLink(pathname)}
                 </div>
             </div>

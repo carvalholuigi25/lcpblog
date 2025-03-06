@@ -20,6 +20,7 @@ export default function News({ cid, pid }: { cid: number, pid: number }) {
     const [categories, setCategories] = useState(new Array<Categories>());
     const [loading, setLoading] = useState(true);
     const [views, setViews] = useState(0);
+    const enableViews = true;
     const pathname = usePathname();
     const router = useRouter();
 
@@ -50,7 +51,10 @@ export default function News({ cid, pid }: { cid: number, pid: number }) {
             setNews(JSON.parse(JSON.stringify(newsdata)));
             setUsers(JSON.parse(JSON.stringify(usersdata)));
             setCategories(JSON.parse(JSON.stringify(categories)));
-            setViews(newsdata.length > 0 ? newsdata[0].views : 0);
+
+            if(!!enableViews) {
+                setViews(newsdata.length > 0 ? newsdata[0].views : 0);
+            }
 
             setLoading(false);
         }
@@ -60,7 +64,7 @@ export default function News({ cid, pid }: { cid: number, pid: number }) {
         if (!loading) {
             loadMyRealData({ hubname: "datahub", skipNegotiation: false, fetchData: fetchNews });
         }
-    }, [cid, pid, views, loading]);
+    }, [cid, pid, views, enableViews, loading]);
 
     if (loading) {
         return (
@@ -95,21 +99,24 @@ export default function News({ cid, pid }: { cid: number, pid: number }) {
 
     const redirectToPost = async (e: any, newsi: Posts) => {
         e.preventDefault();
-        setViews(views + 1);
 
-        const body = { ...newsi, ["views"]: views + 1 };
+        if(!!enableViews) {
+            setViews(views + 1);
 
-        await FetchDataAxios({
-            url: "api/posts/" + newsi.postId,
-            method: "put",
-            data: body,
-            reqAuthorize: false
-        }).then(() => {
-            console.log("Views updated");
-            router.push("/pages/news/" + newsi.categoryId + "/" + newsi.postId);
-        }).catch((err) => {
-            console.log(err);
-        });
+            const body = { ...newsi, ["views"]: views + 1 };
+
+            await FetchDataAxios({
+                url: "api/posts/" + newsi.postId,
+                method: "put",
+                data: body,
+                reqAuthorize: false
+            }).then(() => {
+                console.log("Views updated");
+                router.push("/pages/news/" + newsi.categoryId + "/" + newsi.postId);
+            }).catch((err) => {
+                console.log(err);
+            });
+        }
     };
 
     const fetchNewsItems = (): any => {
@@ -174,7 +181,7 @@ export default function News({ cid, pid }: { cid: number, pid: number }) {
                                                 <button className="btn btn-primary btn-rounded mt-3 mx-auto d-inline-block" onClick={(e: any) => redirectToPost(e, newsi)}>Read more</button>
                                             )}
 
-                                            {pathname == "/pages/news/" + newsi.categoryId + "/" + newsi.postId && (
+                                            {!!enableViews && pathname == "/pages/news/" + newsi.categoryId + "/" + newsi.postId && (
                                                 <div className="card-footer">
                                                     <div className="card-info">
                                                         <i className="bi bi-eye"></i>
