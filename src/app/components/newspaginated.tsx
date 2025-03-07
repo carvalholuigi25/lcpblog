@@ -2,17 +2,16 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { FetchMultipleData } from "@/app/utils/fetchdata";
 import { Posts } from "@/app/interfaces/posts";
 import { User } from "@/app/interfaces/user";
-import { Categories } from "../interfaces/categories";
-import { loadMyRealData, shortenLargeNumber } from "../functions/functions";
-import CarouselNews from "./carouselnews";
+import { Categories } from "@/app/interfaces/categories";
+import { loadMyRealData, shortenLargeNumber } from "@/app/functions/functions";
+import FetchDataAxios, { FetchMultipleDataAxios } from "@/app/utils/fetchdataaxios";
+import CarouselNews from "@/app/components/carouselnews";
 import styles from "@/app/page.module.scss";
 import Image from "next/image";
 import Link from "next/link";
-import MyEditorPost from "./editor/myeditorpost";
-import FetchDataAxios from "../utils/fetchdataaxios";
+import MyEditorPost from "@/app/components/editor/myeditorpost";
 
 export default function NewsPaginated({ cid, pid }: { cid: number, pid: number }) {
     const [news, setNews] = useState(new Array<Posts>());
@@ -39,7 +38,7 @@ export default function NewsPaginated({ cid, pid }: { cid: number, pid: number }
 
     useEffect(() => {
         async function fetchNews() {
-            const data = await FetchMultipleData([
+            const data = await FetchMultipleDataAxios([
                 {
                     url: `api/posts?page=${page}&pageSize=${pageSize}`,
                     method: 'get',
@@ -241,65 +240,71 @@ export default function NewsPaginated({ cid, pid }: { cid: number, pid: number }
     };
 
     const getMyPagination = (): any => {
-        const firstPage = () => {
-            const indval = (page - page) + 1;
-            setPage(indval);
+        const isHiddenNavPagBtns = true;
+
+        const navToPage = (indval: number) => {
             router.push(pathname + "?" + createQueryVal("page", ""+indval));
         };
 
-        const previousPage = () => {
-            const indval = (page > 1 ? page - 1 : 1);
+        const firstPage = () => {
+            const indval = (page - page) + 1;
             setPage(indval);
-            router.push(pathname + "?" + createQueryVal("page", ""+indval));
+            navToPage(indval);
+        };
+
+        const previousPage = () => {
+            const indval = page > 1 ? page - 1 : 1;
+            setPage(indval);
+            navToPage(indval);
         };
 
         const itemPage = (index: number) => {
             const indval = index + 1;
             setPage(indval);
-            router.push(pathname + "?" + createQueryVal("page", ""+indval));
+            navToPage(indval);
         };
 
         const nextPage = () => {
-            const indval = (page < totalPages ? page + 1 : totalPages);
+            const indval = page < totalPages ? page + 1 : totalPages;
             setPage(indval);
-            router.push(pathname + "?" + createQueryVal("page", ""+indval));
+            navToPage(indval);
         };
 
         const lastPage = () => {
             const indval = totalPages;
             setPage(indval);
-            router.push(pathname + "?" + createQueryVal("page", ""+indval));
+            navToPage(indval);
         };
 
         return (
             <nav className="d-flex mx-auto text-center">
                 <ul className="pagination mt-3 mx-auto">
-                    <li className={`page-item ${page === 1 ? "disabled" : ""}`}>
-                        <button className="page-link" onClick={() => firstPage()}>
+                    <li className={`page-item${page === 1 ? " disabled" + (isHiddenNavPagBtns ? " hidden" : "") : ""}`}>
+                        <button type="button" className="page-link" onClick={() => firstPage()}>
                             <i className="bi bi-chevron-double-left"></i>
                         </button>
                     </li>
-                    <li className={`page-item ${page === 1 ? "disabled" : ""}`}>
-                        <button className="page-link" onClick={() => previousPage()}>
+                    <li className={`page-item${page === 1 ? " disabled" + (isHiddenNavPagBtns ? " hidden" : "") : ""}`}>
+                        <button type="button" className="page-link" onClick={() => previousPage()}>
                             <i className="bi bi-chevron-left"></i>
                         </button>
                     </li>
                     
                     {[...Array(totalPages)].map((_, index) => (
-                        <li key={index} className={`page-item ${page === index + 1 ? "active" : ""}`}>
-                            <button className="page-link" onClick={() => itemPage(index)}>
+                        <li key={index} className={`page-item${page === index + 1 ? " active" : ""}`}>
+                            <button type="button" className="page-link" onClick={() => itemPage(index)}>
                                 {index + 1}
                             </button>
                         </li>
                     ))}
 
-                    <li className={`page-item ${page === totalPages ? "disabled" : ""}`}>
-                        <button className="page-link" onClick={() => nextPage()}>
+                    <li className={`page-item${page === totalPages ? " disabled" + (isHiddenNavPagBtns ? " hidden" : "") : ""}`}>
+                        <button type="button" className="page-link" onClick={() => nextPage()}>
                             <i className="bi bi-chevron-right"></i>
                         </button>
                     </li>
-                    <li className={`page-item ${page === totalPages ? "disabled" : ""}`}>
-                        <button className="page-link" onClick={() => lastPage()}>
+                    <li className={`page-item${page === totalPages ? " disabled" + (isHiddenNavPagBtns ? " hidden" : "") : ""}`}>
+                        <button type="button" className="page-link" onClick={() => lastPage()}>
                             <i className="bi bi-chevron-double-right"></i>
                         </button>
                     </li>

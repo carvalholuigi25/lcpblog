@@ -263,10 +263,20 @@
         border-color: $fgcolorprimary;
     }
 
-    .pageItem, .pageItemActive {
-        background-color: $bgcolorsecondary !important;
-        border-color: $bgcolorsecondary !important;
-        color: $fgcolorprimary !important;
+    .pagination {
+        .page-item {
+            .page-link {
+                background-color: $bgcolorsecondary;
+                border-color: $bgcolorsecondary;
+                color: $fgcolorprimary;
+            }
+        }
+
+        .active > .page-link, .page-link.active {
+            background-color: $bgcolorprimary !important;
+            border-color: $bgcolorprimary !important;
+            color: $fgcolorprimary !important;
+        }
     }
 
     footer {

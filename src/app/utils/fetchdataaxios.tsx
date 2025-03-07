@@ -29,7 +29,7 @@ export async function FetchMultipleDataAxios(ctaxint: CTAxiosInterface[]): Promi
     const promises = ctaxint.map(async (item: CTAxiosInterface) => {
         const config = getConfigAxios(item);
         const res = await axios(config);
-        return res;
+        return res.data;
     });
 
     return Promise.all(promises);
