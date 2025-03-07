@@ -1,7 +1,7 @@
 import styles from "@/app/page.module.scss";
 import Footer from "@/app/ui/footer";
 import Header from "@/app/ui/header";
-import NewsPaginated from "@/app/components/newspaginated";
+import News from "@/app/components/news";
 import { Suspense } from "react";
 
 export default function AllNewsPage() {
@@ -10,7 +10,7 @@ export default function AllNewsPage() {
     <Header />
     <section>
     <Suspense>
-    <NewsPaginated cid={-1} pid={-1} />
+    <News cid={-1} pid={-1} />
     </Suspense>
     </section>
     <Footer />

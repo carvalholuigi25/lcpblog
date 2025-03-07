@@ -76,6 +76,11 @@
         }
     }
 
+    .mybkgpage {
+        background-color: $bgcolorprimary;
+        color: $fgcolorprimary;
+    }
+
     .modal {
         color: $fgcolorprimary;
         border-color: $fgcolorprimary;

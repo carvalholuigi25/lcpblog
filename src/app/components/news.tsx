@@ -1,18 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import { useEffect, useState } from "react";
-import { usePathname, useRouter } from 'next/navigation';
-import { FetchMultipleData } from "@/app/utils/fetchdata";
+import { useCallback, useEffect, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Posts } from "@/app/interfaces/posts";
 import { User } from "@/app/interfaces/user";
-import { Categories } from "../interfaces/categories";
-import { loadMyRealData, shortenLargeNumber } from "../functions/functions";
-import CarouselNews from "./carouselnews";
+import { Categories } from "@/app/interfaces/categories";
+import { loadMyRealData, shortenLargeNumber } from "@/app/functions/functions";
+import FetchDataAxios, { FetchMultipleDataAxios } from "@/app/utils/fetchdataaxios";
+import CarouselNews from "@/app/components/carouselnews";
 import styles from "@/app/page.module.scss";
 import Image from "next/image";
 import Link from "next/link";
-import MyEditorPost from "./editor/myeditorpost";
-import FetchDataAxios from "../utils/fetchdataaxios";
+import MyEditorPost from "@/app/components/editor/myeditorpost";
 
 export default function News({ cid, pid }: { cid: number, pid: number }) {
     const [news, setNews] = useState(new Array<Posts>());
@@ -20,15 +19,30 @@ export default function News({ cid, pid }: { cid: number, pid: number }) {
     const [categories, setCategories] = useState(new Array<Categories>());
     const [loading, setLoading] = useState(true);
     const [views, setViews] = useState(0);
-    const enableViews = true;
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const pageSize = 10;
     const pathname = usePathname();
     const router = useRouter();
+    const searchParams = useSearchParams();
+
+    const createQueryVal = useCallback(
+        (name: string, value: string) => {
+          const params = new URLSearchParams(searchParams.toString())
+          params.set(name, value)
+     
+          return params.toString()
+        },
+        [searchParams]
+    );
 
     useEffect(() => {
         async function fetchNews() {
-            const data = await FetchMultipleData([
+            const params = `?page=${page}&pageSize=${pageSize}`;
+
+            const data = await FetchMultipleDataAxios([
                 {
-                    url: "api/posts",
+                    url: `api/posts${params}`,
                     method: 'get',
                     reqAuthorize: false
                 },
@@ -48,23 +62,33 @@ export default function News({ cid, pid }: { cid: number, pid: number }) {
             const categories = cid > -1 ? data[1].data.filter((item: Categories) => item.categoryId == cid) : data[1].data;
             const usersdata = data[2].data;
 
-            setNews(JSON.parse(JSON.stringify(newsdata)));
-            setUsers(JSON.parse(JSON.stringify(usersdata)));
-            setCategories(JSON.parse(JSON.stringify(categories)));
-
-            if(!!enableViews) {
-                setViews(newsdata.length > 0 ? newsdata[0].views : 0);
+            if(newsdata) {
+                setNews(JSON.parse(JSON.stringify(newsdata)));
             }
 
+            if(usersdata) {
+                setUsers(JSON.parse(JSON.stringify(usersdata)));
+            }
+
+            if(categories) {
+                setCategories(JSON.parse(JSON.stringify(categories)));
+            }
+
+            setViews(newsdata.length > 0 ? newsdata[0].views : 0);
+            setTotalPages(data[0].totalPages);
             setLoading(false);
         }
 
         fetchNews();
 
-        if (!loading) {
+        if (!!loading) {
             loadMyRealData({ hubname: "datahub", skipNegotiation: false, fetchData: fetchNews });
+            
+            if(!!new URLSearchParams(searchParams.toString()).get("page")) {
+                setPage(parseInt(new URLSearchParams(searchParams.toString()).get("page")!.toString(), 0));
+            }
         }
-    }, [cid, pid, views, enableViews, loading]);
+    }, [cid, pid, page, views, loading, searchParams]);
 
     if (loading) {
         return (
@@ -99,24 +123,21 @@ export default function News({ cid, pid }: { cid: number, pid: number }) {
 
     const redirectToPost = async (e: any, newsi: Posts) => {
         e.preventDefault();
+        setViews(views + 1);
 
-        if(!!enableViews) {
-            setViews(views + 1);
+        const body = { ...newsi, ["views"]: views + 1 };
 
-            const body = { ...newsi, ["views"]: views + 1 };
-
-            await FetchDataAxios({
-                url: "api/posts/" + newsi.postId,
-                method: "put",
-                data: body,
-                reqAuthorize: false
-            }).then(() => {
-                console.log("Views updated");
-                router.push("/pages/news/" + newsi.categoryId + "/" + newsi.postId);
-            }).catch((err) => {
-                console.log(err);
-            });
-        }
+        await FetchDataAxios({
+            url: "api/posts/" + newsi.postId,
+            method: "put",
+            data: body,
+            reqAuthorize: false
+        }).then(() => {
+            console.log("Views updated");
+            router.push("/pages/news/" + newsi.categoryId + "/" + newsi.postId);
+        }).catch((err) => {
+            console.log(err);
+        });
     };
 
     const fetchNewsItems = (): any => {
@@ -181,7 +202,7 @@ export default function News({ cid, pid }: { cid: number, pid: number }) {
                                                 <button className="btn btn-primary btn-rounded mt-3 mx-auto d-inline-block" onClick={(e: any) => redirectToPost(e, newsi)}>Read more</button>
                                             )}
 
-                                            {!!enableViews && pathname == "/pages/news/" + newsi.categoryId + "/" + newsi.postId && (
+                                            {pathname == "/pages/news/" + newsi.categoryId + "/" + newsi.postId && (
                                                 <div className="card-footer">
                                                     <div className="card-info">
                                                         <i className="bi bi-eye"></i>
@@ -228,6 +249,89 @@ export default function News({ cid, pid }: { cid: number, pid: number }) {
         );
     };
 
+    const getMyPagination = (): any => {
+        const isHiddenNavPagBtns = true;
+
+        const navToPage = (indval: number) => {
+            router.push(pathname + "?" + createQueryVal("page", ""+indval));
+        };
+
+        const firstPage = () => {
+            const indval = (page - page) + 1;
+            setPage(indval);
+            navToPage(indval);
+        };
+
+        const previousPage = () => {
+            const indval = page > 1 ? page - 1 : 1;
+            setPage(indval);
+            navToPage(indval);
+        };
+
+        const itemPage = (index: number) => {
+            const indval = index + 1;
+            setPage(indval);
+            navToPage(indval);
+        };
+
+        const nextPage = () => {
+            const indval = page < totalPages ? page + 1 : totalPages;
+            setPage(indval);
+            navToPage(indval);
+        };
+
+        const lastPage = () => {
+            const indval = totalPages;
+            setPage(indval);
+            navToPage(indval);
+        };
+
+        return (
+            <nav className="d-flex mx-auto text-center">
+                <ul className="pagination mt-3 mx-auto">
+                    <li className={`page-item${page === 1 ? " disabled" + (isHiddenNavPagBtns ? " hidden" : "") : ""}`}>
+                        <button type="button" className="page-link" onClick={() => firstPage()}>
+                            <i className="bi bi-chevron-double-left"></i>
+                        </button>
+                    </li>
+                    <li className={`page-item${page === 1 ? " disabled" + (isHiddenNavPagBtns ? " hidden" : "") : ""}`}>
+                        <button type="button" className="page-link" onClick={() => previousPage()}>
+                            <i className="bi bi-chevron-left"></i>
+                        </button>
+                    </li>
+                    
+                    {[...Array(totalPages)].map((_, index) => (
+                        <li key={index} className={`page-item${page === index + 1 ? " active" : ""}`}>
+                            <button type="button" className="page-link" onClick={() => itemPage(index)}>
+                                {index + 1}
+                            </button>
+                        </li>
+                    ))}
+
+                    <li className={`page-item${page === totalPages ? " disabled" + (isHiddenNavPagBtns ? " hidden" : "") : ""}`}>
+                        <button type="button" className="page-link" onClick={() => nextPage()}>
+                            <i className="bi bi-chevron-right"></i>
+                        </button>
+                    </li>
+                    <li className={`page-item${page === totalPages ? " disabled" + (isHiddenNavPagBtns ? " hidden" : "") : ""}`}>
+                        <button type="button" className="page-link" onClick={() => lastPage()}>
+                            <i className="bi bi-chevron-double-right"></i>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        );
+    }
+
+    const getContent = () => {
+        return (
+            <>
+                {fetchNewsItems()}
+                {cid >= -1 && pid !== -1 && getMyPagination()}
+            </>
+        );
+    }
+
     return (
         <div className={styles.page}>
             <CarouselNews news={news} pathname={pathname} />
@@ -235,7 +339,7 @@ export default function News({ cid, pid }: { cid: number, pid: number }) {
             <div className="container">
                 <div className="row justify-content-center align-items-center mt-5 mb-5">
                     {!news || news.length == 0 && getEmptyNews(pathname)}
-                    {!!news && news.length > 0 && fetchNewsItems()}
+                    {!!news && news.length > 0 && getContent()}
                     {pathname !== "/" && news.length > 0 && getBackLink(pathname)}
                 </div>
             </div>

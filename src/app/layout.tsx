@@ -37,7 +37,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-bs-theme="system">
-      <body className={`${poppins.variable} ${roboto.variable} ${orbitron.variable}`}>
+      <body className={`${poppins.variable} ${roboto.variable} ${orbitron.variable} mybkgpage`}>
         <div id="modal-root"></div>
         <ThemeProvider>
           {children}
