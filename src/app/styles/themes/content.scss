@@ -10,7 +10,7 @@
     --bs-body-bg: #{$bgcolorprimary};
 
     .navbar {
-        --background: #{$bgcolorsecondary};
+        --background: #{$bgcolorprimary};
         background: var(--background) !important;
 
         .navbar-brand {
@@ -130,12 +130,12 @@
     }
 
     #navlinksadmdb {
-        background-color: $bgcolorsecondary;
+        background-color: $bgcolorprimary;
         color: $fgcolorprimary;
 
         .nav-link {
             &.active {
-                background-color: $bgcolorprimary;
+                background-color: $bgcolorsecondary;
                 color: $fgcolorprimary;
             }
         }
@@ -143,7 +143,7 @@
 
     .table {
         thead, tfoot {
-            background-color: $bgcolorsecondary;
+            background-color: $bgcolorprimary;
             color: $fgcolorprimary;
 
             th, td {
@@ -153,12 +153,18 @@
         }
 
         tbody {
-            background-color: $bgcolorsecondary;
+            background-color: #{$bgcolorprimary + "b3"};
             color: $fgcolorprimary;            
 
             th, td {
+                background-color: inherit;
+                border-color: inherit;
                 color: inherit;
             }
+        }
+
+        .table-bordered *:not(i) {
+            border-color: $fgcolorprimary;
         }
 
         .btn {
@@ -168,30 +174,78 @@
     }
 
     .myeditorblk {
-        .editor-input-prev {
+        .editor-inner {
             background-color: $bgcolorprimary;
-            caret-color: $bgcolorprimary;
+            border-color: $bgcolorprimary;
+            color: $fgcolorprimary;
+            caret-color: inherit;
+        }
+
+        .editor-input-prev {
+            background-color: #{$bgcolorprimary + "b3"};
+            border-color: #{$bgcolorprimary + "b3"};
+            color: $fgcolorprimary;
+            caret-color: inherit;
+        }
+
+        .toolbar {
+            background-color: $bgcolorprimary;
+            color: $fgcolorprimary;
+
+            .divider {
+                background-color: $fgcolorprimary;
+            }
+
+            .toolbar-item {
+                @if $bgcolorprimary == black or $bgcolorprimary == #000000 {
+                    filter: invert(100%) sepia(100%) saturate(7%) hue-rotate(119deg) brightness(103%) contrast(102%);
+                } @else {
+                    filter: invert(0%) sepia(98%) saturate(14%) hue-rotate(43deg) brightness(90%) contrast(100%);
+                }
+
+                &:hover {
+                    filter: invert(0%) sepia(98%) saturate(14%) hue-rotate(43deg) brightness(90%) contrast(100%);
+                }
+            }
+        }
+    }
+
+    #stepper {
+        #stepperind {
+            background-color: $bgcolorsecondary;
+        }
+
+        &.sactive #stepperind, &.scomplete #stepperind {
+            background-color: $bgcolorprimary !important;
         }
     }
     
     .card {
-        background-color: $bgcolorsecondary;
+        background-color: $bgcolorprimary;
         color: $fgcolorprimary;
 
         .btn {
-            background-color: $bgcolorprimary !important;
+            background-color: $bgcolorsecondary !important;
             color: $fgcolorprimary !important;
         }
     }
 
+    .carousel {
+        .carousel-indicators {
+            [data-bs-target] {
+                background-color: white !important;
+            }
+        }
+    }
+
     header {
-        background-color: inherit;
+        background-color: $bgcolorprimary;
     }
 
     section, .container, .container-fluid {
         .btn {
-            background-color: $bgcolorsecondary;
-            border-color: $bgcolorsecondary;
+            background-color: $bgcolorprimary;
+            border-color: $bgcolorprimary;
             color: $fgcolorprimary;
         }
     }
@@ -285,7 +339,7 @@
     }
 
     footer {
-        --background: #{$bgcolorsecondary};
+        --background: #{$bgcolorprimary};
         background: var(--background) !important;
         color: $fgcolorprimary;
 

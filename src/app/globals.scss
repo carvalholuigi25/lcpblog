@@ -110,7 +110,7 @@ p {
 
   &.table-bordered *:not(i) {
     border: 0;
-    border: 1px solid rgb(221, 221, 221) !important;
+    border: 1px solid !important;
   }
 
   &.tfixed {

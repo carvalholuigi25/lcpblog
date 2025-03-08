@@ -82,7 +82,7 @@ export default function EditNews() {
           <EditNewsForm id={parseInt("" + id, 0)} data={news} />
         )}
 
-        {pathname !== "/" && getBackLink(pathname)}
+        {pathname !== "/" && pathname !== "/pages/news/edit/"+id && getBackLink(pathname)}
       </section>
       <Footer />
     </div>

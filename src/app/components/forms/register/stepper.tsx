@@ -6,11 +6,11 @@ const steps = ["User Data", "Personal Data", "Final steps"];
 
 const Stepper = ({currentStep}: any) => {
   const getStepperAct = (index: number) => {
-    return currentStep === index + 1 ? styles.stepperactive : "";
+    return currentStep === index + 1 ? styles.stepperactive + " sactive" : "";
   }
 
   const getStepperComp = (index: number) => {
-    return index + 1 < currentStep ? styles.steppercomplete : "";
+    return index + 1 < currentStep ? styles.steppercomplete + " scomplete" : "";
   }
 
   return (
@@ -18,10 +18,11 @@ const Stepper = ({currentStep}: any) => {
       {steps.map((step, index) => (
         <div
           className={`${styles.stepper} ${getStepperAct(index)} ${getStepperComp(index)}`}
+          id="stepper"
           key={index}
         >
-          <div className={styles.stepperind}>{index + 1}</div>
-          <p className={styles.steppertext}>{step}</p>
+          <div className={styles.stepperind} id="stepperind">{index + 1}</div>
+          <p className={styles.steppertext} id="steppertext">{step}</p>
         </div>
       ))}
     </div>

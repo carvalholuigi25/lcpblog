@@ -327,7 +327,7 @@ export default function News({ cid, pid }: { cid: number, pid: number }) {
         return (
             <>
                 {fetchNewsItems()}
-                {cid >= -1 && pid !== -1 && getMyPagination()}
+                {cid >= -1 && pid == -1 && getMyPagination()}
             </>
         );
     }

@@ -54,7 +54,7 @@ export default function TableData({ theaders, tdata, namep }: { theaders: THeade
                                         <Link href={'/pages/'+namep+'/edit/' + vid} className="btn btn-primary btnedit">
                                             <i className="bi bi-pencil-fill" style={{ border: 0 }}></i>
                                         </Link>
-                                        <Link href={'/pages/'+namep+'/delete/' + vid} className="btn btn-primary btndel">
+                                        <Link href={'/pages/'+namep+'/delete/' + vid} className="btn btn-primary btndel ms-2">
                                             <i className="bi bi-trash3-fill" style={{ border: 0 }}></i>
                                         </Link>
                                     </td>
