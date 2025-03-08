@@ -10,9 +10,12 @@ export interface CTAxiosInterface {
     reqAuthorize?: boolean;
 }
 
-export function getHeadersAxios(isReqAuthorize: boolean = false): any {
+export function getHeadersAxios(isReqAuthorize: boolean = false, methodReq: string = "get", enableCacheNoStore: boolean = false): any {
     return {
-        "Authorization": !!isReqAuthorize && getFromStorage("logInfo") ? `Bearer ${JSON.parse(getFromStorage("logInfo")!)[0].jwtToken}` : ""
+        "Authorization": !!isReqAuthorize && getFromStorage("logInfo") ? `Bearer ${JSON.parse(getFromStorage("logInfo")!)[0].jwtToken}` : "",
+        "Cache-Control": !!enableCacheNoStore && !["get"].includes(methodReq) ? "no-cache, no-store, must-revalidate" : "",
+        "Pragma": !!enableCacheNoStore && !["get"].includes(methodReq) ? "no-cache" : "",
+        "Expires": !!enableCacheNoStore && !["get"].includes(methodReq) ? "0" : ""
     }
 }
 
@@ -21,7 +24,10 @@ export function getConfigAxios(ctaxint: CTAxiosInterface): AxiosRequestConfig<an
         url: `${process.env.apiURL}/${ctaxint.url}`,
         method: ctaxint.method,
         data: !["get", "head"].includes(ctaxint.method) ? ctaxint.data : null,
-        headers: getHeadersAxios(ctaxint.reqAuthorize)
+        headers: getHeadersAxios(ctaxint.reqAuthorize, ctaxint.method, true),
+        params: {
+            timestamp: Date.now()
+        }
     };
 }
 

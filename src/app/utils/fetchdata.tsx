@@ -20,7 +20,8 @@ export function getConfig(ctint: CTInterface): RequestInit {
         method: ctint.method,
         mode: 'cors',
         body: !['get', 'head'].includes(ctint.method) ? JSON.stringify(ctint.data) : null,
-        headers: getHeaders(ctint.reqAuthorize)
+        headers: getHeaders(ctint.reqAuthorize),
+        cache: 'no-store'
     };
 }
 
