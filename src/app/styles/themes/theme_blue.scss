@@ -10,5 +10,5 @@ $themename: "blue";
         "fgcolorsecondary": #000000,
     );
 
-    @include c.themecontent($propstheme);
+    @include c.themecontent($themename, $propstheme);
 }

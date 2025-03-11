@@ -10,5 +10,5 @@ $themename: "dark";
         "fgcolorsecondary": #f1f1f1,
     );
 
-    @include c.themecontent($propstheme);
+    @include c.themecontent($themename, $propstheme);
 }

@@ -1,6 +1,6 @@
 @use "functions.scss" as f;
 
-@mixin themecontent($propstheme) {
+@mixin themecontent($themename, $propstheme) {
     $bgcolorprimary: f.getvalmap($propstheme, "bgcolorprimary"); //background color primary
     $bgcolorsecondary: f.getvalmap($propstheme, "bgcolorsecondary"); //background color secondary
     $fgcolorprimary: f.getvalmap($propstheme, "fgcolorprimary"); //color primary
@@ -57,10 +57,10 @@
             --bs-btn-close-color: #{$fgcolorprimary};
             --bs-btn-close-white-filter: invert(1) grayscale(100%) brightness(200%);
             
-            @if $fgcolorprimary == white or $fgcolorprimary == #ffffff {
+            @if $themename == "light" {
                 --bs-btn-close-bg: url("/icons/close/closeico_light.svg");
                 --bs-btn-close-white-filter: invert(0) grayscale(100%) brightness(200%);
-            } @else if $fgcolorprimary == black or $fgcolorprimary == #000000 {
+            } @else if $themename == "dark" {
                 --bs-btn-close-bg: url("/icons/close/closeico_dark.svg");
                 --bs-btn-close-white-filter: invert(1) grayscale(100%) brightness(0%);
             } @else {
@@ -93,10 +93,10 @@
             --bs-btn-close-color: #{$fgcolorprimary};
             --bs-btn-close-white-filter: invert(1) grayscale(100%) brightness(200%);
             
-            @if $fgcolorprimary == white or $fgcolorprimary == #ffffff {
+            @if $themename == "light" {
                 --bs-btn-close-bg: url("/icons/close/closeico_light.svg");
                 --bs-btn-close-white-filter: invert(0) grayscale(100%) brightness(200%);
-            } @else if $fgcolorprimary == black or $fgcolorprimary == #000000 {
+            } @else if $themename == "dark" {
                 --bs-btn-close-bg: url("/icons/close/closeico_dark.svg");
                 --bs-btn-close-white-filter: invert(1) grayscale(100%) brightness(0%);
             } @else {
@@ -197,14 +197,18 @@
             }
 
             .toolbar-item {
-                @if $bgcolorprimary == black or $bgcolorprimary == #000000 {
+                @if $themename == "dark" {
                     filter: invert(100%) sepia(100%) saturate(7%) hue-rotate(119deg) brightness(103%) contrast(102%);
                 } @else {
                     filter: invert(0%) sepia(98%) saturate(14%) hue-rotate(43deg) brightness(90%) contrast(100%);
                 }
 
-                &:hover {
-                    filter: invert(0%) sepia(98%) saturate(14%) hue-rotate(43deg) brightness(90%) contrast(100%);
+                &:hover, &:active, &:focus {
+                    @if $themename == "dark" {
+                        filter: invert(100%) sepia(100%) saturate(7%) hue-rotate(119deg) brightness(103%) contrast(102%);
+                    } @else {
+                        filter: invert(0%) sepia(98%) saturate(14%) hue-rotate(43deg) brightness(90%) contrast(100%);
+                    }
                 }
             }
         }
@@ -345,6 +349,7 @@
 
         .btn {
             background-color: $bgcolorprimary !important;
+            border-color: $fgcolorprimary !important;
             color: $fgcolorprimary;
         }
     }

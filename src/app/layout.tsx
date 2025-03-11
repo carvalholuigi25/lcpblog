@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Orbitron, Poppins, Roboto } from "next/font/google";
-import { ThemeProvider } from "./components/context/themecontext";
+import { ThemeProvider } from "@/app/components/context/themecontext";
 import Frameworks from "@/app/frameworks/frameworks";
 import "@/app/globals.scss";
+import { LanguageProvider } from "./components/context/languagecontext";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -30,17 +31,19 @@ export const metadata: Metadata = {
   description: "Created by Luis Carvalho @2025 - LCP",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-bs-theme="system">
+    <html lang="en" dir="ltr" data-bs-theme="system">
       <body className={`${poppins.variable} ${roboto.variable} ${orbitron.variable} mybkgpage`}>
         <div id="modal-root"></div>
         <ThemeProvider>
-          {children}
+          <LanguageProvider>
+            {children}
+          </LanguageProvider>
         </ThemeProvider>
         <Frameworks />
       </body>

@@ -5,7 +5,7 @@ import { TFormSearchData, fsearchSchema } from "@/app/schemas/formSchemas";
 import { useForm } from 'react-hook-form';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { delFromStorage, saveToStorage } from '@/app/hooks/localstorage';
-import ModalSearch from '../modals/modalsearch';
+import ModalSearch from '@/app/modals/modalsearch';
 
 const Search = () => {
     const router = useRouter();
