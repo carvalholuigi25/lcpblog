@@ -1,14 +1,14 @@
 "use client";
 import { Suspense } from "react";
-import {useTranslations} from 'next-intl';
-import styles from "@/app/page.module.scss";
-import Footer from "@/app/ui/footer";
-import Header from "@/app/ui/header";
-import News from "@/app/components/news";
+import { useTranslations } from "next-intl";
+import styles from "@applocale/page.module.scss";
+import Footer from "@applocale/ui/footer";
+import Header from "@applocale/ui/header";
+import News from "@applocale/components/news";
 
 export default function Home() {
   const t = useTranslations('HomePage');
-
+  
   return (
     <div className={styles.page} id="home">
       <Header />

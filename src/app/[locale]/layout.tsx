@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
-import { NextIntlClientProvider } from 'next-intl';
-import { ThemeProvider } from "@/app/components/context/themecontext";
-import { getMessages } from "next-intl/server";
-import { routing } from "@/app/i18n/routing";
+import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { notFound } from "next/navigation";
+import { getMessages } from "next-intl/server";
+import { ThemeProvider } from "@applocale/components/context/themecontext";
+import { LanguageProvider } from "@applocale/components/context/languagecontext";
+import { routing } from "@/app/i18n/routing";
+import "@applocale/globals.scss";
 
 export const metadata: Metadata = {
   title: "LCP Blog",
@@ -17,21 +19,20 @@ export default async function LocaleLayout({
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
 }>) {
-  // Ensure that the incoming `locale` is valid
   const { locale } = await params;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  if (!routing.locales.includes(locale as any)) {
+
+  if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
-
-  // Providing all messages to the client
-  // side is the easiest way to get started
-  const messages = await getMessages({locale: locale});
+  
+  const messages = await getMessages({ locale: locale });
 
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
       <ThemeProvider>
-        {children}
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
       </ThemeProvider>
     </NextIntlClientProvider>
   );

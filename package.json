@@ -35,9 +35,11 @@
     "jsdom": "^26.0.0",
     "lexical": "^0.27.1",
     "next": "15.2.1",
+    "next-intl": "^4.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",
+    "rtl-detect": "^1.1.2",
     "zod": "^3.24.2"
   },
   "devDependencies": {
@@ -46,6 +48,7 @@
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/rtl-detect": "^1.0.3",
     "concurrently": "^9.1.2",
     "cross-env": "^7.0.3",
     "eslint": "^9",

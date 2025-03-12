@@ -2,24 +2,28 @@ export interface LanguagesLocales {
     id: number;
     name: string;
     value: string;
+    prefix: string;
 }
 
 export const localesary: LanguagesLocales[] = [{
     id: 1,
     name: "English (United Kingdom)",
-    value: "en",
+    value: "en-UK",
+    prefix: "en"
 },
 {
     id: 2,
-    name: "Portuguese (Portugal)",
-    value: "pt",
+    name: "Português (Portugal)",
+    value: "pt-PT",
+    prefix: "pt"
 }];
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const getValuesLocales = (): any => {
-    return localesary.map(x => x.value);
+export const getValuesLocales = (langval?: string): any => {
+    return langval ? localesary.filter(x => x.value == langval).map(x => x.value) : localesary.map(x => x.value);
 }
 
-export const getPathsLocales = (path?: string) => {
-    return path ? localesary.filter(x => x.value == path).map(x => x.value) : localesary.map(x => x.value);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const getPrefixesLocales = (prefval?: string): any => {
+    return prefval ? localesary.filter(x => x.prefix == prefval).map(x => x.prefix) : localesary.map(x => x.prefix);
 }
