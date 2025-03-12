@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
+import styles from "@applocale/page.module.scss";
 import { useCallback, useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Posts } from "@applocale/interfaces/posts";
@@ -7,12 +8,11 @@ import { User } from "@applocale/interfaces/user";
 import { Categories } from "@applocale/interfaces/categories";
 import { loadMyRealData, shortenLargeNumber } from "@applocale/functions/functions";
 import FetchDataAxios, { FetchMultipleDataAxios } from "@applocale/utils/fetchdataaxios";
-import CarouselNews from "@applocale/components/carouselnews";
-import styles from "@applocale/page.module.scss";
-import Image from "next/image";
 import {Link} from '@/app/i18n/navigation';
+import { getDefLocale, getLinkLocale } from "@applocale/helpers/defLocale";
+import CarouselNews from "@applocale/components/carouselnews";
 import MyEditorPost from "@applocale/components/editor/myeditorpost";
-import { getDefLocale } from "../helpers/defLocale";
+import Image from "next/image";
 
 export default function News({ cid, pid }: { cid: number, pid: number }) {
     const [news, setNews] = useState(new Array<Posts>());
@@ -135,7 +135,7 @@ export default function News({ cid, pid }: { cid: number, pid: number }) {
             reqAuthorize: false
         }).then(() => {
             console.log("Views updated");
-            router.push("http://localhost:3000/" +  getDefLocale() + "/pages/news/" + newsi.categoryId + "/" + newsi.postId);
+            router.push(getLinkLocale() + "/pages/news/" + newsi.categoryId + "/" + newsi.postId);
         }).catch((err) => {
             console.log(err);
         });
@@ -172,7 +172,7 @@ export default function News({ cid, pid }: { cid: number, pid: number }) {
                                                 <div className="card-author card-text">
                                                     {getFeaturedItem(i)}
                                                     <Image src={"/images/" + (useri.avatar ?? 'avatars/user.png')} className="rounded img-fluid img-author" width={30} height={30} alt={useri.displayName + "'s avatar"} />
-                                                    <Link href={"http://localhost:3000/" +  getDefLocale() + "/pages/users/" + newsi.userId} className="txt-author">
+                                                    <Link href={getLinkLocale() + "/pages/users/" + newsi.userId} className="txt-author">
                                                         {useri.displayName}
                                                     </Link>
                                                     <span className="linesep"></span>
@@ -185,7 +185,7 @@ export default function News({ cid, pid }: { cid: number, pid: number }) {
                                                         <>
                                                             <span className="linesep"></span>
                                                             <i className="bi bi-bookmark"></i>
-                                                            <Link href={"http://localhost:3000/" +  getDefLocale() + "/pages/news/" + newsi.categoryId} className="txtcategory ms-2" title={"Categoria: " + categoryi.name}>
+                                                            <Link href={getLinkLocale() + "/pages/news/" + newsi.categoryId} className="txtcategory ms-2" title={"Categoria: " + categoryi.name}>
                                                                 {categoryi.name}
                                                             </Link>
                                                         </>
@@ -329,6 +329,7 @@ export default function News({ cid, pid }: { cid: number, pid: number }) {
             <>
                 {fetchNewsItems()}
                 {cid >= -1 && pid == -1 && getMyPagination()}
+                {pathname !== "/" || pathname !== "/" + getDefLocale() && getBackLink(pathname)}
             </>
         );
     }
@@ -341,7 +342,6 @@ export default function News({ cid, pid }: { cid: number, pid: number }) {
                 <div className="row justify-content-center align-items-center mt-5 mb-5">
                     {!news || news.length == 0 && getEmptyNews(pathname)}
                     {!!news && news.length > 0 && getContent()}
-                    {pathname !== "/" && news.length > 0 && getBackLink(pathname)}
                 </div>
             </div>
         </div>

@@ -5,7 +5,8 @@ import {Link} from '@/app/i18n/navigation';
 import Image from "next/image";
 import styles from "@applocale/page.module.scss";
 import dynamic from 'next/dynamic';
-import { getDefLocale } from '../helpers/defLocale';
+import { getLinkLocale } from '../helpers/defLocale';
+
 const SearchComponent = dynamic(() => import('./search'), { ssr: false })
 
 const HeaderMenu = () => {
@@ -56,14 +57,14 @@ const HeaderMenu = () => {
                     {!!logInfo && (
                         <>
                             {getUserRole() == "admin" && (
-                                <Link href={"http://localhost:3000/" +  getDefLocale() + "/pages/admin/dashboard"} className='nav-link p-3'>
+                                <Link href={getLinkLocale() + "/pages/admin/dashboard"} className='nav-link p-3'>
                                     <i className="bi bi-speedometer me-2"></i>
                                     <span>Dashboard</span>
                                 </Link>
                             )}
 
                             <div className="d-flex justify-content-between align-items-center nav-link navlinklogin p-3">
-                                <Link href={"http://localhost:3000/" +  getDefLocale() + "/pages/users/" + getUserId()}>
+                                <Link href={getLinkLocale() + "/pages/users/" + getUserId()}>
                                     <Image src={"/images/"+getUserAvatar()} width="30" height="30" alt="user" className={styles.imgavatarheader} />
                                     <span>{getDisplayName()}</span>
                                 </Link>
@@ -76,10 +77,12 @@ const HeaderMenu = () => {
                     )}
 
                     {!logInfo && (
-                        <Link className="nav-link navlinklogin p-3" href={"http://localhost:3000/" + getDefLocale() + "/auth/login"}>
-                            <i className="bi bi-person-circle me-2"></i>
-                            Login
-                        </Link>
+                        <>
+                            <Link href={"http://localhost:3000/en-UK/auth/login"} className="nav-link navlinklogin p-3">
+                                <i className="bi bi-person-circle me-2"></i>
+                                <span>Login</span>
+                            </Link>
+                        </>
                     )}
                 </div>
             </div>

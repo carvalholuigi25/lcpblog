@@ -5,7 +5,6 @@ import { getMessages } from "next-intl/server";
 import { ThemeProvider } from "@applocale/components/context/themecontext";
 import { LanguageProvider } from "@applocale/components/context/languagecontext";
 import { routing } from "@/app/i18n/routing";
-import "@applocale/globals.scss";
 
 export const metadata: Metadata = {
   title: "LCP Blog",

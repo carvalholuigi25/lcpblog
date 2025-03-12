@@ -35,7 +35,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang={"en"} dir={"ltr"} data-bs-theme="system">
+    <html lang={"en"} dir={"ltr"} data-bs-theme="system" suppressHydrationWarning={true}>
       <body className={`${poppins.variable} ${roboto.variable} ${orbitron.variable} mybkgpage`}>
         <div id="modal-root"></div>
         {children}

@@ -10,7 +10,7 @@ import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavba
 import TableData from "@applocale/components/admin/dashboard/tabledata";
 import {Link} from '@/app/i18n/navigation';
 import Footer from "@applocale/ui/footer";
-import { getDefLocale } from "@/app/[locale]/helpers/defLocale";
+import { getLinkLocale } from "@/app/[locale]/helpers/defLocale";
 
 export default function AdminPosts() {
     const [logInfo, setLogInfo] = useState("");
@@ -94,7 +94,7 @@ export default function AdminPosts() {
                                     <div className="row">
                                         <div className="col-12">
                                             <div className="btn-group" role="group" aria-label="News data actions">
-                                                <Link href={"http://localhost:3000/" +  getDefLocale() + '/pages/news/add'} className="btn btn-primary btn-rounded btncreatenews">Add news</Link>
+                                                <Link href={getLinkLocale() + '/pages/news/add'} className="btn btn-primary btn-rounded btncreatenews">Add news</Link>
                                             </div>
                                         </div>
 

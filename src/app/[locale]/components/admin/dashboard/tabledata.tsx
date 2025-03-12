@@ -1,4 +1,4 @@
-import { getDefLocale } from '@/app/[locale]/helpers/defLocale';
+import { getLinkLocale } from '@/app/[locale]/helpers/defLocale';
 import {Link} from '@/app/i18n/navigation';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -52,10 +52,10 @@ export default function TableData({ theaders, tdata, namep }: { theaders: THeade
                                     ))}
 
                                     <td>
-                                        <Link href={"http://localhost:3000/" +  getDefLocale() + '/pages/'+namep+'/edit/' + vid} className="btn btn-primary btnedit">
+                                        <Link href={getLinkLocale() + '/pages/'+namep+'/edit/' + vid} className="btn btn-primary btnedit">
                                             <i className="bi bi-pencil-fill" style={{ border: 0 }}></i>
                                         </Link>
-                                        <Link href={"http://localhost:3000/" +  getDefLocale() + '/pages/'+namep+'/delete/' + vid} className="btn btn-primary btndel ms-2">
+                                        <Link href={getLinkLocale() + '/pages/'+namep+'/delete/' + vid} className="btn btn-primary btndel ms-2">
                                             <i className="bi bi-trash3-fill" style={{ border: 0 }}></i>
                                         </Link>
                                     </td>
