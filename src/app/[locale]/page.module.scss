@@ -443,6 +443,56 @@
   }
 }
 
+.frmaddusers, .frmeditusers, .frmdelusers {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: stretch;
+  margin: 15px auto;
+  padding: 15px;
+  width: 100%;
+  max-width: 100%;
+
+  .sformgroup {
+    .sformgroupinp {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+  }
+
+  .inpimgprev {
+    display: block;
+    margin: 15px auto;
+    width: 600px;
+    height: 300px;
+    max-width: 100%;
+    max-height: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    object-position: center center;
+    border-radius: 25px;
+    border: 1px solid #000;
+    -webkit-box-shadow: 0 1px 5px 3px #000000bf;
+    -moz-box-shadow: 0 1px 5px 3px #000000bf;
+    box-shadow: 0 1px 5px 3px #000000bf;
+  }
+}
+
+.inpimgprevavatar {
+  width: 150px !important;
+  height: 150px !important;
+  border-radius: 50% !important;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.inpimgprevcover {
+  width: 600px !important;
+  height: 300px !important;
+  max-width: 100%;
+  max-height: 100%;
+}
+
 @media all and (width >= 1000px) {
   .plogin .slogin, .pregister .sregister {
     width: 50%;

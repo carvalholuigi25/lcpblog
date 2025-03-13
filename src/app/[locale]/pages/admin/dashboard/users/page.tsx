@@ -91,14 +91,20 @@ export default function AdminUsers({locale}: {locale: string}) {
                                 </h3>
                                 <div className="container-fluid">
                                     <div className="row">
+                                        <div className="col-12">
+                                            <div className="btn-group" role="group" aria-label="Users data actions">
+                                                <Link href={'/pages/users/add'} locale={locale ?? getDefLocale()} className="btn btn-primary btn-rounded btncreateusers">Add new user</Link>
+                                            </div>
+                                        </div>
+
                                         {!!users && (
-                                            <div className="col-12">
+                                            <div className="col-12 mt-3">
                                                 <TableData locale={locale ?? getDefLocale()} theaders={tableHeaders} tdata={users} namep="users" />
                                             </div>
                                         )}
 
                                         {!users && (
-                                            <div className='col-12 card p-3 text-center'>
+                                            <div className='col-12 mt-3 card p-3 text-center'>
                                                 <div className='card-body'>
                                                     <i className="bi bi-people" style={{ fontSize: "4rem" }}></i>
                                                     <p>0 users</p>

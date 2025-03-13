@@ -71,6 +71,7 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("EditorOnly", policy => policy.RequireRole(EUsersRoles.editor.ToString()));
     options.AddPolicy("VipOnly", policy => policy.RequireRole(EUsersRoles.vip.ToString()));
     options.AddPolicy("StaffOnly", policy => policy.RequireRole(EUsersRoles.moderator.ToString(), EUsersRoles.admin.ToString()));
+    options.AddPolicy("RegUsers", policy => policy.RequireRole(EUsersRoles.user.ToString(), EUsersRoles.member.ToString(), EUsersRoles.editor.ToString(), EUsersRoles.vip.ToString(), EUsersRoles.moderator.ToString(), EUsersRoles.admin.ToString()));
     options.AddPolicy("AllUsers", policy => policy.RequireRole(EUsersRoles.guest.ToString(), EUsersRoles.user.ToString(), EUsersRoles.member.ToString(), EUsersRoles.editor.ToString(), EUsersRoles.vip.ToString(), EUsersRoles.moderator.ToString(), EUsersRoles.admin.ToString()));
 });
 

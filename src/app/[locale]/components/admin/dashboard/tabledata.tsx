@@ -66,7 +66,7 @@ export default function TableData({ theaders, tdata, namep, locale }: { theaders
                     <tfoot>
                         <tr>
                             <td colSpan={totaltheaders ?? 1}>
-                                Total posts: {tdata.length}
+                                Total {namep}: {tdata.length}
                             </td>
                         </tr>
                     </tfoot>

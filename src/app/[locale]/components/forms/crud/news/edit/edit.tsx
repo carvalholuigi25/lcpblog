@@ -218,7 +218,7 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
                                         width="600" 
                                         height="300" 
                                         alt="Image" 
-                                        className={styles.inpimgprev} 
+                                        className={styles.inpimgprev + " " + styles.inpimgprevcover} 
                                         onError={(event: any) => {
                                             event.target.id = "/images/blog.jpg";
                                             event.target.srcset = "/images/blog.jpg";

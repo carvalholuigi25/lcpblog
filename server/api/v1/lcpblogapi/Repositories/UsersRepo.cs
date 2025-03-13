@@ -106,12 +106,12 @@ public class UsersRepo : ControllerBase, IUsersRepo
             return BadRequest();
         }
 
-        if(!string.IsNullOrEmpty(user.Password)) {
-            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password, 10, false);
+        if(!string.IsNullOrEmpty(user.Username) &&  _context.Users.Where(x => x.Username == user.Username).Count() > 1) {
+            return BadRequest("Username already exists!");
         }
 
-        if(!string.IsNullOrEmpty(user.Username) &&  _context.Users.Where(x => x.Username == user.Username).Count() == 1) {
-            return BadRequest("Username already exists!");
+        if(!string.IsNullOrEmpty(user.Password)) {
+            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password, 10, false);
         }
 
         _context.Entry(user).State = EntityState.Modified;
@@ -144,7 +144,7 @@ public class UsersRepo : ControllerBase, IUsersRepo
             return NotFound();
         }
 
-        _context.Users.Remove(user);
+        _context.Users.Remove(user!);
         await _myDBSQLFunctions.ResetAIID("users", 0);
         await _context.SaveChangesAsync();
 

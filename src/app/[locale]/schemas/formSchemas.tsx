@@ -59,3 +59,23 @@ export const fnewsSchema = z.object({
 export type TFormNews = z.infer<typeof fnewsSchema>;
 
 /* end of form news */
+
+/* start of form users */
+
+export const fusersSchema = z.object({
+    userId: z.coerce.number().optional(),
+    username: z.coerce.string().min(1, { message: "The username is required to be filled" }),
+    password: z.coerce.string().min(1, { message: "The password is required to be filled" }),
+    email: z.coerce.string().email({ message: "The email is required to be filled" }),
+    displayName: z.coerce.string().min(1, { message: "The display name (full name) is required to be filled" }),
+    avatar: z.coerce.string().optional(),
+    cover: z.coerce.string().optional(),
+    about: z.coerce.string().optional(),
+    role: z.coerce.string().optional(),
+    privacy: z.coerce.string().optional(),
+    userInfoId: z.coerce.number().optional()
+});
+
+export type TFormUsers = z.infer<typeof fusersSchema>;
+
+/* end of form users */
