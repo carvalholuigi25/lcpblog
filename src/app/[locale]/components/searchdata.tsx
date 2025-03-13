@@ -4,9 +4,9 @@ import { Suspense, useEffect, useState } from "react";
 import { Posts } from "@applocale/interfaces/posts";
 import FetchData from "@applocale/utils/fetchdata";
 import { useSearchParams } from "next/navigation";
-import { getLinkLocale } from '../helpers/defLocale';
+import { getDefLocale } from '../helpers/defLocale';
 
-export default function SearchData() {
+export default function SearchData({locale}: {locale: string}) {
     const [news, setNews] = useState(new Array<Posts>());
     const [loading, setLoading] = useState(true);
     const sparams = useSearchParams();
@@ -35,7 +35,7 @@ export default function SearchData() {
                 <div key={i}>
                     <ul>
                         <li>
-                            <Link href={getLinkLocale() + '/pages/news/'+nitem.categoryId+'/'+nitem.postId}>
+                            <Link href={'/pages/news/'+nitem.categoryId+'/'+nitem.postId} locale={locale ?? getDefLocale()}>
                                 {nitem.title}
                             </Link>
                         </li>

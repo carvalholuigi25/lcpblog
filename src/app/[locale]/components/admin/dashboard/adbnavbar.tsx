@@ -3,9 +3,9 @@
 import astyles from "@applocale/styles/adminstyles.module.scss";
 import {Link} from '@/app/i18n/navigation';
 import Image from "next/image";
-import { getLinkLocale } from "@/app/[locale]/helpers/defLocale";
+import { getDefLocale } from "@/app/[locale]/helpers/defLocale";
 
-export default function AdminNavbarDashboard({logInfo, sidebarToggle, toggleSidebar}: {logInfo: string, sidebarToggle: boolean, toggleSidebar: any}) {
+export default function AdminNavbarDashboard({logInfo, sidebarToggle, toggleSidebar, locale}: {logInfo: string, sidebarToggle: boolean, toggleSidebar: any, locale: string}) {
     const getUserId = () => {
         return logInfo ? JSON.parse(logInfo)[0].id : "0";
     }
@@ -37,7 +37,7 @@ export default function AdminNavbarDashboard({logInfo, sidebarToggle, toggleSide
                 
                 <div className="collapse navbar-collapse" id="navbarAdmDashboard">
                     <div className="navbar-nav ms-auto">
-                        <Link className="nav-link active" aria-current="page" href={getLinkLocale() + "/pages/users/" + getUserId()}>
+                        <Link className="nav-link active" aria-current="page" href={"/pages/users/" + getUserId()} locale={locale ?? getDefLocale()}>
                             <Image src={'/images/' + getAvatar()} width={40} height={40} className={astyles.imgavatar + " me-3"} alt={getDisplayName() + "'s Avatar"} />
                             <span className="hidden">{getDisplayName()}</span>
                         </Link>

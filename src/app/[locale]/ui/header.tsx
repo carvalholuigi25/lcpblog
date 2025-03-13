@@ -5,11 +5,11 @@ import {Link} from '@/app/i18n/navigation';
 import Image from "next/image";
 import styles from "@applocale/page.module.scss";
 import dynamic from 'next/dynamic';
-import { getLinkLocale } from '../helpers/defLocale';
+import { getDefLocale } from '../helpers/defLocale';
 
 const SearchComponent = dynamic(() => import('./search'), { ssr: false })
 
-const HeaderMenu = () => {
+const HeaderMenu = ({locale}: {locale: string}) => {
     const [logInfo, setLogInfo] = useState("");
 
     useEffect(() => {
@@ -57,14 +57,14 @@ const HeaderMenu = () => {
                     {!!logInfo && (
                         <>
                             {getUserRole() == "admin" && (
-                                <Link href={getLinkLocale() + "/pages/admin/dashboard"} className='nav-link p-3'>
+                                <Link href={"/pages/admin/dashboard"} locale={locale ?? getDefLocale()} className='nav-link p-3'>
                                     <i className="bi bi-speedometer me-2"></i>
                                     <span>Dashboard</span>
                                 </Link>
                             )}
 
                             <div className="d-flex justify-content-between align-items-center nav-link navlinklogin p-3">
-                                <Link href={getLinkLocale() + "/pages/users/" + getUserId()}>
+                                <Link href={"/pages/users/" + getUserId()} locale={locale ?? getDefLocale()}>
                                     <Image src={"/images/"+getUserAvatar()} width="30" height="30" alt="user" className={styles.imgavatarheader} />
                                     <span>{getDisplayName()}</span>
                                 </Link>
@@ -78,7 +78,7 @@ const HeaderMenu = () => {
 
                     {!logInfo && (
                         <>
-                            <Link href={"http://localhost:3000/en-UK/auth/login"} className="nav-link navlinklogin p-3">
+                            <Link href={"/auth/login"} locale={locale ?? getDefLocale()} className="nav-link navlinklogin p-3">
                                 <i className="bi bi-person-circle me-2"></i>
                                 <span>Login</span>
                             </Link>
@@ -90,10 +90,10 @@ const HeaderMenu = () => {
     );
 }
 
-const Header = () => {
+const Header = ({locale}: {locale: string}) => {
     return (
         <>
-            <HeaderMenu />
+            <HeaderMenu locale={locale ?? getDefLocale()} />
             <div className='header'>
                 <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top">
                     <div className="container-fluid">

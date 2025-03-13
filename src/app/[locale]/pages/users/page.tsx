@@ -7,8 +7,9 @@ import styles from "@applocale/page.module.scss";
 import FetchData from '@applocale/utils/fetchdata';
 import Header from '@applocale/ui/header';
 import Footer from '@applocale/ui/footer';
+import { getDefLocale } from '../../helpers/defLocale';
 
-export default function AllUsersPage() {
+export default function AllUsersPage({locale}: {locale: string}) {
   const [users, setUsers] = useState(new Array<User>());
 
   useEffect(() => {
@@ -43,7 +44,7 @@ export default function AllUsersPage() {
 
   return (
     <>
-    <Header />
+    <Header locale={locale ?? getDefLocale()} />
     <div className='container' style={{paddingTop: '5rem', paddingBottom: '5rem'}}>
       {!users || users.length == 0 && ( 
         <div className='row justify-content-center align-items-center p-3'>

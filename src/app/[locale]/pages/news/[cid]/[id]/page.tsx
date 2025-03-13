@@ -4,15 +4,16 @@ import styles from "@applocale/page.module.scss";
 import News from '@applocale/components/news';
 import Footer from "@applocale/ui/footer";
 import Header from "@applocale/ui/header";
+import { getDefLocale } from '@/app/[locale]/helpers/defLocale';
 
-export default function NewsPage() {
+export default function NewsPage({locale}: {locale: string}) {
   const { cid, id } = useParams();
 
   return (    
     <div className={styles.page} id="mallnewspage" style={{paddingTop: '5rem'}}>
-    <Header />
+    <Header locale={locale ?? getDefLocale()} />
     <section>
-    <News cid={parseInt(""+cid, 0)} pid={parseInt(""+id, 0)} />
+    <News locale={locale ?? getDefLocale()} cid={parseInt(""+cid, 0)} pid={parseInt(""+id, 0)} />
     </section>
     <Footer />
     </div>

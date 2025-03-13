@@ -8,8 +8,9 @@ import {Link} from '@/app/i18n/navigation';
 import FetchData from '@applocale/utils/fetchdata';
 import Header from "@applocale/ui/header";
 import Footer from "@applocale/ui/footer";
+import { getDefLocale } from "@/app/[locale]/helpers/defLocale";
 
-export default function UserPage() {
+export default function UserPage({locale}: {locale: string}) {
   const { id } = useParams();
   const [users, setUsers] = useState(null as unknown as User);
 
@@ -43,7 +44,7 @@ export default function UserPage() {
 
   return (
     <>
-    <Header />
+    <Header locale={locale ?? getDefLocale()} />
     <div className='container' style={{paddingTop: '5rem', paddingBottom: '5rem'}}>
       {!users.userId && (
         <div className='row justify-content-center align-items-center p-3'>

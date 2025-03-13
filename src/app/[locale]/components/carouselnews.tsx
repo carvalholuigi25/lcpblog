@@ -2,9 +2,9 @@ import {Link} from '@/app/i18n/navigation';
 import Image from "next/image";
 import styles from "@applocale/page.module.scss";
 import { Posts } from "@applocale/interfaces/posts";
-import { getLinkLocale } from '../helpers/defLocale';
+import { getDefLocale } from '../helpers/defLocale';
 
-export default function CarouselNews({ news, pathname }: { news: Posts[], pathname: string }) {
+export default function CarouselNews({ news, pathname, locale }: { news: Posts[], pathname: string, locale: string }) {
     const items = [];
     const itemsinds = [];
     const nmitems = news.length;
@@ -19,7 +19,7 @@ export default function CarouselNews({ news, pathname }: { news: Posts[], pathna
 
         items.push(
             <div className={"carousel-item " + isactive + " " + styles.drk} key={i}>
-                <Link href={getLinkLocale() + "/pages/news/" + news[i].categoryId + "/" + news[i].postId}>
+                <Link href={"/pages/news/" + news[i].categoryId + "/" + news[i].postId} locale={locale ?? getDefLocale()}>
                     <Image
                         src={"/images/" + (news[i].image ?? 'blog.jpg')}
                         className={styles.carimg + " rounded"}

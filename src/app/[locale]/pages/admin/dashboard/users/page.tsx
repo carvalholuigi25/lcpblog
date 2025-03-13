@@ -10,8 +10,9 @@ import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavba
 import TableData from "@applocale/components/admin/dashboard/tabledata";
 import {Link} from '@/app/i18n/navigation';
 import Footer from "@applocale/ui/footer";
+import { getDefLocale } from "@/app/[locale]/helpers/defLocale";
 
-export default function AdminUsers() {
+export default function AdminUsers({locale}: {locale: string}) {
     const [logInfo, setLogInfo] = useState("");
     const [isAuthorized, setIsAuthorized] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -73,7 +74,7 @@ export default function AdminUsers() {
     return (
         <div className={astyles.admdashboard}>
             {!!isAuthorized && (
-                <AdminNavbarDashboard logInfo={logInfo} sidebarToggle={sidebarToggle} toggleSidebar={toggleSidebar} />
+                <AdminNavbarDashboard locale={locale ?? getDefLocale()} logInfo={logInfo} sidebarToggle={sidebarToggle} toggleSidebar={toggleSidebar} />
             )}
 
             <div className="container-fluid">
@@ -81,7 +82,7 @@ export default function AdminUsers() {
                     {!!isAuthorized && (
                         <>
                             <div className={"col-12 col-md-" + (!sidebarToggle ? "3" : "12") + " col-lg-" + (!sidebarToggle ? "2" : "12")}>
-                                <AdminSidebarDashboard sidebarToggle={sidebarToggle} toggleSidebar={toggleSidebar} />
+                                <AdminSidebarDashboard locale={locale ?? getDefLocale()} sidebarToggle={sidebarToggle} toggleSidebar={toggleSidebar} />
                             </div>
                             <div className={"col-12 col-md-" + (!sidebarToggle ? "9" : "12") + " col-lg-" + (!sidebarToggle ? "10" : "12") + ""}>
                                 <h3 className="text-center">
@@ -92,7 +93,7 @@ export default function AdminUsers() {
                                     <div className="row">
                                         {!!users && (
                                             <div className="col-12">
-                                                <TableData theaders={tableHeaders} tdata={users} namep="users" />
+                                                <TableData locale={locale ?? getDefLocale()} theaders={tableHeaders} tdata={users} namep="users" />
                                             </div>
                                         )}
 

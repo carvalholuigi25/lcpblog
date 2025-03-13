@@ -3,9 +3,9 @@
 import { usePathname } from "next/navigation";
 import {Link} from '@/app/i18n/navigation';
 import astyles from "@applocale/styles/adminstyles.module.scss";
-import { getLinkLocale } from "@/app/[locale]/helpers/defLocale";
+import { getDefLocale } from "@/app/[locale]/helpers/defLocale";
 
-export default function AdminSidebarDashboard({sidebarToggle, toggleSidebar}: {sidebarToggle: boolean, toggleSidebar: any}) {    
+export default function AdminSidebarDashboard({sidebarToggle, toggleSidebar, locale}: {sidebarToggle: boolean, toggleSidebar: any, locale: string}) {    
     const links = [
         {
             id: 0,
@@ -46,7 +46,7 @@ export default function AdminSidebarDashboard({sidebarToggle, toggleSidebar}: {s
         
         mlinks.push(
             <li className="nav-item" key={i}>
-                <Link className={"nav-link " + isActive} aria-current={isPageCurrent} href={getLinkLocale() + prefix + x.link}>
+                <Link className={"nav-link " + isActive} aria-current={isPageCurrent} href={prefix + x.link} locale={locale ?? getDefLocale()}>
                     <i className={"bi " + x.icon + " me-2"}></i>
                     <span className={"navlinkname" + (showIconName ? " hidden" : "")}>{x.name}</span>
                 </Link>

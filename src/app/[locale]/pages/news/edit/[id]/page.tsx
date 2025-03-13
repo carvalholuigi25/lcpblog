@@ -9,8 +9,9 @@ import Footer from "@applocale/ui/footer";
 import EditNewsForm from "@applocale/components/forms/crud/news/edit/edit";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import {Link} from '@/app/i18n/navigation';
+import { getDefLocale } from "@/app/[locale]/helpers/defLocale";
 
-export default function EditNews() {
+export default function EditNews({locale}: {locale: string}) {
   const { id } = useParams();
   const [news, setNews] = useState(null as unknown as Posts);
   const [loading, setLoading] = useState(true);
@@ -74,7 +75,7 @@ export default function EditNews() {
 
   return (
     <div className={styles.page} id="editnewsmpage" style={{ paddingTop: '5rem' }}>
-      <Header />
+      <Header locale={locale ?? getDefLocale()} />
       <section className={styles.section + " " + styles.pstretch}>
         {!news && getEmptyNews(pathname)}
 

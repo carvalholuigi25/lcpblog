@@ -199,8 +199,6 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
                             <label htmlFor="content">Content</label>
                             <div className={styles.sformgroup}>
                                 <MyEditorPost {...register("content")} value={formData.content ?? editorState} editable={true} onChange={onChangeEditor} />
-                                
-                                {/* <textarea {...register("content")} id="content" name="content" className={"form-control content mt-3 " + styles.sformgroupinp} placeholder="Write any content here..." value={formData.content} onChange={handleChange} rows={10} cols={1} /> */}
                             </div>
 
                             {errors.content && ShowAlert("danger", errors.content.message)}

@@ -7,8 +7,9 @@ import AdminSidebarDashboard from "@applocale/components/admin/dashboard/adbside
 import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavbar";
 import {Link} from '@/app/i18n/navigation';
 import Footer from "@applocale/ui/footer";
+import { getDefLocale } from "@/app/[locale]/helpers/defLocale";
 
-export default function AdminDashboard() {
+export default function AdminDashboard({locale}: {locale: string}) {
     const [logInfo, setLogInfo] = useState("");
     const [isAuthorized, setIsAuthorized] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -52,7 +53,7 @@ export default function AdminDashboard() {
     return (
         <div className={astyles.admdashboard}>
             {!!isAuthorized && (
-                <AdminNavbarDashboard logInfo={logInfo} sidebarToggle={sidebarToggle} toggleSidebar={toggleSidebar} />
+                <AdminNavbarDashboard locale={locale ?? getDefLocale()} logInfo={logInfo} sidebarToggle={sidebarToggle} toggleSidebar={toggleSidebar} />
             )}
 
             <div className="container-fluid mt-3">
@@ -60,7 +61,7 @@ export default function AdminDashboard() {
                     {!!isAuthorized && (
                         <>
                             <div className={"col-12 col-md-" + (!sidebarToggle ? "3" : "12") + " col-lg-" + (!sidebarToggle ? "2" : "12")}>
-                                <AdminSidebarDashboard sidebarToggle={sidebarToggle} toggleSidebar={toggleSidebar} />
+                                <AdminSidebarDashboard locale={locale ?? getDefLocale()} sidebarToggle={sidebarToggle} toggleSidebar={toggleSidebar} />
                             </div>
                             <div className={"col-12 col-md-" + (!sidebarToggle ? "9" : "12") + " col-lg-" + (!sidebarToggle ? "10" : "12") + ""}>
                                 <h3 className="text-center">

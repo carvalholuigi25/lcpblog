@@ -9,8 +9,9 @@ import Footer from "@applocale/ui/footer";
 import DeleteNewsForm from "@applocale/components/forms/crud/news/delete/delete";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import {Link} from '@/app/i18n/navigation';
+import { getDefLocale } from "@/app/[locale]/helpers/defLocale";
 
-export default function DeleteNews() {
+export default function DeleteNews({locale}: {locale: string}) {
   const { id } = useParams();
   const [news, setNews] = useState(null as unknown as Posts);
   const [loading, setLoading] = useState(true);
@@ -74,7 +75,7 @@ export default function DeleteNews() {
 
   return (
     <div className={styles.page} id="deletenewsmpage" style={{ paddingTop: '5rem' }}>
-      <Header />
+      <Header locale={locale ?? getDefLocale()} />
       <section className={styles.section + " " + styles.pstretch}>
         {!news && getEmptyNews(pathname)}
 

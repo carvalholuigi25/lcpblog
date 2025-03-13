@@ -10,9 +10,9 @@ import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavba
 import TableData from "@applocale/components/admin/dashboard/tabledata";
 import {Link} from '@/app/i18n/navigation';
 import Footer from "@applocale/ui/footer";
-import { getLinkLocale } from "@/app/[locale]/helpers/defLocale";
+import { getDefLocale } from "@/app/[locale]/helpers/defLocale";
 
-export default function AdminPosts() {
+export default function AdminPosts({locale}: {locale: string}) {
     const [logInfo, setLogInfo] = useState("");
     const [isAuthorized, setIsAuthorized] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -75,7 +75,7 @@ export default function AdminPosts() {
     return (
         <div className={astyles.admdashboard}>
             {!!isAuthorized && (
-                <AdminNavbarDashboard logInfo={logInfo} sidebarToggle={sidebarToggle} toggleSidebar={toggleSidebar} />
+                <AdminNavbarDashboard logInfo={logInfo} sidebarToggle={sidebarToggle} toggleSidebar={toggleSidebar} locale={locale ?? getDefLocale()} />
             )}
 
             <div className="container-fluid">
@@ -83,7 +83,7 @@ export default function AdminPosts() {
                     {!!isAuthorized && (
                         <>
                             <div className={"col-12 col-md-" + (!sidebarToggle ? "3" : "12") + " col-lg-" + (!sidebarToggle ? "2" : "12")}>
-                                <AdminSidebarDashboard sidebarToggle={sidebarToggle} toggleSidebar={toggleSidebar} />
+                                <AdminSidebarDashboard sidebarToggle={sidebarToggle} toggleSidebar={toggleSidebar} locale={locale ?? getDefLocale()} />
                             </div>
                             <div className={"col-12 col-md-" + (!sidebarToggle ? "9" : "12") + " col-lg-" + (!sidebarToggle ? "10" : "12") + ""}>
                                 <h3 className="text-center">
@@ -94,13 +94,13 @@ export default function AdminPosts() {
                                     <div className="row">
                                         <div className="col-12">
                                             <div className="btn-group" role="group" aria-label="News data actions">
-                                                <Link href={getLinkLocale() + '/pages/news/add'} className="btn btn-primary btn-rounded btncreatenews">Add news</Link>
+                                                <Link href={'/pages/news/add'} locale={locale ?? getDefLocale()} className="btn btn-primary btn-rounded btncreatenews">Add news</Link>
                                             </div>
                                         </div>
 
                                         {!!posts && (
                                             <div className="col-12 mt-3">
-                                                <TableData theaders={tableHeaders} tdata={posts} namep="news" />
+                                                <TableData theaders={tableHeaders} tdata={posts} namep="news" locale={locale ?? getDefLocale()} />
                                             </div>
                                         )}
 

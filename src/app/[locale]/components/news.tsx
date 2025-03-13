@@ -14,7 +14,7 @@ import CarouselNews from "@applocale/components/carouselnews";
 import MyEditorPost from "@applocale/components/editor/myeditorpost";
 import Image from "next/image";
 
-export default function News({ cid, pid }: { cid: number, pid: number }) {
+export default function News({ cid, pid, locale }: { cid: number, pid: number, locale: string }) {
     const [news, setNews] = useState(new Array<Posts>());
     const [users, setUsers] = useState(new Array<User>());
     const [categories, setCategories] = useState(new Array<Categories>());
@@ -172,7 +172,7 @@ export default function News({ cid, pid }: { cid: number, pid: number }) {
                                                 <div className="card-author card-text">
                                                     {getFeaturedItem(i)}
                                                     <Image src={"/images/" + (useri.avatar ?? 'avatars/user.png')} className="rounded img-fluid img-author" width={30} height={30} alt={useri.displayName + "'s avatar"} />
-                                                    <Link href={getLinkLocale() + "/pages/users/" + newsi.userId} className="txt-author">
+                                                    <Link href={"/pages/users/" + newsi.userId} locale={locale ?? getDefLocale()} className="txt-author">
                                                         {useri.displayName}
                                                     </Link>
                                                     <span className="linesep"></span>
@@ -185,7 +185,7 @@ export default function News({ cid, pid }: { cid: number, pid: number }) {
                                                         <>
                                                             <span className="linesep"></span>
                                                             <i className="bi bi-bookmark"></i>
-                                                            <Link href={getLinkLocale() + "/pages/news/" + newsi.categoryId} className="txtcategory ms-2" title={"Categoria: " + categoryi.name}>
+                                                            <Link href={"/pages/news/" + newsi.categoryId} locale={locale ?? getDefLocale()} className="txtcategory ms-2" title={"Categoria: " + categoryi.name}>
                                                                 {categoryi.name}
                                                             </Link>
                                                         </>
@@ -336,7 +336,7 @@ export default function News({ cid, pid }: { cid: number, pid: number }) {
 
     return (
         <div className={styles.page}>
-            <CarouselNews news={news} pathname={pathname} />
+            <CarouselNews news={news} pathname={pathname} locale={locale ?? getDefLocale()} />
 
             <div className="container">
                 <div className="row justify-content-center align-items-center mt-5 mb-5">
