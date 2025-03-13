@@ -1,21 +1,24 @@
 "use client";
-import React, { useEffect, useState } from 'react';
-import { delFromStorage, getFromStorage } from '@applocale/hooks/localstorage';
-import {Link} from '@/app/i18n/navigation';
-import Image from "next/image";
 import styles from "@applocale/page.module.scss";
+import React, { useEffect, useState } from 'react';
+import Image from "next/image";
 import dynamic from 'next/dynamic';
-import { getDefLocale } from '../helpers/defLocale';
+import { delFromStorage, getFromStorage } from '@applocale/hooks/localstorage';
+import { getDefLocale } from '@applocale/helpers/defLocale';
+import { Link } from '@/app/i18n/navigation';
 
 const SearchComponent = dynamic(() => import('./search'), { ssr: false })
 
-const HeaderMenu = ({locale}: {locale: string}) => {
+const HeaderMenu = ({ locale, isOpen }: { locale: string, isOpen: boolean }) => {
     const [logInfo, setLogInfo] = useState("");
+    const [loadLinkAuth, setLoadLinkAuth] = useState(false);
 
     useEffect(() => {
-        if(!logInfo) {
+        if (!logInfo) {
             setLogInfo(getFromStorage("logInfo")!);
         }
+        
+        setLoadLinkAuth(!logInfo ? true : false);
     }, [logInfo]);
 
     const getDisplayName = () => {
@@ -27,7 +30,7 @@ const HeaderMenu = ({locale}: {locale: string}) => {
     };
 
     const getUserAvatar = () => {
-        return logInfo ? JSON.parse(logInfo)[0].avatar : "guest.png";
+        return logInfo ? JSON.parse(logInfo)[0].avatar : "avatars/guest.png";
     };
 
     const getUserRole = () => {
@@ -35,7 +38,7 @@ const HeaderMenu = ({locale}: {locale: string}) => {
     }
 
     const handleLogout = () => {
-        if(logInfo) {
+        if (logInfo) {
             delFromStorage("logInfo");
             setLogInfo("");
         }
@@ -48,52 +51,54 @@ const HeaderMenu = ({locale}: {locale: string}) => {
                 <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div className="offcanvas-body">
-                <div className="dropdown">
-                    <Link className="nav-link active p-3" aria-current="page" href="/#home">
-                        <i className="bi bi-house me-2"></i>
-                        Home
-                    </Link>
+                {!!isOpen && (
+                    <div className="mysuboffcanvas">
+                        <Link className="nav-link active p-3" aria-current="page" href="/#home">
+                            <i className="bi bi-house me-2"></i>
+                            Home
+                        </Link>
 
-                    {!!logInfo && (
-                        <>
-                            {getUserRole() == "admin" && (
-                                <Link href={"/pages/admin/dashboard"} locale={locale ?? getDefLocale()} className='nav-link p-3'>
-                                    <i className="bi bi-speedometer me-2"></i>
-                                    <span>Dashboard</span>
-                                </Link>
-                            )}
-
-                            <div className="d-flex justify-content-between align-items-center nav-link navlinklogin p-3">
-                                <Link href={"/pages/users/" + getUserId()} locale={locale ?? getDefLocale()}>
-                                    <Image src={"/images/"+getUserAvatar()} width="30" height="30" alt="user" className={styles.imgavatarheader} />
-                                    <span>{getDisplayName()}</span>
-                                </Link>
-
-                                <button className='btn btn-tp btn-rounded' onClick={handleLogout}>
-                                    <i className="bi bi-door-closed"></i>
-                                </button>
-                            </div>
-                        </>
-                    )}
-
-                    {!logInfo && (
-                        <>
-                            <Link href={"/auth/login"} locale={locale ?? getDefLocale()} className="nav-link navlinklogin p-3">
+                        {!!loadLinkAuth && (
+                            <Link className="nav-link navlinklogin p-3" aria-current="page" href={"/auth/login"} locale={locale ?? getDefLocale()}>
                                 <i className="bi bi-person-circle me-2"></i>
                                 <span>Login</span>
                             </Link>
-                        </>
-                    )}
-                </div>
+                        )}
+
+                        {!!logInfo && (
+                            <>
+                                {getUserRole() == "admin" && (
+                                    <Link href={"/pages/admin/dashboard"} locale={locale ?? getDefLocale()} className='nav-link p-3'>
+                                        <i className="bi bi-speedometer me-2"></i>
+                                        <span>Dashboard</span>
+                                    </Link>
+                                )}
+
+                                <div className="d-flex justify-content-between align-items-center nav-link navlinklogin p-3">
+                                    <Link href={"/pages/users/" + getUserId()} locale={locale ?? getDefLocale()}>
+                                        <Image src={"/images/" + getUserAvatar()} width="30" height="30" alt="user" className={styles.imgavatarheader} />
+                                        <span>{getDisplayName()}</span>
+                                    </Link>
+
+                                    <button className='btn btn-tp btn-rounded' onClick={handleLogout}>
+                                        <i className="bi bi-door-closed"></i>
+                                    </button>
+                                </div>
+                            </>
+                        )}
+                    </div>
+                )}
             </div>
         </div>
     );
 }
 
-const Header = ({locale}: {locale: string}) => {
+const Header = ({ locale }: { locale: string }) => {
+    const [isOpen, setIsOpen] = useState(false);
+
     return (
         <>
-            <HeaderMenu locale={locale ?? getDefLocale()} />
+            <HeaderMenu locale={locale ?? getDefLocale()} isOpen={!isOpen} />
             <div className='header'>
                 <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top">
                     <div className="container-fluid">
@@ -108,6 +113,7 @@ const Header = ({locale}: {locale: string}) => {
                             aria-controls="navbarMain"
                             aria-expanded="false"
                             aria-label="Toggle navigation"
+                            onClick={() => setIsOpen(!isOpen)}
                         >
                             <span className="navbar-toggler-icon"></span>
                         </button>
@@ -129,7 +135,7 @@ const Header = ({locale}: {locale: string}) => {
                 </nav>
             </div>
         </>
-        
+
     );
 };
 
