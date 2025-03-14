@@ -114,11 +114,25 @@ public class UsersRepo : ControllerBase, IUsersRepo
             user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password, 10, false);
         }
 
-        _context.Entry(user).State = EntityState.Modified;
+        // _context.Entry(user).State = EntityState.Modified;
 
         try
         {
-            await _context.SaveChangesAsync();
+            var existingUser = _context.Users.GroupBy(g => g.UserId).Select(g => g.First()).ToList()[0];
+            if (existingUser != null)
+            {
+                existingUser.UserId = user.UserId;
+                existingUser.Username = user.Username;
+                existingUser.Password = user.Password;
+                existingUser.Email = user.Email;
+                existingUser.DisplayName = user.DisplayName;
+                existingUser.Avatar = user.Avatar;
+                existingUser.Cover = user.Cover;
+                existingUser.About = user.About;
+                existingUser.Role = user.Role;
+                existingUser.Privacy = user.Privacy;
+                await _context.SaveChangesAsync();
+            }
         }
         catch (DbUpdateConcurrencyException)
         {
