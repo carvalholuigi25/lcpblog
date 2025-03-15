@@ -81,7 +81,7 @@ public class UsersRepo : ControllerBase, IUsersRepo
 
     public async Task<ActionResult<User>> PostUser(User user)
     {
-        if(!string.IsNullOrEmpty(user.Password)) {
+        if(!string.IsNullOrEmpty(user.Password) && !user.Password.StartsWith('$')) {
             user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password, 10, false);
         }
 
@@ -101,24 +101,29 @@ public class UsersRepo : ControllerBase, IUsersRepo
 
     public async Task<IActionResult> PutUser(int? id, User user)
     {
-        if (id != user.UserId)
+        var istracking = false;
+
+        if (id == null)
         {
-            return BadRequest();
+            return BadRequest("Provide your user id!");
         }
 
         if(!string.IsNullOrEmpty(user.Username) &&  _context.Users.Where(x => x.Username == user.Username).Count() > 1) {
             return BadRequest("Username already exists!");
         }
 
-        if(!string.IsNullOrEmpty(user.Password)) {
+        if(!string.IsNullOrEmpty(user.Password) && !user.Password.StartsWith('$')) {
             user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password, 10, false);
         }
 
-        // _context.Entry(user).State = EntityState.Modified;
+        if(!!istracking) {
+            _context.Entry(user).State = EntityState.Modified;
+        }
 
         try
         {
-            var existingUser = _context.Users.GroupBy(g => g.UserId).Select(g => g.First()).ToList()[0];
+            var existingUser = !!istracking ? await _context.Users.FindAsync(id) : await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.UserId == id);
+            
             if (existingUser != null)
             {
                 existingUser.UserId = user.UserId;
@@ -131,6 +136,11 @@ public class UsersRepo : ControllerBase, IUsersRepo
                 existingUser.About = user.About;
                 existingUser.Role = user.Role;
                 existingUser.Privacy = user.Privacy;
+
+                if(!istracking) {
+                    _context.Users.Update(existingUser);
+                }
+
                 await _context.SaveChangesAsync();
             }
         }
@@ -144,6 +154,10 @@ public class UsersRepo : ControllerBase, IUsersRepo
             {
                 throw;
             }
+        }
+        finally 
+        {
+            _context.ChangeTracker.Clear();
         }
 
         return NoContent();

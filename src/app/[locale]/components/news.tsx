@@ -6,7 +6,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Posts } from "@applocale/interfaces/posts";
 import { User } from "@applocale/interfaces/user";
 import { Categories } from "@applocale/interfaces/categories";
-import { loadMyRealData, shortenLargeNumber } from "@applocale/functions/functions";
+import { getImagePath, loadMyRealData, shortenLargeNumber } from "@applocale/functions/functions";
 import FetchDataAxios, { FetchMultipleDataAxios } from "@applocale/utils/fetchdataaxios";
 import {Link} from '@/app/i18n/navigation';
 import { getDefLocale, getLinkLocale } from "@applocale/helpers/defLocale";
@@ -159,7 +159,7 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
 
                                     <div className="card cardnews shadow rounded">
                                         <Image
-                                            src={`/images/${newsi.image}`}
+                                            src={getImagePath(newsi.image)}
                                             className="card-img-top rounded mx-auto d-block img-fluid"
                                             width={800}
                                             height={400}
@@ -171,7 +171,7 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
                                             <div className="card-info">
                                                 <div className="card-author card-text">
                                                     {getFeaturedItem(i)}
-                                                    <Image src={"/images/" + (useri.avatar ?? 'avatars/user.png')} className="rounded img-fluid img-author" width={30} height={30} alt={useri.displayName + "'s avatar"} />
+                                                    <Image src={getImagePath(useri.avatar)} className="rounded img-fluid img-author" width={30} height={30} alt={useri.displayName + "'s avatar"} />
                                                     <Link href={"/pages/users/" + newsi.userId} locale={locale ?? getDefLocale()} className="txt-author">
                                                         {useri.displayName}
                                                     </Link>

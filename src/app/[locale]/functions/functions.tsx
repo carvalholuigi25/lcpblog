@@ -48,6 +48,11 @@ export function shortenLargeNumber(num: number, digits: number) {
   return num;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function getImagePath(img: any) {
+  return !!["http", "https", "file"].includes(img) ? img : (!img.includes("/images/") ? '/images/'+img : img);
+}
+
 export async function sendMessage(connection: signalR.HubConnection, message: string) {
   if (connection) {
     await connection.send("SendMessage", message);

@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getFromStorage } from "@applocale/hooks/localstorage";
 import { TFormUsers, fusersSchema } from "@applocale/schemas/formSchemas";
-import { buildMyConnection, sendMessage } from "@applocale/functions/functions";
+import { buildMyConnection, getImagePath, sendMessage } from "@applocale/functions/functions";
 import { Link } from '@/app/i18n/navigation';
 import * as signalR from "@microsoft/signalr";
 import ShowAlert from "@applocale/components/alerts";
@@ -21,8 +21,8 @@ const AddUsersForm = () => {
         password: "",
         email: "",
         displayName: "",
-        avatar: "guest.png",
-        cover: "default.jpg",
+        avatar: "avatars/guest.png",
+        cover: "covers/default.jpg",
         about: ""
     });
 
@@ -67,8 +67,8 @@ const AddUsersForm = () => {
                 password: "",
                 email: "",
                 displayName: "",
-                avatar: "guest.png",
-                cover: "default.jpg",
+                avatar: "avatars/guest.png",
+                cover: "covers/default.jpg",
                 about: ""
             });
         }
@@ -196,13 +196,13 @@ const AddUsersForm = () => {
                                 <motion.div
                                     whileHover={{ scale: 1.2 }}
                                     whileTap={{ scale: 0.8 }}
-                                    className="mt-3"
+                                    className="d-inline-block mt-3"
                                 >
                                     <Image 
-                                        src={"/images/" + (formData.avatar ?? "/avatars/guest.png")} 
+                                        src={getImagePath(formData.avatar)}
+                                        alt={formData.username + "'s avatar"}
                                         width="150" 
                                         height="150"
-                                        alt="Image" 
                                         className={styles.inpimgprev + " " + styles.inpimgprevavatar} 
                                         onError={(event: any) => {
                                             event.target.id = "/images/avatars/guest.png";
@@ -223,13 +223,13 @@ const AddUsersForm = () => {
                                 <motion.div
                                     whileHover={{ scale: 1.2 }}
                                     whileTap={{ scale: 0.8 }}
-                                    className="mt-3"
+                                    className="d-inline-block mt-3"
                                 >
                                     <Image 
-                                        src={"/images/" + (formData.cover ?? "/covers/default.jpg")} 
+                                        src={getImagePath(formData.cover)}
+                                        alt={formData.username + "'s cover"}
                                         width="600" 
                                         height="300" 
-                                        alt="Image" 
                                         className={styles.inpimgprev + " " + styles.inpimgprevcover} 
                                         onError={(event: any) => {
                                             event.target.id = "/images/covers/default.jpg";

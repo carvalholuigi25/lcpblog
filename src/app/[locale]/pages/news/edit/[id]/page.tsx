@@ -83,7 +83,7 @@ export default function EditNews({locale}: {locale: string}) {
           <EditNewsForm id={parseInt("" + id, 0)} data={news} />
         )}
 
-        {pathname !== "/" && pathname !== "/pages/news/edit/"+id && getBackLink(pathname)}
+        {pathname !== "/" && pathname !== "/" + getDefLocale() + "/pages/news/edit/"+id && getBackLink(pathname)}
       </section>
       <Footer />
     </div>

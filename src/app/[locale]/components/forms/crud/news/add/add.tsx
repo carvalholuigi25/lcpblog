@@ -8,7 +8,7 @@ import { TFormNews, fnewsSchema } from "@applocale/schemas/formSchemas";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { EditorState } from "lexical";
-import { buildMyConnection, sendMessage } from "@applocale/functions/functions";
+import { buildMyConnection, getImagePath, sendMessage } from "@applocale/functions/functions";
 import ShowAlert from "@applocale/components/alerts";
 import styles from "@applocale/page.module.scss";
 import Image from "next/image";
@@ -211,13 +211,13 @@ const AddNewsForm = () => {
                                 <motion.div
                                     whileHover={{ scale: 1.2 }}
                                     whileTap={{ scale: 0.8 }}
-                                    className="mt-3"
+                                    className="d-inline-block mt-3"
                                 >
                                     <Image 
-                                        src={"/images/" + (formData.image ?? "blog.jpg")} 
+                                        src={getImagePath(formData.image)} 
                                         width="600" 
                                         height="300" 
-                                        alt="Image" 
+                                        alt="News image" 
                                         className={styles.inpimgprev + " " + styles.inpimgprevcover} 
                                         onError={(event: any) => {
                                             event.target.id = "/images/blog.jpg";

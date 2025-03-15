@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { getFromStorage } from "@applocale/hooks/localstorage";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { buildMyConnection, sendMessage } from "@applocale/functions/functions";
+import { buildMyConnection, getImagePath, sendMessage } from "@applocale/functions/functions";
 import { Link } from '@/app/i18n/navigation';
 import { User } from "@applocale/interfaces/user";
 import ShowAlert from "@applocale/components/alerts";
@@ -22,8 +22,8 @@ const EditUsersForm = ({id, data}: {id: number, data: User}) => {
         password: data.password ?? "",
         email: data.email ?? "",
         displayName: data.displayName ?? "",
-        avatar: data.avatar ?? "guest.png",
-        cover: data.cover ?? "default.jpg",
+        avatar: data.avatar ?? "avatars/guest.png",
+        cover: data.cover ?? "covers/default.jpg",
         about: data.about ?? "",
         role: data.role ?? "user",
         privacy: data.privacy ?? "locked",
@@ -71,8 +71,8 @@ const EditUsersForm = ({id, data}: {id: number, data: User}) => {
                 password: data.password ?? "",
                 email: data.email ?? "",
                 displayName: data.displayName ?? "",
-                avatar: data.avatar ?? "guest.png",
-                cover: data.cover ?? "default.jpg",
+                avatar: data.avatar ?? "avatars/guest.png",
+                cover: data.cover ?? "covers/default.jpg",
                 about: data.about ?? "",
                 role: data.role ?? "user",
                 privacy: data.privacy ?? "locked",
@@ -211,13 +211,13 @@ const EditUsersForm = ({id, data}: {id: number, data: User}) => {
                                 <motion.div
                                     whileHover={{ scale: 1.2 }}
                                     whileTap={{ scale: 0.8 }}
-                                    className="mt-3"
+                                    className="d-inline-block mt-3"
                                 >
                                     <Image 
-                                        src={"/images/" + (formData.avatar ?? "/avatars/guest.png")} 
+                                        src={getImagePath(formData.avatar)} 
                                         width="150" 
                                         height="150" 
-                                        alt="Image" 
+                                        alt={formData.username + "'s avatar"}
                                         className={styles.inpimgprev + " " + styles.inpimgprevavatar} 
                                         onError={(event: any) => {
                                             event.target.id = "/images/avatars/guest.png";
@@ -238,13 +238,13 @@ const EditUsersForm = ({id, data}: {id: number, data: User}) => {
                                 <motion.div
                                     whileHover={{ scale: 1.2 }}
                                     whileTap={{ scale: 0.8 }}
-                                    className="mt-3"
+                                    className="d-inline-block mt-3"
                                 >
                                     <Image 
-                                        src={"/images/" + (formData.cover ?? "/covers/default.jpg")} 
+                                        src={getImagePath(formData.cover)} 
                                         width="150" 
                                         height="150" 
-                                        alt="Image" 
+                                        alt={formData.username + "'s cover"}
                                         className={styles.inpimgprev + " " + styles.inpimgprevcover} 
                                         onError={(event: any) => {
                                             event.target.id = "/images/covers/default.jpg";

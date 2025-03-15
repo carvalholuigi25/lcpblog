@@ -116,23 +116,23 @@ CREATE TABLE [PostTags] (
 IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'CategoryId', N'CreatedAt', N'Name', N'Slug', N'Status', N'UpdatedAt') AND [object_id] = OBJECT_ID(N'[Categories]'))
     SET IDENTITY_INSERT [Categories] ON;
 INSERT INTO [Categories] ([CategoryId], [CreatedAt], [Name], [Slug], [Status], [UpdatedAt])
-VALUES (1, '2025-02-28T16:41:58.3970446+00:00', N'Geral', N'/geral', 0, '2025-02-28T16:41:58.3970735+00:00'),
-(2, '2025-02-28T16:41:58.3971008+00:00', N'Tecnologia', N'/tecnologia', 0, '2025-02-28T16:41:58.3971010+00:00'),
-(3, '2025-02-28T16:41:58.3971017+00:00', N'Outros', N'/outros', 0, '2025-02-28T16:41:58.3971019+00:00');
+VALUES (1, '2025-03-15T10:55:02.2369901+00:00', N'Geral', N'/geral', 0, '2025-03-15T10:55:02.2370175+00:00'),
+(2, '2025-03-15T10:55:02.2370430+00:00', N'Tecnologia', N'/tecnologia', 0, '2025-03-15T10:55:02.2370432+00:00'),
+(3, '2025-03-15T10:55:02.2370439+00:00', N'Outros', N'/outros', 0, '2025-03-15T10:55:02.2370441+00:00');
 IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'CategoryId', N'CreatedAt', N'Name', N'Slug', N'Status', N'UpdatedAt') AND [object_id] = OBJECT_ID(N'[Categories]'))
     SET IDENTITY_INSERT [Categories] OFF;
 
 IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'UserId', N'About', N'Avatar', N'Cover', N'DisplayName', N'Email', N'Password', N'Privacy', N'Role', N'Username', N'UsersInfoId') AND [object_id] = OBJECT_ID(N'[Users]'))
     SET IDENTITY_INSERT [Users] ON;
 INSERT INTO [Users] ([UserId], [About], [Avatar], [Cover], [DisplayName], [Email], [Password], [Privacy], [Role], [Username], [UsersInfoId])
-VALUES (1, N'Luis Carvalho', N'avatars/luis.jpg', N'covers/luis.jpg', N'Luis Carvalho', N'luiscarvalho239@gmail.com', N'$2a$10$NzYb.7d/LrfJtL5VYt1fK.klCQXgB4p2br1DaYzrFstv7ZzcvNNCC', 0, 6, N'admin', 1);
+VALUES (1, N'Luis Carvalho', N'avatars/luis.jpg', N'covers/luis.jpg', N'Luis Carvalho', N'luiscarvalho239@gmail.com', N'$2a$10$zE0Gt.H5r3CnlLB9A0hEvegnQCdxN8l553h2xr4FTTv2HAD3YXMvC', 0, 6, N'admin', 1);
 IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'UserId', N'About', N'Avatar', N'Cover', N'DisplayName', N'Email', N'Password', N'Privacy', N'Role', N'Username', N'UsersInfoId') AND [object_id] = OBJECT_ID(N'[Users]'))
     SET IDENTITY_INSERT [Users] OFF;
 
 IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'PostId', N'CategoryId', N'Content', N'CreatedAt', N'Image', N'Slug', N'Status', N'Title', N'UpdatedAt', N'UserId', N'Views') AND [object_id] = OBJECT_ID(N'[Posts]'))
     SET IDENTITY_INSERT [Posts] ON;
 INSERT INTO [Posts] ([PostId], [CategoryId], [Content], [CreatedAt], [Image], [Slug], [Status], [Title], [UpdatedAt], [UserId], [Views])
-VALUES (1, 1, N'Welcome to LCPBlog!', '2025-02-28T16:41:58.3964171+00:00', N'blog.jpg', N'/', 0, N'Welcome to LCPBlog!', '2025-02-28T16:41:58.3964472+00:00', 1, 0);
+VALUES (1, 1, N'Welcome to LCPBlog!', '2025-03-15T10:55:02.2363626+00:00', N'blog.jpg', N'/', 0, N'Welcome to LCPBlog!', '2025-03-15T10:55:02.2363911+00:00', 1, 0);
 IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'PostId', N'CategoryId', N'Content', N'CreatedAt', N'Image', N'Slug', N'Status', N'Title', N'UpdatedAt', N'UserId', N'Views') AND [object_id] = OBJECT_ID(N'[Posts]'))
     SET IDENTITY_INSERT [Posts] OFF;
 
@@ -149,7 +149,7 @@ CREATE INDEX [IX_PostTags_TagId] ON [PostTags] ([TagId]);
 CREATE INDEX [IX_RefreshToken_UserId] ON [RefreshToken] ([UserId]);
 
 INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
-VALUES (N'20250228164159_InitialCreateSQLServer', N'9.0.0');
+VALUES (N'20250315105503_InitialCreateSQLServer', N'9.0.0');
 
 COMMIT;
 GO
