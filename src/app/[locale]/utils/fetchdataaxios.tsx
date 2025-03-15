@@ -13,9 +13,9 @@ export interface CTAxiosInterface {
 export function getHeadersAxios(isReqAuthorize: boolean = false, methodReq: string = "get", enableCacheNoStore: boolean = false): any {
     return {
         "Authorization": !!isReqAuthorize && getFromStorage("logInfo") ? `Bearer ${JSON.parse(getFromStorage("logInfo")!)[0].jwtToken}` : "",
-        "Cache-Control": !!enableCacheNoStore && !["get"].includes(methodReq) ? "no-cache, no-store, must-revalidate" : "",
-        "Pragma": !!enableCacheNoStore && !["get"].includes(methodReq) ? "no-cache" : "",
-        "Expires": !!enableCacheNoStore && !["get"].includes(methodReq) ? "0" : ""
+        "Cache-Control": !!enableCacheNoStore && !["get", "post", "put", "delete"].includes(methodReq) ? "no-cache, no-store, must-revalidate" : "",
+        "Pragma": !!enableCacheNoStore && !["get", "post", "put", "delete"].includes(methodReq) ? "no-cache" : "",
+        "Expires": !!enableCacheNoStore && !["get", "post", "put", "delete"].includes(methodReq) ? "0" : ""
     }
 }
 

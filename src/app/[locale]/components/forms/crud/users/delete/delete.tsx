@@ -2,7 +2,6 @@
 "use client";
 import styles from "@applocale/page.module.scss";
 import { useEffect, useState } from "react";
-import { buildMyConnection, sendMessage } from "@applocale/functions/functions";
 import { getFromStorage } from "@applocale/hooks/localstorage";
 import { useRouter } from "next/navigation";
 import { User } from "@applocale/interfaces/user";
@@ -12,37 +11,13 @@ import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 const DeleteUsersForm = ({ id, data }: { id: number, data: User }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [logInfo] = useState(getFromStorage("logInfo"));
-    const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
     const [loading, setLoading] = useState(true);
     const { push } = useRouter();
     
     useEffect(() => {
-        async function deleteMyRealData() {
-            const connect = await buildMyConnection("datahub", false);
-            setConnection(connect);
-        
-            try {
-                await connect.stop();
-                await connect.start();
-                console.log("Connection started");
-            } catch (e) {
-                console.log(e);
-            }
-        
-            connect.on("ReceiveMessage", () => {
-                console.log("message deleted");
-            });
-        
-            return () => connect.stop();
-        }
-
         if (logInfo) {
             setIsLoggedIn(true);
             setLoading(false);
-        }
-
-        if(!loading) {
-            deleteMyRealData();
         }
     }, [logInfo, loading]);
 
@@ -75,7 +50,6 @@ const DeleteUsersForm = ({ id, data }: { id: number, data: User }) => {
 
                 setTimeout(async () => {
                     alert("The users (id: " + id + ") has been deleted sucessfully!");
-                    await sendMessage(connection!, r.data);
                     push("/");
                 }, 1000 / 2);
             }).catch((err) => {

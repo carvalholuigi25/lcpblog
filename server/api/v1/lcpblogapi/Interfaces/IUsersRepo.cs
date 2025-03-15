@@ -9,7 +9,7 @@ public interface IUsersRepo {
     Task<ActionResult<User>> GetUser(int? id); 
     Task<ActionResult<UserAvatarSearchResp>> GetAvatarUser(UserAvatarSearch uavatarsrch);
     Task<ActionResult<User>> PostUser(User user);
-    Task<IActionResult> PutUser(int? id, User user);
+    Task<IActionResult> PutUser(int id, User user);
     Task<IActionResult> DeleteUser(int? id);
     Task<int> GetTotalCountAsync(QueryParams queryParams);
 }

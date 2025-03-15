@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { getFromStorage } from "@applocale/hooks/localstorage";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { buildMyConnection, getImagePath, sendMessage } from "@applocale/functions/functions";
+import { getImagePath } from "@applocale/functions/functions";
 import { Link } from '@/app/i18n/navigation';
 import { User } from "@applocale/interfaces/user";
 import ShowAlert from "@applocale/components/alerts";
@@ -33,7 +33,6 @@ const EditUsersForm = ({id, data}: {id: number, data: User}) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isResetedForm, setIsResetedForm] = useState(false);
     const [logInfo] = useState(getFromStorage("logInfo"));
-    const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
     const [loading, setLoading] = useState(true);
     const { push } = useRouter();
 
@@ -45,25 +44,6 @@ const EditUsersForm = ({id, data}: {id: number, data: User}) => {
     });
 
     useEffect(() => {
-        async function updateMyRealData() {
-            const connect = await buildMyConnection("datahub", false);
-            setConnection(connect);
-        
-            try {
-                await connect.stop();
-                await connect.start();
-                console.log("Connection started");
-            } catch (e) {
-                console.log(e);
-            }
-        
-            connect.on("ReceiveMessage", () => {
-                console.log("message updated");
-            });
-        
-            return () => connect.stop();
-        }
-
         if(!!isResetedForm) {
             setFormData({
                 userId: data.userId ?? 1,
@@ -83,10 +63,6 @@ const EditUsersForm = ({id, data}: {id: number, data: User}) => {
         if(logInfo) {
             setIsLoggedIn(true);
             setLoading(false);
-        }
-
-        if(!loading) {
-            updateMyRealData();
         }
     }, [isResetedForm, logInfo, data, loading]);
 
@@ -128,7 +104,6 @@ const EditUsersForm = ({id, data}: {id: number, data: User}) => {
 
                 setTimeout(async () => {
                     alert("The user (id: "+id+") has been updated sucessfully!");
-                    await sendMessage(connection!, r.data);
                     push("/");
                 }, 1000 / 2);
             }).catch((err) => {

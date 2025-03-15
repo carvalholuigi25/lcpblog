@@ -9,9 +9,8 @@ import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getFromStorage } from "@applocale/hooks/localstorage";
 import { TFormUsers, fusersSchema } from "@applocale/schemas/formSchemas";
-import { buildMyConnection, getImagePath, sendMessage } from "@applocale/functions/functions";
+import { getImagePath } from "@applocale/functions/functions";
 import { Link } from '@/app/i18n/navigation';
-import * as signalR from "@microsoft/signalr";
 import ShowAlert from "@applocale/components/alerts";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 
@@ -30,7 +29,6 @@ const AddUsersForm = () => {
     const [isResetedForm, setIsResetedForm] = useState(false);
     const [logInfo] = useState(getFromStorage("logInfo"));
     const [loading, setLoading] = useState(true);
-    const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
 
     const { push } = useRouter();
 
@@ -42,25 +40,6 @@ const AddUsersForm = () => {
     });
 
     useEffect(() => {
-        async function addMyRealData() {
-            const connect = await buildMyConnection("datahub", false);
-            setConnection(connect);
-        
-            try {
-                await connect.stop();
-                await connect.start();
-                console.log("Connection started");
-            } catch (e) {
-                console.log(e);
-            }
-        
-            connect.on("ReceiveMessage", () => {
-                console.log("message added");
-            });
-        
-            return () => connect.stop();
-        }
-
         if(!!isResetedForm) {
             setFormData({
                 username: "",
@@ -76,10 +55,6 @@ const AddUsersForm = () => {
         if(logInfo) {
             setIsLoggedIn(true);
             setLoading(false);
-        }
-
-        if(!loading) {
-            addMyRealData();
         }
     }, [isResetedForm, logInfo, loading]);
 
@@ -121,7 +96,6 @@ const AddUsersForm = () => {
 
                 setTimeout(async () => {
                     alert("The user has been added sucessfully!");
-                    await sendMessage(connection!, r.data);
                     push("/");
                 }, 1000 / 2);
             }).catch((err) => {

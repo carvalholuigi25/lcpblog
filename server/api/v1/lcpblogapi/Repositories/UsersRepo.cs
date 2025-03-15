@@ -99,14 +99,10 @@ public class UsersRepo : ControllerBase, IUsersRepo
         return CreatedAtAction(nameof(GetUser), new { id = user.UserId }, user);
     }
 
-    public async Task<IActionResult> PutUser(int? id, User user)
+    public async Task<IActionResult> PutUser(int id, User user)
     {
         var istracking = false;
-
-        if (id == null)
-        {
-            return BadRequest("Provide your user id!");
-        }
+        var method = 0;
 
         if(!string.IsNullOrEmpty(user.Username) &&  _context.Users.Where(x => x.Username == user.Username).Count() > 1) {
             return BadRequest("Username already exists!");
@@ -122,27 +118,22 @@ public class UsersRepo : ControllerBase, IUsersRepo
 
         try
         {
-            var existingUser = !!istracking ? await _context.Users.FindAsync(id) : await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.UserId == id);
+            var existingUser = !!istracking ? await _context.Users.FindAsync(id) : (method == 0 ? await _context.Users.FirstOrDefaultAsync(x => x.UserId == id) : _context.Users.GroupBy(g => g.UserId).Select(g => g.First()).ToList()[0]);
             
-            if (existingUser != null)
-            {
-                existingUser.UserId = user.UserId;
-                existingUser.Username = user.Username;
-                existingUser.Password = user.Password;
-                existingUser.Email = user.Email;
-                existingUser.DisplayName = user.DisplayName;
-                existingUser.Avatar = user.Avatar;
-                existingUser.Cover = user.Cover;
-                existingUser.About = user.About;
-                existingUser.Role = user.Role;
-                existingUser.Privacy = user.Privacy;
+            existingUser!.UserId = id;
+            existingUser!.Username = user.Username;
+            existingUser!.Password = user.Password;
+            existingUser!.Email = user.Email;
+            existingUser!.DisplayName = user.DisplayName;
+            existingUser!.Avatar = user.Avatar;
+            existingUser!.Cover = user.Cover;
+            existingUser!.About = user.About;
+            existingUser!.Role = user.Role;
+            existingUser!.Privacy = user.Privacy;
 
-                if(!istracking) {
-                    _context.Users.Update(existingUser);
-                }
+            _context.Users.Update(existingUser!);
 
-                await _context.SaveChangesAsync();
-            }
+            await _context.SaveChangesAsync();
         }
         catch (DbUpdateConcurrencyException)
         {

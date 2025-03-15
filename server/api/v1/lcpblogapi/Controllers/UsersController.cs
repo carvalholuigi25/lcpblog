@@ -3,7 +3,6 @@ using lcpblogapi.Models;
 using lcpblogapi.Interfaces;
 using lcpblogapi.Authorization;
 using lcpblogapi.Models.QParams;
-using Microsoft.AspNetCore.RateLimiting;
 
 namespace lcpblogapi.Controllers
 {
@@ -94,7 +93,7 @@ namespace lcpblogapi.Controllers
         [Authorize(Policy = "StaffOnly")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> PutUser(int? id, User user)
+        public async Task<IActionResult> PutUser(int id, User user)
         {
             return await _usersRepo.PutUser(id, user);
         }
