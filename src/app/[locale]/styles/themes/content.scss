@@ -141,6 +141,10 @@
         }
     }
 
+    .mychart {
+        background-color: $bgcolorprimary !important;
+    }
+
     .table {
         thead, tfoot {
             background-color: $bgcolorprimary;

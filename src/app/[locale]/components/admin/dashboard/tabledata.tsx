@@ -30,7 +30,7 @@ export default function TableData({ theaders, tdata, namep, locale }: { theaders
             )}
 
             {!!tdata && tdata.length > 0 && (
-                <table className={"table table-" + isBorderEnabledCl + " " + isRoundedEnabledCl}>
+                <table className={"table table-" + isBorderEnabledCl + " " + isRoundedEnabledCl + "table-beautiful"}>
                     <thead>
                         <tr>
                             {theaders.map((theader: any, i: number) => (
@@ -52,10 +52,10 @@ export default function TableData({ theaders, tdata, namep, locale }: { theaders
                                     ))}
 
                                     <td>
-                                        <Link href={'/pages/'+namep+'/edit/' + vid} locale={locale ?? getDefLocale()} className="btn btn-primary btnedit">
+                                        <Link href={'/pages/news/edit/' + vid} locale={locale ?? getDefLocale()} className="btn btn-primary btnedit">
                                             <i className="bi bi-pencil-fill" style={{ border: 0 }}></i>
                                         </Link>
-                                        <Link href={'/pages/'+namep+'/delete/' + vid} locale={locale ?? getDefLocale()} className="btn btn-primary btndel ms-2">
+                                        <Link href={'/pages/news/delete/' + vid} locale={locale ?? getDefLocale()} className="btn btn-primary btndel ms-2">
                                             <i className="bi bi-trash3-fill" style={{ border: 0 }}></i>
                                         </Link>
                                     </td>
@@ -66,7 +66,7 @@ export default function TableData({ theaders, tdata, namep, locale }: { theaders
                     <tfoot>
                         <tr>
                             <td colSpan={totaltheaders ?? 1}>
-                                Total {namep}: {tdata.length}
+                                Total {namep.toLowerCase()}: {tdata.length}
                             </td>
                         </tr>
                     </tfoot>
