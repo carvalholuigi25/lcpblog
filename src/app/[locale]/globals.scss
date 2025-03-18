@@ -94,7 +94,7 @@ p {
   border-collapse: collapse;
   word-wrap: break-word;
 
-  &.table-beautiful {
+  &.table-autolayout {
     table-layout: auto;
     white-space: pre;
     margin-right: 1px;
@@ -124,7 +124,7 @@ p {
     border: 0 !important;
   }
 
-  &.table-bordered *:not(i) {
+  &.table-bordered *:not(i,label) {
     border: 0;
     border: 1px solid !important;
   }

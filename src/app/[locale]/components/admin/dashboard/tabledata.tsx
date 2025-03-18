@@ -30,7 +30,7 @@ export default function TableData({ theaders, tdata, namep, locale }: { theaders
             )}
 
             {!!tdata && tdata.length > 0 && (
-                <table className={"table table-" + isBorderEnabledCl + " " + isRoundedEnabledCl + "table-beautiful"}>
+                <table className={"table table-" + isBorderEnabledCl + " " + isRoundedEnabledCl + "table-autolayout"}>
                     <thead>
                         <tr>
                             {theaders.map((theader: any, i: number) => (
