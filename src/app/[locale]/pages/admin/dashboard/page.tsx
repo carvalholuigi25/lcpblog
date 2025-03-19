@@ -8,6 +8,7 @@ import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavba
 import ChartData from "@applocale/components/admin/dashboard/chartdata";
 import TableData from "@applocale/components/admin/dashboard/tabledata";
 import Footer from "@applocale/ui/footer";
+import withAuth from "@applocale/utils/withAuth";
 import { Link } from '@/app/i18n/navigation';
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { FetchMultipleData } from "@applocale/utils/fetchdata";
@@ -16,7 +17,7 @@ import { Posts } from "@applocale/interfaces/posts";
 import { Tags } from "@applocale/interfaces/tags";
 import { User } from "@applocale/interfaces/user";
 
-export default function AdminDashboard({ locale }: { locale: string }) {
+const AdminDashboard = ({ locale }: { locale?: string }) => {
     const [logInfo, setLogInfo] = useState("");
     const [isAuthorized, setIsAuthorized] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -214,21 +215,11 @@ export default function AdminDashboard({ locale }: { locale: string }) {
                         </div>
                     </>
                 )}
-
-                {!isAuthorized && (
-                    <div className="col-12 mt-3">
-                        <div className="card mx-auto">
-                            <div className="card-body text-center">
-                                <i className="bi bi-exclamation-triangle" style={{ fontSize: "4rem" }} />
-                                <h3>Warning</h3>
-                                <p>You are not authorized to view this page!</p>
-                            </div>
-                        </div>
-                    </div>
-                )}
             </div>
 
             <Footer />
         </div>
     )
 }
+
+export default withAuth(AdminDashboard, ["admin"]);

@@ -11,8 +11,9 @@ import TableData from "@applocale/components/admin/dashboard/tabledata";
 import {Link} from '@/app/i18n/navigation';
 import Footer from "@applocale/ui/footer";
 import { getDefLocale } from "@/app/[locale]/helpers/defLocale";
+import withAuth from "@/app/[locale]/utils/withAuth";
 
-export default function AdminPosts({locale}: {locale: string}) {
+const AdminPosts = ({locale}: {locale?: string}) => {
     const [logInfo, setLogInfo] = useState("");
     const [isAuthorized, setIsAuthorized] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -122,18 +123,6 @@ export default function AdminPosts({locale}: {locale: string}) {
                             </div>
                         </>
                     )}
-
-                    {!isAuthorized && (
-                        <div className="col-12 mt-3">
-                            <div className="card mx-auto">
-                                <div className="card-body text-center">
-                                    <i className="bi bi-exclamation-triangle" style={{ fontSize: "4rem" }} />
-                                    <h3>Warning</h3>
-                                    <p>You are not authorized to view this page!</p>
-                                </div>
-                            </div>
-                        </div>
-                    )}
                 </div>
             </div>
 
@@ -141,3 +130,5 @@ export default function AdminPosts({locale}: {locale: string}) {
         </div>
     )
 }
+
+export default withAuth(AdminPosts, ["admin"]);

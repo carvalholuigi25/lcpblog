@@ -7,7 +7,7 @@ export interface User {
   avatar: string;
   cover: string;
   about: string;
-  role: string;
+  role?: UserRole | string;
   privacy: string;
   usersInfoId: number;
 }
@@ -18,3 +18,5 @@ export interface UserData {
   pageSize: number;
   data: User[];
 }
+
+export type UserRole = "admin" | "user" | "moderator" | "member" | "guest" | "editor" | "vip" | "banned" | null;

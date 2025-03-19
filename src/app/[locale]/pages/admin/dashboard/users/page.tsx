@@ -8,11 +8,12 @@ import FetchData from "@applocale/utils/fetchdata";
 import AdminSidebarDashboard from "@applocale/components/admin/dashboard/adbsidebar";
 import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavbar";
 import TableData from "@applocale/components/admin/dashboard/tabledata";
-import {Link} from '@/app/i18n/navigation';
 import Footer from "@applocale/ui/footer";
-import { getDefLocale } from "@/app/[locale]/helpers/defLocale";
+import { getDefLocale } from "@applocale/helpers/defLocale";
+import {Link} from '@/app/i18n/navigation';
+import withAuth from "@/app/[locale]/utils/withAuth";
 
-export default function AdminUsers({locale}: {locale: string}) {
+const AdminUsers = ({locale}: {locale?: string}) => {
     const [logInfo, setLogInfo] = useState("");
     const [isAuthorized, setIsAuthorized] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -140,3 +141,5 @@ export default function AdminUsers({locale}: {locale: string}) {
         </div>
     )
 }
+
+export default withAuth(AdminUsers, ["admin"]);

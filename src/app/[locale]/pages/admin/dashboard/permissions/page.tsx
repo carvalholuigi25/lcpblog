@@ -6,8 +6,9 @@ import astyles from "@applocale/styles/adminstyles.module.scss";
 import AdminSidebarDashboard from "@applocale/components/admin/dashboard/adbsidebar";
 import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavbar";
 import Footer from "@applocale/ui/footer";
+import withAuth from "@applocale/utils/withAuth";
 import { Link } from '@/app/i18n/navigation';
-import { getDefLocale } from "@/app/[locale]/helpers/defLocale";
+import { getDefLocale } from "@applocale/helpers/defLocale";
 
 export interface PermissionsGroupsCl {
     id: number;
@@ -25,8 +26,8 @@ export interface PermissionsCl {
 export const listPermissions = (): PermissionsCl[] => {
     return [{
         permissionsId: 1,
-        title: "Create Posts",
-        action: "create_posts",
+        title: "Create",
+        action: "create",
         groups: [{
             id: 1,
             name: "admins",
@@ -45,8 +46,8 @@ export const listPermissions = (): PermissionsCl[] => {
     },
     {
         permissionsId: 2,
-        title: "Edit Posts",
-        action: "edit_posts",
+        title: "Edit",
+        action: "edit",
         groups: [{
             id: 1,
             name: "admins",
@@ -65,8 +66,8 @@ export const listPermissions = (): PermissionsCl[] => {
     },
     {
         permissionsId: 3,
-        title: "Delete Posts",
-        action: "delete_posts",
+        title: "Delete",
+        action: "delete",
         groups: [{
             id: 1,
             name: "admins",
@@ -89,7 +90,7 @@ export const listGroups = (): any[] => {
     return listPermissions().map(x => x.groups)
 };
 
-export default function AdminPosts({ locale }: { locale: string }) {
+const AdminPermissions = ({ locale }: { locale?: string }) => {
     const [logInfo, setLogInfo] = useState("");
     const [loading, setLoading] = useState(true);
     const [isAuthorized, setIsAuthorized] = useState(false);
@@ -219,18 +220,6 @@ export default function AdminPosts({ locale }: { locale: string }) {
                             </div>
                         </>
                     )}
-
-                    {!isAuthorized && (
-                        <div className="col-12 mt-3">
-                            <div className="card mx-auto">
-                                <div className="card-body text-center">
-                                    <i className="bi bi-exclamation-triangle" style={{ fontSize: "4rem" }} />
-                                    <h3>Warning</h3>
-                                    <p>You are not authorized to view this page!</p>
-                                </div>
-                            </div>
-                        </div>
-                    )}
                 </div>
             </div>
 
@@ -238,3 +227,5 @@ export default function AdminPosts({ locale }: { locale: string }) {
         </div>
     )
 }
+
+export default withAuth(AdminPermissions, ["admin"]);
