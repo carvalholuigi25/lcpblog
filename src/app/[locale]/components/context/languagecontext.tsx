@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
 interface LanguageContextType {
@@ -10,13 +11,15 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
+    const pathname = usePathname();
     const [language, setLanguageState] = useState<string>("en-UK");
 
     useEffect(() => {
-        const savedLanguage = localStorage.getItem("language") || "en-UK";
+        const savedLanguage = pathname.split('/')[1] || localStorage.getItem("language") || "en-UK";
         setLanguageState(savedLanguage);
+        localStorage.setItem("language", savedLanguage);
         document.documentElement.setAttribute("lang", savedLanguage);
-    }, []);
+    }, [pathname]);
 
     const setLanguage = (newLanguage: string) => {
         setLanguageState(newLanguage);
