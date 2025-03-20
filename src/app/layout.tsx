@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Poppins, Roboto, Orbitron } from "next/font/google";
-import Frameworks from "./[locale]/frameworks/frameworks";
-import "@applocale/globals.scss";
 import { NextIntlClientProvider } from "next-intl";
-import { getDefLocale } from "./[locale]/helpers/defLocale";
-import { getMessages } from "next-intl/server";
+import { getLocale, getMessages } from "next-intl/server";
+import { getDefLocale } from "@applocale/helpers/defLocale";
+import Frameworks from "@applocale/frameworks/frameworks";
+import "@applocale/globals.scss";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -37,12 +37,13 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const messages = await getMessages({ locale: getDefLocale() });
+  const locale = await getLocale() ?? getDefLocale() ?? 'en-UK';
+  const messages = await getMessages({ locale: locale });
 
   return (
-    <html lang={"en"} dir={"ltr"} data-bs-theme="system" suppressHydrationWarning={true}>
+    <html lang={locale} dir={"ltr"} data-bs-theme="system" suppressHydrationWarning={true}>
       <body className={`${poppins.variable} ${roboto.variable} ${orbitron.variable} mybkgpage`}>
-        <NextIntlClientProvider locale={getDefLocale()} messages={messages}>
+        <NextIntlClientProvider locale={locale} messages={messages}>
           <div id="modal-root"></div>
           {children}
           <Frameworks />

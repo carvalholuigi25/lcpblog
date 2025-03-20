@@ -25,7 +25,7 @@ export default async function LocaleLayout({
     notFound();
   }
   
-  const messages = await getMessages({ locale: locale });
+  const messages = await getMessages({ locale: locale ?? getDefLocale() });
 
   return (
     <NextIntlClientProvider locale={locale ?? getDefLocale()} messages={messages}>

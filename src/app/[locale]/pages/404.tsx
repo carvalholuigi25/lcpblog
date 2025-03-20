@@ -1,6 +1,6 @@
-import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { getDefLocale } from '../helpers/defLocale';
+import { useTranslations } from 'next-intl';
+import { getDefLocale } from '@applocale/helpers/defLocale';
 
 export default function Custom404() {
     const t = useTranslations('404');
