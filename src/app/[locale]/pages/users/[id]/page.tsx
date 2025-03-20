@@ -52,7 +52,7 @@ export default function UserPage({locale}: {locale: string}) {
             <div className='card-body'>
               <i className="bi-exclamation-triangle" style={{fontSize: "4rem"}}></i>
               <p>User not found or you dont have permissions to view this page!</p>
-              <Link className='btn btn-primary btn-rounded card-btn mt-3' href={`/pages/users`}>Back</Link>
+              <Link className='btn btn-primary btn-rounded card-btn mt-3' href={`/pages/users`} locale={locale ?? getDefLocale()}>Back</Link>
             </div>
           </div>
         </div>
@@ -84,7 +84,7 @@ export default function UserPage({locale}: {locale: string}) {
         )}
 
         <div className="col-12 mx-auto text-center">
-          <Link className='btn btn-primary btn-rounded card-btn mt-3' href={'/pages/users'}>Back</Link>
+          <Link className='btn btn-primary btn-rounded card-btn mt-3' href={'/pages/users'} locale={locale ?? getDefLocale()}>Back</Link>
         </div>
       </div>
     </div>

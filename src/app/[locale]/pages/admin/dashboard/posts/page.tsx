@@ -118,7 +118,7 @@ const AdminPosts = ({locale}: {locale?: string}) => {
                             </div>
                             <div className="col-12">
                                 <div className="mt-3 mx-auto text-center">
-                                    <Link href={'/'} className="btn btn-primary btn-rounded">Back</Link>
+                                    <Link href={'/'} className="btn btn-primary btn-rounded" locale={locale ?? getDefLocale()}>Back</Link>
                                 </div>
                             </div>
                         </>

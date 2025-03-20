@@ -21,7 +21,7 @@ export default function AdminNavbarDashboard({logInfo, sidebarToggle, toggleSide
     return (
         <nav className={"navbar navbar-expand-lg bg-body-tertiary " + astyles.navbartopadmdb} id="navbartopadmdb">
             <div className="container-fluid">
-                <Link className={"navbar-brand"} href="/">LCPBlog</Link>
+                <Link className={"navbar-brand"} href="/" locale={locale ?? getDefLocale()}>LCPBlog</Link>
 
                 <div className="navbar-nav me-auto">
                     <div className={!sidebarToggle ? "hidden" : "d-flex justify-content-center"}>

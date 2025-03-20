@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getDefLocale } from "../helpers/defLocale";
 
 export default function UnauthorizedComponent() {
     return (
@@ -7,7 +8,7 @@ export default function UnauthorizedComponent() {
                 <i className="bi bi-exclamation-triangle" style={{ fontSize: "4rem" }} />
                 <h3>Warning</h3>
                 <p>You are not authorized to view this page!</p>
-                <Link href={'/'} className="btn btn-primary btn-rounded btnback mt-3">Back</Link>
+                <Link href={'/'} className="btn btn-primary btn-rounded btnback mt-3" locale={getDefLocale()}>Back</Link>
             </div>
         </div>
     );

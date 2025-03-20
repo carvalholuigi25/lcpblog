@@ -13,6 +13,7 @@ import { getImagePath } from "@applocale/functions/functions";
 import { Link } from '@/app/i18n/navigation';
 import ShowAlert from "@applocale/components/alerts";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
+import { getDefLocale } from "@/app/[locale]/helpers/defLocale";
 
 const AddUsersForm = () => {
     const [formData, setFormData] = useState({
@@ -115,7 +116,7 @@ const AddUsersForm = () => {
                             <div className="card-body text-center">
                                 <i className="bi bi-exclamation-triangle mx-auto" style={{fontSize: '4rem'}} />
                                 <p className="mt-3">You are not authorized to see this page!</p>
-                                <Link className="btn btn-primary btn-rounded ms-3 mt-3" href={'/'}>Back</Link>
+                                <Link className="btn btn-primary btn-rounded ms-3 mt-3" href={'/'} locale={getDefLocale()}>Back</Link>
                             </div>
                         </div>
                     </div>
@@ -234,7 +235,7 @@ const AddUsersForm = () => {
                     
                     <div className="col-12">
                         <div className="mt-3 mx-auto text-center">
-                            <Link href={'/'} className="btn btn-primary btn-rounded">Back</Link>
+                            <Link href={'/'} className="btn btn-primary btn-rounded" locale={getDefLocale()}>Back</Link>
                         </div>
                     </div>
                 </>

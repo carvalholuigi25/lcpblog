@@ -1,6 +1,7 @@
 import {Link} from '@/app/i18n/navigation';
 import styles from "@applocale/page.module.scss";
 import RegForm from "@applocale/components/forms/register/regform";
+import { getDefLocale } from '../../helpers/defLocale';
 
 export default function Register() {
   return (
@@ -16,7 +17,7 @@ export default function Register() {
 
               <RegForm />
 
-              <Link href={"../auth/login"} className="text-center mt-3">Already have an account? Login here</Link>
+              <Link href={"../auth/login"} className="text-center mt-3" locale={getDefLocale()}>Already have an account? Login here</Link>
             </section>
           </div>
         </div>

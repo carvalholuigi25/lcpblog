@@ -140,7 +140,7 @@ const AdminDashboard = ({ locale }: { locale?: string }) => {
                         <div className={"container" + (!!isContainerFluid ? "-fluid" : "") + " mt-3 mx-auto text-center p-3"}>
                             <div className="row justify-content-center">
                                 <div className="col-12 col-md-4 col-lg-4 col-xl-3 mt-3">
-                                    <div className="card p-3">
+                                    <div className="card p-3 bshadow">
                                         <div className="card-body">
                                             <div className="d-flex justify-content-between align-items-center">
                                                 <span className="card-text">
@@ -153,7 +153,7 @@ const AdminDashboard = ({ locale }: { locale?: string }) => {
                                 </div>
 
                                 <div className="col-12 col-md-4 col-lg-4 col-xl-3 mt-3">
-                                    <div className="card p-3">
+                                    <div className="card p-3 bshadow">
                                         <div className="card-body">
                                             <div className="d-flex justify-content-between align-items-center">
                                                 <span className="card-text">
@@ -166,7 +166,7 @@ const AdminDashboard = ({ locale }: { locale?: string }) => {
                                 </div>
 
                                 <div className="col-12 col-md-4 col-lg-4 col-xl-3 mt-3">
-                                    <div className="card p-3">
+                                    <div className="card p-3 bshadow">
                                         <div className="card-body">
                                             <div className="d-flex justify-content-between align-items-center">
                                                 <span className="card-text">
@@ -179,7 +179,7 @@ const AdminDashboard = ({ locale }: { locale?: string }) => {
                                 </div>
 
                                 <div className="col-12 col-md-4 col-lg-4 col-xl-3 mt-3">
-                                    <div className="card p-3">
+                                    <div className="card p-3 bshadow">
                                         <div className="card-body">
                                             <div className="d-flex justify-content-between align-items-center">
                                                 <span className="card-text">
@@ -208,7 +208,7 @@ const AdminDashboard = ({ locale }: { locale?: string }) => {
                             <div className="row">
                                 <div className="col-12">
                                     <div className="mx-auto text-center">
-                                        <Link href={'/'} className="btn btn-primary btn-rounded">Back</Link>
+                                        <Link href={'/'} className="btn btn-primary btn-rounded" locale={locale ?? getDefLocale()}>Back</Link>
                                     </div>
                                 </div>
                             </div>

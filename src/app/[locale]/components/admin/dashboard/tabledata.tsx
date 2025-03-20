@@ -8,14 +8,16 @@ export interface THeadersModel {
 }
 
 export default function TableData({ theaders, tdata, namep, locale }: { theaders: THeadersModel[], tdata: any, namep: string, locale: string }) {
-    const isBorderEnabled = true;
-    const isRoundedEnabled = false;
+    const isBorderEnabled = false;
+    const isRoundedEnabled = true;
+    const isShadowEnabled = true;
     const isBorderEnabledCl = isBorderEnabled ? "bordered" : "nobordered";
     const isRoundedEnabledCl = isRoundedEnabled ? "table-rounded" : "";
+    const isShadowEnabledCl = isShadowEnabled ? "mtable-shadow" : "";
     const totaltheaders = theaders.length + 1;
 
     return (
-        <div className="table-responsive">
+        <div className={"table-responsive " + "mtable-"+isBorderEnabledCl + " " + isShadowEnabledCl}>
             {!tdata || tdata.length == 0 && (
                 <div className='container'>
                     <div className='row justify-content-center align-items-center p-3'>
@@ -30,7 +32,7 @@ export default function TableData({ theaders, tdata, namep, locale }: { theaders
             )}
 
             {!!tdata && tdata.length > 0 && (
-                <table className={"table table-" + isBorderEnabledCl + " " + isRoundedEnabledCl + "table-autolayout"}>
+                <table className={"table table-" + isBorderEnabledCl + " " + isRoundedEnabledCl + " table-autolayout"}>
                     <thead>
                         <tr>
                             {theaders.map((theader: any, i: number) => (

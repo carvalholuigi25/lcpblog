@@ -53,7 +53,7 @@ const HeaderMenu = ({ locale, isOpen }: { locale: string, isOpen: boolean }) => 
             <div className="offcanvas-body">
                 {!!isOpen && (
                     <div className="mysuboffcanvas">
-                        <Link className="nav-link active p-3" aria-current="page" href="/#home">
+                        <Link className="nav-link active p-3" aria-current="page" href="/#home" locale={locale ?? getDefLocale()}>
                             <i className="bi bi-house me-2"></i>
                             Home
                         </Link>
@@ -102,7 +102,7 @@ const Header = ({ locale }: { locale: string }) => {
             <div className='header'>
                 <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top">
                     <div className="container-fluid">
-                        <Link className="navbar-brand" href="/#home">
+                        <Link className="navbar-brand" href="/#home" locale={locale ?? getDefLocale()}>
                             LCP Blog
                         </Link>
                         <button

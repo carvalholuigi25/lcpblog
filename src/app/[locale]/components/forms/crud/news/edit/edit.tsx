@@ -17,6 +17,7 @@ import {Link} from '@/app/i18n/navigation';
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import MyEditorPost from "@applocale/components/editor/myeditorpost";
 import { Categories } from "@applocale/interfaces/categories";
+import { getDefLocale } from "@/app/[locale]/helpers/defLocale";
 
 const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
     const [formData, setFormData] = useState({
@@ -175,7 +176,7 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
                             <div className="card-body text-center">
                                 <i className="bi bi-exclamation-triangle mx-auto" style={{fontSize: '4rem'}} />
                                 <p className="mt-3">You are not authorized to see this page!</p>
-                                <Link className="btn btn-primary btn-rounded ms-3 mt-3" href={'/'}>Back</Link>
+                                <Link className="btn btn-primary btn-rounded ms-3 mt-3" href={'/'} locale={getDefLocale()}>Back</Link>
                             </div>
                         </div>
                     </div>
@@ -283,7 +284,7 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
                     
                     <div className="col-12">
                         <div className="mt-3 mx-auto text-center">
-                            <Link href={'/'} className="btn btn-primary btn-rounded">Back</Link>
+                            <Link href={'/'} className="btn btn-primary btn-rounded" locale={getDefLocale()}>Back</Link>
                         </div>
                     </div>
                 </>

@@ -64,7 +64,7 @@ export default function ChartData() {
     };
 
     return (
-        <div className="mychart">
+        <div className="mychart bshadow">
             <Line data={data} options={options} />
         </div>
     );

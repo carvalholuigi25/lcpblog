@@ -14,6 +14,7 @@ import ShowAlert from "@applocale/components/alerts";
 import styles from "@applocale/page.module.scss";
 import Image from "next/image";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
+import { getDefLocale } from "@/app/[locale]/helpers/defLocale";
 
 const EditUsersForm = ({id, data}: {id: number, data: User}) => {
     const [formData, setFormData] = useState({
@@ -123,7 +124,7 @@ const EditUsersForm = ({id, data}: {id: number, data: User}) => {
                             <div className="card-body text-center">
                                 <i className="bi bi-exclamation-triangle mx-auto" style={{fontSize: '4rem'}} />
                                 <p className="mt-3">You are not authorized to see this page!</p>
-                                <Link className="btn btn-primary btn-rounded ms-3 mt-3" href={'/'}>Back</Link>
+                                <Link className="btn btn-primary btn-rounded ms-3 mt-3" href={'/'} locale={getDefLocale()}>Back</Link>
                             </div>
                         </div>
                     </div>
@@ -268,7 +269,7 @@ const EditUsersForm = ({id, data}: {id: number, data: User}) => {
                     
                     <div className="col-12">
                         <div className="mt-3 mx-auto text-center">
-                            <Link href={'/'} className="btn btn-primary btn-rounded">Back</Link>
+                            <Link href={'/'} className="btn btn-primary btn-rounded" locale={getDefLocale()}>Back</Link>
                         </div>
                     </div>
                 </>

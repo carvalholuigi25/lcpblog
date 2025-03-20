@@ -52,7 +52,7 @@ export default function AllUsersPage({locale}: {locale: string}) {
             <div className='card-body'>
               <i className="bi-exclamation-triangle" style={{fontSize: "4rem"}}></i>
               <p>0 users or you dont have permissions to view this page!</p>
-              <Link className='btn btn-primary btn-rounded card-btn mt-3' href={`/`}>Back</Link>
+              <Link className='btn btn-primary btn-rounded card-btn mt-3' href={`/`} locale={locale ?? getDefLocale()}>Back</Link>
             </div>
           </div> 
         </div>
@@ -70,7 +70,7 @@ export default function AllUsersPage({locale}: {locale: string}) {
               <div className='card-body'>
                 <div className='card-text mt-4'>
                   <h3 className='card-title'>{user.displayName}</h3>
-                  <Link className='btn btn-primary btn-rounded card-btn' href={`/pages/users/${user.userId}`}>View Profile</Link>
+                  <Link className='btn btn-primary btn-rounded card-btn' href={`/pages/users/${user.userId}`} locale={locale ?? getDefLocale()}>View Profile</Link>
                 </div>
               </div>
             </div>
@@ -79,7 +79,7 @@ export default function AllUsersPage({locale}: {locale: string}) {
 
         <div className='col-12 mt-3 mx-auto text-center'>
           <p>Total users: {users.length}</p>
-          <Link className='btn btn-primary btn-rounded card-btn mt-3' href={`/`}>Back</Link>
+          <Link className='btn btn-primary btn-rounded card-btn mt-3' href={`/`} locale={locale ?? getDefLocale()}>Back</Link>
         </div>
       </div>
     </div>

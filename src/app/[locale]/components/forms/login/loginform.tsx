@@ -12,6 +12,7 @@ import styles from "@applocale/page.module.scss";
 import Image from "next/image";
 import {Link} from '@/app/i18n/navigation';
 import axios from "axios";
+import { getDefLocale } from "@/app/[locale]/helpers/defLocale";
 
 const LoginForm = () => {
     const test = true;
@@ -114,7 +115,7 @@ const LoginForm = () => {
                             <div className="card-body text-center">
                                 <p>You already logged in as {getDisplayName()}!</p>
                                 <button className="btn btn-primary btn-rounded mt-3" onClick={handleLogout}>Logout</button>
-                                <Link className="btn btn-primary btn-rounded ms-3 mt-3" href={'/'}>Back</Link>
+                                <Link className="btn btn-primary btn-rounded ms-3 mt-3" href={'/'} locale={getDefLocale()}>Back</Link>
                             </div>
                         </div>
                     </div>
@@ -157,8 +158,8 @@ const LoginForm = () => {
                         </div>
                     </form>
 
-                    <Link href="/auth/register" className="text-center mt-3">Dont have an account? Register here</Link>
-                    <Link href="/" className="btn btn-primary btn-rounded text-center mt-3">Back to Home</Link>
+                    <Link href="/auth/register" className="text-center mt-3" locale={getDefLocale()}>Dont have an account? Register here</Link>
+                    <Link href="/" className="btn btn-primary btn-rounded text-center mt-3" locale={getDefLocale()}>Back to Home</Link>
                 </>
             )}  
         </>

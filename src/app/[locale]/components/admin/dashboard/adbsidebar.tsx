@@ -57,7 +57,7 @@ export default function AdminSidebarDashboard({sidebarToggle, toggleSidebar, loc
     return (
         <ul className={"nav flex-column nav-pills " + astyles.navlinksadmdb + (sidebarToggle ? " hidden " : " ") + (showIconName ? " w-auto" : "")} id="navlinksadmdb">
             <li className={"nav-item d-flex justify-content-between align-items-center mb-3"}>
-                <Link className={"navbar-brand" + (showIconName ? " hidden" : "")} href="/">LCPBlog</Link>
+                <Link className={"navbar-brand" + (showIconName ? " hidden" : "")} href="/" locale={locale ?? getDefLocale()}>LCPBlog</Link>
                 <button type="button" className={"nav-link " + astyles.btnshside} onClick={toggleSidebar}>
                     {!!sidebarToggle ? <i className="bi bi-list"></i> : <i className="bi bi-x-lg"></i>}
                 </button>

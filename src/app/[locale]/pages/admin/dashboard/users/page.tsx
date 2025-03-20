@@ -117,22 +117,10 @@ const AdminUsers = ({locale}: {locale?: string}) => {
                             </div>
                             <div className="col-12">
                                 <div className="mt-3 mx-auto text-center">
-                                    <Link href={'/'} className="btn btn-primary btn-rounded">Back</Link>
+                                    <Link href={'/'} className="btn btn-primary btn-rounded" locale={locale ?? getDefLocale()}>Back</Link>
                                 </div>
                             </div>
                         </>
-                    )}
-
-                    {!isAuthorized && (
-                        <div className="col-12 mt-3">
-                            <div className="card mx-auto">
-                                <div className="card-body text-center">
-                                    <i className="bi bi-exclamation-triangle" style={{ fontSize: "4rem" }} />
-                                    <h3>Warning</h3>
-                                    <p>You are not authorized to view this page!</p>
-                                </div>
-                            </div>
-                        </div>
                     )}
                 </div>
             </div>

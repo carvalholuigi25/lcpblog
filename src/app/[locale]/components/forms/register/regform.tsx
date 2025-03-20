@@ -10,6 +10,7 @@ import RegFormStep1 from "./rfstep1";
 import RegFormStep2 from "./rfstep2";
 import RegFormStep3 from "./rfstep3";
 import Stepper from './stepper';
+import { getDefLocale } from '@/app/[locale]/helpers/defLocale';
 
 const RegForm = () => {
   const [formData, setFormData] = useState({
@@ -104,7 +105,7 @@ const RegForm = () => {
             <div className="card-body">
               <h3>Register</h3>
               <p>You already registered in as {getDisplayName()}!</p>
-              <Link className="btn btn-primary ms-3 mt-3" href={'/'}>Back</Link>
+              <Link className="btn btn-primary ms-3 mt-3" href={'/'} locale={getDefLocale()}>Back</Link>
             </div>
           </div>
         </div>

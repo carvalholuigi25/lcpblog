@@ -89,15 +89,43 @@ p {
   border-radius: 15px;
 }
 
+.bshadow {
+  box-shadow: 2px 4px 6px;
+}
+
+.table-responsive {
+  &.mtable-nobordered {
+    box-shadow: 2px 4px 6px;
+    border-radius: 15px;
+  }
+
+  &.mtable-shadow {
+    box-shadow: 2px 4px 6px;
+  }
+
+  &.mtable-noshadow {
+    box-shadow: 0;
+  }
+}
+
 .table {
   margin-bottom: 0 !important;
   border-collapse: collapse;
   word-wrap: break-word;
 
-  &.table-autolayout {
-    table-layout: auto;
-    white-space: pre;
-    margin-right: 1px;
+  &.table-nobordered {
+    border: 0 !important;
+
+    &.table-rounded {
+      td {
+        border: 0 !important;
+      }
+    }
+  }
+
+  &.table-bordered *:not(i,label) {
+    border: 0;
+    border: 1px solid !important;
   }
 
   &.table-rounded {
@@ -120,13 +148,14 @@ p {
     tbody tr td:first-child { border-left-style: solid; }
   }
 
-  &.table-nobordered {
-    border: 0 !important;
+  &.table-shadow {
+    box-shadow: var(--bs-box-shadow) !important;
   }
-
-  &.table-bordered *:not(i,label) {
-    border: 0;
-    border: 1px solid !important;
+  
+  &.table-autolayout {
+    table-layout: auto;
+    white-space: pre;
+    margin-right: 1px;
   }
 
   &.tfixed {
@@ -182,6 +211,10 @@ footer {
 
 .btn-rounded {
   border-radius: 25px;
+}
+
+.btn-shadow {
+  box-shadow: 2px 4px 6px;
 }
 
 .btn-tp {

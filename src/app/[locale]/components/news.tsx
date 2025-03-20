@@ -232,7 +232,7 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
                         <i className="bi-exclamation-triangle" style={{ fontSize: "4rem" }}></i>
                         <p>0 news</p>
                         {pathname !== "/" && (
-                            <Link className='btn btn-primary btn-rounded card-btn mt-3' href={`/`}>Back</Link>
+                            <Link className='btn btn-primary btn-rounded card-btn mt-3' href={`/`} locale={locale ?? getDefLocale()}>Back</Link>
                         )}
                     </div>
                 </div>
@@ -243,7 +243,7 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
     const getBackLink = (pathname: any): any => {
         return (
             <div className="col-12 mt-3 mx-auto text-center">
-                <Link href={pathname !== "/pages/news" ? "../" : "/"} className="btn btn-primary btn-rounded mt-3 mx-auto d-inline-block">
+                <Link href={pathname !== "/pages/news" ? "../" : "/"} locale={locale ?? getDefLocale()} className="btn btn-primary btn-rounded mt-3 mx-auto d-inline-block">
                     Back
                 </Link>
             </div>
