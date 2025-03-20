@@ -1,5 +1,21 @@
 {
   "HomePage": {
     "title": "Bem-vindo ao LCPBlog!"
+  },
+  "Error": {
+    "title": "Erro",
+    "msgerror": "Ocorreu um erro ${statusCode} no servidor",
+    "msgerror2": "Ocorreu um erro no cliente",
+    "btnback": "Voltar"
+  },
+  "500": {
+    "title": "Erro 500 - Erro interno do servidor",
+    "msgerror": "O servidor encontrou um erro e não pôde concluir sua solicitação.",
+    "btnback": "Voltar"
+  },
+  "404": {
+    "title": "Erro 404 - Página não encontrada",
+    "msgerror": "Esta página não foi encontrada!",
+    "btnback": "Voltar"
   }
 }

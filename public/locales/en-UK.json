@@ -1,5 +1,21 @@
 {
     "HomePage": {
         "title": "Welcome to LCPBlog!"
+    },
+    "Error": {
+        "title": "Error",
+        "msgerror": "An error ${statusCode} occurred on server",
+        "msgerror2": "An error occurred on client",
+        "btnback": "Back"
+    },
+    "500": {
+        "title": "Error 500 - Internal server error",
+        "msgerror": "The server encountered an error and could not complete your request.",
+        "btnback": "Back"
+    },
+    "404": {
+        "title": "Error 404 - Page not found",
+        "msgerror": "This page was not found!",
+        "btnback": "Back"
     }
 }

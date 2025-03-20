@@ -530,6 +530,10 @@ form {
   color: #444 !important;
 }
 
+.mhv-100 {
+  min-height: 100vh;
+}
+
 @media all and (width <= 1199px) {
   .card-author {
     flex-direction: column;
