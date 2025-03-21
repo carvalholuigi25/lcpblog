@@ -10,8 +10,10 @@ import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { User } from "@applocale/interfaces/user";
 import { Link } from '@/app/i18n/navigation';
+import { useLocale } from "next-intl";
 
-export default function EditUsers({locale}: {locale: string}) {
+export default function EditUsers() {
+  const locale = useLocale();
   const { id } = useParams();
   const [users, setUsers] = useState(null as unknown as User);
   const [loading, setLoading] = useState(true);

@@ -8,8 +8,10 @@ import FetchData from '@applocale/utils/fetchdata';
 import Header from '@applocale/ui/header';
 import Footer from '@applocale/ui/footer';
 import { getDefLocale } from '../../helpers/defLocale';
+import { useLocale } from 'next-intl';
 
-export default function AllUsersPage({locale}: {locale: string}) {
+export default function AllUsersPage() {
+  const locale = useLocale();
   const [users, setUsers] = useState(new Array<User>());
 
   useEffect(() => {

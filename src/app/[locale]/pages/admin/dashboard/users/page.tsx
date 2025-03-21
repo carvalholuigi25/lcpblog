@@ -12,8 +12,10 @@ import Footer from "@applocale/ui/footer";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import {Link} from '@/app/i18n/navigation';
 import withAuth from "@/app/[locale]/utils/withAuth";
+import { useLocale } from "next-intl";
 
-const AdminUsers = ({locale}: {locale?: string}) => {
+const AdminUsers = () => {
+    const locale = useLocale();
     const [logInfo, setLogInfo] = useState("");
     const [isAuthorized, setIsAuthorized] = useState(false);
     const [loading, setLoading] = useState(true);

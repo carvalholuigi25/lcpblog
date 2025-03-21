@@ -1,13 +1,14 @@
 "use client";
 import { Suspense } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { getDefLocale } from "@applocale/helpers/defLocale";
 import styles from "@applocale/page.module.scss";
 import Footer from "@applocale/ui/footer";
 import Header from "@applocale/ui/header";
 import News from "@applocale/components/news";
-import { getDefLocale } from "./helpers/defLocale";
 
-export default function Home({locale}: {locale: string}) {
+export default function Home() {
+  const locale = useLocale();
   const t = useTranslations('HomePage');
   
   return (

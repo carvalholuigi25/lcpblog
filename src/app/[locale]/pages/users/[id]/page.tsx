@@ -9,8 +9,10 @@ import FetchData from '@applocale/utils/fetchdata';
 import Header from "@applocale/ui/header";
 import Footer from "@applocale/ui/footer";
 import { getDefLocale } from "@/app/[locale]/helpers/defLocale";
+import { useLocale } from "next-intl";
 
-export default function UserPage({locale}: {locale: string}) {
+export default function UserPage() {
+  const locale = useLocale();
   const { id } = useParams();
   const [users, setUsers] = useState(null as unknown as User);
 

@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {Link} from '@/app/i18n/navigation';
 import { Suspense, useEffect, useState } from "react";
-import { Posts } from "@applocale/interfaces/posts";
-import FetchData from "@applocale/utils/fetchdata";
 import { useSearchParams } from "next/navigation";
-import { getDefLocale } from '../helpers/defLocale';
+import { Posts } from "@applocale/interfaces/posts";
+import { getDefLocale } from '@applocale/helpers/defLocale';
+import { Link } from '@/app/i18n/navigation';
+import FetchData from "@applocale/utils/fetchdata";
 
 export default function SearchData({locale}: {locale: string}) {
     const [news, setNews] = useState(new Array<Posts>());

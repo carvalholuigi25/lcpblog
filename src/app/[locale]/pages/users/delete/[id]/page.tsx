@@ -10,8 +10,10 @@ import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import { User } from "@applocale/interfaces/user";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { Link } from '@/app/i18n/navigation';
+import { useLocale } from "next-intl";
 
-export default function DeleteUsers({locale}: {locale: string}) {
+export default function DeleteUsers() {
+  const locale = useLocale();
   const { id } = useParams();
   const [users, setUsers] = useState(null as unknown as User);
   const [loading, setLoading] = useState(true);

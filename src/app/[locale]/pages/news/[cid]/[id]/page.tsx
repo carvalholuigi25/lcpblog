@@ -5,8 +5,10 @@ import News from '@applocale/components/news';
 import Footer from "@applocale/ui/footer";
 import Header from "@applocale/ui/header";
 import { getDefLocale } from '@/app/[locale]/helpers/defLocale';
+import { useLocale } from 'next-intl';
 
-export default function NewsPage({locale}: {locale: string}) {
+export default function NewsPage() {
+  const locale = useLocale();
   const { cid, id } = useParams();
 
   return (    

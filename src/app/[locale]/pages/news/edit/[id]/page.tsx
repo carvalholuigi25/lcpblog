@@ -10,8 +10,10 @@ import EditNewsForm from "@applocale/components/forms/crud/news/edit/edit";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import {Link} from '@/app/i18n/navigation';
 import { getDefLocale } from "@/app/[locale]/helpers/defLocale";
+import { useLocale } from "next-intl";
 
-export default function EditNews({locale}: {locale: string}) {
+export default function EditNews() {
+  const locale = useLocale();
   const { id } = useParams();
   const [news, setNews] = useState(null as unknown as Posts);
   const [loading, setLoading] = useState(true);

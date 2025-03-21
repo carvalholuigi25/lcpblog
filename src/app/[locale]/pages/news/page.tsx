@@ -1,9 +1,9 @@
+import { Suspense } from "react";
+import { getDefLocale } from "@applocale/helpers/defLocale";
 import styles from "@applocale/page.module.scss";
 import Footer from "@applocale/ui/footer";
 import Header from "@applocale/ui/header";
 import News from "@applocale/components/news";
-import { Suspense } from "react";
-import { getDefLocale } from "../../helpers/defLocale";
 
 export default function AllNewsPage({locale}: {locale: string}) {
   return (

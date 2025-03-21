@@ -2,7 +2,7 @@ import MyEditor from "@applocale/components/editor/myeditor";
 import styles from "@applocale/page.module.scss";
 import Footer from "@applocale/ui/footer";
 import Header from "@applocale/ui/header";
-import { getDefLocale } from "../../helpers/defLocale";
+import { getDefLocale } from "@applocale/helpers/defLocale";
 
 export default function EditingPage({locale}: {locale: string}) {
   return (
