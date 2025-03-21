@@ -199,7 +199,7 @@ const AdminDashboard = ({ locale }: { locale?: string }) => {
                                     <ChartData />
                                 </div>
                                 <div className="col-12 col-md-6 col-lg-6 mt-3">
-                                    <TableData tdata={posts} theaders={tableHeaders} namep="Posts" locale={locale ?? getDefLocale()} />
+                                    <TableData tdata={posts} theaders={tableHeaders} namep="News" locale={locale ?? getDefLocale()} />
                                 </div>
                             </div>
                         </div>
