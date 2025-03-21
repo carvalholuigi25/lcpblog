@@ -86,8 +86,8 @@ const DeleteUsersForm = ({ id, data }: { id: number, data: User }) => {
                 <>
                     <h3 className="title mx-auto text-center">Delete users</h3>
                     <form className={styles.frmdeleteusers}>
-                        <div className="table-responsive">
-                            <table className="table table-bordered">
+                        <div className="table-responsive mtable-nobordered mtable-shadow">
+                            <table className="table table-nobordered table-rounded table-autolayout">
                                 <thead>
                                     <tr>
                                         <th>Id</th>

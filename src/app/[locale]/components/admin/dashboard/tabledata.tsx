@@ -54,10 +54,10 @@ export default function TableData({ theaders, tdata, namep, locale }: { theaders
                                     ))}
 
                                     <td>
-                                        <Link href={'/pages/news/edit/' + vid} locale={locale ?? getDefLocale()} className="btn btn-primary btnedit">
+                                        <Link href={'/pages/' + namep.toLowerCase() + '/edit/' + vid} locale={locale ?? getDefLocale()} className="btn btn-primary btnedit">
                                             <i className="bi bi-pencil-fill" style={{ border: 0 }}></i>
                                         </Link>
-                                        <Link href={'/pages/news/delete/' + vid} locale={locale ?? getDefLocale()} className="btn btn-primary btndel ms-2">
+                                        <Link href={'/pages/' + namep.toLowerCase() + '/delete/' + vid} locale={locale ?? getDefLocale()} className="btn btn-primary btndel ms-2">
                                             <i className="bi bi-trash3-fill" style={{ border: 0 }}></i>
                                         </Link>
                                     </td>
