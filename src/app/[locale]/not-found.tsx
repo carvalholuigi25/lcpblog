@@ -1,0 +1,1 @@
+export {default} from '@applocale/pages/404';

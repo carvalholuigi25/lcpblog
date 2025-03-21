@@ -1,10 +1,20 @@
-'use client';
+"use client";
 import { Link } from '@/app/i18n/navigation';
 import { useTranslations } from 'next-intl';
+import { useEffect } from 'react';
 
-export default function Custom404() {
+type Props = {
+    error: Error;
+    reset(): void;
+};
+
+export default function Error({error}: Props) {
     const t = useTranslations('404');
 
+    useEffect(() => {
+        console.error(error);
+    }, [error]);
+    
     return (
         <div className="container p-3 d-flex justify-content-center align-items-center text-center mhv-100">
             <div className="row">

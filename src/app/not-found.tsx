@@ -1,15 +1,8 @@
 'use client';
-
-import Custom404 from "@applocale/pages/404";
-
-// import Error from 'next/error';
+import Error from 'next/error';
  
-export default function NotFound() {
-  // return (
-  //   <Error statusCode={404} />
-  // );
-
+export default function GlobalNotFound() {
   return (
-    <Custom404 />
-  )
+    <Error statusCode={404} />
+  );
 }
