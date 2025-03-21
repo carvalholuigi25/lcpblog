@@ -1,6 +1,5 @@
-import Link from 'next/link';
+import { Link } from '@/app/i18n/navigation';
 import { useTranslations } from 'next-intl';
-import { getDefLocale } from '@applocale/helpers/defLocale';
 
 export default function Custom404() {
     const t = useTranslations('404');
@@ -14,7 +13,7 @@ export default function Custom404() {
                             <i className="bi bi-exclamation-triangle" style={{ fontSize: "4rem" }} />
                             <h3>{t('title') ?? 'Error 404 - Page not found'}</h3>
                             <p>{t('msgerror') ?? 'This page does not exist!'}</p>
-                            <Link href={'/'} className="btn btn-primary btn-rounded btnback mt-3" locale={getDefLocale()}>
+                            <Link href={'/'} className="btn btn-primary btn-rounded btnback mt-3">
                                 {t('btnback') ?? 'Back'}
                             </Link>
                         </div>
