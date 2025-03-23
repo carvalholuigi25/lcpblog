@@ -2,13 +2,13 @@
 "use client";
 import styles from "@applocale/page.module.scss";
 import { useEffect, useState } from "react";
-import { getFromStorage } from "@applocale/hooks/localstorage";
 import { useRouter } from "next/navigation";
+import { Link } from '@/app/i18n/navigation';
 import { Posts } from "@applocale/interfaces/posts";
+import { getFromStorage } from "@applocale/hooks/localstorage";
+import { getDefLocale } from "@applocale/helpers/defLocale";
 import { buildMyConnection, sendMessage } from "@applocale/functions/functions";
-import {Link} from '@/app/i18n/navigation';
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
-import { getDefLocale } from "@/app/[locale]/helpers/defLocale";
 
 const DeleteNewsForm = ({ id, data }: { id: number, data: Posts }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -16,12 +16,12 @@ const DeleteNewsForm = ({ id, data }: { id: number, data: Posts }) => {
     const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
     const [loading, setLoading] = useState(true);
     const { push } = useRouter();
-    
+
     useEffect(() => {
         async function deleteMyRealData() {
             const connect = await buildMyConnection("datahub", false);
             setConnection(connect);
-        
+
             try {
                 await connect.stop();
                 await connect.start();
@@ -29,11 +29,11 @@ const DeleteNewsForm = ({ id, data }: { id: number, data: Posts }) => {
             } catch (e) {
                 console.log(e);
             }
-        
+
             connect.on("ReceiveMessage", () => {
                 console.log("message deleted");
             });
-        
+
             return () => connect.stop();
         }
 
@@ -42,7 +42,7 @@ const DeleteNewsForm = ({ id, data }: { id: number, data: Posts }) => {
             setLoading(false);
         }
 
-        if(!loading) {
+        if (!loading) {
             deleteMyRealData();
         }
     }, [logInfo, loading]);
@@ -111,25 +111,27 @@ const DeleteNewsForm = ({ id, data }: { id: number, data: Posts }) => {
                 <>
                     <h3 className="title mx-auto text-center">Delete news</h3>
                     <form className={styles.frmdeletenews}>
-                        <div className="table-responsive mtable-nobordered mtable-shadow">
-                            <table className="table table-nobordered table-rounded table-autolayout">
-                                <thead>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Title</th>
-                                        <th>Category Id</th>
-                                        <th>User Id</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>{data.postId}</td>
-                                        <td>{data.title}</td>
-                                        <td>{data.categoryId}</td>
-                                        <td>{data.userId}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div className={styles.myroundedscrollbar}>
+                            <div className="table-responsive mtable-nobordered mtable-shadow">
+                                <table className="table table-nobordered table-rounded table-autolayout">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Title</th>
+                                            <th>Category Id</th>
+                                            <th>User Id</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{data.postId}</td>
+                                            <td>{data.title}</td>
+                                            <td>{data.categoryId}</td>
+                                            <td>{data.userId}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
 
                         <p className="text-center mx-auto mt-3">Do you want to delete this post (id: {data.postId})?</p>

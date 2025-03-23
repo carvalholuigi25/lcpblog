@@ -1,10 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import SearchData from "@applocale/components/searchdata";
 import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
+import SearchData from "@applocale/components/searchdata";
+import { getDefLocale } from "@applocale/helpers/defLocale";
+import { useLocale } from "next-intl";
 
 export default function ModalSearch({ onClose, statusModal }: any) {
+    const locale = useLocale() ?? getDefLocale();
+
     useEffect(() => {
         document.addEventListener('keydown', (event) => {
             if (event.key === "Escape" && !!statusModal) {
@@ -27,7 +31,7 @@ export default function ModalSearch({ onClose, statusModal }: any) {
                         <button type="button" className="btn-close" onClick={handleCloseClick} aria-label="Close"></button>
                     </div>
                     <div className="modal-body">
-                        <SearchData />
+                        <SearchData locale={locale} />
                     </div>
                     <div className="modal-footer hidden"></div>
                 </div>

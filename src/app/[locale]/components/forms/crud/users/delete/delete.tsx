@@ -86,27 +86,29 @@ const DeleteUsersForm = ({ id, data }: { id: number, data: User }) => {
                 <>
                     <h3 className="title mx-auto text-center">Delete users</h3>
                     <form className={styles.frmdeleteusers}>
-                        <div className="table-responsive mtable-nobordered mtable-shadow">
-                            <table className="table table-nobordered table-rounded table-autolayout">
-                                <thead>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Username</th>
-                                        <th>Email</th>
-                                        <th>Display Name</th>
-                                        <th>Role</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>{data.userId}</td>
-                                        <td>{data.username}</td>
-                                        <td>{data.email}</td>
-                                        <td>{data.displayName}</td>
-                                        <td>{data.role}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div className={styles.myroundedscrollbar}>
+                            <div className="table-responsive mtable-nobordered mtable-shadow">
+                                <table className="table table-nobordered table-rounded table-autolayout">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Username</th>
+                                            <th>Email</th>
+                                            <th>Display Name</th>
+                                            <th>Role</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{data.userId}</td>
+                                            <td>{data.username}</td>
+                                            <td>{data.email}</td>
+                                            <td>{data.displayName}</td>
+                                            <td>{data.role}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
 
                         <p className="text-center mx-auto mt-3">Do you want to delete this user (id: {data.userId})?</p>
