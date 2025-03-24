@@ -10,5 +10,6 @@ public interface IPostsRepo {
     Task<ActionResult<Post>> CreatePost(Post post);
     Task<IActionResult> PutPost(int? id, Post post);
     Task<IActionResult> DeletePost(int? id);
+    Task<ActionResult<IEnumerable<dynamic>>> GetArchivePost(int year);
     Task<int> GetTotalCountAsync(QueryParams queryParams);
 }

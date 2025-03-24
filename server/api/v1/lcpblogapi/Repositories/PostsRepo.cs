@@ -116,6 +116,19 @@ public class PostsRepo : ControllerBase, IPostsRepo
         return NoContent();
     }
 
+    public async Task<ActionResult<IEnumerable<dynamic>>> GetArchivePost(int year) {
+        if(string.IsNullOrEmpty(year.ToString())) {
+            year = new DateTime().Year;
+        }
+
+        var lstposts = await _context.Posts.ToListAsync();
+        var qry = year > 0 ? lstposts.Where(y => y.CreatedAt!.Value.Year == year) : lstposts;
+        var result = qry.GroupBy(x => x.CreatedAt!.Value.DateTime.Year)
+        .ToDictionary(year => year.Key, g => g.GroupBy(x => x.CreatedAt!.Value.DateTime.ToString("MMMM"))
+        .ToDictionary(month => month.Key, data => data.Select(tl => new { posts = tl, length = data.Count() })));
+        return Ok(result);
+    }
+
     public async Task<int> GetTotalCountAsync(QueryParams queryParams)
     {
         var query = _context.Posts.AsQueryable();

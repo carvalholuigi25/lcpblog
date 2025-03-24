@@ -89,5 +89,20 @@ namespace lcpblogapi.Controllers
         {
             return await _postsRepo.DeletePost(id);
         }
+
+        /// <summary>
+        /// Get archive info.
+        /// </summary>
+        /// <returns>Get archive info</returns>
+        /// <response code="201">Returns the all archive info</response>
+        /// <response code="400">If the archive info is empty</response>
+        [HttpGet("archive")]
+        [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetArchivePost(int year = 2025)
+        {
+            return await _postsRepo.GetArchivePost(year);
+        }
     }
 }
