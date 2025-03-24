@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import { getFromStorage } from "@applocale/hooks/localstorage";
+import { getFromStorage, saveToStorage } from "@applocale/hooks/localstorage";
 import { useEffect, useState } from "react";
 import astyles from "@applocale/styles/adminstyles.module.scss";
 import AdminSidebarDashboard from "@applocale/components/admin/dashboard/adbsidebar";
@@ -16,8 +16,11 @@ import { Categories } from "@applocale/interfaces/categories";
 import { Posts } from "@applocale/interfaces/posts";
 import { Tags } from "@applocale/interfaces/tags";
 import { User } from "@applocale/interfaces/user";
+import { useTheme } from "@applocale/components/context/themecontext";
+import { getChartTypes } from "@applocale/functions/chartfunctions";
 
 const AdminDashboard = ({ locale }: { locale?: string }) => {
+    const chartTypesAry = getChartTypes();
     const [logInfo, setLogInfo] = useState("");
     const [isAuthorized, setIsAuthorized] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -26,6 +29,20 @@ const AdminDashboard = ({ locale }: { locale?: string }) => {
     const [categories, setCategories] = useState(new Array<Categories>());
     const [tags, setTags] = useState(new Array<Tags>());
     const [users, setUsers] = useState(new Array<User>());
+    const [chartTypeSelVal, setChartTypeSelVal] = useState(chartTypesAry[0].value);
+    const { theme } = useTheme();
+
+    const isContainerFluid = true;
+    const enableChangeChartType = true;
+
+    const tableHeaders = [
+        { dataIndex: 'postId', title: 'Post Id' },
+        { dataIndex: 'title', title: 'Title' },
+        { dataIndex: 'createdAt', title: 'Created At' },
+        { dataIndex: 'updatedAt', title: 'Updated At' },
+        { dataIndex: 'slug', title: 'Slug' },
+        { dataIndex: 'userId', title: 'User Id' },
+    ];
 
     useEffect(() => {
         async function fetchPosts() {
@@ -71,10 +88,11 @@ const AdminDashboard = ({ locale }: { locale?: string }) => {
             setLogInfo(getFromStorage("logInfo")!);
         }
 
+        setChartTypeSelVal(getFromStorage("mychart")!);
         setIsAuthorized(logInfo && JSON.parse(logInfo)[0].role == "admin" ? true : false);
         fetchPosts();
         setLoading(false);
-    }, [logInfo, isAuthorized]);
+    }, [logInfo, isAuthorized, chartTypeSelVal]);
 
     if (loading) {
         return (
@@ -102,16 +120,10 @@ const AdminDashboard = ({ locale }: { locale?: string }) => {
         setSidebarToggle(!sidebarToggle);
     }
 
-    const tableHeaders = [
-        { dataIndex: 'postId', title: 'Post Id' },
-        { dataIndex: 'title', title: 'Title' },
-        { dataIndex: 'createdAt', title: 'Created At' },
-        { dataIndex: 'updatedAt', title: 'Updated At' },
-        { dataIndex: 'slug', title: 'Slug' },
-        { dataIndex: 'userId', title: 'User Id' },
-    ];
-
-    const isContainerFluid = true;
+    const onChangeChartType = (e: any) => {
+        setChartTypeSelVal(e.target.value);
+        saveToStorage("mychart", e.target.value);
+    };
 
     return (
         <div className={astyles.admdashboard}>
@@ -196,7 +208,18 @@ const AdminDashboard = ({ locale }: { locale?: string }) => {
                         <div className={"container" + (!!isContainerFluid ? "-fluid" : "") + " mt-3 p-3"}>
                             <div className="row">
                                 <div className="col-12 col-md-6 col-lg-6 mt-3">
-                                    <ChartData />
+                                    {enableChangeChartType && (
+                                        <div className="d-flex justify-content-center col-12">
+                                            <select className="form-control mb-3 w-auto bshadow" value={chartTypeSelVal} onChange={onChangeChartType}>
+                                                <option value={""} disabled>Select the chart type</option>
+                                                {chartTypesAry.length > 0 && chartTypesAry.map(x => (
+                                                    <option key={x.id} value={x.value}>{x.name}</option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                    )}
+
+                                    <ChartData theme={theme} type={chartTypeSelVal} />
                                 </div>
                                 <div className="col-12 col-md-6 col-lg-6 mt-3">
                                     <TableData tdata={posts} theaders={tableHeaders} namep="News" locale={locale ?? getDefLocale()} />

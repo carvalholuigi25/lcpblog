@@ -1,56 +1,54 @@
 
-import React, { useState } from "react";
+import React from "react";
 import {
     VerticalBarChart, HorizontalBarChart, LineChart, 
     PieChart, RadarChart, DoughnutChart, 
     PolarChart, ScatterChart, BubbleChart
 } from "@applocale/components/admin/dashboard/charts/index";
 
-export default function ChartData() {
-    const [chartType] = useState("verticalbar");
-
+export default function ChartData({theme, type = "verticalbar"}: {theme: string, type?: string}) {
     return (
         <div className="mychart bshadow">
-            {!chartType &&
-                <VerticalBarChart />
+            {!type &&
+                <VerticalBarChart theme={theme} />
             }
 
-            {!!chartType && (
+            {!!type && (
                 <>
-                    {chartType == 'horizontalbar' &&
-                        <HorizontalBarChart />
+                    {(type == 'horizontalbar' || type == 'hbar') &&
+                        <HorizontalBarChart theme={theme} />
                     }
 
-                    {chartType == 'verticalbar' &&
-                        <VerticalBarChart />
+                    {(type == 'verticalbar' || type == 'vbar') &&
+                        <VerticalBarChart theme={theme} />
                     }
 
-                    {chartType == 'line' &&
-                        <LineChart />
+                    {type == 'line' &&
+                        <LineChart theme={theme} />
                     }
 
-                    {chartType == 'pie' &&
-                        <PieChart />
+                    {type == 'pie' &&
+                        <PieChart theme={theme} />
                     }
 
-                    {chartType == 'radar' &&
-                        <RadarChart />
+                    {type == 'radar' &&
+                        <RadarChart theme={theme} />
                     }
 
-                    {chartType == 'doughnut' &&
-                        <DoughnutChart />
+                    {type == 'doughnut' &&
+                        <DoughnutChart theme={theme} />
                     }
 
-                    {chartType == 'polar' &&
-                        <PolarChart />
+                    {type == 'polar' &&
+                        <PolarChart theme={theme} />
                     }
 
-                    {chartType == 'scatter' &&
-                        <ScatterChart />
+                    {type == 'scatter' &&
+                        <ScatterChart theme={theme} />
                     }
 
-                    {chartType == 'bubble' &&
-                        <BubbleChart />
+                    {type == 'bubble' &&
+                        <BubbleChart theme={theme} />
                     }
                 </>
             )}
