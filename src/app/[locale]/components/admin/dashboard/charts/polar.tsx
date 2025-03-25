@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     Chart as ChartJS,
     RadialLinearScale,
@@ -8,20 +8,51 @@ import {
 } from 'chart.js';
 import { PolarArea } from 'react-chartjs-2';
 import { getColorTxt } from '@/app/[locale]/functions/chartfunctions';
+import { Dataset } from '@/app/[locale]/interfaces/dataset';
+import FetchData from '@/app/[locale]/utils/fetchdata';
 
 ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
 
-export const PolarChart = ({theme}: {theme: string}) => {
+export const PolarChart = ({ theme }: { theme: string }) => {
     const colortxt = getColorTxt(theme);
-    const labels = ["Jan", "Feb", "Mar", "April", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    const datasets = [Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100];
+    const [loading, setLoading] = React.useState(true);
+    const [chdata, setChdata] = React.useState<Dataset>({
+        datasetId: 0,
+        year: new Date().getFullYear(),
+        label: [],
+        data: []
+    });
 
-    const data = {
-        labels: labels,
+    useEffect(() => {
+        async function fetchChartData() {
+            const data = await FetchData({
+                url: `api/posts/dataset`,
+                method: 'get',
+                reqAuthorize: false
+            });
+
+            setChdata(JSON.parse(JSON.stringify(data)));
+        }
+
+        fetchChartData();
+        setLoading(false);
+    }, [loading]);
+
+    if (!chdata) {
+        return (
+            <div>Loading...</div>
+        );
+    }
+
+    const { label, data } = chdata;
+
+    const vdata = {
+        labels: label,
         datasets: [
             {
-                label: '# of Posts',
-                data: datasets,
+                label: 'Posts',
+                data: data,
+
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -51,12 +82,12 @@ export const PolarChart = ({theme}: {theme: string}) => {
                     'rgba(255, 159, 64, 1)',
                 ],
                 borderWidth: 1,
-            },
+            }
         ],
     };
 
     const options = {
-        type: 'radar',
+        type: 'polarArea',
         scales: {
             y: {
                 title: {
@@ -95,5 +126,5 @@ export const PolarChart = ({theme}: {theme: string}) => {
         },
     };
 
-    return <PolarArea data={data} options={options} />;
+    return <PolarArea options={options} data={vdata} />;
 }

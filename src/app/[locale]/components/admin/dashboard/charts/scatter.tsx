@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     Chart as ChartJS,
     LinearScale,
@@ -8,13 +8,58 @@ import {
     Legend,
 } from 'chart.js';
 import { Scatter } from 'react-chartjs-2';
-import { faker } from '@faker-js/faker';
 import { getColorTxt } from '@/app/[locale]/functions/chartfunctions';
+import { Dataset } from '@/app/[locale]/interfaces/dataset';
+import FetchData from '@/app/[locale]/utils/fetchdata';
 
 ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
 
-export const ScatterChart = ({theme}: {theme: string}) => {
+export const ScatterChart = ({ theme }: { theme: string }) => {
     const colortxt = getColorTxt(theme);
+    const [loading, setLoading] = React.useState(true);
+    const [chdata, setChdata] = React.useState<Dataset>({
+        datasetId: 0,
+        year: new Date().getFullYear(),
+        label: [],
+        data: []
+    });
+
+    useEffect(() => {
+        async function fetchChartData() {
+            const data = await FetchData({
+                url: `api/posts/dataset`,
+                method: 'get',
+                reqAuthorize: false
+            });
+
+            setChdata(JSON.parse(JSON.stringify(data)));
+        }
+
+        fetchChartData();
+        setLoading(false);
+    }, [loading]);
+
+    if (!chdata) {
+        return (
+            <div>Loading...</div>
+        );
+    }
+
+    const { label, data } = chdata;
+
+    const vdata = {
+        labels: label,
+        datasets: [
+            {
+                label: 'Posts',
+                data: data.map(x => {
+                    return { x: x * 10, y: x };
+                }),
+                backgroundColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }
+        ],
+    };
 
     const options = {
         type: 'scatter',
@@ -55,18 +100,5 @@ export const ScatterChart = ({theme}: {theme: string}) => {
         },
     };
 
-    const data = {
-        datasets: [
-            {
-                label: 'Posts',
-                data: Array.from({ length: 100 }, () => ({
-                    x: faker.number.int({ min: -100, max: 100 }),
-                    y: faker.number.int({ min: -100, max: 100 }),
-                })),
-                backgroundColor: 'rgba(255, 99, 132, 1)',
-            },
-        ],
-    };
-
-    return <Scatter options={options} data={data} />;
+    return <Scatter options={options} data={vdata} />;
 }

@@ -1,22 +1,52 @@
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { getColorTxt } from "@/app/[locale]/functions/chartfunctions";
+import { Dataset } from "@/app/[locale]/interfaces/dataset";
+import FetchData from "@/app/[locale]/utils/fetchdata";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export const PieChart = ({ theme }: { theme: string }) => {
     const colortxt = getColorTxt(theme);
-    const labels = ["Jan", "Feb", "Mar", "April", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    const datasets = [Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100];
+    const [loading, setLoading] = React.useState(true);
+    const [chdata, setChdata] = React.useState<Dataset>({
+        datasetId: 0,
+        year: new Date().getFullYear(),
+        label: [],
+        data: []
+    });
 
-    const dataline = {
-        labels: labels,
+    useEffect(() => {
+        async function fetchChartData() {
+            const data = await FetchData({
+                url: `api/posts/dataset`,
+                method: 'get',
+                reqAuthorize: false
+            });
+
+            setChdata(JSON.parse(JSON.stringify(data)));
+        }
+
+        fetchChartData();
+        setLoading(false);
+    }, [loading]);
+
+    if (!chdata) {
+        return (
+            <div>Loading...</div>
+        );
+    }
+
+    const { label, data } = chdata;
+
+    const vdata = {
+        labels: label,
         datasets: [
             {
-                label: '# of Posts',
-                data: datasets,
+                label: 'Posts',
+                data: data,
                 fill: true,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
@@ -51,7 +81,7 @@ export const PieChart = ({ theme }: { theme: string }) => {
                     'rgb(201, 203, 207)'
                 ],
                 borderWidth: 1,
-            },
+            }
         ],
     };
 
@@ -95,5 +125,5 @@ export const PieChart = ({ theme }: { theme: string }) => {
         },
     };
 
-    return <Pie data={dataline} options={options} />;
+    return <Pie data={vdata} options={options} />;
 }

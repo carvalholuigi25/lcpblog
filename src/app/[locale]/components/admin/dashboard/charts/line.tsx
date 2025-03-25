@@ -1,22 +1,52 @@
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler } from "chart.js";
 import { getColorTxt } from "@/app/[locale]/functions/chartfunctions";
+import { Dataset } from "@/app/[locale]/interfaces/dataset";
+import FetchData from "@/app/[locale]/utils/fetchdata";
 
 ChartJS.register(CategoryScale, LineElement, LinearScale, PointElement, Title, Tooltip, Legend, Filler);
 
 export const LineChart = ({ theme }: { theme: string }) => {
     const colortxt = getColorTxt(theme);
-    const labels = ["Jan", "Feb", "Mar", "April", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    const datasets = [Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100];
+    const [loading, setLoading] = React.useState(true);
+    const [chdata, setChdata] = React.useState<Dataset>({
+        datasetId: 0,
+        year: new Date().getFullYear(),
+        label: [],
+        data: []
+    });
 
-    const dataline = {
-        labels: labels,
+    useEffect(() => {
+        async function fetchChartData() {
+            const data = await FetchData({
+                url: `api/posts/dataset`,
+                method: 'get',
+                reqAuthorize: false
+            });
+
+            setChdata(JSON.parse(JSON.stringify(data)));
+        }
+
+        fetchChartData();
+        setLoading(false);
+    }, [loading]);
+
+    if (!chdata) {
+        return (
+            <div>Loading...</div>
+        );
+    }
+
+    const { label, data } = chdata;
+
+    const vdata = {
+        labels: label,
         datasets: [
             {
-                label: "Posts",
-                data: datasets,
+                label: 'Posts',
+                data: data,
                 fill: true,
                 borderColor: "rgb(75, 192, 192)",
                 tension: 0.1,
@@ -64,5 +94,5 @@ export const LineChart = ({ theme }: { theme: string }) => {
         },
     };
 
-    return <Line data={dataline} options={options} />;
+    return <Line options={options} data={vdata} />;
 }

@@ -23,6 +23,7 @@ ChartJS.register(
 );
 
 export const VerticalBarChart = ({theme}: {theme: string}) => {
+    const colortxt = getColorTxt(theme);
     const [loading, setLoading] = React.useState(true);
     const [chdata, setChdata] = React.useState<Dataset>({
         datasetId: 0,
@@ -71,30 +72,30 @@ export const VerticalBarChart = ({theme}: {theme: string}) => {
                 title: {
                     display: true,
                     text: "Nº of Posts",
-                    color: getColorTxt(theme)
+                    color: colortxt
                 },
                 display: true,
                 min: 0,
                 max: 100,
                 ticks: {
-                    color: getColorTxt(theme)
+                    color: colortxt
                 }
             },
             x: {
                 title: {
                     display: true,
                     text: "Months",
-                    color: getColorTxt(theme)
+                    color: colortxt
                 },
                 display: true,
                 ticks: {
-                    color: getColorTxt(theme)
+                    color: colortxt
                 }
             },
         },
         responsive: true,
         maintainAspectRatio: false,
-        color: getColorTxt(theme),
+        color: colortxt,
         backgroundColor: 'rgba(0, 0, 0, .3)',
         plugins: {
             colors: {
@@ -107,7 +108,7 @@ export const VerticalBarChart = ({theme}: {theme: string}) => {
             title: {
                 display: false,
                 text: '',
-                color: getColorTxt(theme),
+                color: colortxt,
             },
         },
     };

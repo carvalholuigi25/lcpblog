@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -9,8 +9,9 @@ import {
     Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import { faker } from '@faker-js/faker';
 import { getColorTxt } from '@/app/[locale]/functions/chartfunctions';
+import { Dataset } from '@/app/[locale]/interfaces/dataset';
+import FetchData from '@/app/[locale]/utils/fetchdata';
 
 ChartJS.register(
     CategoryScale,
@@ -23,7 +24,48 @@ ChartJS.register(
 
 export const HorizontalBarChart = ({ theme }: { theme: string }) => {
     const colortxt = getColorTxt(theme);
-    const labels = ["Jan", "Feb", "Mar", "April", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const [loading, setLoading] = React.useState(true);
+    const [chdata, setChdata] = React.useState<Dataset>({
+        datasetId: 0,
+        year: new Date().getFullYear(),
+        label: [],
+        data: []
+    });
+
+    useEffect(() => {
+        async function fetchChartData() {
+            const data = await FetchData({
+                url: `api/posts/dataset`,
+                method: 'get',
+                reqAuthorize: false
+            });
+
+            setChdata(JSON.parse(JSON.stringify(data)));
+        }
+
+        fetchChartData();
+        setLoading(false);
+    }, [loading]);
+
+    if (!chdata) {
+        return (
+            <div>Loading...</div>
+        );
+    }
+
+    const { label, data } = chdata;
+
+    const vdata = {
+        labels: label,
+        datasets: [
+            {
+                label: 'Posts',
+                data: data,
+                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+            }
+        ],
+    };
 
     const options = {
         indexAxis: 'y' as const,
@@ -77,23 +119,5 @@ export const HorizontalBarChart = ({ theme }: { theme: string }) => {
         }
     };
 
-    const data = {
-        labels,
-        datasets: [
-            {
-                label: 'Dataset 1',
-                data: labels.map(() => faker.number.int({ min: -1000, max: 1000 })),
-                borderColor: 'rgb(255, 99, 132)',
-                backgroundColor: 'rgba(255, 99, 132, 0.5)',
-            },
-            {
-                label: 'Dataset 2',
-                data: labels.map(() => faker.number.int({ min: -1000, max: 1000 })),
-                borderColor: 'rgb(53, 162, 235)',
-                backgroundColor: 'rgba(53, 162, 235, 0.5)',
-            },
-        ],
-    };
-
-    return <Bar options={options} data={data} />;
+    return <Bar options={options} data={vdata} />;
 }
