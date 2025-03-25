@@ -104,5 +104,20 @@ namespace lcpblogapi.Controllers
         {
             return await _postsRepo.GetArchivePost(year);
         }
+
+        /// <summary>
+        /// Get dataset info for chart.
+        /// </summary>
+        /// <returns>Get dataset info for chart</returns>
+        /// <response code="201">Returns the all dataset info</response>
+        /// <response code="400">If the dataset info is empty</response>
+        [HttpGet("dataset")]
+        [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<IEnumerable<Dataset>> GetDatasetPost(int year = 2025)
+        {
+            return _postsRepo.GetDatasetPost(year);
+        }
     }
 }

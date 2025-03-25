@@ -6,6 +6,7 @@ using lcpblogapi.Interfaces;
 using lcpblogapi.Models.QParams;
 using lcpblogapi.Hubs;
 using Microsoft.AspNetCore.SignalR;
+using NuGet.Common;
 
 namespace lcpblogapi.Repositories;
 
@@ -129,6 +130,19 @@ public class PostsRepo : ControllerBase, IPostsRepo
         return Ok(result);
     }
 
+    public ActionResult<IEnumerable<Dataset>> GetDatasetPost(int year = 2025) {
+        var ayear = year > 0 ? year : DateTime.Now.Year;
+        Dataset data = new()
+        {
+            DatasetId = 1,
+            Year = year,
+            Label = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+            Data = [GetTotalPosts(ayear, 1), GetTotalPosts(ayear, 2), GetTotalPosts(ayear, 3), GetTotalPosts(ayear, 4), GetTotalPosts(ayear, 5), GetTotalPosts(ayear, 6), GetTotalPosts(ayear, 7), GetTotalPosts(ayear, 8), GetTotalPosts(ayear, 9), GetTotalPosts(ayear, 10), GetTotalPosts(ayear, 11), GetTotalPosts(ayear, 12)]
+        };
+
+        return Ok(data);
+    }
+
     public async Task<int> GetTotalCountAsync(QueryParams queryParams)
     {
         var query = _context.Posts.AsQueryable();
@@ -137,6 +151,12 @@ public class PostsRepo : ControllerBase, IPostsRepo
         query = GetFilterData(query, queryParams);
 
         return await query.CountAsync();
+    }
+
+    private int GetTotalPosts(int year = 2025, int month = 1) {
+        var lstposts = _context.Posts.AsEnumerable();
+        lstposts = lstposts.Where(x => new DateTimeOffset(x.CreatedAt!.Value.DateTime).Year == year && new DateTimeOffset(x.CreatedAt!.Value.DateTime).Month == month);
+        return lstposts.Count();
     }
 
     private bool PostExists(int? id)

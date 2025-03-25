@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -9,8 +9,9 @@ import {
     Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import { faker } from '@faker-js/faker';
-import { getColorTxt } from '@/app/[locale]/functions/chartfunctions';
+import { getColorTxt } from '@applocale/functions/chartfunctions';
+import { Dataset } from '@applocale/interfaces/dataset';
+import FetchData from '@applocale/utils/fetchdata';
 
 ChartJS.register(
     CategoryScale,
@@ -22,21 +23,45 @@ ChartJS.register(
 );
 
 export const VerticalBarChart = ({theme}: {theme: string}) => {
-    const labels = ["Jan", "Feb", "Mar", "April", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const [loading, setLoading] = React.useState(true);
+    const [chdata, setChdata] = React.useState<Dataset>({
+        datasetId: 0,
+        year: new Date().getFullYear(),
+        label: [],
+        data: []
+    });
 
-    const data = {
-        labels,
+    useEffect(() => {        
+        async function fetchChartData() {
+            const data = await FetchData({
+                url: `api/posts/dataset`,
+                method: 'get',
+                reqAuthorize: false
+            });
+
+            setChdata(JSON.parse(JSON.stringify(data)));
+        }
+
+        fetchChartData();
+        setLoading(false);
+    }, [loading]);
+
+    if (!chdata) {
+        return (
+            <div>Loading...</div>
+        );
+    }
+
+    const {label, data} = chdata;
+
+    const vdata = {
+        labels: label,
         datasets: [
             {
-                label: 'Dataset 1',
-                data: labels.map(() => faker.number.int({ min: 0, max: 1000 })),
+                label: 'Posts',
+                data: data,
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
-            },
-            {
-                label: 'Dataset 2',
-                data: labels.map(() => faker.number.int({ min: 0, max: 1000 })),
-                backgroundColor: 'rgba(53, 162, 235, 0.5)',
-            },
+            }
         ],
     };
 
@@ -45,12 +70,12 @@ export const VerticalBarChart = ({theme}: {theme: string}) => {
             y: {
                 title: {
                     display: true,
-                    text: "Posts",
+                    text: "Nº of Posts",
                     color: getColorTxt(theme)
                 },
                 display: true,
                 min: 0,
-                max: 1000,
+                max: 100,
                 ticks: {
                     color: getColorTxt(theme)
                 }
@@ -87,5 +112,5 @@ export const VerticalBarChart = ({theme}: {theme: string}) => {
         },
     };
 
-    return <Bar options={options} data={data} />;
+    return <Bar options={options} data={vdata} />;
 }
