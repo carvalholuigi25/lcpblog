@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -9,7 +9,7 @@ import {
     Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import { getColorTxt } from '@/app/[locale]/functions/chartfunctions';
+import { getColorGrid, getColorTxt } from '@/app/[locale]/functions/chartfunctions';
 import { Dataset } from '@/app/[locale]/interfaces/dataset';
 import FetchData from '@/app/[locale]/utils/fetchdata';
 
@@ -24,8 +24,10 @@ ChartJS.register(
 
 export const HorizontalBarChart = ({ theme }: { theme: string }) => {
     const colortxt = getColorTxt(theme);
-    const [loading, setLoading] = React.useState(true);
-    const [chdata, setChdata] = React.useState<Dataset>({
+    const colorgrid = getColorGrid(theme);
+    
+    const [loading, setLoading] = useState(true);
+    const [chdata, setChdata] = useState<Dataset>({
         datasetId: 0,
         year: new Date().getFullYear(),
         label: [],
@@ -47,7 +49,7 @@ export const HorizontalBarChart = ({ theme }: { theme: string }) => {
         setLoading(false);
     }, [loading]);
 
-    if (!chdata) {
+    if (!chdata || !!loading) {
         return (
             <div>Loading...</div>
         );
@@ -76,27 +78,37 @@ export const HorizontalBarChart = ({ theme }: { theme: string }) => {
         },
         scales: {
             y: {
+                display: true,
+                min: 0,
+                max: 100,
                 title: {
                     display: false,
                     text: "",
                     color: colortxt
                 },
-                display: true,
-                min: 0,
-                max: 1000,
                 ticks: {
                     color: colortxt
+                },
+                grid: {
+                    display: true,
+                    color: colorgrid,
+                    zeroLineColor: colorgrid
                 }
             },
             x: {
+                display: true,
                 title: {
                     display: false,
                     text: "",
                     color: colortxt
                 },
-                display: true,
                 ticks: {
                     color: colortxt
+                },
+                grid: {
+                    display: true,
+                    color: colorgrid,
+                    zeroLineColor: colorgrid
                 }
             },
         },

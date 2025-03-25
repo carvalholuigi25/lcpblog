@@ -1,8 +1,8 @@
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { getColorTxt } from "@/app/[locale]/functions/chartfunctions";
+import { getColorGrid, getColorTxt } from "@/app/[locale]/functions/chartfunctions";
 import { Dataset } from "@/app/[locale]/interfaces/dataset";
 import FetchData from "@/app/[locale]/utils/fetchdata";
 
@@ -10,8 +10,10 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 export const PieChart = ({ theme }: { theme: string }) => {
     const colortxt = getColorTxt(theme);
-    const [loading, setLoading] = React.useState(true);
-    const [chdata, setChdata] = React.useState<Dataset>({
+    const colorgrid = getColorGrid(theme);
+    
+    const [loading, setLoading] = useState(true);
+    const [chdata, setChdata] = useState<Dataset>({
         datasetId: 0,
         year: new Date().getFullYear(),
         label: [],
@@ -33,7 +35,7 @@ export const PieChart = ({ theme }: { theme: string }) => {
         setLoading(false);
     }, [loading]);
 
-    if (!chdata) {
+    if (!chdata || !!loading) {
         return (
             <div>Loading...</div>
         );
@@ -89,27 +91,37 @@ export const PieChart = ({ theme }: { theme: string }) => {
         type: 'pie',
         scales: {
             y: {
+                display: false,
+                min: 0,
+                max: 100,
                 title: {
                     display: true,
                     text: "Posts",
                     color: colortxt
                 },
-                display: false,
-                min: 0,
-                max: 100,
                 ticks: {
                     color: colortxt
+                },
+                grid: {
+                    display: false,
+                    color: colorgrid,
+                    zeroLineColor: colorgrid
                 }
             },
             x: {
+                display: false,
                 title: {
                     display: true,
                     text: "Months",
                     color: colortxt
                 },
-                display: false,
                 ticks: {
                     color: colortxt
+                },
+                grid: {
+                    display: false,
+                    color: colorgrid,
+                    zeroLineColor: colorgrid
                 }
             },
         },

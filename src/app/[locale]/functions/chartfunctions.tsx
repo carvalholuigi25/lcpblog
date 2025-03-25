@@ -61,3 +61,15 @@ export const getColorTxt = (theme: string) => {
     theme == "vanilla" ? "#000000" : 
     "#000000";
 }
+
+export const getColorGrid = (theme: string) => {
+    return theme == "light" ? "rgba(0, 0, 0, 0.5)" : 
+    theme == "dark" ? "rgba(255, 255, 255, 0.5)" : 
+    theme == "system" ? "rgba(0, 0, 0, 0.5)" : 
+    theme == "red" ? "rgba(255, 255, 255, 0.5)" : 
+    theme == "green" ? "rgba(0, 0, 0, 0.5)" : 
+    theme == "blue" ? "rgba(255, 255, 255, 0.5)" : 
+    theme == "yellow" ? "rgba(0, 0, 0, 0.5)" : 
+    theme == "vanilla" ? "rgba(0, 0, 0, 0.5)" : 
+    "rgba(0, 0, 0, 0.5)";
+}

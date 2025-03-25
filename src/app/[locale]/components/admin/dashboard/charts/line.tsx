@@ -1,8 +1,8 @@
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler } from "chart.js";
-import { getColorTxt } from "@/app/[locale]/functions/chartfunctions";
+import { getColorGrid, getColorTxt } from "@/app/[locale]/functions/chartfunctions";
 import { Dataset } from "@/app/[locale]/interfaces/dataset";
 import FetchData from "@/app/[locale]/utils/fetchdata";
 
@@ -10,8 +10,10 @@ ChartJS.register(CategoryScale, LineElement, LinearScale, PointElement, Title, T
 
 export const LineChart = ({ theme }: { theme: string }) => {
     const colortxt = getColorTxt(theme);
-    const [loading, setLoading] = React.useState(true);
-    const [chdata, setChdata] = React.useState<Dataset>({
+    const colorgrid = getColorGrid(theme);
+    
+    const [loading, setLoading] = useState(true);
+    const [chdata, setChdata] = useState<Dataset>({
         datasetId: 0,
         year: new Date().getFullYear(),
         label: [],
@@ -33,7 +35,7 @@ export const LineChart = ({ theme }: { theme: string }) => {
         setLoading(false);
     }, [loading]);
 
-    if (!chdata) {
+    if (!chdata || !!loading) {
         return (
             <div>Loading...</div>
         );
@@ -58,27 +60,37 @@ export const LineChart = ({ theme }: { theme: string }) => {
         type: 'line',
         scales: {
             y: {
+                display: true,
+                min: 0,
+                max: 100,
                 title: {
                     display: true,
                     text: "Posts",
                     color: colortxt
                 },
-                display: true,
-                min: 0,
-                max: 100,
                 ticks: {
                     color: colortxt
+                },
+                grid: {
+                    display: true,
+                    color: colorgrid,
+                    zeroLineColor: colorgrid
                 }
             },
             x: {
+                display: true,
                 title: {
                     display: true,
                     text: "Months",
                     color: colortxt
                 },
-                display: true,
                 ticks: {
                     color: colortxt
+                },
+                grid: {
+                    display: true,
+                    color: colorgrid,
+                    zeroLineColor: colorgrid
                 }
             },
         },
