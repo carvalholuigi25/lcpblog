@@ -54,7 +54,6 @@ export const PolarChart = ({ theme }: { theme: string }) => {
             {
                 label: 'Posts',
                 data: data,
-
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -101,12 +100,19 @@ export const PolarChart = ({ theme }: { theme: string }) => {
                     color: colortxt
                 },
                 ticks: {
-                    color: colortxt
+                    color: colortxt,
+                    textStrokeColor: colortxt
                 },
                 grid: {
-                    display: false,
+                    display: true,
                     color: colorgrid,
                     zeroLineColor: colorgrid
+                },
+                border: {
+                    color: colortxt
+                },
+                angleLines: {
+                    color: colorgrid
                 }
             },
             x: {
@@ -117,14 +123,51 @@ export const PolarChart = ({ theme }: { theme: string }) => {
                     color: colortxt
                 },
                 ticks: {
-                    color: colortxt
+                    color: colortxt,
+                    textStrokeColor: colortxt
                 },
                 grid: {
-                    display: false,
+                    display: true,
                     color: colorgrid,
                     zeroLineColor: colorgrid
+                },
+                border: {
+                    color: colortxt
+                },
+                angleLines: {
+                    color: colorgrid
                 }
             },
+            r: {
+                display: true,
+                ticks: {
+                    display: true,
+                    color: colortxt,
+                    textStrokeColor: colortxt
+                },
+                grid: {
+                    display: true,
+                    color: colortxt,
+                    zeroLineColor: colortxt
+                },
+                border: {
+                    color: colortxt
+                },
+                angleLines: {
+                    color: colortxt
+                },
+                pointLabels: {
+                    color: colortxt
+                }
+            }
+        },
+        scale: {
+            angleLines: {
+                color: colorgrid
+            },
+            pointLabels: {
+                color: colorgrid
+            }
         },
         responsive: true,
         maintainAspectRatio: false,

@@ -78,6 +78,9 @@ export const RadarChart = ({ theme }: { theme: string }) => {
                 },
                 border: {
                     color: colortxt
+                },
+                angleLines: {
+                    color: colorgrid
                 }
             },
             x: {
@@ -97,6 +100,31 @@ export const RadarChart = ({ theme }: { theme: string }) => {
                     zeroLineColor: colorgrid
                 },
                 border: {
+                    color: colortxt
+                },
+                angleLines: {
+                    color: colorgrid
+                }
+            },
+            r: {
+                display: true,
+                ticks: {
+                    display: true,
+                    color: colortxt,
+                    textStrokeColor: colortxt
+                },
+                grid: {
+                    display: true,
+                    color: colortxt,
+                    zeroLineColor: colortxt
+                },
+                border: {
+                    color: colortxt
+                },
+                angleLines: {
+                    color: colortxt
+                },
+                pointLabels: {
                     color: colortxt
                 }
             }
@@ -120,7 +148,7 @@ export const RadarChart = ({ theme }: { theme: string }) => {
                 enable: true,
                 forceOverride: true
             }
-        },
+        }
     };
 
     return <Radar options={options} data={vdata} />;
