@@ -49,8 +49,8 @@ export function shortenLargeNumber(num: number, digits: number) {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function getImagePath(img: any) {
-  return !!["http", "https", "file"].includes(img) ? img : (!img.includes("/images/") ? '/images/'+img : img);
+export function getImagePath(img: any, path?: string) {
+  return !!["http", "https", "file"].includes(img) ? img : (!img.includes("/images/") ? '/images/' + (!!path && !img.includes(path) ? path + '/' : '') + img : img);
 }
 
 export async function sendMessage(connection: signalR.HubConnection, message: string) {

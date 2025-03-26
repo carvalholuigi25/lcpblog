@@ -10,6 +10,9 @@ const nextConfigOptions: NextConfig = {
   reactStrictMode: false,
   env: {
     apiURL: 'https://localhost:5000',
+  },
+  images: {
+    domains: ['localhost'],
   }
 };
 

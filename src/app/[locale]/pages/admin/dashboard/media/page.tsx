@@ -10,6 +10,7 @@ import AdminSidebarDashboard from "@applocale/components/admin/dashboard/adbside
 import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavbar";
 import FileSingleUploadForm from "@applocale/components/forms/upload/singleupload";
 import FileMultiUploadForm from "@applocale/components/forms/upload/multiupload";
+import UploadedFiles from "@applocale/components/uploadedfiles";
 import Footer from "@applocale/ui/footer";
 import withAuth from "@applocale/utils/withAuth";
 
@@ -67,18 +68,18 @@ const AdminMedia = () => {
                             </div>
                             <div className={"col-12 col-md-" + (!sidebarToggle ? "9" : "12") + " col-lg-" + (!sidebarToggle ? "10" : "12") + ""}>
                                 <h3 className="text-center">
-                                    <i className="bi bi-file-post me-2"></i>
+                                    <i className="bi bi-cloud-upload-fill me-2"></i>
                                     Upload Files
                                 </h3>
 
-                                <div className="container">
-                                    <select className="form-control frmselectupload" value={typeUpload} onChange={(e) => setTypeUpload(e.target.value)}>
+                                <div className="container p-3">
+                                    <select className="form-control frmselectupload w-auto d-block mx-auto" value={typeUpload} onChange={(e) => setTypeUpload(e.target.value)}>
                                         <option value="" disabled>Select upload type</option>
                                         <option value={"single"}>Single</option>
                                         <option value={"multiple"}>Multiple</option>
                                     </select>
 
-                                    <div className="mt-3 col-12">
+                                    <div className="mt-3 col-12 mx-auto text-center">
                                         {!typeUpload || typeUpload === "single" && (
                                             <FileSingleUploadForm />
                                         )}
@@ -86,6 +87,8 @@ const AdminMedia = () => {
                                         {typeUpload === "multiple" && (
                                             <FileMultiUploadForm />
                                         )}
+
+                                        <UploadedFiles />
                                     </div>
                                 </div>
                             </div>

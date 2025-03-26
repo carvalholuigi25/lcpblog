@@ -18,6 +18,7 @@ using Serilog;
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using lcpblogapi.Models.Enums;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
@@ -184,17 +185,30 @@ app.UseCors(x => x
 app.UseRequestLocalization(options);
 app.UseDefaultFiles();
 app.UseStaticFiles();
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(Path.Combine(builder.Environment.ContentRootPath, "wwwroot\\assets\\uploads")),
+    RequestPath = "/uploads"
+});
+
+app.UseFileServer(new FileServerOptions
+{
+    EnableDefaultFiles = true,
+    EnableDirectoryBrowsing = app.Environment.IsDevelopment() ? true : false,
+});
+
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.UseAuthentication();
-
 app.UseOpenApi();
+
 app.UseSwaggerUi(settings => 
 {
     settings.PersistAuthorization = true;
 });
-app.MapOpenApi();
 
+app.MapOpenApi();
 app.UseReDoc(options =>
 {
     options.Path = "/docs";

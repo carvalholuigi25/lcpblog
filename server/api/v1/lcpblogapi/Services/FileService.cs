@@ -8,7 +8,7 @@ public class FileService : IFileService
     private MyDBContext _context;
     private readonly long _maxSize;
     private readonly List<string> _allowedExtensions;
-    private readonly string _uploadFolder = "uploads"; // Store outside wwwroot
+    private readonly string _uploadFolder = "wwwroot/assets/uploads";
     private readonly string dirname = "";
 
     public FileService(MyDBContext context, IConfiguration configuration)
@@ -77,7 +77,7 @@ public class FileService : IFileService
     }
 
     public List<FileMetadata> GetListFiles() {
-        DirectoryInfo info = new DirectoryInfo(dirname + "\\uploads\\");
+        DirectoryInfo info = new DirectoryInfo(dirname + "\\" + _uploadFolder);
         FileInfo[] S1 = info.GetFiles().OrderByDescending(p => p.CreationTime).ToArray();
         var recentUploadedFiles = S1.Select((file) => new FileMetadata {
             gId = Guid.NewGuid(),

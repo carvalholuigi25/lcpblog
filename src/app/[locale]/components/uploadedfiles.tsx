@@ -1,0 +1,80 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { FilesMetadata } from "@applocale/interfaces/filesmetadata";
+import { getImagePath } from "@applocale/functions/functions";
+import FetchDataAxios from "@applocale/utils/fetchdataaxios";
+import Link from "next/link";
+import Image from "next/image";
+
+export default function UploadedFiles() {
+    const [loading, setLoading] = useState(true);
+    const [uploadedFiles, setUploadedFiles] = useState([]);
+
+    useEffect(() => {
+        async function fetchData() {
+            const response = await FetchDataAxios({
+                url: "api/files/list",
+                method: "GET"
+            });
+
+            setUploadedFiles(response.data);
+            setLoading(false);
+        }
+
+        fetchData();
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="loadingbar">
+                <p>Loading...</p>
+            </div>
+        );
+    }
+
+    return (
+        <div className="myuploadedfiles mt-3">
+            <div className="row mt-3">
+                {!uploadedFiles || uploadedFiles.length == 0 && (
+                    <div className="col-12">
+                        <p>No files uploaded yet.</p>
+                    </div>
+                )}
+
+                {!!uploadedFiles && uploadedFiles.map((file: FilesMetadata, index) => (
+                    <div key={index} className="col-12 col-md-6 col-lg-4 col-xl-4 mx-auto">
+                        <Link href={"https://localhost:5000/uploads/" + file.fileName} target="_blank" rel="noreferrer">
+                            <div className="card">
+                                <motion.div
+                                    whileHover={{ scale: 1.2 }}
+                                    whileTap={{ scale: 0.8 }}
+                                    className="d-inline-block"
+                                >
+                                    <Image
+                                        src={getImagePath(file.fileName, "uploads")}
+                                        width="400"
+                                        height="300"
+                                        alt="News image"
+                                        className={"myuplfileimg"}
+                                        onError={(event: any) => {
+                                            event.target.id = "/images/notfound.jpg";
+                                            event.target.srcset = "/images/notfound.jpg";
+                                        }}
+                                        priority
+                                    />
+                                </motion.div>
+
+                                <div className="card-body">
+                                    <h5 className="card-title">{file.fileName}</h5>
+                                    <p className="card-text">Content type: {file.contentType}</p>
+                                    <p className="card-text">Uploaded: {file.uploadedAt}</p>
+                                </div>
+                            </div>
+                        </Link>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
