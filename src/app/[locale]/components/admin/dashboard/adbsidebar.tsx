@@ -24,6 +24,12 @@ export default function AdminSidebarDashboard({sidebarToggle, toggleSidebar, loc
             name: "Users",
             link: "/users",
             icon: "bi-people"
+        },
+        {
+            id: 3,
+            name: "Media",
+            link: "/media",
+            icon: "bi-cloud-upload-fill"
         }
     ];
 
