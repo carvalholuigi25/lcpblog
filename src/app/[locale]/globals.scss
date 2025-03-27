@@ -82,7 +82,7 @@ p {
 .myuplfileimg {
   display: block;
   width: 100%;
-  height: auto;
+  height: 40vh;
   max-width: 100%;
   max-height: 100%;
   border-radius: 25px;
@@ -109,6 +109,22 @@ p {
 
   .progress-bar {
     margin: -1rem auto;
+  }
+}
+
+.myuplborder {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 15rem 15px;
+  box-shadow: 2px 4px 6px;
+  border: 1px solid;
+  border-radius: 15px;
+
+  i {
+    font-size: 4rem;
   }
 }
 
@@ -596,6 +612,12 @@ form {
         align-items: center;
         text-align: center;
       }
+    }
+  }
+
+  .myuplborder {
+    i {
+      font-size: 2rem;
     }
   }
 }

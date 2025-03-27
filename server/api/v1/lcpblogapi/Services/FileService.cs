@@ -9,7 +9,8 @@ public class FileService : IFileService
     private MyDBContext _context;
     private readonly long _maxSize;
     private readonly List<string> _allowedExtensions;
-    private readonly string _uploadFolder = "wwwroot/assets/uploads";
+    private readonly string _uploadFolder = "wwwroot\\assets\\uploads";
+    private readonly string _imgFolder = Directory.GetCurrentDirectory().Replace("\\server\\api\\v1\\lcpblogapi", "") + "\\public\\images\\uploads";
     private readonly string dirname = "";
 
     public FileService(MyDBContext context, IConfiguration configuration)
@@ -26,16 +27,10 @@ public class FileService : IFileService
             throw new InvalidOperationException("Invalid file format or size.");
 
         var fileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
-        var filePath = Path.Combine(_uploadFolder, fileName);
+        await CreateFile(file, _uploadFolder, fileName);
+        await CreateFile(file, _imgFolder, fileName);
 
-        Directory.CreateDirectory(_uploadFolder);
-        using (var stream = new FileStream(filePath, FileMode.Create))
-        {
-            await file.CopyToAsync(stream);
-        }
-
-        return $"/api/files/download/{fileName}"; // Return URL instead of path
-        // return filePath;
+        return $"/api/files/download/{fileName}";
     }
 
     public async Task<List<string>> UploadMultipleFilesAsync(List<IFormFile> files)
@@ -57,11 +52,7 @@ public class FileService : IFileService
         var fileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
         var filePath = Path.Combine(_uploadFolder, fileName);
 
-        Directory.CreateDirectory(_uploadFolder);
-        using (var stream = new FileStream(filePath, FileMode.Create))
-        {
-            await file.CopyToAsync(stream);
-        }
+        await CreateFile(file, _uploadFolder, fileName);
 
         var metadata = new FileMetadata
         {
@@ -89,6 +80,17 @@ public class FileService : IFileService
         }).ToList();
 
         return recentUploadedFiles;
+    }
+
+    public async Task CreateFile(IFormFile file, string pth, string fileName) {
+        var filePath = Path.Combine(pth, fileName);
+
+        if(!Path.Exists(pth)) {
+            Directory.CreateDirectory(pth);
+        }
+
+        using var stream = new FileStream(filePath, FileMode.Create);
+        await file.CopyToAsync(stream);
     }
 
     private bool IsValidFile(IFormFile file)

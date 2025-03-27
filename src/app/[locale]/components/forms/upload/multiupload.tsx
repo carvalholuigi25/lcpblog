@@ -1,9 +1,10 @@
 "use client";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useFormStatus } from "react-dom";
 import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 import { uploadRules } from "@applocale/utils/uploadrules";
+import { getFromStorage, saveToStorage } from "@applocale/hooks/localstorage";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 
 export default function FileMultiUploadForm() {
@@ -18,6 +19,10 @@ export default function FileMultiUploadForm() {
     const { pending } = useFormStatus();
     const ref = useRef<HTMLFormElement>(null);
     const isBinary = true;
+    
+    useEffect(() => {
+        setToggleUploadRules(getFromStorage("showUploadRules")! == "true" ? true : false);
+    }, []);
 
     const getExtensions = () => {
         return uploadRules.AllowedExtensions.join(", ");
@@ -28,9 +33,9 @@ export default function FileMultiUploadForm() {
     }
 
     const getCalcMaxSize = () => {
-        return `${(getMaxSize() / (isBinary ? 1000*1000 : 1024*1024)).toFixed(2)} mb`;
+        return `${(getMaxSize() / (isBinary ? 1000 * 1000 : 1024 * 1024)).toFixed(2)} mb`;
     }
-    
+
     const handleFilesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFiles(e.target.files);
     };
@@ -92,11 +97,16 @@ export default function FileMultiUploadForm() {
         }
     };
 
+    const changeToggleUploadRules = () => {
+        saveToStorage("showUploadRules", !toggleUploadRules);
+        setToggleUploadRules(!toggleUploadRules);
+    }
+
     return (
-        <div className="container-fluid">
+        <div className={"container-fluid"}>
             <div className="row">
                 <div className="mt-3">
-                    <button className="btn btn-primary btntoggleuplrules" onClick={() => setToggleUploadRules(!toggleUploadRules)}>
+                    <button className="btn btn-primary btntoggleuplrules" onClick={changeToggleUploadRules}>
                         {!!toggleUploadRules ? "Hide" : "Show"} upload rules
                     </button>
 
@@ -116,15 +126,15 @@ export default function FileMultiUploadForm() {
                         <input type="file" name="file" multiple onChange={handleFilesChange} />
                     </div>
                     <div className="form-group mx-auto">
-                        <button 
-                            type="reset" 
-                            className="btn btn-secondary btn-reset mt-3" 
-                            disabled={pending || !files && !statusState} 
+                        <button
+                            type="reset"
+                            className="btn btn-secondary btn-reset mt-3"
+                            disabled={pending || !files && !statusState}
                             onClick={clearForm}
                         >
                             Reset
                         </button>
-                        
+
                         <button
                             type="submit"
                             className="btn btn-primary btn-upload mt-3 ms-3"
@@ -138,7 +148,7 @@ export default function FileMultiUploadForm() {
                 {!!progressShown && progress > 0 && (
                     <div className="w-full rounded mt-3">
                         <div className="progress" role="progressbar" aria-label="Upload progress bar" aria-valuenow={progress} aria-valuemin={0} aria-valuemax={100}>
-                            <div className="progress-bar progress-bar-striped progress-bar-animated p-3" style={{width: progress + "%"}}>
+                            <div className="progress-bar progress-bar-striped progress-bar-animated p-3" style={{ width: progress + "%" }}>
                                 {progress}%
                             </div>
                         </div>

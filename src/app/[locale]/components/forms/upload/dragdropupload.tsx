@@ -1,16 +1,19 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useCallback, useState, useEffect } from "react";
 import { useFormStatus } from "react-dom";
+import { useDropzone } from "react-dropzone";
 import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 import { uploadRules } from "@applocale/utils/uploadrules";
 import { getFromStorage, saveToStorage } from "@applocale/hooks/localstorage";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
+import Image from 'next/image';
 
-export default function FileSingleUploadForm() {
+export default function FileDragDropUploadForm() {
     const router = useRouter();
     const locale = useLocale();
     const [file, setFile] = useState<File | null>(null);
+    const [preview, setPreview] = useState<string | null>(null);
     const [statusState, setStatusState] = useState(false);
     const [status, setStatus] = useState("");
     const [toggleUploadRules, setToggleUploadRules] = useState(false);
@@ -19,10 +22,18 @@ export default function FileSingleUploadForm() {
     const { pending } = useFormStatus();
     const ref = useRef<HTMLFormElement>(null);
     const isBinary = true;
-
+        
     useEffect(() => {
         setToggleUploadRules(getFromStorage("showUploadRules")! == "true" ? true : false);
     }, []);
+
+    const onDrop = useCallback((acceptedFiles: File[]) => {
+        const file = acceptedFiles[0];
+        setFile(file);
+        setPreview(URL.createObjectURL(file));
+    }, []);
+
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
     const getExtensions = () => {
         return uploadRules.AllowedExtensions.join(", ");
@@ -36,38 +47,26 @@ export default function FileSingleUploadForm() {
         return `${(getMaxSize() / (isBinary ? 1000 * 1000 : 1024 * 1024)).toFixed(2)} mb`;
     }
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files.length > 0) {
-            setFile(e.target.files[0]);
-            setProgress(0);
-        }
-    };
-
     const clearForm = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        setProgress(0);
-        setProgressShown(false);
+        setPreview(null);
         setFile(null);
         setStatus("");
         setStatusState(false);
         ref.current?.reset();
         router.push(`/${locale}/pages/admin/dashboard/media`);
-    };
+    }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleUpload = async (e: any) => {
         e.preventDefault();
+        if (!file) return;
 
-        if (!file) {
-            setStatus("Please select a file first.");
-            return;
-        }
+        const formData = new FormData();
+        formData.append("file", file);
 
         try {
             setProgressShown(true);
-
-            const formData = new FormData();
-            formData.append("file", file);
 
             const response = await FetchDataAxios({
                 url: "api/files/upload/single",
@@ -85,7 +84,7 @@ export default function FileSingleUploadForm() {
 
             if (response && response.status === 200) {
                 setStatusState(true);
-                setStatus("File uploaded successfully!");
+                setStatus("File(s) uploaded successfully!");
                 ref.current?.reset();
                 router.push(`/${locale}/pages/admin/dashboard`);
             } else {
@@ -98,8 +97,8 @@ export default function FileSingleUploadForm() {
             setStatus("Error uploading file. Message: " + error);
             ref.current?.reset();
         }
-    };
-
+    }
+    
     const changeToggleUploadRules = () => {
         saveToStorage("showUploadRules", !toggleUploadRules);
         setToggleUploadRules(!toggleUploadRules);
@@ -124,27 +123,56 @@ export default function FileSingleUploadForm() {
                     )}
                 </div>
 
-                <form ref={ref} className="frmuplfilesingle mt-3" encType="multipart/form-data" onSubmit={handleUpload}>
+                <form ref={ref} className="frmuplfilesmult mt-3" encType="multipart/form-data" onSubmit={handleUpload}>
                     <div className="form-group">
-                        <input type="file" name="file" onChange={handleFileChange} />
-                    </div>
-                    <div className="form-group mx-auto">
-                        <button
-                            type="reset"
-                            className="btn btn-secondary btn-reset mt-3"
-                            disabled={pending || !file && !statusState}
-                            onClick={clearForm}
+                        <div
+                            {...getRootProps()}
+                            className={`myuplborder ${isDragActive ? "myuplborderact" : "myuplborderinact"}`}
                         >
-                            Reset
-                        </button>
-                        <button
-                            type="submit"
-                            className="btn btn-primary btn-upload mt-3 ms-3"
-                            disabled={pending || !file && !statusState}
-                        >
-                            Upload
-                        </button>
+                            <input {...getInputProps()} />
+                            <i className="bi bi-cloud-plus-fill"></i>
+
+                            {isDragActive ? (
+                                <p>Drop the file here...</p>
+                            ) : (
+                                <p>Drag and drop a file here, or click to select file</p>
+                            )}
+                        </div>
+
+                        <div className="row">
+                            {preview && (
+                                <div className="col-12">
+                                    <div className="card mt-3">
+                                        <div className="card-body">
+                                            <h4>Preview</h4>
+                                            <Image src={preview} alt={"preview"} className="img-fluid" width={400} height={400} />
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
                     </div>
+
+                    {file && (
+                        <div className="form-group mx-auto mt-3">
+                            <button
+                                type="reset"
+                                className="btn btn-secondary btn-reset mt-3"
+                                disabled={pending || !file && !statusState}
+                                onClick={clearForm}
+                            >
+                                Reset
+                            </button>
+
+                            <button
+                                type="submit"
+                                className="btn btn-primary btn-upload mt-3 ms-3"
+                                disabled={pending || !file && !statusState}
+                            >
+                                Upload
+                            </button>
+                        </div>
+                    )}
                 </form>
 
                 {!!progressShown && progress > 0 && (

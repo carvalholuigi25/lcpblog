@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import astyles from "@applocale/styles/adminstyles.module.scss";
-import { getFromStorage } from "@applocale/hooks/localstorage";
+import { getFromStorage, saveToStorage } from "@applocale/hooks/localstorage";
 import { useEffect, useState } from "react";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { Link } from '@/app/i18n/navigation';
@@ -13,6 +13,7 @@ import FileMultiUploadForm from "@applocale/components/forms/upload/multiupload"
 import UploadedFiles from "@applocale/components/uploadedfiles";
 import Footer from "@applocale/ui/footer";
 import withAuth from "@applocale/utils/withAuth";
+import FileDragDropUploadForm from "@/app/[locale]/components/forms/upload/dragdropupload";
 
 const AdminMedia = () => {
     const locale = useLocale();
@@ -21,6 +22,7 @@ const AdminMedia = () => {
     const [isAuthorized, setIsAuthorized] = useState(false);
     const [sidebarToggle, setSidebarToggle] = useState(true);
     const [typeUpload, setTypeUpload] = useState("single");
+    const [showUpload, setShowUpload] = useState(false);
 
     useEffect(() => {
         if (!logInfo) {
@@ -28,7 +30,10 @@ const AdminMedia = () => {
         }
 
         setIsAuthorized(logInfo && JSON.parse(logInfo)[0].role == "admin" ? true : false);
+        setShowUpload(getFromStorage("showUpload")! == "true" ? true : false);
+        setTypeUpload(getFromStorage("typeUpload")!);
         setLoading(false);
+
     }, [logInfo, isAuthorized]);
 
     if (loading) {
@@ -53,6 +58,18 @@ const AdminMedia = () => {
         setSidebarToggle(!sidebarToggle);
     }
 
+    const changeTypeUpload = (e: any) => {
+        e.preventDefault();
+        saveToStorage("typeUpload", e.target.value);
+        setTypeUpload(e.target.value);
+    }
+
+    const changeShowUpload = (e: any) => {
+        e.preventDefault();
+        saveToStorage("showUpload", !showUpload);
+        setShowUpload(!showUpload);
+    }
+
     return (
         <div className={astyles.admdashboard}>
             {!!isAuthorized && (
@@ -73,19 +90,34 @@ const AdminMedia = () => {
                                 </h3>
 
                                 <div className="container p-3">
-                                    <select className="form-control frmselectupload w-auto d-block mx-auto" value={typeUpload} onChange={(e) => setTypeUpload(e.target.value)}>
-                                        <option value="" disabled>Select upload type</option>
-                                        <option value={"single"}>Single</option>
-                                        <option value={"multiple"}>Multiple</option>
-                                    </select>
+                                    <button className="btn btn-primary btnshowupload d-block mx-auto" onClick={changeShowUpload}>
+                                        {!!showUpload ? "Hide" : "Show"} upload
+                                    </button>
+
+                                    {!!showUpload && (
+                                        <select className={"form-control frmselectupload w-auto d-block mx-auto mt-3 "} value={typeUpload} onChange={changeTypeUpload}>
+                                            <option value="" disabled>Select upload type</option>
+                                            <option value={"single"}>Single</option>
+                                            <option value={"multiple"}>Multiple</option>
+                                            <option value={"dragndrop"}>Drag and Drop</option>
+                                        </select>
+                                    )}
 
                                     <div className="mt-3 col-12 mx-auto text-center">
-                                        {!typeUpload || typeUpload === "single" && (
-                                            <FileSingleUploadForm />
-                                        )}
-
-                                        {typeUpload === "multiple" && (
-                                            <FileMultiUploadForm />
+                                        {!!showUpload && (
+                                            <>
+                                                {!typeUpload || typeUpload === "single" && (
+                                                    <FileSingleUploadForm />
+                                                )}
+        
+                                                {typeUpload === "multiple" && (
+                                                    <FileMultiUploadForm />
+                                                )}
+        
+                                                {typeUpload === "dragndrop" && (
+                                                    <FileDragDropUploadForm />
+                                                )}
+                                            </>
                                         )}
 
                                         <UploadedFiles />

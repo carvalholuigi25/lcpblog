@@ -47,16 +47,16 @@ export default function UploadedFiles() {
                         <Link href={"https://localhost:5000/uploads/" + file.fileName} target="_blank" rel="noreferrer">
                             <div className="card">
                                 <motion.div
-                                    whileHover={{ scale: 1.2 }}
-                                    whileTap={{ scale: 0.8 }}
+                                    whileHover={{ scale: 1.1 }}
+                                    whileTap={{ scale: 0.9 }}
                                     className="d-inline-block"
                                 >
                                     <Image
                                         src={getImagePath(file.fileName, "uploads")}
                                         width="400"
-                                        height="300"
+                                        height="400"
                                         alt="News image"
-                                        className={"myuplfileimg"}
+                                        className={"myuplfileimg img-fluid"}
                                         onError={(event: any) => {
                                             event.target.id = "/images/notfound.jpg";
                                             event.target.srcset = "/images/notfound.jpg";
