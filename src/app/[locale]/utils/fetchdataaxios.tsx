@@ -8,6 +8,7 @@ export interface CTAxiosInterface {
     data?: any;
     headers?: any;
     reqAuthorize?: boolean;
+    onUploadProgress?: (progressEvent: any) => void;
 }
 
 export function getHeadersAxios(isReqAuthorize: boolean = false, methodReq: string = "get", enableCacheNoStore: boolean = false): any {
@@ -27,7 +28,8 @@ export function getConfigAxios(ctaxint: CTAxiosInterface): AxiosRequestConfig<an
         headers: getHeadersAxios(ctaxint.reqAuthorize, ctaxint.method, true),
         params: {
             timestamp: Date.now()
-        }
+        },
+        onUploadProgress: ctaxint.onUploadProgress
     };
 }
 

@@ -43,7 +43,7 @@ export default function UploadedFiles() {
                 )}
 
                 {!!uploadedFiles && uploadedFiles.map((file: FilesMetadata, index) => (
-                    <div key={index} className="col-12 col-md-6 col-lg-4 col-xl-4 mx-auto">
+                    <div key={index} className="col-12 col-md-6 col-lg-4 col-xl-4 mx-auto mt-3">
                         <Link href={"https://localhost:5000/uploads/" + file.fileName} target="_blank" rel="noreferrer">
                             <div className="card">
                                 <motion.div

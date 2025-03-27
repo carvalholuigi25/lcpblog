@@ -10,9 +10,18 @@ const nextConfigOptions: NextConfig = {
   reactStrictMode: false,
   env: {
     apiURL: 'https://localhost:5000',
+    NEXT_IMAGE_ALLOWED_DOMAINS: 'localhost'
   },
   images: {
-    domains: ['localhost'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'localhost',
+        port: '5000',
+        pathname: '/uploads/**',
+        search: '',
+      },
+    ],
   }
 };
 

@@ -104,6 +104,14 @@ p {
   }
 }
 
+.progress {
+  padding: 1rem 0px;
+
+  .progress-bar {
+    margin: -1rem auto;
+  }
+}
+
 .mychart {
   position: relative;
   width: 100%;

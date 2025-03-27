@@ -13,6 +13,8 @@ export default function FileMultiUploadForm() {
     const [statusState, setStatusState] = useState(false);
     const [status, setStatus] = useState("");
     const [toggleUploadRules, setToggleUploadRules] = useState(false);
+    const [progressShown, setProgressShown] = useState(false);
+    const [progress, setProgress] = useState(0);
     const { pending } = useFormStatus();
     const ref = useRef<HTMLFormElement>(null);
     const isBinary = true;
@@ -57,6 +59,8 @@ export default function FileMultiUploadForm() {
         });
 
         try {
+            setProgressShown(true);
+
             const response = await FetchDataAxios({
                 url: "api/files/upload/multiple",
                 method: "POST",
@@ -64,14 +68,18 @@ export default function FileMultiUploadForm() {
                 headers: {
                     "Accept": "multipart/form-data, application/json, application/octet-stream; charset=utf-8",
                     "Content-Type": "multipart/form-data, application/json, application/octet-stream; charset=utf-8",
-                }
+                },
+                onUploadProgress: (event) => {
+                    const percentCompleted = Math.round((event.loaded * 100) / event.total);
+                    setProgress(percentCompleted);
+                },
             });
 
             if (response && response.status === 200) {
                 setStatusState(true);
                 setStatus("File(s) uploaded successfully!");
                 ref.current?.reset();
-                router.push("/");
+                router.push(`/${locale}/pages/admin/dashboard`);
             } else {
                 setStatusState(false);
                 setStatus("Upload failed.");
@@ -108,8 +116,6 @@ export default function FileMultiUploadForm() {
                         <input type="file" name="file" multiple onChange={handleFilesChange} />
                     </div>
                     <div className="form-group mx-auto">
-                        <p>{status}</p>
-
                         <button 
                             type="reset" 
                             className="btn btn-secondary btn-reset mt-3" 
@@ -128,6 +134,18 @@ export default function FileMultiUploadForm() {
                         </button>
                     </div>
                 </form>
+
+                {!!progressShown && progress > 0 && (
+                    <div className="w-full rounded mt-3">
+                        <div className="progress" role="progressbar" aria-label="Upload progress bar" aria-valuenow={progress} aria-valuemin={0} aria-valuemax={100}>
+                            <div className="progress-bar progress-bar-striped progress-bar-animated p-3" style={{width: progress + "%"}}>
+                                {progress}%
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                <p className="mt-3">{status}</p>
             </div>
         </div>
     );

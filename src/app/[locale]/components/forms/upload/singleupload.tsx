@@ -13,6 +13,8 @@ export default function FileSingleUploadForm() {
     const [statusState, setStatusState] = useState(false);
     const [status, setStatus] = useState("");
     const [toggleUploadRules, setToggleUploadRules] = useState(false);
+    const [progressShown, setProgressShown] = useState(false);
+    const [progress, setProgress] = useState(0);
     const { pending } = useFormStatus();
     const ref = useRef<HTMLFormElement>(null);
     const isBinary = true;
@@ -32,11 +34,14 @@ export default function FileSingleUploadForm() {
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
             setFile(e.target.files[0]);
+            setProgress(0);
         }
     };
 
     const clearForm = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
+        setProgress(0);
+        setProgressShown(false);
         setFile(null);
         setStatus("");
         setStatusState(false);
@@ -54,6 +59,8 @@ export default function FileSingleUploadForm() {
         }
 
         try {
+            setProgressShown(true);
+
             const formData = new FormData();
             formData.append("file", file);
 
@@ -64,14 +71,18 @@ export default function FileSingleUploadForm() {
                 headers: {
                     "Accept": "multipart/form-data, application/json, application/octet-stream; charset=utf-8",
                     "Content-Type": "multipart/form-data, application/json, application/octet-stream; charset=utf-8",
-                }
+                },
+                onUploadProgress: (event) => {
+                    const percentCompleted = Math.round((event.loaded * 100) / event.total);
+                    setProgress(percentCompleted);
+                },
             });
 
             if (response && response.status === 200) {
                 setStatusState(true);
                 setStatus("File uploaded successfully!");
                 ref.current?.reset();
-                router.push("/");
+                router.push(`/${locale}/pages/admin/dashboard`);
             } else {
                 setStatusState(false);
                 setStatus("Upload failed.");
@@ -108,8 +119,6 @@ export default function FileSingleUploadForm() {
                         <input type="file" name="file" onChange={handleFileChange} />
                     </div>
                     <div className="form-group mx-auto">
-                        <p>{status}</p>
-
                         <button 
                             type="reset" 
                             className="btn btn-secondary btn-reset mt-3" 
@@ -127,6 +136,18 @@ export default function FileSingleUploadForm() {
                         </button>
                     </div>
                 </form>
+
+                {!!progressShown && progress > 0 && (
+                    <div className="w-full rounded mt-3">
+                        <div className="progress" role="progressbar" aria-label="Upload progress bar" aria-valuenow={progress} aria-valuemin={0} aria-valuemax={100}>
+                            <div className="progress-bar progress-bar-striped progress-bar-animated p-3" style={{width: progress + "%"}}>
+                                {progress}%
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                <p className="mt-3">{status}</p>
             </div>
         </div>
     );
