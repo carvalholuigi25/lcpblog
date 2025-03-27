@@ -90,6 +90,20 @@ p {
   margin: auto;
 }
 
+.uplrulesblk {
+  padding: 15px;
+
+  .uplrulesubblk {
+    border: 1px solid;
+    border-radius: 15px; 
+    padding: 15;
+  }
+
+  .uplrulestitle {
+    font-weight: bold;
+  }
+}
+
 .mychart {
   position: relative;
   width: 100%;

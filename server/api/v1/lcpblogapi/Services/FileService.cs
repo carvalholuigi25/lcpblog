@@ -1,8 +1,9 @@
 using lcpblogapi.Context;
 using lcpblogapi.Interfaces;
 using lcpblogapi.Models;
-using System.Linq;
-using System.Collections.Generic;
+
+namespace lcpblogapi.Services;
+
 public class FileService : IFileService
 {
     private MyDBContext _context;

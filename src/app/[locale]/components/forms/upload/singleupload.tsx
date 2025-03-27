@@ -1,16 +1,33 @@
 "use client";
 import { useRef, useState } from "react";
-import { useRouter } from "next/navigation";
 import { useFormStatus } from "react-dom";
+import { useRouter } from "next/navigation";
+import { useLocale } from "next-intl";
+import { uploadRules } from "@applocale/utils/uploadrules";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 
 export default function FileSingleUploadForm() {
+    const router = useRouter();
+    const locale = useLocale();
     const [file, setFile] = useState<File | null>(null);
     const [statusState, setStatusState] = useState(false);
     const [status, setStatus] = useState("");
+    const [toggleUploadRules, setToggleUploadRules] = useState(false);
     const { pending } = useFormStatus();
     const ref = useRef<HTMLFormElement>(null);
-    const router = useRouter();
+    const isBinary = true;
+
+    const getExtensions = () => {
+        return uploadRules.AllowedExtensions.join(", ");
+    }
+
+    const getMaxSize = () => {
+        return uploadRules.MaxSize;
+    }
+
+    const getCalcMaxSize = () => {
+        return `${(getMaxSize() / (isBinary ? 1000*1000 : 1024*1024)).toFixed(2)} mb`;
+    }
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
@@ -24,7 +41,7 @@ export default function FileSingleUploadForm() {
         setStatus("");
         setStatusState(false);
         ref.current?.reset();
-        router.push("/pt-PT/pages/admin/dashboard/media");
+        router.push(`/${locale}/pages/admin/dashboard/media`);
     };
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -45,8 +62,8 @@ export default function FileSingleUploadForm() {
                 method: "POST",
                 data: formData,
                 headers: {
-                    "Accept": "multipart/form-data, application/json; charset=utf-8",
-                    "Content-Type": "multipart/form-data, application/json; charset=utf-8",
+                    "Accept": "multipart/form-data, application/json, application/octet-stream; charset=utf-8",
+                    "Content-Type": "multipart/form-data, application/json, application/octet-stream; charset=utf-8",
                 }
             });
 
@@ -70,13 +87,37 @@ export default function FileSingleUploadForm() {
     return (
         <div className="container-fluid">
             <div className="row">
-                <form ref={ref} className="frmuplfilesingle" encType="multipart/form-data" onSubmit={handleUpload}>
+                <div className="mt-3">
+                    <button className="btn btn-primary btntoggleuplrules" onClick={() => setToggleUploadRules(!toggleUploadRules)}>
+                        {!!toggleUploadRules ? "Hide" : "Show"} upload rules
+                    </button>
+
+                    {!!toggleUploadRules && uploadRules && (
+                        <div className="mt-3 uplrulesblk">
+                            <fieldset className="uplrulesubblk">
+                                <legend className="uplrulestitle">Upload rules</legend>
+                                <p className="mt-3">Allowed extensions: {getExtensions()}</p>
+                                <p className="mt-3">Max Size: {getMaxSize()} bytes ({getCalcMaxSize()})</p>
+                            </fieldset>
+                        </div>
+                    )}
+                </div>
+
+                <form ref={ref} className="frmuplfilesingle mt-3" encType="multipart/form-data" onSubmit={handleUpload}>
                     <div className="form-group">
                         <input type="file" name="file" onChange={handleFileChange} />
                     </div>
                     <div className="form-group mx-auto">
                         <p>{status}</p>
-                        <button type="reset" className="btn btn-secondary btn-reset mt-3" disabled={!file && !statusState} onClick={clearForm}>Reset</button>
+
+                        <button 
+                            type="reset" 
+                            className="btn btn-secondary btn-reset mt-3" 
+                            disabled={pending || !file && !statusState} 
+                            onClick={clearForm}
+                        >
+                            Reset
+                        </button>
                         <button
                             type="submit"
                             className="btn btn-primary btn-upload mt-3 ms-3"
