@@ -24,7 +24,7 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const isEnabledMultiCols = true;
-    const pageSize: number = 10;
+    const pageSize: number = 1;
     const pathname = usePathname();
     const router = useRouter();
     const searchParams = useSearchParams();
