@@ -145,6 +145,10 @@ p {
 }
 
 .table-responsive {
+  &.mtable-long {
+    max-height: 46vh;
+  }
+
   &.mtable-nobordered {
     box-shadow: 2px 4px 6px;
     border-radius: 15px;

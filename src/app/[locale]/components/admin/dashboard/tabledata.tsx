@@ -23,14 +23,16 @@ export default function TableData({ theaders, tdata, namep, locale }: TableDataP
     const isBorderEnabled = false;
     const isRoundedEnabled = true;
     const isShadowEnabled = true;
+    const isLongContentEnabled = true;
     const isBorderEnabledCl = isBorderEnabled ? "bordered" : "nobordered";
     const isRoundedEnabledCl = isRoundedEnabled ? "table-rounded" : "";
     const isShadowEnabledCl = isShadowEnabled ? "mtable-shadow" : "";
+    const isLongContentEnabledCl = isLongContentEnabled ? "mtable-long" : "";
     const totaltheaders = theaders.length + 1;
 
     return (
         <div className={styles.myroundedscrollbar}>
-            <div className={"table-responsive " + "mtable-" + isBorderEnabledCl + " " + isShadowEnabledCl}>
+            <div className={"table-responsive " + "mtable-" + isBorderEnabledCl + " " + isShadowEnabledCl + " " + isLongContentEnabledCl}>
                 {!tdata || tdata.length == 0 && (
                     <div className='container'>
                         <div className='row justify-content-center align-items-center p-3'>

@@ -19,13 +19,13 @@ export default function MyPagination({ cid, pid, currentPage, totalPages }: Pagi
         if(totalPages == 0) return [];
 
         const pages = [];
-        const maxVisiblePages = totalPages-1;
+        const maxVisiblePages = 5;
 
         if (totalPages <= maxVisiblePages) {
             return Array.from({ length: totalPages }, (_, i) => i + 1);
         }
 
-        pages.push(1);
+        pages.push(1);            
 
         if (page > 3) {
             pages.push("...");
