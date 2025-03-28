@@ -1,17 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import styles from "@applocale/page.module.scss";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { Link } from '@/app/i18n/navigation';
 import { Posts } from "@applocale/interfaces/posts";
 import { User } from "@applocale/interfaces/user";
 import { Categories } from "@applocale/interfaces/categories";
 import { getImagePath, loadMyRealData, shortenLargeNumber } from "@applocale/functions/functions";
-import FetchDataAxios, { FetchMultipleDataAxios } from "@applocale/utils/fetchdataaxios";
-import {Link} from '@/app/i18n/navigation';
 import { getDefLocale, getLinkLocale } from "@applocale/helpers/defLocale";
+import { FetchMultipleDataAxios } from "@applocale/utils/fetchdataaxios";
 import CarouselNews from "@applocale/components/carouselnews";
 import MyEditorPost from "@applocale/components/editor/myeditorpost";
+import MyPagination from "@applocale/components/mypagination";
 import Image from "next/image";
 
 export default function News({ cid, pid, locale }: { cid: number, pid: number, locale: string }) {
@@ -27,16 +28,6 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
     const pathname = usePathname();
     const router = useRouter();
     const searchParams = useSearchParams();
-
-    const createQueryVal = useCallback(
-        (name: string, value: string) => {
-          const params = new URLSearchParams(searchParams.toString())
-          params.set(name, value)
-     
-          return params.toString()
-        },
-        [searchParams]
-    );
 
     useEffect(() => {
         async function fetchNews() {
@@ -79,17 +70,18 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
 
             setViews(newsdata.length > 0 ? newsdata[0].views : 0);
             setTotalPages(data[0].totalPages);
+
+            if(!!new URLSearchParams(searchParams.toString()).get("page")) {
+                setPage(parseInt(new URLSearchParams(searchParams.toString()).get("page")!.toString(), 0));
+            }
+
             setLoading(false);
         }
 
         fetchNews();
 
-        if (!!loading) {
+        if(!loading) {
             loadMyRealData({ hubname: "datahub", skipNegotiation: false, fetchData: fetchNews });
-            
-            if(!!new URLSearchParams(searchParams.toString()).get("page")) {
-                setPage(parseInt(new URLSearchParams(searchParams.toString()).get("page")!.toString(), 0));
-            }
         }
     }, [cid, pid, page, views, loading, searchParams]);
 
@@ -127,20 +119,7 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
     const redirectToPost = async (e: any, newsi: Posts) => {
         e.preventDefault();
         setViews(views + 1);
-
-        const body = { ...newsi, ["views"]: views + 1 };
-
-        await FetchDataAxios({
-            url: "api/posts/" + newsi.postId,
-            method: "put",
-            data: body,
-            reqAuthorize: false
-        }).then(() => {
-            console.log("Views updated");
-            router.push(getLinkLocale() + "/pages/news/" + newsi.categoryId + "/" + newsi.postId);
-        }).catch((err) => {
-            console.log(err);
-        });
+        router.push(getLinkLocale() + "/pages/news/" + newsi.categoryId + "/" + newsi.postId);
     };
 
     const fetchNewsItems = (): any => {
@@ -252,85 +231,11 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
         );
     };
 
-    const getMyPagination = (): any => {
-        const isHiddenNavPagBtns = true;
-
-        const navToPage = (indval: number) => {
-            router.push(pathname + "?" + createQueryVal("page", ""+indval));
-        };
-
-        const firstPage = () => {
-            const indval = (page - page) + 1;
-            setPage(indval);
-            navToPage(indval);
-        };
-
-        const previousPage = () => {
-            const indval = page > 1 ? page - 1 : 1;
-            setPage(indval);
-            navToPage(indval);
-        };
-
-        const itemPage = (index: number) => {
-            const indval = index + 1;
-            setPage(indval);
-            navToPage(indval);
-        };
-
-        const nextPage = () => {
-            const indval = page < totalPages ? page + 1 : totalPages;
-            setPage(indval);
-            navToPage(indval);
-        };
-
-        const lastPage = () => {
-            const indval = totalPages;
-            setPage(indval);
-            navToPage(indval);
-        };
-
-        return (
-            <nav className="d-flex mx-auto text-center">
-                <ul className="pagination mt-3 mx-auto">
-                    <li className={`page-item${page === 1 ? " disabled" + (isHiddenNavPagBtns ? " hidden" : "") : ""}`}>
-                        <button type="button" className="page-link" onClick={() => firstPage()}>
-                            <i className="bi bi-chevron-double-left"></i>
-                        </button>
-                    </li>
-                    <li className={`page-item${page === 1 ? " disabled" + (isHiddenNavPagBtns ? " hidden" : "") : ""}`}>
-                        <button type="button" className="page-link" onClick={() => previousPage()}>
-                            <i className="bi bi-chevron-left"></i>
-                        </button>
-                    </li>
-                    
-                    {[...Array(totalPages)].map((_, index) => (
-                        <li key={index} className={`page-item${page === index + 1 ? " active" : ""}`}>
-                            <button type="button" className="page-link" onClick={() => itemPage(index)}>
-                                {index + 1}
-                            </button>
-                        </li>
-                    ))}
-
-                    <li className={`page-item${page === totalPages ? " disabled" + (isHiddenNavPagBtns ? " hidden" : "") : ""}`}>
-                        <button type="button" className="page-link" onClick={() => nextPage()}>
-                            <i className="bi bi-chevron-right"></i>
-                        </button>
-                    </li>
-                    <li className={`page-item${page === totalPages ? " disabled" + (isHiddenNavPagBtns ? " hidden" : "") : ""}`}>
-                        <button type="button" className="page-link" onClick={() => lastPage()}>
-                            <i className="bi bi-chevron-double-right"></i>
-                        </button>
-                    </li>
-                </ul>
-            </nav>
-        );
-    }
-
     const getContent = () => {
         return (
             <>
                 {fetchNewsItems()}
-                {cid >= -1 && pid == -1 && getMyPagination()}
+                <MyPagination cid={cid} pid={pid} currentPage={page} totalPages={totalPages} />
                 {pathname !== "/" || pathname !== "/" + getDefLocale() && getBackLink(pathname)}
             </>
         );
