@@ -22,7 +22,8 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
     const [views, setViews] = useState(0);
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
-    const pageSize = 10;
+    const isEnabledMultiCols = true;
+    const pageSize: number = 10;
     const pathname = usePathname();
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -39,7 +40,8 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
 
     useEffect(() => {
         async function fetchNews() {
-            const params = `?page=${page}&pageSize=${pageSize}`;
+            const curindex = pageSize == 1 ? (page > pid ? page : pid) : page;
+            const params = `?page=${curindex}&pageSize=${pageSize}`;
 
             const data = await FetchMultipleDataAxios([
                 {
@@ -107,7 +109,7 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
     }
 
     const getMultiCols = (i: number, isMulticolsEnabled: boolean) => {
-        const cols = i <= 2 ? 6 : 4;
+        const cols = i == 0 ? 12 : i >= 1 && i <= 2 ? 6 : 4;
         const fcol = 12;
         return isMulticolsEnabled ? (cid != -1 ? (pid != -1 ? (i <= 1 ? fcol : cols) : cols) : cols) : fcol;
     };
@@ -150,7 +152,7 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
                     if (newsi.userId == useri.userId) {
                         if (newsi.categoryId == categoryi.categoryId) {
                             items.push(
-                                <div className={`col-12 col-sm-6 col-md-${getMultiCols(i, true)} col-lg-${getMultiCols(i, true)} col-xl-${getMultiCols(i, true)} mb-4`} key={"news" + i}>
+                                <div className={`col-12 col-sm-6 col-md-${getMultiCols(i, isEnabledMultiCols)} col-lg-${getMultiCols(i, isEnabledMultiCols)} col-xl-${getMultiCols(i, isEnabledMultiCols)} mb-4`} key={"news" + i}>
                                     {cid > -1 && pid == -1 && (
                                         <div className="col-12 text-center mb-3" key={"category" + i}>
                                             <h2 className="txtcategory">{categoryi.name}</h2>
