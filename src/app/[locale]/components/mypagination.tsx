@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export interface PaginationProps {
@@ -13,13 +13,17 @@ export default function MyPagination({ cid, pid, currentPage, totalPages }: Pagi
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
-    const [page, setPage] = useState(currentPage ?? 1);
+    const [page, setPage] = useState(1);
+
+    useEffect(() => {
+        setPage(currentPage ?? 1);
+    }, [currentPage]);
 
     const getPageNumbers = () => {
         if(totalPages == 0) return [];
 
         const pages = [];
-        const maxVisiblePages = 5;
+        const maxVisiblePages = totalPages >= 10 ? totalPages / 2 : 5;
 
         if (totalPages <= maxVisiblePages) {
             return Array.from({ length: totalPages }, (_, i) => i + 1);
@@ -58,7 +62,7 @@ export default function MyPagination({ cid, pid, currentPage, totalPages }: Pagi
     )
 
     const navToPage = (indval: number) => {
-        router.push(pathname + "?" + createQueryVal("page", "" + indval));
+        router.push(pathname + (indval > 0 ? "?" + createQueryVal("page", "" + indval) : ""));
     }
 
     const firstPage = () => {

@@ -1,33 +1,55 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import styles from "@applocale/page.module.scss";
-import { useEffect, useState } from "react";
+import Image from "next/image";
+import { useCallback, useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Link } from '@/app/i18n/navigation';
 import { Posts } from "@applocale/interfaces/posts";
 import { User } from "@applocale/interfaces/user";
 import { Categories } from "@applocale/interfaces/categories";
-import { getImagePath, loadMyRealData, shortenLargeNumber } from "@applocale/functions/functions";
-import { getDefLocale, getLinkLocale } from "@applocale/helpers/defLocale";
+import { getDefLocale } from "@applocale/helpers/defLocale";
 import { FetchMultipleDataAxios } from "@applocale/utils/fetchdataaxios";
-import CarouselNews from "@applocale/components/carouselnews";
+import { getFromStorage, saveToStorage } from "@applocale/hooks/localstorage";
+import { getImagePath, loadMyRealData, shortenLargeNumber } from "@applocale/functions/functions";
 import MyEditorPost from "@applocale/components/editor/myeditorpost";
+import CarouselNews from "@applocale/components/carouselnews";
 import MyPagination from "@applocale/components/mypagination";
-import Image from "next/image";
 
 export default function News({ cid, pid, locale }: { cid: number, pid: number, locale: string }) {
     const [news, setNews] = useState(new Array<Posts>());
     const [users, setUsers] = useState(new Array<User>());
     const [categories, setCategories] = useState(new Array<Categories>());
     const [loading, setLoading] = useState(true);
-    const [views, setViews] = useState(0);
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const [views, setViews] = useState(0);
+    const [enabledViews, setEnabledViews] = useState(false);
+    const [hiddenViews, setHiddenViews] = useState(true);
     const isEnabledMultiCols = true;
     const pageSize: number = 10;
     const pathname = usePathname();
     const router = useRouter();
     const searchParams = useSearchParams();
+    const spage = searchParams.get("page");
+
+    const loadViewerCounter = useCallback(() => {
+        if(!!enabledViews) {
+            const counter = getFromStorage("viewsInfo")! ? JSON.parse(getFromStorage("viewsInfo")!).views : 0;
+
+            if(cid != -1 && pid != -1 && pathname == "/"+locale+"/pages/news/" + cid + "/" + pid) {
+                setHiddenViews(false);
+            }
+
+            if(!!enabledViews && !views) {
+                const uid = getFromStorage("logInfo")! ? JSON.parse(getFromStorage("logInfo")!)[0].id : -1;
+                const actualpid = getFromStorage("viewsInfo")! ? JSON.parse(getFromStorage("viewsInfo")!).pid : 1;
+
+                setViews(pid == actualpid ? counter-1+1 : 1);
+                saveToStorage("viewsInfo", JSON.stringify({ pid: pid, cid: cid, userId: uid, views: counter+1 }));
+            }
+        }
+    }, [cid, enabledViews, views, pid, pathname, locale]);
 
     useEffect(() => {
         async function fetchNews() {
@@ -68,13 +90,8 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
                 setCategories(JSON.parse(JSON.stringify(categories)));
             }
 
-            setViews(newsdata.length > 0 ? newsdata[0].views : 0);
             setTotalPages(data[0].totalPages);
-
-            if(!!new URLSearchParams(searchParams.toString()).get("page")) {
-                setPage(parseInt(new URLSearchParams(searchParams.toString()).get("page")!.toString(), 0));
-            }
-
+            setPage(spage ? parseInt(spage! ?? 1, 0) : 1);
             setLoading(false);
         }
 
@@ -82,8 +99,9 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
 
         if(!loading) {
             loadMyRealData({ hubname: "datahub", skipNegotiation: false, fetchData: fetchNews });
+            loadViewerCounter();
         }
-    }, [cid, pid, page, views, loading, searchParams]);
+    }, [cid, pid, page, spage, views, enabledViews, locale, pathname, loading, searchParams, loadViewerCounter]);
 
     if (loading) {
         return (
@@ -118,8 +136,17 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
 
     const redirectToPost = async (e: any, newsi: Posts) => {
         e.preventDefault();
-        setViews(views + 1);
-        router.push(getLinkLocale() + "/pages/news/" + newsi.categoryId + "/" + newsi.postId);
+        const qparamspost = parseInt(""+spage, 0) >= 0 ? "?page=" + parseInt(""+spage, 0) : "";
+        const pthpost = "/" + locale + "/pages/news/" + newsi.categoryId + "/" + newsi.postId + qparamspost;
+        
+        if(!!enabledViews) {
+            const uid = getFromStorage("logInfo")! ? JSON.parse(getFromStorage("logInfo")!)[0].id : -1;
+            saveToStorage("viewsInfo", JSON.stringify({ pid: newsi.postId, cid: newsi.categoryId, userId: uid, views: views }));
+            setEnabledViews(true);
+            setHiddenViews(pathname == pthpost ? false : true);
+        }
+
+        router.push(pthpost);
     };
 
     const fetchNewsItems = (): any => {
@@ -184,11 +211,11 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
                                                 <button className="btn btn-primary btn-rounded mt-3 mx-auto d-inline-block" onClick={(e: any) => redirectToPost(e, newsi)}>Read more</button>
                                             )}
 
-                                            {pathname == "/pages/news/" + newsi.categoryId + "/" + newsi.postId && (
+                                            {!!enabledViews && !hiddenViews && (
                                                 <div className="card-footer">
                                                     <div className="card-info">
                                                         <i className="bi bi-eye"></i>
-                                                        <span className="txtviews">{"Views: " + shortenLargeNumber(newsi.views!, 1)}</span>
+                                                        <span className="txtviews">{"Views: " + shortenLargeNumber(views, 1)}</span>
                                                     </div>
                                                 </div>
                                             )}
@@ -254,4 +281,3 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
         </div>
     );
 }
-

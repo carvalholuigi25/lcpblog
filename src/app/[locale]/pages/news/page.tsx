@@ -6,6 +6,7 @@ import Header from "@applocale/ui/header";
 import News from "@applocale/components/news";
 
 export default function AllNewsPage({locale}: {locale: string}) {
+  
   return (
     <div className={styles.page} id="mallnewspage" style={{paddingTop: '5rem'}}>
     <Header locale={locale ?? getDefLocale()} />
