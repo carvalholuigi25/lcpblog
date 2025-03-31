@@ -24,7 +24,7 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [views, setViews] = useState(0);
-    const [enabledViews, setEnabledViews] = useState(false);
+    const [enabledViews, setEnabledViews] = useState(true);
     const [hiddenViews, setHiddenViews] = useState(true);
     const [updateViews, setUpdateViews] = useState(false);
     const isEnabledMultiCols = true;
@@ -33,17 +33,17 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
     const router = useRouter();
     const searchParams = useSearchParams();
     const spage = searchParams.get("page");
-    
+
     useEffect(() => {
         function loadCounter(apid: number, counter: number) {
-            if(!!updateViews && apid >= 0) {
+            if (!!updateViews && apid >= 0) {
                 FetchDataAxios({
-                    url: 'api/posts/views/'+apid!+'?views='+(counter+1),
+                    url: 'api/posts/views/' + apid! + '?views=' + (counter + 1),
                     method: 'put',
                     reqAuthorize: false,
                     data: {
                         postId: apid,
-                        views: counter+1
+                        views: counter + 1
                     }
                 }).then(x => {
                     console.log(x);
@@ -55,7 +55,7 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
             }
         }
 
-        if(!!loading) {
+        if (!loading) {
             const qparamspost = parseInt("" + spage, 0) >= 0 ? "?page=" + parseInt("" + spage, 0) : "";
             const pthpost = "/" + locale + "/pages/news/" + cid + "/" + pid + qparamspost;
             const uid = getFromStorage("logInfo")! ? JSON.parse(getFromStorage("logInfo")!)[0].id : -1;
@@ -64,20 +64,20 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
             const apid = getFromStorage("postId")! ? parseInt(getFromStorage("postId")!) : pid;
 
             setHiddenViews(pathname == pthpost ? false : true);
-            
-            if(enabledViews) {
-                if(!views) {
+
+            if (enabledViews) {
+                if (!views) {
                     setViews(counter);
-                    saveToStorage("viewsInfo", JSON.stringify({ pid: pid, cid: cid, userId: uid, views: counter+1 }));
-                    setUpdateViews(true);        
+                    saveToStorage("viewsInfo", JSON.stringify({ pid: pid, cid: cid, userId: uid, views: counter + 1 }));
+                    setUpdateViews(true);
                     loadCounter(apid, counter);
                 }
 
                 setTimeout(() => {
-                    if(!views) {
-                        setViews(counter+1);
-                        saveToStorage("viewsInfo", JSON.stringify({ pid: pid, cid: cid, userId: uid, views: counter+1 }));
-                        setUpdateViews(true);        
+                    if (!views) {
+                        setViews(counter + 1);
+                        saveToStorage("viewsInfo", JSON.stringify({ pid: pid, cid: cid, userId: uid, views: counter + 1 }));
+                        setUpdateViews(true);
                         loadCounter(apid, counter);
                     }
                 }, 1 * 60 * 24 * 24 * 1000);
@@ -87,52 +87,53 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
 
     useEffect(() => {
         async function fetchNews() {
-            if (loading) {
-                const curindex = pageSize == 1 ? (page > pid ? page : pid) : page;
-                const params = `?page=${curindex}&pageSize=${pageSize}`;
+            const curindex = pageSize == 1 ? (page > pid ? page : pid) : page;
+            const params = `?page=${curindex}&pageSize=${pageSize}`;
 
-                const data = await FetchMultipleDataAxios([
-                    {
-                        url: `api/posts${params}`,
-                        method: 'get',
-                        reqAuthorize: false
-                    },
-                    {
-                        url: 'api/categories',
-                        method: 'get',
-                        reqAuthorize: false
-                    },
-                    {
-                        url: 'api/users',
-                        method: 'get',
-                        reqAuthorize: false
-                    }
-                ]);
-
-                const newsdata = cid > -1 && pid > -1 ? data[0].data.filter((item: Posts) => item.categoryId == cid && item.postId == pid) : cid > -1 ? data[0].data.filter((item: Posts) => item.categoryId == cid) : data[0].data;
-                const categories = cid > -1 ? data[1].data.filter((item: Categories) => item.categoryId == cid) : data[1].data;
-                const usersdata = data[2].data;
-
-                if (newsdata) {
-                    setNews(JSON.parse(JSON.stringify(newsdata)));
+            const data = await FetchMultipleDataAxios([
+                {
+                    url: `api/posts${params}`,
+                    method: 'get',
+                    reqAuthorize: false
+                },
+                {
+                    url: 'api/categories',
+                    method: 'get',
+                    reqAuthorize: false
+                },
+                {
+                    url: 'api/users',
+                    method: 'get',
+                    reqAuthorize: false
                 }
+            ]);
 
-                if (usersdata) {
-                    setUsers(JSON.parse(JSON.stringify(usersdata)));
-                }
+            const newsdata = cid > -1 && pid > -1 ? data[0].data.filter((item: Posts) => item.categoryId == cid && item.postId == pid) : cid > -1 ? data[0].data.filter((item: Posts) => item.categoryId == cid) : data[0].data;
+            const categories = cid > -1 ? data[1].data.filter((item: Categories) => item.categoryId == cid) : data[1].data;
+            const usersdata = data[2].data;
 
-                if (categories) {
-                    setCategories(JSON.parse(JSON.stringify(categories)));
-                }
-
-                setTotalPages(data[0].totalPages);
-                setPage(spage ? parseInt(spage! ?? 1, 0) : 1);
-                setLoading(false);
+            if (newsdata) {
+                setNews(JSON.parse(JSON.stringify(newsdata)));
             }
+
+            if (usersdata) {
+                setUsers(JSON.parse(JSON.stringify(usersdata)));
+            }
+
+            if (categories) {
+                setCategories(JSON.parse(JSON.stringify(categories)));
+            }
+
+            setTotalPages(data[0].totalPages);
+            setPage(spage ? parseInt(spage! ?? 1, 0) : 1);
+            setLoading(false);
         }
 
         fetchNews();
-        loadMyRealData({ hubname: "datahub", skipNegotiation: false, fetchData: fetchNews });
+
+        if (!loading) {
+            loadMyRealData({ hubname: "datahub", skipNegotiation: false, fetchData: fetchNews });
+        }
     }, [cid, pid, page, spage, views, enabledViews, locale, pathname, loading, searchParams]);
 
     if (loading) {
@@ -172,11 +173,11 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
         const pthpost = "/" + locale + "/pages/news/" + newsi.categoryId + "/" + newsi.postId + qparamspost;
         const uid = getFromStorage("logInfo")! ? JSON.parse(getFromStorage("logInfo")!)[0].id : -1;
         const apid = getFromStorage("postId")! ? getFromStorage("postId")! : pid;
-        const aviews = apid == newsi.postId ? parseInt(""+newsi.views) - 1 : views - 1;
+        const aviews = apid == newsi.postId ? parseInt("" + newsi.views) - 1 : views - 1;
 
         saveToStorage("postId", newsi.postId);
         saveToStorage("defViews", newsi.views);
-        saveToStorage("viewsInfo", JSON.stringify({ pid: newsi.postId, cid: newsi.categoryId, userId: uid, views: parseInt(""+aviews)+1 }));
+        saveToStorage("viewsInfo", JSON.stringify({ pid: newsi.postId, cid: newsi.categoryId, userId: uid, views: parseInt("" + aviews) + 1 }));
         setHiddenViews(pthpost == pathname ? false : true);
         setViews(aviews);
         setEnabledViews(true);
