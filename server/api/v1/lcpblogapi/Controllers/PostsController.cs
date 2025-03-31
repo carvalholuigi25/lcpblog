@@ -90,6 +90,12 @@ namespace lcpblogapi.Controllers
             return await _postsRepo.DeletePost(id);
         }
 
+        [HttpPut("views/{id}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<Post>> UpdateViewsPost(int id, int? views = 0) {
+            return await _postsRepo.UpdateViewsPost(id, views);
+        }
+
         /// <summary>
         /// Get archive info.
         /// </summary>

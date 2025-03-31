@@ -117,6 +117,55 @@ public class PostsRepo : ControllerBase, IPostsRepo
         return NoContent();
     }
 
+    public async Task<ActionResult<Post>> UpdateViewsPost(int id, int? views = 0)
+    {
+        var istracking = false;
+        var post = await _context.Posts.AsNoTracking().Where(x => x.PostId == id).ToListAsync();
+
+        if(!!istracking) {
+            _context.Entry(post).State = EntityState.Modified;
+        }
+
+        try
+        {
+            var existingPost = !!istracking ? await _context.Posts.FindAsync(id) : await _context.Posts.FirstOrDefaultAsync(x => x.PostId == id);
+
+            existingPost!.PostId = id;
+            existingPost!.Title = post[0].Title;
+            existingPost!.Content = post[0].Content;
+            existingPost!.Image = post[0].Image;
+            existingPost!.Slug = post[0].Slug;
+            existingPost!.Views = views;
+            existingPost!.CategoryId = post[0].CategoryId;
+            existingPost!.CreatedAt = post[0].CreatedAt;
+            existingPost!.UpdatedAt = post[0].UpdatedAt;
+            existingPost!.Status = post[0].Status;
+            existingPost!.UserId = post[0].UserId;
+
+            _context.Posts.Update(existingPost!);
+            
+            await _context.SaveChangesAsync();
+            await _hub.Clients.All.SendAsync("ReceiveMessage", post);
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!PostExists(id))
+            {
+                return NotFound();
+            }
+            else
+            {
+                throw;
+            }
+        }
+        finally 
+        {
+            _context.ChangeTracker.Clear();
+        }
+
+        return NoContent();
+    }
+
     public async Task<ActionResult<IEnumerable<dynamic>>> GetArchivePost(int year) {
         if(string.IsNullOrEmpty(year.ToString())) {
             year = new DateTime().Year;
