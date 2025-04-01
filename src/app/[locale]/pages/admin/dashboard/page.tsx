@@ -29,7 +29,7 @@ const AdminDashboard = ({ locale }: { locale?: string }) => {
     const [categories, setCategories] = useState(new Array<Categories>());
     const [tags, setTags] = useState(new Array<Tags>());
     const [users, setUsers] = useState(new Array<User>());
-    const [chartTypeSelVal, setChartTypeSelVal] = useState(chartTypesAry[0].value);
+    const [chartTypeSelVal, setChartTypeSelVal] = useState('verticalbar');
     const { theme } = useTheme();
 
     const isContainerFluid = true;
@@ -210,7 +210,7 @@ const AdminDashboard = ({ locale }: { locale?: string }) => {
                                 <div className="col-12 col-md-6 col-lg-6 mt-3">
                                     {enableChangeChartType && (
                                         <div className="d-flex justify-content-center col-12">
-                                            <select className="form-control mb-3 w-auto bshadow" value={chartTypeSelVal} onChange={onChangeChartType}>
+                                            <select className="form-control mb-3 w-auto bshadow" value={chartTypeSelVal ?? 'verticalbar'} onChange={onChangeChartType}>
                                                 <option value={""} disabled>Select the chart type</option>
                                                 {chartTypesAry.length > 0 && chartTypesAry.map(x => (
                                                     <option key={x.id} value={x.value}>{x.name}</option>

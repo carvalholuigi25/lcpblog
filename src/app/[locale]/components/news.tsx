@@ -41,7 +41,7 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
         setHiddenViews(getFromStorage("hiddenViews")! == "false" ? false : true);
 
         if(getFromStorage("viewsInfo")!) {
-            setCounter(parseInt(""+JSON.parse(getFromStorage("viewsInfo")!).views));
+            setCounter(parseInt(""+JSON.parse(getFromStorage("viewsInfo")!).viewsCounter));
         }
     }, [cid, pid, locale, pathname, spage]);
 
@@ -142,15 +142,16 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
         
         const data = {
             postId: newsi.postId,
-            views: newsi.postId == vinfopid ? counter+1 : parseInt(""+newsi.views+1)
+            viewsCounter: parseInt(""+(newsi.viewsCounter!+1)),
+            views: newsi.postId == vinfopid ? counter+1 : parseInt(""+(newsi.views!+1))
         };
 
-        setCounter(parseInt(""+(data.views-1)));
+        setCounter(parseInt(""+data.viewsCounter));
         setHiddenViews(getFromStorage("hiddenViews")! == "false" ? false : true);
         saveToStorage("viewsInfo", JSON.stringify(data));
 
         await FetchDataAxios({
-            url: 'api/posts/views/' + newsi.postId!,
+            url: 'api/posts/views/'+data.postId,
             method: 'put',
             reqAuthorize: false,
             data: data
@@ -224,7 +225,6 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
                                             {pid == -1 && (
                                                 <button className="btn btn-primary btn-rounded mt-3 mx-auto d-inline-block" onClick={(e: any) => redirectToPost(e, newsi)}>Read more</button>
                                             )}
-
 
                                             {!!enabledViews && !hiddenViews && (
                                                 <div className={"card-footer"}>

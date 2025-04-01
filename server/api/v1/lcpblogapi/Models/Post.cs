@@ -27,6 +27,9 @@ public class Post
     [DefaultValue(0)]
     public int? Views { get; set; } = 0;
 
+    [DefaultValue(0)]
+    public int? ViewsCounter { get; set; } = 0;
+
     [DefaultValue(1)]
     public int? CategoryId { get; set; } = 1;
 
@@ -88,5 +91,5 @@ public class PostViews {
     public int Views { get; set; } = 0;
 
     [DefaultValue(0)]
-    public int Counter { get; set; } = 0;
+    public int? ViewsCounter { get; set; } = 0;
 }

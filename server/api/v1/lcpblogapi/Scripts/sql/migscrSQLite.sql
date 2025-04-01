@@ -51,6 +51,7 @@ CREATE TABLE "Posts" (
     "Image" TEXT NULL,
     "Slug" TEXT NULL,
     "Views" INTEGER NULL,
+    "ViewsCounter" INTEGER NULL,
     "CategoryId" INTEGER NULL,
     "CreatedAt" TEXT NULL,
     "UpdatedAt" TEXT NULL,
@@ -102,25 +103,25 @@ CREATE TABLE "PostTags" (
 );
 
 INSERT INTO "Categories" ("CategoryId", "CreatedAt", "Name", "Slug", "Status", "UpdatedAt")
-VALUES (1, '2025-03-15 12:59:22.068161+00:00', 'Geral', '/geral', 0, '2025-03-15 12:59:22.0682197+00:00');
+VALUES (1, '2025-04-01 12:39:13.0329135+01:00', 'Geral', '/geral', 0, '2025-04-01 12:39:13.032951+01:00');
 SELECT changes();
 
 INSERT INTO "Categories" ("CategoryId", "CreatedAt", "Name", "Slug", "Status", "UpdatedAt")
-VALUES (2, '2025-03-15 12:59:22.0683314+00:00', 'Tecnologia', '/tecnologia', 0, '2025-03-15 12:59:22.0683317+00:00');
+VALUES (2, '2025-04-01 12:39:13.0329945+01:00', 'Tecnologia', '/tecnologia', 0, '2025-04-01 12:39:13.0329948+01:00');
 SELECT changes();
 
 INSERT INTO "Categories" ("CategoryId", "CreatedAt", "Name", "Slug", "Status", "UpdatedAt")
-VALUES (3, '2025-03-15 12:59:22.0683326+00:00', 'Outros', '/outros', 0, '2025-03-15 12:59:22.0683328+00:00');
+VALUES (3, '2025-04-01 12:39:13.0329959+01:00', 'Outros', '/outros', 0, '2025-04-01 12:39:13.0329962+01:00');
 SELECT changes();
 
 
 INSERT INTO "Users" ("UserId", "About", "Avatar", "Cover", "DisplayName", "Email", "Password", "Privacy", "Role", "Username", "UsersInfoId")
-VALUES (1, 'Luis Carvalho', 'avatars/luis.jpg', 'covers/luis.jpg', 'Luis Carvalho', 'luiscarvalho239@gmail.com', '$2a$10$DInyPgCZdVVGCw52WhbHSOOWlc.IV7FXxWUYBVs988kYx4utGY4XW', 0, 6, 'admin', 1);
+VALUES (1, 'Luis Carvalho', 'avatars/luis.jpg', 'covers/luis.jpg', 'Luis Carvalho', 'luiscarvalho239@gmail.com', '$2a$10$biXPt6jpS5nSlN.xGR49L.KNKV7JKaA6VuAYx23RUMDP9IiPnCsQC', 0, 6, 'admin', 1);
 SELECT changes();
 
 
-INSERT INTO "Posts" ("PostId", "CategoryId", "Content", "CreatedAt", "Image", "Slug", "Status", "Title", "UpdatedAt", "UserId", "Views")
-VALUES (1, 1, 'Welcome to LCPBlog!', '2025-03-15 12:59:22.0668384+00:00', 'blog.jpg', '/', 0, 'Welcome to LCPBlog!', '2025-03-15 12:59:22.0668749+00:00', 1, 0);
+INSERT INTO "Posts" ("PostId", "CategoryId", "Content", "CreatedAt", "Image", "Slug", "Status", "Title", "UpdatedAt", "UserId", "Views", "ViewsCounter")
+VALUES (1, 1, 'Welcome to LCPBlog!', '2025-04-01 12:39:13.0321171+01:00', 'blog.jpg', '/', 0, 'Welcome to LCPBlog!', '2025-04-01 12:39:13.032146+01:00', 1, 0, 0);
 SELECT changes();
 
 
@@ -137,7 +138,7 @@ CREATE INDEX "IX_PostTags_TagId" ON "PostTags" ("TagId");
 CREATE INDEX "IX_RefreshToken_UserId" ON "RefreshToken" ("UserId");
 
 INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
-VALUES ('20250315125923_InitialCreateSQLite', '9.0.0');
+VALUES ('20250401113914_InitialCreateSQLite', '9.0.0');
 
 COMMIT;
 

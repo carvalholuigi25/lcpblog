@@ -117,7 +117,7 @@ public class PostsRepo : ControllerBase, IPostsRepo
         return NoContent();
     }
 
-    public async Task<ActionResult<Post>> UpdateViewsPost(int id, int? views = 0)
+    public async Task<ActionResult<Post>> UpdateViewsPost(int id, PostViews postViews)
     {
         var istracking = false;
         var post = await _context.Posts.AsNoTracking().Where(x => x.PostId == id).ToListAsync();
@@ -135,7 +135,8 @@ public class PostsRepo : ControllerBase, IPostsRepo
             existingPost!.Content = post[0].Content;
             existingPost!.Image = post[0].Image;
             existingPost!.Slug = post[0].Slug;
-            existingPost!.Views = views;
+            existingPost!.Views = postViews.Views;
+            existingPost!.ViewsCounter = postViews.ViewsCounter;
             existingPost!.CategoryId = post[0].CategoryId;
             existingPost!.CreatedAt = post[0].CreatedAt;
             existingPost!.UpdatedAt = post[0].UpdatedAt;
@@ -149,7 +150,7 @@ public class PostsRepo : ControllerBase, IPostsRepo
         }
         catch (DbUpdateConcurrencyException)
         {
-            if (!PostExists(id))
+            if (!PostExists(postViews.PostId))
             {
                 return NotFound();
             }

@@ -55,6 +55,8 @@ public static class MyDBFunctions {
                 Content = "Welcome to LCPBlog!",
                 Image = "blog.jpg",
                 Slug = "/",
+                Views = 0,
+                ViewsCounter = 0,
                 CreatedAt = DateTimeOffset.Now,
                 UpdatedAt = DateTimeOffset.Now,
                 Status = EPostStatus.all,

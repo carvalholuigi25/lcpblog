@@ -90,10 +90,19 @@ namespace lcpblogapi.Controllers
             return await _postsRepo.DeletePost(id);
         }
 
+        /// <summary>
+        /// Updates the post by view props.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="postViews"></param>
+        /// <returns>Updates the post by view props</returns>
+        /// <response code="201">Returns the updated view</response>
+        /// <response code="400">If the updated view is empty</response>
         [HttpPut("views/{id}")]
         [AllowAnonymous]
-        public async Task<ActionResult<Post>> UpdateViewsPost(int id, int? views = 0) {
-            return await _postsRepo.UpdateViewsPost(id, views);
+        public async Task<ActionResult<Post>> UpdateViewsPost(int id, PostViews postViews) 
+        {
+            return await _postsRepo.UpdateViewsPost(id, postViews);
         }
 
         /// <summary>
