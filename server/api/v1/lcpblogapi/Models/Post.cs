@@ -79,3 +79,14 @@ public class PostTag {
     [JsonIgnore]
     public Tag? Tag { get; set; }
 }
+
+public class PostViews {
+    [DefaultValue(1)]
+    public int PostId { get; set; } = 1;
+
+    [DefaultValue(0)]
+    public int Views { get; set; } = 0;
+
+    [DefaultValue(0)]
+    public int Counter { get; set; } = 0;
+}
