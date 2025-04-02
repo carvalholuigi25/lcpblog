@@ -36,6 +36,7 @@
     "framer-motion": "^12.5.0",
     "isomorphic-dompurify": "^2.22.0",
     "jsdom": "^26.0.0",
+    "ldrs": "^1.1.6",
     "lexical": "^0.28.0",
     "next": "15.2.3",
     "next-intl": "^4.0.2",

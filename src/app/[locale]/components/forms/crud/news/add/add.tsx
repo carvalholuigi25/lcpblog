@@ -18,6 +18,7 @@ import MyEditorPost from "@applocale/components/editor/myeditorpost";
 import * as signalR from "@microsoft/signalr";
 import { Categories } from "@applocale/interfaces/categories";
 import { getDefLocale } from "@/app/[locale]/helpers/defLocale";
+import LoadingComp from "@/app/[locale]/components/loadingcomp";
 
 const AddNewsForm = () => {
     const [formData, setFormData] = useState({
@@ -110,16 +111,7 @@ const AddNewsForm = () => {
 
     if (loading) {
         return (
-            <div className='container'>
-                <div className='row justify-content-center align-items-center p-3'>
-                    <div className='col-12 card p-3 text-center'>
-                        <div className='card-body'>
-                            <i className="bi-clock" style={{ fontSize: "4rem" }}></i>
-                            <p>Loading...</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <LoadingComp type="icon" icontype="ring" />
         );
     }
 

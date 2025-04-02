@@ -11,6 +11,7 @@ import { getDefLocale } from "@applocale/helpers/defLocale";
 import { User } from "@applocale/interfaces/user";
 import { Link } from '@/app/i18n/navigation';
 import { useLocale } from "next-intl";
+import LoadingComp from "@/app/[locale]/components/loadingcomp";
 
 export default function EditUsers() {
   const locale = useLocale();
@@ -36,16 +37,7 @@ export default function EditUsers() {
 
   if (loading) {
     return (
-      <div className='container'>
-        <div className='row justify-content-center align-items-center p-3'>
-          <div className='col-12 card p-3 text-center'>
-            <div className='card-body'>
-              <i className="bi-clock" style={{ fontSize: "4rem" }}></i>
-              <p>Loading...</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <LoadingComp type="icon" icontype="ring" />
     );
   }
 

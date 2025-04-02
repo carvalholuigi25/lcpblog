@@ -13,6 +13,7 @@ import { getDefLocale } from "@applocale/helpers/defLocale";
 import {Link} from '@/app/i18n/navigation';
 import withAuth from "@/app/[locale]/utils/withAuth";
 import { useLocale } from "next-intl";
+import LoadingComp from "@/app/[locale]/components/loadingcomp";
 
 const AdminUsers = () => {
     const locale = useLocale();
@@ -47,16 +48,7 @@ const AdminUsers = () => {
     if (loading) {
         return (
             <div className={astyles.admdashboard}>
-                <div className='container-fluid'>
-                    <div className='row justify-content-center align-items-center p-3'>
-                        <div className='col-12 card p-3 text-center'>
-                            <div className='card-body'>
-                                <i className="bi bi-clock" style={{ fontSize: "4rem" }}></i>
-                                <p>Loading...</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <LoadingComp type="icon" icontype="ring" />
             </div>
         );
     }

@@ -10,6 +10,7 @@ import { PolarArea } from 'react-chartjs-2';
 import { getColorGrid, getColorTxt } from '@/app/[locale]/functions/chartfunctions';
 import { Dataset } from '@/app/[locale]/interfaces/dataset';
 import FetchData from '@/app/[locale]/utils/fetchdata';
+import LoadingComp from '@/app/[locale]/components/loadingcomp';
 
 ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
 
@@ -42,7 +43,7 @@ export const PolarChart = ({ theme }: { theme: string }) => {
 
     if (!chdata || !!loading) {
         return (
-            <div>Loading...</div>
+            <LoadingComp type="icon" icontype="ring" />
         );
     }
 

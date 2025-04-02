@@ -5,6 +5,7 @@ import { Posts } from "@applocale/interfaces/posts";
 import { getDefLocale } from '@applocale/helpers/defLocale';
 import { Link } from '@/app/i18n/navigation';
 import FetchData from "@applocale/utils/fetchdata";
+import LoadingComp from "@/app/[locale]/components/loadingcomp";
 
 export default function SearchData({locale}: {locale: string}) {
     const [news, setNews] = useState(new Array<Posts>());
@@ -59,10 +60,7 @@ export default function SearchData({locale}: {locale: string}) {
             {!loading && fetchSearchItems()}
 
             {!!loading && (
-                <div className="d-block mx-auto">
-                    <i className="bi-clock" style={{ fontSize: "4rem" }}></i>
-                    <p>Loading...</p>
-                </div>
+                <LoadingComp type="icon" icontype="ring" />
             )}
         </Suspense>
     );

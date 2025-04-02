@@ -15,6 +15,7 @@ import withAuth from "@/app/[locale]/utils/withAuth";
 import { useLocale } from "next-intl";
 import MyPagination from "@/app/[locale]/components/mypagination";
 import { useSearchParams } from "next/navigation";
+import LoadingComp from "@/app/[locale]/components/loadingcomp";
 
 const AdminPosts = () => {
     const locale = useLocale();
@@ -63,16 +64,7 @@ const AdminPosts = () => {
     if (loading) {
         return (
             <div className={astyles.admdashboard}>
-                <div className='container-fluid'>
-                    <div className='row justify-content-center align-items-center p-3'>
-                        <div className='col-12 card p-3 text-center'>
-                            <div className='card-body'>
-                                <i className="bi bi-clock" style={{ fontSize: "4rem" }}></i>
-                                <p>Loading...</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <LoadingComp type="icon" icontype="ring" />
             </div>
         );
     }

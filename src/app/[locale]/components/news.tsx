@@ -16,6 +16,7 @@ import MyEditorPost from "@applocale/components/editor/myeditorpost";
 import CarouselNews from "@applocale/components/carouselnews";
 import MyPagination from "@applocale/components/mypagination";
 import Views from "@applocale/components/views";
+import LoadingComp from "@applocale/components/loadingcomp";
 
 export default function News({ cid, pid, locale }: { cid: number, pid: number, locale: string }) {
     const [news, setNews] = useState(new Array<Posts>());
@@ -98,16 +99,7 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
 
     if (loading) {
         return (
-            <div className='container'>
-                <div className='row justify-content-center align-items-center p-3'>
-                    <div className='col-12 card p-3 text-center'>
-                        <div className='card-body'>
-                            <i className="bi-clock" style={{ fontSize: "4rem" }}></i>
-                            <p>Loading...</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <LoadingComp type="icon" icontype="ring" />
         );
     }
 

@@ -5,6 +5,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 import { getColorGrid, getColorTxt } from "@/app/[locale]/functions/chartfunctions";
 import { Dataset } from "@/app/[locale]/interfaces/dataset";
 import FetchData from "@/app/[locale]/utils/fetchdata";
+import LoadingComp from "@/app/[locale]/components/loadingcomp";
 
 ChartJS.register(CategoryScale, LineElement, LinearScale, PointElement, Title, Tooltip, Legend, Filler);
 
@@ -37,7 +38,7 @@ export const LineChart = ({ theme }: { theme: string }) => {
 
     if (!chdata || !!loading) {
         return (
-            <div>Loading...</div>
+            <LoadingComp type="icon" icontype="ring" />
         );
     }
 

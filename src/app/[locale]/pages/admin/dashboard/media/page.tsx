@@ -14,6 +14,7 @@ import UploadedFiles from "@applocale/components/uploadedfiles";
 import Footer from "@applocale/ui/footer";
 import withAuth from "@applocale/utils/withAuth";
 import FileDragDropUploadForm from "@/app/[locale]/components/forms/upload/dragdropupload";
+import LoadingComp from "@/app/[locale]/components/loadingcomp";
 
 const AdminMedia = () => {
     const locale = useLocale();
@@ -39,16 +40,7 @@ const AdminMedia = () => {
     if (loading) {
         return (
             <div className={astyles.admdashboard}>
-                <div className='container-fluid'>
-                    <div className='row justify-content-center align-items-center p-3'>
-                        <div className='col-12 card p-3 text-center'>
-                            <div className='card-body'>
-                                <i className="bi bi-clock" style={{ fontSize: "4rem" }}></i>
-                                <p>Loading...</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <LoadingComp type="icon" icontype="ring" />
             </div>
         );
     }

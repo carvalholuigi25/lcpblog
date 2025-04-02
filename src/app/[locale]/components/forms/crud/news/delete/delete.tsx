@@ -9,6 +9,7 @@ import { getFromStorage } from "@applocale/hooks/localstorage";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { buildMyConnection, sendMessage } from "@applocale/functions/functions";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
+import LoadingComp from "@/app/[locale]/components/loadingcomp";
 
 const DeleteNewsForm = ({ id, data }: { id: number, data: Posts }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -49,16 +50,7 @@ const DeleteNewsForm = ({ id, data }: { id: number, data: Posts }) => {
 
     if (loading) {
         return (
-            <div className='container'>
-                <div className='row justify-content-center align-items-center p-3'>
-                    <div className='col-12 card p-3 text-center'>
-                        <div className='card-body'>
-                            <i className="bi-clock" style={{ fontSize: "4rem" }}></i>
-                            <p>Loading...</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <LoadingComp type="icon" icontype="ring" />
         );
     }
 

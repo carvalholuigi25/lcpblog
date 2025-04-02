@@ -8,6 +8,7 @@ import { User } from "@applocale/interfaces/user";
 import { Link } from '@/app/i18n/navigation';
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import { getDefLocale } from "@/app/[locale]/helpers/defLocale";
+import LoadingComp from "@/app/[locale]/components/loadingcomp";
 
 const DeleteUsersForm = ({ id, data }: { id: number, data: User }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -24,16 +25,7 @@ const DeleteUsersForm = ({ id, data }: { id: number, data: User }) => {
 
     if (loading) {
         return (
-            <div className='container'>
-                <div className='row justify-content-center align-items-center p-3'>
-                    <div className='col-12 card p-3 text-center'>
-                        <div className='card-body'>
-                            <i className="bi-clock" style={{ fontSize: "4rem" }}></i>
-                            <p>Loading...</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <LoadingComp type="icon" icontype="ring" />
         );
     }
 

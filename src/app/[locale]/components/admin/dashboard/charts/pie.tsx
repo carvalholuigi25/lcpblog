@@ -5,6 +5,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { getColorGrid, getColorTxt } from "@/app/[locale]/functions/chartfunctions";
 import { Dataset } from "@/app/[locale]/interfaces/dataset";
 import FetchData from "@/app/[locale]/utils/fetchdata";
+import LoadingComp from "@/app/[locale]/components/loadingcomp";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -37,7 +38,7 @@ export const PieChart = ({ theme }: { theme: string }) => {
 
     if (!chdata || !!loading) {
         return (
-            <div>Loading...</div>
+            <LoadingComp type="icon" icontype="ring" />
         );
     }
 

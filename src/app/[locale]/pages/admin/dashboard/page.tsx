@@ -20,6 +20,7 @@ import { useTheme } from "@applocale/components/context/themecontext";
 import { getChartTypes } from "@applocale/functions/chartfunctions";
 import { useSearchParams } from "next/navigation";
 import MyPagination from "@applocale/components/mypagination";
+import LoadingComp from "@/app/[locale]/components/loadingcomp";
 
 const AdminDashboard = ({ locale }: { locale?: string }) => {
     const chartTypesAry = getChartTypes();
@@ -119,16 +120,7 @@ const AdminDashboard = ({ locale }: { locale?: string }) => {
     if (loading) {
         return (
             <div className={astyles.admdashboard}>
-                <div className='container-fluid'>
-                    <div className='row justify-content-center align-items-center p-3'>
-                        <div className='col-12 card p-3 text-center'>
-                            <div className='card-body'>
-                                <i className="bi-clock" style={{ fontSize: "4rem" }}></i>
-                                <p>Loading...</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <LoadingComp type="icon" icontype="ring" />
             </div>
         );
     }

@@ -10,6 +10,7 @@ import Header from "@applocale/ui/header";
 import Footer from "@applocale/ui/footer";
 import { getDefLocale } from "@/app/[locale]/helpers/defLocale";
 import { useLocale } from "next-intl";
+import LoadingComp from "@/app/[locale]/components/loadingcomp";
 
 export default function UserPage() {
   const locale = useLocale();
@@ -30,17 +31,8 @@ export default function UserPage() {
   }, [id]);
 
   if (!users) {
-    return ( 
-      <div className='container'>
-        <div className='row justify-content-center align-items-center p-3'>
-          <div className='col-12 card p-3 text-center'>
-            <div className='card-body'>
-              <i className="bi-clock" style={{fontSize: "4rem"}}></i>
-              <p>Loading...</p> 
-            </div>
-          </div>
-        </div>
-      </div>
+    return (
+      <LoadingComp type="icon" icontype="ring" />
     );
   }
 

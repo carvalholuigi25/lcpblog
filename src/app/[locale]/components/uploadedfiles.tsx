@@ -6,6 +6,7 @@ import { getImagePath } from "@applocale/functions/functions";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import Link from "next/link";
 import Image from "next/image";
+import LoadingComp from "@/app/[locale]/components/loadingcomp";
 
 export default function UploadedFiles() {
     const [loading, setLoading] = useState(true);
@@ -28,7 +29,7 @@ export default function UploadedFiles() {
     if (loading) {
         return (
             <div className="loadingbar">
-                <p>Loading...</p>
+                <LoadingComp type="icon" icontype="ring" />
             </div>
         );
     }
