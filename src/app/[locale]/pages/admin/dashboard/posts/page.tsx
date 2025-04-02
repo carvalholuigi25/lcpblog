@@ -13,6 +13,8 @@ import Footer from "@applocale/ui/footer";
 import { getDefLocale } from "@/app/[locale]/helpers/defLocale";
 import withAuth from "@/app/[locale]/utils/withAuth";
 import { useLocale } from "next-intl";
+import MyPagination from "@/app/[locale]/components/mypagination";
+import { useSearchParams } from "next/navigation";
 
 const AdminPosts = () => {
     const locale = useLocale();
@@ -21,11 +23,22 @@ const AdminPosts = () => {
     const [loading, setLoading] = useState(true);
     const [posts, setPosts] = useState(new Array<Posts>());
     const [sidebarToggle, setSidebarToggle] = useState(true);
+    const [totalPages, setTotalPages] = useState(1);
+    const [page, setPage] = useState(1);
+
+    const searchParams = useSearchParams();
+    const spage = searchParams.get("page");
+
+    const pageSize: number = 10;
+
 
     useEffect(() => {
         async function fetchPosts() {
+            const curindex = page;
+            const params = `?page=${curindex}&pageSize=${pageSize}`;
+
             const data = await FetchData({
-                url: 'api/posts',
+                url: 'api/posts'+params,
                 method: 'get',
                 reqAuthorize: false
             });
@@ -34,6 +47,9 @@ const AdminPosts = () => {
                 setPosts(JSON.parse(JSON.stringify(data.data)));
                 setLoading(false);
             }
+
+            setTotalPages(data.totalPages);
+            setPage(spage ? parseInt(spage! ?? 1, 0) : 1);
         }
 
         if (!logInfo) {
@@ -42,7 +58,7 @@ const AdminPosts = () => {
 
         setIsAuthorized(logInfo && JSON.parse(logInfo)[0].role == "admin" ? true : false);
         fetchPosts();
-    }, [logInfo, isAuthorized]);
+    }, [logInfo, isAuthorized, page, spage]);
 
     if (loading) {
         return (
@@ -104,6 +120,7 @@ const AdminPosts = () => {
                                         {!!posts && (
                                             <div className="col-12 mt-3">
                                                 <TableData theaders={tableHeaders} tdata={posts} namep="news" locale={locale ?? getDefLocale()} />
+                                                <MyPagination cid={-1} pid={-1} currentPage={page} totalPages={totalPages} />
                                             </div>
                                         )}
 

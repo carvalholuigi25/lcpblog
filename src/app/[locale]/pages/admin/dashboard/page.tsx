@@ -18,6 +18,8 @@ import { Tags } from "@applocale/interfaces/tags";
 import { User } from "@applocale/interfaces/user";
 import { useTheme } from "@applocale/components/context/themecontext";
 import { getChartTypes } from "@applocale/functions/chartfunctions";
+import { useSearchParams } from "next/navigation";
+import MyPagination from "@applocale/components/mypagination";
 
 const AdminDashboard = ({ locale }: { locale?: string }) => {
     const chartTypesAry = getChartTypes();
@@ -30,11 +32,17 @@ const AdminDashboard = ({ locale }: { locale?: string }) => {
     const [tags, setTags] = useState(new Array<Tags>());
     const [users, setUsers] = useState(new Array<User>());
     const [chartTypeSelVal, setChartTypeSelVal] = useState('verticalbar');
+    const [totalPages, setTotalPages] = useState(1);
+    const [page, setPage] = useState(1);
     const { theme } = useTheme();
 
+    const searchParams = useSearchParams();
+    const spage = searchParams.get("page");
+    
     const isContainerFluid = true;
     const enableChangeChartType = true;
-
+    const pageSize: number = 10;
+    
     const tableHeaders = [
         { dataIndex: 'postId', title: 'Post Id' },
         { dataIndex: 'title', title: 'Title' },
@@ -46,8 +54,11 @@ const AdminDashboard = ({ locale }: { locale?: string }) => {
 
     useEffect(() => {
         async function fetchPosts() {
+            const curindex = page;
+            const params = `?page=${curindex}&pageSize=${pageSize}`;
+
             const data = await FetchMultipleData([{
-                url: 'api/posts',
+                url: 'api/posts'+params,
                 method: 'get',
                 reqAuthorize: false
             },
@@ -82,6 +93,9 @@ const AdminDashboard = ({ locale }: { locale?: string }) => {
             if (data[3].data) {
                 setUsers(JSON.parse(JSON.stringify(data[3].data)));
             }
+
+            setTotalPages(data[0].totalPages);
+            setPage(spage ? parseInt(spage! ?? 1, 0) : 1);
         }
 
         if (!logInfo) {
@@ -92,7 +106,7 @@ const AdminDashboard = ({ locale }: { locale?: string }) => {
         setIsAuthorized(logInfo && JSON.parse(logInfo)[0].role == "admin" ? true : false);
         fetchPosts();
         setLoading(false);
-    }, [logInfo, isAuthorized, chartTypeSelVal]);
+    }, [logInfo, isAuthorized, page, spage, chartTypeSelVal]);
 
     if (loading) {
         return (
@@ -223,6 +237,7 @@ const AdminDashboard = ({ locale }: { locale?: string }) => {
                                 </div>
                                 <div className="col-12 col-md-6 col-lg-6 mt-3">
                                     <TableData tdata={posts} theaders={tableHeaders} namep="News" locale={locale ?? getDefLocale()} />
+                                    <MyPagination cid={-1} pid={-1} currentPage={page} totalPages={totalPages} />
                                 </div>
                             </div>
                         </div>

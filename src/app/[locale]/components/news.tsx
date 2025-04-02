@@ -35,15 +35,14 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
     const spage = searchParams.get("page");
 
     const loadMyCounter = useCallback(() => {
-        const qparamspost = parseInt("" + spage, 0) >= 0 ? "?page=" + parseInt("" + spage, 0) : "";
-        const pthpost = "/" + locale + "/pages/news/" + cid + "/" + pid + qparamspost;
+        const pthpost = "/" + locale + "/pages/news/" + cid + "/" + pid;
         saveToStorage("hiddenViews", pathname == pthpost ? "false" : "true");
         setHiddenViews(getFromStorage("hiddenViews")! == "false" ? false : true);
 
         if(getFromStorage("viewsInfo")!) {
             setCounter(parseInt(""+JSON.parse(getFromStorage("viewsInfo")!).viewsCounter));
         }
-    }, [cid, pid, locale, pathname, spage]);
+    }, [cid, pid, locale, pathname]);
 
     useEffect(() => {
         async function fetchNews() {
