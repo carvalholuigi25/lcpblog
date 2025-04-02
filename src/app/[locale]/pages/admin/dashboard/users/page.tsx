@@ -102,7 +102,7 @@ const AdminUsers = () => {
 
                                         {!!users && (
                                             <div className="col-12 mt-3">
-                                                <TableData locale={locale ?? getDefLocale()} theaders={tableHeaders} tdata={users} namep="users" />
+                                                <TableData locale={locale ?? getDefLocale()} theaders={tableHeaders} tdata={users} namep="users" currentPage={-1} totalPages={-1} />
                                             </div>
                                         )}
 

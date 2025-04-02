@@ -13,13 +13,15 @@ export interface TableDataProps {
     tdata: any;
     namep: string;
     locale: string;
+    currentPage?: number;
+    totalPages?: number;
 }
 
 export function formatDate(mydate: number | string | Date) {
     return new Date(mydate).toLocaleDateString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit', weekday: undefined, hour: '2-digit', hour12: false, minute: '2-digit', second: '2-digit' });
 }
 
-export default function TableData({ theaders, tdata, namep, locale }: TableDataProps) {
+export default function TableData({ theaders, tdata, namep, locale, currentPage, totalPages }: TableDataProps) {
     const isBorderEnabled = false;
     const isRoundedEnabled = true;
     const isShadowEnabled = true;
@@ -85,7 +87,11 @@ export default function TableData({ theaders, tdata, namep, locale }: TableDataP
                         <tfoot>
                             <tr>
                                 <td colSpan={totaltheaders ?? 1}>
-                                    Total {namep.toLowerCase()}: {tdata.length}
+                                    {currentPage! > 0 && totalPages! > 0 && (
+                                        <span>Page: {currentPage}/{totalPages}</span>
+                                    )}
+                                    
+                                    <span className="ms-2">Total {namep.toLowerCase()}: {tdata.length}</span>
                                 </td>
                             </tr>
                         </tfoot>

@@ -32,6 +32,10 @@ const AdminDashboard = ({ locale }: { locale?: string }) => {
     const [tags, setTags] = useState(new Array<Tags>());
     const [users, setUsers] = useState(new Array<User>());
     const [chartTypeSelVal, setChartTypeSelVal] = useState('verticalbar');
+    const [postsLength, setPostsLength] = useState(0);
+    const [categoriesLength, setCategoriesLength] = useState(0);
+    const [tagsLength, setTagsLength] = useState(0);
+    const [usersLength, setUsersLength] = useState(0);
     const [totalPages, setTotalPages] = useState(1);
     const [page, setPage] = useState(1);
     const { theme } = useTheme();
@@ -80,18 +84,22 @@ const AdminDashboard = ({ locale }: { locale?: string }) => {
 
             if (data[0].data) {
                 setPosts(JSON.parse(JSON.stringify(data[0].data)));
+                setPostsLength(data[0].totalCount);
             }
 
             if (data[1].data) {
                 setCategories(JSON.parse(JSON.stringify(data[1].data)));
+                setCategoriesLength(data[1].totalCount);
             }
 
             if (data[2].data) {
                 setTags(JSON.parse(JSON.stringify(data[2].data)));
+                setTagsLength(data[2].totalCount);
             }
 
             if (data[3].data) {
                 setUsers(JSON.parse(JSON.stringify(data[3].data)));
+                setUsersLength(data[3].totalCount);
             }
 
             setTotalPages(data[0].totalPages);
@@ -170,7 +178,7 @@ const AdminDashboard = ({ locale }: { locale?: string }) => {
                                         <div className="card-body">
                                             <div className="d-flex justify-content-between align-items-center">
                                                 <span className="card-text">
-                                                    {posts.length + ' Post' + (posts.length != 1 ? 's' : '')}
+                                                    {postsLength + ' Post' + (postsLength != 1 ? 's' : '')}
                                                 </span>
                                                 <i className="bi bi-file-earmark-post" style={{ fontSize: "1.4rem" }}></i>
                                             </div>
@@ -183,7 +191,7 @@ const AdminDashboard = ({ locale }: { locale?: string }) => {
                                         <div className="card-body">
                                             <div className="d-flex justify-content-between align-items-center">
                                                 <span className="card-text">
-                                                    {categories.length + ' Categor' + (categories.length != 1 ? 'ies' : 'y')}
+                                                    {(categoriesLength ?? categories.length) + ' Categor' + ((categoriesLength ?? categories.length) != 1 ? 'ies' : 'y')}
                                                 </span>
                                                 <i className="bi bi-bookmark" style={{ fontSize: "1.4rem" }}></i>
                                             </div>
@@ -196,7 +204,7 @@ const AdminDashboard = ({ locale }: { locale?: string }) => {
                                         <div className="card-body">
                                             <div className="d-flex justify-content-between align-items-center">
                                                 <span className="card-text">
-                                                    {tags.length + ' Tag' + (tags.length != 1 ? 's' : '')}
+                                                    {(tagsLength ?? tags.length) + ' Tag' + ((tagsLength ?? tags.length) != 1 ? 's' : '')}
                                                 </span>
                                                 <i className="bi bi-tag" style={{ fontSize: "1.4rem" }}></i>
                                             </div>
@@ -209,7 +217,7 @@ const AdminDashboard = ({ locale }: { locale?: string }) => {
                                         <div className="card-body">
                                             <div className="d-flex justify-content-between align-items-center">
                                                 <span className="card-text">
-                                                    {users.length + ' User' + (users.length != 1 ? 's' : '')}
+                                                    {(usersLength ?? users.length) + ' User' + ((usersLength ?? users.length) != 1 ? 's' : '')}
                                                 </span>
                                                 <i className="bi bi-people" style={{ fontSize: "1.4rem" }}></i>
                                             </div>
@@ -236,7 +244,7 @@ const AdminDashboard = ({ locale }: { locale?: string }) => {
                                     <ChartData theme={theme} type={chartTypeSelVal} />
                                 </div>
                                 <div className="col-12 col-md-6 col-lg-6 mt-3">
-                                    <TableData tdata={posts} theaders={tableHeaders} namep="News" locale={locale ?? getDefLocale()} />
+                                    <TableData tdata={posts} theaders={tableHeaders} namep="News" locale={locale ?? getDefLocale()} currentPage={page} totalPages={totalPages} />
                                     <MyPagination cid={-1} pid={-1} currentPage={page} totalPages={totalPages} />
                                 </div>
                             </div>

@@ -119,7 +119,7 @@ const AdminPosts = () => {
 
                                         {!!posts && (
                                             <div className="col-12 mt-3">
-                                                <TableData theaders={tableHeaders} tdata={posts} namep="news" locale={locale ?? getDefLocale()} />
+                                                <TableData theaders={tableHeaders} tdata={posts} namep="news" locale={locale ?? getDefLocale()} currentPage={page} totalPages={totalPages} />
                                                 <MyPagination cid={-1} pid={-1} currentPage={page} totalPages={totalPages} />
                                             </div>
                                         )}
