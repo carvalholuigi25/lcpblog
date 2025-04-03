@@ -60,6 +60,18 @@ export type TFormNews = z.infer<typeof fnewsSchema>;
 
 /* end of form news */
 
+/* start of form categories */
+
+export const fcategoriesSchema = z.object({
+    name: z.coerce.string().min(1, { message: "The name is required to be filled" }),
+    slug: z.coerce.string().optional(),
+    status: z.coerce.string().optional()
+});
+
+export type TFormCategories = z.infer<typeof fcategoriesSchema>;
+
+/* end of form categories */
+
 /* start of form users */
 
 export const fusersSchema = z.object({

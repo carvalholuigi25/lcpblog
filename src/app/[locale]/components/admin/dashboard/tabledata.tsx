@@ -15,13 +15,14 @@ export interface TableDataProps {
     locale: string;
     currentPage?: number;
     totalPages?: number;
+    linkSuffix?: string;
 }
 
 export function formatDate(mydate: number | string | Date) {
     return new Date(mydate).toLocaleDateString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit', weekday: undefined, hour: '2-digit', hour12: false, minute: '2-digit', second: '2-digit' });
 }
 
-export default function TableData({ theaders, tdata, namep, locale, currentPage, totalPages }: TableDataProps) {
+export default function TableData({ theaders, tdata, namep, locale, currentPage, totalPages, linkSuffix }: TableDataProps) {
     const isBorderEnabled = false;
     const isRoundedEnabled = true;
     const isShadowEnabled = true;
@@ -65,6 +66,9 @@ export default function TableData({ theaders, tdata, namep, locale, currentPage,
                                     return !!["createdAt", "updatedAt"].includes(thx.dataIndex) ? formatDate(tdataitem[thx.dataIndex]) : tdataitem[thx.dataIndex]; 
                                 });
                                 const vid = tdataitem["postId"] ?? (i + 1);
+                                const linksuffix = !!linkSuffix ? (linkSuffix.endsWith("/") ? linkSuffix : linkSuffix + "/") : "";
+                                const linkedit = '/pages/' + linksuffix + namep.toLowerCase() + '/edit/' + vid;
+                                const linkdel = '/pages/' + linksuffix + namep.toLowerCase() + '/delete/' + vid;
 
                                 return (
                                     <tr key={"x" + i}>
@@ -73,10 +77,10 @@ export default function TableData({ theaders, tdata, namep, locale, currentPage,
                                         ))}
 
                                         <td>
-                                            <Link href={'/pages/' + namep.toLowerCase() + '/edit/' + vid} locale={locale ?? getDefLocale()} className="btn btn-primary btnedit">
+                                            <Link href={linkedit} locale={locale ?? getDefLocale()} className="btn btn-primary btnedit">
                                                 <i className="bi bi-pencil-fill" style={{ border: 0 }}></i>
                                             </Link>
-                                            <Link href={'/pages/' + namep.toLowerCase() + '/delete/' + vid} locale={locale ?? getDefLocale()} className="btn btn-primary btndel ms-2">
+                                            <Link href={linkdel} locale={locale ?? getDefLocale()} className="btn btn-primary btndel ms-2">
                                                 <i className="bi bi-trash3-fill" style={{ border: 0 }}></i>
                                             </Link>
                                         </td>

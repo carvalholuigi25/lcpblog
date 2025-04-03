@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import { usePathname } from "next/navigation";
-import {Link} from '@/app/i18n/navigation';
 import astyles from "@applocale/styles/adminstyles.module.scss";
+import { Link } from '@/app/i18n/navigation';
+import { usePathname } from "next/navigation";
 import { getDefLocale } from "@/app/[locale]/helpers/defLocale";
 
 export default function AdminSidebarDashboard({sidebarToggle, toggleSidebar, locale}: {sidebarToggle: boolean, toggleSidebar: any, locale: string}) {    
@@ -30,6 +30,12 @@ export default function AdminSidebarDashboard({sidebarToggle, toggleSidebar, loc
             name: "Media",
             link: "/media",
             icon: "bi-cloud-upload-fill"
+        },
+        {
+            id: 4,
+            name: "Categories",
+            link: "/categories",
+            icon: "bi-card-list"
         }
     ];
 

@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
+import astyles from "@applocale/styles/adminstyles.module.scss";
 import { getFromStorage } from "@applocale/hooks/localstorage";
 import { useEffect, useState } from "react";
+import { useLocale } from "next-intl";
 import { User } from "@applocale/interfaces/user";
-import astyles from "@applocale/styles/adminstyles.module.scss";
+import { getDefLocale } from "@applocale/helpers/defLocale";
+import {Link} from '@/app/i18n/navigation';
 import FetchData from "@applocale/utils/fetchdata";
 import AdminSidebarDashboard from "@applocale/components/admin/dashboard/adbsidebar";
 import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavbar";
 import TableData from "@applocale/components/admin/dashboard/tabledata";
 import Footer from "@applocale/ui/footer";
-import { getDefLocale } from "@applocale/helpers/defLocale";
-import {Link} from '@/app/i18n/navigation';
-import withAuth from "@/app/[locale]/utils/withAuth";
-import { useLocale } from "next-intl";
-import LoadingComp from "@/app/[locale]/components/loadingcomp";
+import withAuth from "@applocale/utils/withAuth";
+import LoadingComp from "@applocale/components/loadingcomp";
 
 const AdminUsers = () => {
     const locale = useLocale();
@@ -94,7 +94,7 @@ const AdminUsers = () => {
 
                                         {!!users && (
                                             <div className="col-12 mt-3">
-                                                <TableData locale={locale ?? getDefLocale()} theaders={tableHeaders} tdata={users} namep="users" currentPage={-1} totalPages={-1} />
+                                                <TableData locale={locale ?? getDefLocale()} theaders={tableHeaders} tdata={users} namep="users" currentPage={-1} totalPages={-1} linkSuffix="" />
                                             </div>
                                         )}
 

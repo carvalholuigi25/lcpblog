@@ -1,14 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
+import astyles from "@applocale/styles/adminstyles.module.scss";
 import { getFromStorage, saveToStorage } from "@applocale/hooks/localstorage";
 import { useEffect, useState } from "react";
-import astyles from "@applocale/styles/adminstyles.module.scss";
-import AdminSidebarDashboard from "@applocale/components/admin/dashboard/adbsidebar";
-import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavbar";
-import ChartData from "@applocale/components/admin/dashboard/chartdata";
-import TableData from "@applocale/components/admin/dashboard/tabledata";
-import Footer from "@applocale/ui/footer";
-import withAuth from "@applocale/utils/withAuth";
+import { useSearchParams } from "next/navigation";
 import { Link } from '@/app/i18n/navigation';
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { FetchMultipleData } from "@applocale/utils/fetchdata";
@@ -18,9 +13,14 @@ import { Tags } from "@applocale/interfaces/tags";
 import { User } from "@applocale/interfaces/user";
 import { useTheme } from "@applocale/components/context/themecontext";
 import { getChartTypes } from "@applocale/functions/chartfunctions";
-import { useSearchParams } from "next/navigation";
+import AdminSidebarDashboard from "@applocale/components/admin/dashboard/adbsidebar";
+import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavbar";
+import ChartData from "@applocale/components/admin/dashboard/chartdata";
+import TableData from "@applocale/components/admin/dashboard/tabledata";
+import Footer from "@applocale/ui/footer";
+import withAuth from "@applocale/utils/withAuth";
 import MyPagination from "@applocale/components/mypagination";
-import LoadingComp from "@/app/[locale]/components/loadingcomp";
+import LoadingComp from "@applocale/components/loadingcomp";
 
 const AdminDashboard = ({ locale }: { locale?: string }) => {
     const chartTypesAry = getChartTypes();
@@ -236,7 +236,7 @@ const AdminDashboard = ({ locale }: { locale?: string }) => {
                                     <ChartData theme={theme} type={chartTypeSelVal} />
                                 </div>
                                 <div className="col-12 col-md-6 col-lg-6 mt-3">
-                                    <TableData tdata={posts} theaders={tableHeaders} namep="News" locale={locale ?? getDefLocale()} currentPage={page} totalPages={totalPages} />
+                                    <TableData tdata={posts} theaders={tableHeaders} namep="News" locale={locale ?? getDefLocale()} currentPage={page} totalPages={totalPages} linkSuffix="" />
                                     <MyPagination cid={-1} pid={-1} currentPage={page} totalPages={totalPages} />
                                 </div>
                             </div>
