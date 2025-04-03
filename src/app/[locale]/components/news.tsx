@@ -2,7 +2,7 @@
 "use client";
 import styles from "@applocale/page.module.scss";
 import Image from "next/image";
-import { useCallback, useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { getImagePath, loadMyRealData } from "@applocale/functions/functions";
 import { getFromStorage, saveToStorage } from "@applocale/hooks/localstorage";
@@ -279,8 +279,10 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
 
             <div className="container">
                 <div className="row justify-content-center align-items-center mt-5 mb-5">
-                    {!news || news.length == 0 && getEmptyNews(pathname)}
-                    {!!news && news.length > 0 && getContent()}
+                    <Suspense fallback={<LoadingComp type="icon" icontype="ring" />}>
+                        {!news || news.length == 0 && !!loading && getEmptyNews(pathname)}
+                        {!!news && news.length > 0 && getContent()}
+                    </Suspense>
                 </div>
             </div>
         </div>
