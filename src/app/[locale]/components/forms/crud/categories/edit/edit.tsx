@@ -19,7 +19,7 @@ const EditCategoriesForm = ({categoryid, data}: {categoryid: number, data: Categ
     const [formData, setFormData] = useState({
         categoryId: data.categoryId ?? 1,
         name: data.name ?? "",
-        slug: data.slug ?? "",
+        slug: data.slug ?? "/",
         status: data.status ?? "0"
     });
 
@@ -61,7 +61,7 @@ const EditCategoriesForm = ({categoryid, data}: {categoryid: number, data: Categ
             setFormData({
                 categoryId: data.categoryId ?? 1,
                 name: data.name ?? "",
-                slug: data.slug ?? "",
+                slug: data.slug ?? "/",
                 status: data.status ?? "0"
             });
         }
@@ -147,7 +147,7 @@ const EditCategoriesForm = ({categoryid, data}: {categoryid: number, data: Categ
                         <div className="form-group mt-3 text-center">
                             <label htmlFor="slug">Slug Url:</label>
                             <div className={styles.sformgroup}>
-                                <input {...register("slug")} type="text" id="slug" name="slug" className={"form-control slug mt-3 " + styles.sformgroupinp} placeholder="Write your slug url of category here..." value={formData.slug} onChange={handleChange} />
+                                <input {...register("slug")} type="text" id="slug" name="slug" className={"form-control slug mt-3 " + styles.sformgroupinp} placeholder="Write your slug url of category here..." value={formData.slug} onChange={handleChange} disabled />
                             </div>
 
                             {errors.slug && ShowAlert("danger", errors.slug.message)}

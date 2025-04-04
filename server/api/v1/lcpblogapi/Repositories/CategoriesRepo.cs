@@ -57,6 +57,21 @@ private MyDBSQLFunctions _myDBSQLFunctions;
 
     public async Task<ActionResult<Category>> CreateCategory(Category Category)
     {
+        if (string.IsNullOrEmpty(Category.Name))
+        {
+            return BadRequest("Category name cannot be empty.");
+        }
+
+        if (_context.Categories.Any(e => e.Name == Category.Name))
+        {
+            return Conflict("Category already exists.");
+        }
+
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
         _context.Categories.Add(Category);
         await _context.SaveChangesAsync();
 
@@ -65,6 +80,21 @@ private MyDBSQLFunctions _myDBSQLFunctions;
 
     public async Task<IActionResult> PutCategory(int? id, Category Category)
     {
+        if (string.IsNullOrEmpty(Category.Name))
+        {
+            return BadRequest("Category name cannot be empty.");
+        }
+
+        if (_context.Categories.Any(e => e.Name == Category.Name))
+        {
+            return Conflict("Category already exists.");
+        }
+
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
         if (id != Category.CategoryId)
         {
             return BadRequest();

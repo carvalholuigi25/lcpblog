@@ -238,7 +238,14 @@
 
 .sformgroup .sformgroupinp {
   position: relative;
-  padding-left: 3rem;
+  padding-left: 1rem;
+}
+
+.plogin, .pregister {
+  .sformgroup .sformgroupinp {
+    position: relative;
+    padding-left: 3rem;
+  }
 }
 
 .logavatar {

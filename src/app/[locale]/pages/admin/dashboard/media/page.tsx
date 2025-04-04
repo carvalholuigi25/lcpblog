@@ -10,11 +10,11 @@ import AdminSidebarDashboard from "@applocale/components/admin/dashboard/adbside
 import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavbar";
 import FileSingleUploadForm from "@applocale/components/forms/upload/singleupload";
 import FileMultiUploadForm from "@applocale/components/forms/upload/multiupload";
+import FileDragDropUploadForm from "@applocale/components/forms/upload/dragdropupload";
 import UploadedFiles from "@applocale/components/uploadedfiles";
 import Footer from "@applocale/ui/footer";
 import withAuth from "@applocale/utils/withAuth";
-import FileDragDropUploadForm from "@/app/[locale]/components/forms/upload/dragdropupload";
-import LoadingComp from "@/app/[locale]/components/loadingcomp";
+import LoadingComp from "@applocale/components/loadingcomp";
 
 const AdminMedia = () => {
     const locale = useLocale();
@@ -34,7 +34,6 @@ const AdminMedia = () => {
         setShowUpload(getFromStorage("showUpload")! == "true" ? true : false);
         setTypeUpload(getFromStorage("typeUpload")!);
         setLoading(false);
-
     }, [logInfo, isAuthorized]);
 
     if (loading) {
@@ -87,7 +86,7 @@ const AdminMedia = () => {
                                     </button>
 
                                     {!!showUpload && (
-                                        <select className={"form-control frmselectupload w-auto d-block mx-auto mt-3 "} value={typeUpload} onChange={changeTypeUpload}>
+                                        <select className={"form-control frmselectupload w-auto d-block mx-auto mt-3 "} value={typeUpload ?? "single"} onChange={changeTypeUpload}>
                                             <option value="" disabled>Select upload type</option>
                                             <option value={"single"}>Single</option>
                                             <option value={"multiple"}>Multiple</option>

@@ -18,7 +18,7 @@ import * as signalR from "@microsoft/signalr";
 const AddCategoriesForm = () => {
     const [formData, setFormData] = useState({
         name: "",
-        slug: "/geral",
+        slug: "/",
         status: "0"
     });
 
@@ -60,7 +60,7 @@ const AddCategoriesForm = () => {
         if(!!isResetedForm) {
             setFormData({
                 name: "",
-                slug: "/geral",
+                slug: "/",
                 status: "0"
             });
         }
@@ -147,7 +147,7 @@ const AddCategoriesForm = () => {
                         <div className="form-group mt-3 text-center">
                             <label htmlFor="slug">Slug Url:</label>
                             <div className={styles.sformgroup}>
-                                <input {...register("slug")} type="text" id="slug" name="slug" className={"form-control slug mt-3 " + styles.sformgroupinp} placeholder="Write your slug url here..." value={formData.slug} onChange={handleChange} />
+                                <input {...register("slug")} type="text" id="slug" name="slug" className={"form-control slug mt-3 " + styles.sformgroupinp} placeholder="Write your slug url here..." value={formData.slug} onChange={handleChange} disabled />
                             </div>
 
                             {errors.slug && ShowAlert("danger", errors.slug.message)}

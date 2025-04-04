@@ -45,11 +45,11 @@ export default function AdminSidebarDashboard({sidebarToggle, toggleSidebar, loc
     const showIconName = false;
 
     const getIsActive = (pathname: string, prefix: string, i: number, x: any) => {
-        return pathname.includes(prefix) && i == 0 ? "active" : (pathname.includes(prefix + x.link) ? "active" : "");
+        return x.id == 0 && pathname.endsWith(prefix) ? "active" : pathname.endsWith(prefix + x.link) ? (i == x.id ? "active" : "") : pathname.endsWith("/") ? "active" : "";
     }
 
     const getIsPageCurrent = (pathname: string, prefix: string, i: number, x: any) => {
-        return pathname.includes(prefix) && i == 0 ? "page" : (pathname.includes(prefix + x.link) ? "page" : "true");
+        return x.id == 0 && pathname.endsWith(prefix) ? "page" : pathname.endsWith(prefix + x.link) ? (i == x.id ? "page" : "true") : pathname.endsWith("/") ? "page" : "true";
     }
 
     links.map((x, i) => {
