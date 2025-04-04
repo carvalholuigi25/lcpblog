@@ -18,7 +18,7 @@ import * as signalR from "@microsoft/signalr";
 const AddCategoriesForm = () => {
     const [formData, setFormData] = useState({
         name: "",
-        slug: "/",
+        slug: "",
         status: "0"
     });
 
@@ -33,9 +33,14 @@ const AddCategoriesForm = () => {
     const {
         register,
         formState: { errors, isSubmitting },
+        watch,
+        setValue,
+        getValues
     } = useForm<TFormCategories>({
         resolver: zodResolver(fcategoriesSchema),
     });
+
+    watch();
 
     useEffect(() => {
         async function addMyRealData() {
@@ -57,6 +62,8 @@ const AddCategoriesForm = () => {
             return () => connect.stop();
         }
 
+        setValue("slug", "/");
+
         if(!!isResetedForm) {
             setFormData({
                 name: "",
@@ -73,7 +80,7 @@ const AddCategoriesForm = () => {
         if(!loading) {
             addMyRealData();
         }
-    }, [isResetedForm, logInfo, loading]);
+    }, [isResetedForm, logInfo, loading, setValue]);
 
     if (loading) {
         return (
@@ -84,6 +91,10 @@ const AddCategoriesForm = () => {
     const handleChange = (e: any) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
+
+        if(name === "name") {
+            setValue("slug", "/"+value.toLowerCase().replace(/ /g, "-").replace(/[^\w-]+/g, ""));
+        }
     };
 
     const handleReset = () => {
@@ -97,7 +108,11 @@ const AddCategoriesForm = () => {
             await FetchDataAxios({
                 url: `api/categories`,
                 method: 'post',
-                data: formData,
+                data: {
+                    name: formData.name,
+                    slug: getValues("slug")!,
+                    status: formData.status
+                },
                 reqAuthorize: false
             }).then(async (r) => {
                 console.log(r);
@@ -147,7 +162,7 @@ const AddCategoriesForm = () => {
                         <div className="form-group mt-3 text-center">
                             <label htmlFor="slug">Slug Url:</label>
                             <div className={styles.sformgroup}>
-                                <input {...register("slug")} type="text" id="slug" name="slug" className={"form-control slug mt-3 " + styles.sformgroupinp} placeholder="Write your slug url here..." value={formData.slug} onChange={handleChange} disabled />
+                                <input {...register("slug")} type="text" id="slug" name="slug" className={"form-control slug mt-3 " + styles.sformgroupinp} placeholder="Write your slug url here..." onChange={handleChange} disabled />
                             </div>
 
                             {errors.slug && ShowAlert("danger", errors.slug.message)}

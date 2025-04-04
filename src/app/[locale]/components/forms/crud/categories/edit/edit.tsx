@@ -33,9 +33,14 @@ const EditCategoriesForm = ({categoryid, data}: {categoryid: number, data: Categ
     const {
         register,
         formState: { errors, isSubmitting },
+        watch,
+        setValue,
+        getValues
     } = useForm<TFormCategories>({
         resolver: zodResolver(fcategoriesSchema),
     });
+
+    watch();
 
     useEffect(() => {
         async function updateMyRealData() {
@@ -57,6 +62,8 @@ const EditCategoriesForm = ({categoryid, data}: {categoryid: number, data: Categ
             return () => connect.stop();
         }
 
+        setValue("slug", "/"+data.name.toLowerCase().replace(/ /g, "-").replace(/[^\w-]+/g, ""));
+
         if(!!isResetedForm) {
             setFormData({
                 categoryId: data.categoryId ?? 1,
@@ -74,7 +81,7 @@ const EditCategoriesForm = ({categoryid, data}: {categoryid: number, data: Categ
         if(!loading) {
             updateMyRealData();
         }
-    }, [isResetedForm, logInfo, data, loading]);
+    }, [isResetedForm, logInfo, data, loading, setValue]);
 
     if (loading) {
         return (
@@ -85,6 +92,10 @@ const EditCategoriesForm = ({categoryid, data}: {categoryid: number, data: Categ
     const handleChange = (e: any) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
+
+        if(name === "name") {
+            setValue("slug", "/"+value.toLowerCase().replace(/ /g, "-").replace(/[^\w-]+/g, ""));
+        }
     };
 
     const handleReset = () => {
@@ -98,7 +109,12 @@ const EditCategoriesForm = ({categoryid, data}: {categoryid: number, data: Categ
             await FetchDataAxios({
                 url: `api/categories/`+categoryid,
                 method: 'put',
-                data: formData
+                data: {
+                    categoryid: categoryid,
+                    name: formData.name,
+                    slug: getValues("slug")!,
+                    status: formData.status
+                },
             }).then(async (r) => {
                 console.log(r);
 
@@ -147,7 +163,7 @@ const EditCategoriesForm = ({categoryid, data}: {categoryid: number, data: Categ
                         <div className="form-group mt-3 text-center">
                             <label htmlFor="slug">Slug Url:</label>
                             <div className={styles.sformgroup}>
-                                <input {...register("slug")} type="text" id="slug" name="slug" className={"form-control slug mt-3 " + styles.sformgroupinp} placeholder="Write your slug url of category here..." value={formData.slug} onChange={handleChange} disabled />
+                                <input {...register("slug")} type="text" id="slug" name="slug" className={"form-control slug mt-3 " + styles.sformgroupinp} placeholder="Write your slug url of category here..." onChange={handleChange} disabled />
                             </div>
 
                             {errors.slug && ShowAlert("danger", errors.slug.message)}
