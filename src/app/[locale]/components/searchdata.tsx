@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { Link } from '@/app/i18n/navigation';
 import { Posts } from "@applocale/interfaces/posts";
 import { getDefLocale } from '@applocale/helpers/defLocale';
-import { Link } from '@/app/i18n/navigation';
 import FetchData from "@applocale/utils/fetchdata";
-import LoadingComp from "@/app/[locale]/components/loadingcomp";
+import LoadingComp from "@applocale/components/loadingcomp";
 
 export default function SearchData({locale}: {locale: string}) {
     const [news, setNews] = useState(new Array<Posts>());

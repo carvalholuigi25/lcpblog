@@ -35,20 +35,16 @@ export default function TableData({ theaders, tdata, namep, locale, currentPage,
 
     return (
         <div className={styles.myroundedscrollbar}>
-            <div className={"table-responsive " + "mtable-" + isBorderEnabledCl + " " + isShadowEnabledCl + " " + isLongContentEnabledCl}>
-                {!tdata || tdata.length == 0 && (
-                    <div className='container'>
-                        <div className='row justify-content-center align-items-center p-3'>
-                            <div className='col-12 card p-3 text-center'>
-                                <div className='card-body'>
-                                    <i className="bi bi-file-earmark-post-fill" style={{ fontSize: "4rem" }}></i>
-                                    <p>No posts, please create a new one...</p>
-                                </div>
-                            </div>
-                        </div>
+            {!tdata || tdata.length == 0 && (
+                <div className='col-12 card p-3 text-center'>
+                    <div className='card-body'>
+                        <i className="bi bi-file-earmark-post-fill" style={{ fontSize: "4rem" }}></i>
+                        <p>No posts, please create a new one...</p>
                     </div>
-                )}
+                </div>
+            )}
 
+            <div className={"table-responsive " + "mtable-" + isBorderEnabledCl + " " + isShadowEnabledCl + " " + isLongContentEnabledCl}>
                 {!!tdata && tdata.length > 0 && (
                     <table className={"table table-" + isBorderEnabledCl + " " + isRoundedEnabledCl + " table-autolayout"}>
                         <thead>

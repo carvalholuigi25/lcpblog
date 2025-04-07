@@ -3,19 +3,20 @@
 import { getFromStorage } from "@applocale/hooks/localstorage";
 import { useEffect, useState } from "react";
 import { Posts } from "@applocale/interfaces/posts";
+import { Link } from '@/app/i18n/navigation';
+import { getDefLocale } from "@applocale/helpers/defLocale";
+import { useLocale } from "next-intl";
+import { useSearchParams } from "next/navigation";
 import astyles from "@applocale/styles/adminstyles.module.scss";
 import FetchData from "@applocale/utils/fetchdata";
 import AdminSidebarDashboard from "@applocale/components/admin/dashboard/adbsidebar";
 import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavbar";
 import TableData from "@applocale/components/admin/dashboard/tabledata";
-import {Link} from '@/app/i18n/navigation';
 import Footer from "@applocale/ui/footer";
-import { getDefLocale } from "@/app/[locale]/helpers/defLocale";
-import withAuth from "@/app/[locale]/utils/withAuth";
-import { useLocale } from "next-intl";
-import MyPagination from "@/app/[locale]/components/mypagination";
-import { useSearchParams } from "next/navigation";
-import LoadingComp from "@/app/[locale]/components/loadingcomp";
+import withAuth from "@applocale/utils/withAuth";
+import MyPagination from "@applocale/components/mypagination";
+import LoadingComp from "@applocale/components/loadingcomp";
+import AdvancedSearch from "@applocale/components/forms/search/advancedsearch";
 
 const AdminPosts = () => {
     const locale = useLocale();
@@ -26,17 +27,19 @@ const AdminPosts = () => {
     const [sidebarToggle, setSidebarToggle] = useState(true);
     const [totalPages, setTotalPages] = useState(1);
     const [page, setPage] = useState(1);
-
+    const [isSearchEnabled, setIsSearchEnabled] = useState(false);
     const searchParams = useSearchParams();
     const spage = searchParams.get("page");
-
+    const search = searchParams.get("search") ?? "";
+    const sortorder = searchParams.get("sortorder") ?? "asc";
+    const sortby = searchParams.get("sortby") ?? "id";
     const pageSize: number = 10;
-
 
     useEffect(() => {
         async function fetchPosts() {
             const curindex = page;
-            const params = `?page=${curindex}&pageSize=${pageSize}`;
+            const sparams = isSearchEnabled ? `&sortBy=${sortby}&sortOrder=${sortorder}&search=${search}` : ``;
+            const params = `?page=${curindex}&pageSize=${pageSize}${sparams}`;
 
             const data = await FetchData({
                 url: 'api/posts'+params,
@@ -59,7 +62,7 @@ const AdminPosts = () => {
 
         setIsAuthorized(logInfo && JSON.parse(logInfo)[0].role == "admin" ? true : false);
         fetchPosts();
-    }, [logInfo, isAuthorized, page, spage]);
+    }, [logInfo, isAuthorized, isSearchEnabled, page, spage, search, sortby, sortorder]);
 
     if (loading) {
         return (
@@ -107,7 +110,17 @@ const AdminPosts = () => {
                                             <div className="btn-group" role="group" aria-label="News data actions">
                                                 <Link href={'/pages/news/add'} locale={locale ?? getDefLocale()} className="btn btn-primary btn-rounded btncreatenews">Add news</Link>
                                             </div>
+
+                                            <button type="button" className="btn btn-primary btn-rounded ms-3" onClick={() => setIsSearchEnabled(!isSearchEnabled)}>
+                                                <i className="bi bi-search"></i>
+                                                <span className="ms-2">{isSearchEnabled ? " Disable" : " Enable"} search</span>
+                                            </button>
                                         </div>
+
+                                        
+                                        {isSearchEnabled && (
+                                            <AdvancedSearch isSearchEnabled={isSearchEnabled} pageIndex={page} pageSize={pageSize} />
+                                        )}
 
                                         {!!posts && (
                                             <div className="col-12 mt-3">
