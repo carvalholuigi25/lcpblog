@@ -346,6 +346,62 @@
         }
     }
 
+    .myschedule {
+        background-color: $bgcolorprimary;
+        color: $fgcolorprimary;
+
+        .rbc-month-view {
+            border: 1px solid $fgcolorprimary !important;
+        }
+
+        .rbc-toolbar {
+            button {
+                color: $fgcolorprimary;
+            
+                &:focus, &:active, &:hover, &:focus-visible {
+                    background-color: $bgcolorprimary;
+                }
+            }
+
+            button.rbc-active {
+                background-color: $bgcolorprimary;
+            }
+        }
+
+        .rbc-btn-group {
+            background-color: $bgcolorsecondary;
+
+            .rbc-active {
+                background-color: $bgcolorsecondary;
+            }
+
+            &:active, &:hover, &:focus, &:focus-visible {
+                background-color: $bgcolorsecondary;
+            }
+        }
+
+        .rbc-off-range {
+            color: $fgcolorprimary;
+        }
+
+        .rbc-off-range-bg, .rbc-off-range {
+            background-color: $bgcolorsecondary;
+        }
+
+        .rbc-today {
+            background-color: $bgcolorsecondary;
+            color: $fgcolorprimary;
+        }
+
+        .rbc-date-cell {
+            border-color: $fgcolorprimary;
+        }
+
+        .rbc-calendar *, .rbc-calendar ::before, .rbc-calendar ::after {
+            border-color: $fgcolorprimary;
+        }
+    }
+
     footer {
         --background: #{$bgcolorprimary};
         background: var(--background) !important;

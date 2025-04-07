@@ -21,6 +21,7 @@ import Footer from "@applocale/ui/footer";
 import withAuth from "@applocale/utils/withAuth";
 import MyPagination from "@applocale/components/mypagination";
 import LoadingComp from "@applocale/components/loadingcomp";
+import Schedule from "@/app/[locale]/components/schedule";
 
 const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
     const chartTypesAry = getChartTypes();
@@ -223,7 +224,7 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
                             <div className="row">
                                 <div className="col-12 col-md-6 col-lg-6 mt-3">
                                     {enableChangeChartType && (
-                                        <div className="d-flex justify-content-center col-12">
+                                        <div className="d-flex justify-content-center w-100">
                                             <select className="form-control mb-3 w-auto bshadow" value={chartTypeSelVal ?? 'verticalbar'} onChange={onChangeChartType}>
                                                 <option value={""} disabled>Select the chart type</option>
                                                 {chartTypesAry.length > 0 && chartTypesAry.map(x => (
@@ -238,6 +239,12 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
                                 <div className="col-12 col-md-6 col-lg-6 mt-3">
                                     <TableData tdata={posts} theaders={tableHeaders} namep="News" locale={locale ?? getDefLocale()} currentPage={page} totalPages={totalPages} linkSuffix="" />
                                     <MyPagination cid={-1} pid={-1} currentPage={page} totalPages={totalPages} />
+                                </div>
+                            </div>
+
+                            <div className="row">
+                                <div className="col-12">
+                                    <Schedule />
                                 </div>
                             </div>
                         </div>
