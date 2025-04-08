@@ -2,6 +2,7 @@
 // import luxon from 'luxon';
 import { Settings } from "luxon";
 import { useLocale } from "next-intl";
+import { Schedules } from "@applocale/interfaces/schedules";
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -11,17 +12,17 @@ import listPlugin from '@fullcalendar/list';
 
 Settings.defaultZone = "Europe/Lisbon";
 
-export const myEventsList = {
-    events: [
-        {
-            title: 'Developing...',
-            start: '2025-04-07T15:00:00',
-            end: '2025-04-07T16:00:00'
-        }
-    ]
-};
+// export const myEventsList = {
+//     events: [
+//         {
+//             title: 'Developing...',
+//             start: '2025-04-07T15:00:00',
+//             end: '2025-04-07T16:00:00'
+//         }
+//     ]
+// };
 
-export default function Schedule() {
+export default function Schedule({ data } : { data?: Schedules[] }) {
     const locale = useLocale();
     const plugins = [multiMonthPlugin, dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin];
 
@@ -65,6 +66,23 @@ export default function Schedule() {
         meridiem: 'short'
     }
 
+    const getMyEvents = () => {
+        const dataevents: any[] = [];
+
+        data!.map(x => {
+            dataevents.push({
+                title: x.title,
+                start: x.dateStart,
+                end: x.dateEnd,
+                allDay: x.allDay
+            });
+        });
+
+        return {events: dataevents};
+    };
+
+    const events = getMyEvents();
+
     return (
         <div className={"myschedule"}>
             <FullCalendar
@@ -72,7 +90,7 @@ export default function Schedule() {
                 plugins={plugins}
                 headerToolbar={headerToolbar}
                 buttonText={buttonText}
-                events={myEventsList}
+                events={events}
                 locale={locale}
                 weekends={false}
                 selectable={true}

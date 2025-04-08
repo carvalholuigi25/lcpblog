@@ -666,6 +666,9 @@ form {
   }
 
   .myschedule {
+    $fs: var(--fc-small-font-size);
+    $cfs: calc(calc($fs + 1rem) - $fs);
+
     .fc-header-toolbar {
       flex-direction: column;
   
@@ -676,16 +679,16 @@ form {
     }
 
     .fc-col-header-cell-cushion {
-      font-size: calc(1rem - 0.2rem);
+      font-size: calc($cfs - 0.2rem);
     }
 
     .fc-timegrid-axis-cushion, 
     .fc-timegrid-slot-label-cushion {
-      font-size: calc(1rem - 0.2rem);
+      font-size: calc($cfs - 0.2rem);
     }
 
     .fc-v-event {
-      font-size: calc(1rem - 0.4rem);
+      font-size: calc($cfs - 0.4rem);
     }
   }
 }

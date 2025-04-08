@@ -13,6 +13,7 @@ import { Tags } from "@applocale/interfaces/tags";
 import { User } from "@applocale/interfaces/user";
 import { useTheme } from "@applocale/components/context/themecontext";
 import { getChartTypes } from "@applocale/functions/chartfunctions";
+import { Schedules } from "@applocale/interfaces/schedules";
 import AdminSidebarDashboard from "@applocale/components/admin/dashboard/adbsidebar";
 import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavbar";
 import ChartData from "@applocale/components/admin/dashboard/chartdata";
@@ -33,6 +34,7 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
     const [categories, setCategories] = useState(new Array<Categories>());
     const [tags, setTags] = useState(new Array<Tags>());
     const [users, setUsers] = useState(new Array<User>());
+    const [schedules, setSchedules] = useState(new Array<Schedules>());
     const [chartTypeSelVal, setChartTypeSelVal] = useState('verticalbar');
     const [postsLength, setPostsLength] = useState(0);
     const [categoriesLength, setCategoriesLength] = useState(0);
@@ -108,6 +110,18 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
             setPage(spage ? parseInt(spage! ?? 1, 0) : 1);
         }
 
+        async function fetchSchedules() {
+            const data = await FetchMultipleData([{
+                url: 'api/schedules',
+                method: 'get',
+                reqAuthorize: false
+            }]);
+
+            if(data[0].data) {
+                setSchedules(JSON.parse(JSON.stringify(data[0].data)));
+            }
+        }
+
         if (!logInfo) {
             setLogInfo(getFromStorage("logInfo")!);
         }
@@ -115,6 +129,7 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
         setChartTypeSelVal(getFromStorage("mychart")!);
         setIsAuthorized(logInfo && JSON.parse(logInfo)[0].role == "admin" ? true : false);
         fetchPosts();
+        fetchSchedules();
         setLoading(false);
     }, [logInfo, isAuthorized, page, spage, chartTypeSelVal]);
 
@@ -241,10 +256,12 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
                                     <MyPagination cid={-1} pid={-1} currentPage={page} totalPages={totalPages} />
                                 </div>
                             </div>
+                        </div>
 
+                        <div className={"container" + (!!isContainerFluid ? "-fluid" : "") + " mt-3 p-3"}>
                             <div className="row">
                                 <div className="col-12">
-                                    <Schedule />
+                                    <Schedule data={schedules} />
                                 </div>
                             </div>
                         </div>
