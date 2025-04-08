@@ -544,6 +544,30 @@ form {
   padding: 15px;
   border-radius: 15px;
   box-shadow: 2px 4px 6px;
+
+  .fc-header-toolbar {
+    .fc-button-group {
+      button:not(:last-child) {
+        border-radius: 0.25em;
+      }
+      button:not(:first-child) {
+        display: none;
+      }
+    }
+  }
+
+  .fc-col-header-cell-cushion {
+    font-size: 1rem;
+  }
+
+  .fc-timegrid-axis-cushion, 
+  .fc-timegrid-slot-label-cushion {
+    font-size: 1rem;
+  }
+
+  .fc-v-event {
+    font-size: var(--fc-small-font-size);
+  }
 }
 
 .quill {
@@ -638,6 +662,30 @@ form {
   .myuplborder {
     i {
       font-size: 2rem;
+    }
+  }
+
+  .myschedule {
+    .fc-header-toolbar {
+      flex-direction: column;
+  
+      .fc-toolbar-chunk {
+        text-align: center;
+        margin-top: 15px;
+      }
+    }
+
+    .fc-col-header-cell-cushion {
+      font-size: calc(1rem - 0.2rem);
+    }
+
+    .fc-timegrid-axis-cushion, 
+    .fc-timegrid-slot-label-cushion {
+      font-size: calc(1rem - 0.2rem);
+    }
+
+    .fc-v-event {
+      font-size: calc(1rem - 0.4rem);
     }
   }
 }
