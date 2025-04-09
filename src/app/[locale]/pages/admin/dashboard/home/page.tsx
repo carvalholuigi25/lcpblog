@@ -22,7 +22,7 @@ import Footer from "@applocale/ui/footer";
 import withAuth from "@applocale/utils/withAuth";
 import MyPagination from "@applocale/components/mypagination";
 import LoadingComp from "@applocale/components/loadingcomp";
-import Schedule from "@/app/[locale]/components/schedule";
+import Schedule from "@applocale/components/schedule";
 
 const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
     const chartTypesAry = getChartTypes();

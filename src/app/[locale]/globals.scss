@@ -629,6 +629,11 @@ form {
   min-height: 100vh;
 }
 
+.fc .fc-list-event:hover td,
+a.fc-event:hover {
+  cursor: pointer;
+}
+
 @media all and (width <= 1199px) {
   .card-author {
     flex-direction: column;
@@ -688,6 +693,11 @@ form {
     }
 
     .fc-v-event {
+      font-size: calc($cfs - 0.4rem);
+    }
+
+    .fc-direction-ltr .fc-daygrid-event.fc-event-start, 
+    .fc-direction-rtl .fc-daygrid-event.fc-event-end {
       font-size: calc($cfs - 0.4rem);
     }
   }
