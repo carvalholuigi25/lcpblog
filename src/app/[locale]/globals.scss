@@ -634,6 +634,64 @@ a.fc-event:hover {
   cursor: pointer;
 }
 
+.infocommits {
+  display: block;
+  text-align: left;
+}
+
+.ws-pre {
+  white-space: pre;
+}
+
+.myroundedscrollbar {
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 2px 4px 6px;
+
+  * {
+    box-shadow: 0px 0px 0px !important;
+    border-radius: 0px !important;
+  }
+}
+
+.mysublinks {
+  position: relative;
+  inset: 0px auto auto 0px;
+  border: 0;
+  width: auto;
+  max-width: 100%;
+  margin: 0px;
+  text-align: left;
+  transform: none;
+  padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
+  font-size: var(--bs-nav-link-font-size);
+  font-weight: var(--bs-nav-link-font-weight);
+  text-decoration: none;
+
+  .dropdown-toggle {
+    padding: 0;
+  }
+
+  .dropdown-menu {
+    position: relative;
+    padding: 5px 15px;
+    text-align: left;
+    width: 100%;
+    max-width: 100%;
+    border: none;
+    transform: translate(0px, 36px) !important;
+    border-radius: var(--bs-nav-pills-border-radius);
+
+    .nav-item {
+      border-radius: var(--bs-nav-pills-border-radius);
+    }
+
+    .dropdown-item {
+      border-radius: var(--bs-nav-pills-border-radius);
+    }
+  }
+}
+
 @media all and (width <= 1199px) {
   .card-author {
     flex-direction: column;

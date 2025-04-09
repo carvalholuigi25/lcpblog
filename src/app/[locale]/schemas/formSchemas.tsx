@@ -91,3 +91,15 @@ export const fusersSchema = z.object({
 export type TFormUsers = z.infer<typeof fusersSchema>;
 
 /* end of form users */
+
+/* start of form commits of my gh repo */
+
+export const fcommitsSchema = z.object({
+    owner: z.coerce.string().min(1, { message: "The owner name is required to be filled" }),
+    repository: z.coerce.string().min(1, { message: "The repository name is required to be filled" }),
+    branchname: z.coerce.string().optional()
+});
+
+export type TFormCommits = z.infer<typeof fcommitsSchema>;
+
+/* end of form commits of my gh repo */
