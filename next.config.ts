@@ -23,6 +23,14 @@ const nextConfigOptions: NextConfig = {
         search: '',
       },
     ],
+  },
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
+      },
+    },
   }
 };
 
