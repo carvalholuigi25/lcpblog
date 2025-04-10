@@ -692,6 +692,42 @@ a.fc-event:hover {
   }
 }
 
+.mynavdatamode {
+  margin: 15px auto;
+  text-align: center;
+  justify-content: center;
+
+  .nav-link {
+    border-radius: 15px;
+    margin: auto 5px;
+  }
+}
+
+.contentjson {
+  display: block;
+  text-align: left;
+  white-space: pre-wrap;
+  box-shadow: 2px 4px 6px;
+  padding: 15px;
+  background-color: #ffffff;
+  color: #212529;
+  border-radius: 15px;
+  max-height: 600px;
+  overflow: auto;
+  margin: 0;
+
+  ::before {
+    content: "JSON";
+    display: block;
+    border-radius: 15px 15px 0px 0px;
+    margin: -15px -15px 15px -15px;
+    padding: 15px !important;
+    background-color: black;
+    color: white;
+    font-family: 'Orbitron', 'Orbitron Fallback';
+  }
+}
+
 @media all and (width <= 1199px) {
   .card-author {
     flex-direction: column;

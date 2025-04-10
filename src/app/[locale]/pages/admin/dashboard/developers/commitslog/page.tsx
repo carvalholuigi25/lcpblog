@@ -93,16 +93,16 @@ const AdminCommitsLog = ({ locale }: { locale?: string }) => {
                 setInfoCommits(r.data.map((x: any) => x.commit));
             }).catch((err: any) => {
                 console.error(err);
-                setInfoCommits(err);
+                setInfoCommits([{ error: err }]);
             });
         } catch (error: any) {
             console.error(error);
-            setInfoCommits(error);
+            setInfoCommits([{ error: error }]);
         }
     }
 
     const replaceUrl = (url: string) => {
-        return url.replace("https://api.github.com/repos/"+formData.owner+"/"+formData.repository+"/git/commits/", "https://github.com/"+formData.owner+"/"+formData.repository+"/commit/");
+        return url.replace("https://api.github.com/repos/" + formData.owner + "/" + formData.repository + "/git/commits/", "https://github.com/" + formData.owner + "/" + formData.repository + "/commit/");
     }
 
     return (
@@ -128,80 +128,105 @@ const AdminCommitsLog = ({ locale }: { locale?: string }) => {
                                         <i className="bi bi-journal-richtext me-2"></i>
                                         Commits Log
                                     </h4>
-                                </div>
-                            </div>
-                            <div className="row">
-                            <div className="col-12">
-                                    <form className={"frmcommits"}>
-                                        <div className="row">
-                                            <div className="col-12">
-                                                <div className="form-group mt-3 text-center hidden">
-                                                    <label htmlFor="owner">Owner</label>
-                                                    <div className={astyles.sformgroup}>
-                                                        <input {...register("owner")} type="hidden" id="owner" name="owner" className={"form-control owner mt-3 " + astyles.sformgroupinp} placeholder="Write your owner name here..." value={formData.owner} onChange={handleChange} disabled required />
+
+                                    <div className="mt-3">
+                                        <form className={"frmcommits"}>
+                                            <div className="row">
+                                                <div className="col-12">
+                                                    <div className="form-group mt-3 text-center hidden">
+                                                        <label htmlFor="owner">Owner</label>
+                                                        <div className={astyles.sformgroup}>
+                                                            <input {...register("owner")} type="hidden" id="owner" name="owner" className={"form-control owner mt-3 " + astyles.sformgroupinp} placeholder="Write your owner name here..." value={formData.owner} onChange={handleChange} disabled required />
+                                                        </div>
+
+                                                        {errors.owner && ShowAlert("danger", errors.owner.message)}
                                                     </div>
-
-                                                    {errors.owner && ShowAlert("danger", errors.owner.message)}
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="row">
-                                            <div className="col-12 col-md-6">
-                                                <div className="form-group mt-3 text-center hidden">
-                                                    <label htmlFor="repository">Repository</label>
-                                                    <div className={astyles.sformgroup}>
-                                                        <input {...register("repository")} type="hidden" id="repository" name="repository" className={"form-control repository mt-3 " + astyles.sformgroupinp} placeholder="Write your repository name here..." value={formData.repository} onChange={handleChange} disabled required />
-                                                    </div>
-
-                                                    {errors.repository && ShowAlert("danger", errors.repository.message)}
                                                 </div>
                                             </div>
 
-                                            <div className="col-12 col-md-6">
-                                                <div className="form-group mt-3 text-center hidden">
-                                                    <label htmlFor="branchname">Branch name</label>
-                                                    <div className={astyles.sformgroup}>
-                                                        <input {...register("branchname")} type="hidden" id="branchname" name="branchname" className={"form-control branchname mt-3 " + astyles.sformgroupinp} placeholder="Write your branch name here..." value={formData.branchname} onChange={handleChange} disabled required />
-                                                    </div>
+                                            <div className="row">
+                                                <div className="col-12 col-md-6">
+                                                    <div className="form-group mt-3 text-center hidden">
+                                                        <label htmlFor="repository">Repository</label>
+                                                        <div className={astyles.sformgroup}>
+                                                            <input {...register("repository")} type="hidden" id="repository" name="repository" className={"form-control repository mt-3 " + astyles.sformgroupinp} placeholder="Write your repository name here..." value={formData.repository} onChange={handleChange} disabled required />
+                                                        </div>
 
-                                                    {errors.branchname && ShowAlert("danger", errors.branchname.message)}
+                                                        {errors.repository && ShowAlert("danger", errors.repository.message)}
+                                                    </div>
+                                                </div>
+
+                                                <div className="col-12 col-md-6">
+                                                    <div className="form-group mt-3 text-center hidden">
+                                                        <label htmlFor="branchname">Branch name</label>
+                                                        <div className={astyles.sformgroup}>
+                                                            <input {...register("branchname")} type="hidden" id="branchname" name="branchname" className={"form-control branchname mt-3 " + astyles.sformgroupinp} placeholder="Write your branch name here..." value={formData.branchname} onChange={handleChange} disabled required />
+                                                        </div>
+
+                                                        {errors.branchname && ShowAlert("danger", errors.branchname.message)}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <div className="d-inline-block mx-auto mt-3">
-                                            <button className="btn btn-secondary btnreset btn-rounded" type="reset" onClick={handleReset}>Reset</button>
-                                            <button className="btn btn-primary btnlog btn-rounded ms-3" type="button" onClick={handleSubmit} disabled={isSubmitting}>Generate</button>
-                                        </div>
-                                    </form>
-
-                                    {infoCommits && infoCommits.length > 0 && (
-                                        <div className="myroundedscrollbar mt-3">
-                                            <div className="table-responsive mtable-nobordered mtable-shadow mtable-long">
-                                                <table className="table table-nobordered table-rounded table-shadow table-autolayout ws-pre">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Id</th>
-                                                            <th>Message</th>
-                                                            <th>Author</th>
-                                                            <th>Date</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        {infoCommits.map((x, i) => (
-                                                            <tr key={i}>
-                                                                <td>{""+(i+1)}</td>
-                                                                <td><Link href={replaceUrl(x.url)}>{x.message}</Link></td>
-                                                                <td>{x.author.name}</td>
-                                                                <td>{x.committer.date}</td>
-                                                            </tr>
-                                                        ))}
-                                                    </tbody>
-                                                </table>
+                                            <div className="d-inline-block mx-auto mt-3">
+                                                <button className="btn btn-secondary btnreset btn-rounded" type="reset" onClick={handleReset}>Reset</button>
+                                                <button className="btn btn-primary btnlog btn-rounded ms-3" type="button" onClick={handleSubmit} disabled={isSubmitting}>Generate</button>
+                                                <Link className="btn btn-primary btnmorecommits btn-rounded ms-3" href={`https://github.com/${formData.owner}/${formData.repository}/commits`} target="_blank">
+                                                    More commits?
+                                                </Link>
                                             </div>
-                                        </div>
-                                    )}
+                                        </form>
+
+                                        {infoCommits && infoCommits.length > 0 && (
+                                            <>
+                                                <ul className="nav nav-pills mynavdatamode mb-3" id="pills-tab" role="tablist">
+                                                    <li className="nav-item" role="presentation">
+                                                        <button className="nav-link active" id="pills-table-tab" data-bs-toggle="pill" data-bs-target="#pills-table" type="button" role="tab" aria-controls="pills-table" aria-selected="true">Table</button>
+                                                    </li>
+                                                    <li className="nav-item" role="presentation">
+                                                        <button className="nav-link" id="pills-json-tab" data-bs-toggle="pill" data-bs-target="#pills-json" type="button" role="tab" aria-controls="pills-json" aria-selected="false">JSON</button>
+                                                    </li>
+                                                </ul>
+
+                                                <div className="tab-content" id="pills-tabContent">
+                                                    <div className="tab-pane fade show active" id="pills-table" role="tabpanel" aria-labelledby="pills-table-tab" tabIndex={0}>
+                                                        <div className="myroundedscrollbar mt-3">
+                                                            <div className="table-responsive mtable-nobordered mtable-shadow mtable-long">
+                                                                <table className="table table-nobordered table-rounded table-shadow table-autolayout ws-pre">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Id</th>
+                                                                            <th>Message</th>
+                                                                            <th>Author</th>
+                                                                            <th>Date</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        {infoCommits.map((x, i) => (
+                                                                            <tr key={i}>
+                                                                                <td>{"" + (i + 1)}</td>
+                                                                                <td><Link href={replaceUrl(x.url)}>{x.message}</Link></td>
+                                                                                <td>{x.author.name}</td>
+                                                                                <td>{x.committer.date}</td>
+                                                                            </tr>
+                                                                        ))}
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="tab-pane fade" id="pills-json" role="tabpanel" aria-labelledby="pills-json-tab" tabIndex={0}>
+                                                        <div className="myroundedscrollbar">
+                                                            <pre className="contentjson">
+                                                                <code>{JSON.stringify(infoCommits, null, 4)}</code>
+                                                            </pre>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                         </div>

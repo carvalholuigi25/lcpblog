@@ -423,6 +423,22 @@
         }
     }
 
+    .mynavdatamode {
+        .nav-link {
+            background-color: $bgcolorsecondary;
+            color: $fgcolorprimary;
+            
+            &.active {
+                background-color: $bgcolorprimary;
+            }
+        }
+    }
+
+    .contentjson {
+        background-color: #{$bgcolorprimary + "b3"};
+        color: $fgcolorprimary;
+    }
+
     footer {
         --background: #{$bgcolorprimary};
         background: var(--background) !important;
