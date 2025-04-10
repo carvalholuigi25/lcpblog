@@ -10,9 +10,13 @@ import RegFormStep1 from "./rfstep1";
 import RegFormStep2 from "./rfstep2";
 import RegFormStep3 from "./rfstep3";
 import Stepper from './stepper';
-import { getDefLocale } from '@/app/[locale]/helpers/defLocale';
+import { getDefLocale } from '@applocale/helpers/defLocale';
+import { useTranslations } from 'next-intl';
 
 const RegForm = () => {
+  const t = useTranslations("ui.forms.auth.register");
+  const tbtn = useTranslations("ui.buttons");
+  
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -103,9 +107,11 @@ const RegForm = () => {
         <div className="col-12 mx-auto">
           <div className="card">
             <div className="card-body">
-              <h3>Register</h3>
-              <p>You already registered in as {getDisplayName()}!</p>
-              <Link className="btn btn-primary ms-3 mt-3" href={'/'} locale={getDefLocale()}>Back</Link>
+              <h3>{t("title") ?? "Register"}</h3>
+              <p>{t("warnings.lblloggedin") ?? `You already registered in as ${getDisplayName()}!`}</p>
+              <Link className="btn btn-primary ms-3 mt-3" href={'/'} locale={getDefLocale()}>
+                {tbtn("btnback") ?? "Back"}
+              </Link>
             </div>
           </div>
         </div>

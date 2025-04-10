@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 
 export default function Custom500() {
-    const t = useTranslations('500');
+    const t = useTranslations('pages.500');
     
     return (
         <div className="container p-3 d-flex justify-content-center align-items-center text-center mhv-100">

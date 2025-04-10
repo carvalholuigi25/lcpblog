@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { delFromStorage, getFromStorage } from '@applocale/hooks/localstorage';
 import { getDefLocale } from '@applocale/helpers/defLocale';
 import { Link } from '@/app/i18n/navigation';
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import dynamic from 'next/dynamic';
 import LoadingComp from "@applocale/components/loadingcomp";
@@ -14,6 +15,7 @@ const HeaderMenu = ({ locale }: { locale: string }) => {
     const [logInfo, setLogInfo] = useState("");
     const [loading, setLoading] = useState(true);
     const [loadLinkAuth, setLoadLinkAuth] = useState(false);
+    const t = useTranslations('ui.offcanvas');
 
     useEffect(() => {
         if (!logInfo) {
@@ -57,19 +59,21 @@ const HeaderMenu = ({ locale }: { locale: string }) => {
         <div className="offcanvas offcanvas-start" tabIndex={-1} id="menuHeader" aria-labelledby="menuHeaderLabel">
             <div className="offcanvas-header">
                 <h5 className="offcanvas-title" id="menuHeaderLabel">LCPBlog</h5>
-                <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label={t("btnclose") ?? "Close"} title={t("btnclose") ?? "Close"}></button>
             </div>
             <div className="offcanvas-body">
                 <div className="mysuboffcanvas">
                     <Link className="nav-link active p-3" aria-current="page" href="/#home" locale={locale ?? getDefLocale()}>
                         <i className="bi bi-house me-2"></i>
-                        Home
+                        {t("homelink") ?? "Home"}
                     </Link>
 
                     {!!loadLinkAuth && (
                         <Link className="nav-link navlinklogin p-3" aria-current="page" href={"/auth/login"} locale={locale ?? getDefLocale()}>
                             <i className="bi bi-person-circle me-2"></i>
-                            <span>Login</span>
+                            <span>
+                                {t("loginlink") ?? "Login"}
+                            </span>
                         </Link>
                     )}
 
@@ -78,7 +82,7 @@ const HeaderMenu = ({ locale }: { locale: string }) => {
                             {getUserRole() == "admin" && (
                                 <Link href={"/pages/admin/dashboard"} locale={locale ?? getDefLocale()} className='nav-link p-3'>
                                     <i className="bi bi-speedometer me-2"></i>
-                                    <span>Dashboard</span>
+                                    <span>{t("dashboardlink") ?? "Dashboard"}</span>
                                 </Link>
                             )}
 
@@ -88,7 +92,7 @@ const HeaderMenu = ({ locale }: { locale: string }) => {
                                     <span>{getDisplayName()}</span>
                                 </Link>
 
-                                <button className='btn btn-tp btn-rounded' onClick={handleLogout}>
+                                <button className='btn btn-tp btn-rounded' onClick={handleLogout} title={t("logoutlink") ?? "Logout"}>
                                     <i className="bi bi-door-closed"></i>
                                 </button>
                             </div>

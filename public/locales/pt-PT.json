@@ -1,21 +1,129 @@
 {
-  "HomePage": {
-    "title": "Bem-vindo ao LCPBlog!"
+  "ui": {
+    "searchBar": "Procurar",
+    "offcanvas": {
+      "btnclose": "Fechar",
+      "homelink": "Casa",
+      "loginlink": "Iniciar sessão",
+      "dashboardlink": "Painel",
+      "logoutlink": "Sair"
+    },
+    "buttons": {
+      "btnreadmore": "Leia mais...",
+      "btnlogout": "Sair",
+      "btnback": "Voltar"
+    },
+    "text": {
+      "txtviews": "Visualizações: {views}"
+    },
+    "footer": {
+      "title": "Criado por"
+    },
+    "forms": {
+      "auth": {
+        "login": {
+          "title": "Conecte-se",
+          "lblemail": "E-mail",
+          "inpemail": "Escreva aqui o seu e-mail",
+          "lblpassword": "Palavra-passe",
+          "inppassword": "Escreva aqui a sua palavra-passe",
+          "btnreset": "Repor",
+          "btnlogin": "Entrar",
+          "lblrecoveraccount": "Não tem conta? Registe-se aqui",
+          "btnback": "Voltar para casa",
+          "warnings": {
+            "lblloggedin": "Já está logado como {displayName}!",
+            "lblreqemail": "E-mail é obrigatório.",
+            "lblreqpassword": "Palavra-passe é obrigatória."
+          }
+        },
+        "register": {
+          "title": "Registrar",
+          "steppers": {
+            "lblstepper1": "Dados do utilizador",
+            "lblstepper2": "Dados Pessoais",
+            "lblstepper3": "Etapas finais"
+          },
+          "step1": {
+            "title": "Passo 1: Dados do utilizador",
+            "lblemail": "E-mail",
+            "inpemail": "Escreva aqui o seu e-mail",
+            "lblusername": "Nome de utilizador",
+            "inpusername": "Escreva aqui o seu nome de utilizador",
+            "lbldisplayname": "Nome de visualização",
+            "inpdisplayname": "Escreva aqui o seu nome completo",
+            "btnnext": "Seguinte",
+            "validation": {
+              "warnings": {
+                "lblinvemail": "E-mail inválido",
+                "lblrequsername": "Nome de utilizador é obrigatório",
+                "lblreqdisplayname": "Nome de visualização (nome completo) é obrigatório"
+              }
+            }
+          },
+          "step2": {
+            "title": "Etapa 2: Dados Pessoais",
+            "lblpassword": "Palavra-passe",
+            "inppassword": "Escreva aqui a sua palavra-passe",
+            "lblconfpassword": "Confirma a tua palavra-passe",
+            "inpconfpassword": "Escreva aqui a sua palavra-passe de confirmação",
+            "lbldateofbirthday": "Data de aniversário",
+            "btnprevious": "Anterior",
+            "btnnext": "Seguinte",
+            "validation": {
+              "warnings": {
+                "lbldiffpass": "A palavra-passe de confirmação não é a mesma que a da palavra-passe."
+              }
+            }
+          },
+          "step3": {
+            "title": "Etapa 3: Etapas finais",
+            "lblterms": "Termos e condições",
+            "btnterms": "Li e aceito todos os termos e condições.",
+            "btnreset": "Repor",
+            "btnprevious": "Anterior",
+            "btnregister": "Registar",
+            "validation": {
+              "warnings": {
+                "lblreqterms": "Deve aceitar todos os termos e condições."
+              }
+            }
+          },
+          "validation": {
+            "warnings": {
+              "lblloggedin": "Já está logado como {displayName}!"
+            }
+          }
+        }
+      }
+    }
   },
-  "Error": {
-    "title": "Erro",
-    "msgerror": "Ocorreu um erro ${statusCode} no servidor",
-    "msgerror2": "Ocorreu um erro no cliente",
-    "btnback": "Voltar"
-  },
-  "500": {
-    "title": "Erro 500 - Erro interno do servidor",
-    "msgerror": "O servidor encontrou um erro e não pôde concluir sua solicitação.",
-    "btnback": "Voltar"
-  },
-  "404": {
-    "title": "Erro 404 - Página não encontrada",
-    "msgerror": "Esta página não foi encontrada!",
-    "btnback": "Voltar"
+  "pages": {
+    "AuthPage": {
+      "title": "Conecte-se"
+    },
+    "RegisterPage": {
+      "title": "Registrar",
+      "lnkrecac": "Já tem uma conta? Faça login aqui."
+    },
+    "HomePage": {
+      "title": "Bem-vindo ao LCPBlog!"
+    },
+    "Error": {
+      "title": "Erro",
+      "msgerror": "Ocorreu um erro ${statusCode} no servidor",
+      "msgerror2": "Ocorreu um erro no cliente",
+      "btnback": "Voltar"
+    },
+    "500": {
+      "title": "Erro 500 - Erro interno do servidor",
+      "msgerror": "O servidor encontrou um erro e não pôde concluir sua solicitação.",
+      "btnback": "Voltar"
+    },
+    "404": {
+      "title": "Erro 404 - Página não encontrada",
+      "msgerror": "Esta página não foi encontrada!",
+      "btnback": "Voltar"
+    }
   }
 }

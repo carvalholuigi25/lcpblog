@@ -9,7 +9,7 @@ type Props = {
 };
 
 export default function Error({error}: Props) {
-    const t = useTranslations('404');
+    const t = useTranslations('pages.404');
 
     useEffect(() => {
         console.error(error);

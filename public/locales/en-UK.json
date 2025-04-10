@@ -1,21 +1,129 @@
 {
-    "HomePage": {
-        "title": "Welcome to LCPBlog!"
+    "ui": {
+        "searchBar": "Search",
+        "offcanvas": {
+            "btnclose": "Close",
+            "homelink": "Home",
+            "loginlink": "Login",
+            "dashboardlink": "Dashboard",
+            "logoutlink": "Logout"
+        },
+        "buttons": {
+            "btnreadmore": "Read more...",
+            "btnlogout": "Logout",
+            "btnback": "Back"
+        },
+        "text": {
+            "txtviews": "Views: {views}"
+        },
+        "footer": {
+            "title": "Created by"
+        },
+        "forms": {
+            "auth": {
+                "login": {
+                    "title": "Login",
+                    "lblemail": "Email",
+                    "inpemail": "Write your email here",
+                    "lblpassword": "Password",
+                    "inppassword": "Write your password here",
+                    "btnreset": "Reset",
+                    "btnlogin": "Login",
+                    "lblrecoveraccount": "Dont have an account? Register here",
+                    "btnback": "Back to Home",
+                    "warnings": {
+                        "lblloggedin": "You already logged in as {displayName}!",
+                        "lblreqemail": "Email is required.",
+                        "lblreqpassword": "Password is required."
+                    }
+                },
+                "register": {
+                    "title": "Register",
+                    "steppers": {
+                        "lblstepper1": "User Data",
+                        "lblstepper2": "Personal Data",
+                        "lblstepper3": "Final steps"
+                    },
+                    "step1": {
+                        "title": "Step 1: User Data",
+                        "lblemail": "Email",
+                        "inpemail": "Write your email here",
+                        "lblusername": "Username",
+                        "inpusername": "Write your username here",
+                        "lbldisplayname": "Display Name",
+                        "inpdisplayname": "Write your full name here",
+                        "btnnext": "Next",
+                        "validation": {
+                            "warnings": {
+                                "lblinvemail": "Invalid email",
+                                "lblrequsername": "Username is required",
+                                "lblreqdisplayname": "Display name (full name) is required"
+                            }
+                        }
+                    },
+                    "step2": {
+                        "title": "Step 2: Personal Data",
+                        "lblpassword": "Password",
+                        "inppassword": "Write your password here",
+                        "lblconfpassword": "Confirm your password",
+                        "inpconfpassword": "Write your password of confirmation here...",
+                        "lbldateofbirthday": "Date of Birthday",
+                        "btnback": "Previous",
+                        "btnnext": "Next",
+                        "validation": {
+                            "warnings": {
+                                "lbldiffpass": "The password of confirmation is not same of password."
+                            }
+                        }
+                    },
+                    "step3": {
+                        "title": "Step 3: Final steps",
+                        "lblterms": "Terms and conditions",
+                        "btnterms": "I read and accept all terms and conditions.",
+                        "btnreset": "Reset",
+                        "btnprevious": "Previous",
+                        "btnregister": "Register",
+                        "validation": {
+                            "warnings": {
+                                "lblreqterms": "You must to accept all terms and conditions."
+                            }
+                        }
+                    },
+                    "validation": {
+                        "warnings": {
+                            "lblloggedin": "You already logged in as {displayName}!"
+                        }
+                    }
+                }
+            }
+        }
     },
-    "Error": {
-        "title": "Error",
-        "msgerror": "An error ${statusCode} occurred on server",
-        "msgerror2": "An error occurred on client",
-        "btnback": "Back"
-    },
-    "500": {
-        "title": "Error 500 - Internal server error",
-        "msgerror": "The server encountered an error and could not complete your request.",
-        "btnback": "Back"
-    },
-    "404": {
-        "title": "Error 404 - Page not found",
-        "msgerror": "This page was not found!",
-        "btnback": "Back"
+    "pages": {
+        "AuthPage": {
+            "title": "Login"
+        },
+        "RegisterPage": {
+            "title": "Register",
+            "lnkrecac": "Already have an account? Login here."
+        },
+        "HomePage": {
+            "title": "Welcome to LCPBlog!"
+        },
+        "Error": {
+            "title": "Error",
+            "msgerror": "An error ${statusCode} occurred on server",
+            "msgerror2": "An error occurred on client",
+            "btnback": "Back"
+        },
+        "500": {
+            "title": "Error 500 - Internal server error",
+            "msgerror": "The server encountered an error and could not complete your request.",
+            "btnback": "Back"
+        },
+        "404": {
+            "title": "Error 404 - Page not found",
+            "msgerror": "This page was not found!",
+            "btnback": "Back"
+        }
     }
 }

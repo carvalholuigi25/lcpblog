@@ -3,10 +3,13 @@
 import styles from "@applocale/page.module.scss";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
 import { TFormRegDataStep1, fregstep1Schema } from "@applocale/schemas/formSchemas";
 import ShowAlert from "@applocale/components/alerts";
 
 const RegFormStep1 = ({ onNext, onChange }: any) => {
+  const t = useTranslations("ui.forms.auth.register.step1");
+  
   const {
     register,
     handleSubmit,
@@ -22,41 +25,45 @@ const RegFormStep1 = ({ onNext, onChange }: any) => {
   return (
     <form className={styles.frmregstep} onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.sregistertitlefrm}>
-        <h3 className={styles.sregistertitlefrmtxt + " text-center"}>Step 1: User Data</h3>
+        <h3 className={styles.sregistertitlefrmtxt + " text-center"}>
+          {t("title") ?? "Step 1: User Data"}
+        </h3>
       </div>
 
       <div className="form-group mt-3 text-center">
-        <label htmlFor="email">Email</label>
+        <label htmlFor="email">{t("lblemail") ?? "Email"}</label>
         <div className={styles.sformgroup}>
           <i className={"bi bi-envelope " + styles.sformgroupico}></i>
-          <input type="email" {...register("email")} id="email" className={"form-control email mt-3 " + styles.sformgroupinp} placeholder="Write your email here..." onChange={onChange} />
+          <input type="email" {...register("email")} id="email" className={"form-control email mt-3 " + styles.sformgroupinp} placeholder={t("inpemail") ?? "Write your email here..."} onChange={onChange} />
         </div>
 
         {errors.email && ShowAlert("danger", errors.email.message)}
       </div>
 
       <div className="form-group mt-3 text-center">
-        <label htmlFor="username">Username</label>
+        <label htmlFor="username">{t("lblusername") ?? "Username"}</label>
         <div className={styles.sformgroup}>
           <i className={"bi bi-person-lines-fill " + styles.sformgroupico}></i>
-          <input type="username" {...register("username")} id="username" className={"form-control username mt-3 " + styles.sformgroupinp} placeholder="Write your username here..." onChange={onChange} />
+          <input type="username" {...register("username")} id="username" className={"form-control username mt-3 " + styles.sformgroupinp} placeholder={t("inpusername") ?? "Write your username here..."} onChange={onChange} />
         </div>
 
         {errors.username && ShowAlert("danger", errors.username.message)}
       </div>
 
       <div className="form-group mt-3 text-center">
-        <label htmlFor="displayname">Display Name</label>
+        <label htmlFor="displayname">{t("lbldisplayname") ?? "Display name"}</label>
         <div className={styles.sformgroup}>
           <i className={"bi bi-display " + styles.sformgroupico}></i>
-          <input type="text" {...register("displayname")} id="displayname" className={"form-control displayname mt-3 " + styles.sformgroupinp} placeholder="Write your full name here..." onChange={onChange} />
+          <input type="text" {...register("displayname")} id="displayname" className={"form-control displayname mt-3 " + styles.sformgroupinp} placeholder={t("inpdisplayname") ?? "Write your display name here..."} onChange={onChange} />
         </div>
 
         {errors.displayname && ShowAlert("danger", errors.displayname.message)}
       </div>
 
       <div className="d-inline-block mx-auto mt-3">
-        <button className="btn btn-primary btn-rounded btnnext mt-3" type="submit" disabled={isSubmitting}>Next</button>
+        <button className="btn btn-primary btn-rounded btnnext mt-3" type="submit" disabled={isSubmitting}>
+          {t("btnnext") ?? "Next"}
+        </button>
       </div>
     </form>
   );

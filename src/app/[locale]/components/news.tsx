@@ -17,6 +17,7 @@ import CarouselNews from "@applocale/components/carouselnews";
 import MyPagination from "@applocale/components/mypagination";
 import Views from "@applocale/components/views";
 import LoadingComp from "@applocale/components/loadingcomp";
+import { useTranslations } from "next-intl";
 
 export default function News({ cid, pid, locale }: { cid: number, pid: number, locale: string }) {
     const [news, setNews] = useState(new Array<Posts>());
@@ -34,6 +35,7 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
     const router = useRouter();
     const searchParams = useSearchParams();
     const spage = searchParams.get("page");
+    const t = useTranslations('ui.buttons');
 
     const loadMyCounter = useCallback(() => {
         const pthpost = "/" + locale + "/pages/news/" + cid + "/" + pid;
@@ -214,7 +216,7 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
                                             )}
 
                                             {pid == -1 && (
-                                                <button className="btn btn-primary btn-rounded mt-3 mx-auto d-inline-block" onClick={(e: any) => redirectToPost(e, newsi)}>Read more</button>
+                                                <button className="btn btn-primary btn-rounded mt-3 mx-auto d-inline-block" onClick={(e: any) => redirectToPost(e, newsi)}>{t("btnreadmore") ?? "Read more"}</button>
                                             )}
 
                                             {!!enabledViews && !hiddenViews && (

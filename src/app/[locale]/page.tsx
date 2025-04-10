@@ -9,7 +9,7 @@ import News from "@applocale/components/news";
 
 export default function Home() {
   const locale = useLocale();
-  const t = useTranslations('HomePage');
+  const t = useTranslations('pages.HomePage');
   
   return (
     <div className={styles.page} id="home">

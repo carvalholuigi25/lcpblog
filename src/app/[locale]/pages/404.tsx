@@ -3,7 +3,7 @@ import { Link } from '@/app/i18n/navigation';
 import { useTranslations } from 'next-intl';
 
 export default function Custom404() {
-    const t = useTranslations('404');
+    const t = useTranslations('pages.404');
 
     return (
         <div className="container p-3 d-flex justify-content-center align-items-center text-center mhv-100">

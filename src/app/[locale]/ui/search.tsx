@@ -2,12 +2,14 @@
 import React, { Suspense, useCallback, useState } from 'react';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { TFormSearchData, fsearchSchema } from "@applocale/schemas/formSchemas";
+import { delFromStorage, saveToStorage } from '@applocale/hooks/localstorage';
+import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from "@hookform/resolvers/zod";
-import { delFromStorage, saveToStorage } from '@applocale/hooks/localstorage';
-import ModalSearch from '@/app/[locale]/components/modals/modalsearch';
+import ModalSearch from '@applocale/components/modals/modalsearch';
 
 const Search = () => {
+    const t = useTranslations('ui');
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
@@ -60,8 +62,8 @@ const Search = () => {
                     {...register("search")}
                     type="text"
                     className="form-control inpsearch me-2"
-                    placeholder="Search"
-                    aria-label="Search"
+                    placeholder={t("searchBar") ?? "Search"}
+                    aria-label={t("searchBar") ?? "Search"}
                     onChange={handleChange}
                 />
                 <button 

@@ -2,7 +2,7 @@ import Link from "next/link"
 import {useTranslations} from 'next-intl';
 
 function Error({ statusCode }: { statusCode: number }) {
-    const t = useTranslations('Error');
+    const t = useTranslations('pages.Error');
 
     return (
         <div className="container p-3 d-flex justify-content-center align-items-center text-center mhv-100">
