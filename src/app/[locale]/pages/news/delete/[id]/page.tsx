@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
+import styles from "@applocale/page.module.scss";
 import { useEffect, useState } from "react";
 import { useParams, usePathname } from "next/navigation";
+import { Link } from '@/app/i18n/navigation';
 import { Posts } from "@applocale/interfaces/posts";
-import styles from "@applocale/page.module.scss";
+import { getDefLocale } from "@applocale/helpers/defLocale";
+import { useLocale } from "next-intl";
 import Header from "@applocale/ui/header";
 import Footer from "@applocale/ui/footer";
 import DeleteNewsForm from "@applocale/components/forms/crud/news/delete/delete";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
-import {Link} from '@/app/i18n/navigation';
-import { getDefLocale } from "@/app/[locale]/helpers/defLocale";
-import { useLocale } from "next-intl";
-import LoadingComp from "@/app/[locale]/components/loadingcomp";
+import LoadingComp from "@applocale/components/loadingcomp";
 
 export default function DeleteNews() {
   const locale = useLocale();

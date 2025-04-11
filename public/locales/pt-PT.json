@@ -31,14 +31,18 @@
           "btnlogin": "Entrar",
           "lblrecoveraccount": "Não tem conta? Registe-se aqui",
           "btnback": "Voltar para casa",
-          "warnings": {
-            "lblloggedin": "Já está logado como {displayName}!",
-            "lblreqemail": "E-mail é obrigatório.",
-            "lblreqpassword": "Palavra-passe é obrigatória."
+          "lblloggedin": "Já está logado como {displayName}!",
+          "validation": {
+            "errors": {
+              "lblreqemail": "E-mail é obrigatório.",
+              "lblreqpassword": "Palavra-passe é obrigatória.",
+              "lblinvemail": "E-mail inválido"
+            }
           }
         },
         "register": {
           "title": "Registrar",
+          "lblregistered": "Já está registrado como {displayName}!",
           "steppers": {
             "lblstepper1": "Dados do utilizador",
             "lblstepper2": "Dados Pessoais",
@@ -54,7 +58,7 @@
             "inpdisplayname": "Escreva aqui o seu nome completo",
             "btnnext": "Seguinte",
             "validation": {
-              "warnings": {
+              "errors": {
                 "lblinvemail": "E-mail inválido",
                 "lblrequsername": "Nome de utilizador é obrigatório",
                 "lblreqdisplayname": "Nome de visualização (nome completo) é obrigatório"
@@ -71,8 +75,12 @@
             "btnprevious": "Anterior",
             "btnnext": "Seguinte",
             "validation": {
-              "warnings": {
-                "lbldiffpass": "A palavra-passe de confirmação não é a mesma que a da palavra-passe."
+              "errors": {
+                "lblreqpass": "A palavra-passe é necessária",
+                "lblreqpassconf": "É necessária a confirmação da palavra-passe",
+                "lbldbdayold": "Você é muito velho!",
+                "lbldbdayoung": "Você é muito jovem!",
+                "lbldiffpass": "A palavra-passe não corresponde"
               }
             }
           },
@@ -84,15 +92,55 @@
             "btnprevious": "Anterior",
             "btnregister": "Registar",
             "validation": {
-              "warnings": {
+              "errors": {
                 "lblreqterms": "Deve aceitar todos os termos e condições."
               }
             }
           },
           "validation": {
-            "warnings": {
+            "errors": {
               "lblloggedin": "Já está logado como {displayName}!"
             }
+          }
+        }
+      },
+      "search": {
+        "validation": {
+          "errors": {
+            "lblreqsearch": "Escreva algo na barra de pesquisa!"
+          }
+        }
+      },
+      "news": {
+        "validation": {
+          "errors": {
+            "lblreqtitle": "O título deve ser preenchido",
+            "lblreqcontent": "O conteúdo deve ser preenchido"
+          }
+        }
+      },
+      "categories": {
+        "validation": {
+          "errors": {
+            "lblreqname": "O nome deve ser preenchido"
+          }
+        }
+      },
+      "users": {
+        "validation": {
+          "errors": {
+            "lblrequsername": "O nome de utilizador deve ser preenchido",
+            "lblreqpassword": "A palavra-passe deve ser preenchida",
+            "lblreqemail": "O e-mail deve ser preenchido",
+            "lblreqdisplayname": "O nome de apresentação (nome completo) deve ser preenchido"
+          }
+        }
+      },
+      "commits": {
+        "validation": {
+          "errors": {
+            "lblreqowner": "O nome do proprietário deve ser preenchido",
+            "lblreqrepo": "O nome do repositório deve ser preenchido"
           }
         }
       }

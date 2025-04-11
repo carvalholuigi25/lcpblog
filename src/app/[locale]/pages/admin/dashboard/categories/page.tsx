@@ -104,7 +104,7 @@ const AdminCategories = () => {
                                     <div className="row">
                                         <div className="col-12">
                                             <div className="btn-group" role="group" aria-label="Users data actions">
-                                                <Link href={'/pages/admin/dashboard/categories/add'} locale={locale ?? getDefLocale()} className="btn btn-primary btn-rounded btncreateusers">Add new category</Link>
+                                                <Link href={'/pages/admin/dashboard/categories/add'} className="btn btn-primary btn-rounded btncreateusers">Add new category</Link>
                                             </div>
                                         </div>
 
@@ -128,7 +128,7 @@ const AdminCategories = () => {
                             </div>
                             <div className="col-12">
                                 <div className="mt-3 mx-auto text-center">
-                                    <Link href={'/'} className="btn btn-primary btn-rounded" locale={locale ?? getDefLocale()}>Back</Link>
+                                    <Link href={'/'} className="btn btn-primary btn-rounded">Back</Link>
                                 </div>
                             </div>
                         </>

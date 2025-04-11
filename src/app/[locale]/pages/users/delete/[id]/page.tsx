@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
+import styles from "@applocale/page.module.scss";
 import { useEffect, useState } from "react";
 import { useParams, usePathname } from "next/navigation";
-import styles from "@applocale/page.module.scss";
+import { useLocale } from "next-intl";
+import { User } from "@applocale/interfaces/user";
+import { getDefLocale } from "@applocale/helpers/defLocale";
+import { Link } from '@/app/i18n/navigation';
 import Header from "@applocale/ui/header";
 import Footer from "@applocale/ui/footer";
 import DeleteUsersForm from "@applocale/components/forms/crud/users/delete/delete";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
-import { User } from "@applocale/interfaces/user";
-import { getDefLocale } from "@applocale/helpers/defLocale";
-import { Link } from '@/app/i18n/navigation';
-import { useLocale } from "next-intl";
-import LoadingComp from "@/app/[locale]/components/loadingcomp";
+import LoadingComp from "@applocale/components/loadingcomp";
 
 export default function DeleteUsers() {
   const locale = useLocale();

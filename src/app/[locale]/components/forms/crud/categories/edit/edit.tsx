@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useEffect, useState } from "react";
-import { TFormCategories, fcategoriesSchema } from "@applocale/schemas/formSchemas";
+import { useMySchemaCategories, type TFormCategories } from "@applocale/schemas/formSchemas";
 import { buildMyConnection, sendMessage } from "@applocale/functions/functions";
 import { Link } from '@/app/i18n/navigation';
 import { useForm } from "react-hook-form";
@@ -37,7 +37,7 @@ const EditCategoriesForm = ({categoryid, data}: {categoryid: number, data: Categ
         setValue,
         getValues
     } = useForm<TFormCategories>({
-        resolver: zodResolver(fcategoriesSchema),
+        resolver: zodResolver(useMySchemaCategories()),
     });
 
     watch();

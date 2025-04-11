@@ -1,105 +1,131 @@
 import { z } from "zod";
+import { useTranslations } from "next-intl";
 
-/* start of form reg */
-export const fregstep1Schema = z.object({
-    email: z.coerce.string().email({ message: "Invalid email" }),
-    username: z.coerce.string().min(1, { message: "Username is required" }),
-    displayname: z.coerce.string().min(1, { message: "Display name (full name) is required" })
-});
+export const useMySchemaRegStep1 = () => {
+    const t = useTranslations("ui.forms.auth.register.step1.validation.errors");
 
-export const fregstep2Schema = z.object({
-    password: z.coerce.string().min(1, { message: "The password is required" }),
-    passwordConfirm: z.coerce.string().min(1, { message: "The password confirmation is required" }),
-    dateBirthday: z.coerce.date().min(new Date("1900-01-01"), { message: "Too old!" }).max(new Date(), { message: "Too young!" })
-})
-.refine(({ password, passwordConfirm }) => password === passwordConfirm, {
-  message: "Password doesn't match",
-  path: ["passwordConfirm"]
-});
+    const fregstep1Schema = z.object({
+        email: z.coerce.string().email({ message: t("lblinvemail") ?? "Invalid email" }),
+        username: z.coerce.string().min(1, { message: t("lblrequsername") ?? "Username is required" }),
+        displayname: z.coerce.string().min(1, { message: t("lblreqdisplayname") ?? "Display name (full name) is required" })
+    });
 
-export const fregstep3Schema = z.object({
-    termsandcond: z.boolean({ message: "The terms and conditions needs to be accepted!" })
-});
+    return fregstep1Schema;
+}
 
-export type TFormRegDataStep1 = z.infer<typeof fregstep1Schema>;
-export type TFormRegDataStep2 = z.infer<typeof fregstep2Schema>;
-export type TFormRegDataStep3 = z.infer<typeof fregstep3Schema>;
-/* end of form reg */
+export const useMySchemaRegStep2 = () => {
+    const t = useTranslations("ui.forms.auth.register.step2.validation.errors");
 
-/* start of form log */
-export const floginSchema = z.object({
-    email: z.coerce.string().email({ message: "Invalid email" }),
-    password: z.coerce.string().min(1, { message: "The password is required" })
-});
+    const fregstep2Schema = z.object({
+        password: z.coerce.string().min(1, { message: t("lblreqpass") ?? "The password is required" }),
+        passwordConfirm: z.coerce.string().min(1, { message: t("lblreqpassconf") ?? "The password confirmation is required" }),
+        dateBirthday: z.coerce.date().min(new Date("1900-01-01"), { message: t("lbldbdayold") ?? "Too old!" }).max(new Date(), { message: t("lbldbdayoung") ?? "Too young!" })
+    })
+    .refine(({ password, passwordConfirm }) => password === passwordConfirm, {
+      message: t("lbldiffpass") ?? "Password doesn't match",
+      path: ["passwordConfirm"]
+    });
 
-export type TFormLogData = z.infer<typeof floginSchema>;
-/* end of form log*/
+    return fregstep2Schema;
+}
 
+export const useMySchemaRegStep3 = () => {
+    const t = useTranslations("ui.forms.auth.register.step3.validation.errors");
 
-/* start of form search */
-export const fsearchSchema = z.object({
-    search: z.coerce.string().min(1, { message: "Write something in the search input!" })
-});
+    const fregstep3Schema = z.object({
+        termsandcond: z.boolean({ message: t("lblreqterms") ?? "You must to accept all terms and conditions." })
+    });
 
-export type TFormSearchData = z.infer<typeof fsearchSchema>;
-/* end of form search */
+    return fregstep3Schema;
+}
 
-/* start of form news */
+export const useMySchemaLogin = () => {
+    const t = useTranslations("ui.forms.auth.login.validation.errors");
+    
+    const floginSchema = z.object({
+        email: z.coerce.string().email({ message: t("lblinvemail") ?? "Invalid email" }),
+        password: z.coerce.string().min(1, { message: t("lblreqpassword") ?? "The password is required" })
+    });
 
-export const fnewsSchema = z.object({
-    title: z.coerce.string().min(1, { message: "The title is required to be filled" }),
-    content: z.coerce.string().min(1, { message: "The content is required to be filled" }),
-    image: z.coerce.string().optional(),
-    slug: z.coerce.string().optional(),
-    status: z.coerce.string().optional(),
-    categoryId: z.coerce.number().optional(),
-    userId: z.coerce.number().optional()
-});
+    return floginSchema;
+}
 
-export type TFormNews = z.infer<typeof fnewsSchema>;
+export const useMySchemaSearch = () => {
+    const t = useTranslations("ui.forms.search.validation.errors");
 
-/* end of form news */
+    const fsearchSchema = z.object({
+        search: z.coerce.string().min(1, { message: t("lblreqsearch") ?? "Write something in the search bar!" })
+    });
+    
+    return fsearchSchema;
+}
 
-/* start of form categories */
+export const useMySchemaNews = () => {
+    const t = useTranslations("ui.forms.news.validation.errors");
 
-export const fcategoriesSchema = z.object({
-    name: z.coerce.string().min(1, { message: "The name is required to be filled" }),
-    slug: z.coerce.string().optional(),
-    status: z.coerce.string().optional()
-});
+    const fnewsSchema = z.object({
+        title: z.coerce.string().min(1, { message: t("lblreqtitle") ?? "The title is required to be filled" }),
+        content: z.coerce.string().min(1, { message: t("lblreqcontent") ?? "The content is required to be filled" }),
+        image: z.coerce.string().optional(),
+        slug: z.coerce.string().optional(),
+        status: z.coerce.string().optional(),
+        categoryId: z.coerce.number().optional(),
+        userId: z.coerce.number().optional()
+    });
+    
+    return fnewsSchema;
+}
 
-export type TFormCategories = z.infer<typeof fcategoriesSchema>;
+export const useMySchemaCategories = () => {
+    const t = useTranslations("ui.forms.categories.validation.errors");
 
-/* end of form categories */
+    const fcategoriesSchema = z.object({
+        name: z.coerce.string().min(1, { message: t("lblreqname") ?? "The name is required to be filled" }),
+        slug: z.coerce.string().optional(),
+        status: z.coerce.string().optional()
+    });
 
-/* start of form users */
+    return fcategoriesSchema;
+}
 
-export const fusersSchema = z.object({
-    userId: z.coerce.number().optional(),
-    username: z.coerce.string().min(1, { message: "The username is required to be filled" }),
-    password: z.coerce.string().min(1, { message: "The password is required to be filled" }),
-    email: z.coerce.string().email({ message: "The email is required to be filled" }),
-    displayName: z.coerce.string().min(1, { message: "The display name (full name) is required to be filled" }),
-    avatar: z.coerce.string().optional(),
-    cover: z.coerce.string().optional(),
-    about: z.coerce.string().optional(),
-    role: z.coerce.string().optional(),
-    privacy: z.coerce.string().optional(),
-    userInfoId: z.coerce.number().optional()
-});
+export const useMySchemaUsers = () => {
+    const t = useTranslations("ui.forms.users.validation.errors");
 
-export type TFormUsers = z.infer<typeof fusersSchema>;
+    const fusersSchema = z.object({
+        userId: z.coerce.number().optional(),
+        username: z.coerce.string().min(1, { message: t("lblrequsername") ?? "The username is required to be filled" }),
+        password: z.coerce.string().min(1, { message: t("lblreqpassword") ?? "The password is required to be filled" }),
+        email: z.coerce.string().email({ message: t("lblreqemail") ?? "The email is required to be filled" }),
+        displayName: z.coerce.string().min(1, { message: t("lblreqdisplayname") ?? "The display name (full name) is required to be filled" }),
+        avatar: z.coerce.string().optional(),
+        cover: z.coerce.string().optional(),
+        about: z.coerce.string().optional(),
+        role: z.coerce.string().optional(),
+        privacy: z.coerce.string().optional(),
+        userInfoId: z.coerce.number().optional()
+    });
 
-/* end of form users */
+    return fusersSchema;
+}
 
-/* start of form commits of my gh repo */
+export const useMySchemaCommits = () => {
+    const t = useTranslations("ui.forms.commits.validation.errors");
 
-export const fcommitsSchema = z.object({
-    owner: z.coerce.string().min(1, { message: "The owner name is required to be filled" }),
-    repository: z.coerce.string().min(1, { message: "The repository name is required to be filled" }),
-    branchname: z.coerce.string().optional()
-});
+    const fcommitsSchema = z.object({
+        owner: z.coerce.string().min(1, { message: t("lblreqowner") ?? "The owner name is required to be filled" }),
+        repository: z.coerce.string().min(1, { message: t("lblreqrepo") ?? "The repository name is required to be filled" }),
+        branchname: z.coerce.string().optional()
+    });
 
-export type TFormCommits = z.infer<typeof fcommitsSchema>;
+    return fcommitsSchema;
+}
 
-/* end of form commits of my gh repo */
+export type TFormRegDataStep1 = z.infer<ReturnType<typeof useMySchemaRegStep1>>;
+export type TFormRegDataStep2 = z.infer<ReturnType<typeof useMySchemaRegStep2>>;
+export type TFormRegDataStep3 = z.infer<ReturnType<typeof useMySchemaRegStep3>>;
+export type TFormLogData = z.infer<ReturnType<typeof useMySchemaLogin>>;
+export type TFormSearchData = z.infer<ReturnType<typeof useMySchemaSearch>>;
+export type TFormNews = z.infer<ReturnType<typeof useMySchemaNews>>;
+export type TFormCategories = z.infer<ReturnType<typeof useMySchemaCategories>>;
+export type TFormUsers = z.infer<ReturnType<typeof useMySchemaUsers>>;
+export type TFormCommits = z.infer<ReturnType<typeof useMySchemaCommits>>;

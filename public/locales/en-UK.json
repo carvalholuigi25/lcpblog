@@ -31,14 +31,18 @@
                     "btnlogin": "Login",
                     "lblrecoveraccount": "Dont have an account? Register here",
                     "btnback": "Back to Home",
-                    "warnings": {
-                        "lblloggedin": "You already logged in as {displayName}!",
-                        "lblreqemail": "Email is required.",
-                        "lblreqpassword": "Password is required."
+                    "lblloggedin": "You already logged in as {displayName}!",
+                    "validation": {
+                        "errors": {
+                            "lblreqemail": "Email is required.",
+                            "lblreqpassword": "Password is required.",
+                            "lblinvemail": "Invalid email"
+                        }
                     }
                 },
                 "register": {
                     "title": "Register",
+                    "lblregistered": "You already registered as {displayName}!",
                     "steppers": {
                         "lblstepper1": "User Data",
                         "lblstepper2": "Personal Data",
@@ -54,7 +58,7 @@
                         "inpdisplayname": "Write your full name here",
                         "btnnext": "Next",
                         "validation": {
-                            "warnings": {
+                            "errors": {
                                 "lblinvemail": "Invalid email",
                                 "lblrequsername": "Username is required",
                                 "lblreqdisplayname": "Display name (full name) is required"
@@ -71,8 +75,12 @@
                         "btnback": "Previous",
                         "btnnext": "Next",
                         "validation": {
-                            "warnings": {
-                                "lbldiffpass": "The password of confirmation is not same of password."
+                            "errors": {
+                                "lblreqpass": "The password is required",
+                                "lblreqpassconf": "The password confirmation is required",
+                                "lbldbdayold": "You are too old!",
+                                "lbldbdayoung": "You are too young!",
+                                "lbldiffpass": "Password doesn't match"
                             }
                         }
                     },
@@ -84,15 +92,55 @@
                         "btnprevious": "Previous",
                         "btnregister": "Register",
                         "validation": {
-                            "warnings": {
+                            "errors": {
                                 "lblreqterms": "You must to accept all terms and conditions."
                             }
                         }
                     },
                     "validation": {
-                        "warnings": {
+                        "errors": {
                             "lblloggedin": "You already logged in as {displayName}!"
                         }
+                    }
+                }
+            },
+            "search": {
+                "validation": {
+                    "errors": {
+                        "lblreqsearch": "Write something in the search bar!"
+                    }
+                }
+            },
+            "news": {
+                "validation": {
+                    "errors": {
+                        "lblreqtitle": "The title is required to be filled",
+                        "lblreqcontent": "The content is required to be filled"
+                    }
+                }
+            },
+            "categories": {
+                "validation": {
+                    "errors": {
+                        "lblreqname": "The name is required to be filled"
+                    }
+                }
+            },
+            "users": {
+                "validation": {
+                    "errors": {
+                        "lblrequsername": "The username is required to be filled",
+                        "lblreqpassword": "The password is required to be filled",
+                        "lblreqemail": "The email is required to be filled",
+                        "lblreqdisplayname": "The display name (full name) is required to be filled"
+                    }
+                }
+            },
+            "commits": {
+                "validation": {
+                    "errors": {
+                        "lblreqowner": "The owner name is required to be filled",
+                        "lblreqrepo": "The repository name is required to be filled"
                     }
                 }
             }

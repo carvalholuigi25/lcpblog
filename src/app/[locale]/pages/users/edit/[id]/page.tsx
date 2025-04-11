@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
+import styles from "@applocale/page.module.scss";
 import { useEffect, useState } from "react";
 import { useParams, usePathname } from "next/navigation";
-import styles from "@applocale/page.module.scss";
-import Header from "@applocale/ui/header";
-import Footer from "@applocale/ui/footer";
-import EditUsersForm from "@applocale/components/forms/crud/users/edit/edit";
-import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { User } from "@applocale/interfaces/user";
 import { Link } from '@/app/i18n/navigation';
 import { useLocale } from "next-intl";
-import LoadingComp from "@/app/[locale]/components/loadingcomp";
+import Header from "@applocale/ui/header";
+import Footer from "@applocale/ui/footer";
+import EditUsersForm from "@applocale/components/forms/crud/users/edit/edit";
+import FetchDataAxios from "@applocale/utils/fetchdataaxios";
+import LoadingComp from "@applocale/components/loadingcomp";
 
 export default function EditUsers() {
   const locale = useLocale();

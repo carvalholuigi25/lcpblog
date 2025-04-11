@@ -1,11 +1,11 @@
 "use client";
 import { useParams } from 'next/navigation';
+import { useLocale } from 'next-intl';
+import { getDefLocale } from '@applocale/helpers/defLocale';
 import styles from "@applocale/page.module.scss";
 import News from '@applocale/components/news';
 import Footer from "@applocale/ui/footer";
 import Header from "@applocale/ui/header";
-import { getDefLocale } from '@/app/[locale]/helpers/defLocale';
-import { useLocale } from 'next-intl';
 
 export default function NewsPage() {
   const locale = useLocale();

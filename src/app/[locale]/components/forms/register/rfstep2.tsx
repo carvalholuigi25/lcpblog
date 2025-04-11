@@ -3,7 +3,7 @@
 import styles from "@applocale/page.module.scss";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { fregstep2Schema, TFormRegDataStep2 } from "@applocale/schemas/formSchemas";
+import { useMySchemaRegStep2, type TFormRegDataStep2 } from "@applocale/schemas/formSchemas";
 import { useTranslations } from "next-intl";
 import ShowAlert from "@applocale/components/alerts";
 
@@ -15,7 +15,7 @@ const RegFormStep2 = ({ onBack, onNext, onChange }: any) => {
     handleSubmit,
     formState: { isSubmitting, errors },
   } = useForm<TFormRegDataStep2>({
-    resolver: zodResolver(fregstep2Schema),
+    resolver: zodResolver(useMySchemaRegStep2()),
   });
 
   const onSubmit = (data: any) => {

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { Suspense, useCallback, useState } from 'react';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
-import { TFormSearchData, fsearchSchema } from "@applocale/schemas/formSchemas";
+import { useMySchemaSearch, type TFormSearchData } from "@applocale/schemas/formSchemas";
 import { delFromStorage, saveToStorage } from '@applocale/hooks/localstorage';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
@@ -24,7 +24,7 @@ const Search = () => {
         register,
         formState: { isSubmitting },
     } = useForm<TFormSearchData>({
-        resolver: zodResolver(fsearchSchema),
+        resolver: zodResolver(useMySchemaSearch()),
     });
  
     const createQueryString = useCallback(

@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
 import { getFromStorage, delFromStorage, saveToStorage } from "@applocale/hooks/localstorage";
-import { TFormLogData, floginSchema } from "@applocale/schemas/formSchemas";
+import { useMySchemaLogin, type TFormLogData  } from "@applocale/schemas/formSchemas";
 import { Link } from '@/app/i18n/navigation';
 import { useTranslations } from "next-intl";
 import ShowAlert from "@applocale/components/alerts";
@@ -34,7 +34,7 @@ const LoginForm = () => {
         register,
         formState: { errors, isSubmitting },
     } = useForm<TFormLogData>({
-        resolver: zodResolver(floginSchema),
+        resolver: zodResolver(useMySchemaLogin()),
     });
 
     useEffect(() => {
@@ -73,12 +73,12 @@ const LoginForm = () => {
 
         try {
             if(formData.email.length == 0) {
-                alert(t('warnings.lblreqemail') ?? "Please provide your email");
+                alert(t('errors.lblreqemail') ?? "Please provide your email");
                 return false;
             }
             
             if(formData.password.length == 0) {
-                alert(t('warnings.lblreqpassword') ?? "Please provide your password");
+                alert(t('errors.lblreqpassword') ?? "Please provide your password");
                 return false;
             }
 
@@ -126,7 +126,7 @@ const LoginForm = () => {
                     <div className="col-12 mx-auto">
                         <div className="card card-transparent">
                             <div className="card-body text-center">
-                                <p>{t('warnings.lblloggedin', {displayName: getDisplayName()}) ?? `You already logged in as ${getDisplayName()}!`}</p>
+                                <p>{t('lblloggedin', {displayName: getDisplayName()}) ?? `You already logged in as ${getDisplayName()}!`}</p>
                                 <button className="btn btn-primary btn-rounded mt-3" onClick={handleLogout}>
                                     {tbtn('btnlogout') ?? "Logout"}
                                 </button>

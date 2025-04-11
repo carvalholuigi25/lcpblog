@@ -1,15 +1,15 @@
 "use client";
-import { useEffect, useState } from 'react';
-import { User } from '@applocale/interfaces/user';
-import {Link} from '@/app/i18n/navigation';
-import Image from 'next/image';
 import styles from "@applocale/page.module.scss";
+import { useEffect, useState } from 'react';
+import { Link } from '@/app/i18n/navigation';
+import { User } from '@applocale/interfaces/user';
+import { getDefLocale } from '@applocale/helpers/defLocale';
+import { useLocale } from 'next-intl';
+import Image from 'next/image';
 import FetchData from '@applocale/utils/fetchdata';
 import Header from '@applocale/ui/header';
 import Footer from '@applocale/ui/footer';
-import { getDefLocale } from '../../helpers/defLocale';
-import { useLocale } from 'next-intl';
-import LoadingComp from '@/app/[locale]/components/loadingcomp';
+import LoadingComp from '@applocale/components/loadingcomp';
 
 export default function AllUsersPage() {
   const locale = useLocale();

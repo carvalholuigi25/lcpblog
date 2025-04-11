@@ -7,7 +7,7 @@ import { Link } from "@/app/i18n/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { getFromStorage } from "@applocale/hooks/localstorage";
-import { fcommitsSchema, TFormCommits } from "@applocale/schemas/formSchemas";
+import { useMySchemaCommits, type TFormCommits } from "@applocale/schemas/formSchemas";
 import AdminSidebarDashboard from "@applocale/components/admin/dashboard/adbsidebar";
 import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavbar";
 import Footer from "@applocale/ui/footer";
@@ -34,7 +34,7 @@ const AdminCommitsLog = ({ locale }: { locale?: string }) => {
         register,
         formState: { errors, isSubmitting },
     } = useForm<TFormCommits>({
-        resolver: zodResolver(fcommitsSchema),
+        resolver: zodResolver(useMySchemaCommits()),
     });
 
     const isContainerFluid = true;

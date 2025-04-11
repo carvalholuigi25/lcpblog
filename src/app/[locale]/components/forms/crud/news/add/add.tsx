@@ -4,21 +4,21 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getFromStorage } from "@applocale/hooks/localstorage";
-import { TFormNews, fnewsSchema } from "@applocale/schemas/formSchemas";
+import { useMySchemaNews, type TFormNews } from "@applocale/schemas/formSchemas";
+import { buildMyConnection, getImagePath, sendMessage } from "@applocale/functions/functions";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { EditorState } from "lexical";
-import { buildMyConnection, getImagePath, sendMessage } from "@applocale/functions/functions";
+import { Link } from '@/app/i18n/navigation';
+import { Categories } from "@applocale/interfaces/categories";
+import { getDefLocale } from "@/app/[locale]/helpers/defLocale";
 import ShowAlert from "@applocale/components/alerts";
 import styles from "@applocale/page.module.scss";
 import Image from "next/image";
-import {Link} from '@/app/i18n/navigation';
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import MyEditorPost from "@applocale/components/editor/myeditorpost";
-import * as signalR from "@microsoft/signalr";
-import { Categories } from "@applocale/interfaces/categories";
-import { getDefLocale } from "@/app/[locale]/helpers/defLocale";
 import LoadingComp from "@/app/[locale]/components/loadingcomp";
+import * as signalR from "@microsoft/signalr";
 
 const AddNewsForm = () => {
     const [formData, setFormData] = useState({
@@ -45,7 +45,7 @@ const AddNewsForm = () => {
         register,
         formState: { errors, isSubmitting },
     } = useForm<TFormNews>({
-        resolver: zodResolver(fnewsSchema),
+        resolver: zodResolver(useMySchemaNews()),
     });
 
     useEffect(() => {

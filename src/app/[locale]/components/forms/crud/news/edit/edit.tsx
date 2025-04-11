@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useEffect, useState } from "react";
-import { TFormNews, fnewsSchema } from "@applocale/schemas/formSchemas";
+import { useMySchemaNews, type TFormNews } from "@applocale/schemas/formSchemas";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getFromStorage } from "@applocale/hooks/localstorage";
@@ -45,7 +45,7 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
         register,
         formState: { errors, isSubmitting },
     } = useForm<TFormNews>({
-        resolver: zodResolver(fnewsSchema),
+        resolver: zodResolver(useMySchemaNews()),
     });
 
     useEffect(() => {

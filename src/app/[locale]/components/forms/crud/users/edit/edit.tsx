@@ -1,21 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
+import styles from "@applocale/page.module.scss";
 import { useEffect, useState } from "react";
-import { TFormUsers, fusersSchema } from "@applocale/schemas/formSchemas";
+import { useMySchemaUsers, type TFormUsers } from "@applocale/schemas/formSchemas";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { getFromStorage } from "@applocale/hooks/localstorage";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { getFromStorage } from "@applocale/hooks/localstorage";
 import { getImagePath } from "@applocale/functions/functions";
+import { getDefLocale } from "@applocale/helpers/defLocale";
 import { Link } from '@/app/i18n/navigation';
 import { User } from "@applocale/interfaces/user";
 import ShowAlert from "@applocale/components/alerts";
-import styles from "@applocale/page.module.scss";
 import Image from "next/image";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
-import { getDefLocale } from "@/app/[locale]/helpers/defLocale";
-import LoadingComp from "@/app/[locale]/components/loadingcomp";
+import LoadingComp from "@applocale/components/loadingcomp";
 
 const EditUsersForm = ({id, data}: {id: number, data: User}) => {
     const [formData, setFormData] = useState({
@@ -42,7 +42,7 @@ const EditUsersForm = ({id, data}: {id: number, data: User}) => {
         register,
         formState: { errors, isSubmitting },
     } = useForm<TFormUsers>({
-        resolver: zodResolver(fusersSchema),
+        resolver: zodResolver(useMySchemaUsers()),
     });
 
     useEffect(() => {

@@ -7,14 +7,14 @@ import { useForm } from "react-hook-form";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMySchemaUsers, type TFormUsers } from "@applocale/schemas/formSchemas";
 import { getFromStorage } from "@applocale/hooks/localstorage";
-import { TFormUsers, fusersSchema } from "@applocale/schemas/formSchemas";
 import { getImagePath } from "@applocale/functions/functions";
+import { getDefLocale } from "@applocale/helpers/defLocale";
 import { Link } from '@/app/i18n/navigation';
 import ShowAlert from "@applocale/components/alerts";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
-import { getDefLocale } from "@/app/[locale]/helpers/defLocale";
-import LoadingComp from "@/app/[locale]/components/loadingcomp";
+import LoadingComp from "@applocale/components/loadingcomp";
 
 const AddUsersForm = () => {
     const [formData, setFormData] = useState({
@@ -38,7 +38,7 @@ const AddUsersForm = () => {
         register,
         formState: { errors, isSubmitting },
     } = useForm<TFormUsers>({
-        resolver: zodResolver(fusersSchema),
+        resolver: zodResolver(useMySchemaUsers()),
     });
 
     useEffect(() => {

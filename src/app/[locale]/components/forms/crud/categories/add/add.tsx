@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getFromStorage } from "@applocale/hooks/localstorage";
-import { TFormCategories, fcategoriesSchema } from "@applocale/schemas/formSchemas";
+import { useMySchemaCategories, type TFormCategories } from "@applocale/schemas/formSchemas";
 import { buildMyConnection, sendMessage } from "@applocale/functions/functions";
 import { useRouter } from "next/navigation";
 import { Link } from '@/app/i18n/navigation';
@@ -37,7 +37,7 @@ const AddCategoriesForm = () => {
         setValue,
         getValues
     } = useForm<TFormCategories>({
-        resolver: zodResolver(fcategoriesSchema),
+        resolver: zodResolver(useMySchemaCategories()),
     });
 
     watch();

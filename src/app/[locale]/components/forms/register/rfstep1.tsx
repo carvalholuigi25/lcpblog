@@ -4,7 +4,7 @@ import styles from "@applocale/page.module.scss";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
-import { TFormRegDataStep1, fregstep1Schema } from "@applocale/schemas/formSchemas";
+import { useMySchemaRegStep1, type TFormRegDataStep1 } from "@applocale/schemas/formSchemas";
 import ShowAlert from "@applocale/components/alerts";
 
 const RegFormStep1 = ({ onNext, onChange }: any) => {
@@ -15,7 +15,7 @@ const RegFormStep1 = ({ onNext, onChange }: any) => {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<TFormRegDataStep1>({
-    resolver: zodResolver(fregstep1Schema),
+    resolver: zodResolver(useMySchemaRegStep1()),
   });
 
   const onSubmit = (data: any) => {

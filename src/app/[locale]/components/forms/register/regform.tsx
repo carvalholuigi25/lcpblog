@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import {Link} from '@/app/i18n/navigation';
+import styles from "@applocale/page.module.scss";
 import axios from "axios";
 import { useEffect, useState } from 'react';
+import { Link } from '@/app/i18n/navigation';
 import { useRouter } from "next/navigation";
 import { getFromStorage } from "@applocale/hooks/localstorage";
-import styles from "@applocale/page.module.scss";
+import { getDefLocale } from '@applocale/helpers/defLocale';
+import { useTranslations } from 'next-intl';
 import RegFormStep1 from "./rfstep1";
 import RegFormStep2 from "./rfstep2";
 import RegFormStep3 from "./rfstep3";
 import Stepper from './stepper';
-import { getDefLocale } from '@applocale/helpers/defLocale';
-import { useTranslations } from 'next-intl';
 
 const RegForm = () => {
   const t = useTranslations("ui.forms.auth.register");
@@ -108,7 +108,7 @@ const RegForm = () => {
           <div className="card">
             <div className="card-body">
               <h3>{t("title") ?? "Register"}</h3>
-              <p>{t("warnings.lblloggedin") ?? `You already registered in as ${getDisplayName()}!`}</p>
+              <p>{t("lblregistered", {displayName: getDisplayName()}) ?? `You already registered in as ${getDisplayName()}!`}</p>
               <Link className="btn btn-primary ms-3 mt-3" href={'/'} locale={getDefLocale()}>
                 {tbtn("btnback") ?? "Back"}
               </Link>

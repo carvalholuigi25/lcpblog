@@ -3,9 +3,9 @@
 import styles from "@applocale/page.module.scss";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { fregstep3Schema, TFormRegDataStep3 } from "@applocale/schemas/formSchemas";
-import ShowAlert from "@applocale/components/alerts";
+import { useMySchemaRegStep3, type TFormRegDataStep3 } from "@applocale/schemas/formSchemas";
 import { useTranslations } from "next-intl";
+import ShowAlert from "@applocale/components/alerts";
 
 const RegFormStep3 = ({ onFinish, onBack, onClear, onChange }: any) => {
   const t = useTranslations("ui.forms.auth.register.step3");
@@ -15,7 +15,7 @@ const RegFormStep3 = ({ onFinish, onBack, onClear, onChange }: any) => {
     handleSubmit,
     formState: { isSubmitting, errors },
   } = useForm<TFormRegDataStep3>({
-    resolver: zodResolver(fregstep3Schema),
+    resolver: zodResolver(useMySchemaRegStep3()),
   });
 
   const onSubmit = (data: any) => {
