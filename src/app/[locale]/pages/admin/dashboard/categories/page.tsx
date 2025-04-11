@@ -18,7 +18,7 @@ import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavba
 import MyPagination from "@applocale/components/mypagination";
 
 const AdminCategories = () => {
-    const locale = useLocale();
+    const locale = useLocale() ?? getDefLocale();
     const [logInfo, setLogInfo] = useState("");
     const [isAuthorized, setIsAuthorized] = useState(false);
     const [categories, setCategories] = useState(new Array<Categories>());
@@ -128,7 +128,7 @@ const AdminCategories = () => {
                             </div>
                             <div className="col-12">
                                 <div className="mt-3 mx-auto text-center">
-                                    <Link href={'/'} className="btn btn-primary btn-rounded">Back</Link>
+                                    <Link href={'/'} className="btn btn-primary btn-rounded" locale={locale}>Back</Link>
                                 </div>
                             </div>
                         </>

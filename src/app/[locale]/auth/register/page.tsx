@@ -1,11 +1,13 @@
 "use client";
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import {Link} from '@/app/i18n/navigation';
 import styles from "@applocale/page.module.scss";
 import RegForm from "@applocale/components/forms/register/regform";
+import { getDefLocale } from '@applocale/helpers/defLocale';
 
 export default function Register() {
   const treg = useTranslations("pages.RegisterPage");
+  const locale = useLocale() ?? getDefLocale();
   
   return (
     <div className={styles.page + " " + styles.pregister} id="register">
@@ -22,7 +24,7 @@ export default function Register() {
 
               <RegForm />
 
-              <Link href={"/auth/login"} className="text-center mt-3">
+              <Link href={"/auth/login"} className="text-center mt-3" locale={locale}>
                 {treg("lnkrecac") ?? "Already have an account? Login here"}
               </Link>
             </section>

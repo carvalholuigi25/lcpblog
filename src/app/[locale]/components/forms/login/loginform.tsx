@@ -7,9 +7,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
 import { getFromStorage, delFromStorage, saveToStorage } from "@applocale/hooks/localstorage";
-import { useMySchemaLogin, type TFormLogData  } from "@applocale/schemas/formSchemas";
+import { useMySchemaLogin, type TFormLogData } from "@applocale/schemas/formSchemas";
+import { useLocale, useTranslations } from "next-intl";
+import { getDefLocale } from "@applocale/helpers/defLocale";
 import { Link } from '@/app/i18n/navigation';
-import { useTranslations } from "next-intl";
 import ShowAlert from "@applocale/components/alerts";
 import Image from "next/image";
 import axios from "axios";
@@ -17,6 +18,7 @@ import axios from "axios";
 const LoginForm = () => {
     const t = useTranslations("ui.forms.auth.login");
     const tbtn = useTranslations("ui.buttons");
+    const locale = useLocale() ?? getDefLocale();
 
     const test = true;
     const [formData, setFormData] = useState({
@@ -130,7 +132,7 @@ const LoginForm = () => {
                                 <button className="btn btn-primary btn-rounded mt-3" onClick={handleLogout}>
                                     {tbtn('btnlogout') ?? "Logout"}
                                 </button>
-                                <Link className="btn btn-primary btn-rounded ms-3 mt-3" href={'/'}>
+                                <Link className="btn btn-primary btn-rounded ms-3 mt-3" href={'/'} locale={locale}>
                                     {tbtn('btnback') ?? "Back"}
                                 </Link>
                             </div>
@@ -179,10 +181,10 @@ const LoginForm = () => {
                         </div>
                     </form>
 
-                    <Link href="/auth/register" className="text-center mt-3">
+                    <Link href="/auth/register" className="text-center mt-3" locale={locale}>
                         {t('lblrecoveraccount') ?? "Dont have an account? Register here"}
                     </Link>
-                    <Link href="/" className="btn btn-primary btn-rounded text-center mt-3">
+                    <Link href="/" className="btn btn-primary btn-rounded text-center mt-3" locale={locale}>
                         {t('btnback') ?? "Back to Home"}
                     </Link>
                 </>
