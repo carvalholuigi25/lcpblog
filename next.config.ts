@@ -8,6 +8,9 @@ const withBundleAnalyzer = NextBundleAnalyzer({
 
 const nextConfigOptions: NextConfig = {
   reactStrictMode: false,
+  compiler: {
+    styledComponents: true,
+  },
   env: {
     apiURL: 'https://localhost:5000',
     ghToken: process.env.ghToken,
@@ -31,6 +34,13 @@ const nextConfigOptions: NextConfig = {
         as: '*.js',
       },
     },
+    resolveAlias: {
+      underscore: 'lodash',
+    },
+    resolveExtensions: ['.mdx', '.tsx', '.ts', '.jsx', '.js', '.json']
+  },
+  experimental: {
+    turbopackMinify: true
   }
 };
 
