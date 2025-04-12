@@ -19,13 +19,15 @@ const Stepper = ({ currentStep }: any) => {
   return (
     <div className="d-flex justify-content-between h-auto align-items-center mt-3 mb-3 p-3">
       {steps.map((step, index) => (
-        <div
-          className={`${styles.stepper} ${getStepperAct(index)} ${getStepperComp(index)}`}
-          id="stepper"
-          key={index}
-        >
-          <div className={styles.stepperind} id="stepperind">{index + 1}</div>
-          <p className={styles.steppertext} id="steppertext">{step}</p>
+        <div key={index} className={styles.msstepper} id="msstepper">
+          <div
+            className={`${styles.stepper} ${getStepperAct(index)} ${getStepperComp(index)}`}
+            id="stepper"
+          >
+            <div className={styles.stepperind} id="stepperind">{index + 1}</div>
+            <p className={styles.steppertext} id="steppertext">{step}</p>
+          </div>
+          <hr className={styles.stepperline} id="stepperline" />
         </div>
       ))}
     </div>

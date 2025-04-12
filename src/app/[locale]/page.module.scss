@@ -281,6 +281,9 @@
 .stepper {
   position: relative;
   text-align: center;
+  font-size: calc(1rem - 0.2rem);
+  line-height: calc(1rem - 0.2rem);
+  z-index: 1;
 
   &:last-child{
     &:after {
@@ -289,16 +292,10 @@
     }
   }
 
-  &:after {
-    content: url('/stepperline.svg');
-    position: absolute;
-    top: 50%;
-    bottom: -50%;
-    right: 0;
-    left: 0;
-    width: auto;
-    max-width: 100%;
-    transform: translate(100%, -50%);
+  &:last-child {
+    .stepperline {
+      display: none;
+    }
   }
 }
 

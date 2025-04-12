@@ -429,6 +429,27 @@ footer {
   margin: auto 15px;
 }
 
+#msstepper {
+  position: relative;
+  width: calc(100% / 3);
+
+  #stepperline {
+    position: absolute;
+    min-width: 100%;
+    top: 50%;
+    left: -50%;
+    right: auto;
+    transform: translate(100%, -50%);
+    margin: -0.5rem auto;
+    padding: 0;
+    border: 1px solid;
+  }
+  
+  &:last-child #stepperline {
+    display: none;
+  }
+}
+
 .frmreg, .frmregstep {
   display: flex;
   flex-direction: column;
