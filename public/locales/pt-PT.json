@@ -19,6 +19,12 @@
     "footer": {
       "title": "Criado por"
     },
+    "loading": {
+      "title": "A carregar..."
+    },
+    "editors": {
+      "edplaceholder": "Comece a escrever..."
+    },
     "forms": {
       "auth": {
         "login": {

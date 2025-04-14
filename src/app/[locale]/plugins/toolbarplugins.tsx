@@ -21,14 +21,15 @@ function Divider() {
 }
 
 export default function ToolbarPlugin() {
-  const [editor] = useLexicalComposerContext();
   const toolbarRef = useRef(null);
+  const [editor] = useLexicalComposerContext();
   const [canUndo, setCanUndo] = useState(false);
   const [canRedo, setCanRedo] = useState(false);
   const [isBold, setIsBold] = useState(false);
   const [isItalic, setIsItalic] = useState(false);
   const [isUnderline, setIsUnderline] = useState(false);
   const [isStrikethrough, setIsStrikethrough] = useState(false);
+  const [isCode, setIsCode] = useState(false);
 
   const $updateToolbar = useCallback(() => {
     const selection = $getSelection();
@@ -38,6 +39,7 @@ export default function ToolbarPlugin() {
       setIsItalic(selection.hasFormat('italic'));
       setIsUnderline(selection.hasFormat('underline'));
       setIsStrikethrough(selection.hasFormat('strikethrough'));
+      setIsCode(selection.hasFormat('code'));
     }
   }, []);
 
@@ -170,6 +172,16 @@ export default function ToolbarPlugin() {
         className="toolbar-item"
         aria-label="Justify Align">
         <i className="format justify-align" />
+      </button>
+      <Divider />
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code');
+        }}
+        className={'toolbar-item spaced ' + (isCode ? 'active' : '')}
+        aria-label="Link">
+        <i className="format bi bi-code" />
       </button>{' '}
     </div>
   );

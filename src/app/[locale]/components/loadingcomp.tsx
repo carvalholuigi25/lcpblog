@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Ring, Tailspin, DotPulse } from 'ldrs/react';
 import { getFromStorage } from '@applocale/hooks/localstorage';
+import { useTranslations } from 'next-intl';
 
 export interface LoadingCompProps {
     type: string;
@@ -8,6 +9,7 @@ export interface LoadingCompProps {
 }
 
 export default function LoadingComp({type, icontype}: LoadingCompProps) {
+    const t = useTranslations("ui.loading");
     const [icolor, setIColor] = useState("black");
 
     useEffect(() => {
@@ -25,7 +27,7 @@ export default function LoadingComp({type, icontype}: LoadingCompProps) {
             <div className='col-12 card p-3 text-center'>
                 <div className='card-body'>
                     <i className="bi-clock" style={{ fontSize: "4rem" }}></i>
-                    <p>Loading...</p>
+                    <p>{t('title') ?? "Loading..."}</p>
                 </div>
             </div>
         )

@@ -905,7 +905,18 @@ a.fc-event:hover {
       font-size: calc($cfs - 0.4rem);
     }
   }
+}
 
+@media all and (width >= 992px) and (width <= 1199px) {
+  .cardlg {
+    .colauthorleft, .colauthorcenter, .colauthorright {
+      margin: 15px auto !important;
+      text-align: inherit !important;
+    }
+  }
+}
+
+@media all and (width <= 768px) {
   .cardlg {
     .card-author {
       flex-direction: column;
