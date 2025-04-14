@@ -42,8 +42,8 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
         saveToStorage("hiddenViews", pathname == pthpost ? "false" : "true");
         setHiddenViews(getFromStorage("hiddenViews")! == "false" ? false : true);
 
-        if(getFromStorage("viewsInfo")!) {
-            setCounter(parseInt(""+JSON.parse(getFromStorage("viewsInfo")!).viewsCounter));
+        if (getFromStorage("viewsInfo")!) {
+            setCounter(parseInt("" + JSON.parse(getFromStorage("viewsInfo")!).viewsCounter));
         }
     }, [cid, pid, locale, pathname]);
 
@@ -132,19 +132,19 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
         e.preventDefault();
         const pthpost = setPathPost(newsi.categoryId, newsi.postId);
         const vinfopid = getFromStorage("viewsInfo")! ? JSON.parse(getFromStorage("viewsInfo")!).postId : 1;
-        
+
         const data = {
             postId: newsi.postId,
-            viewsCounter: parseInt(""+(newsi.viewsCounter!+1)),
-            views: newsi.postId == vinfopid ? counter+1 : parseInt(""+(newsi.views!+1))
+            viewsCounter: parseInt("" + (newsi.viewsCounter! + 1)),
+            views: newsi.postId == vinfopid ? counter + 1 : parseInt("" + (newsi.views! + 1))
         };
 
-        setCounter(parseInt(""+data.viewsCounter));
+        setCounter(parseInt("" + data.viewsCounter));
         setHiddenViews(getFromStorage("hiddenViews")! == "false" ? false : true);
         saveToStorage("viewsInfo", JSON.stringify(data));
 
         await FetchDataAxios({
-            url: 'api/posts/views/'+data.postId,
+            url: 'api/posts/views/' + data.postId,
             method: 'put',
             reqAuthorize: false,
             data: data
@@ -165,15 +165,21 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
                 categories.map((categoryi) => {
                     if (newsi.userId == useri.userId) {
                         if (newsi.categoryId == categoryi.categoryId) {
+                            const cardgradient = () => {
+                                return !pathname.includes("pages/news/" + newsi.categoryId + "/" + newsi.postId) ? "cardlg" : "";
+                            };
+
                             items.push(
-                                <div className={`col-12 col-sm-6 col-md-${getMultiCols(i, isEnabledMultiCols)} col-lg-${getMultiCols(i, isEnabledMultiCols)} col-xl-${getMultiCols(i, isEnabledMultiCols)} mb-4`} key={"news" + i}>
+                                <div className={`col-12 col-sm-12 col-md-${getMultiCols(i, isEnabledMultiCols)} col-lg-${getMultiCols(i, isEnabledMultiCols)} col-xl-${getMultiCols(i, isEnabledMultiCols)} mt-4 mb-4`} key={"news" + i}>
                                     {cid > -1 && pid == -1 && (
                                         <div className="col-12 text-center mb-3" key={"category" + i}>
                                             <h2 className="txtcategory">{categoryi.name}</h2>
                                         </div>
                                     )}
 
-                                    <div className="card cardnews shadow rounded">
+                                    <div className={"card cardnews " + cardgradient() + " bshadow rounded"}>
+                                        {getFeaturedItem(i)}
+
                                         <Image
                                             src={getImagePath(newsi.image)}
                                             className="card-img-top rounded mx-auto d-block img-fluid"
@@ -183,49 +189,82 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
                                             priority
                                         />
 
-                                        <div className="card-body text-center">
-                                            <div className="card-info">
-                                                <div className="card-author card-text">
-                                                    {getFeaturedItem(i)}
-                                                    <Image src={getImagePath(useri.avatar)} className="rounded img-fluid img-author" width={30} height={30} alt={useri.displayName + "'s avatar"} />
-                                                    <Link href={"/pages/users/" + newsi.userId} locale={locale ?? getDefLocale()} className="txt-author">
-                                                        {useri.displayName}
-                                                    </Link>
-                                                    <span className="linesep"></span>
-                                                    <i className="bi bi-clock icodate"></i>
-                                                    <span className="ms-2 txtdate" title={"" + newsi.createdAt}>
-                                                        {new Date(newsi.createdAt).toLocaleDateString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit', weekday: undefined, hour: '2-digit', hour12: false, minute: '2-digit', second: '2-digit' })}
-                                                    </span>
+                                        <div className={"card-body text-center"}>
+                                            <div className={"scard-body"}>
+                                                <div className={"card-info "}>
+                                                    <div className={"card-author card-text"}>
+                                                        {!pathname.includes("pages/news/" + newsi.categoryId + "/" + newsi.postId) && (
+                                                            <div className="container">
+                                                                <div className="row justify-content-center align-items-center">
+                                                                    <div className="col-12 col-md-4 colauthorcenter">
+                                                                        <Image src={getImagePath(useri.avatar)} className="rounded img-fluid img-author" width={30} height={30} alt={useri.displayName + "'s avatar"} />
+                                                                        <Link href={"/pages/users/" + newsi.userId} locale={locale ?? getDefLocale()} className="ms-2 txt-author">
+                                                                            {useri.displayName}
+                                                                        </Link>
+                                                                    </div>
+                                                                    <div className="col-12 col-md-4 colauthorcenter">
+                                                                        <i className="bi bi-clock icodate"></i>
+                                                                        <span className="ms-2 txtdate" title={"" + newsi.createdAt}>
+                                                                            {new Date(newsi.createdAt).toLocaleDateString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit', weekday: undefined, hour: '2-digit', hour12: false, minute: '2-digit', second: '2-digit' })}
+                                                                        </span>
+                                                                    </div>
 
-                                                    {cid != -1 && (
-                                                        <>
-                                                            <span className="linesep"></span>
-                                                            <i className="bi bi-bookmark"></i>
-                                                            <Link href={"/pages/news/" + newsi.categoryId} locale={locale ?? getDefLocale()} className="txtcategory ms-2" title={"Categoria: " + categoryi.name}>
-                                                                {categoryi.name}
-                                                            </Link>
-                                                        </>
-                                                    )}
-                                                </div>
-                                            </div>
+                                                                    {cid != -1 && (
+                                                                        <div className="col-12 col-md-4 colauthorcenter">
+                                                                        <i className="bi bi-bookmark"></i>
+                                                                        <Link href={"/pages/news/" + newsi.categoryId} locale={locale ?? getDefLocale()} className="txtcategory ms-2" title={"Categoria: " + categoryi.name}>
+                                                                            {categoryi.name}
+                                                                        </Link>
+                                                                        </div>
+                                                                    )}
+                                                                </div>
+                                                            </div>
+                                                        )}
 
-                                            <h5 className="card-title text-center">{newsi.title}</h5>
+                                                        {!!pathname.includes("pages/news/" + newsi.categoryId + "/" + newsi.postId) && (
+                                                            <>
+                                                                <Image src={getImagePath(useri.avatar)} className="rounded img-fluid img-author" width={30} height={30} alt={useri.displayName + "'s avatar"} />
+                                                                <Link href={"/pages/users/" + newsi.userId} locale={locale ?? getDefLocale()} className="ms-2 txt-author">
+                                                                    {useri.displayName}
+                                                                </Link>
+                                                                <span className="linesep"></span>
+                                                                <i className="bi bi-clock icodate"></i>
+                                                                <span className="ms-2 txtdate" title={"" + newsi.createdAt}>
+                                                                    {new Date(newsi.createdAt).toLocaleDateString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit', weekday: undefined, hour: '2-digit', hour12: false, minute: '2-digit', second: '2-digit' })}
+                                                                </span>
 
-                                            {pid != -1 && (
-                                                <MyEditorPost value={newsi.content} editable={false} onChange={() => { }} />
-                                            )}
-
-                                            {pid == -1 && (
-                                                <button className="btn btn-primary btn-rounded mt-3 mx-auto d-inline-block" onClick={(e: any) => redirectToPost(e, newsi)}>{t("btnreadmore") ?? "Read more"}</button>
-                                            )}
-
-                                            {!!enabledViews && !hiddenViews && (
-                                                <div className={"card-footer"}>
-                                                    <div className="card-info">
-                                                        <Views counter={counter} />
+                                                                {cid != -1 && (
+                                                                    <>
+                                                                    <span className="linesep"></span>
+                                                                    <i className="bi bi-bookmark"></i>
+                                                                    <Link href={"/pages/news/" + newsi.categoryId} locale={locale ?? getDefLocale()} className="txtcategory ms-2" title={"Categoria: " + categoryi.name}>
+                                                                        {categoryi.name}
+                                                                    </Link>
+                                                                    </>
+                                                                )}
+                                                            </>
+                                                        )}
                                                     </div>
                                                 </div>
-                                            )}
+
+                                                <h5 className="card-title text-center mt-3">{newsi.title}</h5>
+
+                                                {pid != -1 && (
+                                                    <MyEditorPost value={newsi.content} editable={false} onChange={() => { }} />
+                                                )}
+
+                                                {pid == -1 && (
+                                                    <button className="btn btn-primary btn-rounded mt-3 mx-auto d-inline-block" onClick={(e: any) => redirectToPost(e, newsi)}>{t("btnreadmore") ?? "Read more"}</button>
+                                                )}
+
+                                                {!!enabledViews && !hiddenViews && (
+                                                    <div className={"card-footer"}>
+                                                        <div className="card-info">
+                                                            <Views counter={counter} />
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
