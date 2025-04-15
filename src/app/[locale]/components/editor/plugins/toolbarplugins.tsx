@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import {useCallback, useEffect, useRef, useState} from 'react';
-import {mergeRegister} from '@lexical/utils';
-import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { mergeRegister } from '@lexical/utils';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import {
   $getSelection, $isRangeSelection,
   CAN_REDO_COMMAND, CAN_UNDO_COMMAND,
@@ -11,12 +11,6 @@ import {
   SELECTION_CHANGE_COMMAND, UNDO_COMMAND,
 } from 'lexical';
 import { TOGGLE_LINK_COMMAND } from '@lexical/link';
-
-const LowPriority = 1;
-
-function Divider() {
-  return <div className="divider" />;
-}
 
 export default function ToolbarPlugin() {
   const toolbarRef = useRef(null);
@@ -31,6 +25,11 @@ export default function ToolbarPlugin() {
   const [isStrikethrough, setIsStrikethrough] = useState(false);
   const [isCode, setIsCode] = useState(false);
   const [isLink, setIsLink] = useState<boolean>(false);
+  const LowPriority = 1;
+
+  const Divider = () => {
+    return <div className="divider" />;
+  }
 
   const $updateToolbar = useCallback(() => {
     const selection = $getSelection();
@@ -46,7 +45,7 @@ export default function ToolbarPlugin() {
 
   useEffect(() => {
     return mergeRegister(
-      editor.registerUpdateListener(({editorState}) => {
+      editor.registerUpdateListener(({ editorState }) => {
         editorState.read(() => {
           $updateToolbar();
         });
@@ -80,130 +79,110 @@ export default function ToolbarPlugin() {
     );
   }, [editor, $updateToolbar]);
 
-  const clearEditor = (e: any) => {
+  const doCMD = (e: any, action: string, type: string = "general") => {
     e.preventDefault();
-    setCanClear(!canClear);
-    editor.dispatchCommand(CLEAR_EDITOR_COMMAND, undefined);
+
+    if (action == "general") {
+      if (type == "clear") {
+        setCanClear(!canClear);
+        editor.dispatchCommand(CLEAR_EDITOR_COMMAND, undefined);
+      } else if (type == "clearHistory") {
+        setCanClear(!canClear);
+        setCanClearHistory(!canClearHistory);
+        editor.dispatchCommand(CLEAR_EDITOR_COMMAND, undefined);
+        editor.dispatchCommand(CLEAR_HISTORY_COMMAND, undefined);
+      } else if (type == "undo") {
+        editor.dispatchCommand(UNDO_COMMAND, undefined);
+      } else {
+        editor.dispatchCommand(REDO_COMMAND, undefined);
+      }
+    } else if (action == "style") {
+      if (type == "bold") {
+        editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold');
+      } else if (type == "italic") {
+        editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic');
+      } else if (type == "underline") {
+        editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline');
+      } else {
+        editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'strikethrough');
+      }
+    } else if (action == "alignment") {
+      if (type == "left") {
+        editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'left');
+      } else if (type == "center") {
+        editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'center');
+      } else if (type == "right") {
+        editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'right');
+      } else {
+        editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'justify');
+      }
+    } else {
+      if (type == "code") {
+        editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code');
+      } else {
+        setIsLink((prev) => !prev);
+        editor.dispatchCommand(TOGGLE_LINK_COMMAND, {
+          url: 'https://www.google.com/',
+        });
+      }
+    }
   }
 
-  const clearHistory = (e: any) => {
-    e.preventDefault();
-    setCanClear(!canClear);
-    setCanClearHistory(!canClearHistory);
-    editor.dispatchCommand(CLEAR_EDITOR_COMMAND, undefined);
-    editor.dispatchCommand(CLEAR_HISTORY_COMMAND, undefined);
-  }
-
-  const undoEditor = (e: any) => {
-    e.preventDefault();
-    editor.dispatchCommand(UNDO_COMMAND, undefined);
-  }
-
-  const redoEditor = (e: any) => {
-    e.preventDefault();
-    editor.dispatchCommand(REDO_COMMAND, undefined);
-  }
-
-  const boldElementEditor = (e: any) => {
-    e.preventDefault();
-    editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold');
-  }
-
-  const italicElementEditor = (e: any) => {
-    e.preventDefault();
-    editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic');
-  }
-
-  const underlineElementEditor = (e: any) => {
-    e.preventDefault();
-    editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline');
-  }
-
-  const strikeElementEditor = (e: any) => {
-    e.preventDefault();
-    editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'strikethrough');
-  }
-
-  const leftElementEditor = (e: any) => {
-    e.preventDefault();
-    editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'left');
-  }
-
-  const centerElementEditor = (e: any) => {
-    e.preventDefault();
-    editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'center');
-  }
-
-  const rightElementEditor = (e: any) => {
-    e.preventDefault();
-    editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'right');
-  }
-
-  const justifyElementEditor = (e: any) => {
-    e.preventDefault();
-    editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'justify');
-  }
-
-  const codeElementEditor = (e: any) => {
-    e.preventDefault();
-    editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code');
-  }
-
-  const linkElementEditor = (e: any) => {
-    e.preventDefault();
-    setIsLink((prev) => !prev);
-    editor.dispatchCommand(TOGGLE_LINK_COMMAND, {
-      url: 'https://www.google.com/',
-    });
+  const getElements = () => {
+    return (
+      <>
+        <button disabled={!canClear} onClick={(e) => doCMD(e, "general", "clear")} className="toolbar-item spaced" aria-label="Clear">
+          <i className="bi bi-x-circle" />
+        </button>
+        <button disabled={!canClearHistory} onClick={(e) => doCMD(e, "general", "clearHistory")} className="toolbar-item spaced" aria-label="Clear">
+          <i className="bi bi-stars" />
+        </button>
+        <button disabled={!canUndo} onClick={(e) => doCMD(e, "general", "undo")} className="toolbar-item spaced" aria-label="Undo">
+          <i className="format undo" />
+        </button>
+        <button disabled={!canRedo} onClick={(e) => doCMD(e, "general", "redo")} className="toolbar-item" aria-label="Redo">
+          <i className="format redo" />
+        </button>
+        <Divider />
+        <button onClick={(e) => doCMD(e, "style", "bold")} className={'toolbar-item spaced ' + (isBold ? 'active' : '')} aria-label="Format Bold">
+          <i className="format bold" />
+        </button>
+        <button onClick={(e) => doCMD(e, "style", "italic")} className={'toolbar-item spaced ' + (isItalic ? 'active' : '')} aria-label="Format Italics">
+          <i className="format italic" />
+        </button>
+        <button onClick={(e) => doCMD(e, "style", "underline")} className={'toolbar-item spaced ' + (isUnderline ? 'active' : '')} aria-label="Format Underline">
+          <i className="format underline" />
+        </button>
+        <button onClick={(e) => doCMD(e, "style", "strikethrough")} className={'toolbar-item spaced ' + (isStrikethrough ? 'active' : '')} aria-label="Format Strikethrough">
+          <i className="format strikethrough" />
+        </button>
+        <Divider />
+        <button onClick={(e) => doCMD(e, "alignment", "left")} className="toolbar-item spaced" aria-label="Left Align" >
+          <i className="format left-align" />
+        </button >
+        <button onClick={(e) => doCMD(e, "alignment", "center")} className="toolbar-item spaced" aria-label="Center Align">
+          <i className="format center-align" />
+        </button>
+        <button onClick={(e) => doCMD(e, "alignment", "right")} className="toolbar-item spaced" aria-label="Right Align">
+          <i className="format right-align" />
+        </button>
+        <button onClick={(e) => doCMD(e, "alignment", "justify")} className="toolbar-item" aria-label="Justify Align">
+          <i className="format justify-align" />
+        </button>
+        <Divider />
+        <button onClick={(e) => doCMD(e, "misc", "code")} className={'toolbar-item spaced ' + (isCode ? 'active' : '')} aria-label="Code">
+          <i className="format bi bi-code" />
+        </button>
+        <button onClick={(e) => doCMD(e, "misc", "link")} className={'toolbar-item spaced ' + (isLink ? 'active' : '')} aria-label="Link">
+          <i className="format bi bi-link" />
+        </button>
+      </>
+    )
   }
 
   return (
     <div className="toolbar" ref={toolbarRef}>
-      <button disabled={!canClear} onClick={clearEditor} className="toolbar-item spaced" aria-label="Clear">
-        <i className="bi bi-x-circle" />
-      </button>
-      <button disabled={!canClearHistory} onClick={clearHistory} className="toolbar-item spaced" aria-label="Clear">
-        <i className="bi bi-stars" />
-      </button>
-      <button disabled={!canUndo} onClick={undoEditor} className="toolbar-item spaced" aria-label="Undo">
-        <i className="format undo" />
-      </button>
-      <button disabled={!canRedo} onClick={redoEditor} className="toolbar-item" aria-label="Redo">
-        <i className="format redo" />
-      </button>
-      <Divider />
-      <button onClick={boldElementEditor} className={'toolbar-item spaced ' + (isBold ? 'active' : '')} aria-label="Format Bold">
-        <i className="format bold" />
-      </button>
-      <button onClick={italicElementEditor} className={'toolbar-item spaced ' + (isItalic ? 'active' : '')} aria-label="Format Italics">
-        <i className="format italic" />
-      </button>
-      <button onClick={underlineElementEditor} className={'toolbar-item spaced ' + (isUnderline ? 'active' : '')} aria-label="Format Underline">
-        <i className="format underline" />
-      </button>
-      <button onClick={strikeElementEditor} className={'toolbar-item spaced ' + (isStrikethrough ? 'active' : '')} aria-label="Format Strikethrough">
-        <i className="format strikethrough" />
-      </button>
-      <Divider />
-      <button onClick={leftElementEditor} className="toolbar-item spaced" aria-label="Left Align">
-        <i className="format left-align" />
-      </button>
-      <button onClick={centerElementEditor} className="toolbar-item spaced" aria-label="Center Align">
-        <i className="format center-align" />
-      </button>
-      <button onClick={rightElementEditor} className="toolbar-item spaced" aria-label="Right Align">
-        <i className="format right-align" />
-      </button>
-      <button onClick={justifyElementEditor} className="toolbar-item" aria-label="Justify Align">
-        <i className="format justify-align" />
-      </button>
-      <Divider />
-      <button onClick={codeElementEditor} className={'toolbar-item spaced ' + (isCode ? 'active' : '')} aria-label="Code">
-        <i className="format bi bi-code" />
-      </button>
-      <button onClick={linkElementEditor} className={'toolbar-item spaced ' + (isLink ? 'active' : '')} aria-label="Link">
-        <i className="format bi bi-link" />
-      </button>{' '}
+      {getElements()}
     </div>
   );
 }
