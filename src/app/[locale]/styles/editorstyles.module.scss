@@ -375,6 +375,10 @@
     padding: 8px;
     cursor: pointer;
     vertical-align: middle;
+
+    i:not(.format), .bi {
+      filter: inherit;
+    }
   }
   
   .toolbar button.toolbar-item:disabled {

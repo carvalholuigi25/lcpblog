@@ -910,8 +910,7 @@ a.fc-event:hover {
 @media all and (width >= 992px) and (width <= 1199px) {
   .cardlg {
     .colauthorleft, .colauthorcenter, .colauthorright {
-      margin: 15px auto !important;
-      text-align: inherit !important;
+      margin: 0px 0px !important;
     }
   }
 }
@@ -923,7 +922,7 @@ a.fc-event:hover {
     }
 
     .colauthorleft, .colauthorcenter, .colauthorright {
-      margin: 15px auto !important;
+      margin: .5rem 0px !important;
       text-align: center !important;
     }
   }
