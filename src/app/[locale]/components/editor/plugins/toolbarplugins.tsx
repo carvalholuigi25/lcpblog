@@ -15,7 +15,7 @@ import {
 import { $insertList, INSERT_UNORDERED_LIST_COMMAND, INSERT_ORDERED_LIST_COMMAND, INSERT_CHECK_LIST_COMMAND } from '@lexical/list';
 import { TOGGLE_LINK_COMMAND } from '@lexical/link';
 
-export default function ToolbarPlugin({ isCleared }: { isCleared?: boolean }) {
+export default function ToolbarPlugin({ isCleared, content }: { isCleared?: boolean, content?: string }) {
   const toolbarRef = useRef(null);
   const [editor] = useLexicalComposerContext();
   const [canClear, setCanClear] = useState(false);
@@ -45,9 +45,14 @@ export default function ToolbarPlugin({ isCleared }: { isCleared?: boolean }) {
   }, []);
 
   useEffect(() => {
-    if(isCleared) {
+    if (isCleared) {
       editor.dispatchCommand(CLEAR_EDITOR_COMMAND, undefined);
       editor.focus();
+
+      if(content) {
+        const objeditp = JSON.parse(JSON.stringify(content.includes('children') ? content : '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"' + content + '","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'));
+        editor.setEditorState(editor.parseEditorState(objeditp));
+      }
     }
 
     return mergeRegister(
@@ -114,7 +119,7 @@ export default function ToolbarPlugin({ isCleared }: { isCleared?: boolean }) {
         LowPriority
       )
     );
-  }, [editor, $updateToolbar, isCleared]);
+  }, [editor, $updateToolbar, isCleared, content]);
 
   const doCMD = (e: any, action: string, type: string = "general") => {
     e.preventDefault();
@@ -160,7 +165,7 @@ export default function ToolbarPlugin({ isCleared }: { isCleared?: boolean }) {
         setIsLink((prev) => !prev);
         const url = prompt("Please write the url here", "https://www.google.com");
 
-        if(url != null) {
+        if (url != null) {
           editor.dispatchCommand(TOGGLE_LINK_COMMAND, {
             url: url,
           });

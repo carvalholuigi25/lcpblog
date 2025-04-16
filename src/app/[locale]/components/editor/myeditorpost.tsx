@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl';
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { CodeNode } from '@lexical/code';
+import { CodeHighlightNode, CodeNode } from '@lexical/code';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
 import { ListNode, ListItemNode } from '@lexical/list';
 import { HeadingNode, QuoteNode } from '@lexical/rich-text';
@@ -55,6 +55,7 @@ interface MyLexicalEditorPostProps {
     editable: boolean;
     onChange: (e: any) => void;
     isCleared?: boolean;
+    content?: string;
 }
 
 function MyOnChangePlugin({ onChange }: any) {
@@ -67,12 +68,12 @@ function MyOnChangePlugin({ onChange }: any) {
     return null;
 }
 
-export default function MyEditorPost({ keyid, value, editable, onChange, isCleared }: MyLexicalEditorPostProps) {
+export default function MyEditorPost({ keyid, value, editable, onChange, isCleared, content }: MyLexicalEditorPostProps) {
     const t = useTranslations("ui.editors");
     const objeditp = value.includes('children') ? value : '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"' + value + '","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}';
     const objeditpem = '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}';
 
-    const nodes = [AutoLinkNode, LinkNode, ListNode, ListItemNode, HeadingNode, HorizontalRuleNode, QuoteNode, CodeNode, TableNode, TableCellNode, TableRowNode];
+    const nodes = [AutoLinkNode, CodeHighlightNode, LinkNode, ListNode, ListItemNode, HeadingNode, HorizontalRuleNode, QuoteNode, CodeNode, TableNode, TableCellNode, TableRowNode];
 
     const initialConfig = {
         editorState: !!value ? objeditp : objeditpem,
@@ -131,7 +132,7 @@ export default function MyEditorPost({ keyid, value, editable, onChange, isClear
                 <Suspense fallback={getLoading()}>
                     <LexicalComposer key={keyid} initialConfig={initialConfig}>
                         <div className="editor-container-fluid">
-                            {editable && <ToolbarPlugin isCleared={isCleared} />}
+                            {editable && <ToolbarPlugin isCleared={isCleared} content={content} />}
 
                             <div className="editor-inner">
                                 <RichTextPlugin

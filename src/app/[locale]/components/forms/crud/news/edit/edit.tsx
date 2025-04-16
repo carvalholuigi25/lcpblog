@@ -199,7 +199,7 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
                         <div className="form-group mt-3 text-center">
                             <label htmlFor="content">Content</label>
                             <div className={styles.sformgroup}>
-                                <MyEditorPost {...register("content")} keyid={myEditorKey} value={formData.content ?? editorState} editable={true} onChange={onChangeEditor} isCleared={isResetedForm} />
+                                <MyEditorPost {...register("content")} keyid={myEditorKey} value={formData.content ?? editorState} editable={true} onChange={onChangeEditor} isCleared={isResetedForm} content={data.content} />
                             </div>
 
                             {errors.content && ShowAlert("danger", errors.content.message)}
