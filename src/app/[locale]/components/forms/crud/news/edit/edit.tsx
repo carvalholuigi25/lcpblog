@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
+import styles from "@applocale/page.module.scss";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useMySchemaNews, type TFormNews } from "@applocale/schemas/formSchemas";
 import { useForm } from "react-hook-form";
@@ -10,15 +12,13 @@ import { motion } from "framer-motion";
 import { Posts } from "@applocale/interfaces/posts";
 import { EditorState } from "lexical";
 import { buildMyConnection, getImagePath, sendMessage } from "@applocale/functions/functions";
+import { Link } from '@/app/i18n/navigation';
+import { Categories } from "@applocale/interfaces/categories";
+import { getDefLocale } from "@applocale/helpers/defLocale";
 import ShowAlert from "@applocale/components/alerts";
-import styles from "@applocale/page.module.scss";
-import Image from "next/image";
-import {Link} from '@/app/i18n/navigation';
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import MyEditorPost from "@applocale/components/editor/myeditorpost";
-import { Categories } from "@applocale/interfaces/categories";
-import { getDefLocale } from "@/app/[locale]/helpers/defLocale";
-import LoadingComp from "@/app/[locale]/components/loadingcomp";
+import LoadingComp from "@applocale/components/loadingcomp";
 
 const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
     const [formData, setFormData] = useState({
@@ -37,6 +37,7 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
     const [editorState, setEditorState] = useState("");
     const [logInfo] = useState(getFromStorage("logInfo"));
     const [listCategories, setListCategories] = useState([]);
+    const [myEditorKey, setMyEditorKey] = useState("");
     const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
     const [loading, setLoading] = useState(true);
     const { push } = useRouter();
@@ -44,9 +45,12 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
     const {
         register,
         formState: { errors, isSubmitting },
+        watch
     } = useForm<TFormNews>({
         resolver: zodResolver(useMySchemaNews()),
     });
+
+    watch();
 
     useEffect(() => {
         async function updateMyRealData() {
@@ -107,6 +111,7 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
 
         if(!loading) {
             updateMyRealData();
+            setMyEditorKey(Date.now().toString());
         }
     }, [isResetedForm, logInfo, data, loading]);
 
@@ -125,8 +130,10 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleReset = () => {
+    const handleReset = (e: any) => {
+        e.preventDefault();
         setIsResetedForm(true);
+        setMyEditorKey(Date.now().toString());
     };
 
     const handleSubmit = async (e: any) => {
@@ -139,6 +146,7 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
                 data: formData
             }).then(async (r) => {
                 console.log(r);
+                setMyEditorKey(Date.now().toString());
 
                 setTimeout(async () => {
                     alert("The news post (id: "+id+") has been updated sucessfully!");
@@ -191,7 +199,7 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
                         <div className="form-group mt-3 text-center">
                             <label htmlFor="content">Content</label>
                             <div className={styles.sformgroup}>
-                                <MyEditorPost {...register("content")} value={formData.content ?? editorState} editable={true} onChange={onChangeEditor} />
+                                <MyEditorPost {...register("content")} keyid={myEditorKey} value={formData.content ?? editorState} editable={true} onChange={onChangeEditor} isCleared={isResetedForm} />
                             </div>
 
                             {errors.content && ShowAlert("danger", errors.content.message)}
@@ -269,7 +277,7 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
                         </div>
 
                         <div className="d-inline-block mx-auto mt-3">
-                            <button className="btn btn-secondary btnreset btn-rounded" type="reset" onClick={handleReset}>Reset</button>
+                            <button className="btn btn-secondary btnreset btn-rounded" type="button" onClick={handleReset}>Reset</button>
                             <button className="btn btn-primary btnedit btn-rounded ms-3" type="button" onClick={handleSubmit} disabled={isSubmitting}>Edit</button>
                         </div>
                     </form>

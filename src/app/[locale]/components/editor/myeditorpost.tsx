@@ -50,9 +50,11 @@ export const MATCHERS = [
 ];
 
 interface MyLexicalEditorPostProps {
+    keyid: string;
     value: string;
     editable: boolean;
     onChange: (e: any) => void;
+    isCleared?: boolean;
 }
 
 function MyOnChangePlugin({ onChange }: any) {
@@ -65,7 +67,7 @@ function MyOnChangePlugin({ onChange }: any) {
     return null;
 }
 
-export default function MyEditorPost({ value, editable, onChange }: MyLexicalEditorPostProps) {
+export default function MyEditorPost({ keyid, value, editable, onChange, isCleared }: MyLexicalEditorPostProps) {
     const t = useTranslations("ui.editors");
     const objeditp = value.includes('children') ? value : '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"' + value + '","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}';
     const objeditpem = '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}';
@@ -127,9 +129,9 @@ export default function MyEditorPost({ value, editable, onChange }: MyLexicalEdi
         <div className={"myeditorblk"}>
             <div className="container-fluid p-0">
                 <Suspense fallback={getLoading()}>
-                    <LexicalComposer initialConfig={initialConfig}>
+                    <LexicalComposer key={keyid} initialConfig={initialConfig}>
                         <div className="editor-container-fluid">
-                            {editable && <ToolbarPlugin />}
+                            {editable && <ToolbarPlugin isCleared={isCleared} />}
 
                             <div className="editor-inner">
                                 <RichTextPlugin

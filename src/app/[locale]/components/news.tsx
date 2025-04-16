@@ -28,6 +28,7 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
     const [totalPages, setTotalPages] = useState(1);
     const [counter, setCounter] = useState(0);
     const [hiddenViews, setHiddenViews] = useState(true);
+    const [myEditorKey, setMyEditorKey] = useState(new Date().toString());
     const enabledViews = true;
     const isEnabledMultiCols = true;
     const pageSize: number = 10;
@@ -96,6 +97,7 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
         if (!loading) {
             loadMyRealData({ hubname: "datahub", skipNegotiation: false, fetchData: fetchNews });
             loadMyCounter();
+            setMyEditorKey(Date.now().toString());
         }
     }, [cid, pid, page, spage, counter, enabledViews, locale, pathname, loading, searchParams, loadMyCounter]);
 
@@ -250,7 +252,7 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
                                                 <h5 className="card-title text-center mt-3">{newsi.title}</h5>
 
                                                 {pid != -1 && (
-                                                    <MyEditorPost value={newsi.content} editable={false} onChange={() => { }} />
+                                                    <MyEditorPost keyid={myEditorKey} value={newsi.content} editable={false} onChange={() => { }} isCleared={false} />
                                                 )}
 
                                                 {pid == -1 && (

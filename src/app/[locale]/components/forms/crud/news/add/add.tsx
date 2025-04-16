@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
+import styles from "@applocale/page.module.scss";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,13 +13,11 @@ import { motion } from "framer-motion";
 import { EditorState } from "lexical";
 import { Link } from '@/app/i18n/navigation';
 import { Categories } from "@applocale/interfaces/categories";
-import { getDefLocale } from "@/app/[locale]/helpers/defLocale";
+import { getDefLocale } from "@applocale/helpers/defLocale";
 import ShowAlert from "@applocale/components/alerts";
-import styles from "@applocale/page.module.scss";
-import Image from "next/image";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import MyEditorPost from "@applocale/components/editor/myeditorpost";
-import LoadingComp from "@/app/[locale]/components/loadingcomp";
+import LoadingComp from "@applocale/components/loadingcomp";
 import * as signalR from "@microsoft/signalr";
 
 const AddNewsForm = () => {
@@ -37,6 +37,7 @@ const AddNewsForm = () => {
     const [logInfo] = useState(getFromStorage("logInfo"));
     const [loading, setLoading] = useState(true);
     const [listCategories, setListCategories] = useState([]);
+    const [myEditorKey, setMyEditorKey] = useState("");
     const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
 
     const { push } = useRouter();
@@ -44,9 +45,12 @@ const AddNewsForm = () => {
     const {
         register,
         formState: { errors, isSubmitting },
+        watch
     } = useForm<TFormNews>({
         resolver: zodResolver(useMySchemaNews()),
     });
+
+    watch();
 
     useEffect(() => {
         async function addMyRealData() {
@@ -124,8 +128,10 @@ const AddNewsForm = () => {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleReset = () => {
+    const handleReset = (e: any) => {
+        e.preventDefault();
         setIsResetedForm(true);
+        setMyEditorKey(Date.now().toString());
     };
 
     const handleSubmit = async (e: any) => {
@@ -139,6 +145,7 @@ const AddNewsForm = () => {
                 reqAuthorize: false
             }).then(async (r) => {
                 console.log(r);
+                setMyEditorKey(Date.now().toString());
 
                 setTimeout(async () => {
                     alert("The news post has been added sucessfully!");
@@ -191,7 +198,7 @@ const AddNewsForm = () => {
                         <div className="form-group mt-3 text-center">
                             <label htmlFor="content">Content</label>
                             <div className={styles.sformgroup}>
-                                <MyEditorPost {...register("content")} value={formData.content ?? editorState} editable={true} onChange={onChangeEditor} />
+                                <MyEditorPost {...register("content")} keyid={myEditorKey} value={formData.content ?? editorState} editable={true} onChange={onChangeEditor} isCleared={isResetedForm} />
                             </div>
 
                             {errors.content && ShowAlert("danger", errors.content.message)}
@@ -269,7 +276,7 @@ const AddNewsForm = () => {
                         </div>
 
                         <div className="d-inline-block mx-auto mt-3">
-                            <button className="btn btn-secondary btnreset btn-rounded" type="reset" onClick={handleReset}>Reset</button>
+                            <button className="btn btn-secondary btnreset btn-rounded" type="button" onClick={handleReset}>Reset</button>
                             <button className="btn btn-primary btnadd btn-rounded ms-3" type="button" onClick={handleSubmit} disabled={isSubmitting}>Add</button>
                         </div>
                     </form>

@@ -6,13 +6,16 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import {
   $getSelection, $isRangeSelection,
   CAN_REDO_COMMAND, CAN_UNDO_COMMAND,
-  CLEAR_EDITOR_COMMAND, CLEAR_HISTORY_COMMAND, FORMAT_ELEMENT_COMMAND,
-  FORMAT_TEXT_COMMAND, REDO_COMMAND,
-  SELECTION_CHANGE_COMMAND, UNDO_COMMAND,
+  CLEAR_EDITOR_COMMAND, CLEAR_HISTORY_COMMAND,
+  FORMAT_ELEMENT_COMMAND, FORMAT_TEXT_COMMAND,
+  INSERT_PARAGRAPH_COMMAND,
+  REDO_COMMAND, SELECTION_CHANGE_COMMAND,
+  UNDO_COMMAND
 } from 'lexical';
+import { $insertList, INSERT_UNORDERED_LIST_COMMAND, INSERT_ORDERED_LIST_COMMAND, INSERT_CHECK_LIST_COMMAND } from '@lexical/list';
 import { TOGGLE_LINK_COMMAND } from '@lexical/link';
 
-export default function ToolbarPlugin() {
+export default function ToolbarPlugin({ isCleared }: { isCleared?: boolean }) {
   const toolbarRef = useRef(null);
   const [editor] = useLexicalComposerContext();
   const [canClear, setCanClear] = useState(false);
@@ -25,16 +28,14 @@ export default function ToolbarPlugin() {
   const [isStrikethrough, setIsStrikethrough] = useState(false);
   const [isCode, setIsCode] = useState(false);
   const [isLink, setIsLink] = useState<boolean>(false);
+  const [isListUnordered, setIsListUnordered] = useState<boolean>(false);
+  const [isListOrdered, setIsListOrdered] = useState<boolean>(false);
+  const [isListChecked, setIsListChecked] = useState<boolean>(false);
   const LowPriority = 1;
-
-  const Divider = () => {
-    return <div className="divider" />;
-  }
 
   const $updateToolbar = useCallback(() => {
     const selection = $getSelection();
     if ($isRangeSelection(selection)) {
-      // Update text format
       setIsBold(selection.hasFormat('bold'));
       setIsItalic(selection.hasFormat('italic'));
       setIsUnderline(selection.hasFormat('underline'));
@@ -44,6 +45,11 @@ export default function ToolbarPlugin() {
   }, []);
 
   useEffect(() => {
+    if(isCleared) {
+      editor.dispatchCommand(CLEAR_EDITOR_COMMAND, undefined);
+      editor.focus();
+    }
+
     return mergeRegister(
       editor.registerUpdateListener(({ editorState }) => {
         editorState.read(() => {
@@ -75,9 +81,40 @@ export default function ToolbarPlugin() {
           return false;
         },
         LowPriority,
+      ),
+      editor.registerCommand(
+        INSERT_UNORDERED_LIST_COMMAND,
+        () => {
+          $insertList('bullet');
+          return false;
+        },
+        LowPriority,
+      ),
+      editor.registerCommand(
+        INSERT_ORDERED_LIST_COMMAND,
+        () => {
+          $insertList('number');
+          return false;
+        },
+        LowPriority,
+      ),
+      editor.registerCommand(
+        INSERT_CHECK_LIST_COMMAND,
+        () => {
+          $insertList('check');
+          return false;
+        },
+        LowPriority,
+      ),
+      editor.registerCommand(
+        INSERT_PARAGRAPH_COMMAND,
+        () => {
+          return false;
+        },
+        LowPriority
       )
     );
-  }, [editor, $updateToolbar]);
+  }, [editor, $updateToolbar, isCleared]);
 
   const doCMD = (e: any, action: string, type: string = "general") => {
     e.preventDefault();
@@ -119,11 +156,32 @@ export default function ToolbarPlugin() {
     } else {
       if (type == "code") {
         editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code');
-      } else {
+      } else if (type == "link") {
         setIsLink((prev) => !prev);
-        editor.dispatchCommand(TOGGLE_LINK_COMMAND, {
-          url: 'https://www.google.com/',
-        });
+        const url = prompt("Please write the url here", "https://www.google.com");
+
+        if(url != null) {
+          editor.dispatchCommand(TOGGLE_LINK_COMMAND, {
+            url: url,
+          });
+        }
+      } else if (type == "listUnordered") {
+        setIsListOrdered(false);
+        setIsListChecked(false);
+        setIsListUnordered(!isListUnordered);
+        editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined);
+      } else if (type == "listOrdered") {
+        setIsListUnordered(false);
+        setIsListChecked(false);
+        setIsListOrdered(!isListOrdered);
+        editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined);
+      } else if (type == "listCheck") {
+        setIsListOrdered(false);
+        setIsListUnordered(false);
+        setIsListChecked(!isListChecked);
+        editor.dispatchCommand(INSERT_CHECK_LIST_COMMAND, undefined);
+      } else {
+        editor.dispatchCommand(INSERT_PARAGRAPH_COMMAND, undefined);
       }
     }
   }
@@ -143,7 +201,6 @@ export default function ToolbarPlugin() {
         <button disabled={!canRedo} onClick={(e) => doCMD(e, "general", "redo")} className="toolbar-item" aria-label="Redo">
           <i className="format redo" />
         </button>
-        <Divider />
         <button onClick={(e) => doCMD(e, "style", "bold")} className={'toolbar-item spaced ' + (isBold ? 'active' : '')} aria-label="Format Bold">
           <i className="format bold" />
         </button>
@@ -156,7 +213,6 @@ export default function ToolbarPlugin() {
         <button onClick={(e) => doCMD(e, "style", "strikethrough")} className={'toolbar-item spaced ' + (isStrikethrough ? 'active' : '')} aria-label="Format Strikethrough">
           <i className="format strikethrough" />
         </button>
-        <Divider />
         <button onClick={(e) => doCMD(e, "alignment", "left")} className="toolbar-item spaced" aria-label="Left Align" >
           <i className="format left-align" />
         </button >
@@ -169,12 +225,23 @@ export default function ToolbarPlugin() {
         <button onClick={(e) => doCMD(e, "alignment", "justify")} className="toolbar-item" aria-label="Justify Align">
           <i className="format justify-align" />
         </button>
-        <Divider />
         <button onClick={(e) => doCMD(e, "misc", "code")} className={'toolbar-item spaced ' + (isCode ? 'active' : '')} aria-label="Code">
-          <i className="format bi bi-code" />
+          <i className="bi bi-code" />
         </button>
         <button onClick={(e) => doCMD(e, "misc", "link")} className={'toolbar-item spaced ' + (isLink ? 'active' : '')} aria-label="Link">
-          <i className="format bi bi-link" />
+          <i className="bi bi-link" />
+        </button>
+        <button onClick={(e) => doCMD(e, "misc", "listUnordered")} className={'toolbar-item spaced ' + (isListUnordered ? 'active' : '')} aria-label='List Unordered'>
+          <i className="bi bi-list-ul" />
+        </button>
+        <button onClick={(e) => doCMD(e, "misc", "listOrdered")} className={'toolbar-item spaced ' + (isListOrdered ? 'active' : '')} aria-label='List Ordered'>
+          <i className="bi bi-list-ol" />
+        </button>
+        <button onClick={(e) => doCMD(e, "misc", "listCheck")} className={'toolbar-item spaced ' + (isListChecked ? 'active' : '')} aria-label='List Check'>
+          <i className="bi bi-list-check" />
+        </button>
+        <button onClick={(e) => doCMD(e, "misc", "paragraph")} className={'toolbar-item spaced ' + (isLink ? 'active' : '')} aria-label="Paragraph">
+          <i className="bi bi-paragraph" />
         </button>
       </>
     )
