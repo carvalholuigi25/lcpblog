@@ -56,6 +56,18 @@ public class CommentsRepo : ControllerBase, ICommentsRepo
         return Comment;
     }
 
+    public async Task<ActionResult<IEnumerable<Comment>>> GetCommentByPost(int? postId)
+    {
+        var Comment = await _context.Comments.Where(x => x.PostId == postId).ToListAsync();
+
+        if (Comment == null)
+        {
+            return NotFound();
+        }
+
+        return Comment;
+    }
+
     public async Task<ActionResult<Comment>> CreateComment(Comment Comment)
     {
         _context.Comments.Add(Comment);

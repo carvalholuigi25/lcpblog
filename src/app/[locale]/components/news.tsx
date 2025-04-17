@@ -6,6 +6,7 @@ import { Suspense, useCallback, useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { getImagePath, loadMyRealData } from "@applocale/functions/functions";
 import { getFromStorage, saveToStorage } from "@applocale/hooks/localstorage";
+import { useTranslations } from "next-intl";
 import { Link } from '@/app/i18n/navigation';
 import { Posts } from "@applocale/interfaces/posts";
 import { User } from "@applocale/interfaces/user";
@@ -17,7 +18,7 @@ import CarouselNews from "@applocale/components/carouselnews";
 import MyPagination from "@applocale/components/mypagination";
 import Views from "@applocale/components/views";
 import LoadingComp from "@applocale/components/loadingcomp";
-import { useTranslations } from "next-intl";
+import Comments from "@applocale/components/comments";
 
 export default function News({ cid, pid, locale }: { cid: number, pid: number, locale: string }) {
     const [news, setNews] = useState(new Array<Posts>());
@@ -29,6 +30,8 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
     const [counter, setCounter] = useState(0);
     const [hiddenViews, setHiddenViews] = useState(true);
     const [myEditorKey, setMyEditorKey] = useState(new Date().toString());
+    const [isCommentFormShown, setIsCommentFormShown] = useState(false);
+    const [totalComments, setTotalComments] = useState(0);
     const enabledViews = true;
     const isEnabledMultiCols = true;
     const pageSize: number = 10;
@@ -68,12 +71,18 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
                     url: 'api/users',
                     method: 'get',
                     reqAuthorize: false
+                },
+                {
+                    url: `api/comments/posts/${pid}`,
+                    method: 'get',
+                    reqAuthorize: false
                 }
             ]);
 
             const newsdata = cid > -1 && pid > -1 ? data[0].data.filter((item: Posts) => item.categoryId == cid && item.postId == pid) : cid > -1 ? data[0].data.filter((item: Posts) => item.categoryId == cid) : data[0].data;
             const categories = cid > -1 ? data[1].data.filter((item: Categories) => item.categoryId == cid) : data[1].data;
             const usersdata = data[2].data;
+            const comments = data[3];
 
             if (newsdata) {
                 setNews(JSON.parse(JSON.stringify(newsdata)));
@@ -85,6 +94,10 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
 
             if (categories) {
                 setCategories(JSON.parse(JSON.stringify(categories)));
+            }
+
+            if(comments) {
+                setTotalComments(comments.length);
             }
 
             setTotalPages(data[0].totalPages);
@@ -159,6 +172,10 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
         });
     };
 
+    const toggleComments = () => {
+        return setIsCommentFormShown(!isCommentFormShown);
+    }
+
     const fetchNewsItems = (): any => {
         const items: any[] = [];
 
@@ -193,7 +210,7 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
 
                                         <div className={"card-body text-center"}>
                                             <div className={"scard-body"}>
-                                                <div className={"card-info "}>
+                                                <div className={"card-info"}>
                                                     <div className={"card-author card-text"}>
                                                         {!pathname.includes("pages/news/" + newsi.categoryId + "/" + newsi.postId) && (
                                                             <div className="container">
@@ -213,10 +230,10 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
 
                                                                     {cid != -1 && (
                                                                         <div className="col-12 col-md-4 colauthorleft">
-                                                                        <i className="bi bi-bookmark"></i>
-                                                                        <Link href={"/pages/news/" + newsi.categoryId} locale={locale ?? getDefLocale()} className="txtcategory ms-2" title={"Categoria: " + categoryi.name}>
-                                                                            {categoryi.name}
-                                                                        </Link>
+                                                                            <i className="bi bi-bookmark"></i>
+                                                                            <Link href={"/pages/news/" + newsi.categoryId} locale={locale ?? getDefLocale()} className="txtcategory ms-2" title={"Categoria: " + categoryi.name}>
+                                                                                {categoryi.name}
+                                                                            </Link>
                                                                         </div>
                                                                     )}
                                                                 </div>
@@ -237,11 +254,11 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
 
                                                                 {cid != -1 && (
                                                                     <>
-                                                                    <span className="linesep"></span>
-                                                                    <i className="bi bi-bookmark"></i>
-                                                                    <Link href={"/pages/news/" + newsi.categoryId} locale={locale ?? getDefLocale()} className="txtcategory ms-2" title={"Categoria: " + categoryi.name}>
-                                                                        {categoryi.name}
-                                                                    </Link>
+                                                                        <span className="linesep"></span>
+                                                                        <i className="bi bi-bookmark"></i>
+                                                                        <Link href={"/pages/news/" + newsi.categoryId} locale={locale ?? getDefLocale()} className="txtcategory ms-2" title={"Categoria: " + categoryi.name}>
+                                                                            {categoryi.name}
+                                                                        </Link>
                                                                     </>
                                                                 )}
                                                             </>
@@ -262,7 +279,25 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
                                                 {!!enabledViews && !hiddenViews && (
                                                     <div className={"card-footer"}>
                                                         <div className="card-info">
-                                                            <Views counter={counter} />
+                                                            <div className="container">
+                                                                <div className="row">
+                                                                    <div className="d-flex flex-row justify-content-start align-items-center">
+                                                                        <Views counter={counter} />
+                                                                        <button className={"btn btn-primary btn-rounded btnshcomment ms-3 " + (isCommentFormShown ? "active" : "")} onClick={toggleComments}>
+                                                                            <i className="bi bi-chat icocomments"></i>
+                                                                            <span className="numcomments">{totalComments}</span>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div className="card-info">
+                                                            <div className="container">
+                                                                <div className="row">
+                                                                    <Comments userId={newsi.userId} postId={newsi.postId ?? pid} categoryId={newsi.categoryId ?? cid} isCommentFormShown={isCommentFormShown} />
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 )}

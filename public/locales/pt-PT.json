@@ -149,6 +149,13 @@
             "lblreqrepo": "O nome do repositório deve ser preenchido"
           }
         }
+      },
+      "comments": {
+        "validation": {
+          "errors": {
+            "lblphcontent": "Escreva aqui o seu comentário"
+          }
+        }
       }
     }
   },

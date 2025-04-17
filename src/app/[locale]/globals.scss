@@ -399,8 +399,8 @@ footer {
       align-items: flex-start;
       text-align: left;
 
-      *:not(:first-child) {
-        margin-left: .8rem;
+      .bi {
+        padding-right: .5rem;
       }
     }
   }

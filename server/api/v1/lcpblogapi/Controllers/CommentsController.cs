@@ -44,6 +44,19 @@ namespace lcpblogapi.Controllers
             return await _commentsRepo.GetComment(id);
         }
 
+         /// <summary>
+        /// Gets specific comment by post id.
+        /// </summary>
+        /// <param name="postId"></param>
+        /// <returns>Gets specific comment by post id</returns>
+        /// <response code="201">Returns the specific comment by post id</response>
+        /// <response code="400">If the specific comment is empty</response>
+        [HttpGet("posts/{postId}")]
+        public async Task<ActionResult<IEnumerable<Comment>>> GetCommentByPost(int postId)
+        {
+            return await _commentsRepo.GetCommentByPost(postId);
+        }
+
         /// <summary>
         /// Updates the comment by id and body.
         /// </summary>

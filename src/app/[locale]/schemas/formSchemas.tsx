@@ -120,6 +120,20 @@ export const useMySchemaCommits = () => {
     return fcommitsSchema;
 }
 
+export const useMySchemaComments = () => {
+    const t = useTranslations("ui.forms.comments.validation.errors");
+
+    const fcommentsSchema = z.object({
+        content: z.coerce.string().min(1, { message: t("lblphcontent") ?? "Write here your comment" }),
+        status: z.coerce.string().optional(),
+        userId: z.coerce.number().optional(),
+        postId: z.coerce.number().optional(),
+        categoryId: z.coerce.number().optional()
+    });
+
+    return fcommentsSchema;
+}
+
 export type TFormRegDataStep1 = z.infer<ReturnType<typeof useMySchemaRegStep1>>;
 export type TFormRegDataStep2 = z.infer<ReturnType<typeof useMySchemaRegStep2>>;
 export type TFormRegDataStep3 = z.infer<ReturnType<typeof useMySchemaRegStep3>>;
@@ -129,3 +143,4 @@ export type TFormNews = z.infer<ReturnType<typeof useMySchemaNews>>;
 export type TFormCategories = z.infer<ReturnType<typeof useMySchemaCategories>>;
 export type TFormUsers = z.infer<ReturnType<typeof useMySchemaUsers>>;
 export type TFormCommits = z.infer<ReturnType<typeof useMySchemaCommits>>;
+export type TFormComments = z.infer<ReturnType<typeof useMySchemaComments>>;

@@ -149,6 +149,13 @@
                         "lblreqrepo": "The repository name is required to be filled"
                     }
                 }
+            },
+            "comments": {
+                "validation": {
+                    "errors": {
+                        "lblphcontent": "Write here your comment"
+                    }
+                }
             }
         }
     },
