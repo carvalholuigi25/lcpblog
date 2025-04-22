@@ -749,6 +749,124 @@ a.fc-event:hover {
   text-align: left;
 }
 
+.frmcommentsblk {
+  display: flex;
+
+  .frmcommentscol1 {
+    flex-shrink: 0 !important;
+    text-align: left;
+  }
+
+  .frmcommentscol2 {
+    flex-grow: 1 !important;
+    justify-content: space-between;
+    align-items: flex-start;
+    text-align: left;
+
+    .caret {
+      position: relative;
+
+      &::before {
+        display: block;
+        content: "";
+        -webkit-clip-path: polygon(0 0, 50% 0, 50% 50%);
+        clip-path: polygon(100% 0, 50% 0, 100% 50%);
+        width: 20px;
+        height: 20px;
+        background: white;
+        position: absolute;
+        top: 0px;
+        left: -29px;
+        padding: 15px;
+        z-index: 0;
+        border-radius: 0;
+        border: 0;
+      }
+    }
+  }
+
+  .img-author {
+    width: 50px;
+    height: 50px;
+
+    &.rounded {
+      border-radius: 50% !important;
+    }
+  }
+
+  .content {
+    border-radius: 1rem;
+    border-color: inherit;
+
+    &.caretcontrol {
+      border: 0 !important;
+      border-top-left-radius: 0;
+      border-top-right-radius: 15px;
+      border-bottom-right-radius: 15px;
+      border-bottom-left-radius: 15px;  
+    }
+
+    &::placeholder {
+      color: inherit;
+    }
+  }
+}
+
+.commentsblk {
+  display: flex;
+
+  .commentcol1 {
+    flex-shrink: 0 !important;
+    text-align: left;
+  }
+
+  .commentcol2 {
+    flex-grow: 1 !important;
+    justify-content: space-between;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .img-author {
+    width: 50px;
+    height: 50px;
+
+    &.rounded {
+      border-radius: 50% !important;
+    }
+  }
+
+  .namecomment {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+  }
+
+  .btncommentactions {
+    .bi, i {
+      padding: 0 !important;
+    }
+
+    &:after {
+      display: none;
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  .contentcomment {
+    text-align: justify;
+    line-height: 2rem;
+    border-color: inherit;
+  }
+
+  .timecomment {
+    font-size: .8rem;
+  }
+}
+
 .ws-pre {
   white-space: pre;
 }

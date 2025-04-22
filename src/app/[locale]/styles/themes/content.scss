@@ -9,12 +9,14 @@
     --bs-body-color: #{$fgcolorprimary};
     --bs-body-bg: #{$bgcolorprimary};
 
-    @if $themename == "red" {
+    @if $themename =="red" {
         --fc-now-indicator-color: #9a0303;
-    } @else {
+    }
+
+    @else {
         --fc-now-indicator-color: red;
     }
-    
+
     .navbar {
         --background: #{$bgcolorprimary};
         background: var(--background) !important;
@@ -58,18 +60,22 @@
         }
     }
 
-    .offcanvas {        
+    .offcanvas {
         .btn-close {
             --bs-btn-close-color: #{$fgcolorprimary};
             --bs-btn-close-white-filter: invert(1) grayscale(100%) brightness(200%);
-            
-            @if $themename == "dark" {
+
+            @if $themename =="dark" {
                 --bs-btn-close-bg: url("/icons/close/closeico_light.svg");
                 --bs-btn-close-white-filter: invert(0) grayscale(100%) brightness(200%);
-            } @else if $themename == "light" {
+            }
+
+            @else if $themename =="light" {
                 --bs-btn-close-bg: url("/icons/close/closeico_dark.svg");
                 --bs-btn-close-white-filter: invert(1) grayscale(100%) brightness(0%);
-            } @else {
+            }
+
+            @else {
                 --bs-btn-close-bg: url("/icons/close/closeico.svg");
                 --bs-btn-close-white-filter: invert(0) grayscale(100%) brightness(200%);
             }
@@ -91,36 +97,52 @@
         color: $fgcolorprimary;
         border-color: $fgcolorprimary;
 
-        .modal-header, .modal-body, .modal-footer {
+        .modal-header,
+        .modal-body,
+        .modal-footer {
             border-color: $fgcolorprimary;
         }
 
         .btn-close {
             --bs-btn-close-color: #{$fgcolorprimary};
             --bs-btn-close-white-filter: invert(1) grayscale(100%) brightness(200%);
-            
-            @if $themename == "light" {
+
+            @if $themename =="light" {
                 --bs-btn-close-bg: url("/icons/close/closeico_light.svg");
                 --bs-btn-close-white-filter: invert(1) grayscale(100%) brightness(200%);
-            } @else if $themename == "dark" {
+            }
+
+            @else if $themename =="dark" {
                 --bs-btn-close-bg: url("/icons/close/closeico_dark.svg");
                 --bs-btn-close-white-filter: invert(1) grayscale(100%) brightness(200%);
-            } @else if $themename == "system" {
+            }
+
+            @else if $themename =="system" {
                 --bs-btn-close-bg: url("/icons/close/closeico_light.svg");
                 --bs-btn-close-white-filter: invert(1) grayscale(100%) brightness(200%);
-            } @else if $themename == "red" {
+            }
+
+            @else if $themename =="red" {
                 --bs-btn-close-bg: url("/icons/close/closeico_light.svg");
                 --bs-btn-close-white-filter: invert(0) grayscale(100%) brightness(200%);
-            } @else if $themename == "green" {
+            }
+
+            @else if $themename =="green" {
                 --bs-btn-close-bg: url("/icons/close/closeico_light.svg");
                 --bs-btn-close-white-filter: invert(1) grayscale(100%) brightness(200%);
-            } @else if $themename == "blue" {
+            }
+
+            @else if $themename =="blue" {
                 --bs-btn-close-bg: url("/icons/close/closeico_light.svg");
                 --bs-btn-close-white-filter: invert(0) grayscale(100%) brightness(200%);
-            } @else if $themename == "yellow" {
+            }
+
+            @else if $themename =="yellow" {
                 --bs-btn-close-bg: url("/icons/close/closeico_light.svg");
                 --bs-btn-close-white-filter: invert(1) grayscale(100%) brightness(200%);
-            } @else {
+            }
+
+            @else {
                 --bs-btn-close-bg: url("/icons/close/closeico.svg");
                 --bs-btn-close-white-filter: invert(0) grayscale(100%) brightness(200%);
             }
@@ -143,7 +165,9 @@
                 --bs-dropdown-link-active-color: #{$fgcolorprimary};
             }
 
-            :active, :focus, :hover {
+            :active,
+            :focus,
+            :hover {
                 background-color: $bgcolorsecondary !important;
                 color: $fgcolorprimary !important;
             }
@@ -167,11 +191,14 @@
     }
 
     .table {
-        thead, tfoot {
+
+        thead,
+        tfoot {
             background-color: $bgcolorprimary;
             color: $fgcolorprimary;
 
-            th, td {
+            th,
+            td {
                 background-color: inherit;
                 color: $fgcolorprimary;
             }
@@ -179,9 +206,10 @@
 
         tbody {
             background-color: #{$bgcolorprimary + "b3"};
-            color: $fgcolorprimary;            
+            color: $fgcolorprimary;
 
-            th, td {
+            th,
+            td {
                 background-color: inherit;
                 border-color: inherit;
                 color: inherit;
@@ -222,16 +250,22 @@
             }
 
             .toolbar-item {
-                @if $themename == "dark" {
+                @if $themename =="dark" {
                     filter: invert(100%) sepia(100%) saturate(7%) hue-rotate(119deg) brightness(103%) contrast(102%);
-                } @else {
+                }
+
+                @else {
                     filter: invert(0%) sepia(98%) saturate(14%) hue-rotate(43deg) brightness(90%) contrast(100%);
                 }
 
-                &:hover, &:active, &:focus {
-                    @if $themename == "dark" {
+                &:hover,
+                &:active,
+                &:focus {
+                    @if $themename =="dark" {
                         filter: invert(100%) sepia(100%) saturate(7%) hue-rotate(119deg) brightness(103%) contrast(102%);
-                    } @else {
+                    }
+
+                    @else {
                         filter: invert(0%) sepia(98%) saturate(14%) hue-rotate(43deg) brightness(90%) contrast(100%);
                     }
                 }
@@ -244,11 +278,12 @@
             background-color: $bgcolorsecondary;
         }
 
-        &.sactive #stepperind, &.scomplete #stepperind {
+        &.sactive #stepperind,
+        &.scomplete #stepperind {
             background-color: $bgcolorprimary !important;
         }
     }
-    
+
     .card {
         background-color: $bgcolorprimary;
         color: $fgcolorprimary;
@@ -271,7 +306,9 @@
         background-color: $bgcolorprimary;
     }
 
-    section, .container, .container-fluid {
+    section,
+    .container,
+    .container-fluid {
         .btn {
             background-color: $bgcolorprimary;
             border-color: $bgcolorprimary;
@@ -283,7 +320,10 @@
         background-color: #{$bgcolorsecondary + "b3"} !important;
         color: $fgcolorsecondary;
 
-        label, p, i, a {
+        label,
+        p,
+        i,
+        a {
             color: $fgcolorprimary;
         }
 
@@ -311,7 +351,10 @@
         background-color: #{$bgcolorsecondary + "b3"} !important;
         color: $fgcolorsecondary;
 
-        label, p, i, a {
+        label,
+        p,
+        i,
+        a {
             color: $fgcolorprimary;
         }
 
@@ -360,7 +403,8 @@
             }
         }
 
-        .active > .page-link, .page-link.active {
+        .active>.page-link,
+        .page-link.active {
             background-color: $bgcolorprimary !important;
             border-color: $bgcolorprimary !important;
             color: $fgcolorprimary !important;
@@ -378,8 +422,11 @@
         .rbc-toolbar {
             button {
                 color: $fgcolorprimary;
-            
-                &:focus, &:active, &:hover, &:focus-visible {
+
+                &:focus,
+                &:active,
+                &:hover,
+                &:focus-visible {
                     background-color: $bgcolorprimary;
                 }
             }
@@ -396,7 +443,10 @@
                 background-color: $bgcolorsecondary;
             }
 
-            &:active, &:hover, &:focus, &:focus-visible {
+            &:active,
+            &:hover,
+            &:focus,
+            &:focus-visible {
                 background-color: $bgcolorsecondary;
             }
         }
@@ -405,7 +455,8 @@
             color: $fgcolorprimary;
         }
 
-        .rbc-off-range-bg, .rbc-off-range {
+        .rbc-off-range-bg,
+        .rbc-off-range {
             background-color: $bgcolorsecondary;
         }
 
@@ -418,7 +469,9 @@
             border-color: $fgcolorprimary;
         }
 
-        .rbc-calendar *, .rbc-calendar ::before, .rbc-calendar ::after {
+        .rbc-calendar *,
+        .rbc-calendar ::before,
+        .rbc-calendar ::after {
             border-color: $fgcolorprimary;
         }
     }
@@ -427,7 +480,7 @@
         .nav-link {
             background-color: $bgcolorsecondary;
             color: $fgcolorprimary;
-            
+
             &.active {
                 background-color: $bgcolorprimary;
             }
@@ -437,6 +490,20 @@
     .contentjson {
         background-color: #{$bgcolorprimary + "b3"};
         color: $fgcolorprimary;
+    }
+
+    .frmcommentsblk {
+        .frmcommentscol2 {
+            .caret {
+                &::before {
+                    background: $bgcolorsecondary;
+                }
+            }
+
+            .content {
+                background: $bgcolorsecondary;
+            }
+        }
     }
 
     footer {

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import styles from "@applocale/page.module.scss";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
@@ -156,13 +157,55 @@ export default function Comments({ userId, postId, categoryId, isCommentFormShow
             usersData.map((y: User) => {
                 if (y.userId == x.userId) {
                     items.push(
-                        <div className="d-flex mt-3 mb-3" key={x.commentId}>
-                            <div className="flex-shrink-0">
-                                <Image src={getImagePath(JSON.parse(logInfo!)[0].avatar!)} className="rounded img-fluid img-author" width={50} height={50} alt={JSON.parse(logInfo!)[0].displayName! + "'s avatar"} />
+                        <div className="d-flex mt-3 mb-3 commentsblk" key={x.commentId}>
+                            <div className="commentcol1">
+                                <Link href={`/pages/users/${y.userId}`} target="_blank">
+                                    <Image src={getImagePath(y.avatar!)} className="rounded img-fluid img-author" width={50} height={50} alt={y.displayName! + "'s avatar"} />
+                                </Link>
                             </div>
-                            <div className="flex-grow-1 ms-3 justify-content-start align-items-start">
-                                <h5>{y.displayName}</h5>
-                                <p>{x.content}</p>
+                            <div className="commentcol2 ms-3">
+                                {["admin", "moderator", "user"].includes(y.role!) && (
+                                    <div className="namecomment">
+                                        <Link href={`/pages/users/${y.userId}`} target="_blank">
+                                            <h5 className="text-start">{y.displayName}</h5>
+                                        </Link>
+
+                                        <div className={"dropdown text-start " + (!!isLoggedIn && y.userId == x.userId ? "" : "hidden")}>
+                                            <a className="btn btn-primary dropdown-toggle btn-rounded btncommentactions" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i className="bi bi-three-dots"></i>
+                                            </a>
+
+                                            <ul className="dropdown-menu">
+                                                <li>
+                                                    <Link className="dropdown-item" href={`/comments/edit/${x.postId}/${x.commentId}`}>
+                                                        <i className="bi bi-pen me-1"></i>
+                                                        Edit
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <Link className="dropdown-item" href={`/comments/delete/${x.postId}/${x.commentId}`}>
+                                                        <i className="bi bi-trash me-1"></i>
+                                                        Delete
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <Link className="dropdown-item" href="#">
+                                                        <i className="bi bi-lock me-1"></i>
+                                                        Lock
+                                                    </Link>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                )}
+
+                                <p className="contentcomment">{x.content}</p>
+                                <p className="timecomment mt-2">
+                                    <i className="bi bi-clock"></i>
+                                    <span className="time" title={x.createdAt}>
+                                        {new Date(x.createdAt!).toLocaleDateString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit', weekday: undefined, hour: '2-digit', hour12: false, minute: '2-digit', second: '2-digit' })}
+                                    </span>
+                                </p>
                             </div>
                         </div>
                     );
@@ -170,22 +213,22 @@ export default function Comments({ userId, postId, categoryId, isCommentFormShow
             });
         });
 
-        return items;
+        return !!isCommentFormShown && items;
     }
 
     const getMyFormComments = () => {
-        return isLoggedIn && !!isCommentFormShown && (
+        return !!isCommentFormShown && isLoggedIn && (
             <>
-                {getMyComments()}
-                <div className="d-flex">
-                    <div className="flex-shrink-0">
+                <div className="frmcommentsblk mt-3 mb-3">
+                    <div className="frmcommentscol1">
                         <Image src={getImagePath(JSON.parse(logInfo!)[0].avatar!)} className="rounded img-fluid img-author" width={50} height={50} alt={JSON.parse(logInfo!)[0].displayName! + "'s avatar"} />
                     </div>
-                    <div className="flex-grow-1 ms-3">
+                    <div className="frmcommentscol2 ms-3">
                         <form className={styles.frmaddcomments}>
                             <div className="form-group text-center">
                                 <div className={styles.sformgroup}>
-                                    <textarea {...register("content")} id="content" name="content" className={"form-control content " + styles.sformgroupinp} placeholder={t('lblphcontent')} value={formData.content} onChange={handleChange} required />
+                                    <div className="caret"></div>
+                                    <textarea {...register("content")} id="content" name="content" className={"form-control content caretcontrol " + styles.sformgroupinp} placeholder={t('lblphcontent')} value={formData.content} onChange={handleChange} cols={1} rows={5} required />
                                 </div>
 
                                 {errors.content && ShowAlert("danger", errors.content.message)}
@@ -237,6 +280,7 @@ export default function Comments({ userId, postId, categoryId, isCommentFormShow
 
     return (
         <>
+            {getMyComments()}
             {getMyFormComments()}
         </>
     );
