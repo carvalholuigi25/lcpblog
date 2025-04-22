@@ -10,6 +10,7 @@ public interface ICommentsRepo {
     Task<ActionResult<IEnumerable<Comment>>> GetCommentByPost(int? postId);
     Task<ActionResult<Comment>> CreateComment(Comment Comment);
     Task<IActionResult> PutComment(int? id, Comment Comment);
+    Task<IActionResult> PutCommentByPost(int postId, string cstatus);
     Task<IActionResult> DeleteComment(int? id);
     Task<int> GetTotalCountAsync(QueryParams queryParams);
 }

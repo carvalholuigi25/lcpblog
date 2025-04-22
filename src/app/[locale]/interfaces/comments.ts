@@ -4,9 +4,9 @@ export interface Comments {
     status: string;
     userId: number;
     postId: number;
+    categoryId?: number;
     createdAt?: string;
     updatedAt?: string;
-    categoryId: number;
 }
 
 export interface CommentsData {

@@ -44,7 +44,7 @@ namespace lcpblogapi.Controllers
             return await _commentsRepo.GetComment(id);
         }
 
-         /// <summary>
+        /// <summary>
         /// Gets specific comment by post id.
         /// </summary>
         /// <param name="postId"></param>
@@ -69,6 +69,20 @@ namespace lcpblogapi.Controllers
         public async Task<IActionResult> PutComment(int id, Comment Comment)
         {
             return await _commentsRepo.PutComment(id, Comment);
+        }
+
+        /// <summary>
+        /// Updates specific comment by post id.
+        /// </summary>
+        /// <param name="postId"></param>
+        /// <param name="cstatus"></param>
+        /// <returns>Updates specific comment by post id.</returns>
+        /// <response code="201">Returns the updated comment by post id</response>
+        /// <response code="400">If the specific comment is empty or not updated</response>
+        [HttpPut("posts/{postId}")]
+        public async Task<IActionResult> PutCommentByPost(int postId, string cstatus)
+        {
+            return await _commentsRepo.PutCommentByPost(postId, cstatus);
         }
 
         /// <summary>

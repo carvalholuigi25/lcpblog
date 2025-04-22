@@ -33,3 +33,9 @@ public class Comment
     [JsonIgnore]
     public User? User { get; set; }
 }
+
+public class CommentStatus {
+    public int? PostId { get; set; } = 1;
+    [DefaultValue(ECommentStatus.all)]
+    public ECommentStatus? Status { get; set; } = ECommentStatus.all;
+}

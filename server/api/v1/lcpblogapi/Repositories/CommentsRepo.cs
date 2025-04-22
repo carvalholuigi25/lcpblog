@@ -104,6 +104,48 @@ public class CommentsRepo : ControllerBase, ICommentsRepo
         return NoContent();
     }
 
+    public async Task<IActionResult> PutCommentByPost(int postId, string cstatus)
+    {
+        try
+        {
+            var Comment = await _context.Comments.AsNoTracking().FirstOrDefaultAsync(x => x.PostId == postId);
+
+            if (Comment == null)
+            {
+                return NotFound();
+            }
+
+            _context.Comments.Update(new Comment {
+                CommentId = Comment.CommentId,
+                Content = Comment.Content,
+                CreatedAt = Comment.CreatedAt,
+                UpdatedAt = DateTimeOffset.Now,
+                Status = cstatus == "1" || cstatus == "unlocked" ? Models.Enums.ECommentStatus.locked : Models.Enums.ECommentStatus.all,
+                UserId = Comment.UserId,
+                PostId = Comment.PostId
+            });
+
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!CommentExists(postId))
+            {
+                return NotFound();
+            }
+            else
+            {
+                throw;
+            }
+        }
+        finally 
+        {
+            _context.ChangeTracker.Clear();
+        }
+
+        return NoContent();
+    }
+
     public async Task<IActionResult> DeleteComment(int? id)
     {
         var Comment = await _context.Comments.FindAsync(id);

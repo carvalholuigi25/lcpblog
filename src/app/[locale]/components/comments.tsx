@@ -37,16 +37,17 @@ export default function Comments({ userId, postId, categoryId, isCommentFormShow
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isResetedForm, setIsResetedForm] = useState(false);
-    const [logInfo] = useState(getFromStorage("logInfo"));
     const [loading, setLoading] = useState(true);
+    const [logInfo] = useState(getFromStorage("logInfo"));
     const [commentsData, setCommentsData] = useState(new Array<any>());
     const [usersData, setUsersData] = useState(new Array<User>());
+    const [isUnlockedComment, setIsUnlockedComment] = useState(false);
     const { push } = useRouter();
 
     const {
         register,
         formState: { errors, isSubmitting },
-        watch
+        watch,
     } = useForm<TFormComments>({
         resolver: zodResolver(useMySchemaComments()),
     });
@@ -70,6 +71,7 @@ export default function Comments({ userId, postId, categoryId, isCommentFormShow
 
             if (data[0]) {
                 setCommentsData(JSON.parse(JSON.stringify(data[0])));
+                setIsUnlockedComment(data[0].status == "locked" || data[0].status == "all" ? true : false);
             }
 
             if (data[1]) {
@@ -133,6 +135,32 @@ export default function Comments({ userId, postId, categoryId, isCommentFormShow
         }
     };
 
+    const lockOrUnlockComment = async (e: any, status: string = "") => {
+        e.preventDefault();
+        setIsUnlockedComment(status == "all" || status == "locked" ? true : false);
+
+        try {
+            await FetchDataAxios({
+                url: `api/comments/posts/${postId}?cstatus=${!isUnlockedComment ? "0" : "1"}`,
+                method: 'put',
+                reqAuthorize: true,
+                data: {
+                    postId: postId,
+                    status: status,
+                }
+            }).then(async (r) => {
+                console.log(r);
+                const lockstatus = !isUnlockedComment ? "unlocked" : "locked";
+                alert(`The current comment ${lockstatus} has been sucessfully!`);
+                push("/");
+            }).catch((err) => {
+                console.error(err);
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     const getEmptyComments = (): any => {
         return (
             <div className='col-12 mb-3' key={"emptycomments"}>
@@ -157,7 +185,7 @@ export default function Comments({ userId, postId, categoryId, isCommentFormShow
             usersData.map((y: User) => {
                 if (y.userId == x.userId) {
                     items.push(
-                        <div className="d-flex mt-3 mb-3 commentsblk" key={x.commentId}>
+                        <div className={"d-flex mt-3 mb-3 commentsblk " + (x.status == "locked" ? "commentlocked" : "")} key={x.commentId}>
                             <div className="commentcol1">
                                 <Link href={`/pages/users/${y.userId}`} target="_blank">
                                     <Image src={getImagePath(y.avatar!)} className="rounded img-fluid img-author" width={50} height={50} alt={y.displayName! + "'s avatar"} />
@@ -171,27 +199,33 @@ export default function Comments({ userId, postId, categoryId, isCommentFormShow
                                         </Link>
 
                                         <div className={"dropdown text-start " + (!!isLoggedIn && y.userId == x.userId ? "" : "hidden")}>
+                                            {x.status == "locked" && (
+                                                <a className="btn btn-primary btn-rounded btndisabled" href="#" role="button" aria-disabled>
+                                                    <i className="bi bi-lock ps-0 pe-0"></i>
+                                                </a>
+                                            )}
+
                                             <a className="btn btn-primary dropdown-toggle btn-rounded btncommentactions" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <i className="bi bi-three-dots"></i>
                                             </a>
 
                                             <ul className="dropdown-menu">
                                                 <li>
-                                                    <Link className="dropdown-item" href={`/comments/edit/${x.postId}/${x.commentId}`}>
+                                                    <Link className="dropdown-item" href={`/pages/comments/edit/${x.commentId}`}>
                                                         <i className="bi bi-pen me-1"></i>
                                                         Edit
                                                     </Link>
                                                 </li>
                                                 <li>
-                                                    <Link className="dropdown-item" href={`/comments/delete/${x.postId}/${x.commentId}`}>
+                                                    <Link className="dropdown-item" href={`/pages/comments/delete/${x.commentId}`}>
                                                         <i className="bi bi-trash me-1"></i>
                                                         Delete
                                                     </Link>
                                                 </li>
-                                                <li>
-                                                    <Link className="dropdown-item" href="#">
-                                                        <i className="bi bi-lock me-1"></i>
-                                                        Lock
+                                                <li className="hidden">
+                                                    <Link className="dropdown-item" href="#" onClick={(e: any) => lockOrUnlockComment(e, x.status)}>
+                                                        <i className={"bi " + (x.status == "locked" || x.status == "1" ? "bi-unlock" : "bi-lock") + " me-1"}></i>
+                                                        {(x.status == "locked" || x.status == "1" ? "Unlock" : "Lock")}
                                                     </Link>
                                                 </li>
                                             </ul>
