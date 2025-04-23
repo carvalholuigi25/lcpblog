@@ -215,13 +215,13 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
                                                         {!pathname.includes("pages/news/" + newsi.categoryId + "/" + newsi.postId) && (
                                                             <div className="container">
                                                                 <div className="row justify-content-center align-items-center">
-                                                                    <div className="col-12 col-md-4 colauthorright">
+                                                                    <div className="col-auto colauthorright">
                                                                         <Image src={getImagePath(useri.avatar)} className="rounded img-fluid img-author" width={30} height={30} alt={useri.displayName + "'s avatar"} />
                                                                         <Link href={"/pages/users/" + newsi.userId} locale={locale ?? getDefLocale()} className="ms-2 txt-author">
                                                                             {useri.displayName}
                                                                         </Link>
                                                                     </div>
-                                                                    <div className="col-12 col-md-4 colauthorleft">
+                                                                    <div className="col-auto colauthorleft">
                                                                         <i className="bi bi-clock icodate"></i>
                                                                         <span className="ms-2 txtdate" title={"" + newsi.createdAt}>
                                                                             {new Date(newsi.createdAt).toLocaleDateString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit', weekday: undefined, hour: '2-digit', hour12: false, minute: '2-digit', second: '2-digit' })}
@@ -229,7 +229,7 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
                                                                     </div>
 
                                                                     {cid != -1 && (
-                                                                        <div className="col-12 col-md-4 colauthorleft">
+                                                                        <div className="col-auto colauthorleft">
                                                                             <i className="bi bi-bookmark"></i>
                                                                             <Link href={"/pages/news/" + newsi.categoryId} locale={locale ?? getDefLocale()} className="txtcategory ms-2" title={"Categoria: " + categoryi.name}>
                                                                                 {categoryi.name}
