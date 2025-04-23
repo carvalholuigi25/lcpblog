@@ -71,7 +71,7 @@ export default function Comments({ userId, postId, categoryId, isCommentFormShow
 
             if (data[0]) {
                 setCommentsData(JSON.parse(JSON.stringify(data[0])));
-                setIsUnlockedComment(data[0].status == "locked" || data[0].status == "all" ? true : false);
+                setIsUnlockedComment(data[0].status == "unlocked" ? true : false);
             }
 
             if (data[1]) {
@@ -135,22 +135,37 @@ export default function Comments({ userId, postId, categoryId, isCommentFormShow
         }
     };
 
-    const lockOrUnlockComment = async (e: any, status: string = "") => {
+    const lockOrUnlockComment = async (e: any, x: CT) => {
         e.preventDefault();
-        setIsUnlockedComment(status == "all" || status == "locked" ? true : false);
+        let status = "0";
+        let lockstatus = "unlocked";
 
+        if(x.status == "locked") {
+            status = "1";
+            lockstatus = "unlocked";
+            setIsUnlockedComment(true);
+        } else {
+            status = "0";
+            lockstatus = "locked";
+            setIsUnlockedComment(false);
+        }
+
+        await updateCommentStatus(postId!, x.commentId, status, lockstatus);
+    };
+
+    const updateCommentStatus = async (postId: number, commentId: number, status: string, lockstatus: string) => {
         try {
             await FetchDataAxios({
-                url: `api/comments/posts/${postId}?cstatus=${!isUnlockedComment ? "0" : "1"}`,
+                url: `api/comments/posts/${commentId}/${postId}?status=${status}`,
                 method: 'put',
                 reqAuthorize: true,
                 data: {
                     postId: postId,
-                    status: status,
+                    commentId: commentId,
+                    status: status
                 }
             }).then(async (r) => {
                 console.log(r);
-                const lockstatus = !isUnlockedComment ? "unlocked" : "locked";
                 alert(`The current comment ${lockstatus} has been sucessfully!`);
                 push("/");
             }).catch((err) => {
@@ -159,7 +174,7 @@ export default function Comments({ userId, postId, categoryId, isCommentFormShow
         } catch (error) {
             console.error(error);
         }
-    };
+    }
 
     const getEmptyComments = (): any => {
         return (
@@ -200,7 +215,7 @@ export default function Comments({ userId, postId, categoryId, isCommentFormShow
 
                                         <div className={"dropdown text-start " + (!!isLoggedIn && y.userId == x.userId ? "" : "hidden")}>
                                             {x.status == "locked" && (
-                                                <a className="btn btn-primary btn-rounded btndisabled" href="#" role="button" aria-disabled>
+                                                <a className="btn btn-primary btn-rounded btndisabled" href="#" role="button" title="This comment is now locked!" aria-disabled>
                                                     <i className="bi bi-lock ps-0 pe-0"></i>
                                                 </a>
                                             )}
@@ -222,8 +237,8 @@ export default function Comments({ userId, postId, categoryId, isCommentFormShow
                                                         Delete
                                                     </Link>
                                                 </li>
-                                                <li className="hidden">
-                                                    <Link className="dropdown-item" href="#" onClick={(e: any) => lockOrUnlockComment(e, x.status)}>
+                                                <li>
+                                                    <Link className={"dropdown-item " + (isUnlockedComment ? "unlocked" : "locked")} href="#" onClick={(e: any) => lockOrUnlockComment(e, x)}>
                                                         <i className={"bi " + (x.status == "locked" || x.status == "1" ? "bi-unlock" : "bi-lock") + " me-1"}></i>
                                                         {(x.status == "locked" || x.status == "1" ? "Unlock" : "Lock")}
                                                     </Link>

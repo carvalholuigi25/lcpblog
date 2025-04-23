@@ -72,17 +72,18 @@ namespace lcpblogapi.Controllers
         }
 
         /// <summary>
-        /// Updates specific comment by post id.
+        /// Updates specific comment by id and post id.
         /// </summary>
         /// <param name="postId"></param>
-        /// <param name="cstatus"></param>
-        /// <returns>Updates specific comment by post id.</returns>
-        /// <response code="201">Returns the updated comment by post id</response>
+        /// <param name="commentId"></param>
+        /// <param name="status"></param>
+        /// <returns>Updates specific comment by id and post id.</returns>
+        /// <response code="201">Returns the updated comment by id and post id</response>
         /// <response code="400">If the specific comment is empty or not updated</response>
-        [HttpPut("posts/{postId}")]
-        public async Task<IActionResult> PutCommentByPost(int postId, string cstatus)
+        [HttpPut("posts/{commentId}/{postId}")]
+        public async Task<IActionResult> PutCommentByPost(int postId, int commentId, [FromQuery] string status)
         {
-            return await _commentsRepo.PutCommentByPost(postId, cstatus);
+            return await _commentsRepo.PutCommentByPost(postId, commentId, status);
         }
 
         /// <summary>

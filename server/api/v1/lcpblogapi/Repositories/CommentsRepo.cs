@@ -104,11 +104,11 @@ public class CommentsRepo : ControllerBase, ICommentsRepo
         return NoContent();
     }
 
-    public async Task<IActionResult> PutCommentByPost(int postId, string cstatus)
+    public async Task<IActionResult> PutCommentByPost(int postId, int commentId, string status)
     {
         try
         {
-            var Comment = await _context.Comments.AsNoTracking().FirstOrDefaultAsync(x => x.PostId == postId);
+            var Comment = await _context.Comments.AsNoTracking().FirstOrDefaultAsync(x => x.PostId == postId && x.CommentId == commentId);
 
             if (Comment == null)
             {
@@ -120,7 +120,7 @@ public class CommentsRepo : ControllerBase, ICommentsRepo
                 Content = Comment.Content,
                 CreatedAt = Comment.CreatedAt,
                 UpdatedAt = DateTimeOffset.Now,
-                Status = cstatus == "1" || cstatus == "unlocked" ? Models.Enums.ECommentStatus.locked : Models.Enums.ECommentStatus.all,
+                Status = status == "1" || status == "unlocked" ? Models.Enums.ECommentStatus.all : Models.Enums.ECommentStatus.locked,
                 UserId = Comment.UserId,
                 PostId = Comment.PostId
             });
