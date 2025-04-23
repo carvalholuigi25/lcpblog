@@ -167,7 +167,7 @@ export default function Comments({ userId, postId, categoryId, isCommentFormShow
             }).then(async (r) => {
                 console.log(r);
                 alert(`The current comment ${lockstatus} has been sucessfully!`);
-                push("/");
+                location.reload();
             }).catch((err) => {
                 console.error(err);
             });
@@ -220,7 +220,7 @@ export default function Comments({ userId, postId, categoryId, isCommentFormShow
                                                 </a>
                                             )}
 
-                                            <a className="btn btn-primary dropdown-toggle btn-rounded btncommentactions" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <a className="btn btn-primary dropdown-toggle btn-rounded btncommentactions ms-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <i className="bi bi-three-dots"></i>
                                             </a>
 
