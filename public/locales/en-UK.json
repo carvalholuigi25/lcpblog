@@ -168,7 +168,45 @@
             "lblmonth": "Month",
             "lbldefopyear": "Select the year",
             "lbldefopmonth": "Select the month",
-            "lblemptynews": "0 news"
+            "lblemptynews": "0 news",
+            "lblmonths": {
+                "month1": {
+                  "name": "January"
+                },
+                "month2": {
+                  "name": "February"
+                },
+                "month3": {
+                  "name": "March"
+                },
+                "month4": {
+                  "name": "April"
+                },
+                "month5": {
+                  "name": "May"
+                },
+                "month6": {
+                  "name": "June"
+                },
+                "month7": {
+                  "name": "July"
+                },
+                "month8": {
+                  "name": "August"
+                },
+                "month9": {
+                  "name": "September"
+                },
+                "month10": {
+                  "name": "October"
+                },
+                "month11": {
+                  "name": "November"
+                },
+                "month12": {
+                  "name": "December"
+                }
+              }
         },
         "AuthPage": {
             "title": "Login"

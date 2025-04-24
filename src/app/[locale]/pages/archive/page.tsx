@@ -29,47 +29,30 @@ export const getYearList = (): any => {
     return yitem;
 }
 
-export const getMonthList = (): any => {
-    return [{
-        id: 1,
-        name: "Janeiro"
-    }, {
-        id: 2,
-        name: "Fevereiro"
-    }, {
-        id: 3,
-        name: "Março"
-    }, {
-        id: 4,
-        name: "Abril"
-    }, {
-        id: 5,
-        name: "Maio"
-    }, {
-        id: 6,
-        name: "Junho"
-    }, {
-        id: 7,
-        name: "Julho"
-    }, {
-        id: 8,
-        name: "Agosto"
-    }, {
-        id: 9,
-        name: "Setembro"
-    }, {
-        id: 10,
-        name: "Outubro"
-    }, {
-        id: 11,
-        name: "Novembro"
-    }, {
-        id: 12,
-        name: "Dezembro"
-    }];
+export const getMonthList = (lblm: any): any => {
+    const keys: any[] = [];
+    const itemsmonths: any[] = [];
+
+    for(let i = 1; i <= 12; i++) {
+        keys.push('month'+i);
+    }
+        
+    if(keys.length > 0) {
+        keys.map((key: any, i: number): any => {
+            itemsmonths.push({
+                id: i+1,
+                name: lblm(`${key}.name`)
+            });
+        });
+    }
+
+    return itemsmonths;
 }
 
 export default function Archive({ locale }: { locale: string }) {
+    const t = useTranslations('ui.buttons');
+    const tpag = useTranslations('pages.ArchivePage');
+    const lblm = useTranslations('pages.ArchivePage.lblmonths') as any;
     const [news, setNews] = useState(new Array<Posts>());
     const [users, setUsers] = useState(new Array<User>());
     const [categories, setCategories] = useState(new Array<Categories>());
@@ -78,13 +61,11 @@ export default function Archive({ locale }: { locale: string }) {
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const yearlist: any[] = getYearList();
-    const monthlist: any[] = getMonthList();
+    const monthlist: any[] = getMonthList(lblm);
     const pageSize: number = 10;
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
-    const t = useTranslations('ui.buttons');
-    const tpag = useTranslations('pages.ArchivePage');
     const spage = searchParams.get("page");
     const syear = searchParams.get("year");
     const smonth = searchParams.get("month");
@@ -152,6 +133,28 @@ export default function Archive({ locale }: { locale: string }) {
         return (
             <LoadingComp type="icon" icontype="ring" />
         );
+    }
+    
+    const onYearChange = (e: any) => {
+        e.preventDefault();
+        setYear(e.target.value);
+        router.push(pathname + "?year=" + e.target.value + "&month=" + month);
+    }
+
+    const onMonthChange = (e: any) => {
+        e.preventDefault();
+        setMonth(e.target.value);
+        router.push(pathname + "?year=" + year + "&month=" + e.target.value);
+    }
+
+    const setToday = (e: any) => {
+        e.preventDefault();
+        const tyear = new Date().getFullYear();
+        const tmonth = parseInt(""+(new Date().getMonth()+1));
+        setYear(tyear);
+        setMonth(tmonth);
+        fetchNewsItems();
+        router.push(pathname + "?year=" + tyear + "&month=" + tmonth);
     }
 
     const getEmptyNews = (pathname: any): any => {
@@ -244,28 +247,6 @@ export default function Archive({ locale }: { locale: string }) {
         return items;
     };
 
-    const onYearChange = (e: any) => {
-        e.preventDefault();
-        setYear(e.target.value);
-        router.push(pathname + "?year=" + e.target.value + "&month=" + month);
-    }
-
-    const onMonthChange = (e: any) => {
-        e.preventDefault();
-        setMonth(e.target.value);
-        router.push(pathname + "?year=" + year + "&month=" + e.target.value);
-    }
-
-    const setToday = (e: any) => {
-        e.preventDefault();
-        const tyear = new Date().getFullYear();
-        const tmonth = parseInt(""+(new Date().getMonth()+1));
-        setYear(tyear);
-        setMonth(tmonth);
-        fetchNewsItems();
-        router.push(pathname + "?year=" + tyear + "&month=" + tmonth);
-    }
-
     const getTimeControls = () => {
         return (
             <div className="container p-0">
@@ -288,7 +269,7 @@ export default function Archive({ locale }: { locale: string }) {
                             <select value={smonth ?? month} className="form-control mt-3 mb-3 selmontharch" onChange={onMonthChange}>
                                 <option disabled>{tpag('lbldefopmonth') ?? "Select the month"}</option>
                                 {monthlist.map(m => (
-                                    <option value={m.id} key={m.id}>{m.name}</option>
+                                    <option value={m.id} key={m.id} data-name={m.name}>{m.name}</option>
                                 ))}
                             </select>
                         </div>
@@ -312,16 +293,19 @@ export default function Archive({ locale }: { locale: string }) {
                 <Suspense fallback={<LoadingComp type="icon" icontype="ring" />}>
                     <div className="container">
                         <div className="row">
-                            <div className="col-12">
+                            <div className="col-12 text-center">
                                 <h3 className="title mt-3 mb-3">
                                     <i className="bi bi-archive"></i>
                                     <span className="ms-2">{tpag('title') ?? "Archive"}</span>
                                 </h3>
 
                                 {getTimeControls()}
-                                {!news || news.length == 0 && getEmptyNews(pathname)}
-                                {!!news && news.length > 0 && fetchNewsItems()}
-                                <MyPagination cid={-1} pid={-1} currentPage={page} totalPages={totalPages} />
+
+                                <div className="contentblk d-block mt-3">
+                                    {!news || news.length == 0 && getEmptyNews(pathname)}
+                                    {!!news && news.length > 0 && fetchNewsItems()}
+                                    <MyPagination cid={-1} pid={-1} currentPage={page} totalPages={totalPages} />
+                                </div>
                             </div>
                         </div>
                     </div>
