@@ -415,11 +415,31 @@ footer {
 }
 
 .cardarch {
+  $talign: left;
+
   position: relative;
   border: 0;
+  text-align: $talign;
 
   .card-body {
     position: relative;
+    text-align: inherit;
+
+    .card-title {
+      padding: 0 15px;
+    }
+
+    * {
+      text-align: inherit;
+
+      @if($talign == "left") {
+        justify-content: flex-start !important;
+      } @else if($talign == "center") {
+        justify-content: center !important;
+      } @else {
+        justify-content: flex-end !important;
+      }
+    }
   }
 
   .card-footer {
@@ -429,8 +449,8 @@ footer {
     border: 0px;
     width: 100%;
     max-width: 100%;
-    text-align: center;
-    justify-content: center;
+    text-align: inherit;
+    justify-content: inherit;
     margin: 0 auto;
     padding: 0 15px;
 
@@ -1034,6 +1054,17 @@ a.fc-event:hover {
   }
 
   .cardarch {
+    text-align: center;
+
+    .card-body {
+      text-align: center;
+
+      * {
+        text-align: center;
+        justify-content: center;
+      }
+    }
+
     .card-footer {
       position: relative;
 

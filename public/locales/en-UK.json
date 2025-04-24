@@ -5,13 +5,15 @@
             "btnclose": "Close",
             "homelink": "Home",
             "loginlink": "Login",
+            "archlink": "Archive",
             "dashboardlink": "Dashboard",
             "logoutlink": "Logout"
         },
         "buttons": {
             "btnreadmore": "Read more...",
             "btnlogout": "Logout",
-            "btnback": "Back"
+            "btnback": "Back",
+            "btntoday": "Today"
         },
         "text": {
             "txtviews": "Views: {views}"
@@ -160,6 +162,14 @@
         }
     },
     "pages": {
+        "ArchivePage": {
+            "title": "Archive",
+            "lblyear": "Year",
+            "lblmonth": "Month",
+            "lbldefopyear": "Select the year",
+            "lbldefopmonth": "Select the month",
+            "lblemptynews": "0 news"
+        },
         "AuthPage": {
             "title": "Login"
         },

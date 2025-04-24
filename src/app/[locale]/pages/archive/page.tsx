@@ -5,8 +5,8 @@ import styles from "@applocale/page.module.scss";
 import Link from "next/link";
 import Image from "next/image";
 import { Suspense, useEffect, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { usePathname, useSearchParams } from "next/navigation";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { FetchMultipleDataAxios } from "@applocale/utils/fetchdataaxios";
 import { Posts } from "@applocale/interfaces/posts";
@@ -18,6 +18,57 @@ import Header from "@applocale/ui/header";
 import LoadingComp from "@applocale/components/loadingcomp";
 import MyPagination from "@applocale/components/mypagination";
 
+export const getYearList = (): any => {
+    const yitem: any[] = [];
+    const actyear = new Date().getFullYear();
+
+    for (let i = actyear; i <= (actyear + 10); i++) {
+        yitem.push(i);
+    }
+
+    return yitem;
+}
+
+export const getMonthList = (): any => {
+    return [{
+        id: 1,
+        name: "Janeiro"
+    }, {
+        id: 2,
+        name: "Fevereiro"
+    }, {
+        id: 3,
+        name: "Março"
+    }, {
+        id: 4,
+        name: "Abril"
+    }, {
+        id: 5,
+        name: "Maio"
+    }, {
+        id: 6,
+        name: "Junho"
+    }, {
+        id: 7,
+        name: "Julho"
+    }, {
+        id: 8,
+        name: "Agosto"
+    }, {
+        id: 9,
+        name: "Setembro"
+    }, {
+        id: 10,
+        name: "Outubro"
+    }, {
+        id: 11,
+        name: "Novembro"
+    }, {
+        id: 12,
+        name: "Dezembro"
+    }];
+}
+
 export default function Archive({ locale }: { locale: string }) {
     const [news, setNews] = useState(new Array<Posts>());
     const [users, setUsers] = useState(new Array<User>());
@@ -26,13 +77,19 @@ export default function Archive({ locale }: { locale: string }) {
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
-    const [year, setYear] = useState(new Date().getFullYear());
-    const yearlist = ["2025", "2026"];
+    const yearlist: any[] = getYearList();
+    const monthlist: any[] = getMonthList();
     const pageSize: number = 10;
-    const searchParams = useSearchParams();
+    const router = useRouter();
     const pathname = usePathname();
+    const searchParams = useSearchParams();
     const t = useTranslations('ui.buttons');
+    const tpag = useTranslations('pages.ArchivePage');
     const spage = searchParams.get("page");
+    const syear = searchParams.get("year");
+    const smonth = searchParams.get("month");
+    const [year, setYear] = useState(syear ?? new Date().getFullYear());
+    const [month, setMonth] = useState(smonth ?? new Date().getMonth() + 1);
 
     useEffect(() => {
         async function fetchNews() {
@@ -62,7 +119,7 @@ export default function Archive({ locale }: { locale: string }) {
                 }
             ]);
 
-            const newsdata = year ? data[0].data.filter((x: any) => year == new Date(x.createdAt).getFullYear()) : data[0].data;
+            const newsdata = year && month ? data[0].data.filter((x: any) => year == new Date(x.createdAt).getFullYear() && month == (new Date(x.createdAt).getMonth() + 1)) : (year ? data[0].data.filter((x: any) => year == new Date(x.createdAt).getFullYear()) : data[0].data);
             const categories = data[1].data;
             const usersdata = data[2].data;
             const comments = data[3].data;
@@ -89,7 +146,7 @@ export default function Archive({ locale }: { locale: string }) {
         }
 
         fetchNews();
-    }, [locale, pathname, loading, page, spage, year]);
+    }, [locale, pathname, loading, page, year, month, spage, syear, smonth]);
 
     if (loading) {
         return (
@@ -99,11 +156,11 @@ export default function Archive({ locale }: { locale: string }) {
 
     const getEmptyNews = (pathname: any): any => {
         return (
-            <div className='col-12'>
+            <div className='col-12 mt-3'>
                 <div className="card p-3 text-center">
                     <div className='card-body'>
                         <i className="bi-exclamation-triangle" style={{ fontSize: "4rem" }}></i>
-                        <p>0 news</p>
+                        <p>{tpag('lblemptynews') ?? "0 news"}</p>
                         {pathname !== "/" && (
                             <Link className='btn btn-primary btn-rounded card-btn mt-3' href={`/`} locale={locale ?? getDefLocale()}>Back</Link>
                         )}
@@ -122,7 +179,7 @@ export default function Archive({ locale }: { locale: string }) {
                     if (newsi.userId == useri.userId) {
                         if (newsi.categoryId == categoryi.categoryId) {
                             items.push(
-                                <div className={`col-12 mb-4`} key={"news" + i}>
+                                <div className={`col-12 mt-3 mb-4`} key={"news" + i}>
                                     <div className={"card cardarch bshadow rounded"}>
                                         <div className="row justify-content-center align-items-center">
                                             <div className="col-md-6 col-lg-4">
@@ -136,30 +193,30 @@ export default function Archive({ locale }: { locale: string }) {
                                                 />
                                             </div>
                                             <div className="col-md-6 col-lg-8">
-                                                <div className={"card-body text-center"}>
-                                                    <h5 className="card-title text-center mt-3">{newsi.title}</h5>
+                                                <div className={"card-body"}>
+                                                    <h5 className="card-title mt-3">{newsi.title}</h5>
                                                     <div className={"card-author card-text mt-3"}>
                                                         <div className="container">
                                                             <div className="row justify-content-center align-items-center">
-                                                                <div className="col-auto mt-3">
+                                                                <div className="col-12 col-md-12 col-lg-auto mt-3">
                                                                     <Image src={getImagePath(useri.avatar)} className="rounded img-fluid img-author" width={30} height={30} alt={useri.displayName + "'s avatar"} />
                                                                     <Link href={"/pages/users/" + newsi.userId} locale={locale ?? getDefLocale()} className="ms-2 txt-author">
                                                                         {useri.displayName}
                                                                     </Link>
                                                                 </div>
-                                                                <div className="col-auto mt-3">
+                                                                <div className="col-12 col-md-12 col-lg-auto mt-3">
                                                                     <i className="bi bi-clock icodate"></i>
                                                                     <span className="ms-2 txtdate" title={"" + newsi.createdAt}>
                                                                         {new Date(newsi.createdAt).toLocaleDateString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit', weekday: undefined, hour: '2-digit', hour12: false, minute: '2-digit', second: '2-digit' })}
                                                                     </span>
                                                                 </div>
-                                                                <div className="col-auto mt-3">
+                                                                <div className="col-12 col-md-12 col-lg-auto mt-3">
                                                                     <i className="bi bi-bookmark"></i>
                                                                     <Link href={"/pages/news/" + newsi.categoryId} locale={locale ?? getDefLocale()} className="txtcategory ms-2" title={"Categoria: " + categoryi.name}>
                                                                         {categoryi.name}
                                                                     </Link>
                                                                 </div>
-                                                                <div className="col-auto mt-3">
+                                                                <div className="col-12 col-md-12 col-lg-auto mt-3">
                                                                     <i className="bi bi-chat icocomments"></i>
                                                                     <span className="numcomments ms-2">{totalComments}</span>
                                                                 </div>
@@ -188,8 +245,64 @@ export default function Archive({ locale }: { locale: string }) {
     };
 
     const onYearChange = (e: any) => {
+        e.preventDefault();
         setYear(e.target.value);
+        router.push(pathname + "?year=" + e.target.value + "&month=" + month);
+    }
+
+    const onMonthChange = (e: any) => {
+        e.preventDefault();
+        setMonth(e.target.value);
+        router.push(pathname + "?year=" + year + "&month=" + e.target.value);
+    }
+
+    const setToday = (e: any) => {
+        e.preventDefault();
+        const tyear = new Date().getFullYear();
+        const tmonth = parseInt(""+(new Date().getMonth()+1));
+        setYear(tyear);
+        setMonth(tmonth);
         fetchNewsItems();
+        router.push(pathname + "?year=" + tyear + "&month=" + tmonth);
+    }
+
+    const getTimeControls = () => {
+        return (
+            <div className="container p-0">
+                <div className="row justify-content-center align-items-center">
+                    {yearlist && (
+                        <div className="col-12 col-md-6">
+                            <label htmlFor="selyeararch">{tpag('lblyear') ?? "Year"}</label>
+                            <select value={syear ?? year} className="form-control mt-3 mb-3 selyeararch" onChange={onYearChange}>
+                                <option disabled>{tpag('lbldefopyear') ?? "Select the year"}</option>
+                                {yearlist.map(y => (
+                                    <option value={y} key={y}>{y}</option>
+                                ))}
+                            </select>
+                        </div>
+                    )}
+
+                    {monthlist && (
+                        <div className="col-12 col-md-6">
+                            <label htmlFor="selmontharch">{tpag('lblmonth') ?? "Month"}</label>
+                            <select value={smonth ?? month} className="form-control mt-3 mb-3 selmontharch" onChange={onMonthChange}>
+                                <option disabled>{tpag('lbldefopmonth') ?? "Select the month"}</option>
+                                {monthlist.map(m => (
+                                    <option value={m.id} key={m.id}>{m.name}</option>
+                                ))}
+                            </select>
+                        </div>
+                    )}
+                </div>
+                <div className="row justify-content-center align-items-center">
+                    <div className="col-12">
+                        <button type="button" className="btn btn-primary btn-rounded btntoday" onClick={setToday}>
+                            {t('btntoday') ?? 'Hoje'}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
     }
 
     return (
@@ -202,15 +315,10 @@ export default function Archive({ locale }: { locale: string }) {
                             <div className="col-12">
                                 <h3 className="title mt-3 mb-3">
                                     <i className="bi bi-archive"></i>
-                                    <span className="ms-2">Archive</span>
+                                    <span className="ms-2">{tpag('title') ?? "Archive"}</span>
                                 </h3>
-                                
-                                <select defaultValue={2025} className="form-control mt-3 mb-3" onChange={onYearChange}>
-                                    {yearlist.map(y => (
-                                        <option value={y} key={y}>{y}</option>
-                                    ))}
-                                </select>
 
+                                {getTimeControls()}
                                 {!news || news.length == 0 && getEmptyNews(pathname)}
                                 {!!news && news.length > 0 && fetchNewsItems()}
                                 <MyPagination cid={-1} pid={-1} currentPage={page} totalPages={totalPages} />

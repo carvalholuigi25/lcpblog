@@ -68,6 +68,11 @@ const HeaderMenu = ({ locale }: { locale: string }) => {
                         {t("homelink") ?? "Home"}
                     </Link>
 
+                    <Link className="nav-link navlinkarch p-3" aria-current="page" href="/pages/archive" locale={locale ?? getDefLocale()}>
+                        <i className="bi bi-archive me-2"></i>
+                        {t("archlink") ?? "Archive"}
+                    </Link>
+
                     {!!loadLinkAuth && (
                         <Link className="nav-link navlinklogin p-3" aria-current="page" href={"/auth/login"} locale={locale ?? getDefLocale()}>
                             <i className="bi bi-person-circle me-2"></i>
