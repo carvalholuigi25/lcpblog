@@ -9,8 +9,10 @@ import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavba
 import Footer from "@applocale/ui/footer";
 import withAuth from "@applocale/utils/withAuth";
 import LoadingComp from "@applocale/components/loadingcomp";
+import { useTranslations } from "next-intl";
 
 const AdminDevs = ({ locale }: { locale?: string }) => {
+    const t = useTranslations("pages.AdminPages.DevelopersPage");
     const [logInfo, setLogInfo] = useState("");
     const [isAuthorized, setIsAuthorized] = useState(false);
     const [sidebarToggle, setSidebarToggle] = useState(true);
@@ -22,7 +24,7 @@ const AdminDevs = ({ locale }: { locale?: string }) => {
             setLogInfo(getFromStorage("logInfo")!);
         }
 
-        setIsAuthorized(logInfo && JSON.parse(logInfo)[0].role == "admin" ? true : false);
+        setIsAuthorized(logInfo && ["admin", "dev"].includes(JSON.parse(logInfo)[0].role) ? true : false);
         setLoading(false);
     }, [logInfo, isAuthorized]);
 
@@ -56,7 +58,7 @@ const AdminDevs = ({ locale }: { locale?: string }) => {
                                 <div className={"col-12 col-md-" + (!sidebarToggle ? "9" : "12") + " col-lg-" + (!sidebarToggle ? "10" : "12") + ""}>
                                     <h3 className="text-center">
                                         <i className="bi bi-gear-fill me-2"></i>
-                                        Developers
+                                        {t("title") ?? "Developers"}
                                     </h3>
                                 </div>
                             </div>
@@ -65,7 +67,7 @@ const AdminDevs = ({ locale }: { locale?: string }) => {
                         <div className={"container" + (!!isContainerFluid ? "-fluid" : "") + " mt-3 mx-auto text-center p-3"}>
                             <div className="row">
                                 <div className="col-12">
-                                    <p>Warning: This page is for admins and developers!</p>
+                                    <p>{t("lblwarnpage") ?? "Warning: This page is for admins and developers!"}</p>
                                 </div>
                             </div>
                         </div>
@@ -78,4 +80,4 @@ const AdminDevs = ({ locale }: { locale?: string }) => {
     )
 }
 
-export default withAuth(AdminDevs, ["admin"]);
+export default withAuth(AdminDevs, ["admin", "dev"]);

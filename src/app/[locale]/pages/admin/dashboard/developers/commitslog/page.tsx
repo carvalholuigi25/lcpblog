@@ -15,8 +15,11 @@ import withAuth from "@applocale/utils/withAuth";
 import LoadingComp from "@applocale/components/loadingcomp";
 import ShowAlert from "@applocale/components/alerts";
 import axios from "axios";
+import { useTranslations } from "next-intl";
 
 const AdminCommitsLog = ({ locale }: { locale?: string }) => {
+    const t = useTranslations("pages.AdminPages.DevelopersPage");
+    
     const [logInfo, setLogInfo] = useState("");
     const [isAuthorized, setIsAuthorized] = useState(false);
     const [sidebarToggle, setSidebarToggle] = useState(true);
@@ -52,7 +55,7 @@ const AdminCommitsLog = ({ locale }: { locale?: string }) => {
             });
         }
 
-        setIsAuthorized(logInfo && JSON.parse(logInfo)[0].role == "admin" ? true : false);
+        setIsAuthorized(logInfo && ["admin", "dev"].includes(JSON.parse(logInfo)[0].role) ? true : false);
         setLoading(false);
     }, [logInfo, isAuthorized, isResetedForm]);
 
@@ -122,11 +125,11 @@ const AdminCommitsLog = ({ locale }: { locale?: string }) => {
                                 <div className={"col-12 col-md-" + (!sidebarToggle ? "9" : "12") + " col-lg-" + (!sidebarToggle ? "10" : "12") + ""}>
                                     <h3 className="text-center">
                                         <i className="bi bi-gear-fill me-2"></i>
-                                        Developers
+                                        {t("title") ?? "Developers"}
                                     </h3>
                                     <h4 className="text-center mt-3">
                                         <i className="bi bi-journal-richtext me-2"></i>
-                                        Commits Log
+                                        {t("CommitsLogPage.title") ?? "Commits Log"}
                                     </h4>
 
                                     <div className="mt-3">
@@ -134,9 +137,9 @@ const AdminCommitsLog = ({ locale }: { locale?: string }) => {
                                             <div className="row">
                                                 <div className="col-12">
                                                     <div className="form-group mt-3 text-center hidden">
-                                                        <label htmlFor="owner">Owner</label>
+                                                        <label htmlFor="owner">{t("CommitsLogPage.form.lblowner") ?? "Owner"}</label>
                                                         <div className={astyles.sformgroup}>
-                                                            <input {...register("owner")} type="hidden" id="owner" name="owner" className={"form-control owner mt-3 " + astyles.sformgroupinp} placeholder="Write your owner name here..." value={formData.owner} onChange={handleChange} disabled required />
+                                                            <input {...register("owner")} type="hidden" id="owner" name="owner" className={"form-control owner mt-3 " + astyles.sformgroupinp} placeholder={t("CommitsLogPage.form.inpowner") ?? "Write here the name of owner"} value={formData.owner} onChange={handleChange} disabled required />
                                                         </div>
 
                                                         {errors.owner && ShowAlert("danger", errors.owner.message)}
@@ -147,9 +150,9 @@ const AdminCommitsLog = ({ locale }: { locale?: string }) => {
                                             <div className="row">
                                                 <div className="col-12 col-md-6">
                                                     <div className="form-group mt-3 text-center hidden">
-                                                        <label htmlFor="repository">Repository</label>
+                                                        <label htmlFor="repository">{t("CommitsLogPage.form.lblrepository") ?? "Repository"}</label>
                                                         <div className={astyles.sformgroup}>
-                                                            <input {...register("repository")} type="hidden" id="repository" name="repository" className={"form-control repository mt-3 " + astyles.sformgroupinp} placeholder="Write your repository name here..." value={formData.repository} onChange={handleChange} disabled required />
+                                                            <input {...register("repository")} type="hidden" id="repository" name="repository" className={"form-control repository mt-3 " + astyles.sformgroupinp} placeholder={t("CommitsLogPage.form.inprepository") ?? "Write here the name of repository"} value={formData.repository} onChange={handleChange} disabled required />
                                                         </div>
 
                                                         {errors.repository && ShowAlert("danger", errors.repository.message)}
@@ -158,9 +161,9 @@ const AdminCommitsLog = ({ locale }: { locale?: string }) => {
 
                                                 <div className="col-12 col-md-6">
                                                     <div className="form-group mt-3 text-center hidden">
-                                                        <label htmlFor="branchname">Branch name</label>
+                                                        <label htmlFor="branchname">{t("CommitsLogPage.form.lblbranchname") ?? "Branch name"}</label>
                                                         <div className={astyles.sformgroup}>
-                                                            <input {...register("branchname")} type="hidden" id="branchname" name="branchname" className={"form-control branchname mt-3 " + astyles.sformgroupinp} placeholder="Write your branch name here..." value={formData.branchname} onChange={handleChange} disabled required />
+                                                            <input {...register("branchname")} type="hidden" id="branchname" name="branchname" className={"form-control branchname mt-3 " + astyles.sformgroupinp} placeholder={t("CommitsLogPage.form.inpbranchname") ?? "Write here the branch name here..."} value={formData.branchname} onChange={handleChange} disabled required />
                                                         </div>
 
                                                         {errors.branchname && ShowAlert("danger", errors.branchname.message)}
@@ -169,10 +172,14 @@ const AdminCommitsLog = ({ locale }: { locale?: string }) => {
                                             </div>
 
                                             <div className="d-inline-block mx-auto mt-3">
-                                                <button className="btn btn-secondary btnreset btn-rounded" type="reset" onClick={handleReset}>Reset</button>
-                                                <button className="btn btn-primary btnlog btn-rounded ms-3" type="button" onClick={handleSubmit} disabled={isSubmitting}>Generate</button>
+                                                <button className="btn btn-secondary btnreset btn-rounded" type="reset" onClick={handleReset}>
+                                                    {t("CommitsLogPage.form.btnreset") ?? "Reset"}
+                                                </button>
+                                                <button className="btn btn-primary btnlog btn-rounded ms-3" type="button" onClick={handleSubmit} disabled={isSubmitting}>
+                                                    {t("CommitsLogPage.form.btngenerate") ?? "Generate"}
+                                                </button>
                                                 <Link className="btn btn-primary btnmorecommits btn-rounded ms-3" href={`https://github.com/${formData.owner}/${formData.repository}/commits`} target="_blank">
-                                                    More commits?
+                                                    {t("CommitsLogPage.form.btnmorecommits") ?? "More commits?"}
                                                 </Link>
                                             </div>
                                         </form>
@@ -181,10 +188,20 @@ const AdminCommitsLog = ({ locale }: { locale?: string }) => {
                                             <>
                                                 <ul className="nav nav-pills mynavdatamode mb-3" id="pills-tab" role="tablist">
                                                     <li className="nav-item" role="presentation">
-                                                        <button className="nav-link active" id="pills-table-tab" data-bs-toggle="pill" data-bs-target="#pills-table" type="button" role="tab" aria-controls="pills-table" aria-selected="true">Table</button>
+                                                        <button className="nav-link active" id="pills-table-tab" data-bs-toggle="pill" data-bs-target="#pills-table" type="button" role="tab" aria-controls="pills-table" aria-selected="true">
+                                                            <i className="bi bi-table"></i>
+                                                            <span className="ms-2">
+                                                                {t("CommitsLogPage.buttons.btntable") ?? "Table"}
+                                                            </span>
+                                                        </button>
                                                     </li>
                                                     <li className="nav-item" role="presentation">
-                                                        <button className="nav-link" id="pills-json-tab" data-bs-toggle="pill" data-bs-target="#pills-json" type="button" role="tab" aria-controls="pills-json" aria-selected="false">JSON</button>
+                                                        <button className="nav-link" id="pills-json-tab" data-bs-toggle="pill" data-bs-target="#pills-json" type="button" role="tab" aria-controls="pills-json" aria-selected="false">
+                                                            <i className="bi bi-filetype-json"></i>
+                                                            <span className="ms-2">
+                                                                {t("CommitsLogPage.buttons.btnjson") ?? "JSON"}
+                                                            </span>
+                                                        </button>
                                                     </li>
                                                 </ul>
 
@@ -195,10 +212,10 @@ const AdminCommitsLog = ({ locale }: { locale?: string }) => {
                                                                 <table className="table table-nobordered table-rounded table-shadow table-autolayout ws-pre">
                                                                     <thead>
                                                                         <tr>
-                                                                            <th>Id</th>
-                                                                            <th>Message</th>
-                                                                            <th>Author</th>
-                                                                            <th>Date</th>
+                                                                            <th>{t("CommitsLogPage.table.header.id") ?? "Id"}</th>
+                                                                            <th>{t("CommitsLogPage.table.header.message") ?? "Message"}</th>
+                                                                            <th>{t("CommitsLogPage.table.header.author") ?? "Author"}</th>
+                                                                            <th>{t("CommitsLogPage.table.header.date") ?? "Date"}</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
@@ -239,4 +256,4 @@ const AdminCommitsLog = ({ locale }: { locale?: string }) => {
     )
 }
 
-export default withAuth(AdminCommitsLog, ["admin"]);
+export default withAuth(AdminCommitsLog, ["admin", "dev"]);

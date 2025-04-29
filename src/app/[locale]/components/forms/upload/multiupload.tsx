@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useFormStatus } from "react-dom";
 import { useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { uploadRules } from "@applocale/utils/uploadrules";
 import { getFromStorage, saveToStorage } from "@applocale/hooks/localstorage";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
@@ -10,6 +10,7 @@ import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 export default function FileMultiUploadForm() {
     const router = useRouter();
     const locale = useLocale();
+    const t = useTranslations("pages.AdminPages.MediaPage");
     const [files, setFiles] = useState<FileList | null>(null);
     const [statusState, setStatusState] = useState(false);
     const [status, setStatus] = useState("");
@@ -33,7 +34,7 @@ export default function FileMultiUploadForm() {
     }
 
     const getCalcMaxSize = () => {
-        return `${(getMaxSize() / (isBinary ? 1000 * 1000 : 1024 * 1024)).toFixed(2)} mb`;
+        return `${(getMaxSize() / (isBinary ? 1000 * 1000 : 1024 * 1024)).toFixed(2)}`;
     }
 
     const handleFilesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,7 +55,7 @@ export default function FileMultiUploadForm() {
         e.preventDefault();
 
         if (!files || files.length === 0) {
-            setStatus("Please select at least one file.");
+            setStatus(t('messages.nofilemult') ?? "Please select at least one (or many) files.");
             return;
         }
 
@@ -82,17 +83,17 @@ export default function FileMultiUploadForm() {
 
             if (response && response.status === 200) {
                 setStatusState(true);
-                setStatus("File(s) uploaded successfully!");
+                setStatus(t('uploadmultsuccess') ?? "File(s) uploaded successfully!");
                 ref.current?.reset();
                 router.push(`/${locale}/pages/admin/dashboard`);
             } else {
                 setStatusState(false);
-                setStatus("Upload failed.");
+                setStatus(t('messages.uploadfailedmult') ?? "File(s) upload failed!");
                 ref.current?.reset();
             }
         } catch (error) {
             setStatusState(false);
-            setStatus("Error uploading file. Message: " + error);
+            setStatus(t('messages.uploaderrormult') ?? `Error uploading file. Message: ${error}`);
             ref.current?.reset();
         }
     };
@@ -107,15 +108,19 @@ export default function FileMultiUploadForm() {
             <div className="row">
                 <div className="mt-3">
                     <button className="btn btn-primary btntoggleuplrules" onClick={changeToggleUploadRules}>
-                        {!!toggleUploadRules ? "Hide" : "Show"} upload rules
+                        {!!toggleUploadRules ? (t('btnshowuploadrules.hide') ?? "Hide") : (t('btnshowuploadrules.show') ?? "Show")} {t('btnshowuploadrules.title') ?? "Upload Rules"}
                     </button>
 
                     {!!toggleUploadRules && uploadRules && (
                         <div className="mt-3 uplrulesblk">
                             <fieldset className="uplrulesubblk">
-                                <legend className="uplrulestitle">Upload rules</legend>
-                                <p className="mt-3">Allowed extensions: {getExtensions()}</p>
-                                <p className="mt-3">Max Size: {getMaxSize()} bytes ({getCalcMaxSize()})</p>
+                                <legend className="uplrulestitle">{t('uploadrules.title') ?? "Upload rules"}</legend>
+                                <p className="mt-3">
+                                    {t('uploadrules.rules.allowedextensions', {extensions: getExtensions()}) ?? `Allowed extensions: ${getExtensions()}`}
+                                </p>
+                                <p className="mt-3">
+                                    {t('uploadrules.rules.maxallowedsize', {sizeInBytes: getMaxSize(), sizeInMB: getCalcMaxSize()}) ?? `Max Size: ${getMaxSize()} bytes (${getCalcMaxSize()})`}
+                                </p>
                             </fieldset>
                         </div>
                     )}
@@ -132,7 +137,7 @@ export default function FileMultiUploadForm() {
                             disabled={pending || !files && !statusState}
                             onClick={clearForm}
                         >
-                            Reset
+                            {t('uploadact.btnreset') ?? "Reset"}
                         </button>
 
                         <button
@@ -140,7 +145,7 @@ export default function FileMultiUploadForm() {
                             className="btn btn-primary btn-upload mt-3 ms-3"
                             disabled={pending || !files && !statusState}
                         >
-                            Upload
+                            {t('uploadact.btnupload') ?? "Upload"}
                         </button>
                     </div>
                 </form>

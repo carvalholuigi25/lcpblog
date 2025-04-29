@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import astyles from "@applocale/styles/adminstyles.module.scss";
-import { getFromStorage, saveToStorage } from "@applocale/hooks/localstorage";
-import { useEffect, useState } from "react";
-import { getDefLocale } from "@applocale/helpers/defLocale";
 import { Link } from '@/app/i18n/navigation';
-import { useLocale } from "next-intl";
+import { getDefLocale } from "@applocale/helpers/defLocale";
+import { useEffect, useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
+import { getFromStorage, saveToStorage } from "@applocale/hooks/localstorage";
 import AdminSidebarDashboard from "@applocale/components/admin/dashboard/adbsidebar";
 import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavbar";
 import FileSingleUploadForm from "@applocale/components/forms/upload/singleupload";
@@ -18,6 +18,8 @@ import LoadingComp from "@applocale/components/loadingcomp";
 
 const AdminMedia = () => {
     const locale = useLocale();
+    const t = useTranslations("pages.AdminPages.MediaPage");
+    const tbtn = useTranslations("ui.buttons");
     const [logInfo, setLogInfo] = useState("");
     const [loading, setLoading] = useState(true);
     const [isAuthorized, setIsAuthorized] = useState(false);
@@ -77,20 +79,28 @@ const AdminMedia = () => {
                             <div className={"col-12 col-md-" + (!sidebarToggle ? "9" : "12") + " col-lg-" + (!sidebarToggle ? "10" : "12") + ""}>
                                 <h3 className="text-center">
                                     <i className="bi bi-cloud-upload-fill me-2"></i>
-                                    Upload Files
+                                    {t("title") ?? "Upload Files"}
                                 </h3>
 
                                 <div className="container p-3">
                                     <button className="btn btn-primary btnshowupload d-block mx-auto" onClick={changeShowUpload}>
-                                        {!!showUpload ? "Hide" : "Show"} upload
+                                        {!!showUpload ? (t("btnupload.hide") ?? "Hide") : (t("btnupload.show") ?? "Show")} {t("btnupload.upload") ?? "Upload"}
                                     </button>
 
                                     {!!showUpload && (
                                         <select className={"form-control frmselectupload w-auto d-block mx-auto mt-3 "} value={typeUpload ?? "single"} onChange={changeTypeUpload}>
-                                            <option value="" disabled>Select upload type</option>
-                                            <option value={"single"}>Single</option>
-                                            <option value={"multiple"}>Multiple</option>
-                                            <option value={"dragndrop"}>Drag and Drop</option>
+                                            <option value="" disabled>
+                                                {t("seltypeupload.title") ?? "Select Upload Type"}
+                                            </option>
+                                            <option value={"single"}>
+                                                {t("seltypeupload.options.single") ?? "Single"}
+                                            </option>
+                                            <option value={"multiple"}>
+                                                {t("seltypeupload.options.multiple") ?? "Multiple"}
+                                            </option>
+                                            <option value={"dragndrop"}>
+                                                {t("seltypeupload.options.dragndrop") ?? "Drag and Drop"}
+                                            </option>
                                         </select>
                                     )}
 
@@ -117,7 +127,9 @@ const AdminMedia = () => {
                             </div>
                             <div className="col-12">
                                 <div className="mt-3 mx-auto text-center">
-                                    <Link href={'/'} className="btn btn-primary btn-rounded" locale={locale ?? getDefLocale()}>Back</Link>
+                                    <Link href={'/'} className="btn btn-primary btn-rounded" locale={locale ?? getDefLocale()}>
+                                        {tbtn("btnback") ?? "Back"}
+                                    </Link>
                                 </div>
                             </div>
                         </>

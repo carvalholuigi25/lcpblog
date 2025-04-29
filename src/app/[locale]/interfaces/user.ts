@@ -19,4 +19,4 @@ export interface UserData {
   data: User[];
 }
 
-export type UserRole = "admin" | "user" | "moderator" | "member" | "guest" | "editor" | "vip" | "banned" | null;
+export type UserRole = "admin" | "dev" | "user" | "moderator" | "member" | "guest" | "editor" | "vip" | "banned" | null;

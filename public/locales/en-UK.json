@@ -33,7 +33,43 @@
             "txtviews": "Views: {views}"
         },
         "footer": {
-            "title": "Created by"
+            "title": "Created by",
+            "themes": {
+                "options": {
+                    "light": {
+                        "name": "Light",
+                        "value": "light"
+                    },
+                    "dark": {
+                        "name": "Dark",
+                        "value": "dark"
+                    },
+                    "system": {
+                        "name": "System",
+                        "value": "system"
+                    },
+                    "red": {
+                        "name": "Red",
+                        "value": "red"
+                    },
+                    "green": {
+                        "name": "Green",
+                        "value": "green"
+                    },
+                    "blue": {
+                        "name": "Blue",
+                        "value": "blue"
+                    },
+                    "yellow": {
+                        "name": "Yellow",
+                        "value": "yellow"
+                    },
+                    "vanilla": {
+                        "name": "Vanilla",
+                        "value": "vanilla"
+                    }
+                }
+            }
         },
         "loading": {
             "title": "Loading..."
@@ -47,9 +83,12 @@
                 "header": {
                     "postId": "Post Id",
                     "title": "Title",
+                    "name": "Name",
                     "createdAt": "Created At",
                     "updatedAt": "Updated At",
                     "slug": "Slug",
+                    "status": "Status",
+                    "categoryId": "Category Id",
                     "userId": "User Id",
                     "actions": "Actions"
                 },
@@ -73,12 +112,37 @@
                     "role": "Role",
                     "createdAt": "Created At",
                     "updatedAt": "Updated At",
+                    "categoryId": "Category Id",
                     "actions": "Actions"
                 },
                 "body": {
                     "btnedit": "Edit",
                     "btndelete": "Delete",
                     "emptyusers": "No users, please create a new one..."
+                },
+                "footer": {
+                    "page": "Page",
+                    "totalData": "Total of"
+                }
+            },
+            "categoriesdata": {
+                "titletable": "Categories",
+                "header": {
+                    "postId": "Post Id",
+                    "name": "Name",
+                    "title": "Title",
+                    "createdAt": "Created at",
+                    "updatedAt": "Updated at",
+                    "slug": "Slug",
+                    "status": "Status",
+                    "categoryId": "Category Id",
+                    "userId": "User Id",
+                    "actions": "Actions"
+                },
+                "body": {
+                    "btnedit": "Edit",
+                    "btndelete": "Delete",
+                    "emptycategories": "No categories, please create a new one category..."
                 },
                 "footer": {
                     "page": "Page",
@@ -340,6 +404,95 @@
                 "title": "Users",
                 "btnadduser": "Add new user",
                 "emptyusers": "0 users."
+            },
+            "MediaPage": {
+                "title": "Upload Files",
+                "btnupload": {
+                    "hide": "Hide",
+                    "show": "Show",
+                    "upload": "upload"
+                },
+                "seltypeupload": {
+                    "title": "Select upload type",
+                    "options": {
+                        "single": "Single",
+                        "multiple": "Multiple",
+                        "dragndrop": "Drag and drop"
+                    }
+                },
+                "btnshowuploadrules": {
+                    "show": "Show",
+                    "hide": "Hide",
+                    "title": "upload rules"
+                },
+                "uploadrules": {
+                    "title": "Upload rules",
+                    "rules": {
+                        "allowedextensions": "Allowed extensions: {extensions}",
+                        "maxallowedsize": "Maximum allowed size: {sizeInBytes} bytes ({sizeInMB} MB)"
+                    }
+                },
+                "uploadact": {
+                    "btnreset": "Reset",
+                    "btnupload": "Upload"
+                },
+                "messages": {
+                    "nofile": "Please select a file first.",
+                    "nofilemult": "Please select at least one (or many) files.",
+                    "drop": "Drop the file here...",
+                    "dragndrop": "Drag and drop a file here, or click to select file",
+                    "uploading": "Uploading...",
+                    "uploadingmult": "Uploading multiple files...",
+                    "uploadsuccess": "File uploaded successfully!",
+                    "uploadfailed": "File upload failed!",
+                    "uploaderror": "Error uploading file. Message: {message}",
+                    "uploadmultsuccess": "File(s) uploaded successfully!",
+                    "uploadmultfailed": "File(s) upload failed!",
+                    "uploadmulterror": "Error uploading multiple files. Message: {message}"
+                },
+                "preview": {
+                    "title": "Preview"
+                },
+                "results": {
+                    "nofilesuploaded": "No files uploaded.",
+                    "contentType": "Content type",
+                    "uploadedDate": "Date of upload"
+                }
+            },
+            "CategoriesPage": {
+                "title": "Categories",
+                "btnaddcategory": "Add new category",
+                "emptycategories": "0 categories."
+            },
+            "DevelopersPage": {
+                "title": "Developers",
+                "lblwarnpage": "Warning: This page is for admins and developers!",
+                "CommitsLogPage": {
+                    "title": "Commits Log",
+                    "buttons": {
+                        "btntable": "Table",
+                        "btnjson": "JSON"
+                    },
+                    "form": {
+                        "lblowner": "Owner",
+                        "inpowner": "Write here the name of the owner",
+                        "lblrepository": "Repository",
+                        "inprepository": "Write here the name of the repository",
+                        "lblbranchname": "Branch",
+                        "inpbranchname": "Write here the name of the branch",
+                        "btnreset": "Reset",
+                        "btngenerate": "Generate",
+                        "btnmorecommits": "More commits?"
+                    },
+                    "table": {
+                        "header": {
+                            "id": "Id",
+                            "message": "Message",
+                            "author": "Author",
+                            "date": "Date"
+                        }
+                    }
+                }
             }
         },
         "AuthPage": {

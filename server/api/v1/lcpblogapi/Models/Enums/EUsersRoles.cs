@@ -20,6 +20,8 @@ public enum EUsersRoles {
     moderator = 5,
     [EnumMember(Value = "admin")]
     admin = 6,
+    [EnumMember(Value = "dev")]
+    dev = 7,
     [EnumMember(Value = "banned")]
-    banned = 7
+    banned = 8
 }

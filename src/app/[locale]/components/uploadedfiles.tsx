@@ -1,14 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { FilesMetadata } from "@applocale/interfaces/filesmetadata";
 import { getImagePath } from "@applocale/functions/functions";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
-import Link from "next/link";
-import Image from "next/image";
 import LoadingComp from "@applocale/components/loadingcomp";
 
 export default function UploadedFiles() {
+    const t = useTranslations("pages.AdminPages.MediaPage");
     const [loading, setLoading] = useState(true);
     const [uploadedFiles, setUploadedFiles] = useState([]);
 
@@ -39,7 +41,7 @@ export default function UploadedFiles() {
             <div className="row mt-3">
                 {!uploadedFiles || uploadedFiles.length == 0 && (
                     <div className="col-12">
-                        <p>No files uploaded yet.</p>
+                        <p>{t('results.nofilesuploaded') ?? "No files uploaded yet."}</p>
                     </div>
                 )}
 
@@ -68,8 +70,12 @@ export default function UploadedFiles() {
 
                                 <div className="card-body">
                                     <h5 className="card-title">{file.fileName}</h5>
-                                    <p className="card-text">Content type: {file.contentType}</p>
-                                    <p className="card-text">Uploaded: {file.uploadedAt}</p>
+                                    <p className="card-text">
+                                        {t('results.contentType') ?? "Content type"}: {file.contentType}
+                                    </p>
+                                    <p className="card-text">
+                                        {t('results.uploadedDate') ?? "Date of upload"}: {file.uploadedAt}
+                                    </p>
                                 </div>
                             </div>
                         </Link>

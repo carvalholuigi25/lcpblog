@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
+import { useTranslations } from "next-intl";
 import { useTheme } from "@applocale/components/context/themecontext";
 
 export interface ThemesModel {
@@ -8,47 +9,49 @@ export interface ThemesModel {
     title: string;
 }
 
-export function getMyCustomThemes() {
+export function GetMyCustomThemes(): any {
+    const t = useTranslations("ui.footer.themes.options");
+
     const ary = [
         {
             id: 1,
-            theme: "light",
-            title: "Light"
+            theme: t("light.value") ?? "light",
+            title: t("light.name") ?? "Light"
         },
         {
             id: 2,
-            theme: "dark",
-            title: "Dark"
+            theme: t("dark.value") ?? "dark",
+            title: t("dark.name") ?? "Dark"
         },
         {
             id: 3,
-            theme: "system",
-            title: "System"
+            theme: t("system.value") ?? "system",
+            title: t("system.name") ?? "System"
         },
         {
             id: 4,
-            theme: "red",
-            title: "Red"
+            theme: t("red.value") ?? "red",
+            title: t("red.name") ?? "Red"
         },
         {
             id: 5,
-            theme: "green",
-            title: "Green"
+            theme: t("green.value") ?? "green",
+            title: t("green.name") ?? "Green"
         },
         {
             id: 6,
-            theme: "blue",
-            title: "Blue"
+            theme: t("blue.value") ?? "blue",
+            title: t("blue.name") ?? "Blue"
         },
         {
             id: 7,
-            theme: "yellow",
-            title: "Yellow"
+            theme: t("yellow.value") ?? "yellow",
+            title: t("yellow.name") ?? "Yellow"
         },
         {
             id: 8,
-            theme: "vanilla",
-            title: "Vanilla"
+            theme: t("vanilla.value") ?? "vanilla",
+            title: t("vanilla.name") ?? "Vanilla"
         }
     ];
 
@@ -57,7 +60,7 @@ export function getMyCustomThemes() {
 
 const ThemeSwitcher = () => {
     const { theme, setTheme } = useTheme();
-    const themesary: ThemesModel[] = getMyCustomThemes();
+    const themesary: ThemesModel[] = GetMyCustomThemes();
     const UpperCase = (val: string) => {
         return val.charAt(0).toUpperCase() + val.slice(1);
     }

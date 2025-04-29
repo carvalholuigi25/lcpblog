@@ -2,14 +2,15 @@
 import { useEffect, useRef, useState } from "react";
 import { useFormStatus } from "react-dom";
 import { useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
-import { uploadRules } from "@applocale/utils/uploadrules";
+import { useLocale, useTranslations } from "next-intl";
 import { getFromStorage, saveToStorage } from "@applocale/hooks/localstorage";
+import { uploadRules } from "@applocale/utils/uploadrules";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 
 export default function FileSingleUploadForm() {
     const router = useRouter();
     const locale = useLocale();
+    const t = useTranslations("pages.AdminPages.MediaPage");
     const [file, setFile] = useState<File | null>(null);
     const [statusState, setStatusState] = useState(false);
     const [status, setStatus] = useState("");
@@ -33,7 +34,7 @@ export default function FileSingleUploadForm() {
     }
 
     const getCalcMaxSize = () => {
-        return `${(getMaxSize() / (isBinary ? 1000 * 1000 : 1024 * 1024)).toFixed(2)} mb`;
+        return `${(getMaxSize() / (isBinary ? 1000 * 1000 : 1024 * 1024)).toFixed(2)}`;
     }
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,7 +60,7 @@ export default function FileSingleUploadForm() {
         e.preventDefault();
 
         if (!file) {
-            setStatus("Please select a file first.");
+            setStatus(t('messages.nofile') ?? "Please select a file first.");
             return;
         }
 
@@ -85,17 +86,17 @@ export default function FileSingleUploadForm() {
 
             if (response && response.status === 200) {
                 setStatusState(true);
-                setStatus("File uploaded successfully!");
+                setStatus(t('messages.uploadsuccess') ?? "File uploaded successfully!");
                 ref.current?.reset();
                 router.push(`/${locale}/pages/admin/dashboard`);
             } else {
                 setStatusState(false);
-                setStatus("Upload failed.");
+                setStatus(t('messages.uploadfailed') ?? "File upload failed!");
                 ref.current?.reset();
             }
         } catch (error) {
             setStatusState(false);
-            setStatus("Error uploading file. Message: " + error);
+            setStatus(t('messages.uploaderror', {message: ""+error}) ?? `Error uploading file. Message: ${error}`);
             ref.current?.reset();
         }
     };
@@ -110,15 +111,19 @@ export default function FileSingleUploadForm() {
             <div className="row">
                 <div className="mt-3">
                     <button className="btn btn-primary btntoggleuplrules" onClick={changeToggleUploadRules}>
-                        {!!toggleUploadRules ? "Hide" : "Show"} upload rules
+                        {!!toggleUploadRules ? (t('btnshowuploadrules.hide') ?? "Hide") : (t('btnshowuploadrules.show') ?? "Show")} {t('btnshowuploadrules.title') ?? "Upload Rules"}
                     </button>
 
                     {!!toggleUploadRules && uploadRules && (
                         <div className="mt-3 uplrulesblk">
                             <fieldset className="uplrulesubblk">
-                                <legend className="uplrulestitle">Upload rules</legend>
-                                <p className="mt-3">Allowed extensions: {getExtensions()}</p>
-                                <p className="mt-3">Max Size: {getMaxSize()} bytes ({getCalcMaxSize()})</p>
+                                <legend className="uplrulestitle">{t('uploadrules.title') ?? "Upload rules"}</legend>
+                                <p className="mt-3">
+                                    {t('uploadrules.rules.allowedextensions', {extensions: getExtensions()}) ?? `Allowed extensions: ${getExtensions()}`}
+                                </p>
+                                <p className="mt-3">
+                                    {t('uploadrules.rules.maxallowedsize', {sizeInBytes: getMaxSize(), sizeInMB: getCalcMaxSize()}) ?? `Max Size: ${getMaxSize()} bytes (${getCalcMaxSize()})`}
+                                </p>
                             </fieldset>
                         </div>
                     )}
@@ -135,14 +140,14 @@ export default function FileSingleUploadForm() {
                             disabled={pending || !file && !statusState}
                             onClick={clearForm}
                         >
-                            Reset
+                            {t('uploadact.btnreset') ?? "Reset"}
                         </button>
                         <button
                             type="submit"
                             className="btn btn-primary btn-upload mt-3 ms-3"
                             disabled={pending || !file && !statusState}
                         >
-                            Upload
+                            {t('uploadact.btnupload') ?? "Upload"}
                         </button>
                     </div>
                 </form>

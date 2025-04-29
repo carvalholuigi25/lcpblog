@@ -33,7 +33,43 @@
       "txtviews": "Visualizações: {views}"
     },
     "footer": {
-      "title": "Criado por"
+      "title": "Criado por",
+      "themes": {
+        "options": {
+          "light": {
+            "name": "Claro",
+            "value": "light"
+          },
+          "dark": {
+            "name": "Escuro",
+            "value": "dark"
+          },
+          "system": {
+            "name": "Sistema",
+            "value": "system"
+          },
+          "red": {
+            "name": "Vermelho",
+            "value": "red"
+          },
+          "green": {
+            "name": "Verde",
+            "value": "green"
+          },
+          "blue": {
+            "name": "Azul",
+            "value": "blue"
+          },
+          "yellow": {
+            "name": "Amarelo",
+            "value": "yellow"
+          },
+          "vanilla": {
+            "name": "Original",
+            "value": "vanilla"
+          }
+        }
+      }
     },
     "loading": {
       "title": "A carregar..."
@@ -46,10 +82,13 @@
         "titletable": "Notícias",
         "header": {
           "postId": "Postagem Id",
+          "name": "Nome",
           "title": "Título",
           "createdAt": "Criado em",
           "updatedAt": "Atualizado em",
           "slug": "Slug",
+          "status": "Estado",
+          "categoryId": "Categoria Id",
           "userId": "Utilizador Id",
           "actions": "Ações"
         },
@@ -79,6 +118,30 @@
           "btnedit": "Editar",
           "btndelete": "Apagar",
           "emptyusers": "Não há utilizadores, por favor, crie um utilizador."
+        },
+        "footer": {
+          "page": "Página",
+          "totalData": "Total de"
+        }
+      },
+      "categoriesdata": {
+        "titletable": "Categorias",
+        "header": {
+          "postId": "Postagem Id",
+          "name": "Nome",
+          "title": "Título",
+          "createdAt": "Criado em",
+          "updatedAt": "Atualizado em",
+          "slug": "Slug",
+          "status": "Estado",
+          "categoryId": "Categoria Id",
+          "userId": "Utilizador Id",
+          "actions": "Ações"
+        },
+        "body": {
+          "btnedit": "Editar",
+          "btndelete": "Eliminar",
+          "emptycategories": "Não há categorias, por favor, crie uma categoria."
         },
         "footer": {
           "page": "Página",
@@ -340,6 +403,95 @@
         "title": "Utilizadores",
         "btnadduser": "Adicionar novo utilizador",
         "emptyusers": "0 utilizadores."
+      },
+      "MediaPage": {
+        "title": "Enviar Arquivos",
+        "btnupload": {
+          "hide": "Ocultar",
+          "show": "Mostrar",
+          "upload": "Envio"
+        },
+        "seltypeupload": {
+          "title": "Selecionar tipo de envio",
+          "options": {
+            "single": "Único",
+            "multiple": "Múltiplos",
+            "dragndrop": "Arrastar e Soltar"
+          }
+        },
+        "btnshowuploadrules": {
+          "show": "Mostrar",
+          "hide": "Ocultar",
+          "title": "regras de upload"
+        },
+        "uploadrules": {
+          "title": "Regras de upload",
+          "rules": {
+            "allowedextensions": "Extensões permitidas: {extensions}",
+            "maxallowedsize": "Tamanho máximo permitido: {sizeInBytes} bytes ({sizeInMB} MB)"
+          }
+        },
+        "uploadact": {
+          "btnreset": "Repor",
+          "btnupload": "Enviar"
+        },
+        "messages": {
+          "nofile": "Por favor, selecione um ficheiro para enviar.",
+          "nofilemult": "Por favor, selecione pelo menos um (ou vários) ficheiros para enviar.",
+          "drop": "Arraste os arquivos aqui para fazer upload",
+          "dragndrop": "Arraste e solte os arquivos aqui para fazer upload (múltiplos arquivos) ou clique para selecionar",
+          "uploading": "Enviando...",
+          "uploadingmult": "Enviando múltiplos ficheiros...",
+          "uploadsuccess": "Upload concluído com sucesso!",
+          "uploadfailed": "Falha no envio de ficheiros!",
+          "uploaderror": "Erro ao enviar o ficheiro. Messagem: {message}",
+          "uploadmultsuccess": "Envio múltiplo de ficheiros concluído com sucesso!",
+          "uploadmultfailed": "Falha no envio múltiplo de ficheiros!",
+          "uploadmulterror": "Erro ao enviar múltiplos ficheiros. Mensagem: {message}"
+        },
+        "preview": {
+          "title": "Prévia"
+        },
+        "results": {
+          "nofilesuploaded": "Nenhum arquivo foi enviado.",
+          "contentType": "Tipo de conteúdo",
+          "uploadedDate": "Data de envio"
+        }
+      },
+      "CategoriesPage": {
+        "title": "Categorias",
+        "btnaddcategory": "Adicionar nova categoria",
+        "emptycategories": "0 categorias."
+      },
+      "DevelopersPage": {
+        "title": "Desenvolvedores",
+        "lblwarnpage": "Aviso: Esta página é para os administradores e desenvolvedores!",
+        "CommitsLogPage": {
+          "title": "Registro de commits",
+          "buttons": {
+            "btntable": "Tabela",
+            "btnjson": "JSON"
+          },
+          "form": {
+            "lblowner": "Proprietário",
+            "inpowner": "Escreva aqui o nome do proprietário",
+            "lblrepository": "Repositório",
+            "inprepository": "Escreva aqui o nome do repositório",
+            "lblbranchname": "Ramo",
+            "inpbranchname": "Escreva aqui o nome do ramo",
+            "btnreset": "Repor",
+            "btngenerate": "Gerar",
+            "btnmorecommits": "Mais commits?"
+          },
+          "table": {
+            "header": {
+              "id": "Id",
+              "message": "Mensagem",
+              "author": "Autor",
+              "date": "Data"
+            }
+          }
+        }
       }
     },
     "AuthPage": {

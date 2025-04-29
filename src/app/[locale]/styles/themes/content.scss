@@ -487,6 +487,38 @@
         }
     }
 
+    .frmuplfilesingle, .frmuplfilesmult {
+        .lblfile {
+            background: $bgcolorprimary;
+            border-color: $bgcolorprimary;
+            color: $fgcolorprimary;
+
+            &:hover {
+                background-color: #{$bgcolorprimary + "b3"} !important;
+                border-color: #{$bgcolorprimary + "b3"} !important;
+                color: $fgcolorprimary !important;
+            }
+        }
+
+        input[type=file] {
+            &::after {
+                color: $fgcolorprimary;
+            }
+
+            &::file-selector-button {
+                background: $bgcolorprimary;
+                border-color: $bgcolorprimary;
+                color: $fgcolorprimary;
+    
+                &:hover {
+                    background-color: #{$bgcolorprimary + "b3"};
+                    border-color: #{$bgcolorprimary + "b3"};
+                    color: $fgcolorprimary;
+                }
+            }
+        }
+    }
+
     .contentjson {
         background-color: #{$bgcolorprimary + "b3"};
         color: $fgcolorprimary;

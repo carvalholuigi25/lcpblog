@@ -1,17 +1,18 @@
 "use client";
+import Image from 'next/image';
 import { useRef, useCallback, useState, useEffect } from "react";
 import { useFormStatus } from "react-dom";
 import { useDropzone } from "react-dropzone";
 import { useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { uploadRules } from "@applocale/utils/uploadrules";
 import { getFromStorage, saveToStorage } from "@applocale/hooks/localstorage";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
-import Image from 'next/image';
 
 export default function FileDragDropUploadForm() {
     const router = useRouter();
     const locale = useLocale();
+    const t = useTranslations("pages.AdminPages.MediaPage");
     const [file, setFile] = useState<File | null>(null);
     const [preview, setPreview] = useState<string | null>(null);
     const [statusState, setStatusState] = useState(false);
@@ -44,7 +45,7 @@ export default function FileDragDropUploadForm() {
     }
 
     const getCalcMaxSize = () => {
-        return `${(getMaxSize() / (isBinary ? 1000 * 1000 : 1024 * 1024)).toFixed(2)} mb`;
+        return `${(getMaxSize() / (isBinary ? 1000 * 1000 : 1024 * 1024)).toFixed(2)}`;
     }
 
     const clearForm = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -60,7 +61,10 @@ export default function FileDragDropUploadForm() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleUpload = async (e: any) => {
         e.preventDefault();
-        if (!file) return;
+        if (!file) {
+            setStatus(t('messages.nofile') ?? "Please select at least one file to upload.");
+            return;
+        }
 
         const formData = new FormData();
         formData.append("file", file);
@@ -84,17 +88,17 @@ export default function FileDragDropUploadForm() {
 
             if (response && response.status === 200) {
                 setStatusState(true);
-                setStatus("File(s) uploaded successfully!");
+                setStatus(t('messages.uploadsuccess') ?? "File uploaded successfully.");
                 ref.current?.reset();
                 router.push(`/${locale}/pages/admin/dashboard`);
             } else {
                 setStatusState(false);
-                setStatus("Upload failed.");
+                setStatus(t('messages.uploadfailed') ?? "File upload failed.");
                 ref.current?.reset();
             }
         } catch (error) {
             setStatusState(false);
-            setStatus("Error uploading file. Message: " + error);
+            setStatus(t('messages.uploaderror', {message: ""+error}) ?? `Error uploading file. Message: ${error}`);
             ref.current?.reset();
         }
     }
@@ -109,15 +113,19 @@ export default function FileDragDropUploadForm() {
             <div className="row">
                 <div className="mt-3">
                     <button className="btn btn-primary btntoggleuplrules" onClick={changeToggleUploadRules}>
-                        {!!toggleUploadRules ? "Hide" : "Show"} upload rules
+                        {!!toggleUploadRules ? (t('btnshowuploadrules.hide') ?? "Hide") : (t('btnshowuploadrules.show') ?? "Show")} {t('btnshowuploadrules.title') ?? "Upload Rules"}
                     </button>
 
                     {!!toggleUploadRules && uploadRules && (
                         <div className="mt-3 uplrulesblk">
                             <fieldset className="uplrulesubblk">
-                                <legend className="uplrulestitle">Upload rules</legend>
-                                <p className="mt-3">Allowed extensions: {getExtensions()}</p>
-                                <p className="mt-3">Max Size: {getMaxSize()} bytes ({getCalcMaxSize()})</p>
+                                <legend className="uplrulestitle">{t('uploadrules.title') ?? "Upload rules"}</legend>
+                                <p className="mt-3">
+                                    {t('uploadrules.rules.allowedextensions', {extensions: getExtensions()}) ?? `Allowed extensions: ${getExtensions()}`}
+                                </p>
+                                <p className="mt-3">
+                                    {t('uploadrules.rules.maxallowedsize', {sizeInBytes: getMaxSize(), sizeInMB: getCalcMaxSize()}) ?? `Max Size: ${getMaxSize()} bytes (${getCalcMaxSize()})`}
+                                </p>
                             </fieldset>
                         </div>
                     )}
@@ -133,9 +141,9 @@ export default function FileDragDropUploadForm() {
                             <i className="bi bi-cloud-plus-fill"></i>
 
                             {isDragActive ? (
-                                <p>Drop the file here...</p>
+                                <p>{t('messages.drop') ?? "Drop the file here..."}</p>
                             ) : (
-                                <p>Drag and drop a file here, or click to select file</p>
+                                <p>{t('messages.dragndrop') ?? "Drag and drop a file here, or click to select file"}</p>
                             )}
                         </div>
 
@@ -144,7 +152,7 @@ export default function FileDragDropUploadForm() {
                                 <div className="col-12">
                                     <div className="card mt-3">
                                         <div className="card-body">
-                                            <h4>Preview</h4>
+                                            <h4>{t('preview.title') ?? "Preview"}</h4>
                                             <Image src={preview} alt={"preview"} className="img-fluid" width={400} height={400} />
                                         </div>
                                     </div>
@@ -161,7 +169,7 @@ export default function FileDragDropUploadForm() {
                                 disabled={pending || !file && !statusState}
                                 onClick={clearForm}
                             >
-                                Reset
+                                {t('uploadact.btnreset') ?? "Reset"}
                             </button>
 
                             <button
@@ -169,7 +177,7 @@ export default function FileDragDropUploadForm() {
                                 className="btn btn-primary btn-upload mt-3 ms-3"
                                 disabled={pending || !file && !statusState}
                             >
-                                Upload
+                                {t('uploadact.btnupload') ?? "Upload"}
                             </button>
                         </div>
                     )}
