@@ -9,6 +9,20 @@
       "dashboardlink": "Painel",
       "logoutlink": "Sair"
     },
+    "offcanvasAdmin": {
+      "btnclose": "Fechar",
+      "homelink": "Casa",
+      "postslink": "Postagens",
+      "userslink": "Utilizadores",
+      "medialink": "Mídia",
+      "categorieslink": "Categorias",
+      "developers": {
+        "title": "Desenvolvedores",
+        "option": {
+          "commitslink": "Registro de commits"
+        }
+      }
+    },
     "buttons": {
       "btnreadmore": "Leia mais...",
       "btnlogout": "Sair",
@@ -26,6 +40,29 @@
     },
     "editors": {
       "edplaceholder": "Comece a escrever..."
+    },
+    "tables": {
+      "tabledata": {
+        "titletable": "Notícias",
+        "header": {
+          "id": "Postagem Id",
+          "title": "Título",
+          "createdAt": "Criado em",
+          "updatedAt": "Atualizado em",
+          "slug": "Slug",
+          "userId": "Utilizador Id",
+          "actions": "Ações"
+        },
+        "body": {
+          "btnedit": "Editar",
+          "btndelete": "Eliminar",
+          "emptyposts": "Não há postagens, por favor, crie uma postagem."
+        },
+        "footer": {
+          "page": "Página",
+          "totalData": "Total de"
+        }
+      }
     },
     "forms": {
       "auth": {
@@ -119,6 +156,23 @@
           }
         }
       },
+      "advancedsearch": {
+        "title": "Pesquisa de filtro avançada",
+        "lblsearch": "Pesquisar",
+        "inpsearch": "Pesquisar...",
+        "lblorderby": "Ordenar por",
+        "lblsortby": "Classificar por",
+        "optsorderby": {
+          "asc": "Crescente",
+          "desc": "Decrescente"
+        },
+        "optssortby": {
+          "postId": "Id da postagem",
+          "title": "Título"
+        },
+        "btnreset": "Repor",
+        "btnsearch": "Procurar"
+      },
       "news": {
         "validation": {
           "errors": {
@@ -206,6 +260,59 @@
         "month12": {
           "name": "Dezembro"
         }
+      }
+    },
+    "AdminPages": {
+      "Dashboard": {
+        "title": "Painel",
+        "lblhome": "Casa",
+        "lblwelcome": "Bem-vindo, {displayName}!",
+        "lblnews": "Notícias",
+        "lblcategories": "Categorias",
+        "lblusers": "Usuários",
+        "lblcommits": "Commits",
+        "lblcomments": "Comentários",
+        "lbldashboard": "Painel",
+        "stats": {
+          "lbltotalposts": "Postagem",
+          "lbltotalpostspl": "Postagens",
+          "lbltotalcategories": "Categoria",
+          "lbltotalcategoriespl": "Categorias",
+          "lbltotaltags": "Etiqueta",
+          "lbltotaltagspl": "Etiquetas",
+          "lbltotalusers": "Utilizador",
+          "lbltotaluserspl": "Utilizadores"
+        },
+        "charttypes": {
+          "seloption": "Seleciona o tipo de gráfico",
+          "options": {
+            "verticalBar": "Barra Vertical",
+            "horizontalBar": "Barra Horizontal",
+            "line": "Linha",
+            "pie": "Circular",
+            "radar": "Radar",
+            "doughnut": "Rosquinha",
+            "polarArea": "Área Polar",
+            "area": "Área",
+            "bubble": "Bolha",
+            "scatter": "Dispersão"
+          }
+        },
+        "chart": {
+          "titlechart": "Postagens",
+          "lblxaxis": "Nº de postagens",
+          "lblyaxis": "Meses"
+        }
+      },
+      "PostsPage": {
+        "title": "Postagens",
+        "btnaddnews": "Adicionar nova postagem",
+        "btnadvfsearch": {
+          "enable": "Ativar",
+          "disable": "Desativar",
+          "title": "Pesquisa de filtro avançada"
+        },
+        "emptyposts": "0 postagens."
       }
     },
     "AuthPage": {

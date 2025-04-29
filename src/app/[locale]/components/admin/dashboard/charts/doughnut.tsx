@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { getColorGrid, getColorTxt } from '@/app/[locale]/functions/chartfunctions';
-import { Dataset } from '@/app/[locale]/interfaces/dataset';
-import FetchData from '@/app/[locale]/utils/fetchdata';
-import LoadingComp from '@/app/[locale]/components/loadingcomp';
+import { getColorGrid, getColorTxt } from '@applocale/functions/chartfunctions';
+import { Dataset } from '@applocale/interfaces/dataset';
+import FetchData from '@applocale/utils/fetchdata';
+import LoadingComp from '@applocale/components/loadingcomp';
+import { useLocale, useTranslations } from 'next-intl';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export const DoughnutChart = ({ theme }: { theme: string }) => {
+    const t = useTranslations('pages.AdminPages.Dashboard.chart');
+    
     const colortxt = getColorTxt(theme);
     const colorgrid = getColorGrid(theme);
+    const locale = useLocale();
     
     const [loading, setLoading] = useState(true);
     const [chdata, setChdata] = useState<Dataset>({
@@ -23,7 +27,7 @@ export const DoughnutChart = ({ theme }: { theme: string }) => {
     useEffect(() => {
         async function fetchChartData() {
             const data = await FetchData({
-                url: `api/posts/dataset`,
+                url: `api/posts/dataset?lang=${locale}`,
                 method: 'get',
                 reqAuthorize: false
             });
@@ -33,7 +37,7 @@ export const DoughnutChart = ({ theme }: { theme: string }) => {
 
         fetchChartData();
         setLoading(false);
-    }, [loading]);
+    }, [loading, locale]);
 
     if (!chdata || !!loading) {
         return (
@@ -47,7 +51,7 @@ export const DoughnutChart = ({ theme }: { theme: string }) => {
         labels: label,
         datasets: [
             {
-                label: 'Posts',
+                label: t("titlechart") ?? 'Posts',
                 data: data,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
@@ -90,7 +94,7 @@ export const DoughnutChart = ({ theme }: { theme: string }) => {
                 max: 100,
                 title: {
                     display: true,
-                    text: "Posts",
+                    text: t("lblyaxis") ?? "Nº of posts",
                     color: colortxt
                 },
                 ticks: {
@@ -106,7 +110,7 @@ export const DoughnutChart = ({ theme }: { theme: string }) => {
                 display: false,
                 title: {
                     display: true,
-                    text: "Months",
+                    text: t("lblxaxis") ?? "Months",
                     color: colortxt
                 },
                 ticks: {

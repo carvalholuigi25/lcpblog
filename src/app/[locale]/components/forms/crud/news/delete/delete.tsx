@@ -9,7 +9,7 @@ import { getFromStorage } from "@applocale/hooks/localstorage";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { buildMyConnection, sendMessage } from "@applocale/functions/functions";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
-import LoadingComp from "@/app/[locale]/components/loadingcomp";
+import LoadingComp from "@applocale/components/loadingcomp";
 
 const DeleteNewsForm = ({ id, data }: { id: number, data: Posts }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);

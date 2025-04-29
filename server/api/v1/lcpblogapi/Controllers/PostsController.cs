@@ -130,9 +130,9 @@ namespace lcpblogapi.Controllers
         [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<IEnumerable<Dataset>> GetDatasetPost(int year = 2025)
+        public ActionResult<IEnumerable<Dataset>> GetDatasetPost(int year = 2025, string? lang = "en")
         {
-            return _postsRepo.GetDatasetPost(year);
+            return _postsRepo.GetDatasetPost(year, lang);
         }
     }
 }

@@ -1,50 +1,53 @@
+import { useTranslations } from "next-intl";
 import { ChartTypes } from "@applocale/interfaces/charttypes";
 
-export const getChartTypes = (): ChartTypes[] => {
+export const GetChartTypes = (): ChartTypes[] => {
+    const t = useTranslations('pages.AdminPages.Dashboard.charttypes.options');
+    
     return [
         {
             id: 1,
-            name: 'Vertical Bar',
+            name: t("verticalBar") ?? 'Vertical Bar',
             value: 'verticalbar'
         },
         {
             id: 2,
-            name: 'Horizontal Bar',
+            name: t("horizontalBar") ?? 'Horizontal Bar',
             value: 'horizontalbar'
         },
         {
             id: 3,
-            name: 'Line',
+            name: t("line") ?? 'Line',
             value: 'line'
         },
         {
             id: 4,
-            name: 'Pie',
+            name: t("pie") ?? 'Pie',
             value: 'pie'
         },
         {
             id: 5,
-            name: 'Radar',
+            name: t("radar") ?? 'Radar',
             value: 'radar'
         },
         {
             id: 6,
-            name: 'Doughnut',
+            name: t("doughnut") ?? 'Doughnut',
             value: 'doughnut'
         },
         {
             id: 7,
-            name: 'Polar',
+            name: t("polarArea") ?? 'Polar',
             value: 'polar'
         },
         {
             id: 8,
-            name: 'Scatter',
+            name: t("scatter") ?? 'Scatter',
             value: 'scatter'
         },
         {
             id: 9,
-            name: 'Bubble',
+            name: t("bubble") ?? 'Bubble',
             value: 'bubble'
         }
     ];

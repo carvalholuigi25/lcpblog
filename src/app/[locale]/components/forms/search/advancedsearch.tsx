@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
 
 const schema = z.object({
   search: z.string().optional(),
@@ -15,6 +16,7 @@ const schema = z.object({
 type SearchFormData = z.infer<typeof schema>;
 
 export default function AdvancedSearch({ isSearchEnabled, pageIndex, pageSize }: any) {
+  const t = useTranslations("ui.forms.advancedsearch");
   const searchParams = useSearchParams();
 
   const {
@@ -63,16 +65,16 @@ export default function AdvancedSearch({ isSearchEnabled, pageIndex, pageSize }:
   return (
     <div className="col-12 mt-3 mx-auto text-center">
       <form className="d-flex align-items-center flex-column" onSubmit={handleSubmit(onSubmit)}>
-        <p>Advanced filter search:</p>
+        <p>{t("title") ?? "Advanced filter search:"}</p>
 
         <div className="form-group mt-3">
-          <label htmlFor="search">Search</label>
+          <label htmlFor="search">{t("lblsearch") ?? "Search"}</label>
           <input
             type="text"
             id="search"
             {...register("search")}
             className="form-control search mt-3"
-            placeholder="Search"
+            placeholder={t("inpsearch") ?? "Search..."}
           />
           {errors.search && <small className="text-danger">{errors.search.message}</small>}
         </div>
@@ -81,14 +83,14 @@ export default function AdvancedSearch({ isSearchEnabled, pageIndex, pageSize }:
           <div className="row">
             <div className="col-12 col-md-6">
               <div className="form-group mt-3">
-                <label htmlFor="sortorder">Order by</label>
+                <label htmlFor="sortorder">{t("lblorderby") ?? "Order by"}</label>
                 <select
                   id="sortorder"
                   {...register("sortorder")}
                   className="form-select sortorder mt-3"
                 >
-                  <option value="asc">Ascending</option>
-                  <option value="desc">Descending</option>
+                  <option value="asc">{t("optsorderby.asc") ?? "Ascending"}</option>
+                  <option value="desc">{t("optsorderby.desc") ?? "Descending"}</option>
                 </select>
                 {errors.sortorder && (
                   <small className="text-danger">{errors.sortorder.message}</small>
@@ -98,14 +100,14 @@ export default function AdvancedSearch({ isSearchEnabled, pageIndex, pageSize }:
 
             <div className="col-12 col-md-6">
               <div className="form-group mt-3">
-                <label htmlFor="sortby">Sort by</label>
+                <label htmlFor="sortby">{t("lblsortby") ?? "Sort by"}</label>
                 <select
                   id="sortby"
                   {...register("sortby")}
                   className="form-select sortby mt-3"
                 >
-                  <option value="postId">Post Id</option>
-                  <option value="title">Title</option>
+                  <option value="postId">{t("optssortby.postId") ?? "Post Id"}</option>
+                  <option value="title">{t("optssortby.title") ?? "Title"}</option>
                 </select>
                 {errors.sortby && (
                   <small className="text-danger">{errors.sortby.message}</small>
@@ -117,11 +119,11 @@ export default function AdvancedSearch({ isSearchEnabled, pageIndex, pageSize }:
 
         <div className="form-group mt-3">
           <button type="button" className="btn btn-primary btn-rounded btnreset" onClick={resetSearch}>
-            Reset
+            {t("btnreset") ?? "Reset"}
           </button>
           <button type="submit" className="btn btn-primary btn-rounded btnsub ms-3">
             <i className="bi bi-search"></i>
-            <span className="ms-2">Search</span>
+            <span className="ms-2">{t("btnsearch") ?? "Search"}</span>
           </button>
         </div>
       </form>

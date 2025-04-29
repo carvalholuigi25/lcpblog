@@ -3,6 +3,7 @@
 import astyles from "@applocale/styles/adminstyles.module.scss";
 import { getFromStorage, saveToStorage } from "@applocale/hooks/localstorage";
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { Link } from '@/app/i18n/navigation';
 import { getDefLocale } from "@applocale/helpers/defLocale";
@@ -12,7 +13,7 @@ import { Posts } from "@applocale/interfaces/posts";
 import { Tags } from "@applocale/interfaces/tags";
 import { User } from "@applocale/interfaces/user";
 import { useTheme } from "@applocale/components/context/themecontext";
-import { getChartTypes } from "@applocale/functions/chartfunctions";
+import { GetChartTypes } from "@applocale/functions/chartfunctions";
 import { Schedules } from "@applocale/interfaces/schedules";
 import AdminSidebarDashboard from "@applocale/components/admin/dashboard/adbsidebar";
 import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavbar";
@@ -25,7 +26,10 @@ import LoadingComp from "@applocale/components/loadingcomp";
 import Schedule from "@applocale/components/schedule";
 
 const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
-    const chartTypesAry = getChartTypes();
+    const t = useTranslations('pages.AdminPages.Dashboard');
+    const ttbl = useTranslations("ui.tables.tabledata");
+    const tbtn = useTranslations('ui.buttons');
+    const chartTypesAry = GetChartTypes();
     const [logInfo, setLogInfo] = useState("");
     const [isAuthorized, setIsAuthorized] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -52,12 +56,12 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
     const pageSize: number = 10;
     
     const tableHeaders = [
-        { dataIndex: 'postId', title: 'Post Id' },
-        { dataIndex: 'title', title: 'Title' },
-        { dataIndex: 'createdAt', title: 'Created At' },
-        { dataIndex: 'updatedAt', title: 'Updated At' },
-        { dataIndex: 'slug', title: 'Slug' },
-        { dataIndex: 'userId', title: 'User Id' },
+        { dataIndex: 'postId', title: ttbl('header.id') ?? 'Post Id' },
+        { dataIndex: 'title', title: ttbl('header.title') ?? 'Title' },
+        { dataIndex: 'createdAt', title: ttbl('header.createdAt') ?? 'Created At' },
+        { dataIndex: 'updatedAt', title: ttbl('header.updatedAt') ?? 'Updated At' },
+        { dataIndex: 'slug', title: ttbl('header.slug') ?? 'Slug' },
+        { dataIndex: 'userId', title: ttbl('header.userId') ?? 'User Id' }
     ];
 
     useEffect(() => {
@@ -172,9 +176,9 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
                                 <div className={"col-12 col-md-" + (!sidebarToggle ? "9" : "12") + " col-lg-" + (!sidebarToggle ? "10" : "12") + ""}>
                                     <h3 className="text-center">
                                         <i className="bi bi-house me-2"></i>
-                                        Home
+                                        {t('lblhome') ?? "Home"}
                                     </h3>
-                                    <p className="text-center mt-3">Welcome {getDisplayName()}</p>
+                                    <p className="text-center mt-3">{t('lblwelcome', {displayName: getDisplayName()}) ?? `Welcome ${getDisplayName()}`}</p>
                                 </div>
                             </div>
                         </div>
@@ -186,7 +190,7 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
                                         <div className="card-body">
                                             <div className="d-flex justify-content-between align-items-center">
                                                 <span className="card-text">
-                                                    {postsLength + ' Post' + (postsLength != 1 ? 's' : '')}
+                                                    {(postsLength ?? posts.length) + " " + (postsLength != 1 ? (t('stats.lbltotalpostspl') ?? ' Posts') : (t('stats.lbltotalposts') ?? ' Post'))}
                                                 </span>
                                                 <i className="bi bi-file-earmark-post" style={{ fontSize: "1.4rem" }}></i>
                                             </div>
@@ -199,7 +203,7 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
                                         <div className="card-body">
                                             <div className="d-flex justify-content-between align-items-center">
                                                 <span className="card-text">
-                                                    {(categoriesLength ?? categories.length) + ' Categor' + ((categoriesLength ?? categories.length) != 1 ? 'ies' : 'y')}
+                                                    {(categoriesLength ?? categories.length) + " " + (categoriesLength != 1 ? (t('stats.lbltotalcategoriespl') ?? ' Categories') : (t('stats.lbltotalcategories') ?? ' Category'))}
                                                 </span>
                                                 <i className="bi bi-bookmark" style={{ fontSize: "1.4rem" }}></i>
                                             </div>
@@ -212,7 +216,7 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
                                         <div className="card-body">
                                             <div className="d-flex justify-content-between align-items-center">
                                                 <span className="card-text">
-                                                    {(tagsLength ?? tags.length) + ' Tag' + ((tagsLength ?? tags.length) != 1 ? 's' : '')}
+                                                    {(tagsLength ?? tags.length) + " " + (tagsLength != 1 ? (t('stats.lbltotaltagspl') ?? ' Tags') : (t('stats.lbltotaltags') ?? ' Tag'))}
                                                 </span>
                                                 <i className="bi bi-tag" style={{ fontSize: "1.4rem" }}></i>
                                             </div>
@@ -225,7 +229,7 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
                                         <div className="card-body">
                                             <div className="d-flex justify-content-between align-items-center">
                                                 <span className="card-text">
-                                                    {(usersLength ?? users.length) + ' User' + ((usersLength ?? users.length) != 1 ? 's' : '')}
+                                                    {(usersLength ?? users.length) + " " + (usersLength != 1 ? (t('stats.lbltotaluserspl') ?? ' Users') : (t('stats.lbltotalusers') ?? ' User'))}
                                                 </span>
                                                 <i className="bi bi-people" style={{ fontSize: "1.4rem" }}></i>
                                             </div>
@@ -241,7 +245,7 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
                                     {enableChangeChartType && (
                                         <div className="d-flex justify-content-center w-100">
                                             <select className="form-control mb-3 w-auto bshadow" value={chartTypeSelVal ?? 'verticalbar'} onChange={onChangeChartType}>
-                                                <option value={""} disabled>Select the chart type</option>
+                                                <option value={""} disabled>{t('charttypes.seloption') ?? "Select the chart type"}</option>
                                                 {chartTypesAry.length > 0 && chartTypesAry.map(x => (
                                                     <option key={x.id} value={x.value}>{x.name}</option>
                                                 ))}
@@ -252,7 +256,7 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
                                     <ChartData theme={theme} type={chartTypeSelVal} />
                                 </div>
                                 <div className="col-12 col-md-6 col-lg-6 mt-3">
-                                    <TableData tdata={posts} theaders={tableHeaders} namep="News" locale={locale ?? getDefLocale()} currentPage={page} totalPages={totalPages} linkSuffix="" />
+                                    <TableData tdata={posts} theaders={tableHeaders} namep={ttbl('titletable') ?? "news"} locale={locale ?? getDefLocale()} currentPage={page} totalPages={totalPages} linkSuffix="news" />
                                     <MyPagination cid={-1} pid={-1} currentPage={page} totalPages={totalPages} />
                                 </div>
                             </div>
@@ -270,7 +274,9 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
                             <div className="row">
                                 <div className="col-12">
                                     <div className="mx-auto text-center">
-                                        <Link href={'/'} className="btn btn-primary btn-rounded" locale={locale ?? getDefLocale()}>Back</Link>
+                                        <Link href={'/'} className="btn btn-primary btn-rounded" locale={locale ?? getDefLocale()}>
+                                            {tbtn('btnback') ?? "Back"}
+                                        </Link>
                                     </div>
                                 </div>
                             </div>

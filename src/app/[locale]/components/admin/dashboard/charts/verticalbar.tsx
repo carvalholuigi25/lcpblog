@@ -9,10 +9,11 @@ import {
     Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import { useLocale, useTranslations } from 'next-intl';
 import { getColorGrid, getColorTxt } from '@applocale/functions/chartfunctions';
 import { Dataset } from '@applocale/interfaces/dataset';
 import FetchData from '@applocale/utils/fetchdata';
-import LoadingComp from '@/app/[locale]/components/loadingcomp';
+import LoadingComp from '@applocale/components/loadingcomp';
 
 ChartJS.register(
     CategoryScale,
@@ -24,8 +25,10 @@ ChartJS.register(
 );
 
 export const VerticalBarChart = ({theme}: {theme: string}) => {
+    const t = useTranslations('pages.AdminPages.Dashboard.chart');
     const colortxt = getColorTxt(theme);
     const colorgrid = getColorGrid(theme);
+    const locale = useLocale();
     
     const [loading, setLoading] = useState(true);
     const [chdata, setChdata] = useState<Dataset>({
@@ -38,7 +41,7 @@ export const VerticalBarChart = ({theme}: {theme: string}) => {
     useEffect(() => {        
         async function fetchChartData() {
             const data = await FetchData({
-                url: `api/posts/dataset`,
+                url: `api/posts/dataset?lang=${locale}`,
                 method: 'get',
                 reqAuthorize: false
             });
@@ -48,7 +51,7 @@ export const VerticalBarChart = ({theme}: {theme: string}) => {
 
         fetchChartData();
         setLoading(false);
-    }, [loading]);
+    }, [loading, locale]);
 
     if (!chdata || !!loading) {
         return (
@@ -62,7 +65,7 @@ export const VerticalBarChart = ({theme}: {theme: string}) => {
         labels: label,
         datasets: [
             {
-                label: 'Posts',
+                label: t("titlechart") ?? 'Posts',
                 data: data,
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
             }
@@ -77,7 +80,7 @@ export const VerticalBarChart = ({theme}: {theme: string}) => {
                 max: 100,
                 title: {
                     display: true,
-                    text: "Nº of Posts",
+                    text: t("lblxaxis") ?? "Nº of Posts",
                     color: colortxt
                 },
                 ticks: {
@@ -93,7 +96,7 @@ export const VerticalBarChart = ({theme}: {theme: string}) => {
                 display: true,
                 title: {
                     display: true,
-                    text: "Months",
+                    text: t("lblyaxis") ?? "Months",
                     color: colortxt
                 },
                 ticks: {

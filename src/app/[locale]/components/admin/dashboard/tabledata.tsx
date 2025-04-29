@@ -1,6 +1,7 @@
 import styles from "@applocale/page.module.scss";
 import { getDefLocale } from '@applocale/helpers/defLocale';
 import { Link } from '@/app/i18n/navigation';
+import { useTranslations } from "next-intl";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface THeadersModel {
@@ -23,6 +24,7 @@ export function formatDate(mydate: number | string | Date) {
 }
 
 export default function TableData({ theaders, tdata, namep, locale, currentPage, totalPages, linkSuffix }: TableDataProps) {
+    const t = useTranslations('ui.tables.tabledata');
     const isBorderEnabled = false;
     const isRoundedEnabled = true;
     const isShadowEnabled = true;
@@ -32,14 +34,14 @@ export default function TableData({ theaders, tdata, namep, locale, currentPage,
     const isShadowEnabledCl = isShadowEnabled ? "mtable-shadow" : "";
     const isLongContentEnabledCl = isLongContentEnabled ? "mtable-long" : "";
     const totaltheaders = theaders.length + 1;
-
+    
     return (
         <div className={styles.myroundedscrollbar}>
             {!tdata || tdata.length == 0 && (
                 <div className='col-12 card p-3 text-center'>
                     <div className='card-body'>
                         <i className="bi bi-file-earmark-post-fill" style={{ fontSize: "4rem" }}></i>
-                        <p>No posts, please create a new one...</p>
+                        <p>{t('body.emptyposts') ?? "No posts, please create a new one..."}</p>
                     </div>
                 </div>
             )}
@@ -53,7 +55,7 @@ export default function TableData({ theaders, tdata, namep, locale, currentPage,
                                     <th key={"thv" + i}>{theader.title}</th>
                                 ))}
 
-                                <th>Actions</th>
+                                <th>{t('header.actions') ?? "Actions"}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -62,9 +64,9 @@ export default function TableData({ theaders, tdata, namep, locale, currentPage,
                                     return !!["createdAt", "updatedAt"].includes(thx.dataIndex) ? formatDate(tdataitem[thx.dataIndex]) : tdataitem[thx.dataIndex]; 
                                 });
                                 const vid = tdataitem["postId"] ?? (i + 1);
-                                const linksuffix = !!linkSuffix ? (linkSuffix.endsWith("/") ? linkSuffix : linkSuffix + "/") : "";
-                                const linkedit = '/pages/' + linksuffix + namep.toLowerCase() + '/edit/' + vid;
-                                const linkdel = '/pages/' + linksuffix + namep.toLowerCase() + '/delete/' + vid;
+                                const linksuffix = (!!linkSuffix ? (linkSuffix.endsWith("/") ? linkSuffix : linkSuffix + "/") : ""+namep.toLowerCase()).split("/")[0];
+                                const linkedit = `/pages/${linksuffix}/edit/${vid}`;
+                                const linkdel = `/pages/${linksuffix}/delete/${vid}`;	
 
                                 return (
                                     <tr key={"x" + i}>
@@ -73,10 +75,10 @@ export default function TableData({ theaders, tdata, namep, locale, currentPage,
                                         ))}
 
                                         <td>
-                                            <Link href={linkedit} locale={locale ?? getDefLocale()} className="btn btn-primary btnedit">
+                                            <Link href={linkedit} locale={locale ?? getDefLocale()} className="btn btn-primary btnedit" title={t('body.btnedit') ?? "Edit"}>
                                                 <i className="bi bi-pencil-fill" style={{ border: 0 }}></i>
                                             </Link>
-                                            <Link href={linkdel} locale={locale ?? getDefLocale()} className="btn btn-primary btndel ms-2">
+                                            <Link href={linkdel} locale={locale ?? getDefLocale()} className="btn btn-primary btndel ms-2" title={t('body.btndelete') ?? "Delete"}>
                                                 <i className="bi bi-trash3-fill" style={{ border: 0 }}></i>
                                             </Link>
                                         </td>
@@ -88,10 +90,10 @@ export default function TableData({ theaders, tdata, namep, locale, currentPage,
                             <tr>
                                 <td colSpan={totaltheaders ?? 1}>
                                     {currentPage! > 0 && totalPages! > 0 && (
-                                        <span>Page: {currentPage}/{totalPages}</span>
+                                        <span>{t('footer.page') ?? "Page"}: {currentPage}/{totalPages}</span>
                                     )}
                                     
-                                    <span className="ms-2">Total {namep.toLowerCase()}: {tdata.length}</span>
+                                    <span className="ms-2">{t('footer.totalData') ?? "Total of"} {namep.toLowerCase()}: {tdata.length}</span>
                                 </td>
                             </tr>
                         </tfoot>

@@ -9,10 +9,11 @@ import {
     Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import { getColorGrid, getColorTxt } from '@/app/[locale]/functions/chartfunctions';
-import { Dataset } from '@/app/[locale]/interfaces/dataset';
-import FetchData from '@/app/[locale]/utils/fetchdata';
-import LoadingComp from '@/app/[locale]/components/loadingcomp';
+import { getColorGrid, getColorTxt } from '@applocale/functions/chartfunctions';
+import { Dataset } from '@applocale/interfaces/dataset';
+import FetchData from '@applocale/utils/fetchdata';
+import LoadingComp from '@applocale/components/loadingcomp';
+import { useLocale, useTranslations } from 'next-intl';
 
 ChartJS.register(
     CategoryScale,
@@ -24,8 +25,10 @@ ChartJS.register(
 );
 
 export const HorizontalBarChart = ({ theme }: { theme: string }) => {
+    const t = useTranslations('pages.AdminPages.Dashboard.chart');
     const colortxt = getColorTxt(theme);
     const colorgrid = getColorGrid(theme);
+    const locale = useLocale();
     
     const [loading, setLoading] = useState(true);
     const [chdata, setChdata] = useState<Dataset>({
@@ -38,7 +41,7 @@ export const HorizontalBarChart = ({ theme }: { theme: string }) => {
     useEffect(() => {
         async function fetchChartData() {
             const data = await FetchData({
-                url: `api/posts/dataset`,
+                url: `api/posts/dataset?lang=${locale}`,
                 method: 'get',
                 reqAuthorize: false
             });
@@ -48,7 +51,7 @@ export const HorizontalBarChart = ({ theme }: { theme: string }) => {
 
         fetchChartData();
         setLoading(false);
-    }, [loading]);
+    }, [loading, locale]);
 
     if (!chdata || !!loading) {
         return (
@@ -62,7 +65,7 @@ export const HorizontalBarChart = ({ theme }: { theme: string }) => {
         labels: label,
         datasets: [
             {
-                label: 'Posts',
+                label: t("titlechart") ?? 'Posts',
                 data: data,
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
@@ -84,7 +87,7 @@ export const HorizontalBarChart = ({ theme }: { theme: string }) => {
                 max: 100,
                 title: {
                     display: false,
-                    text: "",
+                    text: t("lblyaxis") ?? "Nº of posts",
                     color: colortxt
                 },
                 ticks: {
@@ -100,7 +103,7 @@ export const HorizontalBarChart = ({ theme }: { theme: string }) => {
                 display: true,
                 title: {
                     display: false,
-                    text: "",
+                    text: t("lblxaxis") ?? "Months",
                     color: colortxt
                 },
                 ticks: {

@@ -3,7 +3,7 @@
 import astyles from "@applocale/styles/adminstyles.module.scss";
 import {Link} from '@/app/i18n/navigation';
 import Image from "next/image";
-import { getDefLocale } from "@/app/[locale]/helpers/defLocale";
+import { getDefLocale } from "@applocale/helpers/defLocale";
 
 export default function AdminNavbarDashboard({logInfo, sidebarToggle, toggleSidebar, locale}: {logInfo: string, sidebarToggle: boolean, toggleSidebar: any, locale: string}) {
     const getUserId = () => {

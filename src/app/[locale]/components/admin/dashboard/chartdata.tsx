@@ -5,7 +5,7 @@ import {
     PieChart, RadarChart, DoughnutChart,
     PolarChart, ScatterChart, BubbleChart
 } from "@applocale/components/admin/dashboard/charts/index";
-import LoadingComp from "@/app/[locale]/components/loadingcomp";
+import LoadingComp from "@applocale/components/loadingcomp";
 
 export default function ChartData({ theme, type = "verticalbar" }: { theme: string, type?: string }) {
     return (

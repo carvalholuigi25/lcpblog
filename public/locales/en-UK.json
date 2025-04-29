@@ -9,6 +9,20 @@
             "dashboardlink": "Dashboard",
             "logoutlink": "Logout"
         },
+        "offcanvasAdmin": {
+            "btnclose": "Close",
+            "homelink": "Home",
+            "postslink": "Posts",
+            "userslink": "Users",
+            "medialink": "Media",
+            "categorieslink": "Categories",
+            "developers": {
+                "title": "Developers",
+                "option": {
+                    "commitslink": "Commits log"
+                }
+            }
+        },
         "buttons": {
             "btnreadmore": "Read more...",
             "btnlogout": "Logout",
@@ -26,6 +40,29 @@
         },
         "editors": {
             "edplaceholder": "Start typing..."
+        },
+        "tables": {
+            "tabledata": {
+                "titletable": "News",
+                "header": {
+                    "id": "Post Id",
+                    "title": "Title",
+                    "createdAt": "Created At",
+                    "updatedAt": "Updated At",
+                    "slug": "Slug",
+                    "userId": "User Id",
+                    "actions": "Actions"
+                },
+                "body": {
+                    "btnedit": "Edit",
+                    "btndelete": "Delete",
+                    "emptyposts": "No posts, please create a new one..."
+                },
+                "footer": {
+                    "page": "Page",
+                    "totalData": "Total of"
+                }
+            }
         },
         "forms": {
             "auth": {
@@ -119,6 +156,23 @@
                     }
                 }
             },
+            "advancedsearch": {
+                "title": "Advanced filter search:",
+                "lblsearch": "Search",
+                "inpsearch": "Search...",
+                "lblorderby": "Order by",
+                "lblsortby": "Sort by",
+                "optsorderby": {
+                    "asc": "Ascending",
+                    "desc": "Descending"
+                },
+                "optssortby": {
+                    "postId": "Post Id",
+                    "title": "Title"
+                },
+                "btnreset": "Reset",
+                "btnsearch": "Search"
+            },
             "news": {
                 "validation": {
                     "errors": {
@@ -171,42 +225,95 @@
             "lblemptynews": "0 news",
             "lblmonths": {
                 "month1": {
-                  "name": "January"
+                    "name": "January"
                 },
                 "month2": {
-                  "name": "February"
+                    "name": "February"
                 },
                 "month3": {
-                  "name": "March"
+                    "name": "March"
                 },
                 "month4": {
-                  "name": "April"
+                    "name": "April"
                 },
                 "month5": {
-                  "name": "May"
+                    "name": "May"
                 },
                 "month6": {
-                  "name": "June"
+                    "name": "June"
                 },
                 "month7": {
-                  "name": "July"
+                    "name": "July"
                 },
                 "month8": {
-                  "name": "August"
+                    "name": "August"
                 },
                 "month9": {
-                  "name": "September"
+                    "name": "September"
                 },
                 "month10": {
-                  "name": "October"
+                    "name": "October"
                 },
                 "month11": {
-                  "name": "November"
+                    "name": "November"
                 },
                 "month12": {
-                  "name": "December"
+                    "name": "December"
                 }
-              }
+            }
+        },
+        "AdminPages": {
+            "Dashboard": {
+                "title": "Dashboard",
+                "lblhome": "Home",
+                "lblwelcome": "Welcome {displayName}!",
+                "lblnews": "News",
+                "lblcategories": "Categories",
+                "lblusers": "Users",
+                "lblcommits": "Commits",
+                "lblcomments": "Comments",
+                "lbldashboard": "Dashboard",
+                "stats": {
+                    "lbltotalposts": "Post",
+                    "lbltotalpostspl": "Posts",
+                    "lbltotalcategories": "Category",
+                    "lbltotalcategoriespl": "Categories",
+                    "lbltotaltags": "Tag",
+                    "lbltotaltagspl": "Tags",
+                    "lbltotalusers": "User",
+                    "lbltotaluserspl": "Users"
+                },
+                "charttypes": {
+                    "seloption": "Select the chart type",
+                    "options": {
+                        "verticalBar": "Vertical Bar",
+                        "horizontalBar": "Horizontal Bar",
+                        "line": "Line",
+                        "pie": "Pie",
+                        "radar": "Radar",
+                        "doughnut": "Doughnut",
+                        "polarArea": "Polar Area",
+                        "area": "Area",
+                        "bubble": "Bubble",
+                        "scatter": "Scatter"
+                    }
+                },
+                "chart": {
+                    "titlechart": "Posts",
+                    "lblxaxis": "Nº of posts",
+                    "lblyaxis": "Months"
+                }
+            },
+            "PostsPage": {
+                "title": "Posts",
+                "btnaddnews": "Add news",
+                "btnadvfsearch": {
+                    "enable": "Enable",
+                    "disable": "Disable",
+                    "title": "Advanced filter search"
+                },
+                "emptyposts": "0 posts."
+            }
         },
         "AuthPage": {
             "title": "Login"

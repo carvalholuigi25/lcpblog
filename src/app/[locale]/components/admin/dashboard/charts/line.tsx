@@ -2,16 +2,20 @@
 import React, { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler } from "chart.js";
-import { getColorGrid, getColorTxt } from "@/app/[locale]/functions/chartfunctions";
-import { Dataset } from "@/app/[locale]/interfaces/dataset";
-import FetchData from "@/app/[locale]/utils/fetchdata";
-import LoadingComp from "@/app/[locale]/components/loadingcomp";
+import { getColorGrid, getColorTxt } from "@applocale/functions/chartfunctions";
+import { Dataset } from "@applocale/interfaces/dataset";
+import FetchData from "@applocale/utils/fetchdata";
+import LoadingComp from "@applocale/components/loadingcomp";
+import { useLocale, useTranslations } from "next-intl";
 
 ChartJS.register(CategoryScale, LineElement, LinearScale, PointElement, Title, Tooltip, Legend, Filler);
 
 export const LineChart = ({ theme }: { theme: string }) => {
+    const t = useTranslations('pages.AdminPages.Dashboard.chart');
+    
     const colortxt = getColorTxt(theme);
     const colorgrid = getColorGrid(theme);
+    const locale = useLocale();
     
     const [loading, setLoading] = useState(true);
     const [chdata, setChdata] = useState<Dataset>({
@@ -24,7 +28,7 @@ export const LineChart = ({ theme }: { theme: string }) => {
     useEffect(() => {
         async function fetchChartData() {
             const data = await FetchData({
-                url: `api/posts/dataset`,
+                url: `api/posts/dataset?lang=${locale}`,
                 method: 'get',
                 reqAuthorize: false
             });
@@ -34,7 +38,7 @@ export const LineChart = ({ theme }: { theme: string }) => {
 
         fetchChartData();
         setLoading(false);
-    }, [loading]);
+    }, [loading, locale]);
 
     if (!chdata || !!loading) {
         return (
@@ -48,7 +52,7 @@ export const LineChart = ({ theme }: { theme: string }) => {
         labels: label,
         datasets: [
             {
-                label: 'Posts',
+                label: t("titlechart") ?? 'Posts',
                 data: data,
                 fill: true,
                 borderColor: "rgb(75, 192, 192)",
@@ -66,7 +70,7 @@ export const LineChart = ({ theme }: { theme: string }) => {
                 max: 100,
                 title: {
                     display: true,
-                    text: "Posts",
+                    text: t("lblyaxis") ?? "Nº of posts",
                     color: colortxt
                 },
                 ticks: {
@@ -82,7 +86,7 @@ export const LineChart = ({ theme }: { theme: string }) => {
                 display: true,
                 title: {
                     display: true,
-                    text: "Months",
+                    text: t("lblxaxis") ?? "Months",
                     color: colortxt
                 },
                 ticks: {

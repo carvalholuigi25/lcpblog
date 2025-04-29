@@ -180,13 +180,13 @@ public class PostsRepo : ControllerBase, IPostsRepo
         return Ok(result);
     }
 
-    public ActionResult<IEnumerable<Dataset>> GetDatasetPost(int year = 2025) {
+    public ActionResult<IEnumerable<Dataset>> GetDatasetPost(int year = 2025, string? lang = "en") {
         var ayear = year > 0 ? year : DateTime.Now.Year;
         Dataset data = new()
         {
             DatasetId = 1,
             Year = year,
-            Label = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+            Label = GetMonthsLabels(lang),
             Data = [GetTotalPosts(ayear, 1), GetTotalPosts(ayear, 2), GetTotalPosts(ayear, 3), GetTotalPosts(ayear, 4), GetTotalPosts(ayear, 5), GetTotalPosts(ayear, 6), GetTotalPosts(ayear, 7), GetTotalPosts(ayear, 8), GetTotalPosts(ayear, 9), GetTotalPosts(ayear, 10), GetTotalPosts(ayear, 11), GetTotalPosts(ayear, 12)]
         };
 
@@ -201,6 +201,13 @@ public class PostsRepo : ControllerBase, IPostsRepo
         query = GetFilterData(query, queryParams);
 
         return await query.CountAsync();
+    }
+
+    protected List<string> GetMonthsLabels(string? lang = "pt") {
+        return lang switch {
+            "pt" or "pt-PT" or "pt-BR" => ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+            _ => ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+        };
     }
 
     private int GetTotalPosts(int year = 2025, int month = 1) {

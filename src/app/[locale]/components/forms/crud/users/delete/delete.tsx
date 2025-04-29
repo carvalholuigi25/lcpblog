@@ -7,8 +7,8 @@ import { useRouter } from "next/navigation";
 import { User } from "@applocale/interfaces/user";
 import { Link } from '@/app/i18n/navigation';
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
-import { getDefLocale } from "@/app/[locale]/helpers/defLocale";
-import LoadingComp from "@/app/[locale]/components/loadingcomp";
+import { getDefLocale } from "@applocale/helpers/defLocale";
+import LoadingComp from "@applocale/components/loadingcomp";
 
 const DeleteUsersForm = ({ id, data }: { id: number, data: User }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
