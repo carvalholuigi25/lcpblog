@@ -3,7 +3,7 @@
 import astyles from "@applocale/styles/adminstyles.module.scss";
 import { getFromStorage } from "@applocale/hooks/localstorage";
 import { useEffect, useState } from "react";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { User } from "@applocale/interfaces/user";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import {Link} from '@/app/i18n/navigation';
@@ -17,6 +17,9 @@ import LoadingComp from "@applocale/components/loadingcomp";
 
 const AdminUsers = () => {
     const locale = useLocale();
+    const t = useTranslations("pages.AdminPages.UsersPage");
+    const ttbl = useTranslations("ui.tables.userstable");
+    const tbtn = useTranslations("ui.buttons");
     const [logInfo, setLogInfo] = useState("");
     const [isAuthorized, setIsAuthorized] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -59,11 +62,11 @@ const AdminUsers = () => {
     }
 
     const tableHeaders = [
-        { dataIndex: 'userId', title: 'User Id' },
-        { dataIndex: 'username', title: 'Username' },
-        { dataIndex: 'email', title: 'Email' },
-        { dataIndex: 'displayName', title: 'Display Name' },
-        { dataIndex: 'role', title: 'Role' },
+        { dataIndex: 'userId', title: ttbl("header.userId") ?? 'User Id' },
+        { dataIndex: 'username', title: ttbl("header.username") ?? 'Username' },
+        { dataIndex: 'email', title: ttbl("header.email") ?? 'Email' },
+        { dataIndex: 'displayName', title: ttbl("header.displayName") ?? 'Display Name' },
+        { dataIndex: 'role', title: ttbl('header.role') ?? 'Role' },
     ];
 
     return (
@@ -82,19 +85,22 @@ const AdminUsers = () => {
                             <div className={"col-12 col-md-" + (!sidebarToggle ? "9" : "12") + " col-lg-" + (!sidebarToggle ? "10" : "12") + ""}>
                                 <h3 className="text-center">
                                     <i className="bi bi-people me-2"></i>
-                                    Users
+                                    {t("title") ?? "Users"}
                                 </h3>
                                 <div className="container-fluid">
                                     <div className="row">
                                         <div className="col-12">
                                             <div className="btn-group" role="group" aria-label="Users data actions">
-                                                <Link href={'/pages/users/add'} locale={locale ?? getDefLocale()} className="btn btn-primary btn-rounded btncreateusers">Add new user</Link>
+                                                <Link href={'/pages/users/add'} locale={locale ?? getDefLocale()} className="btn btn-primary btn-rounded btncreateusers" title={t('btnadduser') ?? "Add new user"}>
+                                                    <i className="bi bi-plus-circle"></i>
+                                                    <span className="ms-2 hidden">{t('btnadduser') ?? "Add new user"}</span>
+                                                </Link>
                                             </div>
                                         </div>
 
                                         {!!users && (
                                             <div className="col-12 mt-3">
-                                                <TableData locale={locale ?? getDefLocale()} theaders={tableHeaders} tdata={users} namep="users" currentPage={-1} totalPages={-1} linkSuffix="" />
+                                                <TableData theaders={tableHeaders} tdata={users} namep={ttbl('titletable') ?? "users"} locale={locale ?? getDefLocale()} currentPage={-1} totalPages={-1} linkSuffix="users" />
                                             </div>
                                         )}
 
@@ -102,7 +108,7 @@ const AdminUsers = () => {
                                             <div className='col-12 mt-3 card p-3 text-center'>
                                                 <div className='card-body'>
                                                     <i className="bi bi-people" style={{ fontSize: "4rem" }}></i>
-                                                    <p>0 users</p>
+                                                    <p>{t('emptyusers') ?? '0 users'}</p>
                                                 </div>
                                             </div>
                                         )}
@@ -111,7 +117,9 @@ const AdminUsers = () => {
                             </div>
                             <div className="col-12">
                                 <div className="mt-3 mx-auto text-center">
-                                    <Link href={'/'} className="btn btn-primary btn-rounded" locale={locale ?? getDefLocale()}>Back</Link>
+                                    <Link href={'/'} className="btn btn-primary btn-rounded" locale={locale ?? getDefLocale()}>
+                                        {tbtn('btnback') ?? "Back"}
+                                    </Link>
                                 </div>
                             </div>
                         </>

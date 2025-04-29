@@ -19,10 +19,10 @@ import LoadingComp from "@applocale/components/loadingcomp";
 import AdvancedSearch from "@applocale/components/forms/search/advancedsearch";
 
 const AdminPosts = () => {
+    const locale = useLocale();
     const t = useTranslations("pages.AdminPages.PostsPage");
     const ttbl = useTranslations("ui.tables.tabledata");
     const tbtn = useTranslations("ui.buttons");
-    const locale = useLocale();
     const [logInfo, setLogInfo] = useState("");
     const [isAuthorized, setIsAuthorized] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -45,7 +45,7 @@ const AdminPosts = () => {
             const params = `?page=${curindex}&pageSize=${pageSize}${sparams}`;
 
             const data = await FetchData({
-                url: 'api/posts'+params,
+                url: 'api/posts' + params,
                 method: 'get',
                 reqAuthorize: false
             });
@@ -81,7 +81,7 @@ const AdminPosts = () => {
     }
 
     const tableHeaders = [
-        { dataIndex: 'postId', title: ttbl('header.id') ?? 'Post Id' },
+        { dataIndex: 'postId', title: ttbl('header.postId') ?? 'Post Id' },
         { dataIndex: 'title', title: ttbl('header.title') ?? 'Title' },
         { dataIndex: 'createdAt', title: ttbl('header.createdAt') ?? 'Created At' },
         { dataIndex: 'updatedAt', title: ttbl('header.updatedAt') ?? 'Updated At' },
@@ -110,19 +110,24 @@ const AdminPosts = () => {
                                 <div className="container-fluid">
                                     <div className="row">
                                         <div className="col-12">
-                                            <div className="btn-group" role="group" aria-label="News data actions">
-                                                <Link href={'/pages/news/add'} locale={locale ?? getDefLocale()} className="btn btn-primary btn-rounded btncreatenews">
-                                                    {t('btnaddnews') ?? "Add news"}
+                                            <div className="btn-group btngroupposts" role="group" aria-label="News data actions">
+                                                <Link type="button" href={'/pages/news/add'} locale={locale ?? getDefLocale()} className="btn btn-primary btn-rounded btncreatenews" title={t('btnaddnews') ?? "Add news"}>
+                                                    <i className="bi bi-plus-circle"></i>
+                                                    <span className="ms-2 hidden">
+                                                        {t('btnaddnews') ?? "Add news"}
+                                                    </span>
                                                 </Link>
-                                            </div>
 
-                                            <button type="button" className="btn btn-primary btn-rounded ms-3" onClick={() => setIsSearchEnabled(!isSearchEnabled)}>
-                                                <i className="bi bi-search"></i>
-                                                <span className="ms-2">{isSearchEnabled ? (t('btnadvfsearch.disable') ?? " Disable") : (t('btnadvfsearch.enable') ?? " Enable")} {(t("btnadvfsearch.title") ?? 'Advanced filter search').toLowerCase()}</span>
-                                            </button>
+                                                <button type="button" className="btn btn-primary btn-rounded ms-3" onClick={() => setIsSearchEnabled(!isSearchEnabled)} title={(isSearchEnabled ? (t('btnadvfsearch.disable') ?? " Disable") : (t('btnadvfsearch.enable') ?? " Enable")) + " " + (t("btnadvfsearch.title") ?? 'Advanced filter search').toLowerCase()}>
+                                                    <i className="bi bi-search"></i>
+                                                    <span className="ms-2 hidden">
+                                                        {(isSearchEnabled ? (t('btnadvfsearch.disable') ?? " Disable") : (t('btnadvfsearch.enable') ?? " Enable")) + " " + (t("btnadvfsearch.title") ?? 'Advanced filter search').toLowerCase()}
+                                                    </span>
+                                                </button>
+                                            </div>
                                         </div>
 
-                                        
+
                                         {isSearchEnabled && (
                                             <AdvancedSearch isSearchEnabled={isSearchEnabled} pageIndex={page} pageSize={pageSize} />
                                         )}

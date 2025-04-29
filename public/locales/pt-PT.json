@@ -45,7 +45,7 @@
       "tabledata": {
         "titletable": "Notícias",
         "header": {
-          "id": "Postagem Id",
+          "postId": "Postagem Id",
           "title": "Título",
           "createdAt": "Criado em",
           "updatedAt": "Atualizado em",
@@ -57,6 +57,28 @@
           "btnedit": "Editar",
           "btndelete": "Eliminar",
           "emptyposts": "Não há postagens, por favor, crie uma postagem."
+        },
+        "footer": {
+          "page": "Página",
+          "totalData": "Total de"
+        }
+      },
+      "userstable": {
+        "titletable": "Utilizadores",
+        "header": {
+          "userId": "Utilizador Id",
+          "username": "Nome do utilizador",
+          "email": "Email",
+          "displayName": "Nome de apresentação",
+          "role": "Papel",
+          "createdAt": "Criado em",
+          "updatedAt": "Atualizado em",
+          "actions": "Ações"
+        },
+        "body": {
+          "btnedit": "Editar",
+          "btndelete": "Apagar",
+          "emptyusers": "Não há utilizadores, por favor, crie um utilizador."
         },
         "footer": {
           "page": "Página",
@@ -313,6 +335,11 @@
           "title": "Pesquisa de filtro avançada"
         },
         "emptyposts": "0 postagens."
+      },
+      "UsersPage": {
+        "title": "Utilizadores",
+        "btnadduser": "Adicionar novo utilizador",
+        "emptyusers": "0 utilizadores."
       }
     },
     "AuthPage": {

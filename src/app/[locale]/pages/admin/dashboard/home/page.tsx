@@ -56,7 +56,7 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
     const pageSize: number = 10;
     
     const tableHeaders = [
-        { dataIndex: 'postId', title: ttbl('header.id') ?? 'Post Id' },
+        { dataIndex: 'postId', title: ttbl('header.postId') ?? 'Post Id' },
         { dataIndex: 'title', title: ttbl('header.title') ?? 'Title' },
         { dataIndex: 'createdAt', title: ttbl('header.createdAt') ?? 'Created At' },
         { dataIndex: 'updatedAt', title: ttbl('header.updatedAt') ?? 'Updated At' },

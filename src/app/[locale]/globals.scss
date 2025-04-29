@@ -879,6 +879,18 @@ a.fc-event:hover {
   }
 }
 
+.btn-group {
+  * {
+    border-radius: calc(15px + 10px) !important;
+  }
+}
+
+.btngroupposts {
+  * {
+    border-radius: calc(15px + 10px) !important;
+  }
+}
+
 .commentsblk {
   display: flex;
 

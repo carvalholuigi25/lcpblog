@@ -45,7 +45,7 @@
             "tabledata": {
                 "titletable": "News",
                 "header": {
-                    "id": "Post Id",
+                    "postId": "Post Id",
                     "title": "Title",
                     "createdAt": "Created At",
                     "updatedAt": "Updated At",
@@ -57,6 +57,28 @@
                     "btnedit": "Edit",
                     "btndelete": "Delete",
                     "emptyposts": "No posts, please create a new one..."
+                },
+                "footer": {
+                    "page": "Page",
+                    "totalData": "Total of"
+                }
+            },
+            "userstable": {
+                "titletable": "Users",
+                "header": {
+                    "userId": "User Id",
+                    "username": "Username",
+                    "email": "Email",
+                    "displayName": "Display Name",
+                    "role": "Role",
+                    "createdAt": "Created At",
+                    "updatedAt": "Updated At",
+                    "actions": "Actions"
+                },
+                "body": {
+                    "btnedit": "Edit",
+                    "btndelete": "Delete",
+                    "emptyusers": "No users, please create a new one..."
                 },
                 "footer": {
                     "page": "Page",
@@ -313,6 +335,11 @@
                     "title": "Advanced filter search"
                 },
                 "emptyposts": "0 posts."
+            },
+            "UsersPage": {
+                "title": "Users",
+                "btnadduser": "Add new user",
+                "emptyusers": "0 users."
             }
         },
         "AuthPage": {
