@@ -143,7 +143,7 @@ const AddCategoriesForm = () => {
                             <div className="card-body text-center">
                                 <i className="bi bi-exclamation-triangle mx-auto" style={{fontSize: '4rem'}} />
                                 <p className="mt-3">
-                                    {t("messages.warnauth") ?? "You are not authorized to see this page!"}
+                                    {t("messages.unauth") ?? "You are not authorized to see this page!"}
                                 </p>
                                 <Link className="btn btn-primary btn-rounded ms-3 mt-3" href={'/'} locale={getDefLocale()}>Back</Link>
                             </div>

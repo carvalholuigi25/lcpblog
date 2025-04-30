@@ -69,7 +69,7 @@ const DeleteCategoriesForm = ({ id, data }: { id: number, data: Categories }) =>
                 console.log(r);
 
                 setTimeout(async () => {
-                    alert(t("messages.deleted") ?? "Category deleted successfully!");
+                    alert(t("messages.success") ?? "Category deleted successfully!");
                     await sendMessage(connection!, r.data);
                     push("/");
                 }, 1000 / 2);
@@ -95,7 +95,7 @@ const DeleteCategoriesForm = ({ id, data }: { id: number, data: Categories }) =>
                             <div className="card-body text-center">
                                 <i className="bi bi-exclamation-triangle mx-auto" style={{ fontSize: '4rem' }} />
                                 <p className="mt-3">
-                                    {t("messages.warnauth") ?? "You are not authorized to see this page!"}
+                                    {t("messages.unauth") ?? "You are not authorized to see this page!"}
                                 </p>
                                 <Link className="btn btn-primary btn-rounded ms-3 mt-3" href={'/'} locale={getDefLocale()}>
                                     {tbtn('btnback') ?? "Back"}

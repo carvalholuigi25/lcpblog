@@ -255,7 +255,7 @@
                         "btnreset": "Reset",
                         "btnadd": "Add",
                         "messages": {
-                            "warnauth": "You are not authorized to see this page!",
+                            "unauth": "You are not authorized to see this page!",
                             "success": "Category added successfully!",
                             "error": "Error when adding category! Message: {message}",
                             "errorapi": "Occurred an error when trying to add the category! Message: {message}"
@@ -275,7 +275,7 @@
                             }
                         },
                         "messages": {
-                            "warnauth": "You are not authorized to see this page!",
+                            "unauth": "You are not authorized to see this page!",
                             "success": "Category deleted successfully!",
                             "error": "Error when deleting category! Message: {message}",
                             "errorapi": "Occurred an error when trying to delete the category! Message: {message}",
@@ -305,10 +305,56 @@
                         "btnreset": "Reset",
                         "btnedit": "Edit",
                         "messages": {
-                            "warnauth": "You are not authorized to see this page!",
+                            "unauth": "You are not authorized to see this page!",
                             "success": "Category edited successfully!",
                             "error": "Error when editing category! Message: {message}",
                             "errorapi": "Occurred an error when trying to edit the category! Message: {message}"
+                        }
+                    }
+                },
+                "comments": {
+                    "delete": {
+                        "title": "Delete comment",
+                        "table": {
+                          "header": {
+                            "id": "Id",
+                            "content": "Content",
+                            "status": "Status",
+                            "userId": "User Id",
+                            "postId": "Post Id",
+                            "categoryId": "Category Id",
+                            "createdAt": "Created At",
+                            "updatedAt": "Updated At"
+                          }
+                        },
+                        "messages": {
+                          "unauth": "You are not authorized to see this page!",
+                          "success": "Comment deleted successfully!",
+                          "error": "Error when deleting comment! Message: {message}",
+                          "errorapi": "Occurred an error when trying to delete the comment! Message: {message}",
+                          "confirm": {
+                            "title": "Are you sure you want to delete this comment (id: {id})?",
+                            "btnconfirm": "Yes",
+                            "btncancel": "No"
+                          }
+                        }
+                    },
+                    "edit": {
+                        "title": "Edit comment",
+                        "lblcontent": "Content",
+                        "inpcontent": "Write here the content of the comment",
+                        "btnreset": "Reset",
+                        "btnedit": "Edit",
+                        "messages": {
+                          "unauth": "You are not authorized to see this page!",
+                          "success": "The current comment has been edited successfully!",
+                          "error": "Error when deleting comment! Message: {message}",
+                          "errorapi": "Occurred an error when trying to delete the comment! Message: {message}",
+                          "confirm": {
+                            "title": "Are you sure you want to delete this comment (id: {id})?",
+                            "btnconfirm": "Yes",
+                            "btncancel": "No"
+                          }
                         }
                     }
                 }

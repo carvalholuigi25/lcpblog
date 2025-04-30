@@ -254,7 +254,7 @@
             "btnreset": "Repor",
             "btnadd": "Adicionar",
             "messages": {
-              "warnauth": "Você não está autorizado a ver esta página!",
+              "unauth": "Você não está autorizado a ver esta página!",
               "success": "Categoria adicionada com sucesso!",
               "error": "Erro ao adicionar categoria! Mensagem: {message}",
               "errorapi": "Ocorreu um erro ao tentar adicionar a categoria! Mensagem: {message}"
@@ -274,7 +274,7 @@
               }
             },
             "messages": {
-              "warnauth": "Tu não está autorizado a ver esta página!",
+              "unauth": "Tu não está autorizado a ver esta página!",
               "success": "Categoria eliminada com sucesso!",
               "error": "Erro ao eliminar categoria! Mensagem: {message}",
               "errorapi": "Ocorreu um erro ao tentar eliminar a categoria! Mensagem: {message}",
@@ -304,10 +304,56 @@
             "btnreset": "Repor",
             "btnedit": "Editar",
             "messages": {
-              "warnauth": "Você não está autorizado a ver esta página!",
+              "unauth": "Você não está autorizado a ver esta página!",
               "success": "Categoria editada com sucesso!",
               "error": "Erro ao editar categoria! Mensagem: {message}",
               "errorapi": "Ocorreu um erro ao tentar editar a categoria! Mensagem: {message}"
+            }
+          }
+        },
+        "comments": {
+          "delete": {
+            "title": "Apagar comentário",
+            "table": {
+              "header": {
+                "id": "Id",
+                "content": "Conteúdo",
+                "status": "Estado",
+                "userId": "Utilizador Id",
+                "postId": "Postagem Id",
+                "categoryId": "Categoria Id",
+                "createdAt": "Criado em",
+                "updatedAt": "Atualizado em"
+              }
+            },
+            "messages": {
+              "unauth": "Você não está autorizado a ver esta página!",
+              "success": "Comentário eliminado com sucesso!",
+              "error": "Erro ao eliminar comentário! Mensagem: {message}",
+              "errorapi": "Ocorreu um erro ao tentar eliminar o comentário! Mensagem: {message}",
+              "confirm": {
+                "title": "Tens a certeza que queres eliminar este comentário (id: {id})?",
+                "btnconfirm": "Sim",
+                "btncancel": "Não"
+              }
+            }
+          },
+          "edit": {
+            "title": "Editar comentário",
+            "lblcontent": "Conteúdo",
+            "inpcontent": "Escreva aqui o conteúdo do comentário",
+            "btnreset": "Repor",
+            "btnedit": "Editar",
+            "messages": {
+              "unauth": "Você não está autorizado a ver esta página!",
+              "success": "Comentário editado com sucesso!",
+              "error": "Erro ao editar comentário! Mensagem: {message}",
+              "errorapi": "Ocorreu um erro ao tentar editar o comentário! Mensagem: {message}",
+              "confirm": {
+                "title": "Tens a certeza que queres editar este comentário (id: {id})?",
+                "btnconfirm": "Sim",
+                "btncancel": "Não"
+              }
             }
           }
         }

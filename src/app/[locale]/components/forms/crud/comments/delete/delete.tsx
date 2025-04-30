@@ -2,6 +2,7 @@
 "use client";
 import styles from "@applocale/page.module.scss";
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { Link } from '@/app/i18n/navigation';
 import { Comments } from "@applocale/interfaces/comments";
@@ -12,6 +13,9 @@ import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import LoadingComp from "@applocale/components/loadingcomp";
 
 const DeleteCommentsForm = ({ commentId, data }: { commentId: number, data: Comments }) => {
+    const t = useTranslations("ui.forms.crud.comments.delete");
+    const tbtn = useTranslations("ui.buttons");
+
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [logInfo] = useState(getFromStorage("logInfo"));
     const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
@@ -66,15 +70,15 @@ const DeleteCommentsForm = ({ commentId, data }: { commentId: number, data: Comm
                 console.log(r);
 
                 setTimeout(async () => {
-                    alert("The current comment (id: " + commentId + ") has been deleted sucessfully!");
+                    alert(t("messages.success") ?? "Comment deleted successfully!");
                     await sendMessage(connection!, r.data);
                     push("/");
                 }, 1000 / 2);
             }).catch((err) => {
-                console.error(err);
+                console.error(t("messages.error", {message: ""+err}) ?? `Error when deleting comment! Message: ${err}`);
             });
         } catch (error) {
-            console.error(error);
+            console.error(t("messages.errorapi", {message: ""+error}) ?? `Occurred an error when trying to delete the comment! Message: ${error}`);
         }
     };
 
@@ -91,8 +95,12 @@ const DeleteCommentsForm = ({ commentId, data }: { commentId: number, data: Comm
                         <div className="card">
                             <div className="card-body text-center">
                                 <i className="bi bi-exclamation-triangle mx-auto" style={{ fontSize: '4rem' }} />
-                                <p className="mt-3">You are not authorized to see this page!</p>
-                                <Link className="btn btn-primary btn-rounded ms-3 mt-3" href={'/'} locale={getDefLocale()}>Back</Link>
+                                <p className="mt-3">
+                                    {t("messages.unauth") ?? "You are not authorized to see this page!"}
+                                </p>
+                                <Link className="btn btn-primary btn-rounded ms-3 mt-3" href={'/'} locale={getDefLocale()}>
+                                    {tbtn("btnback") ?? "Back"}
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -101,21 +109,23 @@ const DeleteCommentsForm = ({ commentId, data }: { commentId: number, data: Comm
 
             {!!isLoggedIn && (
                 <>
-                    <h3 className="title mx-auto text-center">Delete comments</h3>
+                    <h3 className="title mx-auto text-center">
+                        {t("title") ?? "Delete comment"}
+                    </h3>
                     <form className={styles.frmdeletecomments}>
                         <div className={styles.myroundedscrollbar}>
                             <div className="table-responsive mtable-nobordered mtable-shadow">
                                 <table className="table table-nobordered table-rounded table-autolayout">
                                     <thead>
                                         <tr>
-                                            <th>Id</th>
-                                            <th>Content</th>
-                                            <th>Status</th>
-                                            <th>User Id</th>
-                                            <th>Post Id</th>
-                                            <th>Category Id</th>
-                                            <th>Created At</th>
-                                            <th>Updated At</th>
+                                            <th>{t("table.header.id") ?? "Id"}</th>
+                                            <th>{t("table.header.content") ?? "Content"}</th>
+                                            <th>{t("table.header.status") ?? "Status"}</th>
+                                            <th>{t("table.header.userId") ?? "User Id"}</th>
+                                            <th>{t("table.header.postId") ?? "Post Id"}</th>
+                                            <th>{t("table.header.categoryId") ?? "Category Id"}</th>
+                                            <th>{t("table.header.createdAt") ?? "Created At"}</th>
+                                            <th>{t("table.header.updatedAt") ?? "Updated At"}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -126,19 +136,25 @@ const DeleteCommentsForm = ({ commentId, data }: { commentId: number, data: Comm
                                             <td>{data.userId}</td>
                                             <td>{data.postId}</td>
                                             <td>{data.categoryId}</td>
-                                            <td>{data.createdAt!.toString()}</td>
-                                            <td>{data.updatedAt!.toString()}</td>
+                                            <td>{new Date(data.createdAt!.toString()).toLocaleDateString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit', weekday: undefined, hour: '2-digit', hour12: false, minute: '2-digit', second: '2-digit' })}</td>
+                                            <td>{new Date(data.updatedAt!.toString()).toLocaleDateString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit', weekday: undefined, hour: '2-digit', hour12: false, minute: '2-digit', second: '2-digit' })}</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
 
-                        <p className="text-center mx-auto mt-3">Do you want to delete this comment (id: {data.commentId})?</p>
+                        <p className="text-center mx-auto mt-3">
+                            {t("messages.deleteconfirm", {id: data.commentId}) ?? `Do you want to delete this comment (id: ${data.commentId})?`}
+                        </p>
 
                         <div className="d-inline-block mx-auto mt-3">
-                            <button className="btn btn-primary btndel btn-rounded ms-3" type="button" onClick={handleSubmit}>Yes</button>
-                            <button className="btn btn-secondary btnback btn-rounded ms-3" type="button" onClick={handleBack}>No</button>
+                            <button className="btn btn-primary btndel btn-rounded ms-3" type="button" onClick={handleSubmit}>
+                                {t("messages.btnconfirm") ?? "Delete"}
+                            </button>
+                            <button className="btn btn-secondary btnback btn-rounded ms-3" type="button" onClick={handleBack}>
+                                {t("messages.btncancel") ?? "Cancel"}
+                            </button>
                         </div>
                     </form>
                 </>
