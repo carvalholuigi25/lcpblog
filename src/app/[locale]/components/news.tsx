@@ -21,6 +21,9 @@ import LoadingComp from "@applocale/components/loadingcomp";
 import Comments from "@applocale/components/comments";
 
 export default function News({ cid, pid, locale }: { cid: number, pid: number, locale: string }) {
+    const t = useTranslations("pages.NewsPage");
+    const tbtn = useTranslations("ui.buttons");
+
     const [news, setNews] = useState(new Array<Posts>());
     const [users, setUsers] = useState(new Array<User>());
     const [categories, setCategories] = useState(new Array<Categories>());
@@ -39,7 +42,6 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
     const router = useRouter();
     const searchParams = useSearchParams();
     const spage = searchParams.get("page");
-    const t = useTranslations('ui.buttons');
 
     const loadMyCounter = useCallback(() => {
         const pthpost = "/" + locale + "/pages/news/" + cid + "/" + pid;
@@ -321,9 +323,14 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
                 <div className="card p-3 text-center">
                     <div className='card-body'>
                         <i className="bi-exclamation-triangle" style={{ fontSize: "4rem" }}></i>
-                        <p>0 news</p>
-                        {pathname !== "/" && (
-                            <Link className='btn btn-primary btn-rounded card-btn mt-3' href={`/`} locale={locale ?? getDefLocale()}>Back</Link>
+                        <p>
+                            {t("emptyposts") ?? "0 news."}
+                        </p>
+
+                        {pathname !== "/" || pathname !== "/"+getDefLocale() && (
+                            <Link className='btn btn-primary btn-rounded card-btn mt-3' href={`/`} locale={locale ?? getDefLocale()}>
+                                {tbtn("btnback") ?? "Back"}
+                            </Link>
                         )}
                     </div>
                 </div>
@@ -334,8 +341,8 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
     const getBackLink = (pathname: any): any => {
         return (
             <div className="col-12 mt-3 mx-auto text-center">
-                <Link href={pathname !== "/pages/news" ? "../" : "/"} locale={locale ?? getDefLocale()} className="btn btn-primary btn-rounded mt-3 mx-auto d-inline-block">
-                    Back
+                <Link href={pathname !== "/pages/news" || pathname !== "/"+getDefLocale()+"/pages/news" ? "../" : "/"} locale={locale ?? getDefLocale()} className="btn btn-primary btn-rounded mt-3 mx-auto d-inline-block">
+                    {tbtn("btnback") ?? "Back"}
                 </Link>
             </div>
         );
@@ -358,7 +365,7 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
             <div className="container">
                 <div className="row justify-content-center align-items-center mt-5 mb-5">
                     <Suspense fallback={<LoadingComp type="icon" icontype="ring" />}>
-                        {!news || news.length == 0 && !!loading && getEmptyNews(pathname)}
+                        {!news || news.length == 0 && !loading && getEmptyNews(pathname)}
                         {!!news && news.length > 0 && getContent()}
                     </Suspense>
                 </div>

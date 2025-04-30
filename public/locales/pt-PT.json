@@ -356,6 +356,106 @@
               }
             }
           }
+        },
+        "news": {
+          "add": {
+            "title": "Adicionar nova postagem",
+            "lbltitle": "Título",
+            "inptitle": "Escreva aqui o título da postagem",
+            "lblcontent": "Conteúdo",
+            "inpcontent": "Escreva aqui o conteúdo da postagem",
+            "lblimage": "Imagem",
+            "inpimage": "Escreva aqui o caminho da imagem",
+            "lblslug": "Slug Url",
+            "inpslug": "Escreva aqui o slug url da postagem",
+            "lblcategory": "Categoria",
+            "listcategories": {
+              "options": {
+                "sel": "Seleciona a opção da categoria das noticias",
+                "general": "Geral"
+              }
+            },
+            "lblstatus": "Estado",
+            "liststatus": {
+              "options": {
+                "sel": "Seleciona a opção do estado",
+                "all": "Tudo",
+                "locked": "Trancado",
+                "deleted": "Eliminado"
+              }
+            },
+            "lbluserId": "Utilizador Id",
+            "btnreset": "Repor",
+            "btnadd": "Adicionar",
+            "messages": {
+              "unauth": "Você não está autorizado a ver esta página!",
+              "success": "Categorias carregadas com sucesso!",
+              "error": "Falha ao carregar categorias! Mensagem: {message}",
+              "errorapi": "Erro ao carregar categorias! Mensagem: {message}",
+              "addsuccess": "Postagem adicionada com sucesso!",
+              "adderror": "Falha ao adicionar postagem! Mensagem: {message}",
+              "adderrorapi": "Erro ao adicionar postagem! Mensagem: {message}"
+            }
+          },
+          "delete": {
+            "title": "Apagar postagem",
+            "emptynews": "0 postagens.",
+            "table": {
+              "header": {
+                "id": "Id",
+                "title": "Título",
+                "categoryId": "Categoria Id",
+                "userId": "Utilizador Id"
+              }
+            },
+            "messages": {
+              "unauth": "Você não está autorizado a ver esta página!",
+              "success": "Este post foi eliminado com sucesso!",
+              "error": "Falha ao eliminar esta postagem! Mensagem: {message}",
+              "errorapi": "Ocorreu um erro ao tentar eliminar esta postagem! Mensagem: {message}",
+              "confirm": {
+                "title": "Tens a certeza que queres eliminar esta postagem (id: {id})?",
+                "btnconfirm": "Sim",
+                "btncancel": "Não"
+              }
+            }
+          },
+          "edit": {
+            "title": "Editar postagem",
+            "lbltitle": "Título",
+            "inptitle": "Escreva aqui o título da postagem",
+            "lblcontent": "Conteúdo",
+            "inpcontent": "Escreva aqui o conteúdo da postagem",
+            "lblimage": "Imagem",
+            "inpimage": "Escreva aqui o caminho da imagem",
+            "lblslug": "Slug Url",
+            "inpslug": "Escreva aqui o slug url da postagem",
+            "lblcategory": "Categoria",
+            "listcategories": {
+              "options": {
+                "sel": "Seleciona a opção da categoria das noticias",
+                "general": "Geral"
+              }
+            },
+            "lblstatus": "Estado",
+            "liststatus": {
+              "options": {
+                "sel": "Seleciona a opção do estado",
+                "all": "Tudo",
+                "locked": "Trancado",
+                "deleted": "Eliminado"
+              }
+            },
+            "lbluserId": "Utilizador Id",
+            "btnreset": "Repor",
+            "btnedit": "Editar",
+            "messages": {
+              "unauth": "Tu não está autorizado a ver esta página!",
+              "success": "Postagem editada com sucesso!",
+              "error": "Erro ao editar postagem! Mensagem: {message}",
+              "errorapi": "Ocorreu um erro ao tentar editar a postagem! Mensagem: {message}"
+            }
+          }
         }
       },
       "search": {
@@ -515,13 +615,13 @@
       },
       "PostsPage": {
         "title": "Postagens",
+        "emptyposts": "0 postagens.",
         "btnaddnews": "Adicionar nova postagem",
         "btnadvfsearch": {
           "enable": "Ativar",
           "disable": "Desativar",
           "title": "Pesquisa de filtro avançada"
-        },
-        "emptyposts": "0 postagens."
+        }
       },
       "UsersPage": {
         "title": "Utilizadores",
@@ -627,6 +727,11 @@
     },
     "HomePage": {
       "title": "Bem-vindo ao LCPBlog!"
+    },
+    "NewsPage": {
+      "title": "Notícias",
+      "emptyposts": "0 postagens.",
+      "btnreadmore": "Leia mais..."
     },
     "Error": {
       "title": "Erro",

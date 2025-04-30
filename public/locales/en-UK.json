@@ -316,27 +316,27 @@
                     "delete": {
                         "title": "Delete comment",
                         "table": {
-                          "header": {
-                            "id": "Id",
-                            "content": "Content",
-                            "status": "Status",
-                            "userId": "User Id",
-                            "postId": "Post Id",
-                            "categoryId": "Category Id",
-                            "createdAt": "Created At",
-                            "updatedAt": "Updated At"
-                          }
+                            "header": {
+                                "id": "Id",
+                                "content": "Content",
+                                "status": "Status",
+                                "userId": "User Id",
+                                "postId": "Post Id",
+                                "categoryId": "Category Id",
+                                "createdAt": "Created At",
+                                "updatedAt": "Updated At"
+                            }
                         },
                         "messages": {
-                          "unauth": "You are not authorized to see this page!",
-                          "success": "Comment deleted successfully!",
-                          "error": "Error when deleting comment! Message: {message}",
-                          "errorapi": "Occurred an error when trying to delete the comment! Message: {message}",
-                          "confirm": {
-                            "title": "Are you sure you want to delete this comment (id: {id})?",
-                            "btnconfirm": "Yes",
-                            "btncancel": "No"
-                          }
+                            "unauth": "You are not authorized to see this page!",
+                            "success": "Comment deleted successfully!",
+                            "error": "Error when deleting comment! Message: {message}",
+                            "errorapi": "Occurred an error when trying to delete the comment! Message: {message}",
+                            "confirm": {
+                                "title": "Are you sure you want to delete this comment (id: {id})?",
+                                "btnconfirm": "Yes",
+                                "btncancel": "No"
+                            }
                         }
                     },
                     "edit": {
@@ -346,15 +346,115 @@
                         "btnreset": "Reset",
                         "btnedit": "Edit",
                         "messages": {
-                          "unauth": "You are not authorized to see this page!",
-                          "success": "The current comment has been edited successfully!",
-                          "error": "Error when deleting comment! Message: {message}",
-                          "errorapi": "Occurred an error when trying to delete the comment! Message: {message}",
-                          "confirm": {
-                            "title": "Are you sure you want to delete this comment (id: {id})?",
-                            "btnconfirm": "Yes",
-                            "btncancel": "No"
-                          }
+                            "unauth": "You are not authorized to see this page!",
+                            "success": "The current comment has been edited successfully!",
+                            "error": "Error when deleting comment! Message: {message}",
+                            "errorapi": "Occurred an error when trying to delete the comment! Message: {message}",
+                            "confirm": {
+                                "title": "Are you sure you want to delete this comment (id: {id})?",
+                                "btnconfirm": "Yes",
+                                "btncancel": "No"
+                            }
+                        }
+                    }
+                },
+                "news": {
+                    "add": {
+                        "title": "Add news",
+                        "lbltitle": "Title",
+                        "inptitle": "Write here the title of the news",
+                        "lblcontent": "Content",
+                        "inpcontent": "Write here the content of the news",
+                        "lblimage": "Image",
+                        "inpimage": "Write here the image url",
+                        "lblslug": "Slug Url",
+                        "inpslug": "Write here the slug url",
+                        "lblcategory": "Category",
+                        "listcategories": {
+                            "options": {
+                                "sel": "Select the category of the news",
+                                "general": "General"
+                            }
+                        },
+                        "lblstatus": "Status",
+                        "liststatus": {
+                            "options": {
+                                "sel": "Select the option of the state",
+                                "all": "All",
+                                "locked": "Locked",
+                                "deleted": "Deleted"
+                            }
+                        },
+                        "lbluserId": "User Id",
+                        "btnreset": "Reset",
+                        "btnadd": "Add",
+                        "messages": {
+                            "unauth": "You are not authorized to see this page!",
+                            "success": "Fetched categories successfully!",
+                            "error": "Failed to fetch categories. Message: {message}",
+                            "errorapi": "An error occurred while fetching categories! Message: {message}",
+                            "addsuccess": "The news post has been added sucessfully!",
+                            "adderror": "Failed to add news post! Message: {message}",
+                            "adderrorapi": "Error when adding news post! Message: {message}"
+                        }
+                    },
+                    "delete": {
+                        "title": "Delete news",
+                        "emptynews": "0 news.",
+                        "table": {
+                            "header": {
+                                "id": "Id",
+                                "title": "Title",
+                                "categoryId": "Category Id",
+                                "userId": "User Id"
+                            }
+                        },
+                        "messages": {
+                            "unauth": "You are not authorized to see this page!",
+                            "success": "The news post has been deleted successfully!",
+                            "error": "Failed to delete this news post! Message: {message}",
+                            "errorapi": "Occurred an error when delete this news post! Message: {message}",
+                            "confirm": {
+                                "title": "Are you sure you want to delete this news (id: {id})?",
+                                "btnconfirm": "Yes",
+                                "btncancel": "No"
+                            }
+                        }
+                    },
+                    "edit": {
+                        "title": "Edit news",
+                        "lbltitle": "Title",
+                        "inptitle": "Write here the title of the news",
+                        "lblcontent": "Content",
+                        "inpcontent": "Write here the content of the news",
+                        "lblimage": "Image",
+                        "inpimage": "Write here the image url",
+                        "lblslug": "Slug Url",
+                        "inpslug": "Write here the slug url",
+                        "lblstatus": "Status",
+                        "lblcategory": "Category",
+                        "listcategories": {
+                            "options": {
+                                "sel": "Select the category of the news",
+                                "general": "General"
+                            }
+                        },
+                        "inpstatus": {
+                            "options": {
+                                "sel": "Select the option of the state",
+                                "all": "All",
+                                "locked": "Locked",
+                                "deleted": "Deleted"
+                            }
+                        },
+                        "lbluserId": "User Id",
+                        "btnreset": "Reset",
+                        "btnedit": "Edit",
+                        "messages": {
+                            "unauth": "You are not authorized to see this page!",
+                            "success": "Post edited successfully!",
+                            "error": "Error when editing post! Message: {message}",
+                            "errorapi": "Occurred an error when trying to edit the post! Message: {message}"
                         }
                     }
                 }
@@ -516,13 +616,13 @@
             },
             "PostsPage": {
                 "title": "Posts",
+                "emptyposts": "0 posts.",
                 "btnaddnews": "Add news",
                 "btnadvfsearch": {
                     "enable": "Enable",
                     "disable": "Disable",
                     "title": "Advanced filter search"
-                },
-                "emptyposts": "0 posts."
+                }
             },
             "UsersPage": {
                 "title": "Users",
@@ -628,6 +728,11 @@
         },
         "HomePage": {
             "title": "Welcome to LCPBlog!"
+        },
+        "NewsPage": {
+            "title": "News",
+            "emptyposts": "0 posts.",
+            "btnreadmore": "Read more..."
         },
         "Error": {
             "title": "Error",

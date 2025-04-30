@@ -17,7 +17,7 @@ import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import LoadingComp from "@applocale/components/loadingcomp";
 
 const EditCommentsForm = ({ commentid, data }: { commentid: number, data: Comments }) => {
-    const t = useTranslations("ui.forms.comments.edit");
+    const t = useTranslations("ui.forms.crud.comments.edit");
     const tbtn = useTranslations("ui.buttons");
 
     const [formData, setFormData] = useState({
