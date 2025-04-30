@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useTheme } from "@applocale/components/context/themecontext";
+import { useState } from "react";
 
 export interface ThemesModel {
     id: number;
-    theme: string;
     title: string;
+    theme: string;
 }
 
 export function GetMyCustomThemes(): any {
@@ -15,43 +16,43 @@ export function GetMyCustomThemes(): any {
     const ary = [
         {
             id: 1,
+            title: t("light.name") ?? "Light",
             theme: t("light.value") ?? "light",
-            title: t("light.name") ?? "Light"
         },
         {
             id: 2,
-            theme: t("dark.value") ?? "dark",
-            title: t("dark.name") ?? "Dark"
+            title: t("dark.name") ?? "Dark",
+            theme: t("dark.value") ?? "dark"
         },
         {
             id: 3,
-            theme: t("system.value") ?? "system",
-            title: t("system.name") ?? "System"
+            title: t("system.name") ?? "System",
+            theme: t("system.value") ?? "system"
         },
         {
             id: 4,
-            theme: t("red.value") ?? "red",
-            title: t("red.name") ?? "Red"
+            title: t("red.name") ?? "Red",
+            theme: t("red.value") ?? "red"
         },
         {
             id: 5,
-            theme: t("green.value") ?? "green",
-            title: t("green.name") ?? "Green"
+            title: t("green.name") ?? "Green",
+            theme: t("green.value") ?? "green"
         },
         {
             id: 6,
-            theme: t("blue.value") ?? "blue",
-            title: t("blue.name") ?? "Blue"
+            title: t("blue.name") ?? "Blue",
+            theme: t("blue.value") ?? "blue"
         },
         {
             id: 7,
-            theme: t("yellow.value") ?? "yellow",
-            title: t("yellow.name") ?? "Yellow"
+            title: t("yellow.name") ?? "Yellow",
+            theme: t("yellow.value") ?? "yellow"
         },
         {
             id: 8,
-            theme: t("vanilla.value") ?? "vanilla",
-            title: t("vanilla.name") ?? "Vanilla"
+            title: t("vanilla.name") ?? "Vanilla",
+            theme: t("vanilla.value") ?? "vanilla"
         }
     ];
 
@@ -59,39 +60,43 @@ export function GetMyCustomThemes(): any {
 }
 
 const ThemeSwitcher = () => {
-    const { theme, setTheme } = useTheme();
-    const themesary: ThemesModel[] = GetMyCustomThemes();
-    const UpperCase = (val: string) => {
-        return val.charAt(0).toUpperCase() + val.slice(1);
+    const GetDefaultTheme = () => {
+        return ["pt", "pt-PT", "pt-BR"].includes(useLocale()) ? "Sistema" : "System";
     }
 
-    const setMyTheme = (e: any, x: string): any => {
+    const setMyTheme = (e: any, x: ThemesModel): any => {
         e.preventDefault();
-        setTheme(x);
+        setTheme(x.theme);
+        setThemeName(x.title);
     }
 
     const activeTheme = (x: string) => {
         return x == theme ? " active" : "";
     }
 
+    const { theme, setTheme } = useTheme();
+    const [themeName, setThemeName] = useState<string>(GetDefaultTheme());
+    const themesary: ThemesModel[] = GetMyCustomThemes();
+
     return (
         <>
             {!!themesary && (
                 <div className="dropdown mt-3 mb-3">
                     <button
-                        className="btn btn-secondary dropdown-toggle"
                         type="button"
+                        className="btn btn-secondary dropdown-toggle"
                         data-bs-toggle="dropdown"
                         aria-expanded="false"
                     >
-                        {UpperCase(theme)}
+                        {themeName}
                     </button>
                     <ul className="dropdown-menu">
                         {themesary.map(x => (
                             <li key={x.id}>
                                 <button 
+                                    type="button"
                                     className={"dropdown-item btntheme" + x.theme + activeTheme(x.theme)} 
-                                    onClick={(e) => setMyTheme(e, x.theme)}
+                                    onClick={(e) => setMyTheme(e, x)}
                                 >
                                     {x.title}
                                 </button>
