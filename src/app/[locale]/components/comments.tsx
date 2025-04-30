@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { getFromStorage } from "@applocale/hooks/localstorage";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TFormComments, useMySchemaComments } from "@applocale/schemas/formSchemas";
@@ -15,6 +15,7 @@ import { getImagePath } from "@applocale/functions/functions";
 import FetchDataAxios, { FetchMultipleDataAxios } from "@applocale/utils/fetchdataaxios";
 import LoadingComp from "@applocale/components/loadingcomp";
 import ShowAlert from "@applocale/components/alerts";
+import { getDefLocale } from "@/app/[locale]/helpers/defLocale";
 
 export interface CommentsProps {
     content?: string;
@@ -27,6 +28,8 @@ export interface CommentsProps {
 
 export default function Comments({ userId, postId, categoryId, isCommentFormShown }: CommentsProps) {
     const t = useTranslations("ui.forms.comments.validation.errors");
+    const locale = useLocale() ?? getDefLocale();
+    
     const [formData, setFormData] = useState({
         content: "",
         status: "0",
@@ -126,7 +129,7 @@ export default function Comments({ userId, postId, categoryId, isCommentFormShow
             }).then(async (r) => {
                 console.log(r);
                 alert("The new comment has been added sucessfully!");
-                push("/");
+                push("/"+locale);
             }).catch((err) => {
                 console.error(err);
             });

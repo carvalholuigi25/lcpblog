@@ -14,11 +14,12 @@ import ShowAlert from "@applocale/components/alerts";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import LoadingComp from "@applocale/components/loadingcomp";
 import * as signalR from "@microsoft/signalr";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 const AddCategoriesForm = () => {
     const t = useTranslations("ui.forms.crud.categories.add");
     const tbtn = useTranslations("ui.buttons");
+    const locale = useLocale() ?? getDefLocale();
 
     const [formData, setFormData] = useState({
         name: "",
@@ -124,7 +125,7 @@ const AddCategoriesForm = () => {
                 setTimeout(async () => {
                     alert(t("messages.success") ?? "The new category has been added sucessfully!");
                     await sendMessage(connection!, r.data);
-                    push("/");
+                    push("/"+locale);
                 }, 1000 / 2);
             }).catch((err) => {
                 console.error(t("messages.error", {message: ""+err}) ?? `Error when adding category! Message: ${err}`);

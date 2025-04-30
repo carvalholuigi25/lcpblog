@@ -2,7 +2,7 @@
 "use client";
 import styles from "@applocale/page.module.scss";
 import { useEffect, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { Link } from '@/app/i18n/navigation';
 import { Comments } from "@applocale/interfaces/comments";
@@ -15,6 +15,7 @@ import LoadingComp from "@applocale/components/loadingcomp";
 const DeleteCommentsForm = ({ commentId, data }: { commentId: number, data: Comments }) => {
     const t = useTranslations("ui.forms.crud.comments.delete");
     const tbtn = useTranslations("ui.buttons");
+    const locale = useLocale() ?? getDefLocale();
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [logInfo] = useState(getFromStorage("logInfo"));
@@ -72,7 +73,7 @@ const DeleteCommentsForm = ({ commentId, data }: { commentId: number, data: Comm
                 setTimeout(async () => {
                     alert(t("messages.success") ?? "Comment deleted successfully!");
                     await sendMessage(connection!, r.data);
-                    push("/");
+                    push("/"+locale);
                 }, 1000 / 2);
             }).catch((err) => {
                 console.error(t("messages.error", {message: ""+err}) ?? `Error when deleting comment! Message: ${err}`);
@@ -84,7 +85,7 @@ const DeleteCommentsForm = ({ commentId, data }: { commentId: number, data: Comm
 
     const handleBack = (e: any) => {
         e.preventDefault();
-        push("/");
+        push("/"+locale);
     }
 
     return (

@@ -107,7 +107,7 @@ const AdminCategories = () => {
                                     <div className="row">
                                         <div className="col-12">
                                             <div className="btn-group" role="group" aria-label="Users data actions">
-                                                <Link href={'/pages/admin/dashboard/categories/add'} locale={locale ?? getDefLocale()} className="btn btn-primary btn-rounded btncreatecategories" title={t('btnaddcategory') ?? "Add new category"}>
+                                                <Link href={'/'+locale+'/pages/admin/dashboard/categories/add'} className="btn btn-primary btn-rounded btncreatecategories" title={t('btnaddcategory') ?? "Add new category"}>
                                                     <i className="bi bi-plus-circle"></i>
                                                     <span className="ms-2 hidden">
                                                         {t('btnaddcategory') ?? "Add new category"}

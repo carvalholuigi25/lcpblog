@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import styles from "@applocale/page.module.scss";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { buildMyConnection, sendMessage } from "@applocale/functions/functions";
@@ -19,6 +19,7 @@ import LoadingComp from "@applocale/components/loadingcomp";
 const EditCommentsForm = ({ commentid, data }: { commentid: number, data: Comments }) => {
     const t = useTranslations("ui.forms.crud.comments.edit");
     const tbtn = useTranslations("ui.buttons");
+    const locale = useLocale() ?? getDefLocale();
 
     const [formData, setFormData] = useState({
         content: data.content ?? ""
@@ -114,7 +115,7 @@ const EditCommentsForm = ({ commentid, data }: { commentid: number, data: Commen
                 setTimeout(async () => {
                     alert(t("messages.success") ?? "The current comment has been edited successfully!");
                     await sendMessage(connection!, r.data);
-                    push("/");
+                    push("/"+locale);
                 }, 1000 / 2);
             }).catch((err) => {
                 console.error(t("messages.error", {message: ""+err}) ?? `Error when editing comment! Message: ${err}`);

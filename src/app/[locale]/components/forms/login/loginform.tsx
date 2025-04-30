@@ -106,7 +106,7 @@ const LoginForm = () => {
                     setIsLoggedIn(true);
                     setLogInfo(datax);
                     saveToStorage("logInfo", JSON.stringify(datax));
-                    push("/");
+                    push("/"+locale);
                 }, 200);
             }).catch((err) => {
                 setIsLoggedIn(false);

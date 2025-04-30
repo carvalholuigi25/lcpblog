@@ -4,7 +4,7 @@ import styles from "@applocale/page.module.scss";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getFromStorage } from "@applocale/hooks/localstorage";
@@ -24,6 +24,7 @@ import * as signalR from "@microsoft/signalr";
 const AddNewsForm = () => {
     const t = useTranslations("ui.forms.crud.news.add");
     const tbtn = useTranslations("ui.buttons");
+    const locale = useLocale() ?? getDefLocale();
         
     const [formData, setFormData] = useState({
         title: "",
@@ -154,7 +155,7 @@ const AddNewsForm = () => {
                 setTimeout(async () => {
                     alert(t("messages.addsuccess") ?? "The news post has been added sucessfully!");
                     await sendMessage(connection!, r.data);
-                    push("/");
+                    push("/"+locale);
                 }, 1000 / 2);
             }).catch((err) => {
                 console.error(t("messages.adderror", {message: ""+err}) ?? `Failed to add news post! Message: ${err}`);

@@ -439,7 +439,7 @@
                                 "general": "General"
                             }
                         },
-                        "inpstatus": {
+                        "liststatus": {
                             "options": {
                                 "sel": "Select the option of the state",
                                 "all": "All",

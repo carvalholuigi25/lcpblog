@@ -2,15 +2,17 @@
 "use client";
 import styles from "@applocale/page.module.scss";
 import { useEffect, useState } from "react";
-import { getFromStorage } from "@applocale/hooks/localstorage";
+import { useLocale } from "next-intl";
 import { useRouter } from "next/navigation";
+import { getFromStorage } from "@applocale/hooks/localstorage";
 import { User } from "@applocale/interfaces/user";
 import { Link } from '@/app/i18n/navigation';
-import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import { getDefLocale } from "@applocale/helpers/defLocale";
+import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import LoadingComp from "@applocale/components/loadingcomp";
 
 const DeleteUsersForm = ({ id, data }: { id: number, data: User }) => {
+    const locale = useLocale() ?? getDefLocale();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [logInfo] = useState(getFromStorage("logInfo"));
     const [loading, setLoading] = useState(true);
@@ -43,7 +45,7 @@ const DeleteUsersForm = ({ id, data }: { id: number, data: User }) => {
 
                 setTimeout(async () => {
                     alert("The users (id: " + id + ") has been deleted sucessfully!");
-                    push("/");
+                    push("/"+locale);
                 }, 1000 / 2);
             }).catch((err) => {
                 console.error(err);
@@ -55,7 +57,7 @@ const DeleteUsersForm = ({ id, data }: { id: number, data: User }) => {
 
     const handleBack = (e: any) => {
         e.preventDefault();
-        push("/");
+        push("/"+locale);
     }
 
     return (

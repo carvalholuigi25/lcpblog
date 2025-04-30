@@ -16,8 +16,11 @@ import ShowAlert from "@applocale/components/alerts";
 import Image from "next/image";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import LoadingComp from "@applocale/components/loadingcomp";
+import { useLocale } from "next-intl";
 
 const EditUsersForm = ({id, data}: {id: number, data: User}) => {
+    const locale = useLocale() ?? getDefLocale();
+    
     const [formData, setFormData] = useState({
         userId: data.userId ?? 1,
         username: data.username ?? "",
@@ -97,7 +100,7 @@ const EditUsersForm = ({id, data}: {id: number, data: User}) => {
 
                 setTimeout(async () => {
                     alert("The user (id: "+id+") has been updated sucessfully!");
-                    push("/");
+                    push("/"+locale);
                 }, 1000 / 2);
             }).catch((err) => {
                 console.error(err);

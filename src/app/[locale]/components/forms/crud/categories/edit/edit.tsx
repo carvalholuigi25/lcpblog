@@ -7,7 +7,7 @@ import { Link } from '@/app/i18n/navigation';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getFromStorage } from "@applocale/hooks/localstorage";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { Categories } from "@applocale/interfaces/categories";
 import { getDefLocale } from "@applocale/helpers/defLocale";
@@ -19,6 +19,7 @@ import LoadingComp from "@applocale/components/loadingcomp";
 const EditCategoriesForm = ({categoryid, data}: {categoryid: number, data: Categories}) => {
     const t = useTranslations("ui.forms.crud.categories.edit");
     const tbtn = useTranslations("ui.buttons");
+    const locale = useLocale() ?? getDefLocale();
     
     const [formData, setFormData] = useState({
         categoryId: data.categoryId ?? 1,
@@ -125,7 +126,7 @@ const EditCategoriesForm = ({categoryid, data}: {categoryid: number, data: Categ
                 setTimeout(async () => {
                     alert(t("messages.success", {message: t("messages.success")}) ?? "Category edited successfully!");
                     await sendMessage(connection!, r.data);
-                    push("/");
+                    push("/"+locale);
                 }, 1000 / 2);
             }).catch((err) => {
                 console.error(t("messages.error", {message: ""+err}) ?? `Error when editing category! Message: ${err}`);

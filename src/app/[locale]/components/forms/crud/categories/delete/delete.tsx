@@ -2,7 +2,7 @@
 "use client";
 import styles from "@applocale/page.module.scss";
 import { useEffect, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { Link } from '@/app/i18n/navigation';
 import { Categories } from "@applocale/interfaces/categories";
@@ -15,6 +15,8 @@ import LoadingComp from "@applocale/components/loadingcomp";
 const DeleteCategoriesForm = ({ id, data }: { id: number, data: Categories }) => {
     const t = useTranslations("ui.forms.crud.categories.delete");
     const tbtn = useTranslations("ui.buttons");
+    const locale = useLocale() ?? getDefLocale();
+    
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [logInfo] = useState(getFromStorage("logInfo"));
     const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
@@ -71,7 +73,7 @@ const DeleteCategoriesForm = ({ id, data }: { id: number, data: Categories }) =>
                 setTimeout(async () => {
                     alert(t("messages.success") ?? "Category deleted successfully!");
                     await sendMessage(connection!, r.data);
-                    push("/");
+                    push("/"+locale);
                 }, 1000 / 2);
             }).catch((err) => {
                 console.error(t("messages.error", {message: ""+err}) ?? `Error when deleting category! Message: ${err}`);
@@ -83,7 +85,7 @@ const DeleteCategoriesForm = ({ id, data }: { id: number, data: Categories }) =>
 
     const handleBack = (e: any) => {
         e.preventDefault();
-        push("/");
+        push("/"+locale);
     }
 
     return (

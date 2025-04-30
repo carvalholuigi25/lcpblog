@@ -19,11 +19,12 @@ import ShowAlert from "@applocale/components/alerts";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import MyEditorPost from "@applocale/components/editor/myeditorpost";
 import LoadingComp from "@applocale/components/loadingcomp";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
     const t = useTranslations("ui.forms.crud.news.edit");
     const tbtn = useTranslations("ui.buttons");
+    const locale = useLocale() ?? getDefLocale();
 
     const [formData, setFormData] = useState({
         postId: data.postId ?? 1,
@@ -155,7 +156,7 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
                 setTimeout(async () => {
                     alert(t("messages.success") ?? "Post edited successfully!");
                     await sendMessage(connection!, r.data);
-                    push("/");
+                    push("/"+locale);
                 }, 1000 / 2);
             }).catch((err) => {
                 console.error(t("messages.error", {message: ""+err}) ?? `Error when editing post! Message: ${err}`);

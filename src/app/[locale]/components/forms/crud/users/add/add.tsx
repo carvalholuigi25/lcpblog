@@ -15,8 +15,11 @@ import { Link } from '@/app/i18n/navigation';
 import ShowAlert from "@applocale/components/alerts";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import LoadingComp from "@applocale/components/loadingcomp";
+import { useLocale } from "next-intl";
 
 const AddUsersForm = () => {
+    const locale = useLocale() ?? getDefLocale();
+    
     const [formData, setFormData] = useState({
         username: "",
         password: "",
@@ -89,7 +92,7 @@ const AddUsersForm = () => {
 
                 setTimeout(async () => {
                     alert("The user has been added sucessfully!");
-                    push("/");
+                    push("/"+locale);
                 }, 1000 / 2);
             }).catch((err) => {
                 console.error(err);

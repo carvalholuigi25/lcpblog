@@ -7,13 +7,15 @@ import { Link } from '@/app/i18n/navigation';
 import { useRouter } from "next/navigation";
 import { getFromStorage } from "@applocale/hooks/localstorage";
 import { getDefLocale } from '@applocale/helpers/defLocale';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import RegFormStep1 from "./rfstep1";
 import RegFormStep2 from "./rfstep2";
 import RegFormStep3 from "./rfstep3";
 import Stepper from './stepper';
 
 const RegForm = () => {
+  const locale = useLocale() ?? getDefLocale();
+  
   const t = useTranslations("ui.forms.auth.register");
   const tbtn = useTranslations("ui.buttons");
   
@@ -87,7 +89,7 @@ const RegForm = () => {
         clearForm();
 
         setTimeout(() => {
-          push('/');
+          push('/'+locale);
         }, 500);
       }).catch((err) => {
         console.error(err);

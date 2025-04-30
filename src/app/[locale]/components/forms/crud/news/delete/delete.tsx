@@ -10,11 +10,12 @@ import { getDefLocale } from "@applocale/helpers/defLocale";
 import { buildMyConnection, sendMessage } from "@applocale/functions/functions";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import LoadingComp from "@applocale/components/loadingcomp";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 const DeleteNewsForm = ({ id, data }: { id: number, data: Posts }) => {
     const t = useTranslations("ui.forms.crud.news.delete");
     const tbtn = useTranslations("ui.buttons");
+    const locale = useLocale() ?? getDefLocale();
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [logInfo] = useState(getFromStorage("logInfo"));
@@ -72,7 +73,7 @@ const DeleteNewsForm = ({ id, data }: { id: number, data: Posts }) => {
                 setTimeout(async () => {
                     alert(t("messages.success") ?? "The news post has been deleted successfully!");
                     await sendMessage(connection!, r.data);
-                    push("/");
+                    push("/"+locale);
                 }, 1000 / 2);
             }).catch((err) => {
                 console.error(t("messages.error", {message: ""+err}) ?? `Failed to delete this news post! Message: ${err}`);
@@ -84,7 +85,7 @@ const DeleteNewsForm = ({ id, data }: { id: number, data: Posts }) => {
 
     const handleBack = (e: any) => {
         e.preventDefault();
-        push("/");
+        push("/"+locale);
     }
 
     return (
