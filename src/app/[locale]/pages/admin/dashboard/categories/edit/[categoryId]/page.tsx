@@ -4,7 +4,7 @@ import styles from "@applocale/page.module.scss";
 import { useEffect, useState } from "react";
 import { useParams, usePathname } from "next/navigation";
 import { Categories } from "@applocale/interfaces/categories";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Link } from '@/app/i18n/navigation';
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import Header from "@applocale/ui/header";
@@ -14,6 +14,9 @@ import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import LoadingComp from "@applocale/components/loadingcomp";
 
 export default function EditCategories() {
+  const t = useTranslations("ui.forms.crud.categories.edit");
+  const tbtn = useTranslations("ui.buttons");
+
   const locale = useLocale();
   const { categoryId } = useParams();
   const [categories, setCategories] = useState(null as unknown as Categories);
@@ -47,9 +50,11 @@ export default function EditCategories() {
         <div className="card p-3 text-center">
           <div className='card-body'>
             <i className="bi-exclamation-triangle" style={{ fontSize: "4rem" }}></i>
-            <p>0 categories</p>
+            <p>{t('emptycategories') ?? "0 categories."}</p>
             {pathname !== "/" && (
-              <Link className='btn btn-primary btn-rounded card-btn mt-3' href={`/`} locale={locale ?? getDefLocale()}>Back</Link>
+              <Link className='btn btn-primary btn-rounded card-btn mt-3' href={`/`} locale={locale ?? getDefLocale()}>
+                {tbtn('btnback') ?? "Back"}
+              </Link>
             )}
           </div>
         </div>

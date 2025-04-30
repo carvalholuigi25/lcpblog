@@ -107,15 +107,18 @@ const AdminCategories = () => {
                                     <div className="row">
                                         <div className="col-12">
                                             <div className="btn-group" role="group" aria-label="Users data actions">
-                                                <Link href={'/pages/admin/dashboard/categories/add'} className="btn btn-primary btn-rounded btncreateusers">
-                                                    {t('btnaddcategory') ?? "Add new category"}
+                                                <Link href={'/pages/admin/dashboard/categories/add'} locale={locale ?? getDefLocale()} className="btn btn-primary btn-rounded btncreatecategories" title={t('btnaddcategory') ?? "Add new category"}>
+                                                    <i className="bi bi-plus-circle"></i>
+                                                    <span className="ms-2 hidden">
+                                                        {t('btnaddcategory') ?? "Add new category"}
+                                                    </span>
                                                 </Link>
                                             </div>
                                         </div>
 
                                         {!!categories && (
                                             <div className="col-12 mt-3">
-                                                <TableData locale={locale ?? getDefLocale()} theaders={tableHeaders} tdata={categories} namep={ttbl('titletable') ?? "categories"} currentPage={-1} totalPages={-1} linkSuffix="admin/dashboard" />
+                                                <TableData locale={locale ?? getDefLocale()} theaders={tableHeaders} tdata={categories} namep={ttbl('titletable') ?? "categories"} currentPage={-1} totalPages={-1} linkSuffix="admin/dashboard/categories" />
                                                 <MyPagination cid={-1} pid={-1} currentPage={page} totalPages={totalPages} />
                                             </div>
                                         )}

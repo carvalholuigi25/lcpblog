@@ -64,7 +64,7 @@ export default function TableData({ theaders, tdata, namep, locale, currentPage,
                                     return !!["createdAt", "updatedAt"].includes(thx.dataIndex) ? formatDate(tdataitem[thx.dataIndex]) : tdataitem[thx.dataIndex]; 
                                 });
                                 const vid = tdataitem["postId"] ?? (i + 1);
-                                const linksuffix = (!!linkSuffix ? (linkSuffix.endsWith("/") ? linkSuffix : linkSuffix + "/") : ""+namep.toLowerCase()).split("/")[0];
+                                const linksuffix = (!!linkSuffix ? (linkSuffix.endsWith("/") ? linkSuffix : linkSuffix + "/") : ""+namep.toLowerCase()).replace(/(\/)$/g, "");
                                 const linkedit = `/pages/${linksuffix}/edit/${vid}`;
                                 const linkdel = `/pages/${linksuffix}/delete/${vid}`;	
 

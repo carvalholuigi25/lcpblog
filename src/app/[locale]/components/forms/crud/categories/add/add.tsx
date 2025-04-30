@@ -14,8 +14,12 @@ import ShowAlert from "@applocale/components/alerts";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import LoadingComp from "@applocale/components/loadingcomp";
 import * as signalR from "@microsoft/signalr";
+import { useTranslations } from "next-intl";
 
 const AddCategoriesForm = () => {
+    const t = useTranslations("ui.forms.crud.categories.add");
+    const tbtn = useTranslations("ui.buttons");
+
     const [formData, setFormData] = useState({
         name: "",
         slug: "",
@@ -118,15 +122,15 @@ const AddCategoriesForm = () => {
                 console.log(r);
 
                 setTimeout(async () => {
-                    alert("The new category has been added sucessfully!");
+                    alert(t("messages.success") ?? "The new category has been added sucessfully!");
                     await sendMessage(connection!, r.data);
                     push("/");
                 }, 1000 / 2);
             }).catch((err) => {
-                console.error(err);
+                console.error(t("messages.error", {message: ""+err}) ?? `Error when adding category! Message: ${err}`);
             });
         } catch (error) {
-            console.error(error);
+            console.error(t("messages.errorapi", {message: ""+error}) ?? `Occurred an error when trying to add the category! Message: ${error}`);
         }
     };
 
@@ -138,7 +142,9 @@ const AddCategoriesForm = () => {
                         <div className="card">
                             <div className="card-body text-center">
                                 <i className="bi bi-exclamation-triangle mx-auto" style={{fontSize: '4rem'}} />
-                                <p className="mt-3">You are not authorized to see this page!</p>
+                                <p className="mt-3">
+                                    {t("messages.warnauth") ?? "You are not authorized to see this page!"}
+                                </p>
                                 <Link className="btn btn-primary btn-rounded ms-3 mt-3" href={'/'} locale={getDefLocale()}>Back</Link>
                             </div>
                         </div>
@@ -148,34 +154,34 @@ const AddCategoriesForm = () => {
 
             {!!isLoggedIn && (
                 <>
-                    <h3 className="title mx-auto text-center">Add categories</h3>
+                    <h3 className="title mx-auto text-center">{t('title') ?? "Add category"}</h3>
                     <form className={styles.frmaddcategories}>
                         <div className="form-group mt-3 text-center">
-                            <label htmlFor="name">Name</label>
+                            <label htmlFor="name">{t('lblname') ?? "Name"}</label>
                             <div className={styles.sformgroup}>
-                                <input {...register("name")} type="text" id="name" name="name" className={"form-control name mt-3 " + styles.sformgroupinp} placeholder="Write your name of category here..." value={formData.name} onChange={handleChange} required />
+                                <input {...register("name")} type="text" id="name" name="name" className={"form-control name mt-3 " + styles.sformgroupinp} placeholder={t("inpname") ?? "Write your name of category here..."} value={formData.name} onChange={handleChange} required />
                             </div>
 
                             {errors.name && ShowAlert("danger", errors.name.message)}
                         </div>
 
                         <div className="form-group mt-3 text-center">
-                            <label htmlFor="slug">Slug Url:</label>
+                            <label htmlFor="slug">{t('lblslug') ?? "Slug Url"}</label>
                             <div className={styles.sformgroup}>
-                                <input {...register("slug")} type="text" id="slug" name="slug" className={"form-control slug mt-3 " + styles.sformgroupinp} placeholder="Write your slug url here..." onChange={handleChange} disabled />
+                                <input {...register("slug")} type="text" id="slug" name="slug" className={"form-control slug mt-3 " + styles.sformgroupinp} placeholder={t("inpslug") ?? "Write your slug url here..."} onChange={handleChange} disabled />
                             </div>
 
                             {errors.slug && ShowAlert("danger", errors.slug.message)}
                         </div>
 
                         <div className="form-group mt-3 text-center">
-                            <label htmlFor="status">Status:</label>
+                            <label htmlFor="status">{t('lblstatus') ?? "Status"}</label>
                             <div className={styles.sformgroup}>
                                 <select {...register("status")} id="status" name="status" className={"form-control status mt-3 " + styles.sformgroupinp} value={formData.status} onChange={handleChange}>
-                                    <option disabled>Select the option of status</option>
-                                    <option value={"0"}>All</option>
-                                    <option value={"1"}>Locked</option>
-                                    <option value={"2"}>Deleted</option>
+                                    <option disabled>{t('inpstatus.options.sel') ?? "Select the option of status"}</option>
+                                    <option value={"0"}>{t('inpstatus.options.all') ?? "All"}</option>
+                                    <option value={"1"}>{t('inpstatus.options.locked') ?? "Locked"}</option>
+                                    <option value={"2"}>{t('inpstatus.options.deleted') ?? "Deleted"}</option>
                                 </select>
                             </div>
 
@@ -183,14 +189,20 @@ const AddCategoriesForm = () => {
                         </div>
 
                         <div className="d-inline-block mx-auto mt-3">
-                            <button className="btn btn-secondary btnreset btn-rounded" type="reset" onClick={handleReset}>Reset</button>
-                            <button className="btn btn-primary btnadd btn-rounded ms-3" type="button" onClick={handleSubmit} disabled={isSubmitting}>Add</button>
+                            <button className="btn btn-secondary btnreset btn-rounded" type="reset" onClick={handleReset}>
+                                {t('btnreset') ?? "Reset"}
+                            </button>
+                            <button className="btn btn-primary btnadd btn-rounded ms-3" type="button" onClick={handleSubmit} disabled={isSubmitting}>
+                                {t('btnadd') ?? "Add"}
+                            </button>
                         </div>
                     </form>
                     
                     <div className="col-12">
                         <div className="mt-3 mx-auto text-center">
-                            <Link href={'/'} className="btn btn-primary btn-rounded" locale={getDefLocale()}>Back</Link>
+                            <Link href={'/'} className="btn btn-primary btn-rounded" locale={getDefLocale()}>
+                                {tbtn('btnback') ?? "Back"}
+                            </Link>
                         </div>
                     </div>
                 </>

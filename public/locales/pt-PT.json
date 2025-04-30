@@ -234,6 +234,84 @@
           }
         }
       },
+      "crud": {
+        "categories": {
+          "add": {
+            "title": "Adicionar categoria",
+            "lblname": "Nome",
+            "inpname": "Escreva aqui o nome da categoria",
+            "lblslug": "Slug Url",
+            "inpslug": "Escreva aqui o slug url da categoria",
+            "lblstatus": "Estado",
+            "inpstatus": {
+              "options": {
+                "sel": "Seleciona a opção do estado",
+                "all": "Tudo",
+                "locked": "Trancado",
+                "deleted": "Eliminado"
+              }
+            },
+            "btnreset": "Repor",
+            "btnadd": "Adicionar",
+            "messages": {
+              "warnauth": "Você não está autorizado a ver esta página!",
+              "success": "Categoria adicionada com sucesso!",
+              "error": "Erro ao adicionar categoria! Mensagem: {message}",
+              "errorapi": "Ocorreu um erro ao tentar adicionar a categoria! Mensagem: {message}"
+            }
+          },
+          "delete": {
+            "title": "Apagar categoria",
+            "emptycategories": "0 categorias.",
+            "table": {
+              "header": {
+                "id": "Id",
+                "name": "Nome",
+                "slug": "Slug",
+                "createdAt": "Criado em",
+                "updatedAt": "Atualizado em",
+                "status": "Estado"
+              }
+            },
+            "messages": {
+              "warnauth": "Tu não está autorizado a ver esta página!",
+              "success": "Categoria eliminada com sucesso!",
+              "error": "Erro ao eliminar categoria! Mensagem: {message}",
+              "errorapi": "Ocorreu um erro ao tentar eliminar a categoria! Mensagem: {message}",
+              "confirm": {
+                "title": "Tens a certeza que queres eliminar esta categoria?",
+                "btnconfirm": "Sim",
+                "btncancel": "Não"
+              }
+            }
+          },
+          "edit": {
+            "title": "Editar categoria",
+            "emptycategories": "0 categorias.",
+            "lblname": "Nome",
+            "inpname": "Escreva aqui o nome da categoria",
+            "lblslug": "Slug Url",
+            "inpslug": "Escreva aqui o slug url da categoria",
+            "lblstatus": "Estado",
+            "inpstatus": {
+              "options": {
+                "sel": "Seleciona a opção do estado",
+                "all": "Tudo",
+                "locked": "Trancado",
+                "deleted": "Eliminado"
+              }
+            },
+            "btnreset": "Repor",
+            "btnedit": "Editar",
+            "messages": {
+              "warnauth": "Você não está autorizado a ver esta página!",
+              "success": "Categoria editada com sucesso!",
+              "error": "Erro ao editar categoria! Mensagem: {message}",
+              "errorapi": "Ocorreu um erro ao tentar editar a categoria! Mensagem: {message}"
+            }
+          }
+        }
+      },
       "search": {
         "validation": {
           "errors": {

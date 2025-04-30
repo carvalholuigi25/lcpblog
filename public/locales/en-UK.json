@@ -235,6 +235,84 @@
                     }
                 }
             },
+            "crud": {
+                "categories": {
+                    "add": {
+                        "title": "Add category",
+                        "lblname": "Name",
+                        "inpname": "Write here the name of the category",
+                        "lblslug": "Slug Url",
+                        "inpslug": "Write here the slug url",
+                        "lblstatus": "Status",
+                        "inpstatus": {
+                            "options": {
+                                "sel": "Select the option of the state",
+                                "all": "All",
+                                "locked": "Locked",
+                                "deleted": "Deleted"
+                            }
+                        },
+                        "btnreset": "Reset",
+                        "btnadd": "Add",
+                        "messages": {
+                            "warnauth": "You are not authorized to see this page!",
+                            "success": "Category added successfully!",
+                            "error": "Error when adding category! Message: {message}",
+                            "errorapi": "Occurred an error when trying to add the category! Message: {message}"
+                        }
+                    },
+                    "delete": {
+                        "title": "Delete category",
+                        "emptycategories": "0 categories.",
+                        "table": {
+                            "header": {
+                                "id": "Id",
+                                "name": "Name",
+                                "slug": "Slug",
+                                "createdAt": "Created at",
+                                "updatedAt": "Updated at",
+                                "status": "Status"
+                            }
+                        },
+                        "messages": {
+                            "warnauth": "You are not authorized to see this page!",
+                            "success": "Category deleted successfully!",
+                            "error": "Error when deleting category! Message: {message}",
+                            "errorapi": "Occurred an error when trying to delete the category! Message: {message}",
+                            "confirm": {
+                                "title": "Are you sure you want to delete this category?",
+                                "btnconfirm": "Yes",
+                                "btncancel": "No"
+                            }
+                        }
+                    },
+                    "edit": {
+                        "title": "Edit category",
+                        "emptycategories": "0 categories.",
+                        "lblname": "Name",
+                        "inpname": "Write here the name of the category",
+                        "lblslug": "Slug Url",
+                        "inpslug": "Write here the slug url",
+                        "lblstatus": "Status",
+                        "inpstatus": {
+                            "options": {
+                                "sel": "Select the option of the state",
+                                "all": "All",
+                                "locked": "Locked",
+                                "deleted": "Deleted"
+                            }
+                        },
+                        "btnreset": "Reset",
+                        "btnedit": "Edit",
+                        "messages": {
+                            "warnauth": "You are not authorized to see this page!",
+                            "success": "Category edited successfully!",
+                            "error": "Error when editing category! Message: {message}",
+                            "errorapi": "Occurred an error when trying to edit the category! Message: {message}"
+                        }
+                    }
+                }
+            },
             "search": {
                 "validation": {
                     "errors": {
