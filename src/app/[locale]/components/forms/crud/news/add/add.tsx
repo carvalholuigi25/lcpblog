@@ -15,12 +15,13 @@ import { EditorState } from "lexical";
 import { Link } from '@/app/i18n/navigation';
 import { Categories } from "@applocale/interfaces/categories";
 import { getDefLocale } from "@applocale/helpers/defLocale";
-import Toasts from "@applocale/components/toasts";
+import Toasts from "@applocale/components/toasts/toasts";
 import ShowAlert from "@applocale/components/alerts";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import MyEditorPost from "@applocale/components/editor/myeditorpost";
 import LoadingComp from "@applocale/components/loadingcomp";
 import * as signalR from "@microsoft/signalr";
+import { DataToastsProps } from "@applocale/interfaces/toasts";
 
 const AddNewsForm = () => {
     const t = useTranslations("ui.forms.crud.news.add");
@@ -44,8 +45,7 @@ const AddNewsForm = () => {
     const [loading, setLoading] = useState(true);
     const [listCategories, setListCategories] = useState([]);
     const [myEditorKey, setMyEditorKey] = useState("");
-    const [showToast, setShowToast] = useState(false);
-    const [dataToast, setDataToast] = useState({ type: "success", message: "" });
+    const [dataToast, setDataToast] = useState({ type: "", message: "", statusToast: false } as DataToastsProps);
 
     const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
 
@@ -130,26 +130,17 @@ const AddNewsForm = () => {
 
     const getUserId = () => {
         return getFromStorage("logInfo") ? JSON.parse(getFromStorage("logInfo")!)[0].userId : null;
-    };
+    }
 
     const handleChange = (e: any) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
-    };
+    }
 
     const handleReset = (e: any) => {
         e.preventDefault();
         setIsResetedForm(true);
         setMyEditorKey(Date.now().toString());
-    };
-
-    const closeToast = () => {
-        setShowToast(false);
-    }
-
-    const showMyMessage = (type: string, message: string) => {
-        setShowToast(true);
-        setDataToast({ type: type, message: message });
     }
 
     const handleSubmit = async (e: any) => {
@@ -164,25 +155,25 @@ const AddNewsForm = () => {
             }).then(async (r) => {
                 console.log(r);
                 setMyEditorKey(Date.now().toString());
-                showMyMessage("success", t("messages.addsuccess") ?? "The news post has been added sucessfully!");
+                setDataToast({type: "success", message: t("messages.addsuccess") ?? "The news post has been added sucessfully!", statusToast: true});
 
                 setTimeout(async () => {
                     await sendMessage(connection!, r.data);
                     push("/"+locale);
-                }, 1500);
+                }, 1000 * 5);
             }).catch((err) => {
-                showMyMessage("error", t("messages.adderror", {message: ""+err}) ?? `Failed to add news post! Message: ${err}`);
+                setDataToast({type: "error", message: t("messages.adderror", {message: ""+err}) ?? `Failed to add news post! Message: ${err}`, statusToast: true});
             });
         } catch (error) {
-            showMyMessage("error", t("messages.adderrorapi", {message: ""+error}) ?? `Error when adding news post! Message: ${error}`);
+            setDataToast({type: "error", message: t("messages.adderrorapi", {message: ""+error}) ?? `Error when adding news post! Message: ${error}`, statusToast: true});
         }
-    };
+    }
 
     const onChangeEditor = (editorState: EditorState) => {
         const editorStateJSON = JSON.stringify(editorState.toJSON());
         setEditorState(editorStateJSON);
         setFormData({ ...formData, content: editorStateJSON });
-    };
+    }
 
     return (
         <div className="container">
@@ -206,7 +197,7 @@ const AddNewsForm = () => {
 
             {!!isLoggedIn && (
                 <>
-                    {showToast && <Toasts id={"toastAddNews"} type={dataToast.type} content={dataToast.message} statusToast={showToast} onClose={closeToast} />}
+                    {dataToast.statusToast && <Toasts id={"toastAddNews"} data={dataToast} />}
 
                     <h3 className="title mx-auto text-center">
                         {t('title') ?? 'Add news'}

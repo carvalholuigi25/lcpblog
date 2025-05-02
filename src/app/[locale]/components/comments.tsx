@@ -12,10 +12,10 @@ import { TFormComments, useMySchemaComments } from "@applocale/schemas/formSchem
 import { Comments as CT } from "@applocale/interfaces/comments";
 import { User } from "@applocale/interfaces/user";
 import { getImagePath } from "@applocale/functions/functions";
+import { getDefLocale } from "@applocale/helpers/defLocale";
 import FetchDataAxios, { FetchMultipleDataAxios } from "@applocale/utils/fetchdataaxios";
 import LoadingComp from "@applocale/components/loadingcomp";
 import ShowAlert from "@applocale/components/alerts";
-import { getDefLocale } from "@/app/[locale]/helpers/defLocale";
 
 export interface CommentsProps {
     content?: string;

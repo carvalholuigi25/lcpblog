@@ -405,6 +405,40 @@ footer {
   width: 100%;
   max-width: 100%;
 
+  .fade {
+    -webkit-animation: fadeinout 4s linear forwards;
+    -moz-animation: fadeinout 4s linear forwards;
+    -ms-animation: fadeinout 4s linear forwards;
+    -o-animation: fadeinout 4s linear forwards;
+    animation: fadeinout 4s linear forwards;
+    opacity: 0;
+  }
+
+  .toast-header {
+    justify-content: space-between;
+
+    .longname {
+      text-overflow: ellipsis;
+      max-width: 50px;
+      white-space: nowrap;
+      overflow: hidden;
+
+      &:hover {
+        text-overflow: none;
+        max-width: 100%;
+        white-space: inherit;
+        overflow: auto;
+      }
+    }
+
+    .name {
+      text-overflow: none;
+      max-width: 100%;
+      white-space: inherit;
+      overflow: auto;
+    }
+  }
+
   .show {
     position: fixed;
     top: auto;
@@ -412,11 +446,7 @@ footer {
     left: auto;
     right: 0;
     display: block;
-    z-index: 99999999;
-
-    .fade {
-      transition: all 1s ease-in-out !important;
-    }
+    z-index: 99999999; 
 
     .toast-container {
       bottom: 0 !important;
@@ -1249,6 +1279,14 @@ footer {
         text-align: center !important;
       }
     }
+  }
+
+  @-webkit-keyframes fadeinout {
+    50% { opacity: 1; }
+  }
+  
+  @keyframes fadeinout {
+    50% { opacity: 1; }
   }
 
   @import "bootstrap/dist/css/bootstrap.min.css";

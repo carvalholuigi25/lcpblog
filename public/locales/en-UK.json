@@ -1,6 +1,11 @@
 {
     "ui": {
         "searchBar": "Search",
+        "toasts": {
+            "data": {
+                "timestatus": "has posted few seconds ago..."
+            }
+        },
         "offcanvas": {
             "btnclose": "Close",
             "homelink": "Home",

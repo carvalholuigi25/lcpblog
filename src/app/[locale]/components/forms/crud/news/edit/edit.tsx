@@ -20,6 +20,8 @@ import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import MyEditorPost from "@applocale/components/editor/myeditorpost";
 import LoadingComp from "@applocale/components/loadingcomp";
 import { useLocale, useTranslations } from "next-intl";
+import Toasts from "@/app/[locale]/components/toasts/toasts";
+import { DataToastsProps } from "@/app/[locale]/interfaces/toasts";
 
 const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
     const t = useTranslations("ui.forms.crud.news.edit");
@@ -45,6 +47,8 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
     const [myEditorKey, setMyEditorKey] = useState("");
     const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
     const [loading, setLoading] = useState(true);
+    const [dataToast, setDataToast] = useState({ type: "", message: "", statusToast: false } as DataToastsProps);
+    
     const { push } = useRouter();
 
     const {
@@ -128,18 +132,18 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
 
     const getUserId = () => {
         return getFromStorage("logInfo") ? JSON.parse(getFromStorage("logInfo")!)[0].userId : null;
-    };
+    }
 
     const handleChange = (e: any) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
-    };
+    }
 
     const handleReset = (e: any) => {
         e.preventDefault();
         setIsResetedForm(true);
         setMyEditorKey(Date.now().toString());
-    };
+    }
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
@@ -152,25 +156,25 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
             }).then(async (r) => {
                 console.log(r);
                 setMyEditorKey(Date.now().toString());
+                setDataToast({type: "success", message: t("messages.success") ?? "Post edited successfully!", statusToast: true});
 
                 setTimeout(async () => {
-                    alert(t("messages.success") ?? "Post edited successfully!");
                     await sendMessage(connection!, r.data);
                     push("/"+locale);
-                }, 1000 / 2);
+                }, 1000 * 5);
             }).catch((err) => {
-                console.error(t("messages.error", {message: ""+err}) ?? `Error when editing post! Message: ${err}`);
+                setDataToast({type: "error", message: t("messages.error", {message: ""+err}) ?? `Error when editing post! Message: ${err}`, statusToast: true});
             });
         } catch (error) {
-            console.error(t("messages.errorapi", {message: ""+error}) ?? `Occurred an error when trying to edit the post! Message: ${error}`);
+            setDataToast({type: "error", message: t("messages.errorapi", {message: ""+error}) ??  `Occurred an error when trying to edit the post! Message: ${error}`, statusToast: true});
         }
-    };
+    }
     
     const onChangeEditor = (editorState: EditorState) => {
         const editorStateJSON = JSON.stringify(editorState.toJSON());
         setEditorState(editorStateJSON);
         setFormData({ ...formData, content: editorStateJSON });
-    };
+    }
 
     return (
         <div className="container">
@@ -194,6 +198,8 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
 
             {!!isLoggedIn && (
                 <>
+                    {dataToast.statusToast && <Toasts id={"toastEditNews"} data={dataToast} />}
+
                     <h3 className="title mx-auto text-center">
                         {t("title") ?? "Edit News"}
                     </h3>

@@ -8,19 +8,21 @@ import { Posts } from "@applocale/interfaces/posts";
 import { getFromStorage } from "@applocale/hooks/localstorage";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { buildMyConnection, sendMessage } from "@applocale/functions/functions";
+import { useLocale, useTranslations } from "next-intl";
+import { DataToastsProps } from "@applocale/interfaces/toasts";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import LoadingComp from "@applocale/components/loadingcomp";
-import { useLocale, useTranslations } from "next-intl";
+import Toasts from "@applocale/components/toasts/toasts";
 
 const DeleteNewsForm = ({ id, data }: { id: number, data: Posts }) => {
     const t = useTranslations("ui.forms.crud.news.delete");
     const tbtn = useTranslations("ui.buttons");
     const locale = useLocale() ?? getDefLocale();
-
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [logInfo] = useState(getFromStorage("logInfo"));
     const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
     const [loading, setLoading] = useState(true);
+    const [dataToast, setDataToast] = useState({ type: "", message: "", statusToast: false } as DataToastsProps);
     const { push } = useRouter();
 
     useEffect(() => {
@@ -69,19 +71,19 @@ const DeleteNewsForm = ({ id, data }: { id: number, data: Posts }) => {
                 data: data
             }).then(async (r) => {
                 console.log(r);
+                setDataToast({type: "success", message: t("messages.success") ?? "The news post has been deleted successfully!", statusToast: true});
 
                 setTimeout(async () => {
-                    alert(t("messages.success") ?? "The news post has been deleted successfully!");
                     await sendMessage(connection!, r.data);
                     push("/"+locale);
-                }, 1000 / 2);
+                }, 1000 * 5);
             }).catch((err) => {
-                console.error(t("messages.error", {message: ""+err}) ?? `Failed to delete this news post! Message: ${err}`);
+                setDataToast({type: "error", message: t("messages.error", {message: ""+err}) ?? `Failed to delete this news post! Message: ${err}`, statusToast: true});
             });
         } catch (error) {
-            console.error(t("messages.errorapi", {message: ""+error}) ?? `Ocurred an error while deleting this news post! Message: ${error}`);
+            setDataToast({type: "error", message: t("messages.errorapi", {message: ""+error}) ?? `Ocurred an error while deleting this news post! Message: ${error}`, statusToast: true});
         }
-    };
+    }
 
     const handleBack = (e: any) => {
         e.preventDefault();
@@ -110,6 +112,8 @@ const DeleteNewsForm = ({ id, data }: { id: number, data: Posts }) => {
 
             {!!isLoggedIn && (
                 <>
+                    {dataToast.statusToast && <Toasts id={"toastDelNews"} data={dataToast} />}
+
                     <h3 className="title mx-auto text-center">
                         {t("title") ?? "Delete news"}
                     </h3>
