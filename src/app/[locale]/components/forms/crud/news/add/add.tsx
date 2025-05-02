@@ -15,6 +15,7 @@ import { EditorState } from "lexical";
 import { Link } from '@/app/i18n/navigation';
 import { Categories } from "@applocale/interfaces/categories";
 import { getDefLocale } from "@applocale/helpers/defLocale";
+import Toasts from "@applocale/components/toasts";
 import ShowAlert from "@applocale/components/alerts";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import MyEditorPost from "@applocale/components/editor/myeditorpost";
@@ -43,6 +44,9 @@ const AddNewsForm = () => {
     const [loading, setLoading] = useState(true);
     const [listCategories, setListCategories] = useState([]);
     const [myEditorKey, setMyEditorKey] = useState("");
+    const [showToast, setShowToast] = useState(false);
+    const [dataToast, setDataToast] = useState({ type: "success", message: "" });
+
     const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
 
     const { push } = useRouter();
@@ -139,6 +143,15 @@ const AddNewsForm = () => {
         setMyEditorKey(Date.now().toString());
     };
 
+    const closeToast = () => {
+        setShowToast(false);
+    }
+
+    const showMyMessage = (type: string, message: string) => {
+        setShowToast(true);
+        setDataToast({ type: type, message: message });
+    }
+
     const handleSubmit = async (e: any) => {
         e.preventDefault();
 
@@ -151,17 +164,17 @@ const AddNewsForm = () => {
             }).then(async (r) => {
                 console.log(r);
                 setMyEditorKey(Date.now().toString());
+                showMyMessage("success", t("messages.addsuccess") ?? "The news post has been added sucessfully!");
 
                 setTimeout(async () => {
-                    alert(t("messages.addsuccess") ?? "The news post has been added sucessfully!");
                     await sendMessage(connection!, r.data);
                     push("/"+locale);
-                }, 1000 / 2);
+                }, 1500);
             }).catch((err) => {
-                console.error(t("messages.adderror", {message: ""+err}) ?? `Failed to add news post! Message: ${err}`);
+                showMyMessage("error", t("messages.adderror", {message: ""+err}) ?? `Failed to add news post! Message: ${err}`);
             });
         } catch (error) {
-            console.error(t("messages.adderrorapi", {message: ""+error}) ?? `Error when adding news post! Message: ${error}`);
+            showMyMessage("error", t("messages.adderrorapi", {message: ""+error}) ?? `Error when adding news post! Message: ${error}`);
         }
     };
 
@@ -193,6 +206,8 @@ const AddNewsForm = () => {
 
             {!!isLoggedIn && (
                 <>
+                    {showToast && <Toasts id={"toastAddNews"} type={dataToast.type} content={dataToast.message} statusToast={showToast} onClose={closeToast} />}
+
                     <h3 className="title mx-auto text-center">
                         {t('title') ?? 'Add news'}
                     </h3>

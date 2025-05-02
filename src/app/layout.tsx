@@ -45,6 +45,7 @@ export default async function RootLayout({
       <body className={`${poppins.variable} ${roboto.variable} ${orbitron.variable} mybkgpage`}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <div id="modal-root"></div>
+          <div id="toast-root"></div>
           {children}
           <Frameworks />
         </NextIntlClientProvider>
