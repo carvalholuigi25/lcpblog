@@ -146,15 +146,15 @@ const DeleteCommentsForm = ({ commentId, data }: { commentId: number, data: Comm
                         </div>
 
                         <p className="text-center mx-auto mt-3">
-                            {t("messages.deleteconfirm", {id: data.commentId}) ?? `Do you want to delete this comment (id: ${data.commentId})?`}
+                            {t("messages.confirm.title", {id: data.commentId}) ?? `Do you want to delete this comment (id: ${data.commentId})?`}
                         </p>
 
                         <div className="d-inline-block mx-auto mt-3">
                             <button className="btn btn-primary btndel btn-rounded ms-3" type="button" onClick={handleSubmit}>
-                                {t("messages.btnconfirm") ?? "Delete"}
+                                {t("messages.confirm.btnconfirm") ?? "Delete"}
                             </button>
                             <button className="btn btn-secondary btnback btn-rounded ms-3" type="button" onClick={handleBack}>
-                                {t("messages.btncancel") ?? "Cancel"}
+                                {t("messages.confirm.btncancel") ?? "Cancel"}
                             </button>
                         </div>
                     </form>

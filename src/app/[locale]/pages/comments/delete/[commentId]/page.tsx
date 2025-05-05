@@ -6,7 +6,7 @@ import { useParams, usePathname } from "next/navigation";
 import { Link } from '@/app/i18n/navigation';
 import { Comments as Comments } from "@applocale/interfaces/comments";
 import { getDefLocale } from "@applocale/helpers/defLocale";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Header from "@applocale/ui/header";
 import Footer from "@applocale/ui/footer";
 import DeleteCommentsForm from "@applocale/components/forms/crud/comments/delete/delete";
@@ -14,6 +14,8 @@ import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import LoadingComp from "@applocale/components/loadingcomp";
 
 export default function DeleteComments() {
+  const t = useTranslations("pages.DeleteCommentsPage");
+  const tbtn = useTranslations("ui.buttons");
   const locale = useLocale();
   const { commentId } = useParams();
   const [comments, setComments] = useState(null as unknown as Comments);
@@ -47,9 +49,11 @@ export default function DeleteComments() {
         <div className="card p-3 text-center">
           <div className='card-body'>
             <i className="bi-exclamation-triangle" style={{ fontSize: "4rem" }}></i>
-            <p>0 comments</p>
+            <p>{t('emptycomments') ?? "0 comments"}</p>
             {pathname !== "/" && (
-              <Link className='btn btn-primary btn-rounded card-btn mt-3' href={`/`} locale={locale ?? getDefLocale()}>Back</Link>
+              <Link className='btn btn-primary btn-rounded card-btn mt-3' href={`/`} locale={locale ?? getDefLocale()}>
+                {tbtn("btnback") ?? "Back"}
+              </Link>
             )}
           </div>
         </div>
@@ -57,11 +61,11 @@ export default function DeleteComments() {
     );
   };
 
-  const getBackLink = (pathname: any): any => {
+  const getBackLink = (): any => {
     return (
       <div className="col-12 mt-3 mx-auto text-center">
-        <Link href={pathname !== "/pages/comments" ? "/pages/comments" : "/"} className="btn btn-primary btn-rounded mt-3 mx-auto d-inline-block" locale={locale ?? getDefLocale()}>
-          Back
+        <Link href={"/"} className="btn btn-primary btn-rounded mt-3 mx-auto d-inline-block" locale={locale ?? getDefLocale()}>
+          {tbtn("btnback") ?? "Back"}
         </Link>
       </div>
     );
@@ -79,7 +83,7 @@ export default function DeleteComments() {
           </>
         )}
 
-        {pathname !== "/" && getBackLink(pathname)}
+        {pathname !== "/" && getBackLink()}
       </section>
       <Footer />
     </div>

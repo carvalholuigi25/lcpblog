@@ -32,7 +32,10 @@
       "btnreadmore": "Leia mais...",
       "btnlogout": "Sair",
       "btnback": "Voltar",
-      "btntoday": "Hoje"
+      "btntoday": "Hoje",
+      "btnreset": "Repor",
+      "btnedit": "Editar",
+      "btndelete": "Apagar"
     },
     "text": {
       "txtviews": "Visualizações: {views}"
@@ -521,10 +524,52 @@
         }
       },
       "comments": {
+        "emptycomments": "0 comentários",
+        "status": {
+          "locked": "Este comentário está bloqueado!"
+        },
+        "actions": {
+          "btnedit": "Editar",
+          "btndelete": "Apagar",
+          "statusunlock": "Desbloquear",
+          "statuslock": "Bloquear",
+          "keywords": {
+            "lock": "bloquear",
+            "locked": "bloqueado",
+            "unlock": "desbloquear",
+            "unlocked": "desbloqueado"
+          }
+        },
+        "inputs": {
+          "lblphavatar": "Avatar de {displayName}",
+          "lblphcontent": "Escreva aqui o seu comentário",
+          "lblstatus": "Estado:",
+          "selstatus": {
+            "phopt": "Selecione a opção de estado",
+            "options": {
+              "opt1": "Todos",
+              "opt2": "Bloqueado",
+              "opt3": "Apagado"
+            }
+          },
+          "lbluserid": "ID do utilizador",
+          "lblpostid": "ID da publicação",
+          "lblcategoryid": "ID da categoria",
+          "btnreset": "Repor",
+          "btnadd": "Adicionar"
+        },
         "validation": {
           "errors": {
             "lblphcontent": "Escreva aqui o seu comentário"
           }
+        },
+        "apimessages": {
+          "success": "O novo comentário foi adicionado com sucesso!",
+          "error": "Falha ao adicionar novo comentário! Mensagem: {message}",
+          "errorapi": "Erro ao adicionar novo comentário! Mensagem: {message}",
+          "statussuccess": "O comentário atual foi {keywordStatus} com sucesso!",
+          "statuserror": "Falha ao {keywordStatus} o comentário atual! Mensagem: {message}",
+          "statuserrorapi": "Falha ao {keywordStatus} o comentário atual! Mensagem: {message}"
         }
       }
     }
@@ -574,7 +619,8 @@
         "month12": {
           "name": "Dezembro"
         }
-      }
+      },
+      "btnback": "Voltar"
     },
     "AdminPages": {
       "Dashboard": {
@@ -737,6 +783,27 @@
       "title": "Notícias",
       "emptyposts": "0 postagens.",
       "btnreadmore": "Leia mais..."
+    },
+    "DeleteCommentsPage": {
+      "emptycomments": "0 comentários"
+    },
+    "UsersPage": {
+      "display": {
+        "lbluserid": "ID do utilizador:",
+        "lblusername": "Nome de utilizador:",
+        "lblemail": "E-mail:",
+        "lbldisplayname": "Nome de apresentação:",
+        "lblrole": "Papel:",
+        "lblabout": "Sobre:",
+        "lblprivacy": "Privacidade:"
+      },
+      "covertitle": "Capa de {displayName}",
+      "avatartitle": "Avatar de {displayName}",
+      "emptyusers": "0 utilizadores ou tu não tens a permissão de ver esta página.",
+      "usernotfound": "Utilizador não foi encontrado ou tu não tens a permissão de ver esta página!",
+      "totalusers": "Total de utilizadores: {count}",
+      "btnviewprofile": "Ver este perfil",
+      "btnback": "Voltar"
     },
     "Error": {
       "title": "Erro",

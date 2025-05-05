@@ -1,17 +1,18 @@
 "use client";
 import styles from "@applocale/page.module.scss";
 import { useEffect, useState } from 'react';
+import { useLocale, useTranslations } from 'next-intl';
 import { Link } from '@/app/i18n/navigation';
 import { User } from '@applocale/interfaces/user';
 import { getDefLocale } from '@applocale/helpers/defLocale';
-import { useLocale } from 'next-intl';
 import Image from 'next/image';
 import FetchData from '@applocale/utils/fetchdata';
+import LoadingComp from '@applocale/components/loadingcomp';
 import Header from '@applocale/ui/header';
 import Footer from '@applocale/ui/footer';
-import LoadingComp from '@applocale/components/loadingcomp';
 
 export default function AllUsersPage() {
+  const t = useTranslations("pages.UsersPage");
   const locale = useLocale();
   const [users, setUsers] = useState(new Array<User>());
 
@@ -45,8 +46,10 @@ export default function AllUsersPage() {
           <div className='col-12 card p-3 text-center'>
             <div className='card-body'>
               <i className="bi-exclamation-triangle" style={{fontSize: "4rem"}}></i>
-              <p>0 users or you dont have permissions to view this page!</p>
-              <Link className='btn btn-primary btn-rounded card-btn mt-3' href={`/`} locale={locale ?? getDefLocale()}>Back</Link>
+              <p>{t('emptyusers') ?? "0 users or you dont have permissions to view this page!"}</p>
+              <Link className='btn btn-primary btn-rounded card-btn mt-3' href={`/`} locale={locale ?? getDefLocale()}>
+                {t('btnback') ?? "Back"}
+              </Link>
             </div>
           </div> 
         </div>
@@ -55,16 +58,18 @@ export default function AllUsersPage() {
       <div className='row justify-content-center align-items-center p-3'>
         {!!users && users.map((user: User) => (
           <div className='col-12 col-md-6 col-lg-4 p-3 text-center' key={user.userId}>
-            <div className='card'>
+            <div className='card allbcuserinfo'>
               <div className="cardwrapper">
-                <Image src={'/images/'+(user.cover ?? 'default.jpg')} width={1200} height={300} alt={user.displayName + "'s Cover"} className={styles.alluserinfocover} priority />                
-                <Image src={'/images/'+(user.avatar ?? 'guest.png')} width={100} height={100} alt={user.displayName + "'s Avatar"} className={styles.alluserinfoavatar} />
+                <Image src={'/images/'+(user.cover ?? 'default.jpg')} width={1200} height={300} alt={t('covertitle', {displayName: user.displayName}) ?? user.displayName + "'s Cover"} className={styles.alluserinfocover} priority />                
+                <Image src={'/images/'+(user.avatar ?? 'guest.png')} width={100} height={100} alt={t('avatartitle', {displayName: user.displayName}) ?? user.displayName + "'s Avatar"} className={styles.alluserinfoavatar + " allbcavatar"} />
               </div>
               
-              <div className='card-body'>
-                <div className='card-text mt-4'>
+              <div className='card-body p-3 mt-4'>
+                <div className='card-text'>
                   <h3 className='card-title'>{user.displayName}</h3>
-                  <Link className='btn btn-primary btn-rounded card-btn' href={`/pages/users/${user.userId}`} locale={locale ?? getDefLocale()}>View Profile</Link>
+                  <Link className='btn btn-primary btn-rounded card-btn' href={`/pages/users/${user.userId}`} locale={locale ?? getDefLocale()}>
+                    {t('btnviewprofile') ?? "View this profile"}
+                  </Link>
                 </div>
               </div>
             </div>
@@ -72,8 +77,12 @@ export default function AllUsersPage() {
         ))}
 
         <div className='col-12 mt-3 mx-auto text-center'>
-          <p>Total users: {users.length}</p>
-          <Link className='btn btn-primary btn-rounded card-btn mt-3' href={`/`} locale={locale ?? getDefLocale()}>Back</Link>
+          <p>
+            {t('totalusers', {count: users.length}) ?? `Total users: ${users.length}`}
+          </p>
+          <Link className='btn btn-primary btn-rounded card-btn mt-3' href={`/`} locale={locale ?? getDefLocale()}>
+            {t('btnback') ?? "Back"}
+          </Link>
         </div>
       </div>
     </div>

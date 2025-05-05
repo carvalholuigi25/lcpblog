@@ -93,6 +93,18 @@
         color: $fgcolorprimary;
     }
 
+    .bcuserinfo {
+        .bcavatar {
+            box-shadow: 2px 4px 6px $fgcolorprimary !important;
+        }
+    }
+
+    .allbcuserinfo {
+        .allbcavatar {
+            box-shadow: 2px 4px 6px $fgcolorprimary !important;
+        }
+    }
+
     .modal {
         color: $fgcolorprimary;
         border-color: $fgcolorprimary;

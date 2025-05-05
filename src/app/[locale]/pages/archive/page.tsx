@@ -165,7 +165,9 @@ export default function Archive({ locale }: { locale: string }) {
                         <i className="bi-exclamation-triangle" style={{ fontSize: "4rem" }}></i>
                         <p>{tpag('lblemptynews') ?? "0 news"}</p>
                         {pathname !== "/" && (
-                            <Link className='btn btn-primary btn-rounded card-btn mt-3' href={`/`} locale={locale ?? getDefLocale()}>Back</Link>
+                            <Link className='btn btn-primary btn-rounded card-btn mt-3' href={`/`} locale={locale ?? getDefLocale()}>
+                                {tpag("btnback") ?? "Back"}
+                            </Link>
                         )}
                     </div>
                 </div>

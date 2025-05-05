@@ -32,7 +32,10 @@
             "btnreadmore": "Read more...",
             "btnlogout": "Logout",
             "btnback": "Back",
-            "btntoday": "Today"
+            "btntoday": "Today",
+            "btnreset": "Reset",
+            "btnedit": "Edit",
+            "btndelete": "Delete"
         },
         "text": {
             "txtviews": "Views: {views}"
@@ -522,10 +525,52 @@
                 }
             },
             "comments": {
+                "emptycomments": "0 comments",
+                "status": {
+                    "locked": "This comment is now locked!"
+                },
+                "actions": {
+                    "btnedit": "Edit",
+                    "btndelete": "Delete",
+                    "statusunlock": "Unlock",
+                    "statuslock": "Lock",
+                    "keywords": {
+                        "lock": "lock",
+                        "locked": "locked",
+                        "unlock": "unlock",
+                        "unlocked": "unlocked"
+                    }
+                },
+                "inputs": {
+                    "lblphavatar": "{displayName}'s avatar",
+                    "lblphcontent": "Write here your comment",
+                    "lblstatus": "Status:",
+                    "selstatus": {
+                        "phopt": "Select the option of status",
+                        "options": {
+                            "opt1": "All",
+                            "opt2": "Locked",
+                            "opt3": "Deleted"
+                        }
+                    },
+                    "lbluserid": "User Id",
+                    "lblpostid": "Post Id",
+                    "lblcategoryid": "Category Id",
+                    "btnreset": "Reset",
+                    "btnadd": "Add"
+                },
                 "validation": {
                     "errors": {
                         "lblphcontent": "Write here your comment"
                     }
+                },
+                "apimessages": {
+                    "success": "The new comment has been added sucessfully!",
+                    "error": "Failed to add new comment! Message: {message}",
+                    "errorapi": "Error when adding new comment! Message: {message}",
+                    "statussuccess": "The current comment has been {keywordStatus} sucessfully!",
+                    "statuserror": "Failed to {keywordStatus} current comment! Message: {message}",
+                    "statuserrorapi": "Failed to {keywordStatus} current comment! Message: {message}"
                 }
             }
         }
@@ -575,7 +620,8 @@
                 "month12": {
                     "name": "December"
                 }
-            }
+            },
+            "btnback": "Back"
         },
         "AdminPages": {
             "Dashboard": {
@@ -738,6 +784,27 @@
             "title": "News",
             "emptyposts": "0 posts.",
             "btnreadmore": "Read more..."
+        },
+        "DeleteCommentsPage": {
+            "emptycomments": "0 comments"
+        },
+        "UsersPage": {
+          "display": {
+            "lbluserid": "User Id:",
+            "lblusername": "Username:",
+            "lblemail": "Email:",
+            "lbldisplayname": "Display name:",
+            "lblrole": "Role:",
+            "lblabout": "About:",
+            "lblprivacy": "Privacy:"
+          },
+          "covertitle": "{displayName}'s Cover",
+          "avatartitle": "{displayName}'s Avatar",
+          "emptyusers": "0 users or you dont have permissions to view this page.",
+          "usernotfound": "User not found or you dont have permissions to view this page!",
+          "totalusers": "Total users: {count}",
+          "btnviewprofile": "View this profile",
+          "btnback": "Back"
         },
         "Error": {
             "title": "Error",
