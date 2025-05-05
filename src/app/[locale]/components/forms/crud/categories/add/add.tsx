@@ -10,11 +10,13 @@ import { buildMyConnection, sendMessage } from "@applocale/functions/functions";
 import { useRouter } from "next/navigation";
 import { Link } from '@/app/i18n/navigation';
 import { getDefLocale } from "@applocale/helpers/defLocale";
+import { useLocale, useTranslations } from "next-intl";
+import { DataToastsProps } from "@applocale/interfaces/toasts";
+import Toasts from "@applocale/components/toasts/toasts";
 import ShowAlert from "@applocale/components/alerts";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import LoadingComp from "@applocale/components/loadingcomp";
 import * as signalR from "@microsoft/signalr";
-import { useLocale, useTranslations } from "next-intl";
 
 const AddCategoriesForm = () => {
     const t = useTranslations("ui.forms.crud.categories.add");
@@ -32,6 +34,7 @@ const AddCategoriesForm = () => {
     const [logInfo] = useState(getFromStorage("logInfo"));
     const [loading, setLoading] = useState(true);
     const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
+    const [dataToast, setDataToast] = useState({ type: "", message: "", statusToast: false } as DataToastsProps);
 
     const { push } = useRouter();
 
@@ -121,22 +124,24 @@ const AddCategoriesForm = () => {
                 reqAuthorize: false
             }).then(async (r) => {
                 console.log(r);
+                setDataToast({type: "success", message: t("messages.success") ?? "The new category has been added sucessfully!", statusToast: true});
 
                 setTimeout(async () => {
-                    alert(t("messages.success") ?? "The new category has been added sucessfully!");
                     await sendMessage(connection!, r.data);
                     push("/"+locale);
                 }, 1000 / 2);
             }).catch((err) => {
-                console.error(t("messages.error", {message: ""+err}) ?? `Error when adding category! Message: ${err}`);
+                setDataToast({type: "error", message: t("messages.error", {message: ""+err.message}) ?? `Error when adding category! Message: ${err.message}`, statusToast: true});
             });
         } catch (error) {
-            console.error(t("messages.errorapi", {message: ""+error}) ?? `Occurred an error when trying to add the category! Message: ${error}`);
+            setDataToast({type: "error", message: t("messages.errorapi", {message: ""+error}) ?? `Occurred an error when trying to add the category! Message: ${error}`, statusToast: true});
         }
     };
 
     return (
         <div className="container">
+            {dataToast.statusToast && <Toasts id={"toastAddCategoriesForm"} data={dataToast} />}
+
             {!isLoggedIn && (
                 <>
                     <div className="col-12 mx-auto p-3" style={{marginTop: '3rem'}}>
@@ -146,7 +151,9 @@ const AddCategoriesForm = () => {
                                 <p className="mt-3">
                                     {t("messages.unauth") ?? "You are not authorized to see this page!"}
                                 </p>
-                                <Link className="btn btn-primary btn-rounded ms-3 mt-3" href={'/'} locale={getDefLocale()}>Back</Link>
+                                <Link className="btn btn-primary btn-rounded ms-3 mt-3" href={'/'} locale={getDefLocale()}>
+                                    {tbtn("btnback") ?? "Back"}
+                                </Link>
                             </div>
                         </div>
                     </div>

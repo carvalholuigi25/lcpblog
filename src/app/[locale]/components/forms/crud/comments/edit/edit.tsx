@@ -12,15 +12,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { getFromStorage } from "@applocale/hooks/localstorage";
 import { Comments } from "@applocale/interfaces/comments";
 import { getDefLocale } from "@applocale/helpers/defLocale";
+import { DataToastsProps } from "@applocale/interfaces/toasts";
 import ShowAlert from "@applocale/components/alerts";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import LoadingComp from "@applocale/components/loadingcomp";
+import Toasts from "@applocale/components/toasts/toasts";
 
 const EditCommentsForm = ({ commentid, data }: { commentid: number, data: Comments }) => {
     const t = useTranslations("ui.forms.crud.comments.edit");
     const tbtn = useTranslations("ui.buttons");
     const locale = useLocale() ?? getDefLocale();
-
+    
     const [formData, setFormData] = useState({
         content: data.content ?? ""
     });
@@ -30,6 +32,7 @@ const EditCommentsForm = ({ commentid, data }: { commentid: number, data: Commen
     const [loading, setLoading] = useState(true);
     const [logInfo] = useState(getFromStorage("logInfo"));
     const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
+    const [dataToast, setDataToast] = useState({ type: "", message: "", statusToast: false } as DataToastsProps);
     const { push } = useRouter();
 
     const {
@@ -111,23 +114,24 @@ const EditCommentsForm = ({ commentid, data }: { commentid: number, data: Commen
                 }
             }).then(async (r) => {
                 console.log(r);
-
+                setDataToast({type: "success", message: t("messages.success") ?? "The current comment has been edited successfully!", statusToast: true});
+                
                 setTimeout(async () => {
-                    alert(t("messages.success") ?? "The current comment has been edited successfully!");
                     await sendMessage(connection!, r.data);
                     push("/"+locale);
                 }, 1000 / 2);
             }).catch((err) => {
-                console.error(t("messages.error", {message: ""+err}) ?? `Error when editing comment! Message: ${err}`);
+                setDataToast({type: "error", message: t("messages.error", {message: ""+err}) ?? `Error when editing comment! Message: ${err}`, statusToast: true});
             });
         } catch (error) {
-            console.error(error);
-            alert(t("messages.errorapi", {message: ""+error}) ?? `An error occurred while editing the comment! Message: ${error}`);
+            setDataToast({type: "error", message: t("messages.errorapi", {message: ""+error}) ?? `An error occurred while editing the comment! Message: ${error}`, statusToast: true});
         }
     };
 
     return (
         <div className="container">
+            {dataToast.statusToast && <Toasts id={"toastEditCommentsForm"} data={dataToast} />}
+        
             {!isLoggedIn && (
                 <>
                     <div className="col-12 mx-auto p-3" style={{ marginTop: '3rem' }}>

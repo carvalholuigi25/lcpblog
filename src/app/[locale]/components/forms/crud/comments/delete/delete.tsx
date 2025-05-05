@@ -9,6 +9,8 @@ import { Comments } from "@applocale/interfaces/comments";
 import { getFromStorage } from "@applocale/hooks/localstorage";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { buildMyConnection, sendMessage } from "@applocale/functions/functions";
+import { DataToastsProps } from "@applocale/interfaces/toasts";
+import Toasts from "@applocale/components/toasts/toasts";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import LoadingComp from "@applocale/components/loadingcomp";
 
@@ -19,6 +21,7 @@ const DeleteCommentsForm = ({ commentId, data }: { commentId: number, data: Comm
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [logInfo] = useState(getFromStorage("logInfo"));
+    const [dataToast, setDataToast] = useState({ type: "", message: "", statusToast: false } as DataToastsProps);
     const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
     const [loading, setLoading] = useState(true);
     const { push } = useRouter();
@@ -69,17 +72,17 @@ const DeleteCommentsForm = ({ commentId, data }: { commentId: number, data: Comm
                 data: data
             }).then(async (r) => {
                 console.log(r);
+                setDataToast({type: "success", message: t("messages.success") ?? "Comment has been deleted successfully!", statusToast: true});
 
                 setTimeout(async () => {
-                    alert(t("messages.success") ?? "Comment deleted successfully!");
                     await sendMessage(connection!, r.data);
                     push("/"+locale);
-                }, 1000 / 2);
+                }, 1000 * 5);
             }).catch((err) => {
-                console.error(t("messages.error", {message: ""+err}) ?? `Error when deleting comment! Message: ${err}`);
+                setDataToast({type: "error", message: t("messages.error", {message: ""+err.message}) ?? `Error when deleting comment! Message: ${err.message}`, statusToast: true});
             });
         } catch (error) {
-            console.error(t("messages.errorapi", {message: ""+error}) ?? `Occurred an error when trying to delete the comment! Message: ${error}`);
+            setDataToast({type: "error", message: t("messages.errorapi", {message: ""+error}) ?? `Occurred an error when trying to delete the comment! Message: ${error}`, statusToast: true});
         }
     };
 
@@ -90,6 +93,8 @@ const DeleteCommentsForm = ({ commentId, data }: { commentId: number, data: Comm
 
     return (
         <div className="container">
+            {dataToast.statusToast && <Toasts id={"toastDeleteCommentsForm"} data={dataToast} />}
+
             {!isLoggedIn && (
                 <>
                     <div className="col-12 mx-auto p-3" style={{ marginTop: '3rem' }}>

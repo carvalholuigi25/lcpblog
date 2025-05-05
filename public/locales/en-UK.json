@@ -6,6 +6,14 @@
                 "timestatus": "has posted few seconds ago..."
             }
         },
+        "events": {
+            "messages": {
+                "dropevent": "{title} was dropped on {dateStart}",
+                "resizeevent": "{title} end is now on {dateEnd}",
+                "lblwarndrop": "Are you sure about this change?",
+                "lblwarnres": "Is this okay?"
+            }
+        },
         "offcanvas": {
             "btnclose": "Close",
             "homelink": "Home",
@@ -337,7 +345,7 @@
                         },
                         "messages": {
                             "unauth": "You are not authorized to see this page!",
-                            "success": "Comment deleted successfully!",
+                            "success": "Comment has been deleted successfully!",
                             "error": "Error when deleting comment! Message: {message}",
                             "errorapi": "Occurred an error when trying to delete the comment! Message: {message}",
                             "confirm": {
@@ -463,6 +471,94 @@
                             "success": "Post edited successfully!",
                             "error": "Error when editing post! Message: {message}",
                             "errorapi": "Occurred an error when trying to edit the post! Message: {message}"
+                        }
+                    }
+                },
+                "users": {
+                    "add": {
+                        "title": "Add users",
+                        "lblusername": "Username",
+                        "inpusername": "Write your username here",
+                        "lblpassword": "Password",
+                        "inppassword": "Write your password here",
+                        "lblemail": "Email",
+                        "inpemail": "Write your email here",
+                        "lbldisplayname": "Display Name",
+                        "inpdisplayname": "Write your full name here",
+                        "lblavatar": "Image Url",
+                        "inpavatar": "Write your avatar url here...",
+                        "avatartitle": "{userName}'s Avatar",
+                        "lblcover": "Cover Url",
+                        "inpcover": "Write your cover url here...",
+                        "covertitle": "{userName}'s Cover",
+                        "lblabout": "About",
+                        "inpabout": "Write your about yourself here...",
+                        "btnreset": "Reset",
+                        "btnadd": "Add",
+                        "btnback": "Back",
+                        "messages": {
+                            "unauth": "You are not authorized to see this page!",
+                            "success": "The user has been added sucessfully!",
+                            "error": "Failed to fetch users data! Message: {message}",
+                            "errorapi": "Error when trying to fetch users data! Message: {message}"
+                        }
+                    },
+                    "edit": {
+                        "title": "Edit users",
+                        "lbluserId": "User Id",
+                        "inpuserId": "Write your user id here",
+                        "lblusername": "Username",
+                        "inpusername": "Write your username here",
+                        "lblpassword": "Password",
+                        "inppassword": "Write your password here",
+                        "lblemail": "Email",
+                        "inpemail": "Write your email here",
+                        "lbldisplayname": "Display Name",
+                        "inpdisplayname": "Write your full name here",
+                        "lblavatar": "Image Url",
+                        "inpavatar": "Write your avatar url here...",
+                        "avatartitle": "{userName}'s Avatar",
+                        "lblcover": "Cover Url",
+                        "inpcover": "Write your cover url here...",
+                        "covertitle": "{userName}'s Cover",
+                        "lblrole": "Role",
+                        "inprole": "Write your role here...",
+                        "lblprivacy": "Privacy",
+                        "inpprivacy": "Select or write your privacy here...",
+                        "lblabout": "About",
+                        "inpabout": "Write your about yourself here...",
+                        "btnreset": "Reset",
+                        "btnedit": "Edit",
+                        "btnback": "Back",
+                        "messages": {
+                            "unauth": "You are not authorized to see this page!",
+                            "success": "The user (id: {id}) has been updated sucessfully!",
+                            "error": "Falha ao atualizar este utilizador (id: {id})! Mensagem: {message}",
+                            "errorapi": "Ocorreu um erro ao tentar atualizar este utilizador (id: {id})! Mensagem: {message}"
+                        }
+                    },
+                    "delete": {
+                        "title": "Delete users",
+                        "table": {
+                            "header": {
+                                "userId": "User Id",
+                                "username": "Username",
+                                "email": "Email",
+                                "displayName": "Display Name",
+                                "role": "Role"
+                            }
+                        },
+                        "btnback": "Back",
+                        "messages": {
+                            "unauth": "You are not authorized to see this page!",
+                            "success": "The user (id: {id}) has been deleted sucessfully!",
+                            "error": "Failed to delete this user (id: {id})! Message: {message}",
+                            "errorapi": "Ocurred an error while trying to delete this user (id: {id})! Message: {message}",
+                            "confirm": {
+                                "title": "Do you want to delete this user (id: {id})?",
+                                "btnconfirm": "Yes",
+                                "btncancel": "No"
+                            }
                         }
                     }
                 }
@@ -789,22 +885,22 @@
             "emptycomments": "0 comments"
         },
         "UsersPage": {
-          "display": {
-            "lbluserid": "User Id:",
-            "lblusername": "Username:",
-            "lblemail": "Email:",
-            "lbldisplayname": "Display name:",
-            "lblrole": "Role:",
-            "lblabout": "About:",
-            "lblprivacy": "Privacy:"
-          },
-          "covertitle": "{displayName}'s Cover",
-          "avatartitle": "{displayName}'s Avatar",
-          "emptyusers": "0 users or you dont have permissions to view this page.",
-          "usernotfound": "User not found or you dont have permissions to view this page!",
-          "totalusers": "Total users: {count}",
-          "btnviewprofile": "View this profile",
-          "btnback": "Back"
+            "display": {
+                "lbluserid": "User Id:",
+                "lblusername": "Username:",
+                "lblemail": "Email:",
+                "lbldisplayname": "Display name:",
+                "lblrole": "Role:",
+                "lblabout": "About:",
+                "lblprivacy": "Privacy:"
+            },
+            "covertitle": "{displayName}'s Cover",
+            "avatartitle": "{displayName}'s Avatar",
+            "emptyusers": "0 users or you dont have permissions to view this page.",
+            "usernotfound": "User not found or you dont have permissions to view this page!",
+            "totalusers": "Total users: {count}",
+            "btnviewprofile": "View this profile",
+            "btnback": "Back"
         },
         "Error": {
             "title": "Error",

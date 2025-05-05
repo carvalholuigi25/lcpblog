@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useRef, useState } from "react";
 import { Settings } from "luxon";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Schedules } from "@applocale/interfaces/schedules";
 import { CalendarOptions } from "@fullcalendar/core/index.js";
+import { DataToastsProps } from "@applocale/interfaces/toasts";
+import Toasts from "@applocale/components/toasts/toasts";
 import ModalSchedule from "@applocale/components/modals/modalschedule";
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -19,9 +21,12 @@ export function getMyCurTimeZone() {
 Settings.defaultZone = getMyCurTimeZone();
 
 export default function Schedule({ data }: { data?: Schedules[] }) {
+    const t = useTranslations("ui.events.messages");
     const locale = useLocale();
     const [scheduleId, setScheduleId] = useState(1);
     const [showModal, setShowModal] = useState(false);
+    const [dataToast, setDataToast] = useState({ type: "", message: "", statusToast: false } as DataToastsProps);
+
     const isEditable: boolean = false;
 
     const headerToolbar = {
@@ -73,9 +78,11 @@ export default function Schedule({ data }: { data?: Schedules[] }) {
 
     const onEventDrop = (info: any) => {
         if(!!isEditable) {
-            alert(info.event.title + " was dropped on " + info.event.start.toISOString());
+            const title = info.event.title;
+            const dateStart = info.event.start.toISOString();
+            setDataToast({type: "success", message: t("dropevent", {title, dateStart}) ?? `${title} was dropped on ${dateStart}`, statusToast: true});
     
-            if (!confirm("Are you sure about this change?")) {
+            if (!confirm(t("lblwarndrop") ?? "Are you sure about this change?")) {
                 info.revert();
             }
         }
@@ -83,9 +90,11 @@ export default function Schedule({ data }: { data?: Schedules[] }) {
 
     const onEventResize = (info: any) => {
         if(!!isEditable) {
-            alert(info.event.title + " end is now " + info.event.end.toISOString());
+            const title = info.event.title;
+            const dateStart = info.event.start.toISOString();
+            setDataToast({type: "success", message: t("resizeevent", {title, dateStart}) ?? `${title} was dropped on ${dateStart}`, statusToast: true});
 
-            if (!confirm("Is this okay?")) {
+            if (!confirm(t("lblwarnres") ?? "Is this okay?")) {
                 info.revert();
             }
         }
@@ -149,6 +158,7 @@ export default function Schedule({ data }: { data?: Schedules[] }) {
 
     return (
         <>
+            {dataToast.statusToast && <Toasts id={"toastSchedule"} data={dataToast} />}
             {showModal && <ModalSchedule statusModal={showModal} onClose={closeModal} data={dataModal} />}
             <div className={"myschedule"}>
                 <FullCalendar ref={calendarRef} {...calendarOptions} />

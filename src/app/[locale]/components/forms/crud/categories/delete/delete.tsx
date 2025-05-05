@@ -8,9 +8,11 @@ import { Link } from '@/app/i18n/navigation';
 import { Categories } from "@applocale/interfaces/categories";
 import { getFromStorage } from "@applocale/hooks/localstorage";
 import { getDefLocale } from "@applocale/helpers/defLocale";
+import { DataToastsProps } from "@applocale/interfaces/toasts";
 import { buildMyConnection, sendMessage } from "@applocale/functions/functions";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import LoadingComp from "@applocale/components/loadingcomp";
+import Toasts from "@applocale/components/toasts/toasts";
 
 const DeleteCategoriesForm = ({ id, data }: { id: number, data: Categories }) => {
     const t = useTranslations("ui.forms.crud.categories.delete");
@@ -20,6 +22,7 @@ const DeleteCategoriesForm = ({ id, data }: { id: number, data: Categories }) =>
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [logInfo] = useState(getFromStorage("logInfo"));
     const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
+    const [dataToast, setDataToast] = useState({ type: "", message: "", statusToast: false } as DataToastsProps);
     const [loading, setLoading] = useState(true);
     const { push } = useRouter();
 
@@ -71,15 +74,16 @@ const DeleteCategoriesForm = ({ id, data }: { id: number, data: Categories }) =>
                 console.log(r);
 
                 setTimeout(async () => {
-                    alert(t("messages.success") ?? "Category deleted successfully!");
+                    setDataToast({type: "success", message: t("messages.success") ?? "Category has been deleted successfully!", statusToast: true});
+
                     await sendMessage(connection!, r.data);
                     push("/"+locale);
                 }, 1000 / 2);
             }).catch((err) => {
-                console.error(t("messages.error", {message: ""+err}) ?? `Error when deleting category! Message: ${err}`);
+                setDataToast({type: "error", message: t("messages.error", {message: ""+err.message}) ?? `Error when deleting category! Message: ${err.message}`, statusToast: true});
             });
         } catch (error) {
-            console.error(t("messages.errorapi", {message: ""+error}) ?? `Occurred an error when trying to delete the category! Message: ${error}`);
+            setDataToast({type: "error", message: t("messages.errorapi", {message: ""+error}) ?? `Occurred an error when trying to delete the category! Message: ${error}`, statusToast: true});
         }
     };
 
@@ -90,6 +94,8 @@ const DeleteCategoriesForm = ({ id, data }: { id: number, data: Categories }) =>
 
     return (
         <div className="container">
+            {dataToast.statusToast && <Toasts id={"toastDeleteCategoriesForm"} data={dataToast} />}
+
             {!isLoggedIn && (
                 <>
                     <div className="col-12 mx-auto p-3" style={{ marginTop: '3rem' }}>

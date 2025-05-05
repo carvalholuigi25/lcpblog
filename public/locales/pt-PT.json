@@ -6,6 +6,14 @@
         "timestatus": "postou há alguns segundos atrás..."
       }
     },
+    "events": {
+      "messages": {
+        "dropevent": "{title} foi descartado em {dateStart}",
+        "resizeevent": "{title} termina agora em {dateEnd}",
+        "lblwarndrop": "Tem a certeza desta mudança?",
+        "lblwarnres": "Está tudo bem?"
+      }
+    },
     "offcanvas": {
       "btnclose": "Fechar",
       "homelink": "Casa",
@@ -282,7 +290,7 @@
               }
             },
             "messages": {
-              "unauth": "Tu não está autorizado a ver esta página!",
+              "unauth": "Tu não estás autorizado a ver esta página!",
               "success": "Categoria eliminada com sucesso!",
               "error": "Erro ao eliminar categoria! Mensagem: {message}",
               "errorapi": "Ocorreu um erro ao tentar eliminar a categoria! Mensagem: {message}",
@@ -458,10 +466,98 @@
             "btnreset": "Repor",
             "btnedit": "Editar",
             "messages": {
-              "unauth": "Tu não está autorizado a ver esta página!",
+              "unauth": "Tu não estás autorizado a ver esta página!",
               "success": "Postagem editada com sucesso!",
               "error": "Erro ao editar postagem! Mensagem: {message}",
               "errorapi": "Ocorreu um erro ao tentar editar a postagem! Mensagem: {message}"
+            }
+          }
+        },
+        "users": {
+          "add": {
+            "title": "Adicionar utilizadores",
+            "lblusername": "Nome de utilizador",
+            "inpusername": "Escreva aqui o seu nome de utilizador",
+            "lblpassword": "Password",
+            "inppassword": "Escreva aqui a sua palavra-passe",
+            "lblemail": "E-mail",
+            "inpemail": "Escreva aqui o seu e-mail",
+            "lbldisplayname": "Nome de visualização",
+            "inpdisplayname": "Escreva aqui o seu nome completo",
+            "lblavatar": "URL da imagem",
+            "inpavatar": "Escreva aqui o URL do seu avatar...",
+            "avatartitle": "Avatar de {userName}",
+            "lblcover": "URL da capa",
+            "inpcover": "Escreva aqui o URL da sua capa...",
+            "covertitle": "Capa de {userName}",
+            "lblabout": "Sobre",
+            "inpabout": "Escreva aqui sobre si...",
+            "btnreset": "Repor",
+            "btnadd": "Adicionar",
+            "btnback": "Voltar",
+            "messages": {
+              "unauth": "Tu não estás autorizado a ver esta página!",
+              "success": "O utilizador foi adicionado com sucesso!",
+              "error": "Falha ao procurar dados dos utilizadores! Mensagem: {message}",
+              "errorapi": "Erro ao tentar ir buscar dados de utilizadores! Mensagem: {message}"
+            }
+          },
+          "edit": {
+            "title": "Editar utilizadores",
+            "lbluserId": "Utilizador Id",
+            "inpuserId": "Escreva aqui o seu id do utilizador",
+            "lblusername": "Nome de utilizador",
+            "inpusername": "Escreva aqui o seu nome de utilizador",
+            "lblpassword": "Password",
+            "inppassword": "Escreva aqui a sua palavra-passe",
+            "lblemail": "E-mail",
+            "inpemail": "Escreva aqui o seu e-mail",
+            "lbldisplayname": "Nome de visualização",
+            "inpdisplayname": "Escreva aqui o seu nome completo",
+            "lblavatar": "URL da imagem",
+            "inpavatar": "Escreva aqui o URL do seu avatar...",
+            "avatartitle": "Avatar de {userName}",
+            "lblcover": "URL da capa",
+            "inpcover": "Escreva aqui o URL da sua capa...",
+            "covertitle": "Capa de {userName}",
+            "lblrole": "Papel",
+            "inprole": "Escreva aqui o seu papel",
+            "lblprivacy": "Privacidade",
+            "inpprivacy": "Seleciona ou escreva aqui a sua privacidade",
+            "lblabout": "Sobre",
+            "inpabout": "Escreva aqui sobre si...",
+            "btnreset": "Repor",
+            "btnedit": "Editar",
+            "btnback": "Voltar",
+            "messages": {
+              "unauth": "Tu não estás autorizado a ver esta página!",
+              "success": "O utilizador (id: {id}) foi editado com sucesso!",
+              "error": "Falha ao procurar dados dos utilizadores! Mensagem: {message}",
+              "errorapi": "Erro ao tentar ir buscar dados de utilizadores! Mensagem: {message}"
+            }
+          },
+          "delete": {
+            "title": "Apagar utilizadores",
+            "table": {
+              "header": {
+                "userId": "Utilizador Id",
+                "username": "Nome do utilizador",
+                "email": "Email",
+                "displayName": "Nome de apresentação",
+                "role": "Papel"
+              }
+            },
+            "btnback": "Voltar",
+            "messages": {
+              "unauth": "Tu não estás autorizado a ver esta página!",
+              "success": "Este utilizador (id: {id}) foi apagado com sucesso!",
+              "error": "Falhou ao apagar este utilizador (id: {id})! Mensagem: {message}",
+              "errorapi": "Ocorreu um erro ao tentar apagar este utilizador (id: {id})! Mensagem: {message}",
+              "confirm": {
+                "title": "Tens a certeza que queres apagar este utilizador (id: {id})?",
+                "btnconfirm": "Sim",
+                "btncancel": "Não"
+              }
             }
           }
         }

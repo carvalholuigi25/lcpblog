@@ -11,6 +11,8 @@ import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { Categories } from "@applocale/interfaces/categories";
 import { getDefLocale } from "@applocale/helpers/defLocale";
+import { DataToastsProps } from "@applocale/interfaces/toasts";
+import Toasts from "@applocale/components/toasts/toasts";
 import ShowAlert from "@applocale/components/alerts";
 import styles from "@applocale/page.module.scss";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
@@ -31,6 +33,7 @@ const EditCategoriesForm = ({categoryid, data}: {categoryid: number, data: Categ
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isResetedForm, setIsResetedForm] = useState(false);
     const [logInfo] = useState(getFromStorage("logInfo"));
+    const [dataToast, setDataToast] = useState({ type: "", message: "", statusToast: false } as DataToastsProps);
     const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
     const [loading, setLoading] = useState(true);
     const { push } = useRouter();
@@ -122,22 +125,24 @@ const EditCategoriesForm = ({categoryid, data}: {categoryid: number, data: Categ
                 },
             }).then(async (r) => {
                 console.log(r);
+                setDataToast({type: "success", message: t("messages.success") ?? "Category has been edited sucessfully!", statusToast: true});
 
                 setTimeout(async () => {
-                    alert(t("messages.success", {message: t("messages.success")}) ?? "Category edited successfully!");
                     await sendMessage(connection!, r.data);
                     push("/"+locale);
                 }, 1000 / 2);
             }).catch((err) => {
-                console.error(t("messages.error", {message: ""+err}) ?? `Error when editing category! Message: ${err}`);
+                setDataToast({type: "error", message: t("messages.error", {message: ""+err.message}) ?? `Error when editing category! Message: ${err.message}`, statusToast: true});
             });
         } catch (error) {
-            console.error(t("messages.errorapi", {message: ""+error}) ?? `Occurred an error when trying to edit the category! Message: ${error}`);
+            setDataToast({type: "error", message: t("messages.errorapi", {message: ""+error}) ?? `Occurred an error when trying to edit the category! Message: ${error}`, statusToast: true});
         }
     };
 
     return (
         <div className="container">
+            {dataToast.statusToast && <Toasts id={"toastEditCategoriesForm"} data={dataToast} />}
+
             {!isLoggedIn && (
                 <>
                     <div className="col-12 mx-auto p-3" style={{marginTop: '3rem'}}>
