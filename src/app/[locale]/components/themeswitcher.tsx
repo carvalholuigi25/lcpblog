@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
+import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { useTheme } from "@applocale/components/context/themecontext";
-import { useState } from "react";
 
 export interface ThemesModel {
     id: number;
@@ -60,10 +60,6 @@ export function GetMyCustomThemes(): any {
 }
 
 const ThemeSwitcher = () => {
-    const GetDefaultTheme = () => {
-        return ["pt", "pt-PT", "pt-BR"].includes(useLocale()) ? "Sistema" : "System";
-    }
-
     const setMyTheme = (e: any, x: ThemesModel): any => {
         e.preventDefault();
         setTheme(x.theme);
@@ -74,9 +70,17 @@ const ThemeSwitcher = () => {
         return x == theme ? " active" : "";
     }
 
+    const GetDefaultTheme = () => {
+        return ["pt", "pt-PT", "pt-BR"].includes(useLocale()) ? "Sistema" : "System";
+    }
+
     const { theme, setTheme } = useTheme();
-    const [themeName, setThemeName] = useState<string>(GetDefaultTheme());
     const themesary: ThemesModel[] = GetMyCustomThemes();
+    const [themeName, setThemeName] = useState<string>(GetDefaultTheme() ?? "");
+
+    useEffect(() => {
+        setThemeName(themesary.filter(x => x.theme == theme)[0].title);
+    }, [theme, themesary]);
 
     return (
         <>

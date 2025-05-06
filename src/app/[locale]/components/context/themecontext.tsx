@@ -13,10 +13,10 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     const [theme, setThemeState] = useState<string>("system");
 
     useEffect(() => {
-        const savedTheme = localStorage.getItem("theme") || "system";
+        const savedTheme = localStorage.getItem("theme") ?? "system";
         setThemeState(savedTheme);
         document.documentElement.setAttribute("data-bs-theme", savedTheme);
-    }, []);
+    }, [theme]);
 
     const setTheme = (newTheme: string) => {
         setThemeState(newTheme);

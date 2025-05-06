@@ -91,8 +91,8 @@ export default function Schedule({ data }: { data?: Schedules[] }) {
     const onEventResize = (info: any) => {
         if(!!isEditable) {
             const title = info.event.title;
-            const dateStart = info.event.start.toISOString();
-            setDataToast({type: "success", message: t("resizeevent", {title, dateStart}) ?? `${title} was dropped on ${dateStart}`, statusToast: true});
+            const dateEnd = info.event.end.toISOString();
+            setDataToast({type: "success", message: t("resizeevent", {title, dateEnd}) ?? `${title} end is now on ${dateEnd}`, statusToast: true});
 
             if (!confirm(t("lblwarnres") ?? "Is this okay?")) {
                 info.revert();
