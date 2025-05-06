@@ -43,8 +43,13 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
     const searchParams = useSearchParams();
     const spage = searchParams.get("page");
 
+    const getSuffix = (locale: string = "en-UK") => {
+        const enSuffix = true;
+        return enSuffix ? ["pt", "pt-PT", "pt-BR"].includes(locale) ? "/paginas/noticias" : "/pages/news" : "/pages/news";
+    }
+
     const loadMyCounter = useCallback(() => {
-        const pthpost = "/" + locale + "/pages/news/" + cid + "/" + pid;
+        const pthpost = "/" + locale + getSuffix(locale) + "/" + cid + "/" + pid;
         saveToStorage("hiddenViews", pathname == pthpost ? "false" : "true");
         setHiddenViews(getFromStorage("hiddenViews")! == "false" ? false : true);
 
@@ -140,7 +145,7 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
 
     const setPathPost = (cid: number, pid: number) => {
         const qparamspost = parseInt("" + spage, 0) >= 0 ? "?page=" + parseInt("" + spage, 0) : "";
-        const pthpost = "/" + locale + "/pages/news/" + cid + "/" + pid + qparamspost;
+        const pthpost = "/" + locale + getSuffix(locale) + "/" + cid + "/" + pid + qparamspost;
         saveToStorage("hiddenViews", pathname == pthpost ? "false" : "true");
         return pthpost;
     }
@@ -187,7 +192,7 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
                     if (newsi.userId == useri.userId) {
                         if (newsi.categoryId == categoryi.categoryId) {
                             const cardgradient = () => {
-                                return !pathname.includes("pages/news/" + newsi.categoryId + "/" + newsi.postId) ? "cardlg" : "";
+                                return !pathname.includes(getSuffix(locale) + "/" + newsi.categoryId + "/" + newsi.postId) ? "cardlg" : "";
                             };
 
                             items.push(
@@ -214,7 +219,7 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
                                             <div className={"scard-body"}>
                                                 <div className={"card-info"}>
                                                     <div className={"card-author card-text"}>
-                                                        {!pathname.includes("pages/news/" + newsi.categoryId + "/" + newsi.postId) && (
+                                                        {!pathname.includes(getSuffix(locale) + "/" + newsi.categoryId + "/" + newsi.postId) && (
                                                             <div className="container">
                                                                 <div className="row justify-content-center align-items-center">
                                                                     <div className="col-auto colauthorright">
@@ -242,7 +247,7 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
                                                             </div>
                                                         )}
 
-                                                        {!!pathname.includes("pages/news/" + newsi.categoryId + "/" + newsi.postId) && (
+                                                        {!!pathname.includes(getSuffix(locale) + "/" + newsi.categoryId + "/" + newsi.postId) && (
                                                             <>
                                                                 <Image src={getImagePath(useri.avatar)} className="rounded img-fluid img-author" width={30} height={30} alt={useri.displayName + "'s avatar"} />
                                                                 <Link href={"/pages/users/" + newsi.userId} locale={locale ?? getDefLocale()} className="ms-2 txt-author">

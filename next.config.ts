@@ -41,6 +41,26 @@ const nextConfigOptions: NextConfig = {
   },
   experimental: {
     turbopackMinify: true
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/pt-PT/paginas/admin/painel',
+        destination: '/pt-PT/pages/admin/dashboard'
+      },
+      {
+        source: '/pt-PT/paginas/noticias',
+        destination: '/pt-PT/pages/news'
+      },
+      {
+        source: '/pt-PT/paginas/noticias/:cid',
+        destination: '/pt-PT/pages/news/:cid'
+      },
+      {
+        source: '/pt-PT/paginas/noticias/:cid/:id',
+        destination: '/pt-PT/pages/news/:cid/:id'
+      }
+    ]
   }
 };
 

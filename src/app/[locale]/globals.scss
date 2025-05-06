@@ -522,6 +522,15 @@ footer {
   object-position: left center;
 }
 
+#mallnewspage {
+  .cardnews {
+    .card-img-top {
+      border-bottom-left-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+    }
+  }
+}
+
 .cardnews {
   border: 0;
 
@@ -956,6 +965,7 @@ a.fc-event:hover {
 
 .commentlocked {
   border: 1px solid #212529;
+  box-shadow: 2px 4px 0px;
   padding: 15px;
   border-radius: 15px;
 }
