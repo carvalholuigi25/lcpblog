@@ -48,6 +48,10 @@ export function shortenLargeNumber(num: number, digits: number) {
   return num;
 }
 
+export const addSlash = (value: string) => {
+  return !value.match(/\//ig) ? `/${value.split("/")[0]}` : value;
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function getImagePath(img: any, path?: string) {
   return !!["http", "https", "file"].includes(img) ? img : (!img.includes("/images/") ? '/images/' + (!!path && !img.includes(path) ? path + '/' : '') + img : img);

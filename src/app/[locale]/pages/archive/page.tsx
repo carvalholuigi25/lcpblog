@@ -17,6 +17,7 @@ import Footer from "@applocale/ui/footer";
 import Header from "@applocale/ui/header";
 import LoadingComp from "@applocale/components/loadingcomp";
 import MyPagination from "@applocale/components/mypagination";
+import { useMySuffix } from "@/app/[locale]/hooks/suffixes";
 
 export const getYearList = (): any => {
     const yitem: any[] = [];
@@ -53,6 +54,8 @@ export default function Archive({ locale }: { locale: string }) {
     const t = useTranslations('ui.buttons');
     const tpag = useTranslations('pages.ArchivePage');
     const lblm = useTranslations('pages.ArchivePage.lblmonths') as any;
+    const newsSuffix = useMySuffix("news");
+    
     const [news, setNews] = useState(new Array<Posts>());
     const [users, setUsers] = useState(new Array<User>());
     const [categories, setCategories] = useState(new Array<Categories>());
@@ -217,7 +220,7 @@ export default function Archive({ locale }: { locale: string }) {
                                                                 </div>
                                                                 <div className="col-12 col-md-12 col-lg-auto mt-3">
                                                                     <i className="bi bi-bookmark"></i>
-                                                                    <Link href={"/pages/news/" + newsi.categoryId} locale={locale ?? getDefLocale()} className="txtcategory ms-2" title={"Categoria: " + categoryi.name}>
+                                                                    <Link href={"/" + newsSuffix + newsi.categoryId} locale={locale ?? getDefLocale()} className="txtcategory ms-2" title={"Categoria: " + categoryi.name}>
                                                                         {categoryi.name}
                                                                     </Link>
                                                                 </div>
@@ -230,7 +233,7 @@ export default function Archive({ locale }: { locale: string }) {
                                                     </div>
 
                                                     <div className="card-footer mt-3">
-                                                        <a href={`/pages/news/${newsi.categoryId}/${newsi.postId}`} className="btn btn-primary btn-rounded mx-auto d-inline-block">
+                                                        <a href={`/${newsSuffix}/${newsi.categoryId}/${newsi.postId}`} className="btn btn-primary btn-rounded mx-auto d-inline-block">
                                                             {t("btnreadmore") ?? "Read more"}
                                                         </a>
                                                     </div>

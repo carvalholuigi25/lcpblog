@@ -917,5 +917,10 @@
       "msgerror": "Esta página não foi encontrada!",
       "btnback": "Voltar"
     }
+  },
+  "others": {
+    "suffixes": {
+      "news": "paginas/noticias"
+    }
   }
 }

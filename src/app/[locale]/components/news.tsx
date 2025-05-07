@@ -12,6 +12,7 @@ import { Posts } from "@applocale/interfaces/posts";
 import { User } from "@applocale/interfaces/user";
 import { Categories } from "@applocale/interfaces/categories";
 import { getDefLocale } from "@applocale/helpers/defLocale";
+import { useMySuffix } from "@applocale/hooks/suffixes";
 import FetchDataAxios, { FetchMultipleDataAxios } from "@applocale/utils/fetchdataaxios";
 import MyEditorPost from "@applocale/components/editor/myeditorpost";
 import CarouselNews from "@applocale/components/carouselnews";
@@ -23,6 +24,7 @@ import Comments from "@applocale/components/comments";
 export default function News({ cid, pid, locale }: { cid: number, pid: number, locale: string }) {
     const t = useTranslations("pages.NewsPage");
     const tbtn = useTranslations("ui.buttons");
+    const newsSuffix = useMySuffix("news");
 
     const [news, setNews] = useState(new Array<Posts>());
     const [users, setUsers] = useState(new Array<User>());
@@ -43,20 +45,15 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
     const searchParams = useSearchParams();
     const spage = searchParams.get("page");
 
-    const getSuffix = (locale: string = "en-UK") => {
-        const enSuffix = true;
-        return enSuffix ? ["pt", "pt-PT", "pt-BR"].includes(locale) ? "/paginas/noticias" : "/pages/news" : "/pages/news";
-    }
-
     const loadMyCounter = useCallback(() => {
-        const pthpost = "/" + locale + getSuffix(locale) + "/" + cid + "/" + pid;
+        const pthpost = `/${locale}/${newsSuffix}/${cid}/${pid}`;
         saveToStorage("hiddenViews", pathname == pthpost ? "false" : "true");
         setHiddenViews(getFromStorage("hiddenViews")! == "false" ? false : true);
 
         if (getFromStorage("viewsInfo")!) {
             setCounter(parseInt("" + JSON.parse(getFromStorage("viewsInfo")!).viewsCounter));
         }
-    }, [cid, pid, locale, pathname]);
+    }, [cid, pid, locale, pathname, newsSuffix]);
 
     useEffect(() => {
         async function fetchNews() {
@@ -144,8 +141,8 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
     };
 
     const setPathPost = (cid: number, pid: number) => {
-        const qparamspost = parseInt("" + spage, 0) >= 0 ? "?page=" + parseInt("" + spage, 0) : "";
-        const pthpost = "/" + locale + getSuffix(locale) + "/" + cid + "/" + pid + qparamspost;
+        const qparamspost = parseInt("" + spage, 0) >= 0 ? `?page=${parseInt("" + spage, 0)}` : "";
+        const pthpost = `/${locale}/${newsSuffix}/${cid}/${pid}${qparamspost}`;
         saveToStorage("hiddenViews", pathname == pthpost ? "false" : "true");
         return pthpost;
     }
@@ -166,7 +163,7 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
         saveToStorage("viewsInfo", JSON.stringify(data));
 
         await FetchDataAxios({
-            url: 'api/posts/views/' + data.postId,
+            url: `api/posts/views/${data.postId}`,
             method: 'put',
             reqAuthorize: false,
             data: data
@@ -192,18 +189,20 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
                     if (newsi.userId == useri.userId) {
                         if (newsi.categoryId == categoryi.categoryId) {
                             const cardgradient = () => {
-                                return !pathname.includes(getSuffix(locale) + "/" + newsi.categoryId + "/" + newsi.postId) ? "cardlg" : "";
+                                return !pathname.includes(`/${newsSuffix}/${newsi.categoryId}/${newsi.postId}`) ? "cardlg" : "";
                             };
 
+                            const ncols = getMultiCols(i, isEnabledMultiCols);
+
                             items.push(
-                                <div className={`col-12 col-sm-12 col-md-${getMultiCols(i, isEnabledMultiCols)} col-lg-${getMultiCols(i, isEnabledMultiCols)} col-xl-${getMultiCols(i, isEnabledMultiCols)} mt-4 mb-4`} key={"news" + i}>
+                                <div className={`col-12 col-sm-12 col-md-${ncols} col-lg-${ncols} col-xl-${ncols} mt-4 mb-4`} key={`news${i}`}>
                                     {cid > -1 && pid == -1 && (
-                                        <div className="col-12 text-center mb-3" key={"category" + i}>
+                                        <div className="col-12 text-center mb-3" key={`category${i}`}>
                                             <h2 className="txtcategory">{categoryi.name}</h2>
                                         </div>
                                     )}
 
-                                    <div className={"card cardnews " + cardgradient() + " bshadow rounded"}>
+                                    <div className={`card cardnews ${cardgradient()} bshadow rounded`}>
                                         {getFeaturedItem(i)}
 
                                         <Image
@@ -219,12 +218,12 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
                                             <div className={"scard-body"}>
                                                 <div className={"card-info"}>
                                                     <div className={"card-author card-text"}>
-                                                        {!pathname.includes(getSuffix(locale) + "/" + newsi.categoryId + "/" + newsi.postId) && (
+                                                        {!pathname.includes(`${newsSuffix}/${newsi.categoryId}/${newsi.postId}`) && (
                                                             <div className="container">
                                                                 <div className="row justify-content-center align-items-center">
                                                                     <div className="col-auto colauthorright">
-                                                                        <Image src={getImagePath(useri.avatar)} className="rounded img-fluid img-author" width={30} height={30} alt={useri.displayName + "'s avatar"} />
-                                                                        <Link href={"/pages/users/" + newsi.userId} locale={locale ?? getDefLocale()} className="ms-2 txt-author">
+                                                                        <Image src={getImagePath(useri.avatar)} className="rounded img-fluid img-author" width={30} height={30} alt={`${useri.displayName}'s avatar`} />
+                                                                        <Link href={`/pages/users/${newsi.userId}`} locale={locale ?? getDefLocale()} className="ms-2 txt-author">
                                                                             {useri.displayName}
                                                                         </Link>
                                                                     </div>
@@ -238,7 +237,7 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
                                                                     {cid != -1 && (
                                                                         <div className="col-auto colauthorleft">
                                                                             <i className="bi bi-bookmark"></i>
-                                                                            <Link href={"/pages/news/" + newsi.categoryId} locale={locale ?? getDefLocale()} className="txtcategory ms-2" title={"Categoria: " + categoryi.name}>
+                                                                            <Link href={`/${newsSuffix}/${newsi.categoryId}`} locale={locale ?? getDefLocale()} className="txtcategory ms-2" title={`Categoria: ${categoryi.name}`}>
                                                                                 {categoryi.name}
                                                                             </Link>
                                                                         </div>
@@ -247,10 +246,10 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
                                                             </div>
                                                         )}
 
-                                                        {!!pathname.includes(getSuffix(locale) + "/" + newsi.categoryId + "/" + newsi.postId) && (
+                                                        {!!pathname.includes(`${newsSuffix}/${newsi.categoryId}/${newsi.postId}`) && (
                                                             <>
-                                                                <Image src={getImagePath(useri.avatar)} className="rounded img-fluid img-author" width={30} height={30} alt={useri.displayName + "'s avatar"} />
-                                                                <Link href={"/pages/users/" + newsi.userId} locale={locale ?? getDefLocale()} className="ms-2 txt-author">
+                                                                <Image src={getImagePath(useri.avatar)} className="rounded img-fluid img-author" width={30} height={30} alt={`${useri.displayName}'s avatar`} />
+                                                                <Link href={`/pages/users/${newsi.userId}`} locale={locale ?? getDefLocale()} className="ms-2 txt-author">
                                                                     {useri.displayName}
                                                                 </Link>
                                                                 <span className="linesep"></span>
@@ -263,7 +262,7 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
                                                                     <>
                                                                         <span className="linesep"></span>
                                                                         <i className="bi bi-bookmark"></i>
-                                                                        <Link href={"/pages/news/" + newsi.categoryId} locale={locale ?? getDefLocale()} className="txtcategory ms-2" title={"Categoria: " + categoryi.name}>
+                                                                        <Link href={`/${newsSuffix}/${newsi.categoryId}`} locale={locale ?? getDefLocale()} className="txtcategory ms-2" title={`Categoria: ${categoryi.name}`}>
                                                                             {categoryi.name}
                                                                         </Link>
                                                                     </>
@@ -332,7 +331,7 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
                             {t("emptyposts") ?? "0 news."}
                         </p>
 
-                        {pathname !== "/" || pathname !== "/"+getDefLocale() && (
+                        {pathname !== "/" || pathname !== `/${getDefLocale()}` && (
                             <Link className='btn btn-primary btn-rounded card-btn mt-3' href={`/`} locale={locale ?? getDefLocale()}>
                                 {tbtn("btnback") ?? "Back"}
                             </Link>
@@ -346,7 +345,7 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
     const getBackLink = (pathname: any): any => {
         return (
             <div className="col-12 mt-3 mx-auto text-center">
-                <Link href={pathname !== "/pages/news" || pathname !== "/"+getDefLocale()+"/pages/news" ? "../" : "/"} locale={locale ?? getDefLocale()} className="btn btn-primary btn-rounded mt-3 mx-auto d-inline-block">
+                <Link href={pathname !== `/${newsSuffix}` || pathname !== `/${getDefLocale()}/${newsSuffix}` ? "../" : "/"} locale={locale ?? getDefLocale()} className="btn btn-primary btn-rounded mt-3 mx-auto d-inline-block">
                     {tbtn("btnback") ?? "Back"}
                 </Link>
             </div>

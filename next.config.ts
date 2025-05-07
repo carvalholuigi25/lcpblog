@@ -59,6 +59,14 @@ const nextConfigOptions: NextConfig = {
       {
         source: '/pt-PT/paginas/noticias/:cid/:id',
         destination: '/pt-PT/pages/news/:cid/:id'
+      },
+      {
+        source: '/pt-PT/paginas/arquivo',
+        destination: '/pt-PT/pages/archive'
+      },
+      {
+        source: '/pt-PT/paginas/utilizadores',
+        destination: '/pt-PT/pages/users'
       }
     ]
   }
