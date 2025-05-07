@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 import NextBundleAnalyzer from '@next/bundle-analyzer';
 import createNextIntlPlugin from 'next-intl/plugin';
+import fs from 'fs';
+import path from 'path';
+
+const rewrites = JSON.parse(fs.readFileSync(path.join(__dirname, 'rewrites.json'), 'utf-8')).rewrites;
 
 const withBundleAnalyzer = NextBundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
@@ -43,32 +47,7 @@ const nextConfigOptions: NextConfig = {
     turbopackMinify: true
   },
   async rewrites() {
-    return [
-      {
-        source: '/pt-PT/paginas/admin/painel',
-        destination: '/pt-PT/pages/admin/dashboard'
-      },
-      {
-        source: '/pt-PT/paginas/noticias',
-        destination: '/pt-PT/pages/news'
-      },
-      {
-        source: '/pt-PT/paginas/noticias/:cid',
-        destination: '/pt-PT/pages/news/:cid'
-      },
-      {
-        source: '/pt-PT/paginas/noticias/:cid/:id',
-        destination: '/pt-PT/pages/news/:cid/:id'
-      },
-      {
-        source: '/pt-PT/paginas/arquivo',
-        destination: '/pt-PT/pages/archive'
-      },
-      {
-        source: '/pt-PT/paginas/utilizadores',
-        destination: '/pt-PT/pages/users'
-      }
-    ]
+    return rewrites;
   }
 };
 

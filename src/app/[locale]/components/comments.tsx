@@ -234,14 +234,14 @@ export default function Comments({ userId, postId, categoryId, isCommentFormShow
 
                                         <div className={"dropdown text-start " + (!!isLoggedIn && y.userId == x.userId ? "" : "hidden")}>
                                             {x.status == "locked" && (
-                                                <a className="btn btn-primary btn-rounded btndisabled" href="#" role="button" title={t("status.locked") ?? "This comment is now locked!"} aria-disabled>
+                                                <Link className="btn btn-primary btn-rounded btndisabled" href="#" role="button" title={t("status.locked") ?? "This comment is now locked!"} aria-disabled>
                                                     <i className="bi bi-lock ps-0 pe-0"></i>
-                                                </a>
+                                                </Link>
                                             )}
 
-                                            <a className="btn btn-primary dropdown-toggle btn-rounded btncommentactions ms-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <Link className="btn btn-primary dropdown-toggle btn-rounded btncommentactions ms-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <i className="bi bi-three-dots"></i>
-                                            </a>
+                                            </Link>
 
                                             <ul className="dropdown-menu">
                                                 <li>
