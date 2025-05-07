@@ -3,7 +3,7 @@ import { Poppins, Roboto, Orbitron } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import { getDefLocale } from "@applocale/helpers/defLocale";
-import Frameworks from "@applocale/frameworks/frameworks";
+import Dependencies from "@applocale/dependencies/dependencies";
 import "@applocale/globals.scss";
 
 const poppins = Poppins({
@@ -47,7 +47,7 @@ export default async function RootLayout({
           <div id="modal-root"></div>
           <div id="toast-root"></div>
           {children}
-          <Frameworks />
+          <Dependencies />
         </NextIntlClientProvider>
       </body>
     </html>

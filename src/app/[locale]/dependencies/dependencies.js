@@ -5,8 +5,9 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import 'ldrs/react/Ring.css';
 import 'ldrs/react/Tailspin.css';
 import 'ldrs/react/DotPulse.css';
+import "flag-icons/css/flag-icons.min.css";
 
-export default function Frameworks()
+export default function Dependencies()
 {
     useEffect(() => {
         import("bootstrap/dist/js/bootstrap.bundle.min.js");

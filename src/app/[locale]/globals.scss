@@ -269,6 +269,14 @@ footer {
   font-family: var(--font-orbitron);
   color: var(--background);
   background: rgba(var(--bs-tertiary-bg-rgb), var(--bs-bg-opacity)) !important;
+
+  .colfooter1 {
+    text-align: center;
+  }
+
+  .colfooter2 {
+    text-align: center;
+  }
 }
 
 .rounded * {
@@ -529,6 +537,11 @@ footer {
       border-bottom-right-radius: 0 !important;
     }
   }
+}
+
+.fi {
+  width: calc(1rem + 0.5rem);
+  line-height: calc(1rem + 0.5rem);
 }
 
 .cardnews {
@@ -1223,6 +1236,10 @@ a.fc-event:hover {
         align-items: center;
         text-align: center;
       }
+
+      .colfooter1, .colfooter2 {
+        text-align: center;
+      }
     }
   }
 
@@ -1290,7 +1307,6 @@ a.fc-event:hover {
 
 @media all and (width >=992px) and (width <=1199px) {
   .cardlg {
-
     .colauthorleft,
     .colauthorcenter,
     .colauthorright {

@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 
 export function getMyCustomLanguages() {
     const ary = localesary.sort((x, y) => x.value.toLowerCase().localeCompare(y.value.toLowerCase()));
-    // const ary = localesary;
 
     return [...new Map(ary.map(item => [item.id, item])).values()];
 }
@@ -26,6 +25,14 @@ const LanguageSwitcher = () => {
         return x == language ? " active" : "";
     }
 
+    const getLanguageFlag = (newPrefixVal: string = "") => {
+        const langp = !!newPrefixVal ? newPrefixVal : (!!languagesary ? languagesary.filter(x => x.value == language).map(x => x.prefix) : "gb");
+
+        return (
+            <span className={`fi fi-${langp} langflag`}></span>
+        )
+    }
+
     const getLanguageName = () => {
         return !!languagesary ? languagesary.filter(x => x.value == language).map(x => x.name) : "English (United Kingdom)";
     }
@@ -35,12 +42,13 @@ const LanguageSwitcher = () => {
             {!!languagesary && (
                 <div className="dropdown mt-3 mb-3">
                     <button
-                        className="btn btn-secondary dropdown-toggle"
+                        className="btn btn-secondary dropdown-toggle btn-rounded"
                         type="button"
                         data-bs-toggle="dropdown"
                         aria-expanded="false"
                     >
-                        {getLanguageName()}
+                        {getLanguageFlag()}
+                        <span className="ms-2 langname">{getLanguageName()}</span>
                     </button>
                     <ul className="dropdown-menu">
                         {languagesary.map(x => (
@@ -49,7 +57,8 @@ const LanguageSwitcher = () => {
                                     className={"dropdown-item btnlanguage" + x.prefix + activeLanguage(x.value)} 
                                     onClick={(e) => setMyLanguage(e, x)}
                                 >
-                                    {x.name}
+                                    {getLanguageFlag(x.prefix)}
+                                    <span className="ms-2 langname">{x.name}</span>
                                 </button>
                             </li>
                         ))}

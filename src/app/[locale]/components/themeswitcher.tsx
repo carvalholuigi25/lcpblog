@@ -88,7 +88,7 @@ const ThemeSwitcher = () => {
                 <div className="dropdown mt-3 mb-3">
                     <button
                         type="button"
-                        className="btn btn-secondary dropdown-toggle"
+                        className="btn btn-secondary dropdown-toggle btn-rounded"
                         data-bs-toggle="dropdown"
                         aria-expanded="false"
                     >

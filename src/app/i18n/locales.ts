@@ -9,7 +9,7 @@ export const localesary: LanguagesLocales[] = [{
     id: 1,
     name: "English (United Kingdom)",
     value: "en-UK",
-    prefix: "en"
+    prefix: "gb"
 },
 {
     id: 2,
