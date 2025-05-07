@@ -1,28 +1,34 @@
 {
     "rewrites": [
         {
-            "source": "/:locale/paginas/admin/painel",
-            "destination": "/:locale/pages/admin/dashboard"
-        },
-        {
-            "source": "/:locale/paginas/noticias",
-            "destination": "/:locale/pages/news"
-        },
-        {
-            "source": "/:locale/paginas/noticias/:cid",
-            "destination": "/:locale/pages/news/:cid"
-        },
-        {
-            "source": "/:locale/paginas/noticias/:cid/:id",
-            "destination": "/:locale/pages/news/:cid/:id"
-        },
-        {
-            "source": "/:locale/paginas/arquivo",
-            "destination": "/:locale/pages/archive"
-        },
-        {
-            "source": "/:locale/paginas/utilizadores",
-            "destination": "/:locale/pages/users"
+            "id": 1,
+            "locale": "pt-PT",
+            "rules": [
+                {
+                    "source": "/pt-PT/paginas/admin/painel",
+                    "destination": "/pt-PT/pages/admin/dashboard"
+                },
+                {
+                    "source": "/pt-PT/paginas/noticias",
+                    "destination": "/pt-PT/pages/news"
+                },
+                {
+                    "source": "/pt-PT/paginas/noticias/:cid",
+                    "destination": "/pt-PT/pages/news/:cid"
+                },
+                {
+                    "source": "/pt-PT/paginas/noticias/:cid/:id",
+                    "destination": "/pt-PT/pages/news/:cid/:id"
+                },
+                {
+                    "source": "/pt-PT/paginas/arquivo",
+                    "destination": "/pt-PT/pages/archive"
+                },
+                {
+                    "source": "/pt-PT/paginas/utilizadores",
+                    "destination": "/pt-PT/pages/users"
+                }
+            ]
         }
     ]
 }

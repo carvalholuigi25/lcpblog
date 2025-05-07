@@ -5,7 +5,8 @@ import { useLanguage } from "@applocale/components/context/languagecontext";
 import { useRouter } from "next/navigation";
 
 export function getMyCustomLanguages() {
-    const ary = localesary;
+    const ary = localesary.sort((x, y) => x.value.toLowerCase().localeCompare(y.value.toLowerCase()));
+    // const ary = localesary;
 
     return [...new Map(ary.map(item => [item.id, item])).values()];
 }

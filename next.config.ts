@@ -1,10 +1,30 @@
 import type { NextConfig } from "next";
+import { Rewrites, RewritesRules } from "@applocale/interfaces/rewrites";
 import NextBundleAnalyzer from '@next/bundle-analyzer';
 import createNextIntlPlugin from 'next-intl/plugin';
 import fs from 'fs';
 import path from 'path';
 
 const rewrites = JSON.parse(fs.readFileSync(path.join(__dirname, 'rewrites.json'), 'utf-8')).rewrites;
+
+const loadRewritesContent = () => {
+  const data: RewritesRules[] = [];
+
+  if(rewrites.length >= 1) {
+    rewrites.map((rewrite: Rewrites) => {
+      if(rewrite.rules.length >= 1) {
+        rewrite.rules.map((rdata: RewritesRules) => {
+          data.push({
+            source: rdata.source,
+            destination: rdata.destination
+          });
+        });
+      }
+    })
+  }
+
+  return data;
+}
 
 const withBundleAnalyzer = NextBundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
@@ -47,7 +67,7 @@ const nextConfigOptions: NextConfig = {
     turbopackMinify: true
   },
   async rewrites() {
-    return rewrites;
+    return loadRewritesContent();
   }
 };
 

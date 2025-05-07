@@ -16,6 +16,12 @@ export const localesary: LanguagesLocales[] = [{
     name: "Português (Portugal)",
     value: "pt-PT",
     prefix: "pt"
+},
+{
+    id: 3,
+    name: "English (United States)",
+    value: "en-US",
+    prefix: "us"
 }];
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
