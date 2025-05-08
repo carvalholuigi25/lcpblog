@@ -38,7 +38,8 @@ const nextConfigOptions: NextConfig = {
   env: {
     apiURL: 'https://localhost:5000',
     ghToken: process.env.ghToken,
-    NEXT_IMAGE_ALLOWED_DOMAINS: 'localhost'
+    NEXT_IMAGE_ALLOWED_DOMAINS: 'localhost',
+    NEXT_PUBLIC_is3DThingsEnabled: "false",
   },
   images: {
     remotePatterns: [

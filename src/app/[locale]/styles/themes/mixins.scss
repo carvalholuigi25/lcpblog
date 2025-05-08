@@ -1,0 +1,48 @@
+
+@mixin gen3dtext($themename: "system") {
+    $content: 0px 0px 0 rgb(251,251,251),
+    1px 1px 0 rgb(247,247,247),
+    2px 2px 0 rgb(243,243,243),
+    3px 3px 0 rgb(239,239,239),
+    4px 4px 0 rgb(235,235,235),
+    5px 5px  0 rgb(231,231,231),
+    6px 6px 5px rgba(0,0,0,0.2),
+    6px 6px 1px rgba(0,0,0,0.5),
+    0px 0px 5px rgba(0,0,0,.2);
+    
+    @if($themename == "light" or $themename == "system" or $themename == "green" or $themename == "yellow") {
+        $content: 0px 0px 0 rgb(251,251,251),
+        1px 1px 0 rgb(247,247,247),
+        2px 2px 0 rgb(243,243,243),
+        3px 3px 0 rgb(239,239,239),
+        4px 4px 0 rgb(235,235,235),
+        5px 5px  0 rgb(231,231,231),
+        6px 6px 5px rgba(0,0,0,0.2),
+        6px 6px 1px rgba(0,0,0,0.5),
+        0px 0px 5px rgba(0,0,0,.2);
+    } @else {
+        $content: 0px 0px 0 rgb(-4,-4,0),
+        1px 1px 0 rgb(-8,-8,0),
+        2px 2px 0 rgb(-12,-12,0),
+        3px 3px 0 rgb(-16,-16,0),
+        4px 4px 0 rgb(-20,-20,0),
+        5px 5px  0 rgb(-24,-24,0),
+        6px 6px 5px rgba(255,255,255,0.2),
+        6px 6px 1px rgba(255,255,255,0.5),
+        0px 0px 5px rgba(255,255,255,.2);
+    }
+
+    text-shadow: $content;
+}
+
+@mixin gen3dbtn($type: "box", $color: black, $offsetx: 2px, $offsety: 2px, $blur: 4px, $spread: 6px, $position: outset) {
+    @if($type == "box") {
+        @if($position == inset) {
+            box-shadow: $position $color $offsetx $offsety $blur $spread;
+        } @else {
+            box-shadow: $color $offsetx $offsety $blur $spread;
+        }
+    } @else {
+        filter: drop-shadow($color $offsetx $offsety $blur);
+    }
+}

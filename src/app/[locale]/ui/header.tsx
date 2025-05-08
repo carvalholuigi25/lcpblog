@@ -9,13 +9,14 @@ import Image from "next/image";
 import dynamic from 'next/dynamic';
 import LoadingComp from "@applocale/components/loadingcomp";
 
+const is3DThingsEnabled = process.env.NEXT_PUBLIC_is3DThingsEnabled == "true" ? true : false; 
 const SearchComponent = dynamic(() => import('./search'), { ssr: false })
 
 const HeaderMenu = ({ locale }: { locale: string }) => {
+    const t = useTranslations('ui.offcanvas');
     const [logInfo, setLogInfo] = useState("");
     const [loading, setLoading] = useState(true);
     const [loadLinkAuth, setLoadLinkAuth] = useState(false);
-    const t = useTranslations('ui.offcanvas');
 
     useEffect(() => {
         if (!logInfo) {
@@ -58,7 +59,7 @@ const HeaderMenu = ({ locale }: { locale: string }) => {
     return (
         <div className="offcanvas offcanvas-start" tabIndex={-1} id="menuHeader" aria-labelledby="menuHeaderLabel">
             <div className="offcanvas-header">
-                <h5 className="offcanvas-title" id="menuHeaderLabel">LCPBlog</h5>
+                <h5 className={"offcanvas-title" + (is3DThingsEnabled ? " navbar-3d" : "")} id="menuHeaderLabel">LCPBlog</h5>
                 <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label={t("btnclose") ?? "Close"} title={t("btnclose") ?? "Close"}></button>
             </div>
             <div className="offcanvas-body">
@@ -116,7 +117,7 @@ const Header = ({ locale }: { locale: string }) => {
             <div className='header'>
                 <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top">
                     <div className="container-fluid">
-                        <Link className="navbar-brand" href="/#home" locale={locale ?? getDefLocale()}>
+                        <Link className={"navbar-brand" + (is3DThingsEnabled ? " navbar-3d" : "")} href="/#home" locale={locale ?? getDefLocale()}>
                             LCP Blog
                         </Link>
                         <button

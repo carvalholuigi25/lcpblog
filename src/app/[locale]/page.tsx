@@ -10,13 +10,14 @@ import News from "@applocale/components/news";
 export default function Home() {
   const locale = useLocale() ?? getDefLocale();
   const t = useTranslations('pages.HomePage');
+  const is3DThingsEnabled = process.env.NEXT_PUBLIC_is3DThingsEnabled == "true" ? true : false;
   
   return (
     <div className={styles.page} id="home">
       <Header locale={locale} />
       <main className={styles.main}>
-        <h1 className="logo">LCP Blog</h1>
-        <h2 className="mt-2">{t('title') ?? "Welcome to LCPBlog!"}</h2>
+        <h1 className={"logo " + (is3DThingsEnabled ? "logo-3d" : "")}>LCP Blog</h1>
+        <h2 className={"mt-2 " + (is3DThingsEnabled ? "title-3d" : "")}>{t('title') ?? "Welcome to LCPBlog!"}</h2>
       </main>
       <section className={styles.section + " " + styles.pstretch}>
         <Suspense>

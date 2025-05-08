@@ -1,3 +1,4 @@
+@use "styles/themes/mixins.scss" as m;
 @use 'styles/themes/themes.scss';
 @use 'styles/editorstyles.module.scss';
 
@@ -56,6 +57,16 @@ p {
   color: var(--foreground);
   background: var(--background);
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+  .logo-3d {
+    font-weight: bold;
+    font-size: 2.5rem;
+    line-height: 2.5rem;
+    letter-spacing: 0rem;
+    @include m.gen3dtext("system");
+  }
 }
 
 .offcanvas {
@@ -297,6 +308,19 @@ footer {
 
 .btn-shadow {
   box-shadow: 2px 4px 6px;
+}
+
+.btn-3d-box {
+  $type: "box";
+  $color: inherit;
+
+  @include m.gen3dbtn($type, $color, 0px, 5px, 0, 0px, outset);
+  transition: all 0.3s ease;
+
+  &:hover {
+    @include m.gen3dbtn($type, $color, 0px, 2px, 0, 0px, outset);
+    transform: translateY(4px);
+  }
 }
 
 .btn-tp {
@@ -712,11 +736,6 @@ footer {
   background-color: transparent;
   width: auto;
   height: auto;
-  /* 
-  width: 90px;
-  height: 90px;
-  clip-path: polygon(100% 0%, 0% 0%, 100% 100%); */
-  /* clip-path: polygon(0% 0%, 100% 0%, 0% 100%);  */
 }
 
 .card-info-featured .bi {
@@ -724,7 +743,6 @@ footer {
   color: orange;
   position: relative;
   margin: auto auto;
-  /* margin: auto 2rem; */
 }
 
 .linesep {
@@ -826,6 +844,11 @@ form {
 
 .navbar-brand {
   font-family: 'Orbitron';
+
+  .navbar-3d {
+    font-weight: bold;
+    @include m.gen3dtext("system");
+  }
 }
 
 .pagination {

@@ -1,4 +1,5 @@
 @use "functions.scss" as f;
+@use "mixins.scss" as m;
 
 @mixin themecontent($themename, $propstheme) {
     $bgcolorprimary: f.getvalmap($propstheme, "bgcolorprimary"); //background color primary
@@ -55,6 +56,27 @@
             .btn {
                 border-color: var(--bs-btn-close-color);
             }
+        }
+    }
+
+    .navbar-3d, .logo-3d {
+        @include m.gen3dtext($themename);
+    }
+
+    .btn-3d-box {
+        $type: "box";
+        $color: black;
+
+        @if($themename == "light" or $themename == "system" or $themename == "green" or $themename == "yellow") {
+            $color: black;
+        } @else {
+            $color: white;
+        }
+
+        @include m.gen3dbtn($type, $color, 0px, 5px, 0, 0px, outset);
+
+        &:hover {
+            @include m.gen3dbtn($type, $color, 0px, 2px, 0, 0px, outset);
         }
     }
 

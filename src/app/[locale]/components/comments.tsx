@@ -48,6 +48,7 @@ export default function Comments({ userId, postId, categoryId, isCommentFormShow
     const [usersData, setUsersData] = useState(new Array<User>());
     const [isUnlockedComment, setIsUnlockedComment] = useState(false);
     const [dataToast, setDataToast] = useState({ type: "", message: "", statusToast: false } as DataToastsProps);
+    const is3DThingsEnabled = process.env.NEXT_PUBLIC_is3DThingsEnabled == "true" ? true : false;
     const { push } = useRouter();
 
     const {
@@ -351,10 +352,10 @@ export default function Comments({ userId, postId, categoryId, isCommentFormShow
                             </div>
 
                             <div className="d-inline-block mx-auto mt-3">
-                                <button className="btn btn-secondary btnreset btn-rounded" type="reset" onClick={handleReset}>
+                                <button className={"btn btn-secondary btnreset btn-rounded " + (is3DThingsEnabled ? "btn-3d-box" : "")} type="reset" onClick={handleReset}>
                                     {t("inputs.btnreset") ?? "Reset"}
                                 </button>
-                                <button className="btn btn-primary btnadd btn-rounded ms-3" type="button" onClick={handleSubmit} disabled={isSubmitting}>
+                                <button className={"btn btn-primary btnadd btn-rounded ms-3 " + (is3DThingsEnabled ? "btn-3d-box" : "")} type="button" onClick={handleSubmit} disabled={isSubmitting}>
                                     {t("inputs.btnadd") ?? "Add"}
                                 </button>
                             </div>

@@ -77,6 +77,7 @@ const ThemeSwitcher = () => {
     const { theme, setTheme } = useTheme();
     const themesary: ThemesModel[] = GetMyCustomThemes();
     const [themeName, setThemeName] = useState<string>(GetDefaultTheme() ?? "");
+    const is3DThingsEnabled = process.env.NEXT_PUBLIC_is3DThingsEnabled == "true" ? true : false;
 
     useEffect(() => {
         setThemeName(themesary.filter(x => x.theme == theme)[0].title);
@@ -88,7 +89,7 @@ const ThemeSwitcher = () => {
                 <div className="dropdown mt-3 mb-3">
                     <button
                         type="button"
-                        className="btn btn-secondary dropdown-toggle btn-rounded"
+                        className={"btn btn-secondary dropdown-toggle btn-rounded " + (is3DThingsEnabled ? "btn-3d-box" : "")}
                         data-bs-toggle="dropdown"
                         aria-expanded="false"
                     >
