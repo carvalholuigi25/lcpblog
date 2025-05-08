@@ -25,10 +25,11 @@ export default async function LocaleLayout({
     notFound();
   }
   
-  const messages = await getMessages({ locale: locale ?? getDefLocale() });
+  const alocale = locale ?? getDefLocale();
+  const messages = await getMessages({ locale: alocale });
 
   return (
-    <NextIntlClientProvider locale={locale ?? getDefLocale()} messages={messages}>
+    <NextIntlClientProvider locale={alocale} messages={messages}>
       <ThemeProvider>
         <LanguageProvider>
           {children}

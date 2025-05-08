@@ -198,7 +198,7 @@ export default function Comments({ userId, postId, categoryId, isCommentFormShow
     const getEmptyComments = (): any => {
         return (
             <div className='col-12 mb-3' key={"emptycomments"}>
-                <div className="card p-3 text-center">
+                <div className="card cardnodata p-3 text-center">
                     <div className='card-body'>
                         <i className="bi-exclamation-triangle" style={{ fontSize: "4rem" }}></i>
                         <p>{t("emptycomments") ?? "0 comments"}</p>
@@ -295,7 +295,7 @@ export default function Comments({ userId, postId, categoryId, isCommentFormShow
                     <div className="frmcommentscol2 ms-3">
                         <form className={styles.frmaddcomments}>
                             <div className="form-group text-center">
-                                <div className={styles.sformgroup}>
+                                <div className={styles.sformgroup + " mycommentinp"}>
                                     <div className="caret"></div>
                                     <textarea {...register("content")} id="content" name="content" className={"form-control content caretcontrol " + styles.sformgroupinp} placeholder={t('inputs.lblphcontent')} value={formData.content} onChange={handleChange} cols={1} rows={5} required />
                                 </div>

@@ -55,6 +55,7 @@ p {
   font-family: var(--font-orbitron);
   color: var(--foreground);
   background: var(--background);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
 }
 
 .offcanvas {
@@ -269,6 +270,7 @@ footer {
   font-family: var(--font-orbitron);
   color: var(--background);
   background: rgba(var(--bs-tertiary-bg-rgb), var(--bs-bg-opacity)) !important;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
 
   .colfooter1 {
     text-align: center;
@@ -471,6 +473,10 @@ footer {
 .card {
   position: relative;
   border-radius: 25px;
+
+  .cardnodata {
+    box-shadow: 0;
+  }
 }
 
 .bcuserinfo {
@@ -589,15 +595,11 @@ footer {
     * {
       text-align: inherit;
 
-      @if($talign =="left") {
+      @if($talign == "left") {
         justify-content: flex-start !important;
-      }
-
-      @else if($talign =="center") {
+      } @else if($talign == "center") {
         justify-content: center !important;
-      }
-
-      @else {
+      } @else {
         justify-content: flex-end !important;
       }
     }
@@ -999,12 +1001,14 @@ a.fc-event:hover {
 
     .caret {
       position: relative;
+      z-index: 1;
 
       &::before {
         display: block;
         content: "";
         -webkit-clip-path: polygon(0 0, 50% 0, 50% 50%);
         clip-path: polygon(100% 0, 50% 0, 100% 50%);
+        border-radius: 1rem;
         width: 20px;
         height: 20px;
         background: white;
@@ -1012,10 +1016,14 @@ a.fc-event:hover {
         top: 0px;
         left: -29px;
         padding: 15px;
-        z-index: 0;
+        z-index: 1;
         border-radius: 0;
         border: 0;
       }
+    }
+
+    .mycommentinp {
+      filter: drop-shadow(2px 2px 2px rgb(0, 0, 0));
     }
   }
 

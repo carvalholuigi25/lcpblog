@@ -12,10 +12,10 @@ const Footer: React.FC = () => {
         <footer className={styles.footer}>
             <div className='container d-flex justify-content-center align-items-center'>
                 <div className='row'>
-                    <div className='col-12 col-md-6 colfooter1'>
+                    <div className='col-12 col-md-6 col-lg-auto colfooter1'>
                         <ThemeSwitcher />
                     </div>
-                    <div className='col-12 col-md-6 colfooter2'>
+                    <div className='col-12 col-md-6 col-lg-auto colfooter2'>
                         <LanguageSwitcher />
                     </div>
                 </div>

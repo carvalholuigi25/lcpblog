@@ -5,6 +5,7 @@ import { getLocale, getMessages } from "next-intl/server";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import Dependencies from "@applocale/dependencies/dependencies";
 import "@applocale/globals.scss";
+import { getLangDir } from "rtl-detect";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -39,9 +40,10 @@ export default async function RootLayout({
 }>) {
   const locale = await getLocale() ?? getDefLocale() ?? 'en-UK';
   const messages = await getMessages({ locale: locale });
+  const dir = getLangDir(locale) ?? "ltr";
 
   return (
-    <html lang={locale} dir={"ltr"} data-bs-theme="system" suppressHydrationWarning={true}>
+    <html lang={locale} dir={dir} data-bs-theme="system" suppressHydrationWarning={true}>
       <body className={`${poppins.variable} ${roboto.variable} ${orbitron.variable} mybkgpage`}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <div id="modal-root"></div>
