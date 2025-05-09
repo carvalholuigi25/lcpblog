@@ -6,6 +6,7 @@ import 'ldrs/react/Ring.css';
 import 'ldrs/react/Tailspin.css';
 import 'ldrs/react/DotPulse.css';
 import "flag-icons/css/flag-icons.min.css";
+import 'video.js/dist/video-js.css';
 
 export default function Dependencies()
 {

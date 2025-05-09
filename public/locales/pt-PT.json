@@ -34,7 +34,9 @@
         "option": {
           "commitslink": "Registro de commits"
         }
-      }
+      },
+      "videoslink": "Videos",
+      "logoutlink": "Sair"
     },
     "buttons": {
       "btnreadmore": "Leia mais...",
@@ -863,6 +865,9 @@
             }
           }
         }
+      },
+      "VideosPage": {
+        "title": "Videos"
       }
     },
     "AuthPage": {

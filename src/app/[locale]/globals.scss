@@ -619,11 +619,15 @@ footer {
     * {
       text-align: inherit;
 
-      @if($talign == "left") {
+      @if($talign =="left") {
         justify-content: flex-start !important;
-      } @else if($talign == "center") {
+      }
+
+      @else if($talign =="center") {
         justify-content: center !important;
-      } @else {
+      }
+
+      @else {
         justify-content: flex-end !important;
       }
     }
@@ -1163,11 +1167,10 @@ a.fc-event:hover {
 
 .mysublinks {
   position: relative;
-  inset: 0px auto auto 0px;
+  margin: 0;
   border: 0;
-  width: auto;
+  width: 100%;
   max-width: 100%;
-  margin: 0px;
   text-align: left;
   transform: none;
   padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
@@ -1180,21 +1183,26 @@ a.fc-event:hover {
   }
 
   .dropdown-menu {
-    position: relative;
+    position: relative !important;
     padding: 5px 15px;
     text-align: left;
     width: 100%;
     max-width: 100%;
     border: none;
-    transform: translate(0px, 36px) !important;
+    transform: translate(0px, 5px) !important;
     border-radius: var(--bs-nav-pills-border-radius);
 
+    li {
+      border-radius: inherit;
+    }
+
     .nav-item {
-      border-radius: var(--bs-nav-pills-border-radius);
+      border-radius: inherit;
     }
 
     .dropdown-item {
-      border-radius: var(--bs-nav-pills-border-radius);
+      padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x) !important;
+      border-radius: inherit;
     }
   }
 }
@@ -1240,6 +1248,13 @@ a.fc-event:hover {
   }
 }
 
+.video-js {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+}
+
 @media all and (width <=1199px) {
   .card-author {
     flex-direction: column;
@@ -1268,7 +1283,8 @@ a.fc-event:hover {
         text-align: center;
       }
 
-      .colfooter1, .colfooter2 {
+      .colfooter1,
+      .colfooter2 {
         text-align: center;
       }
     }
@@ -1338,6 +1354,7 @@ a.fc-event:hover {
 
 @media all and (width >=992px) and (width <=1199px) {
   .cardlg {
+
     .colauthorleft,
     .colauthorcenter,
     .colauthorright {

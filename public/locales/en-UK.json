@@ -34,7 +34,9 @@
                 "option": {
                     "commitslink": "Commits log"
                 }
-            }
+            },
+            "videoslink": "Videos",
+            "logoutlink": "Logout"
         },
         "buttons": {
             "btnreadmore": "Read more...",
@@ -864,6 +866,9 @@
                         }
                     }
                 }
+            },
+            "VideosPage": {
+                "title": "Videos"
             }
         },
         "AuthPage": {

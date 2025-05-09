@@ -90,7 +90,7 @@ const AdminPosts = () => {
     ];
 
     return (
-        <div className={astyles.admdashboard}>
+        <div className={astyles.admdashboard} id="admdashboard">
             {!!isAuthorized && (
                 <AdminNavbarDashboard logInfo={logInfo} sidebarToggle={sidebarToggle} toggleSidebar={toggleSidebar} locale={locale ?? getDefLocale()} />
             )}

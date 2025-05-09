@@ -1,9 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
+import Image from "next/image";
 import astyles from "@applocale/styles/adminstyles.module.scss";
+import { useEffect, useState } from "react";
+import { delFromStorage, getFromStorage } from "@applocale/hooks/localstorage";
+import { getDefLocale } from "@applocale/helpers/defLocale";
 import { Link } from '@/app/i18n/navigation';
 import { usePathname } from "next/navigation";
-import { getDefLocale } from "@applocale/helpers/defLocale";
 import { useTranslations } from "next-intl";
 
 export interface AdminSidebarProps {
@@ -77,25 +80,58 @@ export const links = (t: any): AdminSidebarLinksProps[] => {
                     icon: "bi-journal-richtext"
                 }
             ]
+        },
+        {
+            id: 6,
+            name: t("videoslink") ?? "Videos",
+            link: "/videos",
+            icon: "bi-file-earmark-play",
+            sublinks: []
         }
     ];
 };
 
 export default function AdminSidebarDashboard({ sidebarToggle, toggleSidebar, locale }: AdminSidebarProps) {
     const t = useTranslations('ui.offcanvasAdmin');
-
-    const prefix = "/pages/admin/dashboard";
     const pathname = usePathname();
+    const [logInfo, setLogInfo] = useState("");
+    const prefix = "/pages/admin/dashboard";
+
     const showIconName = false;
     const mlinks: any = [];
     let msublinks: any = [];
 
+    useEffect(() => {
+        if (!logInfo) {
+            setLogInfo(getFromStorage("logInfo")!);
+        }
+    }, [logInfo]);
+
     const getIsActive = (pathname: string, prefix: string, i: number, x: any) => {
-        return x.id == 0 && pathname.endsWith(prefix) ? "active" : pathname.endsWith(prefix + x.link) ? (i == x.id ? "active" : "") : pathname.endsWith("/") ? "active" : "";
+        return x.id == 0 && pathname.endsWith(prefix) ? " active" : pathname.endsWith(prefix + x.link) ? (i == x.id ? " active" : "") : pathname.endsWith("/") ? " active" : "";
     }
 
     const getIsPageCurrent = (pathname: string, prefix: string, i: number, x: any) => {
         return x.id == 0 && pathname.endsWith(prefix) ? "page" : pathname.endsWith(prefix + x.link) ? (i == x.id ? "page" : "true") : pathname.endsWith("/") ? "page" : "true";
+    }
+
+    const getUserId = () => {
+        return logInfo ? JSON.parse(logInfo)[0].id : "0";
+    }
+
+    const getDisplayName = () => {
+        return logInfo ? JSON.parse(logInfo)[0].displayName : "guest";
+    }
+
+    const handleLogout = () => {
+        if (logInfo) {
+            delFromStorage("logInfo");
+            setLogInfo("");
+        }
+    }
+
+    const getUserAvatar = () => {
+        return logInfo ? JSON.parse(logInfo)[0].avatar : "avatars/guest.png";
     }
 
     links(t).map((x, i) => {
@@ -107,8 +143,8 @@ export default function AdminSidebarDashboard({ sidebarToggle, toggleSidebar, lo
 
             x.sublinks.map((y, j) => {
                 msublinks.push(
-                    <li className="nav-item" key={"sublink" + j}>
-                        <Link className={"nav-link dropdown-item sublink " + isActive} aria-current={isPageCurrent} href={prefix + x.link + y.link} locale={locale ?? getDefLocale()}>
+                    <li key={"sublink" + j}>
+                        <Link className={"dropdown-item sublink " + isActive} aria-current={isPageCurrent} href={prefix + x.link + y.link} locale={locale ?? getDefLocale()}>
                             <i className={"bi " + y.icon + " me-2"}></i>
                             <span className={"navlinkname" + (showIconName ? " hidden" : "")}>{y.name}</span>
                         </Link>
@@ -125,12 +161,13 @@ export default function AdminSidebarDashboard({ sidebarToggle, toggleSidebar, lo
                     <ul className="dropdown-menu">
                         {msublinks}
                     </ul>
+                    <div className="clearfix"></div>
                 </li>
             );
         } else {
             mlinks.push(
                 <li className="nav-item" key={i}>
-                    <Link className={"nav-link " + isActive} aria-current={isPageCurrent} href={prefix + x.link} locale={locale ?? getDefLocale()}>
+                    <Link className={"nav-link" + isActive} aria-current={isPageCurrent} href={prefix + x.link} locale={locale ?? getDefLocale()}>
                         <i className={"bi " + x.icon + " me-2"}></i>
                         <span className={"navlinkname" + (showIconName ? " hidden" : "")}>{x.name}</span>
                     </Link>
@@ -140,7 +177,7 @@ export default function AdminSidebarDashboard({ sidebarToggle, toggleSidebar, lo
     });
 
     return (
-        <ul className={"nav flex-column nav-pills " + astyles.navlinksadmdb + (sidebarToggle ? " hidden " : " ") + (showIconName ? " w-auto" : "")} id="navlinksadmdb">
+        <ul className={"nav flex-column nav-pills " + astyles.navlinksadmdb + (sidebarToggle ? " hidden" : "") + (showIconName ? " w-auto" : "")} id="navlinksadmdb">
             <li className={"nav-item d-flex justify-content-between align-items-center mb-3"}>
                 <Link className={"navbar-brand" + (showIconName ? " hidden" : "")} href="/" locale={locale ?? getDefLocale()}>LCPBlog</Link>
                 <button type="button" className={"nav-link " + astyles.btnshside} onClick={toggleSidebar} title={t("btnclose") ?? "Close"}>
@@ -148,6 +185,22 @@ export default function AdminSidebarDashboard({ sidebarToggle, toggleSidebar, lo
                 </button>
             </li>
             {mlinks}
+            <li className="nav-item">
+                {!!logInfo && (
+                    <>
+                        <div className={astyles.navlinkalogin + " d-flex justify-content-between align-items-center nav-link p-3"}>
+                            <Link href={"/pages/users/" + getUserId()} locale={locale ?? getDefLocale()}>
+                                <Image src={"/images/" + getUserAvatar()} width="30" height="30" alt="user" className={astyles.imgavatarheader} />
+                                <span>{getDisplayName()}</span>
+                            </Link>
+
+                            <button className={`btn ${astyles.btnatp} btn-rounded`} onClick={handleLogout} title={t("logoutlink") ?? "Logout"}>
+                                <i className="bi bi-door-closed"></i>
+                            </button>
+                        </div>
+                    </>
+                )}
+            </li>
         </ul>
     );
 }
