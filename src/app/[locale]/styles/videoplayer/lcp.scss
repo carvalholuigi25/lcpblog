@@ -1,0 +1,125 @@
+.vjs-lcp {
+    &.bordered {
+        .vjs-control-bar {
+            border-radius: 15px;
+        }
+    }
+
+    &.big {
+        .vjs-live-control {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            color: inherit;
+            margin: 1px auto;
+        }
+
+        .vjs-control-bar {
+            width: auto;
+            margin: 0;
+            bottom: 1rem;
+            left: 1rem;
+            right: 1rem;
+            height: 3rem;
+
+            .vjs-button > *:before {
+                font-size: 1.8em;
+                line-height: calc(1.67em + 1.2em);
+            }
+
+            .vjs-time-control {
+                line-height: 5em;
+            }
+
+            .vjs-volume-bar {
+                margin: calc(1.35em + 1em - 0.15em) 0.45em;
+            }
+        }
+    }
+
+    .video-js {
+        color: #00ff00;
+    }
+
+    .vjs-control-bar {
+        background-color: rgba(0, 255, 0, 0.5);
+    }
+
+    .vjs-big-play-button {
+        border-color: #00ff00;
+    }
+
+    .vjs-play-control {
+        * {
+            color: #00ff00;
+        }
+    }
+
+    .vjs-mute-control {
+        * {
+            color: #00ff00;
+        }
+    }
+
+    .vjs-progress-control {
+        color: inherit;
+
+        .vjs-load-progress {
+            background-color: #00ff00;
+
+            div {
+                background: rgb(119 159 115 / 75%)
+            }
+        }
+
+        .vjs-mouse-display {
+            background-color: #00ff00;
+        }
+
+        * {
+            color: inherit;
+        }
+    }
+
+    .vjs-play-progress {
+        .vjs-time-tooltip {
+            color: black !important;
+        }
+    }
+
+    .vjs-remaining-time {
+        color: #00ff00;
+    }
+
+    .vjs-picture-in-picture-control {
+        color: #00ff00;
+    }
+
+    .vjs-fullscreen-control {
+        color: #00ff00;
+    }
+
+    .vjs-slider {
+        background-color: rgb(115 159 115 / 50%);
+    }
+
+    .vjs-volume-level, .vjs-play-progress, .vjs-slider-bar {
+        background: #00ff00;
+    }
+
+    .vjs-seek-to-live-control .vjs-icon-placeholder {
+        background-color: #00ff00;
+    }
+
+    .vjs-skip-backward {
+        .vjs-control.vjs-button {
+            color: inherit;
+        }
+    }
+
+    .vjs-skip-forward {
+        .vjs-control.vjs-button {
+            color: inherit;
+        }
+    }
+}

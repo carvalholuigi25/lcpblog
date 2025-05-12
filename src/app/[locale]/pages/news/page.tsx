@@ -6,15 +6,17 @@ import Header from "@applocale/ui/header";
 import News from "@applocale/components/news";
 
 export default function AllNewsPage({locale}: {locale: string}) {
+  const vlocale = locale ?? getDefLocale();
+
   return (
     <div className={styles.page} id="mallnewspage" style={{paddingTop: '5rem'}}>
-    <Header locale={locale ?? getDefLocale()} />
-    <section>
-    <Suspense>
-    <News locale={locale ?? getDefLocale()} cid={-1} pid={-1} />
-    </Suspense>
-    </section>
-    <Footer />
+      <Header locale={vlocale} />
+      <section>
+        <Suspense>
+          <News locale={vlocale} cid={-1} pid={-1} />
+        </Suspense>
+      </section>
+      <Footer />
     </div>
   );
 }

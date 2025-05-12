@@ -7,6 +7,7 @@ import 'ldrs/react/Tailspin.css';
 import 'ldrs/react/DotPulse.css';
 import "flag-icons/css/flag-icons.min.css";
 import 'video.js/dist/video-js.css';
+import '@styles/videoplayer/lcp.scss';
 
 export default function Dependencies()
 {

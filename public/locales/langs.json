@@ -1,0 +1,22 @@
+{
+    "languages": [
+        {
+            "id": 1,
+            "name": "English (United Kingdom)",
+            "value": "en-UK",
+            "prefix": "gb"
+        },
+        {
+            "id": 2,
+            "name": "Português (Portugal)",
+            "value": "pt-PT",
+            "prefix": "pt"
+        },
+        {
+            "id": 3,
+            "name": "English (United States)",
+            "value": "en-US",
+            "prefix": "us"
+        }
+    ]
+}

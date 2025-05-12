@@ -22,7 +22,7 @@ const Footer: React.FC = () => {
             </div>
             <div className='mt-3 d-block'>
                 <span>
-                    {t('title')} {<Link href="mailto:luiscarvalho239@gmail.com">Luis Carvalho</Link>} {<Link href="https://lcp-pi.vercel.app/" target="_blank" rel="noopener noreferrer" className='ms-1'>LCP</Link>} @{new Date().getFullYear()}
+                    {t('title')} {<Link href="mailto:luiscarvalho239@gmail.com">Luis Carvalho</Link>} {<Link href="https://lcp-pi.vercel.app/" target="_blank" rel="noopener noreferrer" className='ms-1'>LCP</Link>} &copy;{new Date().getFullYear()}
                 </span>
             </div>
         </footer>

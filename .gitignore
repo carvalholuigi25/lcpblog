@@ -81,3 +81,4 @@ package-lock.json
 /server/api/v1/lcpblogapi.Tests/.vs/
 .vs/
 **/.vs/
+.vscode/settings.json

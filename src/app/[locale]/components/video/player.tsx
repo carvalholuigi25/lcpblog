@@ -11,6 +11,7 @@ interface VideoPlayerProps {
 const VideoPlayer = ({ options }: VideoPlayerProps) => {
   const videoRef = useRef(null);
   const playerRef = useRef<any | null>(null);
+  const isBigBordered = false;
 
   useEffect(() => {
     if (videoRef.current && !playerRef.current) {
@@ -29,7 +30,7 @@ const VideoPlayer = ({ options }: VideoPlayerProps) => {
 
   return (
     <div data-vjs-player>
-      <video ref={videoRef} className="video-js vjs-default-skin" />
+      <video ref={videoRef} className={`video-js vjs-default-skin vjs-lcp ${isBigBordered ? "big bordered": ""}`} />
     </div>
   );
 };
