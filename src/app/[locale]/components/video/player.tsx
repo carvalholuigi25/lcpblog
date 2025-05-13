@@ -8,10 +8,26 @@ interface VideoPlayerProps {
   options: any;
 }
 
+interface VideoThemePlayerProps {
+  name: string;
+  size: string;
+  bordered: boolean;
+}
+
+const optstheme: VideoThemePlayerProps = {
+  name: "lcp",
+  size: "big",
+  bordered: true
+}
+
+const getVideoThemeOptions = () => {
+  return `vjs-default-skin vjs-${optstheme.name} ${optstheme.size} ${optstheme.bordered ? "bordered" : ""}`;
+}
+
 const VideoPlayer = ({ options }: VideoPlayerProps) => {
   const videoRef = useRef(null);
   const playerRef = useRef<any | null>(null);
-  const isBigBordered = false;
+  const videoClOpts = getVideoThemeOptions();
 
   useEffect(() => {
     if (videoRef.current && !playerRef.current) {
@@ -30,7 +46,7 @@ const VideoPlayer = ({ options }: VideoPlayerProps) => {
 
   return (
     <div data-vjs-player>
-      <video ref={videoRef} className={`video-js vjs-default-skin vjs-lcp ${isBigBordered ? "big bordered": ""}`} />
+      <video ref={videoRef} className={`video-js ${videoClOpts}`} />
     </div>
   );
 };

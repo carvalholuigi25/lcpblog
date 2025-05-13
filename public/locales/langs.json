@@ -17,6 +17,12 @@
             "name": "English (United States)",
             "value": "en-US",
             "prefix": "us"
+        },
+        {
+            "id": 4,
+            "name": "French (France)",
+            "value": "fr-FR",
+            "prefix": "fr"
         }
     ]
 }

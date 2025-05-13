@@ -16,9 +16,19 @@
         --fc-now-indicator-color: red;
     }
 
+    .blur {
+        $bkg: rgba(255, 255, 255, .5);
+        background: $bkg !important;
+    }
+
     .navbar {
         --background: #{$bgcolorprimary};
-        background: var(--background) !important;
+
+        @if $themename == "light" or $themename == "system" {
+            background: rgba(255, 255, 255, .5) !important;
+        } @else {
+            background: var(--background) !important;
+        }
 
         .navbar-brand {
             color: $fgcolorprimary;

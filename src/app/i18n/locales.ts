@@ -1,3 +1,5 @@
+import mylangs from '@assets/locales/langs.json';
+
 export interface LanguagesLocales {
     id: number;
     name: string;
@@ -5,24 +7,7 @@ export interface LanguagesLocales {
     prefix: string;
 }
 
-export const localesary: LanguagesLocales[] = [{
-    id: 1,
-    name: "English (United Kingdom)",
-    value: "en-UK",
-    prefix: "gb"
-},
-{
-    id: 2,
-    name: "Português (Portugal)",
-    value: "pt-PT",
-    prefix: "pt"
-},
-{
-    id: 3,
-    name: "English (United States)",
-    value: "en-US",
-    prefix: "us"
-}];
+export const localesary: LanguagesLocales[] = mylangs.languages;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getValuesLocales = (langval?: string): any => {

@@ -115,7 +115,8 @@ const Header = ({ locale }: { locale: string }) => {
         <>
             <HeaderMenu locale={locale ?? getDefLocale()} />
             <div className='header'>
-                <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+                <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top blur">
+                    <div className="navbar-blur"></div>
                     <div className="container-fluid">
                         <Link className={"navbar-brand" + (is3DThingsEnabled ? " navbar-3d" : "")} href="/#home" locale={locale ?? getDefLocale()}>
                             LCP Blog
