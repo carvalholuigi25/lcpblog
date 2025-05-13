@@ -10,25 +10,22 @@
     --bs-body-color: #{$fgcolorprimary};
     --bs-body-bg: #{$bgcolorprimary};
 
-    @if $themename == "red" {
+    @if ($themename == "red") {
         --fc-now-indicator-color: #9a0303;
     } @else {
         --fc-now-indicator-color: red;
     }
 
-    .blur {
-        $bkg: rgba(255, 255, 255, .5);
-        background: $bkg !important;
+    .glassmorphism {
+        @include m.applyGlassBkg($themename);
+
+        .navbar-glassmorphism {
+            @include m.applyGlassBkg($themename);
+        }
     }
 
     .navbar {
         --background: #{$bgcolorprimary};
-
-        @if $themename == "light" or $themename == "system" {
-            background: rgba(255, 255, 255, .5) !important;
-        } @else {
-            background: var(--background) !important;
-        }
 
         .navbar-brand {
             color: $fgcolorprimary;

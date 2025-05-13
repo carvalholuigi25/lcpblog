@@ -46,3 +46,26 @@
         filter: drop-shadow($color $offsetx $offsety $blur);
     }
 }
+
+@mixin applyGlassBkg($keyname) {
+    $op: .5;
+    $bkg: rgba(255, 255, 255, $op);
+    
+    @if($keyname == "light" or $keyname == "system") {
+        $bkg: rgba(255, 255, 255, $op);
+    } @else if($keyname == "dark") {
+        $bkg: rgba(0, 0, 0, $op);
+    } @else if($keyname == "red") {
+        $bkg: rgba(255, 0, 0, $op);
+    } @else if($keyname == "green") {
+        $bkg: rgba(0, 255, 0, $op);
+    } @else if($keyname == "blue") {
+        $bkg: rgba(0, 0, 255, $op);
+    } @else if($keyname == "yellow") {
+        $bkg: rgba(255, 255, 0, $op);
+    } @else {
+        $bkg: rgba(255, 255, 255, $op);
+    }
+
+    background: $bkg !important;
+}

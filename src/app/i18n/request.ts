@@ -11,9 +11,15 @@ export default getRequestConfig(async ({requestLocale}: any) => {
   if (!locale || !routing.locales.includes(locale as any)) {
     locale = routing.defaultLocale;
   }
+
+  const common = (await import(`@assets/locales/${locale}/common.json`)).default;
+  const ui = (await import(`@assets/locales/${locale}/ui.json`)).default;
  
   return {
     locale,
-    messages: (await import(`@assets/locales/${locale}/common.json`)).default
+    messages: {
+      ...common,
+      ...ui
+    }
   };
 });

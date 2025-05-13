@@ -111,12 +111,15 @@ const HeaderMenu = ({ locale }: { locale: string }) => {
 }
 
 const Header = ({ locale }: { locale: string }) => {
+    const isGlassmorphismEnabled = true;
+    const glassMorphismCl = isGlassmorphismEnabled ? "glassmorphism" : "";
+
     return (
         <>
             <HeaderMenu locale={locale ?? getDefLocale()} />
             <div className='header'>
-                <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top blur">
-                    <div className="navbar-blur"></div>
+                <nav className={"navbar navbar-expand-lg bg-body-tertiary fixed-top " + glassMorphismCl}>
+                    <div className={"navbar-"+(glassMorphismCl ?? "normal")}></div>
                     <div className="container-fluid">
                         <Link className={"navbar-brand" + (is3DThingsEnabled ? " navbar-3d" : "")} href="/#home" locale={locale ?? getDefLocale()}>
                             LCP Blog
