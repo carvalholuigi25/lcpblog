@@ -17,10 +17,8 @@
     }
 
     .glassmorphism {
-        @include m.applyGlassBkg($themename);
-
-        .navbar-glassmorphism {
-            @include m.applyGlassBkg($themename);
+        .navbar, .navbar-container, .offcanvas, footer {
+            @include m.applyBkg($themename, .5);
         }
     }
 
@@ -29,6 +27,11 @@
 
         .navbar-brand {
             color: $fgcolorprimary;
+        }
+
+        .navbar-toggler {
+            color: $fgcolorprimary;
+            border-color: $fgcolorprimary;
         }
 
         input {

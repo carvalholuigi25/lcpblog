@@ -41,10 +41,12 @@ export default async function RootLayout({
   const locale = await getLocale() ?? getDefLocale() ?? 'en-UK';
   const messages = await getMessages({ locale: locale });
   const dir = getLangDir(locale) ?? "ltr";
+  const isGlassmorphismEnabled = process.env.NEXT_PUBLIC_isGlassmorphismEnabled == "true" ? true : false;
+  const glassmorphismCl = isGlassmorphismEnabled ? "glassmorphism" : "";
 
   return (
     <html lang={locale} dir={dir} data-bs-theme="system" suppressHydrationWarning={true}>
-      <body className={`${poppins.variable} ${roboto.variable} ${orbitron.variable} mybkgpage`}>
+      <body className={`${poppins.variable} ${roboto.variable} ${orbitron.variable} ${glassmorphismCl} mybkgpage`}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <div id="modal-root"></div>
           <div id="toast-root"></div>

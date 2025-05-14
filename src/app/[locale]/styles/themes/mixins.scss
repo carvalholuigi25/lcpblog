@@ -47,8 +47,15 @@
     }
 }
 
-@mixin applyGlassBkg($keyname) {
-    $op: .5;
+@mixin setBlur($blur: 12px, $brightness: 100%) {
+    -moz-backdrop-filter: blur($blur) brightness($brightness);
+    -ms-backdrop-filter: blur($blur) brightness($brightness);
+    -o-backdrop-filter: blur($blur) brightness($brightness);
+    -webkit-backdrop-filter: blur($blur) brightness($brightness);
+    backdrop-filter: blur($blur) brightness($brightness);
+}
+
+@mixin applyBkg($keyname, $op: .5) {
     $bkg: rgba(255, 255, 255, $op);
     
     @if($keyname == "light" or $keyname == "system") {

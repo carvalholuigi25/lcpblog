@@ -111,15 +111,12 @@ const HeaderMenu = ({ locale }: { locale: string }) => {
 }
 
 const Header = ({ locale }: { locale: string }) => {
-    const isGlassmorphismEnabled = true;
-    const glassMorphismCl = isGlassmorphismEnabled ? "glassmorphism" : "";
-
     return (
         <>
             <HeaderMenu locale={locale ?? getDefLocale()} />
             <div className='header'>
-                <nav className={"navbar navbar-expand-lg bg-body-tertiary fixed-top " + glassMorphismCl}>
-                    <div className={"navbar-"+(glassMorphismCl ?? "normal")}></div>
+                <nav className={"navbar navbar-expand-lg bg-body-tertiary fixed-top"}>
+                    <div className={"navbar-container"}></div>
                     <div className="container-fluid">
                         <Link className={"navbar-brand" + (is3DThingsEnabled ? " navbar-3d" : "")} href="/#home" locale={locale ?? getDefLocale()}>
                             LCP Blog
@@ -133,7 +130,7 @@ const Header = ({ locale }: { locale: string }) => {
                             aria-expanded="false"
                             aria-label="Toggle navigation"
                         >
-                            <span className="navbar-toggler-icon"></span>
+                            <i className="bi bi-list"></i>
                         </button>
                         <div className="collapse navbar-collapse" id="navbarMain">
                             <ul className="navbar-nav mx-auto me-0">
