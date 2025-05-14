@@ -26,13 +26,13 @@ export default function AdminNavbarDashboard({logInfo, sidebarToggle, toggleSide
                 <div className="navbar-nav me-auto">
                     <div className={!sidebarToggle ? "hidden" : "d-flex justify-content-center"}>
                         <button type="button" className={"nav-link " + astyles.btnshsidebynav} onClick={toggleSidebar}>
-                            {!!sidebarToggle ? <i className="bi bi-list"></i> : <i className="bi bi-x-lg"></i>}
+                            {!!sidebarToggle ? <i className="bi bi-list iconav"></i> : <i className="bi bi-x-lg iconav"></i>}
                         </button>
                     </div>
                 </div>
 
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarAdmDashboard" aria-controls="navbarAdmDashboard" aria-expanded="false" aria-label="Toggle navigation">
-                    <i className="bi-list"></i>
+                    <i className="bi bi-list iconav"></i>
                 </button>
                 
                 <div className="collapse navbar-collapse" id="navbarAdmDashboard">

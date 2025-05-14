@@ -2,257 +2,257 @@
     "pages": {
         "ArchivePage": {
             "title": "Archive",
-            "lblyear": "Year",
-            "lblmonth": "Month",
-            "lbldefopyear": "Select the year",
-            "lbldefopmonth": "Select the month",
-            "lblemptynews": "0 news",
+            "lblyear": "Année",
+            "lblmonth": "Mois",
+            "lbldefopyear": "Sélectionner l'année",
+            "lbldefopmonth": "Sélectionner le mois",
+            "lblemptynews": "0 actualité",
             "lblmonths": {
                 "month1": {
-                    "name": "January"
+                    "name": "Janvier"
                 },
                 "month2": {
-                    "name": "February"
+                    "name": "Février"
                 },
                 "month3": {
-                    "name": "March"
+                    "name": "Mars"
                 },
                 "month4": {
-                    "name": "April"
+                    "name": "Avril"
                 },
                 "month5": {
-                    "name": "May"
+                    "name": "Mai"
                 },
                 "month6": {
-                    "name": "June"
+                    "name": "Juin"
                 },
                 "month7": {
-                    "name": "July"
+                    "name": "Juillet"
                 },
                 "month8": {
-                    "name": "August"
+                    "name": "Août"
                 },
                 "month9": {
-                    "name": "September"
+                    "name": "Septembre"
                 },
                 "month10": {
-                    "name": "October"
+                    "name": "Octobre"
                 },
                 "month11": {
-                    "name": "November"
+                    "name": "Novembre"
                 },
                 "month12": {
-                    "name": "December"
+                    "name": "Décembre"
                 }
             },
-            "btnback": "Back"
+            "btnback": "Retour"
         },
         "AdminPages": {
             "Dashboard": {
-                "title": "Dashboard",
-                "lblhome": "Home",
+                "title": "Tableau de bord",
+                "lblhome": "Accueil",
                 "lblwelcome": "Bienvenu(e) {displayName}!",
-                "lblnews": "News",
-                "lblcategories": "Categories",
-                "lblusers": "Users",
+                "lblnews": "Actualités",
+                "lblcategories": "Catégories",
+                "lblusers": "Utilisateurs",
                 "lblcommits": "Commits",
-                "lblcomments": "Comments",
-                "lbldashboard": "Dashboard",
+                "lblcomments": "Commentaires",
+                "lbldashboard": "Tableau de bord",
                 "stats": {
-                    "lbltotalposts": "Post",
-                    "lbltotalpostspl": "Posts",
-                    "lbltotalcategories": "Category",
-                    "lbltotalcategoriespl": "Categories",
-                    "lbltotaltags": "Tag",
-                    "lbltotaltagspl": "Tags",
-                    "lbltotalusers": "User",
-                    "lbltotaluserspl": "Users"
+                    "lbltotalposts": "Publication",
+                    "lbltotalpostspl": "Publications",
+                    "lbltotalcategories": "Catégorie",
+                    "lbltotalcategoriespl": "Catégories",
+                    "lbltotaltags": "Étiquette",
+                    "lbltotaltagspl": "Étiquettes",
+                    "lbltotalusers": "Utilisateur",
+                    "lbltotaluserspl": "Utilisateurs"
                 },
                 "charttypes": {
-                    "seloption": "Select the chart type",
+                    "seloption": "Sélectionner le type de graphique",
                     "options": {
-                        "verticalBar": "Vertical Bar",
-                        "horizontalBar": "Horizontal Bar",
-                        "line": "Line",
-                        "pie": "Pie",
+                        "verticalBar": "Barre verticale",
+                        "horizontalBar": "Barre horizontale",
+                        "line": "Ligne",
+                        "pie": "Diagramme circulaire",
                         "radar": "Radar",
-                        "doughnut": "Doughnut",
-                        "polarArea": "Polar Area",
-                        "area": "Area",
-                        "bubble": "Bubble",
-                        "scatter": "Scatter"
+                        "doughnut": "Beignet",
+                        "polarArea": "Zone polaire",
+                        "area": "Zone",
+                        "bubble": "Bulle",
+                        "scatter": "Dispersion"
                     }
                 },
                 "chart": {
-                    "titlechart": "Posts",
-                    "lblxaxis": "Nº of posts",
-                    "lblyaxis": "Months"
+                    "titlechart": "Messages",
+                    "lblxaxis": "Nombre de messages",
+                    "lblyaxis": "Mois"
                 }
             },
             "PostsPage": {
-                "title": "Posts",
-                "emptyposts": "0 posts.",
-                "btnaddnews": "Add news",
+                "title": "Actualités",
+                "emptyposts": "0 actualités.",
+                "btnaddnews": "Ajouter une actualité",
                 "btnadvfsearch": {
-                    "enable": "Enable",
-                    "disable": "Disable",
-                    "title": "Advanced filter search"
+                    "enable": "Activer",
+                    "disable": "Désactiver",
+                    "title": "Recherche par filtre avancé"
                 }
             },
             "UsersPage": {
-                "title": "Users",
-                "btnadduser": "Add new user",
-                "emptyusers": "0 users."
+                "title": "Utilisateurs",
+                "btnadduser": "Ajouter un nouvel utilisateur",
+                "emptyusers": "0 utilisateur."
             },
             "MediaPage": {
-                "title": "Upload Files",
+                "title": "Télécharger des fichiers",
                 "btnupload": {
-                    "hide": "Hide",
-                    "show": "Show",
-                    "upload": "upload"
+                    "hide": "Masquer",
+                    "show": "Afficher",
+                    "upload": "télécharger"
                 },
                 "seltypeupload": {
-                    "title": "Select upload type",
+                    "title": "Sélectionner le type de téléchargement",
                     "options": {
-                        "single": "Single",
-                        "multiple": "Multiple",
-                        "dragndrop": "Drag and drop"
+                        "single": "Unique",
+                        "multiple": "Plusieurs",
+                        "dragndrop": "Glisser-déposer"
                     }
                 },
                 "btnshowuploadrules": {
-                    "show": "Show",
-                    "hide": "Hide",
-                    "title": "upload rules"
+                    "show": "Afficher",
+                    "hide": "Masquer",
+                    "title": "Règles de téléchargement"
                 },
                 "uploadrules": {
-                    "title": "Upload rules",
+                    "title": "Règles de téléchargement",
                     "rules": {
-                        "allowedextensions": "Allowed extensions: {extensions}",
-                        "maxallowedsize": "Maximum allowed size: {sizeInBytes} bytes ({sizeInMB} MB)"
+                        "allowedextensions": "Extensions autorisées : {extensions}",
+                        "maxallowedsize": "Taille maximale autorisée : {sizeInBytes} octets ({sizeInMB} Mo)"
                     }
                 },
                 "uploadact": {
-                    "btnreset": "Reset",
-                    "btnupload": "Upload"
+                    "btnreset": "Réinitialiser",
+                    "btnupload": "Télécharger"
                 },
                 "messages": {
-                    "nofile": "Please select a file first.",
-                    "nofilemult": "Please select at least one (or many) files.",
-                    "drop": "Drop the file here...",
-                    "dragndrop": "Drag and drop a file here, or click to select file",
-                    "uploading": "Uploading...",
-                    "uploadingmult": "Uploading multiple files...",
-                    "uploadsuccess": "File uploaded successfully!",
-                    "uploadfailed": "File upload failed!",
-                    "uploaderror": "Error uploading file. Message: {message}",
-                    "uploadmultsuccess": "File(s) uploaded successfully!",
-                    "uploadmultfailed": "File(s) upload failed!",
-                    "uploadmulterror": "Error uploading multiple files. Message: {message}"
+                    "nofile": "Veuillez d'abord sélectionner un fichier.",
+                    "nofilemult": "Veuillez sélectionner au moins un (ou plusieurs) fichier(s).",
+                    "drop": "Déposez le fichier ici...",
+                    "dragndrop": "Glissez-déposez un fichier ici ou cliquez pour le sélectionner",
+                    "uploading": "Téléchargement...",
+                    "uploadingmult": "Téléchargement de plusieurs fichiers...",
+                    "uploadsuccess": "Fichier téléversé avec succès !",
+                    "uploadfailed": "Échec du téléversement du fichier !",
+                    "uploaderror": "Erreur lors du téléversement du fichier. Message : {message}",
+                    "uploadmultsuccess": "Fichier(s) téléversé(s) avec succès !",
+                    "uploadmultfailed": "Échec du téléversement du fichier !",
+                    "uploadmulterror": "Erreur lors du téléversement de plusieurs fichiers. Message : {message}"
                 },
                 "preview": {
-                    "title": "Preview"
+                    "title": "Aperçu"
                 },
                 "results": {
-                    "nofilesuploaded": "No files uploaded.",
-                    "contentType": "Content type",
-                    "uploadedDate": "Date of upload"
+                    "nofilesuploaded": "Aucun fichier téléchargé.",
+                    "contentType": "Type de contenu",
+                    "uploadedDate": "Date de téléchargement"
                 }
             },
             "CategoriesPage": {
-                "title": "Categories",
-                "btnaddcategory": "Add new category",
-                "emptycategories": "0 categories."
+                "title": "Catégories",
+                "btnaddcategory": "Ajouter une nouvelle catégorie",
+                "emptycategories": "0 catégorie."
             },
             "DevelopersPage": {
-                "title": "Developers",
-                "lblwarnpage": "Warning: This page is for admins and developers!",
+                "title": "Développeurs",
+                "lblwarnpage": "Attention: cette page est réservée aux administrateurs et aux développeurs!",
                 "CommitsLogPage": {
-                    "title": "Commits Log",
+                    "title": "Journal des commits",
                     "buttons": {
-                        "btntable": "Table",
+                        "btntable": "Tableau",
                         "btnjson": "JSON"
                     },
                     "form": {
-                        "lblowner": "Owner",
-                        "inpowner": "Write here the name of the owner",
-                        "lblrepository": "Repository",
-                        "inprepository": "Write here the name of the repository",
-                        "lblbranchname": "Branch",
-                        "inpbranchname": "Write here the name of the branch",
-                        "btnreset": "Reset",
-                        "btngenerate": "Generate",
-                        "btnmorecommits": "More commits?"
+                        "lblowner": "Propriétaire",
+                        "inpowner": "Indiquez ici le nom du propriétaire",
+                        "lblrepository": "Dépôt",
+                        "inprepository": "Indiquez ici le nom du dépôt",
+                        "lblbranchname": "Branche",
+                        "inpbranchname": "Indiquez ici le nom de la branche",
+                        "btnreset": "Réinitialiser",
+                        "btngenerate": "Générer",
+                        "btnmorecommits": "Plus de commits?"
                     },
                     "table": {
                         "header": {
                             "id": "Id",
                             "message": "Message",
-                            "author": "Author",
+                            "author": "Auteur",
                             "date": "Date"
                         }
                     }
                 }
             },
             "VideosPage": {
-                "title": "Videos"
+                "title": "Vidéos"
             }
         },
         "AuthPage": {
-            "title": "Login"
+            "title": "Connexion"
         },
         "RegisterPage": {
-            "title": "Register",
-            "lnkrecac": "Already have an account? Login here."
+            "title": "Inscription",
+            "lnkrecac": "Vous avez déjà un compte? Connectez-vous ici."
         },
         "HomePage": {
             "title": "Bienvenue sur LCPBlog!"
         },
         "NewsPage": {
-            "title": "News",
-            "emptyposts": "0 posts.",
-            "btnreadmore": "Read more..."
+            "title": "Actualités",
+            "emptyposts": "0 actualités.",
+            "btnreadmore": "Lire la suite..."
         },
         "DeleteCommentsPage": {
-            "emptycomments": "0 comments"
+            "emptycomments": "0 commentaire"
         },
         "UsersPage": {
             "display": {
-                "lbluserid": "User Id:",
-                "lblusername": "Username:",
-                "lblemail": "Email:",
-                "lbldisplayname": "Display name:",
-                "lblrole": "Role:",
-                "lblabout": "About:",
-                "lblprivacy": "Privacy:"
+                "lbluserid": "Identifiant utilisateur:",
+                "lblusername": "Nom d'utilisateur:",
+                "lblemail": "E-mail:",
+                "lbldisplayname": "Nom d'affichage:",
+                "lblrole": "Rôle:",
+                "lblaabout": "À propos:",
+                "lblprivacy": "Confidentialité:"
             },
-            "covertitle": "{displayName}'s Cover",
-            "avatartitle": "{displayName}'s Avatar",
-            "emptyusers": "0 users or you dont have permissions to view this page.",
-            "usernotfound": "User not found or you dont have permissions to view this page!",
-            "totalusers": "Total users: {count}",
-            "btnviewprofile": "View this profile",
-            "btnback": "Back"
+            "covertitle": "Couverture de {displayName}",
+            "avatartitle": "Avatar de {displayName}",
+            "emptyusers": "Aucun utilisateur ou vous n'êtes pas autorisé à consulter cette page.",
+            "usernotfound": "Utilisateur introuvable ou vous n'êtes pas autorisé à consulter cette page!",
+            "totalusers": "Nombre total d'utilisateurs: {count}",
+            "btnviewprofile": "Voir ce profil",
+            "btnback": "Retour"
         },
         "Error": {
-            "title": "Error",
-            "msgerror": "An error ${statusCode} occurred on server",
-            "msgerror2": "An error occurred on client",
-            "btnback": "Back"
+            "title": "Erreur",
+            "msgerror": "Une erreur ${statusCode} s'est produite sur le serveur",
+            "msgerror2": "Une erreur s'est produite sur le client",
+            "btnback": "Retour"
         },
         "500": {
-            "title": "Error 500 - Internal server error",
-            "msgerror": "The server encountered an error and could not complete your request.",
-            "btnback": "Back"
+            "title": "Erreur 500 - Erreur interne du serveur",
+            "msgerror": "Le serveur a rencontré une erreur et n'a pas pu traiter votre requête.",
+            "btnback": "Retour"
         },
         "404": {
-            "title": "Error 404 - Page not found",
-            "msgerror": "This page was not found!",
-            "btnback": "Back"
+            "title": "Erreur 404 - Page introuvable",
+            "msgerror": "Cette page est introuvable!",
+            "btnback": "Retour"
         }
     },
     "others": {
         "suffixes": {
-            "news": "pages/news"
+            "news": "pages/nouvelles"
         }
     }
 }

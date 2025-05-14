@@ -174,7 +174,7 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
                                     <AdminSidebarDashboard locale={locale ?? getDefLocale()} sidebarToggle={sidebarToggle} toggleSidebar={toggleSidebar} />
                                 </div>
                                 <div className={"col-12 col-md-" + (!sidebarToggle ? "9" : "12") + " col-lg-" + (!sidebarToggle ? "10" : "12") + ""}>
-                                    <h3 className="text-center">
+                                    <h3 className="text-center titlep">
                                         <i className="bi bi-house me-2"></i>
                                         {t('lblhome') ?? "Home"}
                                     </h3>
@@ -192,7 +192,7 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
                                                 <span className="card-text">
                                                     {(postsLength ?? posts.length) + " " + (postsLength != 1 ? (t('stats.lbltotalpostspl') ?? ' Posts') : (t('stats.lbltotalposts') ?? ' Post'))}
                                                 </span>
-                                                <i className="bi bi-file-earmark-post" style={{ fontSize: "1.4rem" }}></i>
+                                                <i className={"bi bi-file-earmark-post " + astyles.ico}></i>
                                             </div>
                                         </div>
                                     </div>
@@ -205,7 +205,7 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
                                                 <span className="card-text">
                                                     {(categoriesLength ?? categories.length) + " " + (categoriesLength != 1 ? (t('stats.lbltotalcategoriespl') ?? ' Categories') : (t('stats.lbltotalcategories') ?? ' Category'))}
                                                 </span>
-                                                <i className="bi bi-bookmark" style={{ fontSize: "1.4rem" }}></i>
+                                                <i className={"bi bi-bookmark " + astyles.ico}></i>
                                             </div>
                                         </div>
                                     </div>
@@ -218,7 +218,7 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
                                                 <span className="card-text">
                                                     {(tagsLength ?? tags.length) + " " + (tagsLength != 1 ? (t('stats.lbltotaltagspl') ?? ' Tags') : (t('stats.lbltotaltags') ?? ' Tag'))}
                                                 </span>
-                                                <i className="bi bi-tag" style={{ fontSize: "1.4rem" }}></i>
+                                                <i className={"bi bi-tag " + astyles.ico}></i>
                                             </div>
                                         </div>
                                     </div>
@@ -231,7 +231,7 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
                                                 <span className="card-text">
                                                     {(usersLength ?? users.length) + " " + (usersLength != 1 ? (t('stats.lbltotaluserspl') ?? ' Users') : (t('stats.lbltotalusers') ?? ' User'))}
                                                 </span>
-                                                <i className="bi bi-people" style={{ fontSize: "1.4rem" }}></i>
+                                                <i className={"bi bi-people " + astyles.ico}></i>
                                             </div>
                                         </div>
                                     </div>

@@ -83,7 +83,7 @@ const AdminUsers = () => {
                                 <AdminSidebarDashboard locale={locale ?? getDefLocale()} sidebarToggle={sidebarToggle} toggleSidebar={toggleSidebar} />
                             </div>
                             <div className={"col-12 col-md-" + (!sidebarToggle ? "9" : "12") + " col-lg-" + (!sidebarToggle ? "10" : "12") + ""}>
-                                <h3 className="text-center">
+                                <h3 className="text-center titlep">
                                     <i className="bi bi-people me-2"></i>
                                     {t("title") ?? "Users"}
                                 </h3>

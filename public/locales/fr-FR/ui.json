@@ -1,254 +1,254 @@
 {
     "ui": {
-        "searchBar": "Search",
+        "searchBar": "Recherche",
         "toasts": {
             "data": {
-                "timestatus": "has posted few seconds ago..."
+                "timestatus": "a posté il y a quelques secondes..."
             }
         },
         "events": {
             "messages": {
-                "dropevent": "{title} was dropped on {dateStart}",
-                "resizeevent": "{title} end is now on {dateEnd}",
-                "lblwarndrop": "Are you sure about this change?",
-                "lblwarnres": "Is this okay?"
+                "dropevent": "{title} a été supprimé le {dateStart}.",
+                "resizeevent": "{title} se termine désormais le {dateEnd}.",
+                "lblwarndrop": "Êtes-vous sûr de ce changement?",
+                "lblwarnres": "Êtes-vous d'accord?"
             }
         },
         "offcanvas": {
-            "btnclose": "Close",
-            "homelink": "Home",
-            "loginlink": "Login",
-            "archlink": "Archive",
-            "dashboardlink": "Dashboard",
-            "logoutlink": "Logout"
+            "btnclose": "Fermer",
+            "homelink": "Accueil",
+            "loginlink": "Connexion",
+            "archlink": "Archives",
+            "dashboardlink": "Tableau de bord",
+            "logoutlink": "Déconnexion"
         },
         "offcanvasAdmin": {
-            "btnclose": "Close",
-            "homelink": "Home",
-            "postslink": "Posts",
-            "userslink": "Users",
-            "medialink": "Media",
-            "categorieslink": "Categories",
+            "btnclose": "Fermer",
+            "homelink": "Accueil",
+            "postslink": "Actualités",
+            "userslink": "Utilisateurs",
+            "medialink": "Médiatique",
+            "categorieslink": "Catégories",
             "developers": {
-                "title": "Developers",
+                "title": "Développeurs",
                 "option": {
-                    "commitslink": "Commits log"
+                    "commitslink": "Journal des commits"
                 }
             },
-            "videoslink": "Videos",
-            "logoutlink": "Logout"
+            "videoslink": "Vidéos",
+            "logoutlink": "Déconnexion"
         },
         "buttons": {
-            "btnreadmore": "Read more...",
-            "btnlogout": "Logout",
-            "btnback": "Back",
-            "btntoday": "Today",
-            "btnreset": "Reset",
-            "btnedit": "Edit",
-            "btndelete": "Delete"
+            "btnreadmore": "En savoir plus...",
+            "btnlogout": "Déconnexion",
+            "btnback": "Arrière",
+            "btntoday": "Aujourd'hui",
+            "btnreset": "Réinitialiser",
+            "btnedit": "Éditer",
+            "btndelete": "Effacer"
         },
         "text": {
-            "txtviews": "Views: {views}"
+            "txtviews": "Vues: {views}"
         },
         "footer": {
-            "title": "Created by",
+            "title": "Créé par",
             "themes": {
                 "options": {
                     "light": {
-                        "name": "Light",
+                        "name": "Lumière",
                         "value": "light"
                     },
                     "dark": {
-                        "name": "Dark",
+                        "name": "Sombre",
                         "value": "dark"
                     },
                     "system": {
-                        "name": "System",
+                        "name": "Système",
                         "value": "system"
                     },
                     "red": {
-                        "name": "Red",
+                        "name": "Rouge",
                         "value": "red"
                     },
                     "green": {
-                        "name": "Green",
+                        "name": "Vert",
                         "value": "green"
                     },
                     "blue": {
-                        "name": "Blue",
+                        "name": "Bleu",
                         "value": "blue"
                     },
                     "yellow": {
-                        "name": "Yellow",
+                        "name": "Jaune",
                         "value": "yellow"
                     },
                     "vanilla": {
-                        "name": "Vanilla",
+                        "name": "Vanille",
                         "value": "vanilla"
                     }
                 }
             }
         },
         "loading": {
-            "title": "Loading..."
+            "title": "Chargement..."
         },
         "editors": {
-            "edplaceholder": "Start typing..."
+            "edplaceholder": "Commencez à taper..."
         },
         "tables": {
             "tabledata": {
-                "titletable": "News",
+                "titletable": "Nouvelles",
                 "header": {
-                    "postId": "Post Id",
-                    "title": "Title",
-                    "name": "Name",
-                    "createdAt": "Created At",
-                    "updatedAt": "Updated At",
+                    "postId": "ID de actualité",
+                    "title": "Titre",
+                    "name": "Nom",
+                    "createdAt": "Créé à",
+                    "updatedAt": "Mis à jour à",
                     "slug": "Slug",
-                    "status": "Status",
-                    "categoryId": "Category Id",
-                    "userId": "User Id",
-                    "actions": "Actions"
+                    "status": "Statut",
+                    "categoryId": "ID de catégorie",
+                    "userId": "ID utilisateur",
+                    "actions": "Actes"
                 },
                 "body": {
-                    "btnedit": "Edit",
-                    "btndelete": "Delete",
-                    "emptyposts": "No posts, please create a new one..."
+                    "btnedit": "Modifier",
+                    "btndelete": "Supprimer",
+                    "emptyposts": "Aucun message, veuillez en créer un nouveau..."
                 },
                 "footer": {
                     "page": "Page",
-                    "totalData": "Total of"
+                    "totalData": "Total de"
                 }
             },
             "userstable": {
-                "titletable": "Users",
+                "titletable": "Utilisateurs",
                 "header": {
-                    "userId": "User Id",
-                    "username": "Username",
-                    "email": "Email",
-                    "displayName": "Display Name",
-                    "role": "Role",
-                    "createdAt": "Created At",
-                    "updatedAt": "Updated At",
-                    "categoryId": "Category Id",
-                    "actions": "Actions"
+                    "userId": "ID de l'utilisateur",
+                    "username": "Nom d'utilisateur",
+                    "email": "Courriel",
+                    "displayName": "Nom d'affichage",
+                    "role": "Rôle",
+                    "createdAt": "Créé à",
+                    "updatedAt": "Mis à jour à",
+                    "categoryId": "ID de catégorie",
+                    "actions": "Actes"
                 },
                 "body": {
-                    "btnedit": "Edit",
-                    "btndelete": "Delete",
-                    "emptyusers": "No users, please create a new one..."
+                    "btnedit": "Modifier",
+                    "btndelete": "Supprimer",
+                    "emptyusers": "Aucun utilisateur, veuillez en créer un nouveau..."
                 },
                 "footer": {
                     "page": "Page",
-                    "totalData": "Total of"
+                    "totalData": "Total de"
                 }
             },
             "categoriesdata": {
                 "titletable": "Categories",
                 "header": {
-                    "postId": "Post Id",
-                    "name": "Name",
-                    "title": "Title",
-                    "createdAt": "Created at",
-                    "updatedAt": "Updated at",
+                    "postId": "ID de actualité",
+                    "name": "Nom",
+                    "title": "Titre",
+                    "createdAt": "Créé à",
+                    "updatedAt": "Mis à jour à",
                     "slug": "Slug",
-                    "status": "Status",
-                    "categoryId": "Category Id",
-                    "userId": "User Id",
-                    "actions": "Actions"
+                    "status": "Statut",
+                    "categoryId": "ID de catégorie",
+                    "userId": "ID de l'utilisateur",
+                    "actions": "Actes"
                 },
                 "body": {
-                    "btnedit": "Edit",
-                    "btndelete": "Delete",
-                    "emptycategories": "No categories, please create a new one category..."
+                    "btnedit": "Modifier",
+                    "btndelete": "Supprimer",
+                    "emptycategories": "Aucune catégorie, veuillez en créer une nouvelle catégorie..."
                 },
                 "footer": {
                     "page": "Page",
-                    "totalData": "Total of"
+                    "totalData": "Total de"
                 }
             }
         },
         "forms": {
             "auth": {
                 "login": {
-                    "title": "Login",
-                    "lblemail": "Email",
-                    "inpemail": "Write your email here",
-                    "lblpassword": "Password",
-                    "inppassword": "Write your password here",
-                    "btnreset": "Reset",
-                    "btnlogin": "Login",
-                    "lblrecoveraccount": "Dont have an account? Register here",
-                    "btnback": "Back to Home",
-                    "lblloggedin": "You already logged in as {displayName}!",
+                    "title": "Se connecter",
+                    "lblemail": "Courriel",
+                    "inpemail": "Écrivez votre email ici",
+                    "lblpassword": "Mot de passe",
+                    "inppassword": "Écrivez votre mot de passe ici",
+                    "btnreset": "Réinitialiser",
+                    "btnlogin": "Se connecter",
+                    "lblrecoveraccount": "Vous n'avez pas de compte? Inscrivez-vous ici",
+                    "btnback": "Retour à la maison",
+                    "lblloggedin": "Vous êtes déjà connecté en tant que {displayName}!",
                     "validation": {
                         "errors": {
-                            "lblreqemail": "Email is required.",
-                            "lblreqpassword": "Password is required.",
-                            "lblinvemail": "Invalid email"
+                            "lblreqemail": "L'e-mail est obligatoire.",
+                            "lblreqpassword": "Le mot de passe est requis.",
+                            "lblinvemail": "E-mail invalide"
                         }
                     }
                 },
                 "register": {
-                    "title": "Register",
-                    "lblregistered": "You already registered as {displayName}!",
+                    "title": "Registre",
+                    "lblregistered": "Vous êtes déjà inscrit en tant que {displayName}!",
                     "steppers": {
-                        "lblstepper1": "User Data",
-                        "lblstepper2": "Personal Data",
-                        "lblstepper3": "Final steps"
+                        "lblstepper1": "Données utilisateur",
+                        "lblstepper2": "Données personnelles",
+                        "lblstepper3": "Étapes finales"
                     },
                     "step1": {
-                        "title": "Step 1: User Data",
-                        "lblemail": "Email",
-                        "inpemail": "Write your email here",
-                        "lblusername": "Username",
-                        "inpusername": "Write your username here",
-                        "lbldisplayname": "Display Name",
-                        "inpdisplayname": "Write your full name here",
-                        "btnnext": "Next",
+                        "title": "Étape 1: Données utilisateur",
+                        "lblemail": "Courriel",
+                        "inpemail": "Écrivez votre email ici",
+                        "lblusername": "Nom d'utilisateur",
+                        "inpusername": "Écrivez votre nom d'utilisateur ici",
+                        "lbldisplayname": "Nom d'affichage",
+                        "inpdisplayname": "Écrivez votre nom complet ici",
+                        "btnnext": "Suivant",
                         "validation": {
                             "errors": {
-                                "lblinvemail": "Invalid email",
-                                "lblrequsername": "Username is required",
-                                "lblreqdisplayname": "Display name (full name) is required"
+                                "lblinvemail": "E-mail invalide",
+                                "lblrequsername": "Le nom d'utilisateur est requis",
+                                "lblreqdisplayname": "Le nom d'affichage (nom complet) est obligatoire"
                             }
                         }
                     },
                     "step2": {
-                        "title": "Step 2: Personal Data",
-                        "lblpassword": "Password",
-                        "inppassword": "Write your password here",
-                        "lblconfpassword": "Confirm your password",
-                        "inpconfpassword": "Write your password of confirmation here...",
-                        "lbldateofbirthday": "Date of Birthday",
-                        "btnback": "Previous",
-                        "btnnext": "Next",
+                        "title": "Étape 2: Données personnelles",
+                        "lblpassword": "Mot de passe",
+                        "inppassword": "Écrivez votre mot de passe ici",
+                        "lblconfpassword": "Confirmez votre mot de passe",
+                        "inpconfpassword": "Écrivez votre mot de passe de confirmation ici...",
+                        "lbldateofbirthday": "Date d'anniversaire",
+                        "btnback": "Précédent",
+                        "btnnext": "Suivant",
                         "validation": {
                             "errors": {
-                                "lblreqpass": "The password is required",
-                                "lblreqpassconf": "The password confirmation is required",
-                                "lbldbdayold": "You are too old!",
-                                "lbldbdayoung": "You are too young!",
-                                "lbldiffpass": "Password doesn't match"
+                                "lblreqpass": "Le mot de passe est requis",
+                                "lblreqpassconf": "La confirmation du mot de passe est requise",
+                                "lbldbdayold": "Tu es trop vieux!",
+                                "lbldbdayoung": "Tu es trop jeune!",
+                                "lbldiffpass": "Le mot de passe ne correspond pas"
                             }
                         }
                     },
                     "step3": {
-                        "title": "Step 3: Final steps",
-                        "lblterms": "Terms and conditions",
-                        "btnterms": "I read and accept all terms and conditions.",
-                        "btnreset": "Reset",
-                        "btnprevious": "Previous",
-                        "btnregister": "Register",
+                        "title": "Étape 3: Étapes finales",
+                        "lblterms": "Termes et conditions",
+                        "btnterms": "J'ai lu et j'accepte tous les termes et conditions.",
+                        "btnreset": "Réinitialiser",
+                        "btnprevious": "Précédent",
+                        "btnregister": "Registre",
                         "validation": {
                             "errors": {
-                                "lblreqterms": "You must to accept all terms and conditions."
+                                "lblreqterms": "Vous devez accepter tous les termes et conditions."
                             }
                         }
                     },
                     "validation": {
                         "errors": {
-                            "lblloggedin": "You already logged in as {displayName}!"
+                            "lblloggedin": "Vous êtes déjà connecté en tant que {displayName}!"
                         }
                     }
                 }
@@ -256,310 +256,310 @@
             "crud": {
                 "categories": {
                     "add": {
-                        "title": "Add category",
-                        "lblname": "Name",
-                        "inpname": "Write here the name of the category",
+                        "title": "Ajouter une catégorie",
+                        "lblname": "Nom",
+                        "inpname": "Écrivez ici le nom de la catégorie",
                         "lblslug": "Slug Url",
-                        "inpslug": "Write here the slug url",
-                        "lblstatus": "Status",
+                        "inpslug": "Écrivez ici l'URL du slug",
+                        "lblstatus": "Statut",
                         "inpstatus": {
                             "options": {
-                                "sel": "Select the option of the state",
-                                "all": "All",
-                                "locked": "Locked",
-                                "deleted": "Deleted"
+                                "sel": "Sélectionnez l'option de l'état",
+                                "all": "Tout",
+                                "locked": "Fermé",
+                                "deleted": "Supprimé"
                             }
                         },
-                        "btnreset": "Reset",
-                        "btnadd": "Add",
+                        "btnreset": "Réinitialiser",
+                        "btnadd": "Ajouter",
                         "messages": {
-                            "unauth": "You are not authorized to see this page!",
-                            "success": "Category added successfully!",
-                            "error": "Error when adding category! Message: {message}",
-                            "errorapi": "Occurred an error when trying to add the category! Message: {message}"
+                            "unauth": "Vous n'êtes pas autorisé à consulter cette page!",
+                            "success": "Catégorie ajoutée avec succès!",
+                            "error": "Erreur lors de l'ajout de la catégorie! Message: {message}",
+                            "errorapi": "Une erreur s'est produite lors de l'ajout de la catégorie! Message: {message}"
                         }
                     },
                     "delete": {
-                        "title": "Delete category",
+                        "title": "Supprimer category",
                         "emptycategories": "0 categories.",
                         "table": {
                             "header": {
                                 "id": "Id",
-                                "name": "Name",
+                                "name": "Nom",
                                 "slug": "Slug",
-                                "createdAt": "Created at",
-                                "updatedAt": "Updated at",
-                                "status": "Status"
+                                "createdAt": "Créé à",
+                                "updatedAt": "Mis à jour à",
+                                "status": "Statut"
                             }
                         },
                         "messages": {
-                            "unauth": "You are not authorized to see this page!",
-                            "success": "Category deleted successfully!",
-                            "error": "Error when deleting category! Message: {message}",
-                            "errorapi": "Occurred an error when trying to delete the category! Message: {message}",
+                            "unauth": "Vous n'êtes pas autorisé à consulter cette page!",
+                            "success": "Catégorie supprimée avec succès!",
+                            "error": "Erreur lors de la suppression de la catégorie! Message: {message}",
+                            "errorapi": "Une erreur s'est produite lors de la tentative de suppression de la catégorie! Message: {message}",
                             "confirm": {
-                                "title": "Are you sure you want to delete this category?",
-                                "btnconfirm": "Yes",
-                                "btncancel": "No"
+                                "title": "Êtes-vous sûr de vouloir supprimer cette catégorie?",
+                                "btnconfirm": "Oui",
+                                "btncancel": "Non"
                             }
                         }
                     },
                     "edit": {
-                        "title": "Edit category",
+                        "title": "Modifier category",
                         "emptycategories": "0 categories.",
-                        "lblname": "Name",
-                        "inpname": "Write here the name of the category",
+                        "lblname": "Nom",
+                        "inpname": "Écrivez ici le nom de la catégorie",
                         "lblslug": "Slug Url",
-                        "inpslug": "Write here the slug url",
-                        "lblstatus": "Status",
+                        "inpslug": "Écrivez ici l'URL du slug",
+                        "lblstatus": "Statut",
                         "inpstatus": {
                             "options": {
-                                "sel": "Select the option of the state",
-                                "all": "All",
-                                "locked": "Locked",
-                                "deleted": "Deleted"
+                                "sel": "Sélectionner l'option de l'état",
+                                "all": "Tous",
+                                "locked": "Verrouillé",
+                                "deleted": "Supprimé"
                             }
                         },
-                        "btnreset": "Reset",
-                        "btnedit": "Edit",
+                        "btnreset": "Réinitialiser",
+                        "btnedit": "Modifier",
                         "messages": {
-                            "unauth": "You are not authorized to see this page!",
-                            "success": "Category edited successfully!",
-                            "error": "Error when editing category! Message: {message}",
-                            "errorapi": "Occurred an error when trying to edit the category! Message: {message}"
+                            "unauth": "Vous n'êtes pas autorisé à voir cette page!",
+                            "success": "Catégorie éditée avec succès!",
+                            "error": "Erreur lors de la modification de la catégorie! Message: {message}",
+                            "errorapi": "Une erreur s'est produite lors de la tentative de modification de la catégorie! Message: {message}"
                         }
                     }
                 },
                 "comments": {
                     "delete": {
-                        "title": "Delete comment",
+                        "title": "Supprimer comment",
                         "table": {
                             "header": {
                                 "id": "Id",
-                                "content": "Content",
-                                "status": "Status",
-                                "userId": "User Id",
-                                "postId": "Post Id",
-                                "categoryId": "Category Id",
-                                "createdAt": "Created At",
-                                "updatedAt": "Updated At"
+                                "content": "Contenu",
+                                "status": "Statut",
+                                "userId": "ID de l'utilisateur",
+                                "postId": "ID de actualité",
+                                "categoryId": "ID de catégorie",
+                                "createdAt": "Créé à",
+                                "updatedAt": "Mis à jour à"
                             }
                         },
                         "messages": {
-                            "unauth": "You are not authorized to see this page!",
-                            "success": "Comment has been deleted successfully!",
-                            "error": "Error when deleting comment! Message: {message}",
-                            "errorapi": "Occurred an error when trying to delete the comment! Message: {message}",
+                            "unauth": "Vous n'êtes pas autorisé à consulter cette page!",
+                            "success": "Le commentaire a été supprimé avec succès!",
+                            "error": "Erreur lors de la suppression du commentaire! Message: {message}",
+                            "errorapi": "Une erreur s'est produite lors de la tentative de suppression du commentaire! Message: {message}",
                             "confirm": {
-                                "title": "Are you sure you want to delete this comment (id: {id})?",
-                                "btnconfirm": "Yes",
-                                "btncancel": "No"
+                                "title": "Êtes-vous sûr de vouloir supprimer ce commentaire (id: {id})?",
+                                "btnconfirm": "Oui",
+                                "btncancel": "Non"
                             }
                         }
                     },
                     "edit": {
-                        "title": "Edit comment",
-                        "lblcontent": "Content",
-                        "inpcontent": "Write here the content of the comment",
-                        "btnreset": "Reset",
-                        "btnedit": "Edit",
+                        "title": "Modifier comment",
+                        "lblcontent": "Contenu",
+                        "inpcontent": "Écrivez ici le contenu du commentaire",
+                        "btnreset": "Réinitialiser",
+                        "btnedit": "Modifier",
                         "messages": {
-                            "unauth": "You are not authorized to see this page!",
-                            "success": "The current comment has been edited successfully!",
-                            "error": "Error when deleting comment! Message: {message}",
-                            "errorapi": "Occurred an error when trying to delete the comment! Message: {message}",
+                            "unauth": "Vous n'êtes pas autorisé à voir cette page!",
+                            "success": "Le commentaire actuel a été modifié avec succès!",
+                            "error": "Erreur lors de la modification du commentaire! Message: {message}",
+                            "errorapi": "Une erreur s'est produite lors de la modification du commentaire! Message: {message}",
                             "confirm": {
-                                "title": "Are you sure you want to delete this comment (id: {id})?",
-                                "btnconfirm": "Yes",
-                                "btncancel": "No"
+                                "title": "Êtes-vous sûr de vouloir modifier ce commentaire (id: {id})?",
+                                "btnconfirm": "Oui",
+                                "btncancel": "Non"
                             }
                         }
                     }
                 },
                 "news": {
                     "add": {
-                        "title": "Add news",
-                        "lbltitle": "Title",
-                        "inptitle": "Write here the title of the news",
-                        "lblcontent": "Content",
-                        "inpcontent": "Write here the content of the news",
+                        "title": "Ajouter des nouvelles",
+                        "lbltitle": "Titre",
+                        "inptitle": "Écrivez ici le titre de la nouvelle",
+                        "lblcontent": "Contenu",
+                        "inpcontent": "Écrivez ici le contenu de la nouvelle",
                         "lblimage": "Image",
-                        "inpimage": "Write here the image url",
-                        "lblslug": "Slug Url",
-                        "inpslug": "Write here the slug url",
-                        "lblcategory": "Category",
+                        "inpimage": "Écrivez ici l'url de l'image",
+                        "lblslug": "URL du slug",
+                        "inpslug": "Écrivez ici l'URL du slug",
+                        "lblcategory": "Catégorie",
                         "listcategories": {
                             "options": {
-                                "sel": "Select the category of the news",
-                                "general": "General"
+                                "sel": "Sélectionnez la catégorie de l'actualité",
+                                "general": "Général"
                             }
                         },
-                        "lblstatus": "Status",
+                        "lblstatus": "Statut",
                         "liststatus": {
                             "options": {
-                                "sel": "Select the option of the state",
-                                "all": "All",
-                                "locked": "Locked",
-                                "deleted": "Deleted"
+                                "sel": "Sélectionnez l'option de l'état",
+                                "all": "Tout",
+                                "locked": "Fermé",
+                                "deleted": "Supprimé"
                             }
                         },
-                        "lbluserId": "User Id",
-                        "btnreset": "Reset",
-                        "btnadd": "Add",
+                        "lbluserId": "ID de l'utilisateur",
+                        "btnreset": "Réinitialiser",
+                        "btnadd": "Ajouter",
                         "messages": {
-                            "unauth": "You are not authorized to see this page!",
-                            "success": "Fetched categories successfully!",
-                            "error": "Failed to fetch categories. Message: {message}",
-                            "errorapi": "An error occurred while fetching categories! Message: {message}",
-                            "addsuccess": "The news post has been added sucessfully!",
-                            "adderror": "Failed to add news post! Message: {message}",
-                            "adderrorapi": "Error when adding news post! Message: {message}"
+                            "unauth": "Vous n'êtes pas autorisé à voir cette page!",
+                            "success": "Catégories récupérées avec succès!",
+                            "error": "Échec de la récupération des catégories. Message: {message}",
+                            "errorapi": "Une erreur s'est produite lors de la récupération des catégories! Message: {message}",
+                            "addsuccess": "L'actualité a été ajouté avec succès!",
+                            "adderror": "Échec de l'ajout de l'actualité! Message: {message}",
+                            "adderrorapi": "Erreur lors de l'ajout de l'actualité! Message: {message}"
                         }
                     },
                     "delete": {
-                        "title": "Delete news",
-                        "emptynews": "0 news.",
+                        "title": "Supprimer les nouvelles",
+                        "emptynews": "0 nouvelles.",
                         "table": {
                             "header": {
                                 "id": "Id",
-                                "title": "Title",
-                                "categoryId": "Category Id",
-                                "userId": "User Id"
+                                "title": "Titre",
+                                "categoryId": "ID de catégorie",
+                                "userId": "ID de l'utilisateur"
                             }
                         },
                         "messages": {
-                            "unauth": "You are not authorized to see this page!",
-                            "success": "The news post has been deleted successfully!",
-                            "error": "Failed to delete this news post! Message: {message}",
-                            "errorapi": "Occurred an error when delete this news post! Message: {message}",
+                            "unauth": "Vous n'êtes pas autorisé à consulter cette page!",
+                            "success": "La actualité a été supprimée avec succès!",
+                            "error": "Échec de la suppression de cette actualité! Message: {message}",
+                            "errorapi": "Une erreur s'est produite lors de la suppression de cette actualité! Message: {message}",
                             "confirm": {
-                                "title": "Are you sure you want to delete this news (id: {id})?",
-                                "btnconfirm": "Yes",
-                                "btncancel": "No"
+                                "title": "Êtes-vous sûr de vouloir supprimer cette actualité (id: {id})?",
+                                "btnconfirm": "Oui",
+                                "btncancel": "Non"
                             }
                         }
                     },
                     "edit": {
-                        "title": "Edit news",
-                        "lbltitle": "Title",
-                        "inptitle": "Write here the title of the news",
-                        "lblcontent": "Content",
-                        "inpcontent": "Write here the content of the news",
+                        "title": "Modifier news",
+                        "lbltitle": "Titre",
+                        "inptitle": "Écrivez ici le titre de la nouvelle",
+                        "lblcontent": "Contenu",
+                        "inpcontent": "Écrivez ici le contenu de la nouvelle",
                         "lblimage": "Image",
-                        "inpimage": "Write here the image url",
+                        "inpimage": "Écrivez ici l'url de l'image",
                         "lblslug": "Slug Url",
-                        "inpslug": "Write here the slug url",
-                        "lblstatus": "Status",
+                        "inpslug": "Écrivez ici l'URL du slug",
+                        "lblstatus": "Statut",
                         "lblcategory": "Category",
                         "listcategories": {
                             "options": {
-                                "sel": "Select the category of the news",
-                                "general": "General"
+                                "sel": "Sélectionner la catégorie d'actualités",
+                                "general": "Général"
                             }
                         },
                         "liststatus": {
                             "options": {
-                                "sel": "Select the option of the state",
-                                "all": "All",
-                                "locked": "Locked",
-                                "deleted": "Deleted"
+                                "sel": "Sélectionnez l'option de l'état",
+                                "all": "Tout",
+                                "locked": "Fermé",
+                                "deleted": "Supprimé"
                             }
                         },
-                        "lbluserId": "User Id",
-                        "btnreset": "Reset",
-                        "btnedit": "Edit",
+                        "lbluserId": "ID de l'utilisateur",
+                        "btnreset": "Réinitialiser",
+                        "btnedit": "Modifier",
                         "messages": {
-                            "unauth": "You are not authorized to see this page!",
-                            "success": "Post edited successfully!",
-                            "error": "Error when editing post! Message: {message}",
-                            "errorapi": "Occurred an error when trying to edit the post! Message: {message}"
+                            "unauth": "Vous n'êtes pas autorisé à consulter cette page!",
+                            "success": "Message édité avec succès!",
+                            "error": "Erreur lors de la modification du message! Message: {message}",
+                            "errorapi": "Une erreur s'est produite lors de la modification du message! Message: {message}"
                         }
                     }
                 },
                 "users": {
                     "add": {
-                        "title": "Add users",
-                        "lblusername": "Username",
-                        "inpusername": "Write your username here",
-                        "lblpassword": "Password",
-                        "inppassword": "Write your password here",
-                        "lblemail": "Email",
-                        "inpemail": "Write your email here",
-                        "lbldisplayname": "Display Name",
-                        "inpdisplayname": "Write your full name here",
-                        "lblavatar": "Image Url",
-                        "inpavatar": "Write your avatar url here...",
-                        "avatartitle": "{userName}'s Avatar",
-                        "lblcover": "Cover Url",
-                        "inpcover": "Write your cover url here...",
-                        "covertitle": "{userName}'s Cover",
-                        "lblabout": "About",
-                        "inpabout": "Write your about yourself here...",
-                        "btnreset": "Reset",
-                        "btnadd": "Add",
-                        "btnback": "Back",
+                        "title": "Ajouter des utilisateurs",
+                        "lblusername": "Nom d'utilisateur",
+                        "inpusername": "Écrivez votre nom d'utilisateur ici",
+                        "lblpassword": "Mot de passe",
+                        "inppassword": "Écrivez votre mot de passe ici",
+                        "lblemail": "Courriel",
+                        "inpemail": "Écrivez votre email ici",
+                        "lbldisplayname": "Nom d'affichage",
+                        "inpdisplayname": "Écrivez votre nom complet ici",
+                        "lblavatar": "URL de l'image",
+                        "inpavatar": "Écrivez l'URL de votre avatar ici...",
+                        "avatartitle": "L'avatar de {userName}",
+                        "lblcover": "URL de couverture",
+                        "inpcover": "Écrivez l'URL de votre couverture ici...",
+                        "covertitle": "Couverture de {userName}",
+                        "lblabout": "À propos",
+                        "inpabout": "Écrivez ici ce que vous pensez de vous...",
+                        "btnreset": "Réinitialiser",
+                        "btnadd": "Ajouter",
+                        "btnback": "Arrière",
                         "messages": {
-                            "unauth": "You are not authorized to see this page!",
-                            "success": "The user has been added sucessfully!",
-                            "error": "Failed to fetch users data! Message: {message}",
-                            "errorapi": "Error when trying to fetch users data! Message: {message}"
+                            "unauth": "Vous n'êtes pas autorisé à consulter cette page!",
+                            "success": "L'utilisateur a été ajouté avec succès!",
+                            "error": "Échec de la récupération des données de l'utilisateur! Message: {message}",
+                            "errorapi": "Erreur lors de la récupération des données de l'utilisateur! Message: {message}"
                         }
                     },
                     "edit": {
-                        "title": "Edit users",
-                        "lbluserId": "User Id",
+                        "title": "Modifier users",
+                        "lbluserId": "ID de l'utilisateur",
                         "inpuserId": "Write your user id here",
-                        "lblusername": "Username",
-                        "inpusername": "Write your username here",
-                        "lblpassword": "Password",
-                        "inppassword": "Write your password here",
-                        "lblemail": "Email",
-                        "inpemail": "Write your email here",
-                        "lbldisplayname": "Display Name",
-                        "inpdisplayname": "Write your full name here",
-                        "lblavatar": "Image Url",
-                        "inpavatar": "Write your avatar url here...",
-                        "avatartitle": "{userName}'s Avatar",
-                        "lblcover": "Cover Url",
-                        "inpcover": "Write your cover url here...",
-                        "covertitle": "{userName}'s Cover",
+                        "lblusername": "Nom d'utilisateur",
+                        "inpusername": "Écrivez votre nom d'utilisateur ici",
+                        "lblpassword": "Mot de passe",
+                        "inppassword": "Écrivez votre mot de passe ici",
+                        "lblemail": "Courriel",
+                        "inpemail": "Écrivez votre email ici",
+                        "lbldisplayname": "Nom d'affichage",
+                        "inpdisplayname": "Écrivez votre nom complet ici",
+                        "lblavatar": "URL de l'image",
+                        "inpavatar": "Écrivez l'URL de votre avatar ici...",
+                        "avatartitle": "L'avatar de {userName}",
+                        "lblcover": "URL de couverture",
+                        "inpcover": "Écrivez l'URL de votre couverture ici...",
+                        "covertitle": "Couverture de {userName}",
                         "lblrole": "Role",
                         "inprole": "Write your role here...",
                         "lblprivacy": "Privacy",
                         "inpprivacy": "Select or write your privacy here...",
-                        "lblabout": "About",
-                        "inpabout": "Write your about yourself here...",
-                        "btnreset": "Reset",
-                        "btnedit": "Edit",
-                        "btnback": "Back",
+                        "lblabout": "À propos",
+                        "inpabout": "Écrivez ici ce que vous pensez de vous...",
+                        "btnreset": "Réinitialiser",
+                        "btnedit": "Modifier",
+                        "btnback": "Arrière",
                         "messages": {
-                            "unauth": "You are not authorized to see this page!",
-                            "success": "The user (id: {id}) has been updated sucessfully!",
-                            "error": "Failed to update this user (id: {id})! Message: {message}",
-                            "errorapi": "An error occurred while trying to update this user (id: {id})! Message: {message}"
+                            "unauth": "Vous n'êtes pas autorisé à consulter cette page!",
+                            "success": "L'utilisateur (id: {id}) a été mis à jour avec succès!",
+                            "error": "Échec de la mise à jour de cet utilisateur (id: {id})! Message: {message}",
+                            "errorapi": "Une erreur s'est produite lors de la mise à jour de cet utilisateur (id: {id})! Message: {message}"
                         }
                     },
                     "delete": {
-                        "title": "Delete users",
+                        "title": "Supprimer users",
                         "table": {
                             "header": {
-                                "userId": "User Id",
-                                "username": "Username",
-                                "email": "Email",
-                                "displayName": "Display Name",
+                                "userId": "ID de l'utilisateur",
+                                "username": "Nom d'utilisateur",
+                                "email": "Courriel",
+                                "displayName": "Nom d'affichage",
                                 "role": "Role"
                             }
                         },
-                        "btnback": "Back",
+                        "btnback": "Arrière",
                         "messages": {
-                            "unauth": "You are not authorized to see this page!",
-                            "success": "The user (id: {id}) has been deleted sucessfully!",
-                            "error": "Failed to delete this user (id: {id})! Message: {message}",
-                            "errorapi": "Ocurred an error while trying to delete this user (id: {id})! Message: {message}",
+                            "unauth": "Vous n'êtes pas autorisé à consulter cette page!",
+                            "success": "L'utilisateur (id: {id}) a été supprimé avec succès!",
+                            "error": "Échec de la suppression de cet utilisateur (id: {id})! Message: {message}",
+                            "errorapi": "Une erreur s'est produite lors de la tentative de suppression de cet utilisateur (id: {id})! Message: {message}",
                             "confirm": {
-                                "title": "Do you want to delete this user (id: {id})?",
-                                "btnconfirm": "Yes",
-                                "btncancel": "No"
+                                "title": "Voulez-vous supprimer cet utilisateur (id: {id})?",
+                                "btnconfirm": "Oui",
+                                "btncancel": "Non"
                             }
                         }
                     }
@@ -568,70 +568,70 @@
             "search": {
                 "validation": {
                     "errors": {
-                        "lblreqsearch": "Write something in the search bar!"
+                        "lblreqsearch": "Écrivez quelque chose dans la barre de recherche!"
                     }
                 }
             },
             "advancedsearch": {
-                "title": "Advanced filter search:",
-                "lblsearch": "Search",
-                "inpsearch": "Search...",
-                "lblorderby": "Order by",
-                "lblsortby": "Sort by",
+                "title": "Recherche par filtre avancé:",
+                "lblsearch": "Rechercher",
+                "inpsearch": "Rechercher...",
+                "lblorderby": "Trier par",
+                "lblsortby": "Trier par",
                 "optsorderby": {
-                    "asc": "Ascending",
-                    "desc": "Descending"
+                    "asc": "Ascendant",
+                    "desc": "Descendant"
                 },
                 "optssortby": {
-                    "postId": "Post Id",
-                    "title": "Title"
+                    "postId": "ID de actualité",
+                    "title": "Titre"
                 },
-                "btnreset": "Reset",
-                "btnsearch": "Search"
+                "btnreset": "Réinitialiser",
+                "btnsearch": "Recherche"
             },
             "news": {
                 "validation": {
                     "errors": {
-                        "lblreqtitle": "The title is required to be filled",
-                        "lblreqcontent": "The content is required to be filled"
+                        "lblreqtitle": "Le titre doit être renseigné",
+                        "lblreqcontent": "Le contenu doit être renseigné"
                     }
                 }
             },
             "categories": {
                 "validation": {
                     "errors": {
-                        "lblreqname": "The name is required to be filled"
+                        "lblreqname": "Le nom doit être renseigné"
                     }
                 }
             },
             "users": {
                 "validation": {
                     "errors": {
-                        "lblrequsername": "The username is required to be filled",
-                        "lblreqpassword": "The password is required to be filled",
-                        "lblreqemail": "The email is required to be filled",
-                        "lblreqdisplayname": "The display name (full name) is required to be filled"
+                        "lblrequsername": "Le nom d'utilisateur doit être renseigné",
+                        "lblreqpassword": "Le mot de passe doit être renseigné",
+                        "lblreqemail": "L'adresse e-mail doit être renseignée",
+                        "lblreqdisplayname": "Le nom d'affichage (nom complet) doit être renseigné"
                     }
                 }
             },
             "commits": {
                 "validation": {
                     "errors": {
-                        "lblreqowner": "The owner name is required to be filled",
-                        "lblreqrepo": "The repository name is required to be filled"
+                        "lblreqowner": "Le nom du propriétaire doit être renseigné",
+                        "lblreqrepo": "Le nom du dépôt doit être renseigné"
                     }
                 }
             },
             "comments": {
-                "emptycomments": "0 comments",
+                "emptycomments": "0 commentaire",
                 "status": {
-                    "locked": "This comment is now locked!"
+                    "locked": "Ce commentaire est désormais verrouillé !"
                 },
                 "actions": {
-                    "btnedit": "Edit",
-                    "btndelete": "Delete",
-                    "statusunlock": "Unlock",
-                    "statuslock": "Lock",
+                    "btnedit": "Modifier",
+                    "btndelete": "Supprimer",
+                    "statusunlock": "Déverrouiller",
+                    "statuslock": "Verrouiller",
                     "keywords": {
                         "lock": "lock",
                         "locked": "locked",
@@ -640,35 +640,35 @@
                     }
                 },
                 "inputs": {
-                    "lblphavatar": "{displayName}'s avatar",
-                    "lblphcontent": "Write here your comment",
-                    "lblstatus": "Status:",
+                    "lblphavatar": "Avatar de {displayName}",
+                    "lblphcontent": "Écrivez ici votre commentaire",
+                    "lblstatus": "Statut:",
                     "selstatus": {
-                        "phopt": "Select the option of status",
+                        "phopt": "Sélectionnez l'option de statut",
                         "options": {
-                            "opt1": "All",
-                            "opt2": "Locked",
-                            "opt3": "Deleted"
+                            "opt1": "Tout",
+                            "opt2": "Fermé",
+                            "opt3": "Supprimé"
                         }
                     },
-                    "lbluserid": "User Id",
-                    "lblpostid": "Post Id",
-                    "lblcategoryid": "Category Id",
-                    "btnreset": "Reset",
-                    "btnadd": "Add"
+                    "lbluserid": "ID de l'utilisateur",
+                    "lblpostid": "ID de actualité",
+                    "lblcategoryid": "ID de catégorie",
+                    "btnreset": "Réinitialiser",
+                    "btnadd": "Ajouter"
                 },
                 "validation": {
                     "errors": {
-                        "lblphcontent": "Write here your comment"
+                        "lblphcontent": "Écrivez ici votre commentaire"
                     }
                 },
                 "apimessages": {
-                    "success": "The new comment has been added sucessfully!",
-                    "error": "Failed to add new comment! Message: {message}",
-                    "errorapi": "Error when adding new comment! Message: {message}",
-                    "statussuccess": "The current comment has been {keywordStatus} sucessfully!",
-                    "statuserror": "Failed to {keywordStatus} current comment! Message: {message}",
-                    "statuserrorapi": "Failed to {keywordStatus} current comment! Message: {message}"
+                    "success": "Le nouveau commentaire a été ajouté avec succès!",
+                    "error": "Échec de l'ajout du nouveau commentaire! Message: {message}",
+                    "errorapi": "Erreur lors de l'ajout du nouveau commentaire! Message: {message}",
+                    "statussuccess": "Le commentaire actuel a été ajouté avec succès! {keywordStatus}!",
+                    "statuserror": "Échec de l'ajout du commentaire actuel! {keywordStatus}! Message: {message}",
+                    "statuserrorapi": "Échec de l'ajout du commentaire actuel! {keywordStatus}! Message: {message}"
                 }
             }
         }

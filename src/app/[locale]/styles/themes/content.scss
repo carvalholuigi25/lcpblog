@@ -17,7 +17,7 @@
     }
 
     .glassmorphism {
-        .navbar, .navbar-container, .offcanvas, footer {
+        .navbar, .navbar-container, .offcanvas, #navlinksadmdb, footer {
             @include m.applyBkg($themename, .5);
         }
     }
@@ -201,9 +201,25 @@
         }
     }
 
+    .iconav {
+        color: $fgcolorprimary;
+    }
+
     #navlinksadmdb {
         background-color: $bgcolorprimary;
         color: $fgcolorprimary;
+
+        .btn {
+            background-color: transparent;
+            border-color: transparent;
+        }
+
+        .mysublinks {
+            .dropdown-menu {
+                background-color: transparent;
+                border-color: transparent;
+            }
+        }
 
         .nav-link {
             &.active {

@@ -233,7 +233,7 @@ export default function Archive({ locale }: { locale: string }) {
                                                     </div>
 
                                                     <div className="card-footer mt-3">
-                                                        <Link href={`/${newsSuffix}/${newsi.categoryId}/${newsi.postId}`} className="btn btn-primary btn-rounded mx-auto d-inline-block">
+                                                        <Link href={`/${locale ?? getDefLocale()}/${newsSuffix}/${newsi.categoryId}/${newsi.postId}`} className="btn btn-primary btn-rounded mx-auto d-inline-block">
                                                             {t("btnreadmore") ?? "Read more"}
                                                         </Link>
                                                     </div>

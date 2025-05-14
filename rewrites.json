@@ -29,6 +29,36 @@
                     "destination": "/pt-PT/pages/users"
                 }
             ]
+        },
+        {
+            "id": 2,
+            "locale": "fr-FR",
+            "rules": [
+                {
+                    "source": "/fr-FR/pages/admin/panneau",
+                    "destination": "/fr-FR/pages/admin/panel"
+                },
+                {
+                    "source": "/fr-FR/pages/nouvelles",
+                    "destination": "/fr-FR/pages/news"
+                },
+                {
+                    "source": "/fr-FR/pages/nouvelles/:cid",
+                    "destination": "/fr-FR/pages/news/:cid"
+                },
+                {
+                    "source": "/fr-FR/pages/nouvelles/:cid/:id",
+                    "destination": "/fr-FR/pages/news/:cid/:id"
+                },
+                {
+                    "source": "/fr-FR/pages/archive",
+                    "destination": "/fr-FR/pages/archive"
+                },
+                {
+                    "source": "/fr-FR/pages/users",
+                    "destination": "/fr-FR/pages/utilisateurs"
+                }
+            ]
         }
     ]
 }

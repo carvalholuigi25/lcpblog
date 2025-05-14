@@ -47,6 +47,18 @@ p {
   position: relative;
 }
 
+.titlep {
+  font-family: var(--font-orbitron);
+  font-size: 2rem;
+  line-height: 2rem;
+}
+
+.stitlep {
+  font-family: var(--font-orbitron);
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+}
+
 .navbar {
   --background: black;
 
@@ -282,6 +294,7 @@ footer {
   color: var(--background);
   background: rgba(var(--bs-tertiary-bg-rgb), var(--bs-bg-opacity)) !important;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+  z-index: 1;
 
   .colfooter1 {
     text-align: center;
@@ -855,6 +868,10 @@ form {
   }
 }
 
+.dropdown-menu {
+  z-index: 1001;
+}
+
 .pagination {
   z-index: 0;
   
@@ -947,6 +964,12 @@ form {
 
   .offcanvas {
     @include m.setBlur(12px, 150%);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.5);
+  }
+
+  #navlinksadmdb {
+    @include m.setBlur(12px, 100%);
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
     background: rgba(255, 255, 255, 0.5);
   }

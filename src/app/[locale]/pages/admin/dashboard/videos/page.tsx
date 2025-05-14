@@ -72,7 +72,7 @@ const AdminVideos = () => {
                                 <AdminSidebarDashboard sidebarToggle={sidebarToggle} toggleSidebar={toggleSidebar} locale={locale ?? getDefLocale()} />
                             </div>
                             <div className={"col-12 col-md-" + (!sidebarToggle ? "9" : "12") + " col-lg-" + (!sidebarToggle ? "10" : "12") + ""}>
-                                <h3 className="text-center">
+                                <h3 className="text-center titlep">
                                     <i className="bi bi-file-post me-2"></i>
                                     {t("title") ?? "Videos"}
                                 </h3>
