@@ -222,7 +222,7 @@
                 "lblemail": "E-mail:",
                 "lbldisplayname": "Nom d'affichage:",
                 "lblrole": "Rôle:",
-                "lblaabout": "À propos:",
+                "lblabout": "À propos:",
                 "lblprivacy": "Confidentialité:"
             },
             "covertitle": "Couverture de {displayName}",

@@ -94,10 +94,12 @@ export const links = (t: any): AdminSidebarLinksProps[] => {
 export default function AdminSidebarDashboard({ sidebarToggle, toggleSidebar, locale }: AdminSidebarProps) {
     const t = useTranslations('ui.offcanvasAdmin');
     const pathname = usePathname();
-    const [logInfo, setLogInfo] = useState("");
     const prefix = "/pages/admin/dashboard";
+    const isNavbarSmallEnabled = false;
 
-    const showIconName = false;
+    const [logInfo, setLogInfo] = useState("");
+    const [isNavbarSmall, showisNavbarSmall] = useState(false);
+
     const mlinks: any = [];
     let msublinks: any = [];
 
@@ -106,6 +108,10 @@ export default function AdminSidebarDashboard({ sidebarToggle, toggleSidebar, lo
             setLogInfo(getFromStorage("logInfo")!);
         }
     }, [logInfo]);
+
+    const toggleisNavbarSmall = () => {
+        showisNavbarSmall(!isNavbarSmall);
+    }
 
     const getIsActive = (pathname: string, prefix: string, i: number, x: any) => {
         return x.id == 0 && pathname.endsWith(prefix) ? " active" : pathname.endsWith(prefix + x.link) ? (i == x.id ? " active" : "") : pathname.endsWith("/") ? " active" : "";
@@ -146,7 +152,7 @@ export default function AdminSidebarDashboard({ sidebarToggle, toggleSidebar, lo
                     <li key={"sublink" + j}>
                         <Link className={"dropdown-item sublink " + isActive} aria-current={isPageCurrent} href={prefix + x.link + y.link} locale={locale ?? getDefLocale()}>
                             <i className={"bi " + y.icon + " me-2"}></i>
-                            <span className={"navlinkname" + (showIconName ? " hidden" : "")}>{y.name}</span>
+                            <span className={"navlinkname" + (isNavbarSmall ? " hidden" : "")}>{y.name}</span>
                         </Link>
                     </li>
                 );
@@ -156,7 +162,7 @@ export default function AdminSidebarDashboard({ sidebarToggle, toggleSidebar, lo
                 <li className="nav-item dropdown mysublinks" key={i}>
                     <button className="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                         <i className={"bi " + x.icon + " me-2"}></i>
-                        <span className={"navlinkname" + (showIconName ? " hidden" : "")}>{x.name}</span>
+                        <span className={"navlinkname" + (isNavbarSmall ? " hidden" : "")}>{x.name}</span>
                     </button>
                     <ul className="dropdown-menu">
                         {msublinks}
@@ -169,7 +175,7 @@ export default function AdminSidebarDashboard({ sidebarToggle, toggleSidebar, lo
                 <li className="nav-item" key={i}>
                     <Link className={"nav-link" + isActive} aria-current={isPageCurrent} href={prefix + x.link} locale={locale ?? getDefLocale()}>
                         <i className={"bi " + x.icon + " me-2"}></i>
-                        <span className={"navlinkname" + (showIconName ? " hidden" : "")}>{x.name}</span>
+                        <span className={"navlinkname" + (isNavbarSmall ? " hidden" : "")}>{x.name}</span>
                     </Link>
                 </li>
             );
@@ -177,9 +183,9 @@ export default function AdminSidebarDashboard({ sidebarToggle, toggleSidebar, lo
     });
 
     return (
-        <ul className={"nav flex-column nav-pills " + astyles.navlinksadmdb + (sidebarToggle ? " hidden" : "") + (showIconName ? " w-auto" : "")} id="navlinksadmdb">
+        <ul className={"nav flex-column nav-pills " + astyles.navlinksadmdb + (sidebarToggle ? " hidden" : "") + (isNavbarSmall ? " smnavs w-auto" : "")} id="navlinksadmdb">
             <li className={"nav-item d-flex justify-content-between align-items-center mb-3"}>
-                <Link className={"navbar-brand" + (showIconName ? " hidden" : "")} href="/" locale={locale ?? getDefLocale()}>LCPBlog</Link>
+                <Link className={"navbar-brand" + (isNavbarSmall ? " hidden" : "")} href="/" locale={locale ?? getDefLocale()}>LCPBlog</Link>
                 <button type="button" className={"nav-link " + astyles.btnshside} onClick={toggleSidebar} title={t("btnclose") ?? "Close"}>
                     {!!sidebarToggle ? <i className="bi bi-list"></i> : <i className="bi bi-x-lg"></i>}
                 </button>
@@ -188,7 +194,7 @@ export default function AdminSidebarDashboard({ sidebarToggle, toggleSidebar, lo
             <li className="nav-item">
                 {!!logInfo && (
                     <>
-                        <div className={astyles.navlinkalogin + " d-flex justify-content-between align-items-center nav-link p-3"}>
+                        <div className={astyles.navlinkalogin + " d-flex justify-content-between align-items-center nav-link mynavlinkalogin p-3"}>
                             <Link href={"/pages/users/" + getUserId()} locale={locale ?? getDefLocale()}>
                                 <Image src={"/images/" + getUserAvatar()} width="30" height="30" alt="user" className={astyles.imgavatarheader} />
                                 <span>{getDisplayName()}</span>
@@ -200,6 +206,11 @@ export default function AdminSidebarDashboard({ sidebarToggle, toggleSidebar, lo
                         </div>
                     </>
                 )}
+            </li>
+            <li className={"nav-item " + (!isNavbarSmallEnabled ? "hidden" : "")}>
+                <button className={"btn btn-rounded"} onClick={toggleisNavbarSmall}>
+                    <i className={"bi " + (isNavbarSmall ? "bi-dash" : "bi-plus")}></i>
+                </button>
             </li>
         </ul>
     );

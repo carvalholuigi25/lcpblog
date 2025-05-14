@@ -205,9 +205,9 @@
         color: $fgcolorprimary;
     }
 
-    #navlinksadmdb {
+    .navlinksadmdb, #navlinksadmdb {
         background-color: $bgcolorprimary;
-        color: $fgcolorprimary;
+        color: $fgcolorprimary !important;
 
         .btn {
             background-color: transparent;

@@ -1,6 +1,7 @@
 @use "styles/themes/mixins.scss" as m;
 @use 'styles/themes/themes.scss';
 @use 'styles/editorstyles.module.scss';
+@use 'styles/adminstyles.module.scss';
 
 :root {
   --background: #d8d8d8;
@@ -874,7 +875,7 @@ form {
 
 .pagination {
   z-index: 0;
-  
+
   .page-item {
     $width: 38px;
     $height: 38px;

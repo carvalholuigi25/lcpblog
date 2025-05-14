@@ -1,4 +1,5 @@
-.admdashboard, #admdashboard {
+.admdashboard,
+#admdashboard {
     display: block;
 
     .navbartopadmdb {
@@ -7,7 +8,8 @@
         color: white;
     }
 
-    .navlinksadmdb, #navlinksadmdb {
+    .navlinksadmdb,
+    #navlinksadmdb {
         background: #212529;
         color: white;
         position: fixed;
@@ -21,6 +23,93 @@
         padding: 15px;
         z-index: 99999;
         font-family: var(--font-orbitron);
+
+        &.smnavs {
+            width: 5rem;
+
+            .navbar-brand {
+                display: none !important;
+            }
+
+            .dropdown,
+            .sublinks {
+                flex-direction: column;
+                padding: 0;
+
+                .sublink {
+                    width: auto;
+
+                    .bi {
+                        margin-left: 0 !important;
+                        margin-right: 0 !important;
+                    }
+                }
+            }
+
+            .mysublinks {
+                .dropdown-toggle {
+                    padding: 5px;
+
+                    .bi {
+                        margin: auto !important;
+                    }
+
+                    &::after {
+                        display: none;
+                    }
+                }
+
+                .dropdown-menu {
+                    li {
+                        display: inline-flex !important;
+                        max-width: 100%;
+                    }
+
+                    transform: translate(0px, 0px) !important;
+                    max-width: 100%;
+                    padding: 0;
+                }
+            }
+
+            .mynavlinkalogin {
+                display: flex;
+                flex-direction: column !important;
+                bottom: 2rem !important;
+
+                img {
+                    margin: 0 !important;
+                }
+
+                a>span {
+                    display: none;
+                }
+
+                .btn {
+                    margin-top: 5px;
+                }
+            }
+
+            .navlinkname {
+                display: none;
+            }
+
+            a>span {
+                display: none;
+            }
+
+            li.nav-item {
+                width: 3rem;
+                display: flex;
+                word-break: break-all;
+
+                .nav-link {
+                    .bi {
+                        margin-left: 0 !important;
+                        margin-right: 0 !important;
+                    }
+                }
+            }
+        }
 
         .nav-link {
             font-family: var(--font-orbitron);
@@ -108,7 +197,9 @@
 }
 
 @media all and (max-width: 992px) {
-    .admdashboard, #admdashboard {
+
+    .admdashboard,
+    #admdashboard {
         .navlinksadmdb {
             top: 0;
             width: 100%;
