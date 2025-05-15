@@ -27,15 +27,20 @@
       "homelink": "Casa",
       "postslink": "Postagens",
       "userslink": "Utilizadores",
-      "medialink": "Mídia",
       "categorieslink": "Categorias",
+      "media": {
+        "title": "Mídia",
+        "options": {
+          "uploadfileslink": "Enviar Arquivos",
+          "videoslink": "Videos"
+        }
+      },
       "developers": {
         "title": "Desenvolvedores",
-        "option": {
+        "options": {
           "commitslink": "Registro de commits"
         }
       },
-      "videoslink": "Videos",
       "logoutlink": "Sair"
     },
     "buttons": {

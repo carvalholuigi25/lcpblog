@@ -27,15 +27,20 @@
             "homelink": "Home",
             "postslink": "Posts",
             "userslink": "Users",
-            "medialink": "Media",
             "categorieslink": "Categories",
+            "media": {
+                "title": "Media",
+                "options": {
+                    "uploadfileslink": "Upload Files",
+                    "videoslink": "Videos"
+                }
+            },
             "developers": {
                 "title": "Developers",
-                "option": {
+                "options": {
                     "commitslink": "Commits log"
                 }
             },
-            "videoslink": "Videos",
             "logoutlink": "Logout"
         },
         "buttons": {

@@ -13,16 +13,27 @@
         background: #212529;
         color: white;
         position: fixed;
+        top: 0;
         left: 0;
         right: auto;
-        top: 0;
-        width: inherit;
+        width: 18.75rem;
         height: 100vh;
         max-width: 100%;
         max-height: 100%;
         padding: 15px;
         z-index: 99999;
         font-family: var(--font-orbitron);
+        transition: transform .5s ease-in;
+
+        &.open {
+            transform: translateX(0%);
+            transition: transform .5s ease-out;
+        }
+
+        &.hidden {
+            transform: translateX(-100%);
+            transition: transform .5s ease-in;
+        }
 
         &.smsbar {
             width: 5rem;
@@ -124,10 +135,46 @@
             }
         }
 
+        .nav-item {
+            &.shfixed {
+                position: fixed;
+                right: 0;
+                top: 50%;
+                transform: translate(50%, 50%);
+                background-color: transparent;
+                border: 0;
+                box-shadow: 2px 4px 4px;
+                width: 2rem !important;
+                height: 2rem;
+                max-width: 100%;
+                max-height: 100%;
+                border-radius: 50%;
+
+                .btn {
+                    width: 2rem;
+                    height: 2rem;
+                    max-width: 100%;
+                    max-height: 100%;
+                    padding: 0;
+                    margin: 0 auto;
+                    color: inherit;
+                }
+            }
+        }
+
+        .btnclosenav {
+            padding-top: var(--bs-navbar-brand-padding-y);
+            padding-bottom: var(--bs-navbar-brand-padding-y);
+            padding-left: 0;
+            padding-right: 0;
+        }
+
         .nav-link {
             font-family: var(--font-orbitron);
-            font-size: var(--bs-nav-link-font-size);
-            font-weight: var(--bs-nav-link-font-weight);
+            font-weight: normal;
+            font-size: 1rem;
+            line-height: 1rem;
+            padding: 15px;
         }
 
         .navlinkalogin {
@@ -182,6 +229,7 @@
     .btnshside {
         display: inherit;
         align-items: center;
+        transition: all 150ms linear;
     }
 
     .btnshsidebynav {
@@ -190,9 +238,6 @@
     }
 
     .navbar-toggler {
-        border-color: white;
-        color: white;
-
         * {
             border-color: inherit;
             color: inherit;

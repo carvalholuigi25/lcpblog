@@ -27,15 +27,20 @@
             "homelink": "Accueil",
             "postslink": "Actualités",
             "userslink": "Utilisateurs",
-            "medialink": "Médiatique",
             "categorieslink": "Catégories",
+            "media": {
+                "title": "Médiatique",
+                "options": {
+                    "uploadfileslink": "Envoyer des Fichiers",
+                    "videoslink": "Vidéos"
+                }
+            },
             "developers": {
                 "title": "Développeurs",
-                "option": {
+                "options": {
                     "commitslink": "Journal des commits"
                 }
             },
-            "videoslink": "Vidéos",
             "logoutlink": "Déconnexion"
         },
         "buttons": {

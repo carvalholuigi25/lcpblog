@@ -57,17 +57,30 @@ export const links = (t: any): AdminSidebarLinksProps[] => {
         },
         {
             id: 3,
-            name: t("medialink") ?? "Media",
-            link: "/media",
-            icon: "bi-cloud-upload-fill",
-            sublinks: []
-        },
-        {
-            id: 4,
             name: t("categorieslink") ?? "Categories",
             link: "/categories",
             icon: "bi-card-list",
             sublinks: []
+        },
+        {
+            id: 4,
+            name: t("media.title") ?? "Media",
+            link: "/",
+            icon: "bi-collection-play",
+            sublinks: [
+                {
+                    id: 1,
+                    name: t("media.options.uploadfileslink") ?? "Upload files",
+                    link: "/media",
+                    icon: "bi-cloud-upload-fill"
+                },
+                {
+                    id: 2,
+                    name: t("media.options.videoslink") ?? "Videos",
+                    link: "/videos",
+                    icon: "bi-file-earmark-play"
+                }
+            ]
         },
         {
             id: 5,
@@ -77,18 +90,11 @@ export const links = (t: any): AdminSidebarLinksProps[] => {
             sublinks: [
                 {
                     id: 1,
-                    name: t("developers.option.commitslink") ?? "Commits log",
+                    name: t("developers.options.commitslink") ?? "Commits log",
                     link: "/commitslog",
                     icon: "bi-journal-richtext"
                 }
             ]
-        },
-        {
-            id: 6,
-            name: t("videoslink") ?? "Videos",
-            link: "/videos",
-            icon: "bi-file-earmark-play",
-            sublinks: []
         }
     ];
 };
@@ -96,7 +102,7 @@ export const links = (t: any): AdminSidebarLinksProps[] => {
 export default function AdminSidebarDashboard({ sidebarToggle, toggleSidebar, locale }: AdminSidebarProps) {
     const t = useTranslations('ui.offcanvasAdmin');
     const pathname = usePathname();
-    const isSidebarSmallEnabled = true;
+    const isSidebarSmallEnabled = false;
     const prefix = "/pages/admin/dashboard";
 
     const [logInfo, setLogInfo] = useState("");
@@ -204,9 +210,9 @@ export default function AdminSidebarDashboard({ sidebarToggle, toggleSidebar, lo
 
     return (
         <ul className={"nav flex-column nav-pills " + astyles.navlinksadmdb + (sidebarToggle ? " hidden" : "") + (isSidebarSmall ? " smsbar w-auto" : "")} id="navlinksadmdb">
-            <li className={"nav-item d-flex justify-content-between align-items-center mb-3"}>
+            <li className={"nav-item mnavbrand d-flex justify-content-between align-items-center mb-3"}>
                 <Link className={"navbar-brand" + (isSidebarSmall ? " hidden" : "")} href="/" locale={locale ?? getDefLocale()}>LCPBlog</Link>
-                <button type="button" className={"nav-link " + astyles.btnshside} onClick={toggleSidebar} title={t("btnclose") ?? "Close"}>
+                <button type="button" className={"nav-link " + astyles.btnshside + " btnclosenav"} onClick={toggleSidebar} title={t("btnclose") ?? "Close"}>
                     {!!sidebarToggle ? <i className="bi bi-list"></i> : <i className="bi bi-x-lg"></i>}
                 </button>
             </li>
@@ -227,7 +233,7 @@ export default function AdminSidebarDashboard({ sidebarToggle, toggleSidebar, lo
                     </>
                 )}
             </li>
-            <li className={"nav-item " + (!isSidebarSmallEnabled ? "hidden" : "")}>
+            <li className={"nav-item shfixed " + (!isSidebarSmallEnabled ? "hidden" : "")}>
                 <button className={"btn btn-rounded"} onClick={toggleisSidebarSmall}>
                     <i className={"bi " + (isSidebarSmall ? "bi-dash-lg" : "bi-plus-lg")}></i>
                 </button>
