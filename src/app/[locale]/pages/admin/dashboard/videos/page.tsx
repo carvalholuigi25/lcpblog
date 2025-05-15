@@ -76,7 +76,7 @@ const AdminVideos = () => {
                                     <i className="bi bi-file-post me-2"></i>
                                     {t("title") ?? "Videos"}
                                 </h3>
-                                <div className="container">
+                                <div className="container mt-3">
                                     <div className="row">
                                         <div className="col-12">
                                             <VideoPlayer options={videoJsOptions} />

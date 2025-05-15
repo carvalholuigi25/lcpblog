@@ -24,7 +24,7 @@
         z-index: 99999;
         font-family: var(--font-orbitron);
 
-        &.smnavs {
+        &.smsbar {
             width: 5rem;
 
             .navbar-brand {
@@ -66,6 +66,7 @@
                     }
 
                     transform: translate(0px, 0px) !important;
+                    min-width: 100%;
                     max-width: 100%;
                     padding: 0;
                 }
@@ -101,11 +102,23 @@
                 width: 3rem;
                 display: flex;
                 word-break: break-all;
+                text-align: center;
+                justify-content: center;
+                align-items: center;
 
                 .nav-link {
                     .bi {
                         margin-left: 0 !important;
                         margin-right: 0 !important;
+                    }
+
+                    .navlinkname {
+                        display: block;
+                        font-size: .4rem;
+                        line-height: .4rem;
+                        white-space: normal;
+                        margin: 5px -1rem;
+                        padding: 0;
                     }
                 }
             }

@@ -1,5 +1,6 @@
 @use "styles/themes/mixins.scss" as m;
 @use 'styles/themes/themes.scss';
+@use 'styles/themes/glassmorphism.scss';
 @use 'styles/editorstyles.module.scss';
 @use 'styles/adminstyles.module.scss';
 
@@ -947,39 +948,6 @@ form {
   }
 }
 
-.glassmorphism {
-  .navbar {
-    background: rgba(255, 255, 255, 0.5);
-  }
-
-  .navbar-container {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    background: rgba(255, 255, 255, 0.5);
-    @include m.setBlur(12px, 100%);
-  }
-
-  .offcanvas {
-    @include m.setBlur(12px, 150%);
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
-    background: rgba(255, 255, 255, 0.5);
-  }
-
-  #navlinksadmdb {
-    @include m.setBlur(12px, 100%);
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
-    background: rgba(255, 255, 255, 0.5);
-  }
-
-  footer {
-    @include m.setBlur(12px, 150%);
-  }
-}
-
 .quill {
   background-color: white;
   color: black;
@@ -1306,6 +1274,10 @@ a.fc-event:hover {
   height: auto;
   max-width: 100%;
   max-height: 100%;
+}
+
+.tooltip {
+  z-index: 99999;
 }
 
 @media all and (width <=1199px) {
