@@ -1,11 +1,15 @@
-@use 'animations.module.scss';
-
 .admdashboard,
 #admdashboard {
     display: block;
 
     .navbartopadmdb {
         display: inherit;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 99999;
+        backdrop-filter: blur(12px);
         background-color: #212529;
         color: white;
     }
@@ -25,21 +29,28 @@
         padding: 15px;
         z-index: 99999;
         font-family: var(--font-orbitron);
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
 
-        &.open {
-            -webkit-animation: fadein .5s ease-in forwards;
-            -moz-animation: fadein .5s ease-in forwards;
-            -ms-animation: fadein .5s ease-in forwards;
-            -o-animation: fadein .5s ease-in forwards;
-            animation: fadein .5s ease-in forwards;
-        }
+        &.anim {
+            &.open {
+                $fmode: forwards;
+                -webkit-animation: fadein .5s ease-in $fmode;
+                -moz-animation: fadein .5s ease-in $fmode;
+                -ms-animation: fadein .5s ease-in $fmode;
+                -o-animation: fadein .5s ease-in $fmode;
+                animation: fadein .5s ease-in $fmode;
+            }
 
-        &.closed {
-            -webkit-animation: fadeout .5s ease-out backwards;
-            -moz-animation: fadeout .5s ease-out backwards;
-            -ms-animation: fadeout .5s ease-out backwards;
-            -o-animation: fadeout .5s ease-out backwards;
-            animation: fadeout .5s ease-out backwards;
+            &.closed {
+                $fmode: backwards;
+                -webkit-animation: fadeout .5s ease-out $fmode;
+                -moz-animation: fadeout .5s ease-out $fmode;
+                -ms-animation: fadeout .5s ease-out $fmode;
+                -o-animation: fadeout .5s ease-out $fmode;
+                animation: fadeout .5s ease-out $fmode;
+            }
         }
 
         &.smsbar {

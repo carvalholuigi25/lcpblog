@@ -102,11 +102,12 @@ export const links = (t: any): AdminSidebarLinksProps[] => {
 export default function AdminSidebarDashboard({ sidebarToggle, toggleSidebar, locale }: AdminSidebarProps) {
     const t = useTranslations('ui.offcanvasAdmin');
     const pathname = usePathname();
-    const isSidebarSmallEnabled = true;
     const prefix = "/pages/admin/dashboard";
 
     const [logInfo, setLogInfo] = useState("");
     const [isSidebarSmall, showisSidebarSmall] = useState(false);
+    const showTooltips = isSidebarSmall;
+    const isSidebarSmallEnabled = true;
 
     const mlinks: any = [];
     let msublinks: any = [];
@@ -154,7 +155,6 @@ export default function AdminSidebarDashboard({ sidebarToggle, toggleSidebar, lo
         return <Tooltip id="button-tooltip">{text}</Tooltip>;
     };
 
-    const showTooltips = isSidebarSmall;
 
     links(t).map((x, i) => {
         const isActive = getIsActive(pathname, prefix, i, x);
@@ -238,8 +238,8 @@ export default function AdminSidebarDashboard({ sidebarToggle, toggleSidebar, lo
         }
     });
 
-    return (
-        <ul className={"nav flex-column nav-pills " + astyles.navlinksadmdb + (sidebarToggle ? " closed hidden" : " open") + (isSidebarSmall ? " smsbar w-auto" : "")} id="navlinksadmdb">
+    return ( 
+        <ul className={"nav flex-column nav-pills fixed-top anim " + astyles.navlinksadmdb + (sidebarToggle ? " closed" : " open") + (isSidebarSmall ? " smsbar w-auto" : "")} id="navlinksadmdb">
             <li className={"nav-item mnavbrand d-flex justify-content-between align-items-center mb-3"}>
                 <Link className={"navbar-brand" + (isSidebarSmall ? " hidden" : "")} href="/" locale={locale ?? getDefLocale()}>LCPBlog</Link>
                 <button type="button" className={"nav-link " + astyles.btnshside + " btnclosenav"} onClick={toggleSidebar} title={t("btnclose") ?? "Close"}>

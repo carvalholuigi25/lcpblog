@@ -86,7 +86,7 @@ const AdminCategories = () => {
     ];
 
     return (
-        <div className={astyles.admdashboard} id="admdashboard">
+        <div className={astyles.admdashboard + " fixed"} id="admdashboard">
             {!!isAuthorized && (
                 <AdminNavbarDashboard locale={locale ?? getDefLocale()} logInfo={logInfo} sidebarToggle={sidebarToggle} toggleSidebar={toggleSidebar} />
             )}

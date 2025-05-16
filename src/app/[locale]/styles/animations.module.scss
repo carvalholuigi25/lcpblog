@@ -1,20 +1,28 @@
 @-webkit-keyframes fadein {
     0% {
         opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
     }
 
     100% {
         opacity: 1;
+        visibility: visible;
+        pointer-events: all;
     }
 }
 
 @-webkit-keyframes fadeout {
     0% {
         opacity: 1;
+        visibility: visible;
+        pointer-events: all;
     }
 
     100% {
         opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
     }
 }
 
@@ -27,20 +35,28 @@
 @keyframes fadein {
     0% {
         opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
     }
 
     100% {
         opacity: 1;
+        visibility: visible;
+        pointer-events: all;
     }
 }
 
 @keyframes fadeout {
     0% {
         opacity: 1;
+        visibility: visible;
+        pointer-events: all;
     }
 
     100% {
         opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
     }
 }
 
