@@ -1,5 +1,4 @@
 import React from 'react';
-import styles from "@applocale/page.module.scss";
 import { useTranslations } from 'next-intl';
 import { Link } from '@/app/i18n/navigation';
 import ThemeSwitcher from '@applocale/components/themeswitcher';
@@ -7,9 +6,11 @@ import LanguageSwitcher from '@applocale/components/languageswitcher';
 
 const Footer: React.FC = () => {
     const t = useTranslations('ui.footer');
+    const isRounded = true;
+    const roundedCl = isRounded ? "roundedfooter " : " ";
 
     return (
-        <footer className={styles.footer}>
+        <footer className={roundedCl + "footer"}>
             <div className='container d-flex justify-content-center align-items-center'>
                 <div className='row'>
                     <div className='col-12 col-md-6 col-lg-auto colfooter1'>

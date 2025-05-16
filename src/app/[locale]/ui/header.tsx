@@ -17,6 +17,8 @@ const HeaderMenu = ({ locale }: { locale: string }) => {
     const [logInfo, setLogInfo] = useState("");
     const [loading, setLoading] = useState(true);
     const [loadLinkAuth, setLoadLinkAuth] = useState(false);
+    const isRounded = true;
+    const roundedcl = isRounded ? "rounded" : "";
 
     useEffect(() => {
         if (!logInfo) {
@@ -57,7 +59,7 @@ const HeaderMenu = ({ locale }: { locale: string }) => {
     };
 
     return (
-        <div className="offcanvas offcanvas-start" tabIndex={-1} id="menuHeader" aria-labelledby="menuHeaderLabel">
+        <div className={"offcanvas offcanvas-start " + roundedcl} tabIndex={-1} id="menuHeader" aria-labelledby="menuHeaderLabel">
             <div className="offcanvas-header">
                 <h5 className={"offcanvas-title" + (is3DEffectsEnabled ? " navbar-3D" : "")} id="menuHeaderLabel">LCPBlog</h5>
                 <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label={t("btnclose") ?? "Close"} title={t("btnclose") ?? "Close"}></button>

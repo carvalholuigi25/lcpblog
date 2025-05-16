@@ -1,11 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import astyles from "@applocale/styles/adminstyles.module.scss";
-import {Link} from '@/app/i18n/navigation';
 import Image from "next/image";
+import astyles from "@applocale/styles/adminstyles.module.scss";
 import { getDefLocale } from "@applocale/helpers/defLocale";
+import {Link} from '@/app/i18n/navigation';
 
 export default function AdminNavbarDashboard({logInfo, sidebarToggle, toggleSidebar, locale}: {logInfo: string, sidebarToggle: boolean, toggleSidebar: any, locale: string}) {
+    const isRounded = true;
+    const roundedCl = isRounded ? " roundednavbar" : "";
+
     const getUserId = () => {
         return logInfo ? JSON.parse(logInfo)[0].id : "0";
     }
@@ -19,13 +22,13 @@ export default function AdminNavbarDashboard({logInfo, sidebarToggle, toggleSide
     }
 
     return (
-        <nav className={"navbar navbar-expand-lg bg-body-tertiary " + astyles.navbartopadmdb} id="navbartopadmdb">
+        <nav className={"navbar navbar-expand-lg bg-body-tertiary " + astyles.navbartopadmdb + roundedCl} id="navbartopadmdb">
             <div className="container-fluid">
                 <Link className={"navbar-brand"} href="/" locale={locale ?? getDefLocale()}>LCPBlog</Link>
 
                 <div className="navbar-nav me-auto">
                     <div className={!sidebarToggle ? "hidden" : "d-flex justify-content-center"}>
-                        <button type="button" className={"nav-link " + astyles.btnshsidebynav} onClick={toggleSidebar}>
+                        <button type="button" className={"nav-link " + astyles.btnshsidebynav} id="btnshsidebynav" onClick={toggleSidebar}>
                             {!!sidebarToggle ? <i className="bi bi-list iconav"></i> : <i className="bi bi-x-lg iconav"></i>}
                         </button>
                     </div>

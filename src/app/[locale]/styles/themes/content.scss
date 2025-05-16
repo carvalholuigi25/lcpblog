@@ -209,6 +209,13 @@
         background-color: $bgcolorprimary;
         color: $fgcolorprimary !important;
 
+        .shfixed {
+            .btn {
+                @include m.applyBkg($themename, .5);
+                color: $fgcolorprimary;
+            }
+        }
+
         .btn {
             background-color: transparent;
             border-color: transparent;

@@ -76,3 +76,11 @@
 
     background: $bkg !important;
 }
+
+@mixin applyAnim($name: fadein, $delay: 5s, $timing: linear, $fillmode: both) {
+    -moz-animation: $name $delay $timing $fillmode;
+    -ms-animation: $name $delay $timing $fillmode;
+    -o-animation: $name $delay $timing $fillmode;
+    -webkit-animation: $name $delay $timing $fillmode;
+    animation: $name $delay $timing $fillmode;
+}

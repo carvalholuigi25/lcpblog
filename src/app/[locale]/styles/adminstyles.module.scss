@@ -1,3 +1,5 @@
+@use "themes/mixins.scss" as m;
+
 .admdashboard,
 #admdashboard {
     display: block;
@@ -16,6 +18,7 @@
 
     .navlinksadmdb,
     #navlinksadmdb {
+        display: inherit;
         background: #212529;
         color: white;
         position: fixed;
@@ -29,27 +32,22 @@
         padding: 15px;
         z-index: 99999;
         font-family: var(--font-orbitron);
-        visibility: hidden;
-        opacity: 0;
-        pointer-events: none;
 
+        &.rounded {
+            border-radius: 15px !important;
+        }
+        
         &.anim {
+            visibility: hidden;
+            opacity: 0;
+            pointer-events: none;
+
             &.open {
-                $fmode: forwards;
-                -webkit-animation: fadein .5s ease-in $fmode;
-                -moz-animation: fadein .5s ease-in $fmode;
-                -ms-animation: fadein .5s ease-in $fmode;
-                -o-animation: fadein .5s ease-in $fmode;
-                animation: fadein .5s ease-in $fmode;
+                @include m.applyAnim(fadein, 0.5s, ease-in, both);
             }
 
             &.closed {
-                $fmode: backwards;
-                -webkit-animation: fadeout .5s ease-out $fmode;
-                -moz-animation: fadeout .5s ease-out $fmode;
-                -ms-animation: fadeout .5s ease-out $fmode;
-                -o-animation: fadeout .5s ease-out $fmode;
-                animation: fadeout .5s ease-out $fmode;
+                @include m.applyAnim(fadeout, 0.5s, ease-out, both);
             }
         }
 
@@ -77,7 +75,9 @@
 
             .mysublinks {
                 .dropdown-toggle {
-                    padding: 5px;
+                    padding: 15px;
+                    font-size: 1rem;
+                    line-height: 1rem;
 
                     .bi {
                         margin: auto !important;
@@ -176,6 +176,8 @@
                     padding: 0;
                     margin: 0 auto;
                     color: inherit;
+                    background-color: rgba(255, 255, 255, .5);
+                    @include m.setBlur(12px, 100%);
                 }
             }
         }
