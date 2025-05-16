@@ -69,11 +69,11 @@
         }
     }
 
-    .navbar-3d, .logo-3d {
+    .navbar-3D, .logo-3D {
         @include m.gen3dtext($themename);
     }
 
-    .btn-3d-box {
+    .btn-3D-box {
         $type: "box";
         $color: black;
 

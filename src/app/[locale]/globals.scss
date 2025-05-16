@@ -1,6 +1,7 @@
 @use "styles/themes/mixins.scss" as m;
 @use 'styles/themes/themes.scss';
-@use 'styles/themes/glassmorphism.scss';
+@use 'styles/themes/extras/extras.scss';
+@use 'styles/animations.module.scss';
 @use 'styles/editorstyles.module.scss';
 @use 'styles/adminstyles.module.scss';
 
@@ -73,32 +74,22 @@ p {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
 }
 
-.logo {
-  .logo-3d {
-    font-weight: bold;
-    font-size: 2.5rem;
-    line-height: 2.5rem;
-    letter-spacing: 0rem;
-    @include m.gen3dtext("system");
-  }
-}
-
 .offcanvas {
   font-family: var(--font-orbitron);
-}
 
-.offcanvas .mysuboffcanvas {
-  position: relative;
-  height: 100%;
-  max-height: 100%;
-}
+  .mysuboffcanvas {
+    position: relative;
+    height: 100%;
+    max-height: 100%;
+  }
 
-.offcanvas .navlinklogin {
-  position: absolute;
-  bottom: 0;
-  top: auto;
-  left: 0;
-  right: 0;
+  .navlinklogin {
+    position: absolute;
+    bottom: 0;
+    top: auto;
+    left: 0;
+    right: 0;
+  }
 }
 
 .hidden {
@@ -323,19 +314,6 @@ footer {
 
 .btn-shadow {
   box-shadow: 2px 4px 6px;
-}
-
-.btn-3d-box {
-  $type: "box";
-  $color: inherit;
-
-  @include m.gen3dbtn($type, $color, 0px, 5px, 0, 0px, outset);
-  transition: all 0.3s ease;
-
-  &:hover {
-    @include m.gen3dbtn($type, $color, 0px, 2px, 0, 0px, outset);
-    transform: translateY(4px);
-  }
 }
 
 .btn-tp {
@@ -863,11 +841,6 @@ form {
 
 .navbar-brand {
   font-family: 'Orbitron';
-
-  .navbar-3d {
-    font-weight: bold;
-    @include m.gen3dtext("system");
-  }
 }
 
 .dropdown-menu {
@@ -1147,9 +1120,7 @@ a.fc-event:hover {
   }
 
   .btncommentactions {
-
-    .bi,
-    i {
+    .bi, i {
       padding: 0 !important;
     }
 
@@ -1400,18 +1371,6 @@ a.fc-event:hover {
       margin: .5rem 0px !important;
       text-align: center !important;
     }
-  }
-}
-
-@-webkit-keyframes fadeinout {
-  50% {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeinout {
-  50% {
-    opacity: 1;
   }
 }
 

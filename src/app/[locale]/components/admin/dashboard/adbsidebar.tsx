@@ -102,7 +102,7 @@ export const links = (t: any): AdminSidebarLinksProps[] => {
 export default function AdminSidebarDashboard({ sidebarToggle, toggleSidebar, locale }: AdminSidebarProps) {
     const t = useTranslations('ui.offcanvasAdmin');
     const pathname = usePathname();
-    const isSidebarSmallEnabled = false;
+    const isSidebarSmallEnabled = true;
     const prefix = "/pages/admin/dashboard";
 
     const [logInfo, setLogInfo] = useState("");
@@ -154,6 +154,8 @@ export default function AdminSidebarDashboard({ sidebarToggle, toggleSidebar, lo
         return <Tooltip id="button-tooltip">{text}</Tooltip>;
     };
 
+    const showTooltips = isSidebarSmall;
+
     links(t).map((x, i) => {
         const isActive = getIsActive(pathname, prefix, i, x);
         const isPageCurrent = getIsPageCurrent(pathname, prefix, i, x);
@@ -164,26 +166,47 @@ export default function AdminSidebarDashboard({ sidebarToggle, toggleSidebar, lo
             x.sublinks.map((y, j) => {
                 msublinks.push(
                     <li key={"sublink" + j}>
-                        <OverlayTrigger
-                            placement="right"
-                            delay={{ show: 250, hide: 400 }}
-                            overlay={renderTooltip(y.name)}
-                        >
+                        {showTooltips ? (
+                            <OverlayTrigger
+                                placement="right"
+                                delay={{ show: 250, hide: 400 }}
+                                overlay={renderTooltip(y.name)}
+                            >
+                                <Link className={"dropdown-item sublink " + isActive} aria-current={isPageCurrent} href={prefix + x.link + y.link} locale={locale ?? getDefLocale()}>
+                                    <i className={"bi " + y.icon + " me-2"}></i>
+                                    <span className={"navlinkname" + (isSidebarSmall ? " hidden" : "")}>{y.name}</span>
+                                </Link>
+                            </OverlayTrigger>
+                        ) : (
                             <Link className={"dropdown-item sublink " + isActive} aria-current={isPageCurrent} href={prefix + x.link + y.link} locale={locale ?? getDefLocale()}>
                                 <i className={"bi " + y.icon + " me-2"}></i>
                                 <span className={"navlinkname" + (isSidebarSmall ? " hidden" : "")}>{y.name}</span>
                             </Link>
-                        </OverlayTrigger>
+                        )}
                     </li>
                 );
             });
 
             mlinks.push(
                 <li className="nav-item dropdown mysublinks" key={i}>
-                    <button type="button" className="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i className={"bi " + x.icon + " me-2"}></i>
-                        <span className={"navlinkname" + (isSidebarSmall ? " hidden" : "")}>{x.name}</span>
-                    </button>
+                    {showTooltips ? (
+                        <OverlayTrigger
+                            placement="right"
+                            delay={{ show: 250, hide: 400 }}
+                            overlay={renderTooltip(x.name)}
+                        >
+                            <button type="button" className="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i className={"bi " + x.icon + " me-2"}></i>
+                                <span className={"navlinkname" + (isSidebarSmall ? " hidden" : "")}>{x.name}</span>
+                            </button>
+                        </OverlayTrigger>
+                    ) : (
+                        <button type="button" className="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i className={"bi " + x.icon + " me-2"}></i>
+                            <span className={"navlinkname" + (isSidebarSmall ? " hidden" : "")}>{x.name}</span>
+                        </button>
+                    )}
+
                     <ul className="dropdown-menu">
                         {msublinks}
                     </ul>
@@ -193,23 +216,30 @@ export default function AdminSidebarDashboard({ sidebarToggle, toggleSidebar, lo
         } else {
             mlinks.push(
                 <li className="nav-item" key={i}>
-                    <OverlayTrigger
-                        placement="right"
-                        delay={{ show: 250, hide: 400 }}
-                        overlay={renderTooltip(x.name)}
-                    >
+                    {showTooltips ? (
+                        <OverlayTrigger
+                            placement="right"
+                            delay={{ show: 250, hide: 400 }}
+                            overlay={renderTooltip(x.name)}
+                        >
+                            <Link className={"nav-link" + isActive} aria-current={isPageCurrent} href={prefix + x.link} locale={locale ?? getDefLocale()}>
+                                <i className={"bi " + x.icon + " me-2"}></i>
+                                <span className={"navlinkname" + (isSidebarSmall ? " hidden" : "")}>{x.name}</span>
+                            </Link>
+                        </OverlayTrigger>
+                    ) : (
                         <Link className={"nav-link" + isActive} aria-current={isPageCurrent} href={prefix + x.link} locale={locale ?? getDefLocale()}>
                             <i className={"bi " + x.icon + " me-2"}></i>
                             <span className={"navlinkname" + (isSidebarSmall ? " hidden" : "")}>{x.name}</span>
                         </Link>
-                    </OverlayTrigger>
+                    )}
                 </li>
             );
         }
     });
 
     return (
-        <ul className={"nav flex-column nav-pills " + astyles.navlinksadmdb + (sidebarToggle ? " hidden" : "") + (isSidebarSmall ? " smsbar w-auto" : "")} id="navlinksadmdb">
+        <ul className={"nav flex-column nav-pills " + astyles.navlinksadmdb + (sidebarToggle ? " closed hidden" : " open") + (isSidebarSmall ? " smsbar w-auto" : "")} id="navlinksadmdb">
             <li className={"nav-item mnavbrand d-flex justify-content-between align-items-center mb-3"}>
                 <Link className={"navbar-brand" + (isSidebarSmall ? " hidden" : "")} href="/" locale={locale ?? getDefLocale()}>LCPBlog</Link>
                 <button type="button" className={"nav-link " + astyles.btnshside + " btnclosenav"} onClick={toggleSidebar} title={t("btnclose") ?? "Close"}>

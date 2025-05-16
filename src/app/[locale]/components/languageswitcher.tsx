@@ -14,7 +14,7 @@ const LanguageSwitcher = () => {
     const router = useRouter();
     const { language, setLanguage } = useLanguage();
     const languagesary: LanguagesLocales[] = getMyCustomLanguages();
-    const is3DThingsEnabled = process.env.NEXT_PUBLIC_is3DThingsEnabled == "true" ? true : false;
+    const is3DEffectsEnabled = process.env.NEXT_PUBLIC_is3DEffectsEnabled == "true" ? true : false;
 
     const setMyLanguage = (e: any, x: LanguagesLocales): any => {
         e.preventDefault();
@@ -43,7 +43,7 @@ const LanguageSwitcher = () => {
             {!!languagesary && (
                 <div className="dropdown mt-3 mb-3">
                     <button
-                        className={"btn btn-secondary dropdown-toggle btn-rounded " + (is3DThingsEnabled ? "btn-3d-box" : "")}
+                        className={"btn btn-secondary dropdown-toggle btn-rounded " + (is3DEffectsEnabled ? "btn-3D-box" : "")}
                         type="button"
                         data-bs-toggle="dropdown"
                         aria-expanded="false"
@@ -55,7 +55,7 @@ const LanguageSwitcher = () => {
                         {languagesary.map(x => (
                             <li key={x.id}>
                                 <button 
-                                    className={"dropdown-item btnlanguage" + x.prefix + activeLanguage(x.value) + " " + (is3DThingsEnabled ? "btn-3d-box" : "")} 
+                                    className={"dropdown-item btnlanguage" + x.prefix + activeLanguage(x.value) + " " + (is3DEffectsEnabled ? "btn-3D-box" : "")} 
                                     onClick={(e) => setMyLanguage(e, x)}
                                 >
                                     {getLanguageFlag(x.prefix)}

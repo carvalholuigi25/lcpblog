@@ -1,0 +1,33 @@
+@use "../../mixins.scss" as m;
+
+.effects3D {
+    .logo {
+        .logo-3D {
+            font-weight: bold;
+            font-size: 2.5rem;
+            line-height: 2.5rem;
+            letter-spacing: 0rem;
+            @include m.gen3dtext("system");
+        }
+    }
+
+    .btn-3D-box {
+        $type: "box";
+        $color: inherit;
+
+        @include m.gen3dbtn($type, $color, 0px, 5px, 0, 0px, outset);
+        transition: all 0.3s ease;
+
+        &:hover {
+            @include m.gen3dbtn($type, $color, 0px, 2px, 0, 0px, outset);
+            transform: translateY(4px);
+        }
+    }
+
+    .navbar-brand {
+        .navbar-3D {
+            font-weight: bold;
+            @include m.gen3dtext("system");
+        }
+    }
+}
