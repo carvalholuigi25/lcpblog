@@ -32,18 +32,46 @@
         padding: 15px;
         z-index: 99999;
         font-family: var(--font-orbitron);
+        visibility: hidden;
+        opacity: 0;
+
+        &.open {
+            visibility: visible;
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        &.closed {
+            visibility: hidden;
+            opacity: 0;
+            pointer-events: none;
+        }
 
         &.rounded {
             border-radius: 15px !important;
         }
         
         &.anim {
-            visibility: hidden;
-            opacity: 0;
-            pointer-events: none;
+            visibility: visible;
+            opacity: 1;
+            pointer-events: fill;
 
             &.open {
                 @include m.applyAnim(fadein, 0.5s, ease-in, both);
+                    
+                &.slideleft {
+                    @include m.applyAnim(slideLeft, 0.5s, ease, forwards);
+                    opacity: 1;
+                    visibility: visible;
+                    pointer-events: all;
+                }
+
+                &.slideright {
+                    @include m.applyAnim(slideRight, 0.5s, ease, forwards);
+                    opacity: 1;
+                    visibility: visible;
+                    pointer-events: all;
+                }
             }
 
             &.closed {

@@ -110,6 +110,7 @@ export default function AdminSidebarDashboard({ sidebarToggle, toggleSidebar, lo
     const showTooltips = isSidebarSmall;
     const isSidebarSmallEnabled = true;
     const isAnimated = true;
+    const animType = "original";
     const isRounded = config.getConfigSync().isBordered;
 
     const mlinks: any = [];
@@ -158,10 +159,13 @@ export default function AdminSidebarDashboard({ sidebarToggle, toggleSidebar, lo
         return <Tooltip id="button-tooltip">{text}</Tooltip>;
     };
 
-    const navanimcl = isAnimated ? " anim" : "";
-    const navanimstatuscl = (sidebarToggle ? (!isAnimated ? " hidden" : " closed") : " open");
+    const navanimstatuscl = sidebarToggle ? (!isAnimated ? " hidden" : " closed") : " open";
+    const slideanimposleft = animType.toLowerCase() == "custom" ? " animate__fadeInLeft" : " slideleft";
+    const slideanimposright = animType.toLowerCase() == "custom" ? " animate__fadeInRight" : " slideright";
+    const animprefix = (animType.toLowerCase() == "custom" ? " animate__animated" : " anim");
+    const slideanim = isAnimated ? (isSidebarSmall ? slideanimposleft : slideanimposright) : "";
+    const navanimcl = isAnimated ? animprefix + (isSidebarSmall ? " smsbar" : "") + slideanim + navanimstatuscl : (isSidebarSmall ? " smsbar" + navanimstatuscl : (sidebarToggle ? " hidden" : " open"));
     const roundedcl = isRounded ? " rounded" : "";
-    const sbarstatus = isSidebarSmall ? " smsbar w-auto" : "";
 
     links(t).map((x, i) => {
         const isActive = getIsActive(pathname, prefix, i, x);
@@ -246,7 +250,7 @@ export default function AdminSidebarDashboard({ sidebarToggle, toggleSidebar, lo
     });
 
     return ( 
-        <ul className={"nav flex-column nav-pills fixed-top " + astyles.navlinksadmdb + roundedcl + navanimcl + navanimstatuscl + sbarstatus} id="navlinksadmdb">
+        <ul className={"nav flex-column nav-pills fixed-top " + astyles.navlinksadmdb + roundedcl + navanimcl} id="navlinksadmdb">
             <li className={"nav-item mnavbrand d-flex justify-content-between align-items-center mb-3"}>
                 <Link className={"navbar-brand" + (isSidebarSmall ? " hidden" : "")} href="/" locale={locale ?? getDefLocale()}>LCPBlog</Link>
                 <button type="button" className={"nav-link " + astyles.btnshside + " btnclosenav"} onClick={toggleSidebar} title={t("btnclose") ?? "Close"}>
@@ -272,7 +276,7 @@ export default function AdminSidebarDashboard({ sidebarToggle, toggleSidebar, lo
             </li>
             <li className={"nav-item shfixed " + (!isSidebarSmallEnabled ? "hidden" : "")}>
                 <button className={"btn btn-rounded"} onClick={toggleisSidebarSmall}>
-                    <i className={"bi " + (isSidebarSmall ? "bi-dash-lg" : "bi-plus-lg")}></i>
+                    <i className={"bi " + (!isSidebarSmall ? "bi-dash-lg" : "bi-plus-lg")}></i>
                 </button>
             </li>
         </ul>

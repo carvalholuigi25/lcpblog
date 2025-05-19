@@ -65,3 +65,23 @@
         opacity: 1;
     }
 }
+
+@keyframes slideLeft {
+    0% {
+        transform: translateX(-5rem);
+    }
+
+    100% {
+        transform: translateX(0%);
+    }
+}
+
+@keyframes slideRight {
+    0% {
+        transform: translateX(5rem);
+    }
+
+    100% {
+        transform: translateX(0%);
+    }
+}

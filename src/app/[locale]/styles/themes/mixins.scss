@@ -77,10 +77,18 @@
     background: $bkg !important;
 }
 
-@mixin applyAnim($name: fadein, $delay: 5s, $timing: linear, $fillmode: both) {
-    -moz-animation: $name $delay $timing $fillmode;
-    -ms-animation: $name $delay $timing $fillmode;
-    -o-animation: $name $delay $timing $fillmode;
-    -webkit-animation: $name $delay $timing $fillmode;
-    animation: $name $delay $timing $fillmode;
+@mixin applyAnim($name: fadein, $delay: 5s, $timing: ease, $fillmode: both, $imp: "false") {
+    @if($imp == "true") {
+        -moz-animation: $name $delay $timing $fillmode !important;
+        -ms-animation: $name $delay $timing $fillmode !important;
+        -o-animation: $name $delay $timing $fillmode !important;
+        -webkit-animation: $name $delay $timing $fillmode !important;
+        animation: $name $delay $timing $fillmode !important;
+    } @else {
+        -moz-animation: $name $delay $timing $fillmode;
+        -ms-animation: $name $delay $timing $fillmode;
+        -o-animation: $name $delay $timing $fillmode;
+        -webkit-animation: $name $delay $timing $fillmode;
+        animation: $name $delay $timing $fillmode;
+    }
 }

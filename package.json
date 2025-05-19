@@ -36,6 +36,7 @@
     "@next/bundle-analyzer": "^15.3.2",
     "@popperjs/core": "^2.11.8",
     "@types/negotiator": "^0.6.3",
+    "animate.css": "^4.1.1",
     "axios": "^1.9.0",
     "bootstrap": "^5.3.6",
     "bootstrap-icons": "^1.13.1",
