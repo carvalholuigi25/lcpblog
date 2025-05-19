@@ -18,6 +18,7 @@ import FetchDataAxios, { FetchMultipleDataAxios } from "@applocale/utils/fetchda
 import LoadingComp from "@applocale/components/loadingcomp";
 import ShowAlert from "@applocale/components/alerts";
 import Toasts from "@applocale/components/toasts/toasts";
+import * as config from "@applocale/utils/config";
 
 export interface CommentsProps {
     content?: string;
@@ -29,6 +30,7 @@ export interface CommentsProps {
 }
 
 export default function Comments({ userId, postId, categoryId, isCommentFormShown }: CommentsProps) {
+    const is3DEffectsEnabled = config.getConfigSync().is3DEffectsEnabled;
     const t = useTranslations("ui.forms.comments");
     const locale = useLocale() ?? getDefLocale();
 
@@ -48,7 +50,6 @@ export default function Comments({ userId, postId, categoryId, isCommentFormShow
     const [usersData, setUsersData] = useState(new Array<User>());
     const [isUnlockedComment, setIsUnlockedComment] = useState(false);
     const [dataToast, setDataToast] = useState({ type: "", message: "", statusToast: false } as DataToastsProps);
-    const is3DEffectsEnabled = process.env.NEXT_PUBLIC_is3DEffectsEnabled == "true" ? true : false;
     const { push } = useRouter();
 
     const {

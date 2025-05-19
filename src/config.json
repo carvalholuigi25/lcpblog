@@ -1,0 +1,7 @@
+{
+    "config": {
+        "theme": "glassmorphism",
+        "is3DEffectsEnabled": false,
+        "isBordered": true
+    }
+}

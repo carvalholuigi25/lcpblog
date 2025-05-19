@@ -6,11 +6,12 @@ import styles from "@applocale/page.module.scss";
 import Footer from "@applocale/ui/footer";
 import Header from "@applocale/ui/header";
 import News from "@applocale/components/news";
+import * as config from "@applocale/utils/config";
 
 export default function Home() {
+  const is3DEffectsEnabled = config.getConfigSync().is3DEffectsEnabled;
   const locale = useLocale() ?? getDefLocale();
   const t = useTranslations('pages.HomePage');
-  const is3DEffectsEnabled = process.env.NEXT_PUBLIC_is3DEffectsEnabled == "true" ? true : false;
   
   return (
     <div className={styles.page} id="home">

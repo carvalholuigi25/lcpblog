@@ -4,9 +4,10 @@ import Image from "next/image";
 import astyles from "@applocale/styles/adminstyles.module.scss";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import {Link} from '@/app/i18n/navigation';
+import * as config from "@applocale/utils/config";
 
 export default function AdminNavbarDashboard({logInfo, sidebarToggle, toggleSidebar, locale}: {logInfo: string, sidebarToggle: boolean, toggleSidebar: any, locale: string}) {
-    const isRounded = true;
+    const isRounded = config.getConfigSync().isBordered;
     const roundedCl = isRounded ? " roundednavbar" : "";
 
     const getUserId = () => {

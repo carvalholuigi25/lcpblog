@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import { Poppins, Roboto, Orbitron } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
+import { getLangDir } from "rtl-detect";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import Dependencies from "@applocale/dependencies/dependencies";
+import * as config from "@applocale/utils/config";
 import "@applocale/globals.scss";
-import { getLangDir } from "rtl-detect";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -41,15 +42,14 @@ export default async function RootLayout({
   const locale = await getLocale() ?? getDefLocale() ?? 'en-UK';
   const messages = await getMessages({ locale: locale });
   const dir = getLangDir(locale) ?? "ltr";
-  const isGlassmorphismEnabled = process.env.NEXT_PUBLIC_isGlassmorphismEnabled == "true" ? true : false;
-  const is3DEffectsEnabled = process.env.NEXT_PUBLIC_is3DEffectsEnabled == "true" ? true : false;
-  const glassmorphismCl = isGlassmorphismEnabled ? " glassmorphism" : "";
-  const effects3DCl = is3DEffectsEnabled ? " effects3D" : "";
-  const extrastuff = `${effects3DCl}${glassmorphismCl}`;
+  const themeCl = (await config.getConfig()).theme;
+  const effects3DCl = (await config.getConfig()).is3DEffectsEnabled ? "effects3D" : "";
+  const stuffconfig = `${themeCl} ${effects3DCl}`;
+  const fonts = `${poppins.variable} ${roboto.variable} ${orbitron.variable}`;
 
   return (
     <html lang={locale} dir={dir} data-bs-theme="system" suppressHydrationWarning={true}>
-      <body className={`${poppins.variable} ${roboto.variable} ${orbitron.variable}${extrastuff} mybkgpage`}>
+      <body className={`${fonts} ${stuffconfig} mybkgpage`}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <div id="modal-root"></div>
           <div id="toast-root"></div>

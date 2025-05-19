@@ -3,6 +3,7 @@
 import { LanguagesLocales, localesary } from "@/app/i18n/locales";
 import { useLanguage } from "@applocale/components/context/languagecontext";
 import { useRouter } from "next/navigation";
+import * as config from "@applocale/utils/config";
 
 export function getMyCustomLanguages() {
     const ary = localesary.sort((x, y) => x.value.toLowerCase().localeCompare(y.value.toLowerCase()));
@@ -14,7 +15,7 @@ const LanguageSwitcher = () => {
     const router = useRouter();
     const { language, setLanguage } = useLanguage();
     const languagesary: LanguagesLocales[] = getMyCustomLanguages();
-    const is3DEffectsEnabled = process.env.NEXT_PUBLIC_is3DEffectsEnabled == "true" ? true : false;
+    const is3DEffectsEnabled = config.getConfigSync().is3DEffectsEnabled;
 
     const setMyLanguage = (e: any, x: LanguagesLocales): any => {
         e.preventDefault();

@@ -10,6 +10,7 @@ import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
+import * as config from "@applocale/utils/config";
 
 export interface AdminSidebarProps {
     sidebarToggle: boolean;
@@ -109,7 +110,7 @@ export default function AdminSidebarDashboard({ sidebarToggle, toggleSidebar, lo
     const showTooltips = isSidebarSmall;
     const isSidebarSmallEnabled = true;
     const isAnimated = true;
-    const isRounded = true;
+    const isRounded = config.getConfigSync().isBordered;
 
     const mlinks: any = [];
     let msublinks: any = [];

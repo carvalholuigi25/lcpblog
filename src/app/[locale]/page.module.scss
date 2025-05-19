@@ -13,11 +13,12 @@
   padding: 15px;
   height: 50vh;
   font-family: var(--font-orbitron);
-  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.52), rgba(0, 0, 0, 0.73)), url('/images/blog.jpg');
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(255, 255, 255, 0.5)), url('/images/blog.jpg');
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
+  color: white;
   box-shadow: 0 .5rem 1rem #00000026 !important;
 }
 

@@ -3,10 +3,11 @@ import { useTranslations } from 'next-intl';
 import { Link } from '@/app/i18n/navigation';
 import ThemeSwitcher from '@applocale/components/themeswitcher';
 import LanguageSwitcher from '@applocale/components/languageswitcher';
+import * as config from "@applocale/utils/config";
 
 const Footer: React.FC = () => {
     const t = useTranslations('ui.footer');
-    const isRounded = true;
+    const isRounded = config.getConfigSync().isBordered;
     const roundedCl = isRounded ? "roundedfooter " : " ";
 
     return (

@@ -8,8 +8,10 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import dynamic from 'next/dynamic';
 import LoadingComp from "@applocale/components/loadingcomp";
+import * as config from "@applocale/utils/config";
 
-const is3DEffectsEnabled = process.env.NEXT_PUBLIC_is3DEffectsEnabled == "true" ? true : false; 
+const isRounded = config.getConfigSync().isBordered;
+const is3DEffectsEnabled = config.getConfigSync().is3DEffectsEnabled; 
 const SearchComponent = dynamic(() => import('./search'), { ssr: false })
 
 const HeaderMenu = ({ locale }: { locale: string }) => {
@@ -17,7 +19,6 @@ const HeaderMenu = ({ locale }: { locale: string }) => {
     const [logInfo, setLogInfo] = useState("");
     const [loading, setLoading] = useState(true);
     const [loadLinkAuth, setLoadLinkAuth] = useState(false);
-    const isRounded = true;
     const roundedcl = isRounded ? "rounded" : "";
 
     useEffect(() => {
@@ -113,11 +114,13 @@ const HeaderMenu = ({ locale }: { locale: string }) => {
 }
 
 const Header = ({ locale }: { locale: string }) => {
+    const roundedcl = isRounded ? "rounded" : "";
+
     return (
         <>
             <HeaderMenu locale={locale ?? getDefLocale()} />
             <div className='header'>
-                <nav className={"navbar navbar-expand-lg bg-body-tertiary fixed-top"}>
+                <nav className={"navbar navbar-expand-lg bg-body-tertiary fixed-top " + roundedcl}>
                     <div className={"navbar-container"}></div>
                     <div className="container-fluid">
                         <Link className={"navbar-brand" + (is3DEffectsEnabled ? " navbar-3D" : "")} href="/#home" locale={locale ?? getDefLocale()}>
