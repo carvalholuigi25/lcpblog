@@ -58,6 +58,7 @@
     "react-dom": "^19.1.0",
     "react-dropzone": "^14.3.8",
     "react-hook-form": "^7.56.4",
+    "rss": "^1.2.2",
     "rtl-detect": "^1.1.2",
     "zod": "^3.24.4"
   },
@@ -69,6 +70,7 @@
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/rss": "^0.0.32",
     "@types/rtl-detect": "^1.0.3",
     "concurrently": "^9.1.2",
     "cross-env": "^7.0.3",
