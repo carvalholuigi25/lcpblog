@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { AxiosRequestConfig } from "axios";
 import { getFromStorage } from "@applocale/hooks/localstorage";
+import https from 'https';
 
 export interface CTAxiosInterface {
     url: string;
@@ -29,6 +30,9 @@ export function getConfigAxios(ctaxint: CTAxiosInterface): AxiosRequestConfig<an
         params: {
             timestamp: Date.now()
         },
+        httpsAgent: new https.Agent({
+            rejectUnauthorized: false,
+        }),
         onUploadProgress: ctaxint.onUploadProgress
     };
 }

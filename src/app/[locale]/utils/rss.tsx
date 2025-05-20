@@ -1,23 +1,43 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import fs from 'fs';
 import RSS from 'rss';
+import FetchDataAxios from '@applocale/utils/fetchdataaxios';
+import { Posts } from '@applocale/interfaces/posts';
 
-const site_url = process.env.NODE_ENV === "production" ? "https://localhost:3000" : "https://localhost:3000";
+export interface RSSPostsItems {
+    title: string;
+    description: string;
+    url: string;
+    categories: string[];
+    author: string;
+    date: string | Date;
+}
 
-export const getPosts = () => {
-    return [
-        {
-            title: "Welcome to LCPBlog!",
-            description: "Welcome to LCPBlog!",
-            url: `${site_url}/pt-PT/paginas/noticias/1/1`,
-            categories: ["Geral"],
-            author: "Luis Carvalho",
-            date: new Date().toUTCString(),
-        }
-    ];
+export const getPosts = async () => {
+    const posts = await FetchDataAxios({
+        url: 'api/posts',
+        method: 'get',
+    });
+
+    const data = posts.data.data ?? posts.data;
+
+    return data.map((x: Posts) => ({ 
+        title: x.title, 
+        description: x.content, 
+        url: `https://localhost:5000/paginas/noticias/${x.categoryId}/${x.postId}`, 
+        categories: [""], 
+        author: "Luis Carvalho", 
+        date: new Date().toUTCString() 
+    }));
+}
+
+export const getSiteUrl = () => {
+    return process.env.NODE_ENV === "production" ? "https://localhost:3000" : "https://localhost:3000";
 }
 
 export const generateRssFeed = async (type: string = "xml") => {
-    const posts = getPosts();
+    const saveToFile = true;
+    const site_url = getSiteUrl();
+    const posts = await getPosts();
 
     const feed = new RSS({
         title: "LCPBlog",
@@ -33,7 +53,7 @@ export const generateRssFeed = async (type: string = "xml") => {
         ttl: 60,
     });
 
-    posts.forEach((post: any) => {
+    posts.forEach((post: RSSPostsItems) => {
         feed.item({
             title: post.title,
             description: post.description,
@@ -44,7 +64,13 @@ export const generateRssFeed = async (type: string = "xml") => {
         });
     });
 
-    return type == "xml" ? feed.xml({ indent: true }) : JSON.stringify(feed, null, 4);
+    const content = type == "xml" ? feed.xml({ indent: true }) : JSON.stringify(feed, null, 4);
+    
+    if(saveToFile) {
+        fs.writeFileSync('./public/feed.'+type, content);
+    }
+
+    return content;
 };
 
 const Rss = () => { };

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title><![CDATA[LCPBlog]]></title>
+        <description><![CDATA[LCPBlog]]></description>
+        <link>https://localhost:3000</link>
+        <generator>LCP</generator>
+        <lastBuildDate>Tue, 20 May 2025 15:43:42 GMT</lastBuildDate>
+        <atom:link href="https://localhost:3000/rss.xml" rel="self" type="application/rss+xml"/>
+        <pubDate>Tue, 20 May 2025 15:43:42 GMT</pubDate>
+        <copyright><![CDATA[Criado por Luis Carvalho LCP ©2025]]></copyright>
+        <language><![CDATA[pt-PT]]></language>
+        <managingEditor><![CDATA[luiscarvalho239@gmail.com (Luis Carvalho)]]></managingEditor>
+        <webMaster><![CDATA[luiscarvalho239@gmail.com (Luis Carvalho)]]></webMaster>
+        <ttl>60</ttl>
+        <item>
+            <title><![CDATA[Welcome to LCPBlog!]]></title>
+            <description><![CDATA[Welcome to LCPBlog!]]></description>
+            <link>https://localhost:5000/paginas/noticias/1/1</link>
+            <guid isPermaLink="true">https://localhost:5000/paginas/noticias/1/1</guid>
+            <dc:creator><![CDATA[Luis Carvalho]]></dc:creator>
+            <pubDate>Tue, 20 May 2025 15:43:42 GMT</pubDate>
+        </item>
+    </channel>
+</rss>

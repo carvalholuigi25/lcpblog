@@ -1,0 +1,30 @@
+{
+    "title": "LCPBlog",
+    "description": "LCPBlog",
+    "generator": "LCP",
+    "feed_url": "https://localhost:3000/rss.xml",
+    "site_url": "https://localhost:3000",
+    "pubDate": "Tue, 20 May 2025 15:43:45 GMT",
+    "copyright": "Criado por Luis Carvalho LCP ©2025",
+    "language": "pt-PT",
+    "managingEditor": "luiscarvalho239@gmail.com (Luis Carvalho)",
+    "webMaster": "luiscarvalho239@gmail.com (Luis Carvalho)",
+    "ttl": 60,
+    "geoRSS": false,
+    "custom_namespaces": {},
+    "custom_elements": [],
+    "items": [
+        {
+            "title": "Welcome to LCPBlog!",
+            "description": "Welcome to LCPBlog!",
+            "url": "https://localhost:5000/paginas/noticias/1/1",
+            "categories": [
+                ""
+            ],
+            "author": "Luis Carvalho",
+            "date": "Tue, 20 May 2025 15:43:45 GMT",
+            "enclosure": false,
+            "custom_elements": []
+        }
+    ]
+}
