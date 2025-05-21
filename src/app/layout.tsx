@@ -41,17 +41,17 @@ export default async function RootLayout({
 }>) {
   const locale = await getLocale() ?? getDefLocale() ?? 'en-UK';
   const messages = await getMessages({ locale: locale });
-  const dir = getLangDir(locale) ?? "ltr";
   const themeCl = (await config.getConfig()).theme;
   const effects3DCl = (await config.getConfig()).is3DEffectsEnabled ? "effects3D" : "";
   const stuffconfig = `${themeCl} ${effects3DCl}`;
   const fonts = `${poppins.variable} ${roboto.variable} ${orbitron.variable}`;
+  const dir = getLangDir(locale) ?? "ltr";
 
   return (
     <html lang={locale} dir={dir} data-bs-theme="system" suppressHydrationWarning={true}>
       <body className={`${fonts} ${stuffconfig} mybkgpage`}>
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <div id="modal-root"></div>
+          <div className="modal-root" id="modal-root"></div>
           <div id="toast-root"></div>
           {children}
           <Dependencies />

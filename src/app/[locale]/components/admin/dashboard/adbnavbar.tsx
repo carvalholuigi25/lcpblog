@@ -6,7 +6,14 @@ import { getDefLocale } from "@applocale/helpers/defLocale";
 import {Link} from '@/app/i18n/navigation';
 import * as config from "@applocale/utils/config";
 
-export default function AdminNavbarDashboard({logInfo, sidebarToggle, toggleSidebar, locale}: {logInfo: string, sidebarToggle: boolean, toggleSidebar: any, locale: string}) {
+export interface AdminNavbarProps {
+    logInfo: string;
+    navbarStatus: boolean;
+    toggleNavbar: any;
+    locale: string;
+}
+
+export default function AdminNavbarDashboard({logInfo, navbarStatus, toggleNavbar, locale}: AdminNavbarProps) {
     const isRounded = config.getConfigSync().isBordered;
     const roundedCl = isRounded ? " roundednavbar" : "";
 
@@ -28,9 +35,9 @@ export default function AdminNavbarDashboard({logInfo, sidebarToggle, toggleSide
                 <Link className={"navbar-brand"} href="/" locale={locale ?? getDefLocale()}>LCPBlog</Link>
 
                 <div className="navbar-nav me-auto">
-                    <div className={!sidebarToggle ? "hidden" : "d-flex justify-content-center"}>
-                        <button type="button" className={"nav-link " + astyles.btnshsidebynav} id="btnshsidebynav" onClick={toggleSidebar}>
-                            {!!sidebarToggle ? <i className="bi bi-list iconav"></i> : <i className="bi bi-x-lg iconav"></i>}
+                    <div className={!navbarStatus ? "hidden" : "d-flex justify-content-center"}>
+                        <button type="button" className={"nav-link " + astyles.btnshsidebynav} id="btnshsidebynav" onClick={toggleNavbar}>
+                            {!!navbarStatus ? <i className="bi bi-list iconav"></i> : <i className="bi bi-x-lg iconav"></i>}
                         </button>
                     </div>
                 </div>

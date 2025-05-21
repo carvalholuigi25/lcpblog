@@ -27,7 +27,7 @@ const AdminPosts = () => {
     const [isAuthorized, setIsAuthorized] = useState(false);
     const [loading, setLoading] = useState(true);
     const [posts, setPosts] = useState(new Array<Posts>());
-    const [sidebarToggle, setSidebarToggle] = useState(true);
+    const [barToggle, setBarToggle] = useState(true);
     const [totalPages, setTotalPages] = useState(1);
     const [page, setPage] = useState(1);
     const [isSearchEnabled, setIsSearchEnabled] = useState(false);
@@ -75,9 +75,13 @@ const AdminPosts = () => {
         );
     }
 
+    const closeSidebar = () => {
+        setBarToggle(true);
+    }
+
     const toggleSidebar = (e: any) => {
         e.preventDefault();
-        setSidebarToggle(!sidebarToggle);
+        setBarToggle(!barToggle);
     }
 
     const tableHeaders = [
@@ -92,17 +96,17 @@ const AdminPosts = () => {
     return (
         <div className={astyles.admdashboard + " fixed"} id="admdashboard">
             {!!isAuthorized && (
-                <AdminNavbarDashboard logInfo={logInfo} sidebarToggle={sidebarToggle} toggleSidebar={toggleSidebar} locale={locale ?? getDefLocale()} />
+                <AdminNavbarDashboard logInfo={logInfo} navbarStatus={barToggle} toggleNavbar={toggleSidebar} locale={locale ?? getDefLocale()} />
             )}
 
             <div className="container-fluid">
                 <div className="row p-3">
                     {!!isAuthorized && (
                         <>
-                            <div className={"col-12 col-md-" + (!sidebarToggle ? "3" : "12") + " col-lg-" + (!sidebarToggle ? "2" : "12")}>
-                                <AdminSidebarDashboard sidebarToggle={sidebarToggle} toggleSidebar={toggleSidebar} locale={locale ?? getDefLocale()} />
+                            <div className={"col-12 col-md-" + (!barToggle ? "3" : "12") + " col-lg-" + (!barToggle ? "2" : "12")}>
+                                <AdminSidebarDashboard sidebarStatus={barToggle} toggleSidebar={toggleSidebar} locale={locale ?? getDefLocale()} onClose={closeSidebar} />
                             </div>
-                            <div className={"col-12 col-md-" + (!sidebarToggle ? "9" : "12") + " col-lg-" + (!sidebarToggle ? "10" : "12") + ""}>
+                            <div className={"col-12 col-md-" + (!barToggle ? "9" : "12") + " col-lg-" + (!barToggle ? "10" : "12") + ""}>
                                 <h3 className="text-center titlep">
                                     <i className="bi bi-file-post me-2"></i>
                                     {t("title") ?? "Posts"}

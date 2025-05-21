@@ -13,9 +13,10 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import * as config from "@applocale/utils/config";
 
 export interface AdminSidebarProps {
-    sidebarToggle: boolean;
+    sidebarStatus: boolean;
     toggleSidebar: any;
     locale: string;
+    onClose: (e?: any) => void;
 }
 
 export interface AdminSidebarLinksProps {
@@ -100,7 +101,7 @@ export const links = (t: any): AdminSidebarLinksProps[] => {
     ];
 };
 
-export default function AdminSidebarDashboard({ sidebarToggle, toggleSidebar, locale }: AdminSidebarProps) {
+export default function AdminSidebarDashboard({ sidebarStatus, toggleSidebar, locale, onClose }: AdminSidebarProps) {
     const t = useTranslations('ui.offcanvasAdmin');
     const pathname = usePathname();
     const prefix = "/pages/admin/dashboard";
@@ -120,7 +121,13 @@ export default function AdminSidebarDashboard({ sidebarToggle, toggleSidebar, lo
         if (!logInfo) {
             setLogInfo(getFromStorage("logInfo")!);
         }
-    }, [logInfo]);
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === "Escape" && !sidebarStatus) {
+                onClose();
+            }
+        });
+    }, [onClose, sidebarStatus, logInfo]);
 
 
     const toggleisSidebarSmall = (e: any) => {
@@ -159,12 +166,12 @@ export default function AdminSidebarDashboard({ sidebarToggle, toggleSidebar, lo
         return <Tooltip id="button-tooltip">{text}</Tooltip>;
     };
 
-    const navanimstatuscl = sidebarToggle ? (!isAnimated ? " hidden" : " closed") : " open";
+    const navanimstatuscl = sidebarStatus ? (!isAnimated ? " hidden" : " closed") : " open";
     const slideanimposleft = animType.toLowerCase() == "custom" ? " animate__fadeInLeft" : " slideleft";
     const slideanimposright = animType.toLowerCase() == "custom" ? " animate__fadeInRight" : " slideright";
     const animprefix = (animType.toLowerCase() == "custom" ? " animate__animated" : " anim");
     const slideanim = isAnimated ? (isSidebarSmall ? slideanimposleft : slideanimposright) : "";
-    const navanimcl = isAnimated ? animprefix + (isSidebarSmall ? " smsbar" : "") + slideanim + navanimstatuscl : (isSidebarSmall ? " smsbar" + navanimstatuscl : (sidebarToggle ? " hidden" : " open"));
+    const navanimcl = isAnimated ? animprefix + (isSidebarSmall ? " smsbar" : "") + slideanim + navanimstatuscl : (isSidebarSmall ? " smsbar" + navanimstatuscl : (!sidebarStatus ? " open" : " hidden"));
     const roundedcl = isRounded ? " rounded" : "";
 
     links(t).map((x, i) => {
@@ -250,11 +257,11 @@ export default function AdminSidebarDashboard({ sidebarToggle, toggleSidebar, lo
     });
 
     return ( 
-        <ul className={"nav flex-column nav-pills fixed-top " + astyles.navlinksadmdb + roundedcl + navanimcl} id="navlinksadmdb">
+        <ul className={"nav flex-column nav-pills fixed-top " + astyles.navlinksadmdb + roundedcl + navanimcl} id="navlinksadmdb" data-bs-backdrop="true" data-bs-focus="true" data-bs-keyboard="true" tabIndex={-1} aria-hidden={!!sidebarStatus ? "true" : "false"}>
             <li className={"nav-item mnavbrand d-flex justify-content-between align-items-center mb-3"}>
                 <Link className={"navbar-brand" + (isSidebarSmall ? " hidden" : "")} href="/" locale={locale ?? getDefLocale()}>LCPBlog</Link>
                 <button type="button" className={"nav-link " + astyles.btnshside + " btnclosenav"} onClick={toggleSidebar} title={t("btnclose") ?? "Close"}>
-                    {!!sidebarToggle ? <i className="bi bi-list"></i> : <i className="bi bi-x-lg"></i>}
+                    {!!sidebarStatus ? <i className="bi bi-list"></i> : <i className="bi bi-x-lg"></i>}
                 </button>
             </li>
             {mlinks}

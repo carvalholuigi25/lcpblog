@@ -78,7 +78,7 @@ p {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
 
   &.roundednavbar {
-    border-radius: 15px !important;
+    border-radius: calc(15px + 10px) !important;
   }
 }
 
@@ -454,6 +454,11 @@ footer {
   -o-backdrop-filter: blur($blursize);
   -webkit-backdrop-filter: blur($blursize);
   backdrop-filter: blur($blursize);
+
+  .modal-content {
+    background: rgb(255, 255, 255, .7);
+    box-shadow: 2px 4px 6px;
+  }
 }
 
 #toast-root {

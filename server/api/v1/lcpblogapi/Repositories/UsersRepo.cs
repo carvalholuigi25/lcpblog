@@ -170,6 +170,18 @@ public class UsersRepo : ControllerBase, IUsersRepo
         return NoContent();
     }
 
+    public async Task<ActionResult<IEnumerable<Post>>> GetPostsByUserId(int? userId)
+    {
+        var post = await _context.Posts.Where(x => x.UserId == userId).ToListAsync();
+
+        if (post == null)
+        {
+            return NotFound();
+        }
+
+        return post;
+    }
+
     public async Task<int> GetTotalCountAsync(QueryParams queryParams)
     {
         var query = _context.Users.AsQueryable();

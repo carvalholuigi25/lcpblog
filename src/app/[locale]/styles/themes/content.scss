@@ -96,6 +96,12 @@
         }
     }
 
+    #modal-root .show {
+        .modal-content {
+            @include m.applyBkg($themename, .7);
+        }
+    }
+
     .offcanvas {
         .btn-close {
             --bs-btn-close-color: #{$fgcolorprimary};

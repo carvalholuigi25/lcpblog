@@ -15,7 +15,7 @@ const AdminDevs = ({ locale }: { locale?: string }) => {
     const t = useTranslations("pages.AdminPages.DevelopersPage");
     const [logInfo, setLogInfo] = useState("");
     const [isAuthorized, setIsAuthorized] = useState(false);
-    const [sidebarToggle, setSidebarToggle] = useState(true);
+    const [barToggle, setBarToggle] = useState(true);
     const [loading, setLoading] = useState(true);
     const isContainerFluid = true;
 
@@ -36,15 +36,19 @@ const AdminDevs = ({ locale }: { locale?: string }) => {
         );
     }
 
+    const closeSidebar = () => {
+        setBarToggle(true);
+    }
+
     const toggleSidebar = (e: any) => {
         e.preventDefault();
-        setSidebarToggle(!sidebarToggle);
+        setBarToggle(!barToggle);
     }
 
     return (
         <div className={astyles.admdashboard + " fixed"} id="admdashboard">
             {!!isAuthorized && (
-                <AdminNavbarDashboard locale={locale ?? getDefLocale()} logInfo={logInfo} sidebarToggle={sidebarToggle} toggleSidebar={toggleSidebar} />
+                <AdminNavbarDashboard locale={locale ?? getDefLocale()} logInfo={logInfo} navbarStatus={barToggle} toggleNavbar={toggleSidebar} />
             )}
 
             <div className="container-fluid mt-3">
@@ -52,10 +56,10 @@ const AdminDevs = ({ locale }: { locale?: string }) => {
                     <>
                         <div className={"container" + (!!isContainerFluid ? "-fluid" : "") + " p-3"}>
                             <div className="row">
-                                <div className={"col-12 col-md-" + (!sidebarToggle ? "3" : "12") + " col-lg-" + (!sidebarToggle ? "2" : "12")}>
-                                    <AdminSidebarDashboard locale={locale ?? getDefLocale()} sidebarToggle={sidebarToggle} toggleSidebar={toggleSidebar} />
+                                <div className={"col-12 col-md-" + (!barToggle ? "3" : "12") + " col-lg-" + (!barToggle ? "2" : "12")}>
+                                    <AdminSidebarDashboard locale={locale ?? getDefLocale()} sidebarStatus={barToggle} toggleSidebar={toggleSidebar} onClose={closeSidebar} />
                                 </div>
-                                <div className={"col-12 col-md-" + (!sidebarToggle ? "9" : "12") + " col-lg-" + (!sidebarToggle ? "10" : "12") + ""}>
+                                <div className={"col-12 col-md-" + (!barToggle ? "9" : "12") + " col-lg-" + (!barToggle ? "10" : "12") + ""}>
                                     <h3 className="text-center titlep">
                                         <i className="bi bi-gear-fill me-2"></i>
                                         {t("title") ?? "Developers"}

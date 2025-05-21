@@ -64,7 +64,7 @@ namespace lcpblogapi.Controllers
         {
             return await _usersRepo.GetAvatarUser(uavatarsrch);
         }
-        
+
         /// <summary>
         /// Creates a user.
         /// </summary>
@@ -112,6 +112,22 @@ namespace lcpblogapi.Controllers
         public async Task<IActionResult> DeleteUser(int? id)
         {
             return await _usersRepo.DeleteUser(id);
+        }
+        
+        /// <summary>
+        /// Gets user post(s) by user id.
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns>Gets user post(s) by user id</returns>
+        /// <response code="201">Returns the post about user</response>
+        /// <response code="400">If the post is empty</response>
+        [HttpGet("posts/{userId}")]
+        [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<IEnumerable<Post>>> GetPostsByUserId(int? userId)
+        {
+            return await _usersRepo.GetPostsByUserId(userId);
         }
     }
 }

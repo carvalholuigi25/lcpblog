@@ -33,7 +33,7 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
     const [logInfo, setLogInfo] = useState("");
     const [isAuthorized, setIsAuthorized] = useState(false);
     const [loading, setLoading] = useState(true);
-    const [sidebarToggle, setSidebarToggle] = useState(true);
+    const [barToggle, setBarToggle] = useState(true);
     const [posts, setPosts] = useState(new Array<Posts>());
     const [categories, setCategories] = useState(new Array<Categories>());
     const [tags, setTags] = useState(new Array<Tags>());
@@ -149,9 +149,13 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
         return logInfo ? JSON.parse(logInfo)[0].displayName : "";
     }
 
+    const closeSidebar = () => {
+        setBarToggle(true);
+    }
+
     const toggleSidebar = (e: any) => {
         e.preventDefault();
-        setSidebarToggle(!sidebarToggle);
+        setBarToggle(!barToggle);
     }
 
     const onChangeChartType = (e: any) => {
@@ -162,7 +166,7 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
     return (
         <div className={astyles.admdashboard + " fixed"} id="admdashboard">
             {!!isAuthorized && (
-                <AdminNavbarDashboard locale={locale ?? getDefLocale()} logInfo={logInfo} sidebarToggle={sidebarToggle} toggleSidebar={toggleSidebar} />
+                <AdminNavbarDashboard locale={locale ?? getDefLocale()} logInfo={logInfo} navbarStatus={barToggle} toggleNavbar={toggleSidebar} />
             )}
 
             <div className="container-fluid mt-3">
@@ -170,10 +174,10 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
                     <>
                         <div className={"container" + (!!isContainerFluid ? "-fluid" : "") + " p-3"}>
                             <div className="row">
-                                <div className={"col-12 col-md-" + (!sidebarToggle ? "3" : "12") + " col-lg-" + (!sidebarToggle ? "2" : "12")}>
-                                    <AdminSidebarDashboard locale={locale ?? getDefLocale()} sidebarToggle={sidebarToggle} toggleSidebar={toggleSidebar} />
+                                <div className={"col-12 col-md-" + (!barToggle ? "3" : "12") + " col-lg-" + (!barToggle ? "2" : "12")}>
+                                    <AdminSidebarDashboard locale={locale ?? getDefLocale()} sidebarStatus={barToggle} toggleSidebar={toggleSidebar} onClose={closeSidebar} />
                                 </div>
-                                <div className={"col-12 col-md-" + (!sidebarToggle ? "9" : "12") + " col-lg-" + (!sidebarToggle ? "10" : "12") + ""}>
+                                <div className={"col-12 col-md-" + (!barToggle ? "9" : "12") + " col-lg-" + (!barToggle ? "10" : "12") + ""}>
                                     <h3 className="text-center titlep">
                                         <i className="bi bi-house me-2"></i>
                                         {t('lblhome') ?? "Home"}
