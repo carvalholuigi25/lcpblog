@@ -61,7 +61,7 @@ const Search = () => {
                 <input
                     {...register("search")}
                     type="text"
-                    className="form-control inpsearch me-2"
+                    className="form-control inpsearch"
                     placeholder={t("searchBar") ?? "Search"}
                     aria-label={t("searchBar") ?? "Search"}
                     onChange={handleChange}
@@ -72,7 +72,7 @@ const Search = () => {
                     onClick={doSearchData}
                     disabled={isSubmitting}
                 >
-                    <i className="bi bi-search"></i>
+                    <i className={"bi " + (showModal ? "bi-x-lg" : "bi-search")}></i>
                 </button>
             </form>
 

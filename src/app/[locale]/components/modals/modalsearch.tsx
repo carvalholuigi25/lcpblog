@@ -23,7 +23,7 @@ export default function ModalSearch({ onClose, statusModal }: any) {
     };
 
     const modalContent = (
-        <div className={"modal modalsearch " + (statusModal ? 'fade show' : 'hidden')} id="modalsearch" data-bs-backdrop="true" data-bs-focus="true" data-bs-keyboard="true" tabIndex={-1} aria-labelledby="modalsearchLbl" aria-hidden={!!statusModal ? "false" : "true"}>
+        <div className={"modal modalsearch animate__animated " + (statusModal ? 'animate__fadeIn show' : 'animate__fadeOut hidden')} id="modalsearch" data-bs-backdrop="true" data-bs-focus="true" data-bs-keyboard="true" tabIndex={-1} aria-labelledby="modalsearchLbl" aria-hidden={!!statusModal ? "false" : "true"}>
             <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div className="modal-content">
                     <div className="modal-header">

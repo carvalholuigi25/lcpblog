@@ -42,8 +42,8 @@ export default function AdminNavbarDashboard({logInfo, sidebarToggle, toggleSide
                 <div className="collapse navbar-collapse" id="navbarAdmDashboard">
                     <div className="navbar-nav ms-auto">
                         <Link className="nav-link active" aria-current="page" href={"/pages/users/" + getUserId()} locale={locale ?? getDefLocale()}>
-                            <Image src={'/images/' + getAvatar()} width={40} height={40} className={astyles.imgavatar + " me-3"} alt={getDisplayName() + "'s Avatar"} />
-                            <span className="hidden">{getDisplayName()}</span>
+                            <Image src={'/images/' + getAvatar()} width={40} height={40} className={astyles.imgavatar} alt={getDisplayName() + "'s Avatar"} />
+                            <span className="hidden ms-3">{getDisplayName()}</span>
                         </Link>
                     </div>
                 </div>

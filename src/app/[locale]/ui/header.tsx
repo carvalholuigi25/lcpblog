@@ -115,12 +115,17 @@ const HeaderMenu = ({ locale }: { locale: string }) => {
 
 const Header = ({ locale }: { locale: string }) => {
     const roundedcl = isRounded ? "rounded" : "";
+    const [isNavbarToggled, setisNavbarToggled] = useState(false);
+
+    const toggleNavbar = () => {
+        setisNavbarToggled(!isNavbarToggled)
+    }
 
     return (
         <>
             <HeaderMenu locale={locale ?? getDefLocale()} />
             <div className='header'>
-                <nav className={"navbar navbar-expand-lg bg-body-tertiary fixed-top " + roundedcl}>
+                <nav className={"navbar ps-0 pe-0 navbar-expand-lg bg-body-tertiary fixed-top " + roundedcl}>
                     <div className={"navbar-container"}></div>
                     <div className="container-fluid">
                         <Link className={"navbar-brand" + (is3DEffectsEnabled ? " navbar-3D" : "")} href="/#home" locale={locale ?? getDefLocale()}>
@@ -134,8 +139,9 @@ const Header = ({ locale }: { locale: string }) => {
                             aria-controls="navbarMain"
                             aria-expanded="false"
                             aria-label="Toggle navigation"
+                            onClick={toggleNavbar}
                         >
-                            <i className="bi bi-list"></i>
+                            <i className={"bi bi-" + (isNavbarToggled ? "x-lg" : "list")}></i>
                         </button>
                         <div className="collapse navbar-collapse" id="navbarMain">
                             <ul className="navbar-nav mx-auto me-0">

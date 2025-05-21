@@ -12,9 +12,13 @@ function RemovePaddingOffCanvas() {
     const myoffcanvas = document.querySelectorAll('.offcanvas')[0];
 
     if(myoffcanvas) {
-        myoffcanvas.addEventListener('show.bs.offcanvas', () => {
+        myoffcanvas.addEventListener('shown.bs.offcanvas', () => {
             if(document.body.style.getPropertyValue("padding-right")) {
                 document.body.style.removeProperty("padding-right");
+            }
+
+            if(document.querySelector(".navbar").style.getPropertyValue("padding-right")) {
+                document.querySelector(".navbar").style.removeProperty("padding-right");
             }
         });
     }

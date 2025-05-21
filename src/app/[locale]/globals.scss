@@ -315,8 +315,12 @@ footer {
   }
 }
 
-.rounded * {
-  border-radius: inherit;
+.rounded {
+  border-radius: calc(15px + 0px) !important;
+
+  * {
+    border-radius: inherit;
+  }
 }
 
 .btnflex {
@@ -334,7 +338,7 @@ footer {
 }
 
 .btn-tp {
-  background: transparent;
+  background: transparent !important;
   border: 1px solid;
 }
 
@@ -413,18 +417,27 @@ footer {
   }
 }
 
-.frmsearch .inpsearch {
-  z-index: 0;
-}
+.frmsearch {
+  .inpsearch {
+    margin: 0;
+    z-index: 0;
+  }
 
-.frmsearch .btnsearch {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  border: 0;
-  margin-right: 9px;
-  z-index: 2;
+  .btnsearch {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    border: 0;
+    margin-right: 0px;
+    margin-left: 0px;
+    z-index: 2;
+  }
+
+  .inpsearch, .btnsearch {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }
 
 #modal-root {
@@ -572,7 +585,7 @@ footer {
 
 #mallnewspage {
   .cardnews {
-    .card-img-top {
+    .card-img-top:not(.rounded) {
       border-bottom-left-radius: 0 !important;
       border-bottom-right-radius: 0 !important;
     }
@@ -608,6 +621,7 @@ footer {
     max-width: 100%;
     max-height: 40vh;
     object-fit: cover;
+    border-radius: inherit;
   }
 }
 
@@ -818,6 +832,12 @@ form {
   max-width: 100%;
 }
 
+.form-control {
+  &:focus {
+    box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, .25);
+  }
+}
+
 #termsandcon:checked::before,
 #termsandcond:checked::before {
   content: "\f00c";
@@ -858,6 +878,21 @@ form {
 
 .navbar-brand {
   font-family: 'Orbitron';
+}
+
+.navbar-toggler {
+  display: inline-block;
+  font-size: 1rem;
+  line-height: 1rem;
+  border-radius: 50%;
+  padding: 0.625rem 0.625rem;
+
+  .bi {
+    width: auto;
+    height: auto;
+    display: inline-block;
+    align-content: center;
+  }
 }
 
 .dropdown-menu {

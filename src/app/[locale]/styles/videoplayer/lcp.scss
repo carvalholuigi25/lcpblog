@@ -1,6 +1,6 @@
 .vjs-lcp {
     &.bordered {
-        border-radius: 15px;
+        border-radius: calc(15px + 10px);
 
         .vjs-control-bar {
             border-radius: 15px;

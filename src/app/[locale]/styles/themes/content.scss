@@ -54,6 +54,12 @@
             }
         }
 
+        .form-control {
+            &:focus {
+                box-shadow: 0 0 0 0.25rem $fgcolorprimary;
+            }
+        }
+
         .btn {
             color: $fgcolorprimary;
         }
@@ -356,8 +362,11 @@
     .container,
     .container-fluid {
         .btn {
-            background-color: $bgcolorprimary;
-            border-color: $bgcolorprimary;
+            &:not(.btn-tp) {
+                background-color: $bgcolorprimary;
+                border-color: $bgcolorprimary;
+            }
+
             color: $fgcolorprimary;
         }
     }
