@@ -7,6 +7,7 @@
 
 :root {
   --background: #d8d8d8;
+  --animate-duration: 0.5s;
 }
 
 html,
@@ -1412,6 +1413,19 @@ a.fc-event:hover {
     .colauthorcenter,
     .colauthorright {
       margin: 0px 0px !important;
+    }
+  }
+}
+
+@media all and (width <= 992px) {
+  .containerstats {
+    .card {
+      .card-body > * {
+        flex-direction: column;
+      }      
+
+      .bi { order: 0; }
+      .card-text { order: 1; margin-top: 15px; }
     }
   }
 }

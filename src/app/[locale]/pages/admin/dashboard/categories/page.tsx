@@ -41,7 +41,7 @@ const AdminCategories = () => {
             const params = `?page=${curindex}&pageSize=${pageSize}`;
 
             const data = await FetchData({
-                url: 'api/categories'+params,
+                url: 'api/categories' + params,
                 method: 'get',
                 reqAuthorize: true
             });
@@ -99,10 +99,10 @@ const AdminCategories = () => {
                 <div className="row p-3">
                     {!!isAuthorized && (
                         <>
-                            <div className={"col-12 col-md-" + (!barToggle ? "3" : "12") + " col-lg-" + (!barToggle ? "2" : "12")}>
+                            <div className={"col-12 col-md-12 col-lg-12"}>
                                 <AdminSidebarDashboard locale={locale ?? getDefLocale()} sidebarStatus={barToggle} toggleSidebar={toggleSidebar} onClose={closeSidebar} />
                             </div>
-                            <div className={"col-12 col-md-" + (!barToggle ? "9" : "12") + " col-lg-" + (!barToggle ? "10" : "12") + ""}>
+                            <div className={"col-12 col-md-12 col-lg-12"}>
                                 <h3 className="text-center titlep">
                                     <i className="bi bi-card-list me-2"></i>
                                     {t("title") ?? "Categories"}
@@ -111,7 +111,7 @@ const AdminCategories = () => {
                                     <div className="row">
                                         <div className="col-12">
                                             <div className="btn-group" role="group" aria-label="Users data actions">
-                                                <Link href={'/'+locale+'/pages/admin/dashboard/categories/add'} className="btn btn-primary btn-rounded btncreatecategories" title={t('btnaddcategory') ?? "Add new category"}>
+                                                <Link href={'/' + locale + '/pages/admin/dashboard/categories/add'} className="btn btn-primary btn-rounded btncreatecategories" title={t('btnaddcategory') ?? "Add new category"}>
                                                     <i className="bi bi-plus-circle"></i>
                                                     <span className="ms-2 hidden">
                                                         {t('btnaddcategory') ?? "Add new category"}

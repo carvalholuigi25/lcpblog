@@ -174,10 +174,10 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
                     <>
                         <div className={"container" + (!!isContainerFluid ? "-fluid" : "") + " p-3"}>
                             <div className="row">
-                                <div className={"col-12 col-md-" + (!barToggle ? "3" : "12") + " col-lg-" + (!barToggle ? "2" : "12")}>
+                                <div className={"col-12 col-md-12 col-lg-12"}>
                                     <AdminSidebarDashboard locale={locale ?? getDefLocale()} sidebarStatus={barToggle} toggleSidebar={toggleSidebar} onClose={closeSidebar} />
                                 </div>
-                                <div className={"col-12 col-md-" + (!barToggle ? "9" : "12") + " col-lg-" + (!barToggle ? "10" : "12") + ""}>
+                                <div className={"col-12 col-md-12 col-lg-12"}>
                                     <h3 className="text-center titlep">
                                         <i className="bi bi-house me-2"></i>
                                         {t('lblhome') ?? "Home"}
@@ -187,7 +187,7 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
                             </div>
                         </div>
 
-                        <div className={"container" + (!!isContainerFluid ? "-fluid" : "") + " mt-3 mx-auto text-center p-3"}>
+                        <div className={"container" + (!!isContainerFluid ? "-fluid" : "") + " containerstats mt-3 mx-auto text-center p-3"}>
                             <div className="row justify-content-center">
                                 <div className="col-12 col-md-4 col-lg-4 col-xl-3 mt-3">
                                     <div className="card p-3 bshadow">
@@ -245,7 +245,7 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
 
                         <div className={"container" + (!!isContainerFluid ? "-fluid" : "") + " mt-3 p-3"}>
                             <div className="row">
-                                <div className="col-12 col-md-6 col-lg-6 mt-3">
+                                <div className="col-12 col-md-12 col-lg-6 mt-3">
                                     {enableChangeChartType && (
                                         <div className="d-flex justify-content-center w-100">
                                             <select className="form-control mb-3 w-auto bshadow" value={chartTypeSelVal ?? 'verticalbar'} onChange={onChangeChartType}>
@@ -259,7 +259,7 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
 
                                     <ChartData theme={theme} type={chartTypeSelVal} />
                                 </div>
-                                <div className="col-12 col-md-6 col-lg-6 mt-3">
+                                <div className="col-12 col-md-12 col-lg-6 mt-3">
                                     <TableData tdata={posts} theaders={tableHeaders} namep={ttbl('titletable') ?? "news"} locale={locale ?? getDefLocale()} currentPage={page} totalPages={totalPages} linkSuffix="news" />
                                     <MyPagination cid={-1} pid={-1} currentPage={page} totalPages={totalPages} />
                                 </div>

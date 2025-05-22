@@ -23,15 +23,16 @@ const Search = () => {
     const {
         register,
         formState: { isSubmitting },
+        setValue
     } = useForm<TFormSearchData>({
         resolver: zodResolver(useMySchemaSearch()),
     });
- 
+
     const createQueryString = useCallback(
         (name: string, value: string) => {
             const params = new URLSearchParams(searchParams.toString());
             params.set(name, value);
-        
+
             return params.toString();
         },
         [searchParams]
@@ -44,14 +45,20 @@ const Search = () => {
 
     const doSearchData = (e: any) => {
         e.preventDefault();
-        saveToStorage("search", formData.search);
+
+        if (formData.search.length == 0) {
+            return alert("Please search something...")
+        }
+
         setShowModal(true);
+        saveToStorage("search", formData.search);
         router.push(pathname + "?" + createQueryString("search", formData.search));
     }
 
     const closeModal = () => {
         setShowModal(false);
         delFromStorage("search");
+        setValue("search", "");
         router.push(pathname + "?" + createQueryString("search", ""));
     }
 
@@ -66,13 +73,13 @@ const Search = () => {
                     aria-label={t("searchBar") ?? "Search"}
                     onChange={handleChange}
                 />
-                <button 
+                <button
                     className={"btn btn-tp btnsearch"}
-                    type="button" 
+                    type="button"
                     onClick={doSearchData}
                     disabled={isSubmitting}
                 >
-                    <i className={"bi " + (showModal ? "bi-x-lg" : "bi-search")}></i>
+                    <i className={"bi " + (showModal && formData.search.length > 0 ? "bi-x-lg" : "bi-search")}></i>
                 </button>
             </form>
 

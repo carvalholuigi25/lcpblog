@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { User } from "@applocale/interfaces/user";
 import { getDefLocale } from "@applocale/helpers/defLocale";
-import {Link} from '@/app/i18n/navigation';
+import { Link } from '@/app/i18n/navigation';
 import FetchData from "@applocale/utils/fetchdata";
 import AdminSidebarDashboard from "@applocale/components/admin/dashboard/adbsidebar";
 import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavbar";
@@ -83,10 +83,10 @@ const AdminUsers = () => {
                 <div className="row p-3">
                     {!!isAuthorized && (
                         <>
-                            <div className={"col-12 col-md-" + (!barToggle ? "3" : "12") + " col-lg-" + (!barToggle ? "2" : "12")}>
+                            <div className={"col-12 col-md-12 col-lg-12"}>
                                 <AdminSidebarDashboard locale={locale ?? getDefLocale()} sidebarStatus={barToggle} toggleSidebar={toggleSidebar} onClose={closeSidebar} />
                             </div>
-                            <div className={"col-12 col-md-" + (!barToggle ? "9" : "12") + " col-lg-" + (!barToggle ? "10" : "12") + ""}>
+                            <div className={"col-12 col-md-12 col-lg-12"}>
                                 <h3 className="text-center titlep">
                                     <i className="bi bi-people me-2"></i>
                                     {t("title") ?? "Users"}

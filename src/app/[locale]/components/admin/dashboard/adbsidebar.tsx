@@ -2,7 +2,7 @@
 "use client";
 import Image from "next/image";
 import astyles from "@applocale/styles/adminstyles.module.scss";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { delFromStorage, getFromStorage } from "@applocale/hooks/localstorage";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { Link } from '@/app/i18n/navigation';
@@ -107,28 +107,35 @@ export default function AdminSidebarDashboard({ sidebarStatus, toggleSidebar, lo
     const prefix = "/pages/admin/dashboard";
 
     const [logInfo, setLogInfo] = useState("");
+    
     const [isSidebarSmall, showisSidebarSmall] = useState(false);
     const showTooltips = isSidebarSmall;
     const isSidebarSmallEnabled = true;
     const isAnimated = true;
     const animType = "original";
     const isRounded = config.getConfigSync().isBordered;
+    const sidebarRef = useRef<any>(null);
 
     const mlinks: any = [];
     let msublinks: any = [];
+    
+    const close = useCallback((event: any) => {
+        event.preventDefault();
+
+        if (event.key === "Escape") {
+            onClose();
+        }
+    }, [onClose]);
 
     useEffect(() => {
         if (!logInfo) {
             setLogInfo(getFromStorage("logInfo")!);
         }
 
-        document.addEventListener('keydown', (event) => {
-            if (event.key === "Escape" && !sidebarStatus) {
-                onClose();
-            }
-        });
-    }, [onClose, sidebarStatus, logInfo]);
-
+        if (sidebarRef.current) {
+            sidebarRef.current.focus();
+        }
+    }, [logInfo]);
 
     const toggleisSidebarSmall = (e: any) => {
         e.preventDefault();
@@ -257,7 +264,7 @@ export default function AdminSidebarDashboard({ sidebarStatus, toggleSidebar, lo
     });
 
     return ( 
-        <ul className={"nav flex-column nav-pills fixed-top " + astyles.navlinksadmdb + roundedcl + navanimcl} id="navlinksadmdb" data-bs-backdrop="true" data-bs-focus="true" data-bs-keyboard="true" tabIndex={-1} aria-hidden={!!sidebarStatus ? "true" : "false"}>
+        <ul ref={sidebarRef} className={"nav flex-column nav-pills fixed-top " + astyles.navlinksadmdb + roundedcl + navanimcl} id="navlinksadmdb" data-bs-backdrop="true" data-bs-focus="true" data-bs-keyboard="true" tabIndex={-1} aria-hidden={!!sidebarStatus ? "true" : "false"} role="dialog" onMouseOver={close} onKeyDown={close}>
             <li className={"nav-item mnavbrand d-flex justify-content-between align-items-center mb-3"}>
                 <Link className={"navbar-brand" + (isSidebarSmall ? " hidden" : "")} href="/" locale={locale ?? getDefLocale()}>LCPBlog</Link>
                 <button type="button" className={"nav-link " + astyles.btnshside + " btnclosenav"} onClick={toggleSidebar} title={t("btnclose") ?? "Close"}>

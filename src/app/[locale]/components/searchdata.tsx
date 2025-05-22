@@ -21,8 +21,10 @@ export default function SearchData({locale}: {locale: string}) {
                 reqAuthorize: false
             });
 
-            setNews(JSON.parse(JSON.stringify(data.data)));
-            setLoading(false);
+            if(data.data) {
+                setNews(JSON.parse(JSON.stringify(data.data)));
+                setLoading(false);
+            }
         }
 
         fetchSearch();

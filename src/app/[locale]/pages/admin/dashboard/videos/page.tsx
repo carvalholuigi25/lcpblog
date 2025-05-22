@@ -14,17 +14,17 @@ import LoadingComp from "@applocale/components/loadingcomp";
 import VideoPlayer from "@applocale/components/video/player";
 
 const videoJsOptions = {
-  controls: true,
-  autoplay: false,
-  responsive: true,
-  fluid: true,
-  preload: 'auto',
-  sources: [
-    {
-      src: '//vjs.zencdn.net/v/oceans.mp4',
-      type: 'video/mp4'
-    },
-  ],
+    controls: true,
+    autoplay: false,
+    responsive: true,
+    fluid: true,
+    preload: 'auto',
+    sources: [
+        {
+            src: '//vjs.zencdn.net/v/oceans.mp4',
+            type: 'video/mp4'
+        },
+    ],
 };
 
 const AdminVideos = () => {
@@ -72,10 +72,10 @@ const AdminVideos = () => {
                 <div className="row p-3">
                     {!!isAuthorized && (
                         <>
-                            <div className={"col-12 col-md-" + (!barToggle ? "3" : "12") + " col-lg-" + (!barToggle ? "2" : "12")}>
+                            <div className={"col-12 col-md-12 col-lg-12"}>
                                 <AdminSidebarDashboard sidebarStatus={barToggle} toggleSidebar={toggleSidebar} locale={locale ?? getDefLocale()} onClose={closeSidebar} />
                             </div>
-                            <div className={"col-12 col-md-" + (!barToggle ? "9" : "12") + " col-lg-" + (!barToggle ? "10" : "12") + ""}>
+                            <div className={"col-12 col-md-12 col-lg-12"}>
                                 <h3 className="text-center titlep">
                                     <i className="bi bi-file-post me-2"></i>
                                     {t("title") ?? "Videos"}

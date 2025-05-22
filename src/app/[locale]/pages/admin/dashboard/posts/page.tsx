@@ -103,10 +103,10 @@ const AdminPosts = () => {
                 <div className="row p-3">
                     {!!isAuthorized && (
                         <>
-                            <div className={"col-12 col-md-" + (!barToggle ? "3" : "12") + " col-lg-" + (!barToggle ? "2" : "12")}>
+                            <div className={"col-12 col-md-12 col-lg-12"}>
                                 <AdminSidebarDashboard sidebarStatus={barToggle} toggleSidebar={toggleSidebar} locale={locale ?? getDefLocale()} onClose={closeSidebar} />
                             </div>
-                            <div className={"col-12 col-md-" + (!barToggle ? "9" : "12") + " col-lg-" + (!barToggle ? "10" : "12") + ""}>
+                            <div className={"col-12 col-md-12 col-lg-12"}>
                                 <h3 className="text-center titlep">
                                     <i className="bi bi-file-post me-2"></i>
                                     {t("title") ?? "Posts"}
