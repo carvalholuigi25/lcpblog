@@ -17,14 +17,15 @@ export interface TableDataProps {
     currentPage?: number;
     totalPages?: number;
     linkSuffix?: string;
+    tblDataCl?: string;
 }
 
 export function formatDate(mydate: number | string | Date) {
     return new Date(mydate).toLocaleDateString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit', weekday: undefined, hour: '2-digit', hour12: false, minute: '2-digit', second: '2-digit' });
 }
 
-export default function TableData({ theaders, tdata, namep, locale, currentPage, totalPages, linkSuffix }: TableDataProps) {
-    const t = useTranslations('ui.tables.tabledata');
+export default function TableData({ theaders, tdata, namep, locale, currentPage, totalPages, linkSuffix, tblDataCl }: TableDataProps) {
+    const t = useTranslations('ui.tables.'+(tblDataCl ?? "tabledata"));
     const isBorderEnabled = false;
     const isRoundedEnabled = true;
     const isShadowEnabled = true;
@@ -40,8 +41,8 @@ export default function TableData({ theaders, tdata, namep, locale, currentPage,
             {!tdata || tdata.length == 0 && (
                 <div className='col-12 card p-3 text-center'>
                     <div className='card-body'>
-                        <i className="bi bi-file-earmark-post-fill" style={{ fontSize: "4rem" }}></i>
-                        <p>{t('body.emptyposts') ?? "No posts, please create a new one..."}</p>
+                        <i className="bi bi-database-exclamation" style={{ fontSize: "4rem" }}></i>
+                        <p>{t('body.emptydata') ?? "No data, please create a new one..."}</p>
                     </div>
                 </div>
             )}

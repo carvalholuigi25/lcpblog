@@ -66,6 +66,13 @@ export const links = (t: any): AdminSidebarLinksProps[] => {
         },
         {
             id: 4,
+            name: t("tagslink") ?? "Tags",
+            link: "/tags",
+            icon: "bi-tag",
+            sublinks: []
+        },
+        {
+            id: 5,
             name: t("media.title") ?? "Media",
             link: "/",
             icon: "bi-collection-play",
@@ -85,7 +92,7 @@ export const links = (t: any): AdminSidebarLinksProps[] => {
             ]
         },
         {
-            id: 5,
+            id: 6,
             name: t("developers.title") ?? "Developers",
             link: "/developers",
             icon: "bi-gear-fill",

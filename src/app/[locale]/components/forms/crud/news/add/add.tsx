@@ -27,7 +27,7 @@ const AddNewsForm = () => {
     const t = useTranslations("ui.forms.crud.news.add");
     const tbtn = useTranslations("ui.buttons");
     const locale = useLocale() ?? getDefLocale();
-        
+
     const [formData, setFormData] = useState({
         title: "",
         content: "",
@@ -44,6 +44,8 @@ const AddNewsForm = () => {
     const [logInfo] = useState(getFromStorage("logInfo"));
     const [loading, setLoading] = useState(true);
     const [listCategories, setListCategories] = useState([]);
+    const [listTags, setListTags] = useState([]);
+    const [tagIdVal, setTagIdVal] = useState(['#geral']);
     const [myEditorKey, setMyEditorKey] = useState("");
     const [dataToast, setDataToast] = useState({ type: "", message: "", statusToast: false } as DataToastsProps);
 
@@ -65,7 +67,7 @@ const AddNewsForm = () => {
         async function addMyRealData() {
             const connect = await buildMyConnection("datahub", false);
             setConnection(connect);
-        
+
             try {
                 await connect.stop();
                 await connect.start();
@@ -73,11 +75,11 @@ const AddNewsForm = () => {
             } catch (e) {
                 console.log(e);
             }
-        
+
             connect.on("ReceiveMessage", () => {
                 console.log("message added");
             });
-        
+
             return () => connect.stop();
         }
 
@@ -91,16 +93,34 @@ const AddNewsForm = () => {
                     console.log(t("messages.success") ?? "Fetched categories successfully!");
                     setListCategories(r.data.data ?? r.data);
                 }).catch((err) => {
-                    console.log(t("messages.error", {message: ""+err}) ?? `Failed to fetch categories. Message: ${err}`);
+                    console.log(t("messages.error", { message: "" + err }) ?? `Failed to fetch categories. Message: ${err}`);
                 });
             } catch (error) {
-                console.log(t("messages.errorapi", {message: ""+error}) ?? `An error occurred while fetching categories! Message: ${error}`);
+                console.log(t("messages.errorapi", { message: "" + error }) ?? `An error occurred while fetching categories! Message: ${error}`);
+            }
+        }
+
+        async function getTags() {
+            try {
+                await FetchDataAxios({
+                    url: `api/tags`,
+                    method: 'get',
+                    reqAuthorize: false
+                }).then((r) => {
+                    console.log("Fetched tags successfully");
+                    setListTags(r.data.data ?? r.data);
+                }).catch((err) => {
+                    console.log("Failed to fetch tags. Message: " + err);
+                });
+            } catch (error) {
+                console.log("An error occurred while fetching tags! Message: " + error);
             }
         }
 
         getCategories();
+        getTags();
 
-        if(!!isResetedForm) {
+        if (!!isResetedForm) {
             setFormData({
                 title: "",
                 content: "",
@@ -112,12 +132,12 @@ const AddNewsForm = () => {
             });
         }
 
-        if(logInfo) {
+        if (logInfo) {
             setIsLoggedIn(true);
             setLoading(false);
         }
 
-        if(!loading) {
+        if (!loading) {
             addMyRealData();
         }
     }, [isResetedForm, logInfo, loading, t]);
@@ -155,17 +175,17 @@ const AddNewsForm = () => {
             }).then(async (r) => {
                 console.log(r);
                 setMyEditorKey(Date.now().toString());
-                setDataToast({type: "success", message: t("messages.addsuccess") ?? "The news post has been added sucessfully!", statusToast: true});
+                setDataToast({ type: "success", message: t("messages.addsuccess") ?? "The news post has been added sucessfully!", statusToast: true });
 
                 setTimeout(async () => {
                     await sendMessage(connection!, r.data);
-                    push("/"+locale);
+                    push("/" + locale);
                 }, 1000 * 5);
             }).catch((err) => {
-                setDataToast({type: "error", message: t("messages.adderror", {message: ""+err}) ?? `Failed to add news post! Message: ${err}`, statusToast: true});
+                setDataToast({ type: "error", message: t("messages.adderror", { message: "" + err }) ?? `Failed to add news post! Message: ${err}`, statusToast: true });
             });
         } catch (error) {
-            setDataToast({type: "error", message: t("messages.adderrorapi", {message: ""+error}) ?? `Error when adding news post! Message: ${error}`, statusToast: true});
+            setDataToast({ type: "error", message: t("messages.adderrorapi", { message: "" + error }) ?? `Error when adding news post! Message: ${error}`, statusToast: true });
         }
     }
 
@@ -175,14 +195,21 @@ const AddNewsForm = () => {
         setFormData({ ...formData, content: editorStateJSON });
     }
 
+    const onChangeTagList = (e: any) => {
+        console.log(e)
+        const values: any = Array.from(e.target.selectedOptions, (option: any) => option.value);
+        const nval: any = [...new Set(values)];
+        setTagIdVal(nval);
+    };
+
     return (
         <div className="container">
             {!isLoggedIn && (
                 <>
-                    <div className="col-12 mx-auto p-3" style={{marginTop: '3rem'}}>
+                    <div className="col-12 mx-auto p-3" style={{ marginTop: '3rem' }}>
                         <div className="card">
                             <div className="card-body text-center">
-                                <i className="bi bi-exclamation-triangle mx-auto" style={{fontSize: '4rem'}} />
+                                <i className="bi bi-exclamation-triangle mx-auto" style={{ fontSize: '4rem' }} />
                                 <p className="mt-3">
                                     {t("messages.unauth") ?? "You are not authorized to see this page!"}
                                 </p>
@@ -236,12 +263,12 @@ const AddNewsForm = () => {
                                     whileTap={{ scale: 0.8 }}
                                     className="d-inline-block mt-3"
                                 >
-                                    <Image 
-                                        src={getImagePath(formData.image)} 
-                                        width="600" 
-                                        height="300" 
-                                        alt="News image" 
-                                        className={styles.inpimgprev + " " + styles.inpimgprevcover} 
+                                    <Image
+                                        src={getImagePath(formData.image)}
+                                        width="600"
+                                        height="300"
+                                        alt="News image"
+                                        className={styles.inpimgprev + " " + styles.inpimgprevcover}
                                         onError={(event: any) => {
                                             event.target.id = "/images/blog.jpg";
                                             event.target.srcset = "/images/blog.jpg";
@@ -317,6 +344,22 @@ const AddNewsForm = () => {
                             <input {...register("userId")} type="number" name="userId" id="userId" className={"form-control userId mt-3 " + styles.sformgroup + " hidden"} value={getUserId() ?? 1} />
                         </div>
 
+                        <div className="form-group mt-3 text-center">
+                            <label htmlFor="tagId">Tags:</label>
+                            <select className="form-control tagId mt-3 p-3" id="tagId" value={tagIdVal} multiple onChange={onChangeTagList}>
+                                <option value={""} disabled>Select the tag(s)</option>
+                                {listTags && listTags.length > 0 && listTags.map((x: any, i: number) => (
+                                    <option key={i} value={x.name}>{x.name}</option>
+                                ))}
+
+                                {!listTags && (
+                                    <option key={0} value={"#geral"}>#geral</option>
+                                )}
+                            </select>
+
+                            <pre className="mt-3">You selected: {JSON.stringify(tagIdVal)}</pre>
+                        </div>
+
                         <div className="d-inline-block mx-auto mt-3">
                             <button className="btn btn-secondary btnreset btn-rounded" type="button" onClick={handleReset}>
                                 {t("btnreset") ?? "Reset"}
@@ -326,7 +369,7 @@ const AddNewsForm = () => {
                             </button>
                         </div>
                     </form>
-                    
+
                     <div className="col-12">
                         <div className="mt-3 mx-auto text-center">
                             <Link href={'/'} className="btn btn-primary btn-rounded" locale={getDefLocale()}>
@@ -335,7 +378,7 @@ const AddNewsForm = () => {
                         </div>
                     </div>
                 </>
-            )}  
+            )}
         </div>
     );
 }

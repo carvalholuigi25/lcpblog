@@ -260,7 +260,7 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
                                     <ChartData theme={theme} type={chartTypeSelVal} />
                                 </div>
                                 <div className="col-12 col-md-12 col-lg-6 mt-3">
-                                    <TableData tdata={posts} theaders={tableHeaders} namep={ttbl('titletable') ?? "news"} locale={locale ?? getDefLocale()} currentPage={page} totalPages={totalPages} linkSuffix="news" />
+                                    <TableData tdata={posts} theaders={tableHeaders} namep={ttbl('titletable') ?? "news"} locale={locale ?? getDefLocale()} currentPage={page} totalPages={totalPages} linkSuffix="news" tblDataCl="tabledata" />
                                     <MyPagination cid={-1} pid={-1} currentPage={page} totalPages={totalPages} />
                                 </div>
                             </div>

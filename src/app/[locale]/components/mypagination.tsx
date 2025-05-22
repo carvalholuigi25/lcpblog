@@ -133,7 +133,7 @@ export default function MyPagination({ cid, pid, currentPage, totalPages }: Pagi
         cid >= -1 && pid == -1 && (
             <nav className="d-flex mx-auto text-center">
                 <ul className="pagination mt-3 mx-auto">
-                    {getIndicators("left")}
+                    {totalPages > 0 && getIndicators("left")}
 
                     {getPageNumbers().map((pageNum, index) => (
                         <li key={index} className={`page-item ${pageNum === page ? "active" : ""}`}>
@@ -147,7 +147,7 @@ export default function MyPagination({ cid, pid, currentPage, totalPages }: Pagi
                         </li>
                     ))}
 
-                    {getIndicators("right")}
+                    {totalPages > 0 && getIndicators("right")}
                 </ul>
             </nav>
         )

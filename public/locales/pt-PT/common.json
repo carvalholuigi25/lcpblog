@@ -99,6 +99,16 @@
           "title": "Pesquisa de filtro avançada"
         }
       },
+      "TagsPage": {
+        "title": "Etiquetas",
+        "emptytags": "0 etiquetas.",
+        "btnaddnewtag": "Adicionar nova etiqueta",
+        "btnadvfsearch": {
+          "enable": "Ativar",
+          "disable": "Desativar",
+          "title": "Pesquisa de filtro avançada"
+        }
+      },
       "UsersPage": {
         "title": "Utilizadores",
         "btnadduser": "Adicionar novo utilizador",

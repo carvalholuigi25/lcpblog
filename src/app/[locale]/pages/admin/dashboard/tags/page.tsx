@@ -2,7 +2,7 @@
 "use client";
 import { getFromStorage } from "@applocale/hooks/localstorage";
 import { useEffect, useState } from "react";
-import { Posts } from "@applocale/interfaces/posts";
+import { Tags } from "@applocale/interfaces/tags";
 import { Link } from '@/app/i18n/navigation';
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { useLocale, useTranslations } from "next-intl";
@@ -16,17 +16,17 @@ import Footer from "@applocale/ui/footer";
 import withAuth from "@applocale/utils/withAuth";
 import MyPagination from "@applocale/components/mypagination";
 import LoadingComp from "@applocale/components/loadingcomp";
-import AdvancedSearchPosts from "@/app/[locale]/components/forms/search/posts/advsearchposts";
+import AdvancedSearchTags from "@applocale/components/forms/search/tags/advsearchtags";
 
-const AdminPosts = () => {
+const AdminTags = () => {
     const locale = useLocale();
-    const t = useTranslations("pages.AdminPages.PostsPage");
-    const ttbl = useTranslations("ui.tables.tabledata");
+    const t = useTranslations("pages.AdminPages.TagsPage");
+    const ttbl = useTranslations("ui.tables.tagstable");
     const tbtn = useTranslations("ui.buttons");
     const [logInfo, setLogInfo] = useState("");
     const [isAuthorized, setIsAuthorized] = useState(false);
     const [loading, setLoading] = useState(true);
-    const [posts, setPosts] = useState(new Array<Posts>());
+    const [tags, setTags] = useState(new Array<Tags>());
     const [barToggle, setBarToggle] = useState(true);
     const [totalPages, setTotalPages] = useState(1);
     const [page, setPage] = useState(1);
@@ -35,23 +35,23 @@ const AdminPosts = () => {
     const spage = searchParams.get("page");
     const search = searchParams.get("search") ?? "";
     const sortorder = searchParams.get("sortorder") ?? "asc";
-    const sortby = searchParams.get("sortby") ?? "id";
+    const sortby = searchParams.get("sortby") ?? "tagId";
     const pageSize: number = 10;
 
     useEffect(() => {
-        async function fetchPosts() {
+        async function fetchTags() {
             const curindex = page;
             const sparams = isSearchEnabled ? `&sortBy=${sortby}&sortOrder=${sortorder}&search=${search}` : ``;
             const params = `?page=${curindex}&pageSize=${pageSize}${sparams}`;
 
             const data = await FetchData({
-                url: 'api/posts' + params,
+                url: 'api/tags' + params,
                 method: 'get',
                 reqAuthorize: false
             });
 
             if (data.data) {
-                setPosts(JSON.parse(JSON.stringify(data.data)));
+                setTags(JSON.parse(JSON.stringify(data.data)));
                 setLoading(false);
             }
 
@@ -64,7 +64,7 @@ const AdminPosts = () => {
         }
 
         setIsAuthorized(logInfo && JSON.parse(logInfo)[0].role == "admin" ? true : false);
-        fetchPosts();
+        fetchTags();
     }, [logInfo, isAuthorized, isSearchEnabled, page, spage, search, sortby, sortorder]);
 
     if (loading) {
@@ -85,12 +85,11 @@ const AdminPosts = () => {
     }
 
     const tableHeaders = [
-        { dataIndex: 'postId', title: ttbl('header.postId') ?? 'Post Id' },
-        { dataIndex: 'title', title: ttbl('header.title') ?? 'Title' },
+        { dataIndex: 'tagId', title: ttbl('header.tagId') ?? 'Tag Id' },
+        { dataIndex: 'name', title: ttbl('header.name') ?? 'Name' },
         { dataIndex: 'createdAt', title: ttbl('header.createdAt') ?? 'Created At' },
         { dataIndex: 'updatedAt', title: ttbl('header.updatedAt') ?? 'Updated At' },
-        { dataIndex: 'slug', title: ttbl('header.slug') ?? 'Slug' },
-        { dataIndex: 'userId', title: ttbl('header.userId') ?? 'User Id' }
+        { dataIndex: 'status', title: ttbl('header.status') ?? 'Status' }
     ];
 
     return (
@@ -108,17 +107,17 @@ const AdminPosts = () => {
                             </div>
                             <div className={"col-12 col-md-12 col-lg-12"}>
                                 <h3 className="text-center titlep">
-                                    <i className="bi bi-file-post me-2"></i>
-                                    {t("title") ?? "Posts"}
+                                    <i className="bi bi-tag me-2"></i>
+                                    {t("title") ?? "Tags"}
                                 </h3>
                                 <div className="container-fluid">
                                     <div className="row">
                                         <div className="col-12">
-                                            <div className="btn-group btngroupposts" role="group" aria-label="News data actions">
-                                                <Link type="button" href={'/pages/news/add'} locale={locale ?? getDefLocale()} className="btn btn-primary btn-rounded btncreatenews" title={t('btnaddnews') ?? "Add news"}>
+                                            <div className="btn-group btngrouptags" role="group" aria-label="Tags data actions">
+                                                <Link type="button" href={'/pages/admin/dashboard/tags/add'} locale={locale ?? getDefLocale()} className="btn btn-primary btn-rounded btncreatetags" title={t('btnaddnewtag') ?? "Add new tag"}>
                                                     <i className="bi bi-plus-circle"></i>
                                                     <span className="ms-2 hidden">
-                                                        {t('btnaddnews') ?? "Add news"}
+                                                        {t('btnaddnewtag') ?? "Add new tag"}
                                                     </span>
                                                 </Link>
 
@@ -131,23 +130,22 @@ const AdminPosts = () => {
                                             </div>
                                         </div>
 
-
                                         {isSearchEnabled && (
-                                            <AdvancedSearchPosts isSearchEnabled={isSearchEnabled} pageIndex={page} pageSize={pageSize} />
+                                            <AdvancedSearchTags isSearchEnabled={isSearchEnabled} pageIndex={page} pageSize={pageSize} />
                                         )}
 
-                                        {!!posts && (
+                                        {!!tags && (
                                             <div className="col-12 mt-3">
-                                                <TableData theaders={tableHeaders} tdata={posts} namep={ttbl('titletable') ?? "news"} locale={locale ?? getDefLocale()} currentPage={page} totalPages={totalPages} linkSuffix="news" tblDataCl="tabledata" />
+                                                <TableData theaders={tableHeaders} tdata={tags} namep={ttbl('titletable') ?? "tags"} locale={locale ?? getDefLocale()} currentPage={page} totalPages={totalPages} linkSuffix="admin/dashboard/tags" tblDataCl="tagstable" />
                                                 <MyPagination cid={-1} pid={-1} currentPage={page} totalPages={totalPages} />
                                             </div>
                                         )}
 
-                                        {!posts && (
+                                        {!tags && (
                                             <div className='col-12 card p-3 mt-3 text-center'>
                                                 <div className='card-body'>
-                                                    <i className="bi bi-file-post" style={{ fontSize: "4rem" }}></i>
-                                                    <p>{t("emptyposts") ?? "0 posts"}</p>
+                                                    <i className="bi bi-file-tag" style={{ fontSize: "4rem" }}></i>
+                                                    <p>{t("emptytags") ?? "0 tags"}</p>
                                                 </div>
                                             </div>
                                         )}
@@ -171,4 +169,4 @@ const AdminPosts = () => {
     )
 }
 
-export default withAuth(AdminPosts, ["admin"]);
+export default withAuth(AdminTags, ["admin"]);

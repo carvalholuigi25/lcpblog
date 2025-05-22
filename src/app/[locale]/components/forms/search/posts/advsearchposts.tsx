@@ -15,8 +15,8 @@ const schema = z.object({
 
 type SearchFormData = z.infer<typeof schema>;
 
-export default function AdvancedSearch({ isSearchEnabled, pageIndex, pageSize }: any) {
-  const t = useTranslations("ui.forms.advancedsearch");
+export default function AdvancedSearchPosts({ isSearchEnabled, pageIndex, pageSize }: any) {
+  const t = useTranslations("ui.forms.advancedsearch.posts");
   const searchParams = useSearchParams();
 
   const {

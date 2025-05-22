@@ -20,7 +20,7 @@ import MyPagination from "@applocale/components/mypagination";
 const AdminCategories = () => {
     const locale = useLocale() ?? getDefLocale();
     const t = useTranslations("pages.AdminPages.CategoriesPage");
-    const ttbl = useTranslations("ui.tables.categoriesdata");
+    const ttbl = useTranslations("ui.tables.categoriestable");
     const tbtn = useTranslations("ui.buttons");
     const [logInfo, setLogInfo] = useState("");
     const [isAuthorized, setIsAuthorized] = useState(false);
@@ -122,7 +122,7 @@ const AdminCategories = () => {
 
                                         {!!categories && (
                                             <div className="col-12 mt-3">
-                                                <TableData locale={locale ?? getDefLocale()} theaders={tableHeaders} tdata={categories} namep={ttbl('titletable') ?? "categories"} currentPage={-1} totalPages={-1} linkSuffix="admin/dashboard/categories" />
+                                                <TableData locale={locale ?? getDefLocale()} theaders={tableHeaders} tdata={categories} namep={ttbl('titletable') ?? "categories"} currentPage={-1} totalPages={-1} linkSuffix="admin/dashboard/categories" tblDataCl="categoriestable" />
                                                 <MyPagination cid={-1} pid={-1} currentPage={page} totalPages={totalPages} />
                                             </div>
                                         )}

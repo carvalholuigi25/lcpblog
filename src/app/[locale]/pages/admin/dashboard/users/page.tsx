@@ -104,7 +104,7 @@ const AdminUsers = () => {
 
                                         {!!users && (
                                             <div className="col-12 mt-3">
-                                                <TableData theaders={tableHeaders} tdata={users} namep={ttbl('titletable') ?? "users"} locale={locale ?? getDefLocale()} currentPage={-1} totalPages={-1} linkSuffix="users" />
+                                                <TableData theaders={tableHeaders} tdata={users} namep={ttbl('titletable') ?? "users"} locale={locale ?? getDefLocale()} currentPage={-1} totalPages={-1} linkSuffix="users" tblDataCl="userstable" />
                                             </div>
                                         )}
 

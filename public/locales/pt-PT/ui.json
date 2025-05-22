@@ -1,5 +1,5 @@
 {
-    "ui": {
+  "ui": {
     "searchBar": "Procurar",
     "toasts": {
       "data": {
@@ -28,6 +28,7 @@
       "postslink": "Postagens",
       "userslink": "Utilizadores",
       "categorieslink": "Categorias",
+      "tagslink": "Etiquetas",
       "media": {
         "title": "Mídia",
         "options": {
@@ -113,12 +114,13 @@
           "status": "Estado",
           "categoryId": "Categoria Id",
           "userId": "Utilizador Id",
+          "tagId": "Etiqueta Id",
           "actions": "Ações"
         },
         "body": {
           "btnedit": "Editar",
           "btndelete": "Eliminar",
-          "emptyposts": "Não há postagens, por favor, crie uma postagem."
+          "emptydata": "Não há postagens, por favor, crie uma postagem."
         },
         "footer": {
           "page": "Página",
@@ -140,14 +142,14 @@
         "body": {
           "btnedit": "Editar",
           "btndelete": "Apagar",
-          "emptyusers": "Não há utilizadores, por favor, crie um utilizador."
+          "emptydata": "Não há utilizadores, por favor, crie um utilizador."
         },
         "footer": {
           "page": "Página",
           "totalData": "Total de"
         }
       },
-      "categoriesdata": {
+      "categoriestable": {
         "titletable": "Categorias",
         "header": {
           "postId": "Postagem Id",
@@ -164,7 +166,27 @@
         "body": {
           "btnedit": "Editar",
           "btndelete": "Eliminar",
-          "emptycategories": "Não há categorias, por favor, crie uma categoria."
+          "emptydata": "Não há categorias, por favor, crie uma categoria."
+        },
+        "footer": {
+          "page": "Página",
+          "totalData": "Total de"
+        }
+      },
+      "tagstable": {
+        "titletable": "Etiquetas",
+        "header": {
+          "tagId": "ID da etiqueta",
+          "name": "Nome",
+          "createdAt": "Criado em",
+          "updatedAt": "Atualizado em",
+          "status": "Estado",
+          "actions": "Ações"
+        },
+        "body": {
+          "btnedit": "Editar",
+          "btndelete": "Apagar",
+          "emptydata": "Nenhuma etiqueta, por favor crie uma nova etiqueta..."
         },
         "footer": {
           "page": "Página",
@@ -331,6 +353,80 @@
               "success": "Categoria editada com sucesso!",
               "error": "Erro ao editar categoria! Mensagem: {message}",
               "errorapi": "Ocorreu um erro ao tentar editar a categoria! Mensagem: {message}"
+            }
+          }
+        },
+        "tags": {
+          "add": {
+            "title": "Adicionar etiqueta",
+            "lblname": "Nome",
+            "inpname": "Escreve aqui o nome da etiqueta",
+            "lblstatus": "Estado",
+            "liststatus": {
+              "options": {
+                "sel": "Selecione a opção do estado",
+                "all": "Todos",
+                "locked": "Bloqueado",
+                "deleted": "Apagado"
+              }
+            },
+            "btnreset": "Repor",
+            "btnadd": "Adicionar",
+            "messages": {
+              "unauth": "Não está autorizado a ver esta página!",
+              "success": "Tag adicionada com sucesso!",
+              "error": "Erro ao adicionar tag! Mensagem: {message}",
+              "errorapi": "Ocorreu um erro ao tentar adicionar a etiqueta! Mensagem: {message}",
+              "addsuccess": "A etiqueta foi adicionada com sucesso!",
+              "adderror": "Falha ao adicionar tag! Mensagem: {message}",
+              "adderrorapi": "Erro ao adicionar tag! Mensagem: {message}"
+            }
+          },
+          "delete": {
+            "title": "Apagar tag",
+            "emptytags": "0 tags.",
+            "table": {
+              "header": {
+                "tagId": "ID da etiqueta",
+                "name": "Nome",
+                "createdAt": "Criado em",
+                "updatedAt": "Atualizado em",
+                "status": "Estado"
+              }
+            },
+            "messages": {
+              "unauth": "Não está autorizado a ver esta página!",
+              "success": "Etiqueta eliminada com sucesso!",
+              "error": "Erro ao eliminar tag! Mensagem: {message}",
+              "errorapi": "Ocorreu um erro ao tentar apagar a etiqueta! Mensagem: {message}",
+              "confirm": {
+                "title": "Tem a certeza que pretende eliminar esta etiqueta?",
+                "btnconfirm": "Sim",
+                "btncancel": "Não"
+              }
+            }
+          },
+          "edit": {
+            "title": "Editar tag",
+            "emptytags": "0 tags.",
+            "lblname": "Nome",
+            "inpname": "Escreve aqui o nome da etiqueta",
+            "lblstatus": "Estado",
+            "inpstatus": {
+              "options": {
+                "sel": "Selecione a opção do estado",
+                "all": "Todos",
+                "locked": "Bloqueado",
+                "deleted": "Apagado"
+              }
+            },
+            "btnreset": "Repor",
+            "btnedit": "Editar",
+            "messages": {
+              "unauth": "Não está autorizado a ver esta página!",
+              "success": "Tag editada com sucesso!",
+              "error": "Erro ao editar tag! Mensagem: {message}",
+              "errorapi": "Ocorreu um erro ao tentar editar a etiqueta! Mensagem: {message}"
             }
           }
         },
@@ -577,27 +673,53 @@
         }
       },
       "advancedsearch": {
-        "title": "Pesquisa de filtro avançada",
-        "lblsearch": "Pesquisar",
-        "inpsearch": "Pesquisar...",
-        "lblorderby": "Ordenar por",
-        "lblsortby": "Classificar por",
-        "optsorderby": {
-          "asc": "Crescente",
-          "desc": "Decrescente"
+        "posts": {
+          "title": "Pesquisa de filtro avançada",
+          "lblsearch": "Pesquisar",
+          "inpsearch": "Pesquisar...",
+          "lblorderby": "Ordenar por",
+          "lblsortby": "Classificar por",
+          "optsorderby": {
+            "asc": "Crescente",
+            "desc": "Decrescente"
+          },
+          "optssortby": {
+            "postId": "Id da postagem",
+            "title": "Título"
+          },
+          "btnreset": "Repor",
+          "btnsearch": "Procurar"
         },
-        "optssortby": {
-          "postId": "Id da postagem",
-          "title": "Título"
-        },
-        "btnreset": "Repor",
-        "btnsearch": "Procurar"
+        "tags": {
+          "title": "Pesquisa de filtro avançada",
+          "lblsearch": "Pesquisar",
+          "inpsearch": "Pesquisar...",
+          "lblorderby": "Ordenar por",
+          "lblsortby": "Classificar por",
+          "optsorderby": {
+            "asc": "Crescente",
+            "desc": "Decrescente"
+          },
+          "optssortby": {
+            "tagId": "Id da etiqueta",
+            "title": "Título"
+          },
+          "btnreset": "Repor",
+          "btnsearch": "Procurar"
+        }
       },
       "news": {
         "validation": {
           "errors": {
             "lblreqtitle": "O título deve ser preenchido",
             "lblreqcontent": "O conteúdo deve ser preenchido"
+          }
+        }
+      },
+      "tags": {
+        "validation": {
+          "errors": {
+            "lblreqname": "O nome da etiqueta deve ser preenchido"
           }
         }
       },

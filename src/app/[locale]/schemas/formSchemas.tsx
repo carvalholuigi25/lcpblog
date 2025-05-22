@@ -76,6 +76,17 @@ export const useMySchemaNews = () => {
     return fnewsSchema;
 }
 
+export const useMySchemaTags = () => {
+    const t = useTranslations("ui.forms.tags.validation.errors");
+
+    const ftagsSchema = z.object({
+        name: z.coerce.string().min(1, { message: t("lblreqname") ?? "The name of tag is required to be filled" }),
+        status: z.coerce.string().optional()
+    });
+    
+    return ftagsSchema;
+}
+
 export const useMySchemaCategories = () => {
     const t = useTranslations("ui.forms.categories.validation.errors");
 
@@ -140,6 +151,7 @@ export type TFormRegDataStep3 = z.infer<ReturnType<typeof useMySchemaRegStep3>>;
 export type TFormLogData = z.infer<ReturnType<typeof useMySchemaLogin>>;
 export type TFormSearchData = z.infer<ReturnType<typeof useMySchemaSearch>>;
 export type TFormNews = z.infer<ReturnType<typeof useMySchemaNews>>;
+export type TFormTags = z.infer<ReturnType<typeof useMySchemaTags>>;
 export type TFormCategories = z.infer<ReturnType<typeof useMySchemaCategories>>;
 export type TFormUsers = z.infer<ReturnType<typeof useMySchemaUsers>>;
 export type TFormCommits = z.infer<ReturnType<typeof useMySchemaCommits>>;
