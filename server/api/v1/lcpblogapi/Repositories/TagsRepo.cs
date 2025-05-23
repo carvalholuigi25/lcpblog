@@ -63,7 +63,7 @@ private MyDBSQLFunctions _myDBSQLFunctions;
             return BadRequest("Please write the name of tag with hashtag (#)");
         }
 
-        if (_context.Tags.Where(x => x.Name!.ToLower().Contains(Tag.Name!.ToLower())).Any())
+        if (_context.Tags.Where(x => x.Name!.ToLower().Equals(Tag.Name.ToLower())).Count() == 1)
         {
             return BadRequest("Tag already exists!");
         }
@@ -86,7 +86,7 @@ private MyDBSQLFunctions _myDBSQLFunctions;
             return BadRequest("Please write the name of tag with hashtag (#)");
         }
 
-        if (_context.Tags.Where(x => x.Name!.ToLower().Contains(Tag.Name!.ToLower())).Any())
+        if (_context.Tags.Where(x => x.Name!.ToLower().Equals(Tag.Name.ToLower())).Count() == 1)
         {
             return BadRequest("Tag already exists!");
         }

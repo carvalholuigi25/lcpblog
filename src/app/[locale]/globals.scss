@@ -521,6 +521,92 @@ footer {
 .mtoast {
   position: relative;
   z-index: 0;
+
+  &.toast {
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border-radius: calc(15px + 10px);
+  }
+
+  .success {
+    $bgcolor: green;
+    $bordercolor: white;
+    $color: white;
+
+    .toast-header, .toast-body, .toast-footer {
+      background-color: $bgcolor;
+      border-color: $bordercolor;
+      color: $color;
+
+      * {
+        color: $color !important;
+      }
+    }
+  }
+
+  .error, .danger {
+    $bgcolor: red;
+    $bordercolor: white;
+    $color: white;
+
+    .toast-header, .toast-body, .toast-footer {
+      background-color: $bgcolor;
+      border-color: $bordercolor;
+      color: $color;
+
+      * {
+        color: $color !important;
+      }
+    }
+  }
+
+  .warning {
+    $bgcolor: yellow;
+    $bordercolor: black;
+    $color: black;
+
+    .toast-header, .toast-body, .toast-footer {
+      background-color: $bgcolor;
+      border-color: $bordercolor;
+      color: $color;
+
+      * {
+        color: $color !important;
+      }
+    }
+  }
+
+  .info {
+    $bgcolor: #0d6efd;
+    $bordercolor: white;
+    $color: white;
+
+    .toast-header, .toast-body, .toast-footer {
+      background-color: $bgcolor;
+      border-color: $bordercolor;
+      color: $color;
+
+      * {
+        color: $color !important;
+      }
+    }
+  }
+
+  .other {
+    $bgcolor: white;
+    $bordercolor: white;
+    $color: black;
+
+    .toast-header, .toast-body, .toast-footer {
+      background-color: $bgcolor;
+      border-color: $bordercolor;
+      color: $color;
+
+      * {
+        color: $color !important;
+      }
+    }
+  }
 }
 
 .card {

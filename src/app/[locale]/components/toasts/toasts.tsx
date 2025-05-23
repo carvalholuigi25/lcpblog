@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import React, { useEffect } from "react";
+import React, { useCallback, useState } from "react";
 import ReactDOM from "react-dom";
 import Image from 'next/image';
 import { ToastsProps } from "@applocale/interfaces/toasts";
@@ -9,17 +10,14 @@ import { useTranslations } from "next-intl";
 
 export default function Toasts({ id, data }: ToastsProps) {
     const t = useTranslations("ui.toasts.data");
-    const [isClosed, setIsClosed] = React.useState(data.statusToast ? false : true);
+    const [isClosed, setIsClosed] = useState(data.statusToast ? false : true);
 
-    useEffect(() => {
-        document.addEventListener('keydown', (event) => {
-            if (event.key === "Escape" && !!data.statusToast) {
-                setIsClosed(true);
-            }
-        });
+     const close = useCallback((event: any) => {
+        if (event.key === "Escape" && !!data.statusToast) {
+            setIsClosed(true);
+        }
     }, [data.statusToast]);
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleCloseClick = (e: any) => {
         e.preventDefault();
 
@@ -30,7 +28,7 @@ export default function Toasts({ id, data }: ToastsProps) {
 
     const modeType = 1; // 0 - blog name 1 - display name
     const status = !!data.statusToast ? "show" : "hidden";
-    const mtype = data.type ? `text-bg-${data.type}` : "";
+    const mtype = data.type ? `${data.type}` : "";
 
     const getAvatar = () => {
         return getFromStorage("logInfo") ? JSON.parse(getFromStorage("logInfo")!)[0].avatar : null;
@@ -41,7 +39,7 @@ export default function Toasts({ id, data }: ToastsProps) {
     }
 
     const toastContent = (
-        <div aria-live="polite" aria-atomic="true" key={id} id={id} className={`mtoast ${status} fade`} data-bs-delay="1000" data-bs-autohide="true" data-bs-animation="true" data-bs-pause="hover" data-bs-dismiss="toast">
+        <div aria-live="polite" aria-atomic="true" key={id} id={id} className={`mtoast ${status} fade`} data-bs-delay="1000" data-bs-autohide="true" data-bs-animation="true" data-bs-pause="hover" data-bs-dismiss="toast" onMouseOver={close} onKeyDown={close}>
             <div className="toast-container p-3">
                 <div className={`toast ${mtype} ${status}`} role="alert" aria-live="assertive" aria-atomic="true">
                     <div className="toast-header">
@@ -61,7 +59,9 @@ export default function Toasts({ id, data }: ToastsProps) {
                         </div>
 
                         <div className="d-flex justify-content-end align-items-center">
-                            <button type="button" className="btn-close" data-bs-dismiss="toast" aria-label={"Closed"} onClick={handleCloseClick}></button>
+                            <button type="button" className="btn btnclose p-0" data-bs-dismiss="toast" aria-label={"Closed"} onClick={handleCloseClick}>
+                                <i className="bi bi-x-lg"></i>
+                            </button>
                         </div>
                     </div>
 

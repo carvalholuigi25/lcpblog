@@ -82,6 +82,8 @@ export const useMySchemaTags = () => {
 
     const ftagsSchema = z.object({
         name: z.coerce.string().min(1, { message: t("lblreqname") ?? "The name of tag is required to be filled" }),
+        createdAt: z.coerce.date().optional(),
+        updatedAt: z.coerce.date().optional(),
         status: z.coerce.string().optional()
     });
     

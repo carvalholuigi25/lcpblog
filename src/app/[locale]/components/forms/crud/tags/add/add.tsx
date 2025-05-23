@@ -8,7 +8,6 @@ import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getFromStorage } from "@applocale/hooks/localstorage";
 import { useMySchemaTags, type TFormTags } from "@applocale/schemas/formSchemas";
-import { buildMyConnection, sendMessage } from "@applocale/functions/functions";
 import { Link } from '@/app/i18n/navigation';
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { DataToastsProps } from "@applocale/interfaces/toasts";
@@ -16,7 +15,6 @@ import Toasts from "@applocale/components/toasts/toasts";
 import ShowAlert from "@applocale/components/alerts";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import LoadingComp from "@applocale/components/loadingcomp";
-import * as signalR from "@microsoft/signalr";
 
 const AddTagsForm = () => {
     const t = useTranslations("ui.forms.crud.tags.add");
@@ -34,8 +32,6 @@ const AddTagsForm = () => {
     const [loading, setLoading] = useState(true);
     const [dataToast, setDataToast] = useState({ type: "", message: "", statusToast: false } as DataToastsProps);
 
-    const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
-
     const { push } = useRouter();
 
     const {
@@ -52,25 +48,6 @@ const AddTagsForm = () => {
     watch();
 
     useEffect(() => {
-        async function addMyRealData() {
-            const connect = await buildMyConnection("datahub", false);
-            setConnection(connect);
-
-            try {
-                await connect.stop();
-                await connect.start();
-                console.log("Connection started");
-            } catch (e) {
-                console.log(e);
-            }
-
-            connect.on("ReceiveMessage", () => {
-                console.log("message added");
-            });
-
-            return () => connect.stop();
-        }
-
         setValue("name", "#");
 
         if (!!isResetedForm) {
@@ -83,10 +60,6 @@ const AddTagsForm = () => {
         if (logInfo) {
             setIsLoggedIn(true);
             setLoading(false);
-        }
-
-        if (!loading) {
-            addMyRealData();
         }
     }, [isResetedForm, logInfo, loading, t, setValue]);
 
@@ -113,6 +86,7 @@ const AddTagsForm = () => {
     const handleReset = (e: any) => {
         e.preventDefault();
         setIsResetedForm(true);
+        setValue("name", "#");
     }
 
     const onSubmit = async () => {
@@ -122,6 +96,7 @@ const AddTagsForm = () => {
                 method: 'post',
                 data: {
                     name: getValues("name")!,
+                    createdAt: new Date(),
                     status: formData.status
                 },
                 reqAuthorize: false
@@ -130,17 +105,24 @@ const AddTagsForm = () => {
                 setDataToast({ type: "success", message: t("messages.addsuccess") ?? "The tag has been added sucessfully!", statusToast: true });
 
                 setTimeout(async () => {
-                    await sendMessage(connection!, r.data);
                     setIsResetedForm(true);
                     push("/" + locale);
                 }, 1000 * 1);
             }).catch((err) => {
                 setDataToast({ type: "error", message: t("messages.adderror", { message: "" + err }) ?? `Failed to add tag! Message: ${err}`, statusToast: true });
                 setIsResetedForm(true);
+                
+                setTimeout(() => {
+                    location.reload();
+                }, 1000 * 1);
             });
         } catch (error) {
             setDataToast({ type: "error", message: t("messages.adderrorapi", { message: "" + error }) ?? `Error when adding tag! Message: ${error}`, statusToast: true });
             setIsResetedForm(true);
+            
+            setTimeout(() => {
+                location.reload();
+            }, 1000 * 1);
         }
     }
 

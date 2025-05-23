@@ -2,7 +2,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useMySchemaTags, type TFormTags } from "@applocale/schemas/formSchemas";
-import { buildMyConnection, sendMessage } from "@applocale/functions/functions";
 import { Link } from '@/app/i18n/navigation';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -33,12 +32,12 @@ const EditTagsForm = ({tagId, data}: {tagId: number, data: Tags}) => {
     const [isResetedForm, setIsResetedForm] = useState(false);
     const [logInfo] = useState(getFromStorage("logInfo"));
     const [dataToast, setDataToast] = useState({ type: "", message: "", statusToast: false } as DataToastsProps);
-    const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
     const [loading, setLoading] = useState(true);
     const { push } = useRouter();
 
     const {
         register,
+        handleSubmit,
         formState: { errors, isSubmitting },
         watch,
         setValue,
@@ -50,24 +49,6 @@ const EditTagsForm = ({tagId, data}: {tagId: number, data: Tags}) => {
     watch();
 
     useEffect(() => {
-        async function updateMyRealData() {
-            const connect = await buildMyConnection("datahub", false);
-            setConnection(connect);
-        
-            try {
-                await connect.stop();
-                await connect.start();
-                console.log("Connection started");
-            } catch (e) {
-                console.log(e);
-            }
-        
-            connect.on("ReceiveMessage", () => {
-                console.log("message updated");
-            });
-        
-            return () => connect.stop();
-        }
 
         setValue("name", "#"+data.name.toLowerCase().replace(/ /g, "-").replace(/[^\w-]+/g, ""));
 
@@ -83,10 +64,6 @@ const EditTagsForm = ({tagId, data}: {tagId: number, data: Tags}) => {
             setIsLoggedIn(true);
             setLoading(false);
         }
-
-        if(!loading) {
-            updateMyRealData();
-        }
     }, [isResetedForm, logInfo, data, loading, setValue]);
 
     if (loading) {
@@ -97,20 +74,25 @@ const EditTagsForm = ({tagId, data}: {tagId: number, data: Tags}) => {
 
     const handleChange = (e: any) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+        const nvalue = value.replace(/\s+/g, "-");
+        setFormData({ ...formData, [name]: nvalue });
 
         if(name === "name") {
-            setValue("name", "#"+value.toLowerCase().replace(/ /g, "-").replace(/[^\w-]+/g, ""));
+            if(value.length == 0) {
+                setFormData({...formData, ["name"]: "#"});
+            }
+
+            setValue("name", "#"+nvalue.toLowerCase().replace(/ /g, "-").replace(/[^\w-]+/g, ""));
         }
     };
 
-    const handleReset = () => {
+    const handleReset = (e: any) => {
+        e.preventDefault();
         setIsResetedForm(true);
+        setValue("name", "#");
     };
 
-    const handleSubmit = async (e: any) => {
-        e.preventDefault();
-
+    const onSubmit = async () => {
         try {
             await FetchDataAxios({
                 url: `api/tags/${tagId}`,
@@ -118,6 +100,7 @@ const EditTagsForm = ({tagId, data}: {tagId: number, data: Tags}) => {
                 data: {
                     tagId: tagId,
                     name: getValues("name")!,
+                    updatedAt: new Date(),
                     status: formData.status
                 },
             }).then(async (r) => {
@@ -125,14 +108,21 @@ const EditTagsForm = ({tagId, data}: {tagId: number, data: Tags}) => {
                 setDataToast({type: "success", message: t("messages.success") ?? "Tag has been edited sucessfully!", statusToast: true});
 
                 setTimeout(async () => {
-                    await sendMessage(connection!, r.data);
                     push("/"+locale);
                 }, 1000 / 2);
             }).catch((err) => {
                 setDataToast({type: "error", message: t("messages.error", {message: ""+err.message}) ?? `Error when editing tag! Message: ${err.message}`, statusToast: true});
+
+                setTimeout(() => {
+                    location.reload();
+                }, 1000 * 1);
             });
         } catch (error) {
             setDataToast({type: "error", message: t("messages.errorapi", {message: ""+error}) ?? `Occurred an error when trying to edit the tag! Message: ${error}`, statusToast: true});
+            
+            setTimeout(() => {
+                location.reload();
+            }, 1000 * 1);
         }
     };
 
@@ -161,7 +151,7 @@ const EditTagsForm = ({tagId, data}: {tagId: number, data: Tags}) => {
             {!!isLoggedIn && (
                 <>
                     <h3 className="title mx-auto text-center">{t('title') ?? 'Edit tag'}</h3>
-                    <form className={styles.frmedittags}>
+                    <form className={styles.frmedittags} onSubmit={handleSubmit(onSubmit)}>
                         <div className="form-group mt-3 text-center">
                             <label htmlFor="name">{t('lblname') ?? "Name"}</label>
                             <div className={styles.sformgroup}>
@@ -189,7 +179,7 @@ const EditTagsForm = ({tagId, data}: {tagId: number, data: Tags}) => {
                             <button className="btn btn-secondary btnreset btn-rounded" type="reset" onClick={handleReset}>
                                 {t('btnreset') ?? "Reset"}
                             </button>
-                            <button className="btn btn-primary btnedit btn-rounded ms-3" type="button" onClick={handleSubmit} disabled={isSubmitting}>
+                            <button type="submit" className="btn btn-primary btnedit btn-rounded ms-3" disabled={isSubmitting}>
                                 {t('btnedit') ?? "Edit"}
                             </button>
                         </div>

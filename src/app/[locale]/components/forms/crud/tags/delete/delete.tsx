@@ -9,7 +9,6 @@ import { Tags } from "@applocale/interfaces/tags";
 import { getFromStorage } from "@applocale/hooks/localstorage";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { DataToastsProps } from "@applocale/interfaces/toasts";
-import { buildMyConnection, sendMessage } from "@applocale/functions/functions";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import LoadingComp from "@applocale/components/loadingcomp";
 import Toasts from "@applocale/components/toasts/toasts";
@@ -21,38 +20,14 @@ const DeleteTagsForm = ({ id, data }: { id: number, data: Tags }) => {
     
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [logInfo] = useState(getFromStorage("logInfo"));
-    const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
     const [dataToast, setDataToast] = useState({ type: "", message: "", statusToast: false } as DataToastsProps);
     const [loading, setLoading] = useState(true);
     const { push } = useRouter();
 
     useEffect(() => {
-        async function deleteMyRealData() {
-            const connect = await buildMyConnection("datahub", false);
-            setConnection(connect);
-
-            try {
-                await connect.stop();
-                await connect.start();
-                console.log("Connection started");
-            } catch (e) {
-                console.log(e);
-            }
-
-            connect.on("ReceiveMessage", () => {
-                console.log("message deleted");
-            });
-
-            return () => connect.stop();
-        }
-
         if (logInfo) {
             setIsLoggedIn(true);
             setLoading(false);
-        }
-
-        if (!loading) {
-            deleteMyRealData();
         }
     }, [logInfo, loading]);
 
@@ -75,7 +50,6 @@ const DeleteTagsForm = ({ id, data }: { id: number, data: Tags }) => {
                 setDataToast({type: "success", message: t("messages.success") ?? "Tag has been deleted successfully!", statusToast: true});
 
                 setTimeout(async () => {
-                    await sendMessage(connection!, r.data);
                     push("/"+locale);
                 }, 1000 / 2);
             }).catch((err) => {
