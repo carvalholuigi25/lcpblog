@@ -374,17 +374,17 @@
             "btnadd": "Adicionar",
             "messages": {
               "unauth": "Não está autorizado a ver esta página!",
-              "success": "Tag adicionada com sucesso!",
-              "error": "Erro ao adicionar tag! Mensagem: {message}",
+              "success": "Etiqueta adicionada com sucesso!",
+              "error": "Erro ao adicionar etiqueta! Mensagem: {message}",
               "errorapi": "Ocorreu um erro ao tentar adicionar a etiqueta! Mensagem: {message}",
               "addsuccess": "A etiqueta foi adicionada com sucesso!",
-              "adderror": "Falha ao adicionar tag! Mensagem: {message}",
-              "adderrorapi": "Erro ao adicionar tag! Mensagem: {message}"
+              "adderror": "Falha ao adicionar etiqueta! Mensagem: {message}",
+              "adderrorapi": "Erro ao adicionar etiqueta! Mensagem: {message}"
             }
           },
           "delete": {
-            "title": "Apagar tag",
-            "emptytags": "0 tags.",
+            "title": "Apagar etiqueta(s)",
+            "emptytags": "0 etiquetas.",
             "table": {
               "header": {
                 "tagId": "ID da etiqueta",
@@ -397,7 +397,7 @@
             "messages": {
               "unauth": "Não está autorizado a ver esta página!",
               "success": "Etiqueta eliminada com sucesso!",
-              "error": "Erro ao eliminar tag! Mensagem: {message}",
+              "error": "Erro ao eliminar etiqueta! Mensagem: {message}",
               "errorapi": "Ocorreu um erro ao tentar apagar a etiqueta! Mensagem: {message}",
               "confirm": {
                 "title": "Tem a certeza que pretende eliminar esta etiqueta?",
@@ -407,8 +407,8 @@
             }
           },
           "edit": {
-            "title": "Editar tag",
-            "emptytags": "0 tags.",
+            "title": "Editar etiqueta",
+            "emptytags": "0 etiquetas.",
             "lblname": "Nome",
             "inpname": "Escreve aqui o nome da etiqueta",
             "lblstatus": "Estado",
@@ -424,8 +424,8 @@
             "btnedit": "Editar",
             "messages": {
               "unauth": "Não está autorizado a ver esta página!",
-              "success": "Tag editada com sucesso!",
-              "error": "Erro ao editar tag! Mensagem: {message}",
+              "success": "Etiqueta editada com sucesso!",
+              "error": "Erro ao editar etiqueta! Mensagem: {message}",
               "errorapi": "Ocorreu um erro ao tentar editar a etiqueta! Mensagem: {message}"
             }
           }
@@ -504,6 +504,8 @@
               }
             },
             "lbluserId": "Utilizador Id",
+            "lbltags": "Etiquetas",
+            "seltags": "Seleciona a(s) etiqueta(s)",
             "btnreset": "Repor",
             "btnadd": "Adicionar",
             "messages": {
@@ -524,7 +526,8 @@
                 "id": "Id",
                 "title": "Título",
                 "categoryId": "Categoria Id",
-                "userId": "Utilizador Id"
+                "userId": "Utilizador Id",
+                "tags": "Etiquetas"
               }
             },
             "messages": {
@@ -566,6 +569,8 @@
               }
             },
             "lbluserId": "Utilizador Id",
+            "lbltags": "Etiquetas",
+            "seltags": "Seleciona a(s) etiqueta(s)",
             "btnreset": "Repor",
             "btnedit": "Editar",
             "messages": {

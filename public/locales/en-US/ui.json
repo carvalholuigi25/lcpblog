@@ -505,6 +505,8 @@
                             }
                         },
                         "lbluserId": "User Id",
+                        "lbltags": "Tags",
+                        "seltags": "Select the tag(s)",
                         "btnreset": "Reset",
                         "btnadd": "Add",
                         "messages": {
@@ -525,7 +527,8 @@
                                 "id": "Id",
                                 "title": "Title",
                                 "categoryId": "Category Id",
-                                "userId": "User Id"
+                                "userId": "User Id",
+                                "tags": "Tags"
                             }
                         },
                         "messages": {
@@ -567,6 +570,8 @@
                             }
                         },
                         "lbluserId": "User Id",
+                        "lbltags": "Tags",
+                        "seltags": "Select the tag(s)",
                         "btnreset": "Reset",
                         "btnedit": "Edit",
                         "messages": {

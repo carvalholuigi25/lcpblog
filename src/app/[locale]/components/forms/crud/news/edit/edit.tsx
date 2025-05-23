@@ -37,6 +37,7 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
         status: data.status ?? "0",
         categoryId: data.categoryId ?? 1,
         userId: data.userId ?? 1,
+        tags: data.tags ?? ["#geral"]
     });
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -44,6 +45,8 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
     const [editorState, setEditorState] = useState("");
     const [logInfo] = useState(getFromStorage("logInfo"));
     const [listCategories, setListCategories] = useState([]);
+    const [listTags, setListTags] = useState([]);
+    const [tagsVal, setTagsVal] = useState(data.tags ?? ['#geral']);
     const [myEditorKey, setMyEditorKey] = useState("");
     const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
     const [loading, setLoading] = useState(true);
@@ -97,8 +100,26 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
                 console.error(error);
             }
         }
+        
+        async function getTags() {
+            try {
+                await FetchDataAxios({
+                    url: `api/tags`,
+                    method: 'get',
+                    reqAuthorize: false
+                }).then((r) => {
+                    console.log("Fetched tags successfully");
+                    setListTags(r.data.data ?? r.data);
+                }).catch((err) => {
+                    console.log("Failed to fetch tags. Message: " + err);
+                });
+            } catch (error) {
+                console.log("An error occurred while fetching tags! Message: " + error);
+            }
+        }
 
         getCategories();
+        getTags();
 
         if(!!isResetedForm) {
             setFormData({
@@ -110,6 +131,7 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
                 status: data.status ?? "0",
                 categoryId: data.categoryId ?? 1,
                 userId: getUserId() ?? data.userId ?? 1,
+                tags: data.tags ?? ["#geral"]
             });
         }
 
@@ -152,7 +174,7 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
             await FetchDataAxios({
                 url: `api/posts/${id}`,
                 method: 'put',
-                data: formData
+                data: {...formData, ["tags"]: tagsVal}
             }).then(async (r) => {
                 console.log(r);
                 setMyEditorKey(Date.now().toString());
@@ -175,6 +197,13 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
         setEditorState(editorStateJSON);
         setFormData({ ...formData, content: editorStateJSON });
     }
+
+    const onChangeTagList = (e: any) => {
+        console.log(e)
+        const values: any = Array.from(e.target.selectedOptions, (option: any) => option.value);
+        const nval: any = [...new Set(values)];
+        setTagsVal(nval);
+    };
 
     return (
         <div className="container">
@@ -316,6 +345,20 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
                                 {t('lbluserId') ?? "User Id:"}
                             </label>
                             <input {...register("userId")} type="number" name="userId" id="userId" className={"form-control userId mt-3 " + styles.sformgroup + " hidden"} value={getUserId() ?? 1} />
+                        </div>
+
+                        <div className="form-group mt-3 text-center">
+                            <label htmlFor="tags">{t("lbltags") ?? "Tags:"}</label>
+                            <select className="form-control tags mt-3 p-3" id="tags" value={tagsVal} multiple onChange={onChangeTagList}>
+                                <option value={""} disabled>{t("seltags") ?? "Select the tag(s)"}</option>
+                                {listTags && listTags.length > 0 && listTags.map((x: any, i: number) => (
+                                    <option key={i} value={x.name}>{x.name}</option>
+                                ))}
+
+                                {!listTags || listTags.length == 0 && (
+                                    <option key={0} value={"#geral"}>#geral</option>
+                                )}
+                            </select>
                         </div>
 
                         <div className="d-inline-block mx-auto mt-3">

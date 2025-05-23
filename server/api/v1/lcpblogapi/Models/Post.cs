@@ -41,6 +41,8 @@ public class Post
 
     [DefaultValue(1)]
     public int? UserId { get; set; } = 1;
+
+    public List<string>? Tags { get; set; } = ["#geral"];
     
     [JsonIgnore]
     public User? User { get; set; }

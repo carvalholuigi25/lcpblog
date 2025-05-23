@@ -11,6 +11,7 @@ export interface Posts {
     status: string;
     categoryId: number;
     userId: number;
+    tags?: string[];
 }
 
 export interface PostsData {

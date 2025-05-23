@@ -40,6 +40,7 @@ const AddTagsForm = () => {
 
     const {
         register,
+        handleSubmit,
         formState: { errors, isSubmitting },
         watch,
         setValue,
@@ -97,10 +98,15 @@ const AddTagsForm = () => {
 
     const handleChange = (e: any) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+        const nvalue = value.replace(/\s+/g, "-");
+        setFormData({ ...formData, [name]: nvalue });
 
         if(name === "name") {
-            setValue("name", "#"+value.toLowerCase().replace(/ /g, "-").replace(/[^\w-]+/g, ""));
+            if(value.length == 0) {
+                setFormData({...formData, ["name"]: "#"});
+            }
+
+            setValue("name", "#"+nvalue.toLowerCase().replace(/ /g, "-").replace(/[^\w-]+/g, ""));
         }
     }
 
@@ -109,9 +115,7 @@ const AddTagsForm = () => {
         setIsResetedForm(true);
     }
 
-    const handleSubmit = async (e: any) => {
-        e.preventDefault();
-
+    const onSubmit = async () => {
         try {
             await FetchDataAxios({
                 url: `api/tags`,
@@ -168,7 +172,7 @@ const AddTagsForm = () => {
                         {t('title') ?? 'Add tags'}
                     </h3>
 
-                    <form className={styles.frmaddtags}>
+                    <form className={styles.frmaddtags} onSubmit={handleSubmit(onSubmit)}>
                         <div className="form-group mt-3 text-center">
                             <label htmlFor="name">
                                 {t('lblname') ?? "Name"}
@@ -208,7 +212,7 @@ const AddTagsForm = () => {
                             <button className="btn btn-secondary btnreset btn-rounded" type="button" onClick={handleReset}>
                                 {t("btnreset") ?? "Reset"}
                             </button>
-                            <button className="btn btn-primary btnadd btn-rounded ms-3" type="button" onClick={handleSubmit} disabled={isSubmitting}>
+                            <button type="submit" className="btn btn-primary btnadd btn-rounded ms-3" disabled={isSubmitting}>
                                 {t("btnadd") ?? "Add"}
                             </button>
                         </div>

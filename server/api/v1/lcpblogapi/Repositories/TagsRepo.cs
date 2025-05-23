@@ -58,6 +58,16 @@ private MyDBSQLFunctions _myDBSQLFunctions;
 
     public async Task<ActionResult<Tag>> CreateTag(Tag Tag)
     {
+        if(string.IsNullOrEmpty(Tag.Name) || !Tag.Name.StartsWith('#'))
+        {
+            return BadRequest("Please write the name of tag with hashtag (#)");
+        }
+
+        if (_context.Tags.Where(x => x.Name!.ToLower().Contains(Tag.Name!.ToLower())).Any())
+        {
+            return BadRequest("Tag already exists!");
+        }
+
         _context.Tags.Add(Tag);
         await _context.SaveChangesAsync();
 
@@ -69,6 +79,16 @@ private MyDBSQLFunctions _myDBSQLFunctions;
         if (id != Tag.TagId)
         {
             return BadRequest();
+        }
+
+        if(string.IsNullOrEmpty(Tag.Name) || !Tag.Name.StartsWith('#'))
+        {
+            return BadRequest("Please write the name of tag with hashtag (#)");
+        }
+
+        if (_context.Tags.Where(x => x.Name!.ToLower().Contains(Tag.Name!.ToLower())).Any())
+        {
+            return BadRequest("Tag already exists!");
         }
 
         _context.Entry(Tag).State = EntityState.Modified;

@@ -70,7 +70,8 @@ export const useMySchemaNews = () => {
         slug: z.coerce.string().optional(),
         status: z.coerce.string().optional(),
         categoryId: z.coerce.number().optional(),
-        userId: z.coerce.number().optional()
+        userId: z.coerce.number().optional(),
+        tags: z.array(z.coerce.string()).optional()
     });
     
     return fnewsSchema;

@@ -100,7 +100,7 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
                 setCategories(JSON.parse(JSON.stringify(categories)));
             }
 
-            if(comments) {
+            if (comments) {
                 setTotalComments(comments.length);
             }
 
@@ -280,6 +280,17 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
 
                                                 {pid == -1 && (
                                                     <button className="btn btn-primary btn-rounded mt-3 mx-auto d-inline-block" onClick={(e: any) => redirectToPost(e, newsi)}>{t("btnreadmore") ?? "Read more"}</button>
+                                                )}
+
+                                                {cid != -1 && newsi.tags && (
+                                                    <div className="form-group mt-3">
+                                                        {newsi.tags.map((tx, itx) => (
+                                                            <button className="btn btn-info btntaginfo btn-rounded ms-2 me-2" key={itx}>
+                                                                <i className="bi bi-tag me-1"></i>
+                                                                <span>{tx}</span>
+                                                            </button>
+                                                        ))}
+                                                    </div>
                                                 )}
 
                                                 {!!enabledViews && !hiddenViews && (

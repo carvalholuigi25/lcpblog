@@ -16,6 +16,7 @@ public class Tag
     public string? Name { get; set; }
     
     public DateTimeOffset? CreatedAt { get; set; } = DateTimeOffset.Now;
+
     public DateTimeOffset? UpdatedAt { get; set; } = DateTimeOffset.Now;
     
     [DefaultValue(ETagStatus.all)]

@@ -36,6 +36,7 @@ const AddNewsForm = () => {
         status: "0",
         categoryId: 1,
         userId: 1,
+        tags: ["#geral"]
     });
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -45,7 +46,7 @@ const AddNewsForm = () => {
     const [loading, setLoading] = useState(true);
     const [listCategories, setListCategories] = useState([]);
     const [listTags, setListTags] = useState([]);
-    const [tagIdVal, setTagIdVal] = useState(['#geral']);
+    const [tagsVal, setTagsVal] = useState(['#geral']);
     const [myEditorKey, setMyEditorKey] = useState("");
     const [dataToast, setDataToast] = useState({ type: "", message: "", statusToast: false } as DataToastsProps);
 
@@ -129,6 +130,7 @@ const AddNewsForm = () => {
                 status: "0",
                 categoryId: 1,
                 userId: getUserId() ?? 1,
+                tags: ["#geral"]
             });
         }
 
@@ -199,7 +201,7 @@ const AddNewsForm = () => {
         console.log(e)
         const values: any = Array.from(e.target.selectedOptions, (option: any) => option.value);
         const nval: any = [...new Set(values)];
-        setTagIdVal(nval);
+        setTagsVal(nval);
     };
 
     return (
@@ -345,19 +347,17 @@ const AddNewsForm = () => {
                         </div>
 
                         <div className="form-group mt-3 text-center">
-                            <label htmlFor="tagId">Tags:</label>
-                            <select className="form-control tagId mt-3 p-3" id="tagId" value={tagIdVal} multiple onChange={onChangeTagList}>
-                                <option value={""} disabled>Select the tag(s)</option>
+                            <label htmlFor="tags">{t("lbltags") ?? "Tags:"}</label>
+                            <select className="form-control tags mt-3 p-3" id="tags" value={tagsVal} multiple onChange={onChangeTagList}>
+                                <option value={""} disabled>{t("seltags") ?? "Select the tag(s)"}</option>
                                 {listTags && listTags.length > 0 && listTags.map((x: any, i: number) => (
                                     <option key={i} value={x.name}>{x.name}</option>
                                 ))}
 
-                                {!listTags && (
+                                {!listTags || listTags.length == 0 && (
                                     <option key={0} value={"#geral"}>#geral</option>
                                 )}
                             </select>
-
-                            <pre className="mt-3">You selected: {JSON.stringify(tagIdVal)}</pre>
                         </div>
 
                         <div className="d-inline-block mx-auto mt-3">

@@ -505,6 +505,8 @@
                             }
                         },
                         "lbluserId": "ID de l'utilisateur",
+                        "lbltags": "Étiquettes",
+                        "seltags": "Sélectionnez une(des) étiquette(s)",
                         "btnreset": "Réinitialiser",
                         "btnadd": "Ajouter",
                         "messages": {
@@ -525,7 +527,8 @@
                                 "id": "Id",
                                 "title": "Titre",
                                 "categoryId": "ID de catégorie",
-                                "userId": "ID de l'utilisateur"
+                                "userId": "ID de l'utilisateur",
+                                "tags": "Mots clés"
                             }
                         },
                         "messages": {
@@ -567,6 +570,8 @@
                             }
                         },
                         "lbluserId": "ID de l'utilisateur",
+                        "lbltags": "Étiquettes",
+                        "seltags": "Sélectionnez une(des) étiquette(s)",
                         "btnreset": "Réinitialiser",
                         "btnedit": "Modifier",
                         "messages": {

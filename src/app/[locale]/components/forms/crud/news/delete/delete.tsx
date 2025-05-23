@@ -127,6 +127,7 @@ const DeleteNewsForm = ({ id, data }: { id: number, data: Posts }) => {
                                             <th>{t("table.header.title") ?? "Title"}</th>
                                             <th>{t("table.header.categoryId") ?? "Category Id"}</th>
                                             <th>{t("table.header.userId") ?? "User Id"}</th>
+                                            <th>{t("table.header.tags") ?? "Tags"}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -135,6 +136,14 @@ const DeleteNewsForm = ({ id, data }: { id: number, data: Posts }) => {
                                             <td>{data.title}</td>
                                             <td>{data.categoryId}</td>
                                             <td>{data.userId}</td>
+                                            <td>
+                                                {data.tags!.map((tx, itx) => (
+                                                    <button className="btn btn-info btntaginfo btn-rounded ms-2 me-2" key={itx}>
+                                                        <i className="bi bi-tag me-1"></i>
+                                                        <span>{tx}</span>
+                                                    </button>
+                                                ))}
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
