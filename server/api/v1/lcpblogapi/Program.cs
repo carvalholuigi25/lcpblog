@@ -30,6 +30,13 @@ var logger = new LoggerConfiguration()
     .CreateLogger();
 
 var automigruntime = false;
+var uplFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\assets\\uploads");
+
+// Ensure the folder exists
+if (!Directory.Exists(uplFolder))
+{
+    Directory.CreateDirectory(uplFolder);
+}
 
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);

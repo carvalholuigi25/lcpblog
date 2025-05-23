@@ -112,25 +112,25 @@ CREATE TABLE "PostTags" (
 );
 
 INSERT INTO "Categories" ("CategoryId", "CreatedAt", "Name", "Slug", "Status", "UpdatedAt")
-VALUES (1, '2025-05-23 08:49:10.7117412+01:00', 'Geral', '/geral', 0, '2025-05-23 08:49:10.7117664+01:00');
+VALUES (1, '2025-05-23 16:57:42.1737236+01:00', 'Geral', '/geral', 0, '2025-05-23 16:57:42.1737587+01:00');
 SELECT changes();
 
 INSERT INTO "Categories" ("CategoryId", "CreatedAt", "Name", "Slug", "Status", "UpdatedAt")
-VALUES (2, '2025-05-23 08:49:10.7117898+01:00', 'Tecnologia', '/tecnologia', 0, '2025-05-23 08:49:10.71179+01:00');
+VALUES (2, '2025-05-23 16:57:42.1737927+01:00', 'Tecnologia', '/tecnologia', 0, '2025-05-23 16:57:42.1737929+01:00');
 SELECT changes();
 
 INSERT INTO "Categories" ("CategoryId", "CreatedAt", "Name", "Slug", "Status", "UpdatedAt")
-VALUES (3, '2025-05-23 08:49:10.7117907+01:00', 'Outros', '/outros', 0, '2025-05-23 08:49:10.7117909+01:00');
+VALUES (3, '2025-05-23 16:57:42.1737938+01:00', 'Outros', '/outros', 0, '2025-05-23 16:57:42.173794+01:00');
 SELECT changes();
 
 
 INSERT INTO "Users" ("UserId", "About", "Avatar", "Cover", "DisplayName", "Email", "Password", "Privacy", "Role", "Username", "UsersInfoId")
-VALUES (1, 'Luis Carvalho', 'avatars/luis.jpg', 'covers/luis.jpg', 'Luis Carvalho', 'luiscarvalho239@gmail.com', '$2a$10$.d0.0/in5ApkXD9erkw4u.ILicUobRgK4930yfYm6yviWyy1uRPYe', 0, 6, 'admin', 1);
+VALUES (1, 'Luis Carvalho', 'avatars/luis.jpg', 'covers/luis.jpg', 'Luis Carvalho', 'luiscarvalho239@gmail.com', '$2a$10$K0NWF8TH8Tw7msDNKZzLP.TOBEvjhWoj/gUa/CAE4DTN.0Um0Kr9W', 0, 6, 'admin', 1);
 SELECT changes();
 
 
 INSERT INTO "Posts" ("PostId", "CategoryId", "Content", "CreatedAt", "Image", "Slug", "Status", "Tags", "Title", "UpdatedAt", "UserId", "Views", "ViewsCounter")
-VALUES (1, 1, 'Welcome to LCPBlog!', '2025-05-23 08:49:10.7111815+01:00', 'blog.jpg', '/', 0, '["#geral"]', 'Welcome to LCPBlog!', '2025-05-23 08:49:10.7112062+01:00', 1, 0, 0);
+VALUES (1, 1, 'Welcome to LCPBlog!', '2025-05-23 16:57:42.173004+01:00', 'blog.jpg', '/', 0, '["#geral"]', 'Welcome to LCPBlog!', '2025-05-23 16:57:42.1730396+01:00', 1, 0, 0);
 SELECT changes();
 
 
@@ -147,7 +147,7 @@ CREATE INDEX "IX_PostTags_TagId" ON "PostTags" ("TagId");
 CREATE INDEX "IX_RefreshToken_UserId" ON "RefreshToken" ("UserId");
 
 INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
-VALUES ('20250523074911_InitialCreateSQLite', '9.0.0');
+VALUES ('20250523155743_InitialCreateSQLite', '9.0.0');
 
 COMMIT;
 

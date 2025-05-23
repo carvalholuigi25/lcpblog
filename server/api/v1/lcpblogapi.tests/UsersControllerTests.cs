@@ -110,7 +110,7 @@ namespace lcpblogapi.tests
             _mockRepo.Setup(repo => repo.PutUser(user.UserId, user)).ReturnsAsync(Ok(false));
 
             // Act
-            var result = await _controller.PutUser(user.UserId.Value, user);
+            var result = await _controller.PutUser(user.UserId, user);
 
             // Assert
             Assert.IsType<OkObjectResult>(result);
