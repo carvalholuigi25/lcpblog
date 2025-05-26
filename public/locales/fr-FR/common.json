@@ -227,13 +227,18 @@
         },
         "UsersPage": {
             "display": {
+                "lblposts": "Publications",
+                "lblprofile": "Profil",
                 "lbluserid": "Identifiant utilisateur:",
                 "lblusername": "Nom d'utilisateur:",
                 "lblemail": "E-mail:",
                 "lbldisplayname": "Nom d'affichage:",
                 "lblrole": "Rôle:",
                 "lblabout": "À propos:",
-                "lblprivacy": "Confidentialité:"
+                "lblprivacy": "Confidentialité:",
+                "lblcontact": "Contater?",
+                "lblnoposts": "Aucun message disponible pour cet utilisateur. Veuillez revenir plus tard!",
+                "btnreadmore": "Lire la suite"
             },
             "covertitle": "Couverture de {displayName}",
             "avatartitle": "Avatar de {displayName}",

@@ -11,6 +11,6 @@ public interface IUsersRepo {
     Task<ActionResult<User>> PostUser(User user);
     Task<IActionResult> PutUser(int id, User user);
     Task<IActionResult> DeleteUser(int? id);
-    Task<ActionResult<IEnumerable<Post>>> GetPostsByUserId(int? userId);
+    Task<ActionResult<IEnumerable<Post>>> GetUsersPostsByUserId(int? userId);
     Task<int> GetTotalCountAsync(QueryParams queryParams);
 }

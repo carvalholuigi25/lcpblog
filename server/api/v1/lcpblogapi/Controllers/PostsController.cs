@@ -106,6 +106,22 @@ namespace lcpblogapi.Controllers
         }
 
         /// <summary>
+        /// Gets all posts by user id.
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="page"></param>
+        /// <param name="pageSize"></param>
+        /// <returns>Gets all users posts by user id</returns>
+        /// <response code="201">Returns the all posts by user id</response>
+        /// <response code="400">If the posts by user id are empty</response>
+        [HttpGet("users/{userId}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<IEnumerable<Post>>> GetAllPostsByUserId(int userId, int page = 1, int pageSize = 10)
+        {
+            return await _postsRepo.GetAllPostsByUserId(userId, page, pageSize);
+        }
+
+        /// <summary>
         /// Gets all posts by tag name.
         /// </summary>
         /// <param name="tagname"></param>

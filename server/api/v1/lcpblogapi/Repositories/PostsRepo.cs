@@ -7,6 +7,7 @@ using lcpblogapi.Models.QParams;
 using lcpblogapi.Hubs;
 using Microsoft.AspNetCore.SignalR;
 using NuGet.Common;
+using System.Linq.Expressions;
 
 namespace lcpblogapi.Repositories;
 
@@ -122,7 +123,8 @@ public class PostsRepo : ControllerBase, IPostsRepo
         var istracking = false;
         var post = await _context.Posts.AsNoTracking().Where(x => x.PostId == id).ToListAsync();
 
-        if(!!istracking) {
+        if (!!istracking)
+        {
             _context.Entry(post).State = EntityState.Modified;
         }
 
@@ -144,7 +146,7 @@ public class PostsRepo : ControllerBase, IPostsRepo
             existingPost!.UserId = post[0].UserId;
 
             _context.Posts.Update(existingPost!);
-            
+
             await _context.SaveChangesAsync();
             await _hub.Clients.All.SendAsync("ReceiveMessage", post);
         }
@@ -159,14 +161,61 @@ public class PostsRepo : ControllerBase, IPostsRepo
                 throw;
             }
         }
-        finally 
+        finally
         {
             _context.ChangeTracker.Clear();
         }
 
         return NoContent();
     }
-    
+
+    public async Task<ActionResult<IEnumerable<Post>>> GetAllPostsByUserId(int userId, int page = 1, int pageSize = 10)
+    {
+        // var post = await _context.Posts.Where(p => p.UserId == userId && p.PostId >= 1).ToListAsync();
+
+        // if (post == null)
+        // {
+        //     return NotFound();
+        // }
+
+        // return post;
+
+        QueryParams queryParams = new()
+        {
+            Page = page,
+            PageSize = pageSize,
+            SortBy = "userId",
+            SortOrder = SortOrderEnum.asc,
+            Op = OpEnum.aboveorequal,
+            FieldName = "userId",
+            Search = ""+userId
+        };
+
+        var query = _context.Posts.AsQueryable();
+
+        var totalCount = await GetTotalCountAsync(queryParams);
+
+        // Filtering
+        query = GetFilterData(query, queryParams);
+
+        // Sorting
+        query = GetSortByData(query, queryParams);
+
+        // Pagination
+        query = GetPaginationData(query, queryParams);
+
+        var response = new QueryParamsResp<Post>
+        {
+            TotalCount = totalCount,
+            TotalPages = (int)Math.Ceiling((double)totalCount / queryParams.PageSize),
+            Page = queryParams.Page,
+            PageSize = queryParams.PageSize,
+            Data = await query.ToListAsync()
+        };
+
+        return Ok(response);
+    }
+
     public async Task<ActionResult<IEnumerable<Post>>> GetPostsByTagName(string tagname)
     {
         if (string.IsNullOrEmpty(tagname))
@@ -204,7 +253,8 @@ public class PostsRepo : ControllerBase, IPostsRepo
         return Ok(result);
     }
 
-    public ActionResult<IEnumerable<Dataset>> GetDatasetPost(int year = 2025, string? lang = "en") {
+    public ActionResult<IEnumerable<Dataset>> GetDatasetPost(int year = 2025, string? lang = "en")
+    {
         var ayear = year > 0 ? year : DateTime.Now.Year;
         Dataset data = new()
         {
@@ -227,14 +277,17 @@ public class PostsRepo : ControllerBase, IPostsRepo
         return await query.CountAsync();
     }
 
-    protected List<string> GetMonthsLabels(string? lang = "pt") {
-        return lang switch {
+    protected List<string> GetMonthsLabels(string? lang = "pt")
+    {
+        return lang switch
+        {
             "pt" or "pt-PT" or "pt-BR" => ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
             _ => ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
         };
     }
 
-    private int GetTotalPosts(int year = 2025, int month = 1) {
+    private int GetTotalPosts(int year = 2025, int month = 1)
+    {
         var lstposts = _context.Posts.AsEnumerable();
         lstposts = lstposts.Where(x => new DateTimeOffset(x.CreatedAt!.Value.DateTime).Year == year && new DateTimeOffset(x.CreatedAt!.Value.DateTime).Month == month);
         return lstposts.Count();
@@ -245,16 +298,53 @@ public class PostsRepo : ControllerBase, IPostsRepo
         return _context.Posts.Any(e => e.PostId == id);
     }
 
+    private static Expression<Func<Post, bool>> SetOpValues(Type tn, string pname, QueryParams queryParams)
+    {
+        ParameterExpression param = Expression.Parameter(tn, pname);
+        Expression condition = Expression.GreaterThan(param, Expression.Constant(queryParams.Search));
+        switch (queryParams.Op)
+        {
+            case OpEnum.equal:
+                condition = Expression.Equal(param, Expression.Constant(int.Parse(queryParams.Search!)));
+                break;
+            case OpEnum.notequal:
+                condition = Expression.NotEqual(param, Expression.Constant(int.Parse(queryParams.Search!)));
+                break;
+            case OpEnum.aboveorequal:
+                condition = Expression.GreaterThanOrEqual(param, Expression.Constant(int.Parse(queryParams.Search!)));
+                break;
+            case OpEnum.beloworequal:
+                condition = Expression.LessThanOrEqual(param, Expression.Constant(int.Parse(queryParams.Search!)));
+                break;
+            case OpEnum.above:
+                condition = Expression.GreaterThan(param, Expression.Constant(int.Parse(queryParams.Search!)));
+                break;
+            case OpEnum.below:
+                condition = Expression.LessThan(param, Expression.Constant(int.Parse(queryParams.Search!)));
+                break;
+            case OpEnum.contains:
+                condition = Expression.Call(param, typeof(string).GetMethod("Contains", new[] { typeof(string) })!, Expression.Constant(queryParams.Search!.ToLower()));
+                break;
+            case OpEnum.notcontains:
+                condition = Expression.Not(Expression.Call(param, typeof(string).GetMethod("Contains", new[] { typeof(string) })!, Expression.Constant(queryParams.Search!.ToLower())));
+                break;
+            default:
+                break;
+        }
+        return Expression.Lambda<Func<Post, bool>>(condition, param);
+    }
+
     private static IQueryable<Post> GetFilterData(IQueryable<Post> query, QueryParams queryParams)
     {
         if (!string.IsNullOrEmpty(queryParams.Search))
         {
-            if (!string.IsNullOrEmpty(queryParams.SortBy))
+            if (!string.IsNullOrEmpty(queryParams.FieldName))
             {
-                query = queryParams.SortBy.ToLower() switch
+                query = queryParams.FieldName switch
                 {
-                    "title" => query.Where(i => i.Title!.ToLower().Contains(queryParams.Search.ToLower())),
-                    _ => query.Where(i => i.PostId == int.Parse(queryParams.Search)),
+                    "title" => query.Where(i => SetOpValues(typeof(string), "Title", queryParams).Compile().Invoke(i)),
+                    "userId" => query.Where(i => SetOpValues(typeof(int), "userId", queryParams).Compile().Invoke(i)),
+                    _ => query.Where(i => SetOpValues(typeof(int), "postId", queryParams).Compile().Invoke(i)),
                 };
             }
         }
@@ -271,6 +361,7 @@ public class PostsRepo : ControllerBase, IPostsRepo
             query = queryParams.SortBy.ToLower() switch
             {
                 "title" => sortorderval.Contains("desc", strcom) ? query.OrderByDescending(i => i.Title) : query.OrderBy(i => i.Title),
+                "userId" => sortorderval.Contains("desc", strcom) ? query.OrderByDescending(i => i.UserId) : query.OrderBy(i => i.UserId),
                 _ => sortorderval.Contains("desc", strcom) ? query.OrderByDescending(i => i.PostId) : query.OrderBy(i => i.PostId),
             };
         }

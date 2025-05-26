@@ -227,13 +227,18 @@
     },
     "UsersPage": {
       "display": {
+        "lblposts": "Postagens",
+        "lblprofile": "Perfil",
         "lbluserid": "ID do utilizador:",
         "lblusername": "Nome de utilizador:",
         "lblemail": "E-mail:",
         "lbldisplayname": "Nome de apresentação:",
         "lblrole": "Papel:",
         "lblabout": "Sobre:",
-        "lblprivacy": "Privacidade:"
+        "lblprivacy": "Privacidade:",
+        "lblcontact": "Contatar?",
+        "lblnoposts": "Nenhuma publicação disponível para este utilizador. Por favor, volte mais tarde!",
+        "btnreadmore": "Leia mais"
       },
       "covertitle": "Capa de {displayName}",
       "avatartitle": "Avatar de {displayName}",

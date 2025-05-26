@@ -123,7 +123,7 @@ export default function News({ cid, pid, tagname, locale }: NewsProps) {
             loadMyCounter();
             setMyEditorKey(Date.now().toString());
         }
-    }, [cid, pid, page, spage, counter, enabledViews, locale, pathname, loading, searchParams, loadMyCounter]);
+    }, [cid, pid, page, spage, counter, enabledViews, locale, pathname, loading, searchParams, loadMyCounter, tagname]);
 
     if (loading) {
         return (

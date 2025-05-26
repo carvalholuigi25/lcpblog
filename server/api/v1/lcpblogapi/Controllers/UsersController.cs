@@ -127,7 +127,7 @@ namespace lcpblogapi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<IEnumerable<Post>>> GetPostsByUserId(int? userId)
         {
-            return await _usersRepo.GetPostsByUserId(userId);
+            return await _usersRepo.GetUsersPostsByUserId(userId);
         }
     }
 }

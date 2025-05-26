@@ -227,13 +227,18 @@
         },
         "UsersPage": {
             "display": {
+                "lblposts": "Posts",
+                "lblprofile": "Profile",
                 "lbluserid": "User Id:",
                 "lblusername": "Username:",
                 "lblemail": "Email:",
                 "lbldisplayname": "Display name:",
                 "lblrole": "Role:",
                 "lblabout": "About:",
-                "lblprivacy": "Privacy:"
+                "lblprivacy": "Privacy:",
+                "lblcontact": "Contact?",
+                "lblnoposts": "No posts available for this user. Please check back later!",
+                "btnreadmore": "Read more"
             },
             "covertitle": "{displayName}'s Cover",
             "avatartitle": "{displayName}'s Avatar",
