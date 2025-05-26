@@ -106,6 +106,20 @@ namespace lcpblogapi.Controllers
         }
 
         /// <summary>
+        /// Gets all posts by tag name.
+        /// </summary>
+        /// <param name="tagname"></param>
+        /// <returns>Gets all users posts by tag name</returns>
+        /// <response code="201">Returns the all posts by tag name</response>
+        /// <response code="400">If the posts by tag name are empty</response>
+        [HttpGet("tags/{tagname}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<IEnumerable<Post>>> GetPostsByTagName(string tagname = "#geral")
+        {
+            return await _postsRepo.GetPostsByTagName(tagname);
+        }
+
+        /// <summary>
         /// Get archive info.
         /// </summary>
         /// <returns>Get archive info</returns>

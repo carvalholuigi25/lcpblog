@@ -21,7 +21,14 @@ import Views from "@applocale/components/views";
 import LoadingComp from "@applocale/components/loadingcomp";
 import Comments from "@applocale/components/comments";
 
-export default function News({ cid, pid, locale }: { cid: number, pid: number, locale: string }) {
+export interface NewsProps {
+    cid: number;
+    pid: number;
+    tagname?: string;
+    locale?: string;
+}
+
+export default function News({ cid, pid, tagname, locale }: NewsProps) {
     const t = useTranslations("pages.NewsPage");
     const tbtn = useTranslations("ui.buttons");
     const newsSuffix = useMySuffix("news");
@@ -83,7 +90,7 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
                 }
             ]);
 
-            const newsdata = cid > -1 && pid > -1 ? data[0].data.filter((item: Posts) => item.categoryId == cid && item.postId == pid) : cid > -1 ? data[0].data.filter((item: Posts) => item.categoryId == cid) : data[0].data;
+            const newsdata = cid > -1 && pid > -1 ? data[0].data.filter((item: Posts) => item.categoryId == cid && item.postId == pid) : cid > -1 ? (tagname ? data[0].data.filter((i: Posts) => i.tags?.includes("#"+tagname)) : data[0].data.filter((item: Posts) => item.categoryId == cid)) : data[0].data;
             const categories = cid > -1 ? data[1].data.filter((item: Categories) => item.categoryId == cid) : data[1].data;
             const usersdata = data[2].data;
             const comments = data[3];
@@ -192,15 +199,21 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
                                 return !pathname.includes(`/${newsSuffix}/${newsi.categoryId}/${newsi.postId}`) ? "cardlg" : "";
                             };
 
+                            const tagorcatname = i == 0 && cid > -1 && pid == -1 && (
+                                <div className="col-12 text-center mb-3" key={tagname && pathname.includes(`/pages/tags/news/${newsi.categoryId}/${tagname}`) ? `tag${i}` : `category${i}`}>
+                                    {tagname && pathname.includes(`/pages/tags/news/${newsi.categoryId}/${tagname}`) ? (
+                                        <h2 className="txttagname">{"#" + tagname}</h2>
+                                    ) : (
+                                        <h2 className="txtcategory">{categoryi.name}</h2>
+                                    )}
+                                </div>
+                            );
+
                             const ncols = getMultiCols(i, isEnabledMultiCols);
 
                             items.push(
                                 <div className={`col-12 col-sm-12 col-md-${ncols} col-lg-${ncols} col-xl-${ncols} mt-4 mb-4`} key={`news${i}`}>
-                                    {cid > -1 && pid == -1 && (
-                                        <div className="col-12 text-center mb-3" key={`category${i}`}>
-                                            <h2 className="txtcategory">{categoryi.name}</h2>
-                                        </div>
-                                    )}
+                                    {tagorcatname}
 
                                     <div className={`card cardnews ${cardgradient()} bshadow rounded`}>
                                         {getFeaturedItem(i)}
@@ -284,11 +297,11 @@ export default function News({ cid, pid, locale }: { cid: number, pid: number, l
 
                                                 {cid != -1 && newsi.tags && (
                                                     <div className="form-group mt-3">
-                                                        {newsi.tags.map((tx, itx) => (
-                                                            <button className="btn btn-info btntaginfo btn-rounded ms-2 me-2" key={itx}>
+                                                        {newsi.tags.sort((a, b) => a.localeCompare(b)).map((tx, itx) => (
+                                                            <Link className="btn btn-info btntaginfo btn-rounded ms-2 me-2" key={itx} href={`/pages/tags/news/${cid}/${tx.split("#")[1]}`}>
                                                                 <i className="bi bi-tag me-1"></i>
                                                                 <span>{tx}</span>
-                                                            </button>
+                                                            </Link>
                                                         ))}
                                                     </div>
                                                 )}

@@ -166,9 +166,33 @@ public class PostsRepo : ControllerBase, IPostsRepo
 
         return NoContent();
     }
+    
+    public async Task<ActionResult<IEnumerable<Post>>> GetPostsByTagName(string tagname)
+    {
+        if (string.IsNullOrEmpty(tagname))
+        {
+            return BadRequest("Tag name cannot be null or empty.");
+        }
 
-    public async Task<ActionResult<IEnumerable<dynamic>>> GetArchivePost(int year) {
-        if(string.IsNullOrEmpty(year.ToString())) {
+        if (!tagname.StartsWith('#'))
+        {
+            return BadRequest("Tag name must start with '#'.");
+        }
+
+        var post = await _context.Posts.Where(p => p.Tags != null && p.Tags.Contains(tagname.ToLower())).ToListAsync();
+
+        if (post == null)
+        {
+            return NotFound();
+        }
+
+        return post;
+    }
+
+    public async Task<ActionResult<IEnumerable<dynamic>>> GetArchivePost(int year)
+    {
+        if (string.IsNullOrEmpty(year.ToString()))
+        {
             year = new DateTime().Year;
         }
 
