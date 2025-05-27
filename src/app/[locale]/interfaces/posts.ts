@@ -20,3 +20,9 @@ export interface PostsData {
     pageSize: number;
     data: Posts[];
 }
+
+export interface PostsViews {
+    postId: number;
+    viewsCounter: number;
+    views: number;
+}

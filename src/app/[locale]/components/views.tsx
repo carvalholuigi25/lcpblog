@@ -1,5 +1,4 @@
-"use client";
-import { useEffect, useState } from "react";
+// "use client";
 import { shortenLargeNumber } from "@applocale/functions/functions";
 import { useTranslations } from "next-intl";
 
@@ -9,20 +8,13 @@ export interface ViewsProps {
 
 export default function Views({counter}: ViewsProps) {
     const t = useTranslations('ui.text');
-    const [views, setViews] = useState(counter ?? 0);
-    const viewsval = shortenLargeNumber(parseInt("" + views), 1);
-    
-    useEffect(() => {
-        if(!views) {
-            setViews(views);
-        }
-    }, [views]);
+    const views = counter ?? 0;
 
     return (
         <div>
             <i className="bi bi-eye"></i>
             <span className="txtviews">
-                {t('txtviews', {views: viewsval}) ?? `Views: ${viewsval}`}
+                {t('txtviews', {views: shortenLargeNumber(views, 1)}) ?? `Views: ${shortenLargeNumber(views, 1)}`}
             </span>
         </div>
     );

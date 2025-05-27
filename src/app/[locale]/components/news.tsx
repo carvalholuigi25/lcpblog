@@ -3,17 +3,18 @@
 import styles from "@applocale/page.module.scss";
 import Image from "next/image";
 import { Suspense, useCallback, useEffect, useState } from "react";
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { getImagePath, loadMyRealData } from "@applocale/functions/functions";
 import { getFromStorage, saveToStorage } from "@applocale/hooks/localstorage";
 import { useTranslations } from "next-intl";
 import { Link } from '@/app/i18n/navigation';
-import { Posts } from "@applocale/interfaces/posts";
+import { Posts, PostsViews } from "@applocale/interfaces/posts";
 import { User } from "@applocale/interfaces/user";
 import { Categories } from "@applocale/interfaces/categories";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { useMySuffix } from "@applocale/hooks/suffixes";
-import FetchDataAxios, { FetchMultipleDataAxios } from "@applocale/utils/fetchdataaxios";
+import { FetchMultipleDataAxios } from "@applocale/utils/fetchdataaxios";
+import { updateDataViews } from "@applocale/utils/data/updateDataViews";
 import MyEditorPost from "@applocale/components/editor/myeditorpost";
 import CarouselNews from "@applocale/components/carouselnews";
 import MyPagination from "@applocale/components/mypagination";
@@ -33,6 +34,9 @@ export default function News({ cid, pid, tagname, locale }: NewsProps) {
     const tbtn = useTranslations("ui.buttons");
     const newsSuffix = useMySuffix("news");
 
+    const enabledViews = true;
+    const isEnabledMultiCols = true;
+    const pageSize: number = 10;
     const [news, setNews] = useState(new Array<Posts>());
     const [users, setUsers] = useState(new Array<User>());
     const [categories, setCategories] = useState(new Array<Categories>());
@@ -44,11 +48,9 @@ export default function News({ cid, pid, tagname, locale }: NewsProps) {
     const [myEditorKey, setMyEditorKey] = useState(new Date().toString());
     const [isCommentFormShown, setIsCommentFormShown] = useState(false);
     const [totalComments, setTotalComments] = useState(0);
-    const enabledViews = true;
-    const isEnabledMultiCols = true;
-    const pageSize: number = 10;
-    const pathname = usePathname();
+    
     const router = useRouter();
+    const pathname = usePathname();
     const searchParams = useSearchParams();
     const spage = searchParams.get("page");
 
@@ -56,11 +58,8 @@ export default function News({ cid, pid, tagname, locale }: NewsProps) {
         const pthpost = `/${locale}/${newsSuffix}/${cid}/${pid}`;
         saveToStorage("hiddenViews", pathname == pthpost ? "false" : "true");
         setHiddenViews(getFromStorage("hiddenViews")! == "false" ? false : true);
-
-        if (getFromStorage("viewsInfo")!) {
-            setCounter(parseInt("" + JSON.parse(getFromStorage("viewsInfo")!).viewsCounter));
-        }
-    }, [cid, pid, locale, pathname, newsSuffix]);
+        setCounter(getFromStorage("viewsInfo")! ? parseInt(JSON.parse(getFromStorage("viewsInfo")!).viewsCounter) : 0);
+    }, [locale, newsSuffix, cid, pid, pathname]);
 
     useEffect(() => {
         async function fetchNews() {
@@ -118,12 +117,17 @@ export default function News({ cid, pid, tagname, locale }: NewsProps) {
 
         fetchNews();
 
-        if (!loading) {
+        if(loading) {
             loadMyRealData({ hubname: "datahub", skipNegotiation: false, fetchData: fetchNews });
             loadMyCounter();
             setMyEditorKey(Date.now().toString());
         }
-    }, [cid, pid, page, spage, counter, enabledViews, locale, pathname, loading, searchParams, loadMyCounter, tagname]);
+
+        //  const id = setInterval(() => {
+        //         setCounter(x => x + 1);
+        //     }, 1000 * 24 * 60 * 60);
+        //     return () => clearInterval(id);
+    }, [cid, pid, page, spage, enabledViews, locale, pathname, loading, searchParams, loadMyCounter, tagname]);
 
     if (loading) {
         return (
@@ -157,24 +161,17 @@ export default function News({ cid, pid, tagname, locale }: NewsProps) {
     const redirectToPost = async (e: any, newsi: Posts) => {
         e.preventDefault();
         const pthpost = setPathPost(newsi.categoryId, newsi.postId);
-        const vinfopid = getFromStorage("viewsInfo")! ? JSON.parse(getFromStorage("viewsInfo")!).postId : 1;
 
-        const data = {
+        const data: PostsViews = {
             postId: newsi.postId,
             viewsCounter: parseInt("" + (newsi.viewsCounter! + 1)),
-            views: newsi.postId == vinfopid ? counter + 1 : parseInt("" + (newsi.views! + 1))
+            views: parseInt("" + (newsi.viewsCounter! + 1))
         };
 
         setCounter(parseInt("" + data.viewsCounter));
         setHiddenViews(getFromStorage("hiddenViews")! == "false" ? false : true);
         saveToStorage("viewsInfo", JSON.stringify(data));
-
-        await FetchDataAxios({
-            url: `api/posts/views/${data.postId}`,
-            method: 'put',
-            reqAuthorize: false,
-            data: data
-        }).then(x => {
+        await updateDataViews(data).then(x => {
             console.log(x);
             router.push(pthpost);
         }).catch(e => {
