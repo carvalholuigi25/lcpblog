@@ -6,8 +6,7 @@ using lcpblogapi.Interfaces;
 using lcpblogapi.Models.QParams;
 using lcpblogapi.Hubs;
 using Microsoft.AspNetCore.SignalR;
-using NuGet.Common;
-using System.Linq.Expressions;
+using System.Linq.Dynamic.Core;
 
 namespace lcpblogapi.Repositories;
 
@@ -188,7 +187,7 @@ public class PostsRepo : ControllerBase, IPostsRepo
             SortOrder = SortOrderEnum.asc,
             Op = OpEnum.aboveorequal,
             FieldName = "userId",
-            Search = ""+userId
+            Search = "" + userId
         };
 
         var query = _context.Posts.AsQueryable();
@@ -298,53 +297,41 @@ public class PostsRepo : ControllerBase, IPostsRepo
         return _context.Posts.Any(e => e.PostId == id);
     }
 
-    private static Expression<Func<Post, bool>> SetOpValues(Type tn, string pname, QueryParams queryParams)
-    {
-        ParameterExpression param = Expression.Parameter(tn, pname);
-        Expression condition = Expression.GreaterThan(param, Expression.Constant(queryParams.Search));
-        switch (queryParams.Op)
-        {
-            case OpEnum.equal:
-                condition = Expression.Equal(param, Expression.Constant(int.Parse(queryParams.Search!)));
-                break;
-            case OpEnum.notequal:
-                condition = Expression.NotEqual(param, Expression.Constant(int.Parse(queryParams.Search!)));
-                break;
-            case OpEnum.aboveorequal:
-                condition = Expression.GreaterThanOrEqual(param, Expression.Constant(int.Parse(queryParams.Search!)));
-                break;
-            case OpEnum.beloworequal:
-                condition = Expression.LessThanOrEqual(param, Expression.Constant(int.Parse(queryParams.Search!)));
-                break;
-            case OpEnum.above:
-                condition = Expression.GreaterThan(param, Expression.Constant(int.Parse(queryParams.Search!)));
-                break;
-            case OpEnum.below:
-                condition = Expression.LessThan(param, Expression.Constant(int.Parse(queryParams.Search!)));
-                break;
-            case OpEnum.contains:
-                condition = Expression.Call(param, typeof(string).GetMethod("Contains", new[] { typeof(string) })!, Expression.Constant(queryParams.Search!.ToLower()));
-                break;
-            case OpEnum.notcontains:
-                condition = Expression.Not(Expression.Call(param, typeof(string).GetMethod("Contains", new[] { typeof(string) })!, Expression.Constant(queryParams.Search!.ToLower())));
-                break;
-            default:
-                break;
-        }
-        return Expression.Lambda<Func<Post, bool>>(condition, param);
-    }
-
     private static IQueryable<Post> GetFilterData(IQueryable<Post> query, QueryParams queryParams)
     {
         if (!string.IsNullOrEmpty(queryParams.Search))
         {
             if (!string.IsNullOrEmpty(queryParams.FieldName))
             {
+                var op = queryParams.Op!.Value;
+                StringComparison strcom = StringComparison.OrdinalIgnoreCase;
+
                 query = queryParams.FieldName switch
                 {
-                    "title" => query.Where(i => SetOpValues(typeof(string), "Title", queryParams).Compile().Invoke(i)),
-                    "userId" => query.Where(i => SetOpValues(typeof(int), "userId", queryParams).Compile().Invoke(i)),
-                    _ => query.Where(i => SetOpValues(typeof(int), "postId", queryParams).Compile().Invoke(i)),
+                    "title" => query.Where(i =>
+                    op == OpEnum.contains ? i.Title!.Contains(queryParams.Search, strcom) :
+                    op == OpEnum.notcontains ? !i.Title!.Contains(queryParams.Search, strcom) :
+                    op == OpEnum.equal ? i.Title!.Equals(queryParams.Search, strcom) :
+                    op == OpEnum.notequal ? !i.Title!.Equals(queryParams.Search, strcom) :
+                    op == OpEnum.startswith ? i.Title!.StartsWith(queryParams.Search) :
+                    op == OpEnum.endswith ? i.Title!.EndsWith(queryParams.Search) :
+                    i.Title == queryParams.Search),
+                    "userId" => query.Where(i =>
+                    op == OpEnum.aboveorequal ? i.UserId >= int.Parse(queryParams.Search) :
+                    op == OpEnum.beloworequal ? i.UserId <= int.Parse(queryParams.Search) :
+                    op == OpEnum.above ? i.UserId > int.Parse(queryParams.Search) :
+                    op == OpEnum.below ? i.UserId < int.Parse(queryParams.Search) :
+                    op == OpEnum.equal ? i.UserId == int.Parse(queryParams.Search) :
+                    op == OpEnum.notequal ? i.UserId != int.Parse(queryParams.Search) :
+                    i.UserId == int.Parse(queryParams.Search)),
+                    _ => query.Where(i =>
+                    op == OpEnum.aboveorequal ? i.PostId >= int.Parse(queryParams.Search) :
+                    op == OpEnum.beloworequal ? i.PostId <= int.Parse(queryParams.Search) :
+                    op == OpEnum.above ? i.PostId > int.Parse(queryParams.Search) :
+                    op == OpEnum.below ? i.PostId < int.Parse(queryParams.Search) :
+                    op == OpEnum.equal ? i.PostId == int.Parse(queryParams.Search) :
+                    op == OpEnum.notequal ? i.PostId != int.Parse(queryParams.Search) :
+                    i.PostId == int.Parse(queryParams.Search)),
                 };
             }
         }

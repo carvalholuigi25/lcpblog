@@ -46,5 +46,9 @@ public enum OpEnum
     [EnumMember(Value = "contains")]
     contains,
     [EnumMember(Value = "notcontains")]
-    notcontains
+    notcontains,
+    [EnumMember(Value = "startswith")]
+    startswith,
+    [EnumMember(Value = "endswith")]
+    endswith
 }
