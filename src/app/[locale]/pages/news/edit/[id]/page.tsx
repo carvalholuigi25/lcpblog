@@ -68,7 +68,7 @@ export default function EditNews() {
   };
 
   return (
-    <div className={styles.page} id="editnewsmpage">
+    <div className={"mpage " + styles.page} id="editnewsmpage">
       <Header locale={locale ?? getDefLocale()} />
       <section className={styles.section + " " + styles.pstretch}>
         {!news && getEmptyNews(pathname)}

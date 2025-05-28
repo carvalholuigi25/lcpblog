@@ -338,6 +338,18 @@ footer {
   }
 }
 
+.btn {
+  background-color: inherit;
+  border-color: inherit;
+  color: inherit;
+
+  &:hover {
+    background-color: inherit;
+    border-color: inherit;
+    color: inherit;
+  }
+}
+
 .btnflex {
   display: flex;
   justify-content: center;

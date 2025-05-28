@@ -68,7 +68,7 @@ export default function EditUsers() {
   };
 
   return (
-    <div className={styles.page} id="editusersmpage">
+    <div className={"mpage " + styles.page} id="editusersmpage">
       <Header locale={locale ?? getDefLocale()} />
       <section className={styles.section + " " + styles.pstretch}>
         {!users && getEmptyUsers(pathname)}

@@ -68,7 +68,7 @@ export default function DeleteUsers() {
   };
 
   return (
-    <div className={styles.page} id="deleteusersmpage">
+    <div className={"mpage " + styles.page} id="deleteusersmpage">
       <Header locale={locale ?? getDefLocale()} />
       <section className={styles.section + " " + styles.pstretch}>
         {!users && getEmptyUsers(pathname)}

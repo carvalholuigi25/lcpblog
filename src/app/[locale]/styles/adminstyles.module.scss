@@ -143,7 +143,7 @@
                 }
 
                 .btn {
-                    margin-top: 5px;
+                    margin-top: 15px;
                 }
             }
 
@@ -204,7 +204,7 @@
                     padding: 0;
                     margin: 0 auto;
                     color: inherit;
-                    background-color: rgba(255, 255, 255, .5);
+                    background-color: inherit;
                     @include m.setBlur(12px, 100%);
                 }
             }
@@ -256,6 +256,11 @@
 
         * {
             color: inherit;
+
+            &:not(.nav-item):not(.active) {
+                background: transparent;
+                border-color: transparent;
+            }
         }
     }
 

@@ -6,7 +6,7 @@ import { getDefLocale } from "@applocale/helpers/defLocale";
 
 export default function AddUsers({ locale }: { locale: string }) {
   return (
-    <div className={styles.page} id="addusersmpage">
+    <div className={"mpage " + styles.page} id="addusersmpage">
       <Header locale={locale ?? getDefLocale()} />
       <section className={styles.section + " " + styles.pstretch}>
         <AddUsersForm />

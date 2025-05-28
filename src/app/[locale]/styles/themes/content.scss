@@ -17,12 +17,16 @@
     }
 
     .glassmorphism {
-        .navbar, .navbar-container, .offcanvas, #navlinksadmdb, .card, footer {
+        .navbar, .navbar-container, .offcanvas, #navlinksadmdb, .table, footer, .btnback {
             @include m.applyBkg($themename, .5);
         }
 
         section, .section {
             @include m.applyBkg($themename, 0);
+        }
+
+        .card, .mychart, .myschedule, .seltypechart {
+            @include m.applyBkg($themename, .8);
         }
     }
 
@@ -65,7 +69,7 @@
         }
 
         .btn {
-            color: $fgcolorprimary;
+           color: $fgcolorprimary;
         }
 
         .btnsearch {
@@ -221,13 +225,26 @@
         color: $fgcolorprimary;
     }
 
+    .title, .titlep, .subtitle, .subtitlep {
+        @if $themename == "dark" or $themename == "red" or $themename == "blue" {
+            color: white;
+        } @else {
+            color: black;
+        }
+    }
+
     .navlinksadmdb, #navlinksadmdb {
         background-color: $bgcolorprimary;
         color: $fgcolorprimary !important;
 
         .shfixed {
             .btn {
-                @include m.applyBkg($themename, .5);
+                @if $themename == "vanilla" {
+                    background-color: rgba(0, 0, 0, .5);
+                } @else {
+                    @include m.applyBkg($themename, .5);
+                }
+
                 color: $fgcolorprimary;
             }
         }
@@ -256,8 +273,15 @@
         background-color: $bgcolorprimary !important;
     }
 
-    .table {
+    .btn {
+        &:hover {
+            background-color: $bgcolorsecondary;
+            border-color: $bgcolorsecondary;
+            color: $fgcolorprimary;
+        }
+    }
 
+    .table {
         thead,
         tfoot {
             background-color: $bgcolorprimary;
@@ -368,16 +392,29 @@
         background-color: $bgcolorprimary;
     }
 
-    section,
-    .container,
-    .container-fluid {
-        .btn {
-            &:not(.btn-tp) {
-                background-color: $bgcolorprimary;
-                border-color: $fgcolorprimary;
-            }
-
+    .btn {
+        @if $themename == "vanilla" {
+            border-color: black;
+            color: black;
+        } @else if $themename == "blue" {
+            border-color: white;
+            color: white;
+        } @else {
+            border-color: $fgcolorprimary;
             color: $fgcolorprimary;
+        }
+
+        &:not(.btn-tp) {
+            background-color: $bgcolorprimary;
+            border-color: $fgcolorprimary;
+        }
+    }
+
+    .mpage {
+        &:not(.nav):not(.sidebar):not(.footer) {
+            .btn {
+                color: $fgcolorprimary;
+            }
         }
     }
 

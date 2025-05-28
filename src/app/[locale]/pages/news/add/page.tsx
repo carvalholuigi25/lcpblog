@@ -6,7 +6,7 @@ import { getDefLocale } from "@applocale/helpers/defLocale";
 
 export default function AddNews({ locale }: { locale: string }) {
   return (
-    <div className={styles.page} id="addnewsmpage">
+    <div className={"mpage " + styles.page} id="addnewsmpage">
       <Header locale={locale ?? getDefLocale()} />
       <section className={styles.section + " " + styles.pstretch}>
         <AddNewsForm />

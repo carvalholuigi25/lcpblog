@@ -12,7 +12,7 @@ export default function TagsPage() {
   const { cid, tagname } = useParams();
 
   return (    
-    <div className={styles.page} id="mallnewspage">
+    <div className={"mpage " + styles.page} id="mallnewspage">
       <Header locale={locale ?? getDefLocale()} />
       <section>
         <News locale={locale ?? getDefLocale()} cid={parseInt(""+cid, 0)} pid={-1} tagname={""+tagname} />

@@ -6,7 +6,7 @@ import { getDefLocale } from "@applocale/helpers/defLocale";
 
 export default function EditingPage({locale}: {locale: string}) {
   return (
-    <div className={styles.page} id="editingpage">
+    <div className={"mpage " + styles.page} id="editingpage">
       <Header locale={locale ?? getDefLocale()} />
       <section>
         <MyEditor />

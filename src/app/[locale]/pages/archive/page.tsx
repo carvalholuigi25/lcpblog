@@ -292,7 +292,7 @@ export default function Archive({ locale }: { locale: string }) {
     }
 
     return (
-        <div className={styles.page} id="marchivepage">
+        <div className={"mpage " + styles.page} id="marchivepage">
             <Header locale={locale ?? getDefLocale()} />
             <section>
                 <Suspense fallback={<LoadingComp type="icon" icontype="ring" />}>

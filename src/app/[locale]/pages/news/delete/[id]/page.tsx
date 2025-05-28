@@ -68,7 +68,7 @@ export default function DeleteNews() {
   };
 
   return (
-    <div className={styles.page} id="deletenewsmpage">
+    <div className={"mpage " + styles.page} id="deletenewsmpage">
       <Header locale={locale ?? getDefLocale()} />
       <section className={styles.section + " " + styles.pstretch}>
         {!news && getEmptyNews(pathname)}

@@ -182,7 +182,9 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
                                         <i className="bi bi-house me-2"></i>
                                         {t('lblhome') ?? "Home"}
                                     </h3>
-                                    <p className="text-center mt-3">{t('lblwelcome', {displayName: getDisplayName()}) ?? `Welcome ${getDisplayName()}`}</p>
+                                    <p className="text-center subtitlep mt-3">
+                                        {t('lblwelcome', {displayName: getDisplayName()}) ?? `Welcome ${getDisplayName()}`}
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -248,7 +250,7 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
                                 <div className="col-12 col-md-12 col-lg-6 mt-3">
                                     {enableChangeChartType && (
                                         <div className="d-flex justify-content-center w-100">
-                                            <select className="form-control mb-3 w-auto bshadow" value={chartTypeSelVal ?? 'verticalbar'} onChange={onChangeChartType}>
+                                            <select className="seltypechart form-control mb-3 w-auto bshadow" value={chartTypeSelVal ?? 'verticalbar'} onChange={onChangeChartType}>
                                                 <option value={""} disabled>{t('charttypes.seloption') ?? "Select the chart type"}</option>
                                                 {chartTypesAry.length > 0 && chartTypesAry.map(x => (
                                                     <option key={x.id} value={x.value}>{x.name}</option>
@@ -278,7 +280,7 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
                             <div className="row">
                                 <div className="col-12">
                                     <div className="mx-auto text-center">
-                                        <Link href={'/'} className="btn btn-primary btn-rounded" locale={locale ?? getDefLocale()}>
+                                        <Link href={'/'} className="btn btn-primary btn-rounded btnback" locale={locale ?? getDefLocale()}>
                                             {tbtn('btnback') ?? "Back"}
                                         </Link>
                                     </div>

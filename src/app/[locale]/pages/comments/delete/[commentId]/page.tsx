@@ -72,7 +72,7 @@ export default function DeleteComments() {
   };
 
   return (
-    <div className={styles.page} id="deletecommentsmpage">
+    <div className={"mpage " + styles.page} id="deletecommentsmpage">
       <Header locale={locale ?? getDefLocale()} />
       <section className={styles.section + " " + styles.pstretch}>
         {!comments && getEmptyComments(pathname)}
