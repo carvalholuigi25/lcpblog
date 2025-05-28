@@ -7,6 +7,7 @@ import { getDefLocale } from "@applocale/helpers/defLocale";
 import Dependencies from "@applocale/dependencies/dependencies";
 import * as config from "@applocale/utils/config";
 import "@applocale/globals.scss";
+import { headers } from "next/headers";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -43,13 +44,17 @@ export default async function RootLayout({
   const messages = await getMessages({ locale: locale });
   const themeCl = (await config.getConfig()).theme;
   const effects3DCl = (await config.getConfig()).is3DEffectsEnabled ? "effects3D" : "";
+  const headerList = headers();
+  const pathname = (await headerList).get("x-current-path");
+
   const stuffconfig = `${themeCl} ${effects3DCl}`;
   const fonts = `${poppins.variable} ${roboto.variable} ${orbitron.variable}`;
   const dir = getLangDir(locale) ?? "ltr";
+  const fixedCl = !["auth/login", "auth/register", "auth/forgot-password"].includes(pathname!) ? "fixed" : "";
 
   return (
     <html lang={locale} dir={dir} data-bs-theme="system" suppressHydrationWarning={true}>
-      <body className={`${fonts} ${stuffconfig} mybkgpage`}>
+      <body className={`${fonts} ${stuffconfig} ${fixedCl} mybkgpage`}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <div className="modal-root" id="modal-root"></div>
           <div id="toast-root"></div>

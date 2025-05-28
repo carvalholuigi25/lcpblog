@@ -24,6 +24,7 @@ export function withI18nMiddleware(middleware: CustomMiddleware) {
         event: NextFetchEvent,
         response: NextResponse
     ) => {
+        const headers = new Headers(request.headers);
 
         const pathname = request.nextUrl.pathname;
         const pathnameIsMissingLocale = routing.locales.every(
@@ -40,10 +41,10 @@ export function withI18nMiddleware(middleware: CustomMiddleware) {
 
             // Preserve query parameters
             redirectURL.search = request.nextUrl.search
-
             return NextResponse.redirect(redirectURL.toString())
         }
 
+        headers.set("x-current-path", pathname);
         return middleware(request, event, response);
     };
 }

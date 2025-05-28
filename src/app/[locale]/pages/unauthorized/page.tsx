@@ -1,4 +1,4 @@
-import UnauthorizedComponent from "@applocale/components/unauthcomp";
+import UnauthorizedComponent from "@/app/[locale]/components/ui/unauthcomp";
 
 export default function Unauthorized() {
     return (

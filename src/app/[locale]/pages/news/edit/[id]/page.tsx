@@ -9,9 +9,9 @@ import { getDefLocale } from "@applocale/helpers/defLocale";
 import { useLocale } from "next-intl";
 import Header from "@applocale/ui/header";
 import Footer from "@applocale/ui/footer";
-import EditNewsForm from "@applocale/components/forms/crud/news/edit/edit";
+import EditNewsForm from "@/app/[locale]/components/ui/forms/crud/news/edit/edit";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
-import LoadingComp from "@applocale/components/loadingcomp";
+import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
 
 export default function EditNews() {
   const locale = useLocale();
@@ -68,7 +68,7 @@ export default function EditNews() {
   };
 
   return (
-    <div className={styles.page} id="editnewsmpage" style={{ paddingTop: '5rem' }}>
+    <div className={styles.page} id="editnewsmpage">
       <Header locale={locale ?? getDefLocale()} />
       <section className={styles.section + " " + styles.pstretch}>
         {!news && getEmptyNews(pathname)}

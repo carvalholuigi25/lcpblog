@@ -5,7 +5,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 import { getColorGrid, getColorTxt } from "@applocale/functions/chartfunctions";
 import { Dataset } from "@applocale/interfaces/dataset";
 import FetchData from "@applocale/utils/fetchdata";
-import LoadingComp from "@applocale/components/loadingcomp";
+import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
 import { useLocale, useTranslations } from "next-intl";
 
 ChartJS.register(CategoryScale, LineElement, LinearScale, PointElement, Title, Tooltip, Legend, Filler);

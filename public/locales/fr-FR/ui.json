@@ -1,808 +1,822 @@
 {
-    "ui": {
-        "searchBar": "Recherche",
-        "toasts": {
-            "data": {
-                "timestatus": "a posté il y a quelques secondes..."
-            }
+  "ui": {
+    "searchBar": "Recherche",
+    "toasts": {
+      "data": {
+        "timestatus": "a posté il y a quelques secondes..."
+      }
+    },
+    "modals": {
+      "schedule": {
+        "title": "Horaire",
+        "lblschid": "Id: {id}",
+        "lblschtitle": "Titre: {title}",
+        "lblschdatestart": "Date de début: {dateStart}",
+        "lblschdateend": "Date de fin: {dateEnd}",
+        "lblschallday": "L'événement dure-t-il toute la journée? {isAllDay}"
+      },
+      "search": {
+        "title": "Rechercher",
+        "lblsrchfor": "Vous recherchez: {search}"
+      }
+    },
+    "events": {
+      "messages": {
+        "dropevent": "{title} a été supprimé le {dateStart}.",
+        "resizeevent": "{title} se termine désormais le {dateEnd}.",
+        "lblwarndrop": "Êtes-vous sûr de ce changement?",
+        "lblwarnres": "Êtes-vous d'accord?"
+      }
+    },
+    "offcanvas": {
+      "btnclose": "Fermer",
+      "homelink": "Accueil",
+      "loginlink": "Connexion",
+      "archlink": "Archives",
+      "dashboardlink": "Tableau de bord",
+      "logoutlink": "Déconnexion"
+    },
+    "offcanvasAdmin": {
+      "btnclose": "Fermer",
+      "homelink": "Accueil",
+      "postslink": "Actualités",
+      "userslink": "Utilisateurs",
+      "categorieslink": "Catégories",
+      "tagslink": "Mots clés",
+      "media": {
+        "title": "Médiatique",
+        "options": {
+          "uploadfileslink": "Envoyer des Fichiers",
+          "videoslink": "Vidéos"
+        }
+      },
+      "developers": {
+        "title": "Développeurs",
+        "options": {
+          "commitslink": "Journal des commits"
+        }
+      },
+      "logoutlink": "Déconnexion"
+    },
+    "buttons": {
+      "btnreadmore": "En savoir plus...",
+      "btnlogout": "Déconnexion",
+      "btnback": "Arrière",
+      "btntoday": "Aujourd'hui",
+      "btnreset": "Réinitialiser",
+      "btnedit": "Éditer",
+      "btndelete": "Effacer"
+    },
+    "text": {
+      "txtviews": "Vues: {views}"
+    },
+    "footer": {
+      "title": "Créé par",
+      "themes": {
+        "options": {
+          "light": {
+            "name": "Lumière",
+            "value": "light"
+          },
+          "dark": {
+            "name": "Sombre",
+            "value": "dark"
+          },
+          "system": {
+            "name": "Système",
+            "value": "system"
+          },
+          "red": {
+            "name": "Rouge",
+            "value": "red"
+          },
+          "green": {
+            "name": "Vert",
+            "value": "green"
+          },
+          "blue": {
+            "name": "Bleu",
+            "value": "blue"
+          },
+          "yellow": {
+            "name": "Jaune",
+            "value": "yellow"
+          },
+          "vanilla": {
+            "name": "Vanille",
+            "value": "vanilla"
+          }
+        }
+      }
+    },
+    "loading": {
+      "title": "Chargement..."
+    },
+    "editors": {
+      "edplaceholder": "Commencez à taper..."
+    },
+    "tables": {
+      "tabledata": {
+        "titletable": "Nouvelles",
+        "header": {
+          "postId": "ID de actualité",
+          "title": "Titre",
+          "name": "Nom",
+          "createdAt": "Créé à",
+          "updatedAt": "Mis à jour à",
+          "slug": "Slug",
+          "status": "Statut",
+          "categoryId": "ID de catégorie",
+          "userId": "ID utilisateur",
+          "tagId": "Identifiant de balise",
+          "actions": "Actes"
         },
-        "events": {
-            "messages": {
-                "dropevent": "{title} a été supprimé le {dateStart}.",
-                "resizeevent": "{title} se termine désormais le {dateEnd}.",
-                "lblwarndrop": "Êtes-vous sûr de ce changement?",
-                "lblwarnres": "Êtes-vous d'accord?"
-            }
-        },
-        "offcanvas": {
-            "btnclose": "Fermer",
-            "homelink": "Accueil",
-            "loginlink": "Connexion",
-            "archlink": "Archives",
-            "dashboardlink": "Tableau de bord",
-            "logoutlink": "Déconnexion"
-        },
-        "offcanvasAdmin": {
-            "btnclose": "Fermer",
-            "homelink": "Accueil",
-            "postslink": "Actualités",
-            "userslink": "Utilisateurs",
-            "categorieslink": "Catégories",
-            "tagslink": "Mots clés",
-            "media": {
-                "title": "Médiatique",
-                "options": {
-                    "uploadfileslink": "Envoyer des Fichiers",
-                    "videoslink": "Vidéos"
-                }
-            },
-            "developers": {
-                "title": "Développeurs",
-                "options": {
-                    "commitslink": "Journal des commits"
-                }
-            },
-            "logoutlink": "Déconnexion"
-        },
-        "buttons": {
-            "btnreadmore": "En savoir plus...",
-            "btnlogout": "Déconnexion",
-            "btnback": "Arrière",
-            "btntoday": "Aujourd'hui",
-            "btnreset": "Réinitialiser",
-            "btnedit": "Éditer",
-            "btndelete": "Effacer"
-        },
-        "text": {
-            "txtviews": "Vues: {views}"
+        "body": {
+          "btnedit": "Modifier",
+          "btndelete": "Supprimer",
+          "emptydata": "Aucun message, veuillez en créer un nouveau..."
         },
         "footer": {
-            "title": "Créé par",
-            "themes": {
-                "options": {
-                    "light": {
-                        "name": "Lumière",
-                        "value": "light"
-                    },
-                    "dark": {
-                        "name": "Sombre",
-                        "value": "dark"
-                    },
-                    "system": {
-                        "name": "Système",
-                        "value": "system"
-                    },
-                    "red": {
-                        "name": "Rouge",
-                        "value": "red"
-                    },
-                    "green": {
-                        "name": "Vert",
-                        "value": "green"
-                    },
-                    "blue": {
-                        "name": "Bleu",
-                        "value": "blue"
-                    },
-                    "yellow": {
-                        "name": "Jaune",
-                        "value": "yellow"
-                    },
-                    "vanilla": {
-                        "name": "Vanille",
-                        "value": "vanilla"
-                    }
-                }
-            }
-        },
-        "loading": {
-            "title": "Chargement..."
-        },
-        "editors": {
-            "edplaceholder": "Commencez à taper..."
-        },
-        "tables": {
-            "tabledata": {
-                "titletable": "Nouvelles",
-                "header": {
-                    "postId": "ID de actualité",
-                    "title": "Titre",
-                    "name": "Nom",
-                    "createdAt": "Créé à",
-                    "updatedAt": "Mis à jour à",
-                    "slug": "Slug",
-                    "status": "Statut",
-                    "categoryId": "ID de catégorie",
-                    "userId": "ID utilisateur",
-                    "tagId": "Identifiant de balise",
-                    "actions": "Actes"
-                },
-                "body": {
-                    "btnedit": "Modifier",
-                    "btndelete": "Supprimer",
-                    "emptydata": "Aucun message, veuillez en créer un nouveau..."
-                },
-                "footer": {
-                    "page": "Page",
-                    "totalData": "Total de"
-                }
-            },
-            "userstable": {
-                "titletable": "Utilisateurs",
-                "header": {
-                    "userId": "ID de l'utilisateur",
-                    "username": "Nom d'utilisateur",
-                    "email": "Courriel",
-                    "displayName": "Nom d'affichage",
-                    "role": "Rôle",
-                    "createdAt": "Créé à",
-                    "updatedAt": "Mis à jour à",
-                    "categoryId": "ID de catégorie",
-                    "actions": "Actes"
-                },
-                "body": {
-                    "btnedit": "Modifier",
-                    "btndelete": "Supprimer",
-                    "emptydata": "Aucun utilisateur, veuillez en créer un nouveau..."
-                },
-                "footer": {
-                    "page": "Page",
-                    "totalData": "Total de"
-                }
-            },
-            "categoriestable": {
-                "titletable": "Categories",
-                "header": {
-                    "postId": "ID de actualité",
-                    "name": "Nom",
-                    "title": "Titre",
-                    "createdAt": "Créé à",
-                    "updatedAt": "Mis à jour à",
-                    "slug": "Slug",
-                    "status": "Statut",
-                    "categoryId": "ID de catégorie",
-                    "userId": "ID de l'utilisateur",
-                    "actions": "Actes"
-                },
-                "body": {
-                    "btnedit": "Modifier",
-                    "btndelete": "Supprimer",
-                    "emptydata": "Aucune catégorie, veuillez en créer une nouvelle catégorie..."
-                },
-                "footer": {
-                    "page": "Page",
-                    "totalData": "Total de"
-                }
-            },
-            "tagstable": {
-                "titletable": "Tags",
-                "header": {
-                    "tagId": "Identifiant du tag",
-                    "name": "Nom",
-                    "createdAt": "Créé à",
-                    "updatedAt": "Mis à jour à",
-                    "status": "Statut",
-                    "actions": "Actes"
-                },
-                "body": {
-                    "btnedit": "Modifier",
-                    "btndelete": "Supprimer",
-                    "emptydata": "Aucun tag, veuillez en créer un tag..."
-                },
-                "footer": {
-                    "page": "Page",
-                    "totalData": "Total de"
-                }
-            }
-        },
-        "forms": {
-            "auth": {
-                "login": {
-                    "title": "Se connecter",
-                    "lblemail": "Courriel",
-                    "inpemail": "Écrivez votre email ici",
-                    "lblpassword": "Mot de passe",
-                    "inppassword": "Écrivez votre mot de passe ici",
-                    "btnreset": "Réinitialiser",
-                    "btnlogin": "Se connecter",
-                    "lblrecoveraccount": "Vous n'avez pas de compte? Inscrivez-vous ici",
-                    "btnback": "Retour à la maison",
-                    "lblloggedin": "Vous êtes déjà connecté en tant que {displayName}!",
-                    "validation": {
-                        "errors": {
-                            "lblreqemail": "L'e-mail est obligatoire.",
-                            "lblreqpassword": "Le mot de passe est requis.",
-                            "lblinvemail": "E-mail invalide"
-                        }
-                    }
-                },
-                "register": {
-                    "title": "Registre",
-                    "lblregistered": "Vous êtes déjà inscrit en tant que {displayName}!",
-                    "steppers": {
-                        "lblstepper1": "Données utilisateur",
-                        "lblstepper2": "Données personnelles",
-                        "lblstepper3": "Étapes finales"
-                    },
-                    "step1": {
-                        "title": "Étape 1: Données utilisateur",
-                        "lblemail": "Courriel",
-                        "inpemail": "Écrivez votre email ici",
-                        "lblusername": "Nom d'utilisateur",
-                        "inpusername": "Écrivez votre nom d'utilisateur ici",
-                        "lbldisplayname": "Nom d'affichage",
-                        "inpdisplayname": "Écrivez votre nom complet ici",
-                        "btnnext": "Suivant",
-                        "validation": {
-                            "errors": {
-                                "lblinvemail": "E-mail invalide",
-                                "lblrequsername": "Le nom d'utilisateur est requis",
-                                "lblreqdisplayname": "Le nom d'affichage (nom complet) est obligatoire"
-                            }
-                        }
-                    },
-                    "step2": {
-                        "title": "Étape 2: Données personnelles",
-                        "lblpassword": "Mot de passe",
-                        "inppassword": "Écrivez votre mot de passe ici",
-                        "lblconfpassword": "Confirmez votre mot de passe",
-                        "inpconfpassword": "Écrivez votre mot de passe de confirmation ici...",
-                        "lbldateofbirthday": "Date d'anniversaire",
-                        "btnback": "Précédent",
-                        "btnnext": "Suivant",
-                        "validation": {
-                            "errors": {
-                                "lblreqpass": "Le mot de passe est requis",
-                                "lblreqpassconf": "La confirmation du mot de passe est requise",
-                                "lbldbdayold": "Tu es trop vieux!",
-                                "lbldbdayoung": "Tu es trop jeune!",
-                                "lbldiffpass": "Le mot de passe ne correspond pas"
-                            }
-                        }
-                    },
-                    "step3": {
-                        "title": "Étape 3: Étapes finales",
-                        "lblterms": "Termes et conditions",
-                        "btnterms": "J'ai lu et j'accepte tous les termes et conditions.",
-                        "btnreset": "Réinitialiser",
-                        "btnprevious": "Précédent",
-                        "btnregister": "Registre",
-                        "validation": {
-                            "errors": {
-                                "lblreqterms": "Vous devez accepter tous les termes et conditions."
-                            }
-                        }
-                    },
-                    "validation": {
-                        "errors": {
-                            "lblloggedin": "Vous êtes déjà connecté en tant que {displayName}!"
-                        }
-                    }
-                }
-            },
-            "crud": {
-                "categories": {
-                    "add": {
-                        "title": "Ajouter une catégorie",
-                        "lblname": "Nom",
-                        "inpname": "Écrivez ici le nom de la catégorie",
-                        "lblslug": "Slug Url",
-                        "inpslug": "Écrivez ici l'URL du slug",
-                        "lblstatus": "Statut",
-                        "inpstatus": {
-                            "options": {
-                                "sel": "Sélectionnez l'option de l'état",
-                                "all": "Tout",
-                                "locked": "Fermé",
-                                "deleted": "Supprimé"
-                            }
-                        },
-                        "btnreset": "Réinitialiser",
-                        "btnadd": "Ajouter",
-                        "messages": {
-                            "unauth": "Vous n'êtes pas autorisé à consulter cette page!",
-                            "success": "Catégorie ajoutée avec succès!",
-                            "error": "Erreur lors de l'ajout de la catégorie! Message: {message}",
-                            "errorapi": "Une erreur s'est produite lors de l'ajout de la catégorie! Message: {message}"
-                        }
-                    },
-                    "delete": {
-                        "title": "Supprimer category",
-                        "emptycategories": "0 categories.",
-                        "table": {
-                            "header": {
-                                "id": "Id",
-                                "name": "Nom",
-                                "slug": "Slug",
-                                "createdAt": "Créé à",
-                                "updatedAt": "Mis à jour à",
-                                "status": "Statut"
-                            }
-                        },
-                        "messages": {
-                            "unauth": "Vous n'êtes pas autorisé à consulter cette page!",
-                            "success": "Catégorie supprimée avec succès!",
-                            "error": "Erreur lors de la suppression de la catégorie! Message: {message}",
-                            "errorapi": "Une erreur s'est produite lors de la tentative de suppression de la catégorie! Message: {message}",
-                            "confirm": {
-                                "title": "Êtes-vous sûr de vouloir supprimer cette catégorie?",
-                                "btnconfirm": "Oui",
-                                "btncancel": "Non"
-                            }
-                        }
-                    },
-                    "edit": {
-                        "title": "Modifier category",
-                        "emptycategories": "0 categories.",
-                        "lblname": "Nom",
-                        "inpname": "Écrivez ici le nom de la catégorie",
-                        "lblslug": "Slug Url",
-                        "inpslug": "Écrivez ici l'URL du slug",
-                        "lblstatus": "Statut",
-                        "inpstatus": {
-                            "options": {
-                                "sel": "Sélectionner l'option de l'état",
-                                "all": "Tous",
-                                "locked": "Verrouillé",
-                                "deleted": "Supprimé"
-                            }
-                        },
-                        "btnreset": "Réinitialiser",
-                        "btnedit": "Modifier",
-                        "messages": {
-                            "unauth": "Vous n'êtes pas autorisé à voir cette page!",
-                            "success": "Catégorie éditée avec succès!",
-                            "error": "Erreur lors de la modification de la catégorie! Message: {message}",
-                            "errorapi": "Une erreur s'est produite lors de la tentative de modification de la catégorie! Message: {message}"
-                        }
-                    }
-                },
-                "tags": {
-                    "add": {
-                        "title": "Ajouter un tag",
-                        "lblname": "Nom",
-                        "inpname": "Indiquez ici le nom du tag",
-                        "lblstatus": "Statut",
-                        "liststatus": {
-                            "options": {
-                                "sel": "Sélectionner l'option d'état",
-                                "all": "Tous",
-                                "locked": "Verrouillé",
-                                "deleted": "Supprimé"
-                            }
-                        },
-                        "btnreset": "Réinitialiser",
-                        "btnadd": "Ajouter",
-                        "messages": {
-                            "unauth": "Vous n'êtes pas autorisé à voir cette page!",
-                            "success": "Tag ajouté avec succès!",
-                            "error": "Erreur lors de l'ajout du tag! Message: {message}",
-                            "errorapi": "Une erreur s'est produite lors de l'ajout du tag! Message: {message}",
-                            "addsuccess": "Le tag a été ajouté avec succès !",
-                            "adderror": "J'ai ajouté un tag! Message: {message}",
-                            "adderrorapi": "Erro ao adicionar tag! Message: {message}"
-                        }
-                    },
-                    "delete": {
-                        "title": "Supprimer la balise",
-                        "emptytags": "0 balise.",
-                        "table": {
-                            "header": {
-                                "tagId": "Identifiant de balise",
-                                "name": "Nom",
-                                "createdAt": "Créé à",
-                                "updatedAt": "Mis à jour à",
-                                "status": "Statut"
-                            }
-                        },
-                        "messages": {
-                            "unauth": "Vous n'êtes pas autorisé à voir cette page!",
-                            "success": "Balise supprimée avec succès!",
-                            "error": "Erreur lors de la suppression de la balise! Message: {message}",
-                            "errorapi": "Une erreur s'est produite lors de la tentative de suppression de la balise! Message: {message}",
-                            "confirm": {
-                                "title": "Êtes-vous sûr de vouloir supprimer cette balise?",
-                                "btnconfirm": "Oui",
-                                "btncancel": "Non"
-                            }
-                        }
-                    },
-                    "edit": {
-                        "title": "Modifier la balise",
-                        "emptytags": "0 tag.",
-                        "lblname": "Nom",
-                        "inpname": "Indiquez ici le nom du tag",
-                        "lblstatus": "Statut",
-                        "inpstatus": {
-                            "options": {
-                                "sel": "Sélectionnez l'option d'état",
-                                "all": "Tous",
-                                "locked": "Verrouillé",
-                                "deleted": "Supprimé"
-                            }
-                        },
-                        "btnreset": "Réinitialiser",
-                        "btnedit": "Modifier",
-                        "messages": {
-                            "unauth": "Vous n'êtes pas autorisé à voir cette page!",
-                            "success": "Tag modifié avec succès!",
-                            "error": "Erreur lors de la modification du tag! Message: {message}",
-                            "errorapi": "Une erreur s'est produite lors de la modification du tag! Message: {message}"
-                        }
-                    }
-                },
-                "comments": {
-                    "delete": {
-                        "title": "Supprimer comment",
-                        "table": {
-                            "header": {
-                                "id": "Id",
-                                "content": "Contenu",
-                                "status": "Statut",
-                                "userId": "ID de l'utilisateur",
-                                "postId": "ID de actualité",
-                                "categoryId": "ID de catégorie",
-                                "createdAt": "Créé à",
-                                "updatedAt": "Mis à jour à"
-                            }
-                        },
-                        "messages": {
-                            "unauth": "Vous n'êtes pas autorisé à consulter cette page!",
-                            "success": "Le commentaire a été supprimé avec succès!",
-                            "error": "Erreur lors de la suppression du commentaire! Message: {message}",
-                            "errorapi": "Une erreur s'est produite lors de la tentative de suppression du commentaire! Message: {message}",
-                            "confirm": {
-                                "title": "Êtes-vous sûr de vouloir supprimer ce commentaire (id: {id})?",
-                                "btnconfirm": "Oui",
-                                "btncancel": "Non"
-                            }
-                        }
-                    },
-                    "edit": {
-                        "title": "Modifier comment",
-                        "lblcontent": "Contenu",
-                        "inpcontent": "Écrivez ici le contenu du commentaire",
-                        "btnreset": "Réinitialiser",
-                        "btnedit": "Modifier",
-                        "messages": {
-                            "unauth": "Vous n'êtes pas autorisé à voir cette page!",
-                            "success": "Le commentaire actuel a été modifié avec succès!",
-                            "error": "Erreur lors de la modification du commentaire! Message: {message}",
-                            "errorapi": "Une erreur s'est produite lors de la modification du commentaire! Message: {message}",
-                            "confirm": {
-                                "title": "Êtes-vous sûr de vouloir modifier ce commentaire (id: {id})?",
-                                "btnconfirm": "Oui",
-                                "btncancel": "Non"
-                            }
-                        }
-                    }
-                },
-                "news": {
-                    "add": {
-                        "title": "Ajouter des nouvelles",
-                        "lbltitle": "Titre",
-                        "inptitle": "Écrivez ici le titre de la nouvelle",
-                        "lblcontent": "Contenu",
-                        "inpcontent": "Écrivez ici le contenu de la nouvelle",
-                        "lblimage": "Image",
-                        "inpimage": "Écrivez ici l'url de l'image",
-                        "lblslug": "URL du slug",
-                        "inpslug": "Écrivez ici l'URL du slug",
-                        "lblcategory": "Catégorie",
-                        "listcategories": {
-                            "options": {
-                                "sel": "Sélectionnez la catégorie de l'actualité",
-                                "general": "Général"
-                            }
-                        },
-                        "lblstatus": "Statut",
-                        "liststatus": {
-                            "options": {
-                                "sel": "Sélectionnez l'option de l'état",
-                                "all": "Tout",
-                                "locked": "Fermé",
-                                "deleted": "Supprimé"
-                            }
-                        },
-                        "lbluserId": "ID de l'utilisateur",
-                        "lbltags": "Étiquettes",
-                        "seltags": "Sélectionnez une(des) étiquette(s)",
-                        "btnreset": "Réinitialiser",
-                        "btnadd": "Ajouter",
-                        "messages": {
-                            "unauth": "Vous n'êtes pas autorisé à voir cette page!",
-                            "success": "Catégories récupérées avec succès!",
-                            "error": "Échec de la récupération des catégories. Message: {message}",
-                            "errorapi": "Une erreur s'est produite lors de la récupération des catégories! Message: {message}",
-                            "addsuccess": "L'actualité a été ajouté avec succès!",
-                            "adderror": "Échec de l'ajout de l'actualité! Message: {message}",
-                            "adderrorapi": "Erreur lors de l'ajout de l'actualité! Message: {message}"
-                        }
-                    },
-                    "delete": {
-                        "title": "Supprimer les nouvelles",
-                        "emptynews": "0 nouvelles.",
-                        "table": {
-                            "header": {
-                                "id": "Id",
-                                "title": "Titre",
-                                "categoryId": "ID de catégorie",
-                                "userId": "ID de l'utilisateur",
-                                "tags": "Mots clés"
-                            }
-                        },
-                        "messages": {
-                            "unauth": "Vous n'êtes pas autorisé à consulter cette page!",
-                            "success": "La actualité a été supprimée avec succès!",
-                            "error": "Échec de la suppression de cette actualité! Message: {message}",
-                            "errorapi": "Une erreur s'est produite lors de la suppression de cette actualité! Message: {message}",
-                            "confirm": {
-                                "title": "Êtes-vous sûr de vouloir supprimer cette actualité (id: {id})?",
-                                "btnconfirm": "Oui",
-                                "btncancel": "Non"
-                            }
-                        }
-                    },
-                    "edit": {
-                        "title": "Modifier news",
-                        "lbltitle": "Titre",
-                        "inptitle": "Écrivez ici le titre de la nouvelle",
-                        "lblcontent": "Contenu",
-                        "inpcontent": "Écrivez ici le contenu de la nouvelle",
-                        "lblimage": "Image",
-                        "inpimage": "Écrivez ici l'url de l'image",
-                        "lblslug": "Slug Url",
-                        "inpslug": "Écrivez ici l'URL du slug",
-                        "lblstatus": "Statut",
-                        "lblcategory": "Category",
-                        "listcategories": {
-                            "options": {
-                                "sel": "Sélectionner la catégorie d'actualités",
-                                "general": "Général"
-                            }
-                        },
-                        "liststatus": {
-                            "options": {
-                                "sel": "Sélectionnez l'option de l'état",
-                                "all": "Tout",
-                                "locked": "Fermé",
-                                "deleted": "Supprimé"
-                            }
-                        },
-                        "lbluserId": "ID de l'utilisateur",
-                        "lbltags": "Étiquettes",
-                        "seltags": "Sélectionnez une(des) étiquette(s)",
-                        "btnreset": "Réinitialiser",
-                        "btnedit": "Modifier",
-                        "messages": {
-                            "unauth": "Vous n'êtes pas autorisé à consulter cette page!",
-                            "success": "Message édité avec succès!",
-                            "error": "Erreur lors de la modification du message! Message: {message}",
-                            "errorapi": "Une erreur s'est produite lors de la modification du message! Message: {message}"
-                        }
-                    }
-                },
-                "users": {
-                    "add": {
-                        "title": "Ajouter des utilisateurs",
-                        "lblusername": "Nom d'utilisateur",
-                        "inpusername": "Écrivez votre nom d'utilisateur ici",
-                        "lblpassword": "Mot de passe",
-                        "inppassword": "Écrivez votre mot de passe ici",
-                        "lblemail": "Courriel",
-                        "inpemail": "Écrivez votre email ici",
-                        "lbldisplayname": "Nom d'affichage",
-                        "inpdisplayname": "Écrivez votre nom complet ici",
-                        "lblavatar": "URL de l'image",
-                        "inpavatar": "Écrivez l'URL de votre avatar ici...",
-                        "avatartitle": "L'avatar de {userName}",
-                        "lblcover": "URL de couverture",
-                        "inpcover": "Écrivez l'URL de votre couverture ici...",
-                        "covertitle": "Couverture de {userName}",
-                        "lblabout": "À propos",
-                        "inpabout": "Écrivez ici ce que vous pensez de vous...",
-                        "btnreset": "Réinitialiser",
-                        "btnadd": "Ajouter",
-                        "btnback": "Arrière",
-                        "messages": {
-                            "unauth": "Vous n'êtes pas autorisé à consulter cette page!",
-                            "success": "L'utilisateur a été ajouté avec succès!",
-                            "error": "Échec de la récupération des données de l'utilisateur! Message: {message}",
-                            "errorapi": "Erreur lors de la récupération des données de l'utilisateur! Message: {message}"
-                        }
-                    },
-                    "edit": {
-                        "title": "Modifier users",
-                        "lbluserId": "ID de l'utilisateur",
-                        "inpuserId": "Write your user id here",
-                        "lblusername": "Nom d'utilisateur",
-                        "inpusername": "Écrivez votre nom d'utilisateur ici",
-                        "lblpassword": "Mot de passe",
-                        "inppassword": "Écrivez votre mot de passe ici",
-                        "lblemail": "Courriel",
-                        "inpemail": "Écrivez votre email ici",
-                        "lbldisplayname": "Nom d'affichage",
-                        "inpdisplayname": "Écrivez votre nom complet ici",
-                        "lblavatar": "URL de l'image",
-                        "inpavatar": "Écrivez l'URL de votre avatar ici...",
-                        "avatartitle": "L'avatar de {userName}",
-                        "lblcover": "URL de couverture",
-                        "inpcover": "Écrivez l'URL de votre couverture ici...",
-                        "covertitle": "Couverture de {userName}",
-                        "lblrole": "Role",
-                        "inprole": "Write your role here...",
-                        "lblprivacy": "Privacy",
-                        "inpprivacy": "Select or write your privacy here...",
-                        "lblabout": "À propos",
-                        "inpabout": "Écrivez ici ce que vous pensez de vous...",
-                        "btnreset": "Réinitialiser",
-                        "btnedit": "Modifier",
-                        "btnback": "Arrière",
-                        "messages": {
-                            "unauth": "Vous n'êtes pas autorisé à consulter cette page!",
-                            "success": "L'utilisateur (id: {id}) a été mis à jour avec succès!",
-                            "error": "Échec de la mise à jour de cet utilisateur (id: {id})! Message: {message}",
-                            "errorapi": "Une erreur s'est produite lors de la mise à jour de cet utilisateur (id: {id})! Message: {message}"
-                        }
-                    },
-                    "delete": {
-                        "title": "Supprimer users",
-                        "table": {
-                            "header": {
-                                "userId": "ID de l'utilisateur",
-                                "username": "Nom d'utilisateur",
-                                "email": "Courriel",
-                                "displayName": "Nom d'affichage",
-                                "role": "Role"
-                            }
-                        },
-                        "btnback": "Arrière",
-                        "messages": {
-                            "unauth": "Vous n'êtes pas autorisé à consulter cette page!",
-                            "success": "L'utilisateur (id: {id}) a été supprimé avec succès!",
-                            "error": "Échec de la suppression de cet utilisateur (id: {id})! Message: {message}",
-                            "errorapi": "Une erreur s'est produite lors de la tentative de suppression de cet utilisateur (id: {id})! Message: {message}",
-                            "confirm": {
-                                "title": "Voulez-vous supprimer cet utilisateur (id: {id})?",
-                                "btnconfirm": "Oui",
-                                "btncancel": "Non"
-                            }
-                        }
-                    }
-                }
-            },
-            "search": {
-                "validation": {
-                    "errors": {
-                        "lblreqsearch": "Écrivez quelque chose dans la barre de recherche!"
-                    }
-                }
-            },
-            "advancedsearch": {
-                "posts": {
-                    "title": "Recherche par filtre avancé:",
-                    "lblsearch": "Rechercher",
-                    "inpsearch": "Rechercher...",
-                    "lblorderby": "Trier par",
-                    "lblsortby": "Trier par",
-                    "optsorderby": {
-                        "asc": "Ascendant",
-                        "desc": "Descendant"
-                    },
-                    "optssortby": {
-                        "postId": "ID de actualité",
-                        "title": "Titre"
-                    },
-                    "btnreset": "Réinitialiser",
-                    "btnsearch": "Recherche"
-                },
-                "tags": {
-                    "title": "Recherche par filtre avancé:",
-                    "lblsearch": "Rechercher",
-                    "inpsearch": "Rechercher...",
-                    "lblorderby": "Trier par",
-                    "lblsortby": "Trier par",
-                    "optsorderby": {
-                        "asc": "Ascendant",
-                        "desc": "Descendant"
-                    },
-                    "optssortby": {
-                        "tagId": "ID de étiqueter",
-                        "title": "Titre"
-                    },
-                    "btnreset": "Réinitialiser",
-                    "btnsearch": "Recherche"
-                }
-            },
-            "news": {
-                "validation": {
-                    "errors": {
-                        "lblreqtitle": "Le titre doit être renseigné",
-                        "lblreqcontent": "Le contenu doit être renseigné"
-                    }
-                }
-            },
-            "tags": {
-                "validation": {
-                    "errors": {
-                        "lblreqname": "Le nom de la balise doit être renseigné"
-                    }
-                }
-            },
-            "categories": {
-                "validation": {
-                    "errors": {
-                        "lblreqname": "Le nom doit être renseigné"
-                    }
-                }
-            },
-            "users": {
-                "validation": {
-                    "errors": {
-                        "lblrequsername": "Le nom d'utilisateur doit être renseigné",
-                        "lblreqpassword": "Le mot de passe doit être renseigné",
-                        "lblreqemail": "L'adresse e-mail doit être renseignée",
-                        "lblreqdisplayname": "Le nom d'affichage (nom complet) doit être renseigné"
-                    }
-                }
-            },
-            "commits": {
-                "validation": {
-                    "errors": {
-                        "lblreqowner": "Le nom du propriétaire doit être renseigné",
-                        "lblreqrepo": "Le nom du dépôt doit être renseigné"
-                    }
-                }
-            },
-            "comments": {
-                "emptycomments": "0 commentaire",
-                "status": {
-                    "locked": "Ce commentaire est désormais verrouillé !"
-                },
-                "actions": {
-                    "btnedit": "Modifier",
-                    "btndelete": "Supprimer",
-                    "statusunlock": "Déverrouiller",
-                    "statuslock": "Verrouiller",
-                    "keywords": {
-                        "lock": "lock",
-                        "locked": "locked",
-                        "unlock": "unlock",
-                        "unlocked": "unlocked"
-                    }
-                },
-                "inputs": {
-                    "lblphavatar": "Avatar de {displayName}",
-                    "lblphcontent": "Écrivez ici votre commentaire",
-                    "lblstatus": "Statut:",
-                    "selstatus": {
-                        "phopt": "Sélectionnez l'option de statut",
-                        "options": {
-                            "opt1": "Tout",
-                            "opt2": "Fermé",
-                            "opt3": "Supprimé"
-                        }
-                    },
-                    "lbluserid": "ID de l'utilisateur",
-                    "lblpostid": "ID de actualité",
-                    "lblcategoryid": "ID de catégorie",
-                    "btnreset": "Réinitialiser",
-                    "btnadd": "Ajouter"
-                },
-                "validation": {
-                    "errors": {
-                        "lblphcontent": "Écrivez ici votre commentaire"
-                    }
-                },
-                "apimessages": {
-                    "success": "Le nouveau commentaire a été ajouté avec succès!",
-                    "error": "Échec de l'ajout du nouveau commentaire! Message: {message}",
-                    "errorapi": "Erreur lors de l'ajout du nouveau commentaire! Message: {message}",
-                    "statussuccess": "Le commentaire actuel a été ajouté avec succès! {keywordStatus}!",
-                    "statuserror": "Échec de l'ajout du commentaire actuel! {keywordStatus}! Message: {message}",
-                    "statuserrorapi": "Échec de l'ajout du commentaire actuel! {keywordStatus}! Message: {message}"
-                }
-            }
+          "page": "Page",
+          "totalData": "Total de"
         }
+      },
+      "userstable": {
+        "titletable": "Utilisateurs",
+        "header": {
+          "userId": "ID de l'utilisateur",
+          "username": "Nom d'utilisateur",
+          "email": "Courriel",
+          "displayName": "Nom d'affichage",
+          "role": "Rôle",
+          "createdAt": "Créé à",
+          "updatedAt": "Mis à jour à",
+          "categoryId": "ID de catégorie",
+          "actions": "Actes"
+        },
+        "body": {
+          "btnedit": "Modifier",
+          "btndelete": "Supprimer",
+          "emptydata": "Aucun utilisateur, veuillez en créer un nouveau..."
+        },
+        "footer": {
+          "page": "Page",
+          "totalData": "Total de"
+        }
+      },
+      "categoriestable": {
+        "titletable": "Categories",
+        "header": {
+          "postId": "ID de actualité",
+          "name": "Nom",
+          "title": "Titre",
+          "createdAt": "Créé à",
+          "updatedAt": "Mis à jour à",
+          "slug": "Slug",
+          "status": "Statut",
+          "categoryId": "ID de catégorie",
+          "userId": "ID de l'utilisateur",
+          "actions": "Actes"
+        },
+        "body": {
+          "btnedit": "Modifier",
+          "btndelete": "Supprimer",
+          "emptydata": "Aucune catégorie, veuillez en créer une nouvelle catégorie..."
+        },
+        "footer": {
+          "page": "Page",
+          "totalData": "Total de"
+        }
+      },
+      "tagstable": {
+        "titletable": "Tags",
+        "header": {
+          "tagId": "Identifiant du tag",
+          "name": "Nom",
+          "createdAt": "Créé à",
+          "updatedAt": "Mis à jour à",
+          "status": "Statut",
+          "actions": "Actes"
+        },
+        "body": {
+          "btnedit": "Modifier",
+          "btndelete": "Supprimer",
+          "emptydata": "Aucun tag, veuillez en créer un tag..."
+        },
+        "footer": {
+          "page": "Page",
+          "totalData": "Total de"
+        }
+      }
+    },
+    "forms": {
+      "auth": {
+        "login": {
+          "title": "Se connecter",
+          "lblemail": "Courriel",
+          "inpemail": "Écrivez votre email ici",
+          "lblpassword": "Mot de passe",
+          "inppassword": "Écrivez votre mot de passe ici",
+          "btnreset": "Réinitialiser",
+          "btnlogin": "Se connecter",
+          "lblrecoveraccount": "Vous n'avez pas de compte? Inscrivez-vous ici",
+          "btnback": "Retour à la maison",
+          "lblloggedin": "Vous êtes déjà connecté en tant que {displayName}!",
+          "validation": {
+            "errors": {
+              "lblreqemail": "L'e-mail est obligatoire.",
+              "lblreqpassword": "Le mot de passe est requis.",
+              "lblinvemail": "E-mail invalide"
+            }
+          }
+        },
+        "register": {
+          "title": "Registre",
+          "lblregistered": "Vous êtes déjà inscrit en tant que {displayName}!",
+          "steppers": {
+            "lblstepper1": "Données utilisateur",
+            "lblstepper2": "Données personnelles",
+            "lblstepper3": "Étapes finales"
+          },
+          "step1": {
+            "title": "Étape 1: Données utilisateur",
+            "lblemail": "Courriel",
+            "inpemail": "Écrivez votre email ici",
+            "lblusername": "Nom d'utilisateur",
+            "inpusername": "Écrivez votre nom d'utilisateur ici",
+            "lbldisplayname": "Nom d'affichage",
+            "inpdisplayname": "Écrivez votre nom complet ici",
+            "btnnext": "Suivant",
+            "validation": {
+              "errors": {
+                "lblinvemail": "E-mail invalide",
+                "lblrequsername": "Le nom d'utilisateur est requis",
+                "lblreqdisplayname": "Le nom d'affichage (nom complet) est obligatoire"
+              }
+            }
+          },
+          "step2": {
+            "title": "Étape 2: Données personnelles",
+            "lblpassword": "Mot de passe",
+            "inppassword": "Écrivez votre mot de passe ici",
+            "lblconfpassword": "Confirmez votre mot de passe",
+            "inpconfpassword": "Écrivez votre mot de passe de confirmation ici...",
+            "lbldateofbirthday": "Date d'anniversaire",
+            "btnback": "Précédent",
+            "btnnext": "Suivant",
+            "validation": {
+              "errors": {
+                "lblreqpass": "Le mot de passe est requis",
+                "lblreqpassconf": "La confirmation du mot de passe est requise",
+                "lbldbdayold": "Tu es trop vieux!",
+                "lbldbdayoung": "Tu es trop jeune!",
+                "lbldiffpass": "Le mot de passe ne correspond pas"
+              }
+            }
+          },
+          "step3": {
+            "title": "Étape 3: Étapes finales",
+            "lblterms": "Termes et conditions",
+            "btnterms": "J'ai lu et j'accepte tous les termes et conditions.",
+            "btnreset": "Réinitialiser",
+            "btnprevious": "Précédent",
+            "btnregister": "Registre",
+            "validation": {
+              "errors": {
+                "lblreqterms": "Vous devez accepter tous les termes et conditions."
+              }
+            }
+          },
+          "validation": {
+            "errors": {
+              "lblloggedin": "Vous êtes déjà connecté en tant que {displayName}!"
+            }
+          }
+        }
+      },
+      "crud": {
+        "categories": {
+          "add": {
+            "title": "Ajouter une catégorie",
+            "lblname": "Nom",
+            "inpname": "Écrivez ici le nom de la catégorie",
+            "lblslug": "Slug Url",
+            "inpslug": "Écrivez ici l'URL du slug",
+            "lblstatus": "Statut",
+            "inpstatus": {
+              "options": {
+                "sel": "Sélectionnez l'option de l'état",
+                "all": "Tout",
+                "locked": "Fermé",
+                "deleted": "Supprimé"
+              }
+            },
+            "btnreset": "Réinitialiser",
+            "btnadd": "Ajouter",
+            "messages": {
+              "unauth": "Vous n'êtes pas autorisé à consulter cette page!",
+              "success": "Catégorie ajoutée avec succès!",
+              "error": "Erreur lors de l'ajout de la catégorie! Message: {message}",
+              "errorapi": "Une erreur s'est produite lors de l'ajout de la catégorie! Message: {message}"
+            }
+          },
+          "delete": {
+            "title": "Supprimer category",
+            "emptycategories": "0 categories.",
+            "table": {
+              "header": {
+                "id": "Id",
+                "name": "Nom",
+                "slug": "Slug",
+                "createdAt": "Créé à",
+                "updatedAt": "Mis à jour à",
+                "status": "Statut"
+              }
+            },
+            "messages": {
+              "unauth": "Vous n'êtes pas autorisé à consulter cette page!",
+              "success": "Catégorie supprimée avec succès!",
+              "error": "Erreur lors de la suppression de la catégorie! Message: {message}",
+              "errorapi": "Une erreur s'est produite lors de la tentative de suppression de la catégorie! Message: {message}",
+              "confirm": {
+                "title": "Êtes-vous sûr de vouloir supprimer cette catégorie?",
+                "btnconfirm": "Oui",
+                "btncancel": "Non"
+              }
+            }
+          },
+          "edit": {
+            "title": "Modifier category",
+            "emptycategories": "0 categories.",
+            "lblname": "Nom",
+            "inpname": "Écrivez ici le nom de la catégorie",
+            "lblslug": "Slug Url",
+            "inpslug": "Écrivez ici l'URL du slug",
+            "lblstatus": "Statut",
+            "inpstatus": {
+              "options": {
+                "sel": "Sélectionner l'option de l'état",
+                "all": "Tous",
+                "locked": "Verrouillé",
+                "deleted": "Supprimé"
+              }
+            },
+            "btnreset": "Réinitialiser",
+            "btnedit": "Modifier",
+            "messages": {
+              "unauth": "Vous n'êtes pas autorisé à voir cette page!",
+              "success": "Catégorie éditée avec succès!",
+              "error": "Erreur lors de la modification de la catégorie! Message: {message}",
+              "errorapi": "Une erreur s'est produite lors de la tentative de modification de la catégorie! Message: {message}"
+            }
+          }
+        },
+        "tags": {
+          "add": {
+            "title": "Ajouter un tag",
+            "lblname": "Nom",
+            "inpname": "Indiquez ici le nom du tag",
+            "lblstatus": "Statut",
+            "liststatus": {
+              "options": {
+                "sel": "Sélectionner l'option d'état",
+                "all": "Tous",
+                "locked": "Verrouillé",
+                "deleted": "Supprimé"
+              }
+            },
+            "btnreset": "Réinitialiser",
+            "btnadd": "Ajouter",
+            "messages": {
+              "unauth": "Vous n'êtes pas autorisé à voir cette page!",
+              "success": "Tag ajouté avec succès!",
+              "error": "Erreur lors de l'ajout du tag! Message: {message}",
+              "errorapi": "Une erreur s'est produite lors de l'ajout du tag! Message: {message}",
+              "addsuccess": "Le tag a été ajouté avec succès !",
+              "adderror": "J'ai ajouté un tag! Message: {message}",
+              "adderrorapi": "Erro ao adicionar tag! Message: {message}"
+            }
+          },
+          "delete": {
+            "title": "Supprimer la balise",
+            "emptytags": "0 balise.",
+            "table": {
+              "header": {
+                "tagId": "Identifiant de balise",
+                "name": "Nom",
+                "createdAt": "Créé à",
+                "updatedAt": "Mis à jour à",
+                "status": "Statut"
+              }
+            },
+            "messages": {
+              "unauth": "Vous n'êtes pas autorisé à voir cette page!",
+              "success": "Balise supprimée avec succès!",
+              "error": "Erreur lors de la suppression de la balise! Message: {message}",
+              "errorapi": "Une erreur s'est produite lors de la tentative de suppression de la balise! Message: {message}",
+              "confirm": {
+                "title": "Êtes-vous sûr de vouloir supprimer cette balise?",
+                "btnconfirm": "Oui",
+                "btncancel": "Non"
+              }
+            }
+          },
+          "edit": {
+            "title": "Modifier la balise",
+            "emptytags": "0 tag.",
+            "lblname": "Nom",
+            "inpname": "Indiquez ici le nom du tag",
+            "lblstatus": "Statut",
+            "inpstatus": {
+              "options": {
+                "sel": "Sélectionnez l'option d'état",
+                "all": "Tous",
+                "locked": "Verrouillé",
+                "deleted": "Supprimé"
+              }
+            },
+            "btnreset": "Réinitialiser",
+            "btnedit": "Modifier",
+            "messages": {
+              "unauth": "Vous n'êtes pas autorisé à voir cette page!",
+              "success": "Tag modifié avec succès!",
+              "error": "Erreur lors de la modification du tag! Message: {message}",
+              "errorapi": "Une erreur s'est produite lors de la modification du tag! Message: {message}"
+            }
+          }
+        },
+        "comments": {
+          "delete": {
+            "title": "Supprimer comment",
+            "table": {
+              "header": {
+                "id": "Id",
+                "content": "Contenu",
+                "status": "Statut",
+                "userId": "ID de l'utilisateur",
+                "postId": "ID de actualité",
+                "categoryId": "ID de catégorie",
+                "createdAt": "Créé à",
+                "updatedAt": "Mis à jour à"
+              }
+            },
+            "messages": {
+              "unauth": "Vous n'êtes pas autorisé à consulter cette page!",
+              "success": "Le commentaire a été supprimé avec succès!",
+              "error": "Erreur lors de la suppression du commentaire! Message: {message}",
+              "errorapi": "Une erreur s'est produite lors de la tentative de suppression du commentaire! Message: {message}",
+              "confirm": {
+                "title": "Êtes-vous sûr de vouloir supprimer ce commentaire (id: {id})?",
+                "btnconfirm": "Oui",
+                "btncancel": "Non"
+              }
+            }
+          },
+          "edit": {
+            "title": "Modifier comment",
+            "lblcontent": "Contenu",
+            "inpcontent": "Écrivez ici le contenu du commentaire",
+            "btnreset": "Réinitialiser",
+            "btnedit": "Modifier",
+            "messages": {
+              "unauth": "Vous n'êtes pas autorisé à voir cette page!",
+              "success": "Le commentaire actuel a été modifié avec succès!",
+              "error": "Erreur lors de la modification du commentaire! Message: {message}",
+              "errorapi": "Une erreur s'est produite lors de la modification du commentaire! Message: {message}",
+              "confirm": {
+                "title": "Êtes-vous sûr de vouloir modifier ce commentaire (id: {id})?",
+                "btnconfirm": "Oui",
+                "btncancel": "Non"
+              }
+            }
+          }
+        },
+        "news": {
+          "add": {
+            "title": "Ajouter des nouvelles",
+            "lbltitle": "Titre",
+            "inptitle": "Écrivez ici le titre de la nouvelle",
+            "lblcontent": "Contenu",
+            "inpcontent": "Écrivez ici le contenu de la nouvelle",
+            "lblimage": "Image",
+            "inpimage": "Écrivez ici l'url de l'image",
+            "lblslug": "URL du slug",
+            "inpslug": "Écrivez ici l'URL du slug",
+            "lblcategory": "Catégorie",
+            "listcategories": {
+              "options": {
+                "sel": "Sélectionnez la catégorie de l'actualité",
+                "general": "Général"
+              }
+            },
+            "lblstatus": "Statut",
+            "liststatus": {
+              "options": {
+                "sel": "Sélectionnez l'option de l'état",
+                "all": "Tout",
+                "locked": "Fermé",
+                "deleted": "Supprimé"
+              }
+            },
+            "lbluserId": "ID de l'utilisateur",
+            "lbltags": "Étiquettes",
+            "seltags": "Sélectionnez une(des) étiquette(s)",
+            "btnreset": "Réinitialiser",
+            "btnadd": "Ajouter",
+            "messages": {
+              "unauth": "Vous n'êtes pas autorisé à voir cette page!",
+              "success": "Catégories récupérées avec succès!",
+              "error": "Échec de la récupération des catégories. Message: {message}",
+              "errorapi": "Une erreur s'est produite lors de la récupération des catégories! Message: {message}",
+              "addsuccess": "L'actualité a été ajouté avec succès!",
+              "adderror": "Échec de l'ajout de l'actualité! Message: {message}",
+              "adderrorapi": "Erreur lors de l'ajout de l'actualité! Message: {message}"
+            }
+          },
+          "delete": {
+            "title": "Supprimer les nouvelles",
+            "emptynews": "0 nouvelles.",
+            "table": {
+              "header": {
+                "id": "Id",
+                "title": "Titre",
+                "categoryId": "ID de catégorie",
+                "userId": "ID de l'utilisateur",
+                "tags": "Mots clés"
+              }
+            },
+            "messages": {
+              "unauth": "Vous n'êtes pas autorisé à consulter cette page!",
+              "success": "La actualité a été supprimée avec succès!",
+              "error": "Échec de la suppression de cette actualité! Message: {message}",
+              "errorapi": "Une erreur s'est produite lors de la suppression de cette actualité! Message: {message}",
+              "confirm": {
+                "title": "Êtes-vous sûr de vouloir supprimer cette actualité (id: {id})?",
+                "btnconfirm": "Oui",
+                "btncancel": "Non"
+              }
+            }
+          },
+          "edit": {
+            "title": "Modifier news",
+            "lbltitle": "Titre",
+            "inptitle": "Écrivez ici le titre de la nouvelle",
+            "lblcontent": "Contenu",
+            "inpcontent": "Écrivez ici le contenu de la nouvelle",
+            "lblimage": "Image",
+            "inpimage": "Écrivez ici l'url de l'image",
+            "lblslug": "Slug Url",
+            "inpslug": "Écrivez ici l'URL du slug",
+            "lblstatus": "Statut",
+            "lblcategory": "Category",
+            "listcategories": {
+              "options": {
+                "sel": "Sélectionner la catégorie d'actualités",
+                "general": "Général"
+              }
+            },
+            "liststatus": {
+              "options": {
+                "sel": "Sélectionnez l'option de l'état",
+                "all": "Tout",
+                "locked": "Fermé",
+                "deleted": "Supprimé"
+              }
+            },
+            "lbluserId": "ID de l'utilisateur",
+            "lbltags": "Étiquettes",
+            "seltags": "Sélectionnez une(des) étiquette(s)",
+            "btnreset": "Réinitialiser",
+            "btnedit": "Modifier",
+            "messages": {
+              "unauth": "Vous n'êtes pas autorisé à consulter cette page!",
+              "success": "Message édité avec succès!",
+              "error": "Erreur lors de la modification du message! Message: {message}",
+              "errorapi": "Une erreur s'est produite lors de la modification du message! Message: {message}"
+            }
+          }
+        },
+        "users": {
+          "add": {
+            "title": "Ajouter des utilisateurs",
+            "lblusername": "Nom d'utilisateur",
+            "inpusername": "Écrivez votre nom d'utilisateur ici",
+            "lblpassword": "Mot de passe",
+            "inppassword": "Écrivez votre mot de passe ici",
+            "lblemail": "Courriel",
+            "inpemail": "Écrivez votre email ici",
+            "lbldisplayname": "Nom d'affichage",
+            "inpdisplayname": "Écrivez votre nom complet ici",
+            "lblavatar": "URL de l'image",
+            "inpavatar": "Écrivez l'URL de votre avatar ici...",
+            "avatartitle": "L'avatar de {userName}",
+            "lblcover": "URL de couverture",
+            "inpcover": "Écrivez l'URL de votre couverture ici...",
+            "covertitle": "Couverture de {userName}",
+            "lblabout": "À propos",
+            "inpabout": "Écrivez ici ce que vous pensez de vous...",
+            "btnreset": "Réinitialiser",
+            "btnadd": "Ajouter",
+            "btnback": "Arrière",
+            "messages": {
+              "unauth": "Vous n'êtes pas autorisé à consulter cette page!",
+              "success": "L'utilisateur a été ajouté avec succès!",
+              "error": "Échec de la récupération des données de l'utilisateur! Message: {message}",
+              "errorapi": "Erreur lors de la récupération des données de l'utilisateur! Message: {message}"
+            }
+          },
+          "edit": {
+            "title": "Modifier users",
+            "lbluserId": "ID de l'utilisateur",
+            "inpuserId": "Write your user id here",
+            "lblusername": "Nom d'utilisateur",
+            "inpusername": "Écrivez votre nom d'utilisateur ici",
+            "lblpassword": "Mot de passe",
+            "inppassword": "Écrivez votre mot de passe ici",
+            "lblemail": "Courriel",
+            "inpemail": "Écrivez votre email ici",
+            "lbldisplayname": "Nom d'affichage",
+            "inpdisplayname": "Écrivez votre nom complet ici",
+            "lblavatar": "URL de l'image",
+            "inpavatar": "Écrivez l'URL de votre avatar ici...",
+            "avatartitle": "L'avatar de {userName}",
+            "lblcover": "URL de couverture",
+            "inpcover": "Écrivez l'URL de votre couverture ici...",
+            "covertitle": "Couverture de {userName}",
+            "lblrole": "Role",
+            "inprole": "Write your role here...",
+            "lblprivacy": "Privacy",
+            "inpprivacy": "Select or write your privacy here...",
+            "lblabout": "À propos",
+            "inpabout": "Écrivez ici ce que vous pensez de vous...",
+            "btnreset": "Réinitialiser",
+            "btnedit": "Modifier",
+            "btnback": "Arrière",
+            "messages": {
+              "unauth": "Vous n'êtes pas autorisé à consulter cette page!",
+              "success": "L'utilisateur (id: {id}) a été mis à jour avec succès!",
+              "error": "Échec de la mise à jour de cet utilisateur (id: {id})! Message: {message}",
+              "errorapi": "Une erreur s'est produite lors de la mise à jour de cet utilisateur (id: {id})! Message: {message}"
+            }
+          },
+          "delete": {
+            "title": "Supprimer users",
+            "table": {
+              "header": {
+                "userId": "ID de l'utilisateur",
+                "username": "Nom d'utilisateur",
+                "email": "Courriel",
+                "displayName": "Nom d'affichage",
+                "role": "Role"
+              }
+            },
+            "btnback": "Arrière",
+            "messages": {
+              "unauth": "Vous n'êtes pas autorisé à consulter cette page!",
+              "success": "L'utilisateur (id: {id}) a été supprimé avec succès!",
+              "error": "Échec de la suppression de cet utilisateur (id: {id})! Message: {message}",
+              "errorapi": "Une erreur s'est produite lors de la tentative de suppression de cet utilisateur (id: {id})! Message: {message}",
+              "confirm": {
+                "title": "Voulez-vous supprimer cet utilisateur (id: {id})?",
+                "btnconfirm": "Oui",
+                "btncancel": "Non"
+              }
+            }
+          }
+        }
+      },
+      "search": {
+        "validation": {
+          "errors": {
+            "lblreqsearch": "Écrivez quelque chose dans la barre de recherche!"
+          }
+        }
+      },
+      "advancedsearch": {
+        "posts": {
+          "title": "Recherche par filtre avancé:",
+          "lblsearch": "Rechercher",
+          "inpsearch": "Rechercher...",
+          "lblorderby": "Trier par",
+          "lblsortby": "Trier par",
+          "optsorderby": {
+            "asc": "Ascendant",
+            "desc": "Descendant"
+          },
+          "optssortby": {
+            "postId": "ID de actualité",
+            "title": "Titre"
+          },
+          "btnreset": "Réinitialiser",
+          "btnsearch": "Recherche"
+        },
+        "tags": {
+          "title": "Recherche par filtre avancé:",
+          "lblsearch": "Rechercher",
+          "inpsearch": "Rechercher...",
+          "lblorderby": "Trier par",
+          "lblsortby": "Trier par",
+          "optsorderby": {
+            "asc": "Ascendant",
+            "desc": "Descendant"
+          },
+          "optssortby": {
+            "tagId": "ID de étiqueter",
+            "title": "Titre"
+          },
+          "btnreset": "Réinitialiser",
+          "btnsearch": "Recherche"
+        }
+      },
+      "news": {
+        "validation": {
+          "errors": {
+            "lblreqtitle": "Le titre doit être renseigné",
+            "lblreqcontent": "Le contenu doit être renseigné"
+          }
+        }
+      },
+      "tags": {
+        "validation": {
+          "errors": {
+            "lblreqname": "Le nom de la balise doit être renseigné"
+          }
+        }
+      },
+      "categories": {
+        "validation": {
+          "errors": {
+            "lblreqname": "Le nom doit être renseigné"
+          }
+        }
+      },
+      "users": {
+        "validation": {
+          "errors": {
+            "lblrequsername": "Le nom d'utilisateur doit être renseigné",
+            "lblreqpassword": "Le mot de passe doit être renseigné",
+            "lblreqemail": "L'adresse e-mail doit être renseignée",
+            "lblreqdisplayname": "Le nom d'affichage (nom complet) doit être renseigné"
+          }
+        }
+      },
+      "commits": {
+        "validation": {
+          "errors": {
+            "lblreqowner": "Le nom du propriétaire doit être renseigné",
+            "lblreqrepo": "Le nom du dépôt doit être renseigné"
+          }
+        }
+      },
+      "comments": {
+        "emptycomments": "0 commentaire",
+        "status": {
+          "locked": "Ce commentaire est désormais verrouillé !"
+        },
+        "actions": {
+          "btnedit": "Modifier",
+          "btndelete": "Supprimer",
+          "statusunlock": "Déverrouiller",
+          "statuslock": "Verrouiller",
+          "keywords": {
+            "lock": "lock",
+            "locked": "locked",
+            "unlock": "unlock",
+            "unlocked": "unlocked"
+          }
+        },
+        "inputs": {
+          "lblphavatar": "Avatar de {displayName}",
+          "lblphcontent": "Écrivez ici votre commentaire",
+          "lblstatus": "Statut:",
+          "selstatus": {
+            "phopt": "Sélectionnez l'option de statut",
+            "options": {
+              "opt1": "Tout",
+              "opt2": "Fermé",
+              "opt3": "Supprimé"
+            }
+          },
+          "lbluserid": "ID de l'utilisateur",
+          "lblpostid": "ID de actualité",
+          "lblcategoryid": "ID de catégorie",
+          "btnreset": "Réinitialiser",
+          "btnadd": "Ajouter"
+        },
+        "validation": {
+          "errors": {
+            "lblphcontent": "Écrivez ici votre commentaire"
+          }
+        },
+        "apimessages": {
+          "success": "Le nouveau commentaire a été ajouté avec succès!",
+          "error": "Échec de l'ajout du nouveau commentaire! Message: {message}",
+          "errorapi": "Erreur lors de l'ajout du nouveau commentaire! Message: {message}",
+          "statussuccess": "Le commentaire actuel a été ajouté avec succès! {keywordStatus}!",
+          "statuserror": "Échec de l'ajout du commentaire actuel! {keywordStatus}! Message: {message}",
+          "statuserrorapi": "Échec de l'ajout du commentaire actuel! {keywordStatus}! Message: {message}"
+        }
+      }
     }
+  }
 }

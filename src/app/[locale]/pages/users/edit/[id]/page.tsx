@@ -9,9 +9,9 @@ import { Link } from '@/app/i18n/navigation';
 import { useLocale } from "next-intl";
 import Header from "@applocale/ui/header";
 import Footer from "@applocale/ui/footer";
-import EditUsersForm from "@applocale/components/forms/crud/users/edit/edit";
+import EditUsersForm from "@/app/[locale]/components/ui/forms/crud/users/edit/edit";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
-import LoadingComp from "@applocale/components/loadingcomp";
+import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
 
 export default function EditUsers() {
   const locale = useLocale();
@@ -68,7 +68,7 @@ export default function EditUsers() {
   };
 
   return (
-    <div className={styles.page} id="editusersmpage" style={{ paddingTop: '5rem' }}>
+    <div className={styles.page} id="editusersmpage">
       <Header locale={locale ?? getDefLocale()} />
       <section className={styles.section + " " + styles.pstretch}>
         {!users && getEmptyUsers(pathname)}

@@ -4,7 +4,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { getColorGrid, getColorTxt } from '@applocale/functions/chartfunctions';
 import { Dataset } from '@applocale/interfaces/dataset';
 import FetchData from '@applocale/utils/fetchdata';
-import LoadingComp from '@applocale/components/loadingcomp';
+import LoadingComp from '@/app/[locale]/components/ui/loadingcomp';
 import { useLocale, useTranslations } from 'next-intl';
 
 ChartJS.register(ArcElement, Tooltip, Legend);

@@ -12,7 +12,7 @@ import { Categories } from "@applocale/interfaces/categories";
 import { Posts } from "@applocale/interfaces/posts";
 import { Tags } from "@applocale/interfaces/tags";
 import { User } from "@applocale/interfaces/user";
-import { useTheme } from "@applocale/components/context/themecontext";
+import { useTheme } from "@/app/[locale]/components/ui/context/themecontext";
 import { GetChartTypes } from "@applocale/functions/chartfunctions";
 import { Schedules } from "@applocale/interfaces/schedules";
 import AdminSidebarDashboard from "@applocale/components/admin/dashboard/adbsidebar";
@@ -21,9 +21,9 @@ import ChartData from "@applocale/components/admin/dashboard/chartdata";
 import TableData from "@applocale/components/admin/dashboard/tabledata";
 import Footer from "@applocale/ui/footer";
 import withAuth from "@applocale/utils/withAuth";
-import MyPagination from "@applocale/components/mypagination";
-import LoadingComp from "@applocale/components/loadingcomp";
-import Schedule from "@applocale/components/schedule";
+import MyPagination from "@/app/[locale]/components/ui/mypagination";
+import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
+import Schedule from "@/app/[locale]/components/ui/schedule";
 
 const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
     const t = useTranslations('pages.AdminPages.Dashboard');
@@ -164,7 +164,7 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
     };
 
     return (
-        <div className={astyles.admdashboard + " fixed"} id="admdashboard">
+        <div className={astyles.admdashboard} id="admdashboard">
             {!!isAuthorized && (
                 <AdminNavbarDashboard locale={locale ?? getDefLocale()} logInfo={logInfo} navbarStatus={barToggle} toggleNavbar={toggleSidebar} />
             )}

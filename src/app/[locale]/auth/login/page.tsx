@@ -1,6 +1,6 @@
 "use client";
 import styles from "@applocale/page.module.scss";
-import LoginForm from "@applocale/components/forms/login/loginform";
+import LoginForm from "@/app/[locale]/components/ui/forms/login/loginform";
 import { useTranslations } from "next-intl";
 
 export default function Login() {

@@ -304,18 +304,17 @@ public class PostsRepo : ControllerBase, IPostsRepo
             if (!string.IsNullOrEmpty(queryParams.FieldName))
             {
                 var op = queryParams.Op!.Value;
-                StringComparison strcom = StringComparison.OrdinalIgnoreCase;
 
                 query = queryParams.FieldName switch
                 {
                     "title" => query.Where(i =>
-                    op == OpEnum.contains ? i.Title!.Contains(queryParams.Search, strcom) :
-                    op == OpEnum.notcontains ? !i.Title!.Contains(queryParams.Search, strcom) :
-                    op == OpEnum.equal ? i.Title!.Equals(queryParams.Search, strcom) :
-                    op == OpEnum.notequal ? !i.Title!.Equals(queryParams.Search, strcom) :
-                    op == OpEnum.startswith ? i.Title!.StartsWith(queryParams.Search) :
-                    op == OpEnum.endswith ? i.Title!.EndsWith(queryParams.Search) :
-                    i.Title == queryParams.Search),
+                    op == OpEnum.contains ? i.Title!.ToLower().Contains(queryParams.Search.ToLower()) :
+                    op == OpEnum.notcontains ? !i.Title!.ToLower().Contains(queryParams.Search.ToLower()) :
+                    op == OpEnum.equal ? i.Title!.ToLower().Equals(queryParams.Search.ToLower()) :
+                    op == OpEnum.notequal ? !i.Title!.ToLower().Equals(queryParams.Search.ToLower()) :
+                    op == OpEnum.startswith ? i.Title!.ToLower().StartsWith(queryParams.Search.ToLower()) :
+                    op == OpEnum.endswith ? i.Title!.ToLower().EndsWith(queryParams.Search.ToLower()) :
+                    i.Title!.ToLower() == queryParams.Search.ToLower()),
                     "userId" => query.Where(i =>
                     op == OpEnum.aboveorequal ? i.UserId >= int.Parse(queryParams.Search) :
                     op == OpEnum.beloworequal ? i.UserId <= int.Parse(queryParams.Search) :

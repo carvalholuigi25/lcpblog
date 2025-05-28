@@ -13,8 +13,8 @@ import { useMySuffix } from "@applocale/hooks/suffixes";
 import { Posts } from "@applocale/interfaces/posts";
 import Header from "@applocale/ui/header";
 import Footer from "@applocale/ui/footer";
-import LoadingComp from "@applocale/components/loadingcomp";
-import MyPagination from "@applocale/components/mypagination";
+import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
+import MyPagination from "@/app/[locale]/components/ui/mypagination";
 
 export default function UserPage() {
   const t = useTranslations("pages.UsersPage");

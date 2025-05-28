@@ -13,7 +13,7 @@ import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavba
 import TableData from "@applocale/components/admin/dashboard/tabledata";
 import Footer from "@applocale/ui/footer";
 import withAuth from "@applocale/utils/withAuth";
-import LoadingComp from "@applocale/components/loadingcomp";
+import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
 
 const AdminUsers = () => {
     const locale = useLocale();
@@ -74,7 +74,7 @@ const AdminUsers = () => {
     ];
 
     return (
-        <div className={astyles.admdashboard + " fixed"} id="admdashboard">
+        <div className={astyles.admdashboard} id="admdashboard">
             {!!isAuthorized && (
                 <AdminNavbarDashboard locale={locale ?? getDefLocale()} logInfo={logInfo} navbarStatus={barToggle} toggleNavbar={toggleSidebar} />
             )}

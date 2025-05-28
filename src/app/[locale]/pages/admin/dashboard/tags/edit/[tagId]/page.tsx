@@ -9,9 +9,9 @@ import { Link } from '@/app/i18n/navigation';
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import Header from "@applocale/ui/header";
 import Footer from "@applocale/ui/footer";
-import EditTagsForm from "@applocale/components/forms/crud/tags/edit/edit";
+import EditTagsForm from "@/app/[locale]/components/ui/forms/crud/tags/edit/edit";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
-import LoadingComp from "@applocale/components/loadingcomp";
+import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
 
 export default function EditTags() {
   const t = useTranslations("ui.forms.crud.tags.edit");
@@ -63,7 +63,7 @@ export default function EditTags() {
   };
 
   return (
-    <div className={styles.page} id="edittagsmpage" style={{ paddingTop: '5rem' }}>
+    <div className={styles.page} id="edittagsmpage">
       <Header locale={locale ?? getDefLocale()} />
       <section className={styles.section + " " + styles.pstretch}>
         {!tags && getEmptyTags(pathname)}

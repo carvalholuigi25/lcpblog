@@ -15,8 +15,8 @@ import { Categories } from "@applocale/interfaces/categories";
 import { getImagePath } from "@applocale/functions/functions";
 import Footer from "@applocale/ui/footer";
 import Header from "@applocale/ui/header";
-import LoadingComp from "@applocale/components/loadingcomp";
-import MyPagination from "@applocale/components/mypagination";
+import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
+import MyPagination from "@/app/[locale]/components/ui/mypagination";
 import { useMySuffix } from "@/app/[locale]/hooks/suffixes";
 
 export const getYearList = (): any => {
@@ -292,7 +292,7 @@ export default function Archive({ locale }: { locale: string }) {
     }
 
     return (
-        <div className={styles.page} id="marchivepage" style={{ paddingTop: '5rem' }}>
+        <div className={styles.page} id="marchivepage">
             <Header locale={locale ?? getDefLocale()} />
             <section>
                 <Suspense fallback={<LoadingComp type="icon" icontype="ring" />}>

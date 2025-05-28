@@ -12,8 +12,8 @@ import AdminSidebarDashboard from "@applocale/components/admin/dashboard/adbside
 import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavbar";
 import Footer from "@applocale/ui/footer";
 import withAuth from "@applocale/utils/withAuth";
-import LoadingComp from "@applocale/components/loadingcomp";
-import ShowAlert from "@applocale/components/alerts";
+import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
+import ShowAlert from "@/app/[locale]/components/ui/alerts";
 import axios from "axios";
 import { useTranslations } from "next-intl";
 
@@ -113,7 +113,7 @@ const AdminCommitsLog = ({ locale }: { locale?: string }) => {
     }
 
     return (
-        <div className={astyles.admdashboard + " fixed"} id="admdashboard">
+        <div className={astyles.admdashboard} id="admdashboard">
             {!!isAuthorized && (
                 <AdminNavbarDashboard locale={locale ?? getDefLocale()} logInfo={logInfo} navbarStatus={barToggle} toggleNavbar={toggleSidebar} />
             )}

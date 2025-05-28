@@ -6,6 +6,20 @@
                 "timestatus": "has posted few seconds ago..."
             }
         },
+        "modals": {
+            "schedule": {
+                "title": "Schedule",
+                "lblschid": "Id: {id}",
+                "lblschtitle": "Title: {title}",
+                "lblschdatestart": "Start Date: {dateStart}",
+                "lblschdateend": "End Date: {dateEnd}",
+                "lblschallday": "Is all day event? {isAllDay}"
+            },
+            "search": {
+                "title": "Search",
+                "lblsrchfor": "You are searching for: {search}"
+            }
+        },
         "events": {
             "messages": {
                 "dropevent": "{title} was dropped on {dateStart}",

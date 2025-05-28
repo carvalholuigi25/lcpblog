@@ -10,12 +10,12 @@ import { Categories } from "@applocale/interfaces/categories";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import withAuth from "@applocale/utils/withAuth"
 import FetchData from "@applocale/utils/fetchdata";
-import LoadingComp from "@applocale/components/loadingcomp";
+import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
 import Footer from "@applocale/ui/footer";
 import TableData from "@applocale/components/admin/dashboard/tabledata";
 import AdminSidebarDashboard from "@applocale/components/admin/dashboard/adbsidebar";
 import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavbar";
-import MyPagination from "@applocale/components/mypagination";
+import MyPagination from "@/app/[locale]/components/ui/mypagination";
 
 const AdminCategories = () => {
     const locale = useLocale() ?? getDefLocale();
@@ -90,7 +90,7 @@ const AdminCategories = () => {
     ];
 
     return (
-        <div className={astyles.admdashboard + " fixed"} id="admdashboard">
+        <div className={astyles.admdashboard} id="admdashboard">
             {!!isAuthorized && (
                 <AdminNavbarDashboard locale={locale ?? getDefLocale()} logInfo={logInfo} navbarStatus={barToggle} toggleNavbar={toggleSidebar} />
             )}

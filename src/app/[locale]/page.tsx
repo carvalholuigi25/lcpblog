@@ -5,7 +5,7 @@ import { getDefLocale } from "@applocale/helpers/defLocale";
 import styles from "@applocale/page.module.scss";
 import Footer from "@applocale/ui/footer";
 import Header from "@applocale/ui/header";
-import News from "@applocale/components/news";
+import News from "@/app/[locale]/components/ui/news";
 import * as config from "@applocale/utils/config";
 
 export default function Home() {

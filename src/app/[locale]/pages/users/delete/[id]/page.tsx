@@ -9,9 +9,9 @@ import { getDefLocale } from "@applocale/helpers/defLocale";
 import { Link } from '@/app/i18n/navigation';
 import Header from "@applocale/ui/header";
 import Footer from "@applocale/ui/footer";
-import DeleteUsersForm from "@applocale/components/forms/crud/users/delete/delete";
+import DeleteUsersForm from "@/app/[locale]/components/ui/forms/crud/users/delete/delete";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
-import LoadingComp from "@applocale/components/loadingcomp";
+import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
 
 export default function DeleteUsers() {
   const locale = useLocale();
@@ -68,7 +68,7 @@ export default function DeleteUsers() {
   };
 
   return (
-    <div className={styles.page} id="deleteusersmpage" style={{ paddingTop: '5rem' }}>
+    <div className={styles.page} id="deleteusersmpage">
       <Header locale={locale ?? getDefLocale()} />
       <section className={styles.section + " " + styles.pstretch}>
         {!users && getEmptyUsers(pathname)}

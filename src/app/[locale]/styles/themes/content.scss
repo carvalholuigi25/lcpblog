@@ -17,8 +17,12 @@
     }
 
     .glassmorphism {
-        .navbar, .navbar-container, .offcanvas, #navlinksadmdb, footer {
+        .navbar, .navbar-container, .offcanvas, #navlinksadmdb, .card, footer {
             @include m.applyBkg($themename, .5);
+        }
+
+        section, .section {
+            @include m.applyBkg($themename, 0);
         }
     }
 
@@ -370,7 +374,7 @@
         .btn {
             &:not(.btn-tp) {
                 background-color: $bgcolorprimary;
-                border-color: $bgcolorprimary;
+                border-color: $fgcolorprimary;
             }
 
             color: $fgcolorprimary;

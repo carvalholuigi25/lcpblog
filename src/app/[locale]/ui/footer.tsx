@@ -1,8 +1,8 @@
 import React from 'react';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/app/i18n/navigation';
-import ThemeSwitcher from '@applocale/components/themeswitcher';
-import LanguageSwitcher from '@applocale/components/languageswitcher';
+import ThemeSwitcher from '@/app/[locale]/components/ui/themeswitcher';
+import LanguageSwitcher from '@/app/[locale]/components/ui/languageswitcher';
 import * as config from "@applocale/utils/config";
 
 const Footer: React.FC = () => {

@@ -9,9 +9,9 @@ import { getDefLocale } from "@applocale/helpers/defLocale";
 import { useLocale, useTranslations } from "next-intl";
 import Header from "@applocale/ui/header";
 import Footer from "@applocale/ui/footer";
-import DeleteCommentsForm from "@applocale/components/forms/crud/comments/delete/delete";
+import DeleteCommentsForm from "@/app/[locale]/components/ui/forms/crud/comments/delete/delete";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
-import LoadingComp from "@applocale/components/loadingcomp";
+import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
 
 export default function DeleteComments() {
   const t = useTranslations("pages.DeleteCommentsPage");
@@ -72,7 +72,7 @@ export default function DeleteComments() {
   };
 
   return (
-    <div className={styles.page} id="deletecommentsmpage" style={{ paddingTop: '5rem' }}>
+    <div className={styles.page} id="deletecommentsmpage">
       <Header locale={locale ?? getDefLocale()} />
       <section className={styles.section + " " + styles.pstretch}>
         {!comments && getEmptyComments(pathname)}

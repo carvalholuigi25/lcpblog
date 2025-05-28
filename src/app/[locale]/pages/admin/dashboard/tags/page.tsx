@@ -14,9 +14,9 @@ import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavba
 import TableData from "@applocale/components/admin/dashboard/tabledata";
 import Footer from "@applocale/ui/footer";
 import withAuth from "@applocale/utils/withAuth";
-import MyPagination from "@applocale/components/mypagination";
-import LoadingComp from "@applocale/components/loadingcomp";
-import AdvancedSearchTags from "@applocale/components/forms/search/tags/advsearchtags";
+import MyPagination from "@/app/[locale]/components/ui/mypagination";
+import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
+import AdvancedSearchTags from "@/app/[locale]/components/ui/forms/search/tags/advsearchtags";
 
 const AdminTags = () => {
     const locale = useLocale();
@@ -93,7 +93,7 @@ const AdminTags = () => {
     ];
 
     return (
-        <div className={astyles.admdashboard + " fixed"} id="admdashboard">
+        <div className={astyles.admdashboard} id="admdashboard">
             {!!isAuthorized && (
                 <AdminNavbarDashboard logInfo={logInfo} navbarStatus={barToggle} toggleNavbar={toggleSidebar} locale={locale ?? getDefLocale()} />
             )}

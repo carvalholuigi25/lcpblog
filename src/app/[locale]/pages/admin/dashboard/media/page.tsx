@@ -8,13 +8,13 @@ import { useLocale, useTranslations } from "next-intl";
 import { getFromStorage, saveToStorage } from "@applocale/hooks/localstorage";
 import AdminSidebarDashboard from "@applocale/components/admin/dashboard/adbsidebar";
 import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavbar";
-import FileSingleUploadForm from "@applocale/components/forms/upload/singleupload";
-import FileMultiUploadForm from "@applocale/components/forms/upload/multiupload";
-import FileDragDropUploadForm from "@applocale/components/forms/upload/dragdropupload";
-import UploadedFiles from "@applocale/components/uploadedfiles";
+import FileSingleUploadForm from "@/app/[locale]/components/ui/forms/upload/singleupload";
+import FileMultiUploadForm from "@/app/[locale]/components/ui/forms/upload/multiupload";
+import FileDragDropUploadForm from "@/app/[locale]/components/ui/forms/upload/dragdropupload";
+import UploadedFiles from "@/app/[locale]/components/ui/uploadedfiles";
 import Footer from "@applocale/ui/footer";
 import withAuth from "@applocale/utils/withAuth";
-import LoadingComp from "@applocale/components/loadingcomp";
+import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
 
 const AdminMedia = () => {
     const locale = useLocale();
@@ -68,7 +68,7 @@ const AdminMedia = () => {
     }
 
     return (
-        <div className={astyles.admdashboard + " fixed"} id="admdashboard">
+        <div className={astyles.admdashboard} id="admdashboard">
             {!!isAuthorized && (
                 <AdminNavbarDashboard logInfo={logInfo} navbarStatus={barToggle} toggleNavbar={toggleSidebar} locale={locale ?? getDefLocale()} />
             )}

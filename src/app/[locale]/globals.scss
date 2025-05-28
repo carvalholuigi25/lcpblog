@@ -28,7 +28,7 @@ body {
 }
 
 .fixed {
-  padding-top: 5rem;
+  padding-top: 3rem !important;
 }
 
 .mybkgpage {
@@ -49,6 +49,10 @@ a {
 
 p {
   margin: 0;
+}
+
+section {
+  padding: 15px;
 }
 
 .p-relative {
@@ -341,26 +345,26 @@ footer {
 .btn-tp {
   background: transparent !important;
   border: 1px solid;
-}
 
-.btn-tp:hover {
-  background: var(--foreground);
-  border-color: inherit;
-  color: var(--background);
+  &:hover {
+    background: var(--foreground);
+    border-color: inherit;
+    color: var(--background);
+  }
 }
 
 .carousel-caption {
   color: white !important;
   z-index: 2;
-}
 
-.carousel-caption.carcentered {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  right: 0;
-  bottom: auto;
+  &.carcentered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    right: 0;
+    bottom: auto;
+  }
 }
 
 .frmsearch {

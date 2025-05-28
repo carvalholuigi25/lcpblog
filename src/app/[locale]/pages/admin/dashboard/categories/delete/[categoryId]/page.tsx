@@ -9,9 +9,9 @@ import { Link } from '@/app/i18n/navigation';
 import { useLocale, useTranslations } from "next-intl";
 import Header from "@applocale/ui/header";
 import Footer from "@applocale/ui/footer";
-import DeleteCategoriesForm from "@applocale/components/forms/crud/categories/delete/delete";
+import DeleteCategoriesForm from "@/app/[locale]/components/ui/forms/crud/categories/delete/delete";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
-import LoadingComp from "@applocale/components/loadingcomp";
+import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
 
 export default function DeleteCategories() {
   const t = useTranslations("ui.forms.crud.categories.delete");
@@ -73,7 +73,7 @@ export default function DeleteCategories() {
   };
 
   return (
-    <div className={styles.page} id="DeleteCategoriesmpage" style={{ paddingTop: '5rem' }}>
+    <div className={styles.page} id="DeleteCategoriesmpage">
       <Header locale={locale ?? getDefLocale()} />
       <section className={styles.section + " " + styles.pstretch}>
         {!categories && getEmptyCategories(pathname)}

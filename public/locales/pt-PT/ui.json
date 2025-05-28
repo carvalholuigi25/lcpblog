@@ -6,6 +6,20 @@
         "timestatus": "postou há alguns segundos atrás..."
       }
     },
+    "modals": {
+      "schedule": {
+        "title": "Agenda",
+        "lblschid": "Id: {id}",
+        "lblschtitle": "Título: {title}",
+        "lblschdatestart": "Data de início: {dateStart}",
+        "lblschdateend": "Data de Fim: {dateEnd}",
+        "lblschallday": "O evento é de dia inteiro? {isAllDay}"
+      },
+      "search": {
+        "title": "Pesquisar",
+        "lblsrchfor": "Você está à procura de: {search}"
+      }
+    },
     "events": {
       "messages": {
         "dropevent": "{title} foi descartado em {dateStart}",

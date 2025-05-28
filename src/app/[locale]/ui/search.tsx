@@ -6,7 +6,7 @@ import { delFromStorage, saveToStorage } from '@applocale/hooks/localstorage';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from "@hookform/resolvers/zod";
-import ModalSearch from '@applocale/components/modals/modalsearch';
+import ModalSearch from '@/app/[locale]/components/ui/modals/modalsearch';
 
 const Search = () => {
     const t = useTranslations('ui');
