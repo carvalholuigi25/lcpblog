@@ -73,7 +73,7 @@ export default function DeleteCategories() {
   };
 
   return (
-    <div className={styles.page} id="DeleteCategoriesmpage">
+    <div className={"mpage " + styles.page} id="DeleteCategoriesmpage">
       <Header locale={locale ?? getDefLocale()} />
       <section className={styles.section + " " + styles.pstretch}>
         {!categories && getEmptyCategories(pathname)}

@@ -68,7 +68,7 @@ const AdminMedia = () => {
     }
 
     return (
-        <div className={astyles.admdashboard} id="admdashboard">
+        <div className={"mpage " + astyles.admdashboard} id="admdashboard">
             {!!isAuthorized && (
                 <AdminNavbarDashboard logInfo={logInfo} navbarStatus={barToggle} toggleNavbar={toggleSidebar} locale={locale ?? getDefLocale()} />
             )}

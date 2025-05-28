@@ -46,7 +46,7 @@ const AdminDevs = ({ locale }: { locale?: string }) => {
     }
 
     return (
-        <div className={astyles.admdashboard} id="admdashboard">
+        <div className={"mpage " + astyles.admdashboard} id="admdashboard">
             {!!isAuthorized && (
                 <AdminNavbarDashboard locale={locale ?? getDefLocale()} logInfo={logInfo} navbarStatus={barToggle} toggleNavbar={toggleSidebar} />
             )}

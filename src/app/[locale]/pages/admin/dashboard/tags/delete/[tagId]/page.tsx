@@ -73,7 +73,7 @@ export default function DeleteTags() {
   };
 
   return (
-    <div className={styles.page} id="DeleteTagsmpage">
+    <div className={"mpage " + styles.page} id="DeleteTagsmpage">
       <Header locale={locale ?? getDefLocale()} />
       <section className={styles.section + " " + styles.pstretch}>
         {!tags && getEmptyTags(pathname)}

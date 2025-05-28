@@ -76,10 +76,10 @@ export default function TableData({ theaders, tdata, namep, locale, currentPage,
                                         ))}
 
                                         <td>
-                                            <Link href={linkedit} locale={locale ?? getDefLocale()} className="btn btn-primary btnedit" title={t('body.btnedit') ?? "Edit"}>
+                                            <Link href={linkedit} locale={locale ?? getDefLocale()} className="btn btn-primary btn-rounded btnedit" title={t('body.btnedit') ?? "Edit"}>
                                                 <i className="bi bi-pencil-fill" style={{ border: 0 }}></i>
                                             </Link>
-                                            <Link href={linkdel} locale={locale ?? getDefLocale()} className="btn btn-primary btndel ms-2" title={t('body.btndelete') ?? "Delete"}>
+                                            <Link href={linkdel} locale={locale ?? getDefLocale()} className="btn btn-primary btn-rounded btndel ms-2" title={t('body.btndelete') ?? "Delete"}>
                                                 <i className="bi bi-trash3-fill" style={{ border: 0 }}></i>
                                             </Link>
                                         </td>

@@ -6,7 +6,7 @@ import Footer from "@applocale/ui/footer";
 
 export default function AddCategories({ locale }: { locale: string }) {
   return (
-    <div className={styles.page} id="addcategoriesmpage">
+    <div className={"mpage " + styles.page} id="addcategoriesmpage">
       <Header locale={locale ?? getDefLocale()} />
       <section className={styles.section + " " + styles.pstretch}>
         <AddCategoriesForm />

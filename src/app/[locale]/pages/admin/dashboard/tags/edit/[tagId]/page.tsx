@@ -63,7 +63,7 @@ export default function EditTags() {
   };
 
   return (
-    <div className={styles.page} id="edittagsmpage">
+    <div className={"mpage " + styles.page} id="edittagsmpage">
       <Header locale={locale ?? getDefLocale()} />
       <section className={styles.section + " " + styles.pstretch}>
         {!tags && getEmptyTags(pathname)}

@@ -29,6 +29,10 @@ body {
 
 .fixed {
   padding-top: 3rem !important;
+
+  .mpage {
+    padding-top: 3rem !important;
+  }
 }
 
 .mybkgpage {
@@ -228,28 +232,34 @@ section {
       padding: 10px;
     }
 
-    thead tr:first-child th:first-child {
-      border-top-left-radius: 10px;
+    thead {
+      tr:first-child th:first-child {
+        border-top-left-radius: 0px;
+      }
+
+      tr:first-child th:last-child {
+        border-top-right-radius: 0px;
+      }
     }
 
-    thead tr:first-child th:last-child {
-      border-top-right-radius: 10px;
+    tbody {
+      tr:first-child td {
+        border-top-style: solid;
+      }
+
+      tr td:first-child {
+        border-left-style: solid;
+      }
     }
 
-    tfoot tr:last-child td:first-child {
-      border-bottom-left-radius: 10px;
-    }
+    tfoot {
+      tr:last-child td:first-child {
+        border-bottom-left-radius: 0px;
+      }
 
-    tfoot tr:last-child td:last-child {
-      border-bottom-right-radius: 10px;
-    }
-
-    tbody tr:first-child td {
-      border-top-style: solid;
-    }
-
-    tbody tr td:first-child {
-      border-left-style: solid;
+      tr:last-child td:last-child {
+        border-bottom-right-radius: 0px;
+      }
     }
   }
 

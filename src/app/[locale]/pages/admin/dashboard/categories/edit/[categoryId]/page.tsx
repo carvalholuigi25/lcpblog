@@ -63,7 +63,7 @@ export default function EditCategories() {
   };
 
   return (
-    <div className={styles.page} id="editcategoriesmpage">
+    <div className={"mpage " + styles.page} id="editcategoriesmpage">
       <Header locale={locale ?? getDefLocale()} />
       <section className={styles.section + " " + styles.pstretch}>
         {!categories && getEmptyCategories(pathname)}

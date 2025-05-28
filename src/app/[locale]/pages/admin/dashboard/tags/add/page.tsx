@@ -6,7 +6,7 @@ import { getDefLocale } from "@applocale/helpers/defLocale";
 
 export default function AddTags({ locale }: { locale: string }) {
   return (
-    <div className={styles.page} id="addtagsmpage">
+    <div className={"mpage " + styles.page} id="addtagsmpage">
       <Header locale={locale ?? getDefLocale()} />
       <section className={styles.section + " " + styles.pstretch}>
         <AddTagsForm />
