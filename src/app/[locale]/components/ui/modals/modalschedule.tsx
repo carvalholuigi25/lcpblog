@@ -13,30 +13,39 @@ export interface ModalScheduleProps {
 
 export default function ModalSchedule({ data, statusModal, onClose }: ModalScheduleProps) {
     const t = useTranslations("ui.modals.schedule");
-    const modalRef = useRef<any>(null);
+    const modalScheduleRef = useRef<any>(null);
     const [isClosed, setIsClosed] = useState(false);
 
-    useEffect(() => {
-        if (modalRef.current) {
-            // Focus the modal when it opens
-            modalRef.current.focus();
-        }
-    }, []);
-
     const close = useCallback((event: any) => {
+        event.preventDefault();
+        
         if (event.key === "Escape") {
             onClose();
         }
     }, [onClose]);
 
+    useEffect(() => {
+        if (modalScheduleRef.current) {
+            // Focus the modal when it opens
+            modalScheduleRef.current.focus();
+        }
+    }, []);
+
     const handleCloseClick = (e: any) => {
         e.preventDefault();
         setIsClosed(true);
-        onClose();
+
+        setTimeout(() => {
+            onClose();        
+        }, 500);
     };
 
+    const scheduleCl = `modal modalschedule animate__animated ${(statusModal ? (isClosed ? 'animate__fadeOut' : 'animate__fadeIn') + ' show' : 'animate__fadeOut hidden')}`;
+
+    const ahidden = !!statusModal ? "false" : "true";
+
     const modalContent = (
-        <div className={"modal modalschedule animate__animated " + (statusModal ? (isClosed ? 'animate__fadeOut' : 'animate__fadeIn') + ' show' : 'animate__fadeOut hidden')} id="modalschedule" data-bs-backdrop="true" data-bs-focus="true" data-bs-keyboard="true" tabIndex={-1} aria-labelledby="modalscheduleLbl" aria-hidden={!!statusModal ? "false" : "true"} role="dialog" onMouseOver={close} onKeyDown={close}>
+        <div ref={modalScheduleRef} className={scheduleCl} id="modalschedule" data-bs-backdrop="true" data-bs-focus="true" data-bs-keyboard="true" tabIndex={-1} aria-labelledby="modalscheduleLbl" aria-hidden={ahidden} role="dialog" onMouseOver={close} onKeyDown={close}>
             <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div className="modal-content">
                     <div className="modal-header">

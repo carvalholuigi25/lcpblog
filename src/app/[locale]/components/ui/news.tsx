@@ -35,6 +35,7 @@ export default function News({ cid, pid, tagname, locale }: NewsProps) {
     const newsSuffix = useMySuffix("news");
 
     const enabledViews = true;
+    const isVisitorViewing = true;
     const isEnabledMultiCols = true;
     const pageSize: number = 10;
     const [news, setNews] = useState(new Array<Posts>());
@@ -122,12 +123,40 @@ export default function News({ cid, pid, tagname, locale }: NewsProps) {
             loadMyCounter();
             setMyEditorKey(Date.now().toString());
         }
-
-        //  const id = setInterval(() => {
-        //         setCounter(x => x + 1);
-        //     }, 1000 * 24 * 60 * 60);
-        //     return () => clearInterval(id);
     }, [cid, pid, page, spage, enabledViews, locale, pathname, loading, searchParams, loadMyCounter, tagname]);
+
+    useEffect(() => {
+        async function autoUpdateViews() {
+            if(isVisitorViewing) {
+                console.log("Auto Update Views is enabled!");
+
+                const id = setInterval(async () => {
+                    const inc = counter + 1;
+                    setCounter(inc);
+
+                    const data: PostsViews = {
+                        postId: pid,
+                        viewsCounter: parseInt("" + inc),
+                        views: parseInt("" + inc)
+                    };
+
+                    saveToStorage("viewsInfo", JSON.stringify(data));
+
+                    await updateDataViews(data).then(x => {
+                        console.log(x);
+                    }).catch(e => {
+                        console.error(e);
+                    });
+                }, 1000 * 60 * 60 * 24);
+
+                return () => clearInterval(id);
+            } else {
+                console.log("Auto Update Views is disabled!");
+            }
+        }
+
+        autoUpdateViews();
+    }, [counter, isVisitorViewing, pid]);
 
     if (loading) {
         return (

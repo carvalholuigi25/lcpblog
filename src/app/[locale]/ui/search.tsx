@@ -1,32 +1,41 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { Suspense, useCallback, useState } from 'react';
+import React, { Suspense, useCallback, useEffect, useState } from 'react';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { useMySchemaSearch, type TFormSearchData } from "@applocale/schemas/formSchemas";
 import { delFromStorage, saveToStorage } from '@applocale/hooks/localstorage';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from "@hookform/resolvers/zod";
-import ModalSearch from '@/app/[locale]/components/ui/modals/modalsearch';
+import ModalSearch from '@applocale/components/ui/modals/modalsearch';
+import LoadingComp from '@applocale/components/ui/loadingcomp';
 
 const Search = () => {
-    const t = useTranslations('ui');
+    const t = useTranslations('ui.searchBar');
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
+    const [showModal, setShowModal] = useState(false);
 
     const [formData, setFormData] = useState({
         search: ""
     });
 
-    const [showModal, setShowModal] = useState(false);
-
     const {
         register,
-        formState: { isSubmitting },
-        setValue
+        setValue,
+        getValues,
+        reset
     } = useForm<TFormSearchData>({
         resolver: zodResolver(useMySchemaSearch()),
     });
+
+    useEffect(() => {
+        reset(formData);
+    }, [reset, formData]);
+
+    const getSearchVal = () => {
+        return getValues("search") ?? formData.search;
+    };
 
     const createQueryString = useCallback(
         (name: string, value: string) => {
@@ -46,40 +55,46 @@ const Search = () => {
     const doSearchData = (e: any) => {
         e.preventDefault();
 
-        if (formData.search.length == 0) {
-            return alert("Please search something...")
+        if (getSearchVal().length == 0) {
+            alert(t("lblsearchempty") ?? "Please search something...");
+            return false;
         }
 
         setShowModal(true);
-        saveToStorage("search", formData.search);
-        router.push(pathname + "?" + createQueryString("search", formData.search));
+        saveToStorage("search", getSearchVal());
+        router.replace(pathname + "?" + createQueryString("search", getSearchVal()));
     }
 
     const closeModal = () => {
         setShowModal(false);
         delFromStorage("search");
         setValue("search", "");
-        router.push(pathname + "?" + createQueryString("search", ""));
+        router.replace(pathname + "?" + createQueryString("search", ""));
     }
 
+    const icoSearch = () => {
+        return (showModal && getSearchVal().length > 0 ? "bi-x-lg" : "bi-search");
+    }
+
+    const loadingIco = () => <LoadingComp type="icon" icontype="ring" /> 
+
     return (
-        <Suspense>
+        <Suspense fallback={loadingIco()}>
             <form className="d-flex frmsearch">
                 <input
                     {...register("search")}
                     type="text"
                     className="form-control inpsearch"
-                    placeholder={t("searchBar") ?? "Search"}
-                    aria-label={t("searchBar") ?? "Search"}
+                    placeholder={t("title") ?? "Search"}
+                    aria-label={t("title") ?? "Search"}
                     onChange={handleChange}
                 />
                 <button
-                    className={"btn btn-tp btnsearch"}
                     type="button"
+                    className={"btn btn-tp btnsearch"}
                     onClick={doSearchData}
-                    disabled={isSubmitting}
                 >
-                    <i className={"bi " + (showModal && formData.search.length > 0 ? "bi-x-lg" : "bi-search")}></i>
+                    <i className={`bi ${icoSearch()}`}></i>
                 </button>
             </form>
 

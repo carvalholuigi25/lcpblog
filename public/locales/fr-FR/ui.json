@@ -1,6 +1,9 @@
 {
   "ui": {
-    "searchBar": "Recherche",
+    "searchBar": {
+      "title": "Recherche",
+      "lblsearchempty": "Veuillez rechercher quelque chose..."
+    },
     "toasts": {
       "data": {
         "timestatus": "a posté il y a quelques secondes..."

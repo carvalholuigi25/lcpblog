@@ -9,36 +9,48 @@ import { useLocale, useTranslations } from "next-intl";
 export default function ModalSearch({ onClose, statusModal }: any) {
     const t = useTranslations("ui.modals.search");
     
-    const modalRef = useRef<any>(null);
+    const modalSearchRef = useRef<any>(null);
     const [isClosed, setIsClosed] = useState(false);
     const locale = useLocale() ?? getDefLocale();
 
-    useEffect(() => {
-        if (modalRef.current) {
-            // Focus the modal when it opens
-            modalRef.current.focus();
-        }
-    }, []);
-
     const close = useCallback((event: any) => {
+        event.preventDefault();
+        
         if (event.key === "Escape") {
             onClose();
         }
     }, [onClose]);
 
+    useEffect(() => {
+        if (modalSearchRef.current) {
+            // Focus the modal when it opens
+            modalSearchRef.current.focus();
+        }
+
+        return () => {}
+    }, []);
+
     const handleCloseClick = (e: any) => {
         e.preventDefault();
         setIsClosed(true);
-        onClose();
+        
+        setTimeout(() => {
+            onClose();
+        }, 500);
     };
 
+    const searchCl = `modal modalsearch animate__animated ${(statusModal ? (isClosed ? 'animate__fadeOut' : 'animate__fadeIn') + ' show' : 'animate__fadeOut hidden')}`;
+    const ahidden = !!statusModal ? "false" : "true";
+
     const modalContent = (
-        <div ref={modalRef} className={"modal modalsearch animate__animated " + (statusModal ? (isClosed ? 'animate__fadeOut' : 'animate__fadeIn') + ' show' : 'animate__fadeOut hidden')} id="modalsearch" data-bs-backdrop="true" data-bs-focus="true" data-bs-keyboard="true" tabIndex={-1} aria-labelledby="modalsearchLbl" aria-hidden={!!statusModal ? "false" : "true"} role="dialog" onMouseOver={close} onKeyDown={close}>
+        <div ref={modalSearchRef} className={searchCl} id="modalsearch" data-bs-backdrop="true" data-bs-focus="true" data-bs-keyboard="true" tabIndex={-1} aria-labelledby="modalsearchLbl" aria-hidden={ahidden} role="dialog" onMouseOver={close} onKeyDown={close}>
             <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div className="modal-content">
-                    <div className="modal-header">
+                    <div className="modal-header justify-content-between">
                         <h5 className="modal-title" id="modalsearchLbl">{t("title") ?? "Search"}</h5>
-                        <button type="button" className="btn-close" onClick={handleCloseClick} aria-label="Close"></button>
+                        <button type="button" className="btn btn-tp btnborderless btnclose" onClick={handleCloseClick} aria-label="Close">
+                            <i className="bi bi-x-lg"></i>
+                        </button>
                     </div>
                     <div className="modal-body">
                         <SearchData locale={locale} />
