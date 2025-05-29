@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import styles from "@applocale/page.module.scss";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { useParams, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/app/i18n/navigation";
 import { User } from "@applocale/interfaces/user";
@@ -10,18 +11,22 @@ import { getDefLocale } from "@applocale/helpers/defLocale";
 import { FetchMultipleData } from "@applocale/utils/fetchdata";
 import { getImagePath } from "@applocale/functions/functions";
 import { useMySuffix } from "@applocale/hooks/suffixes";
-import { Posts } from "@applocale/interfaces/posts";
+import { Posts, PostsViews } from "@applocale/interfaces/posts";
+import { saveToStorage } from "@applocale/hooks/localstorage";
+import { updateDataViews } from "@applocale/utils/data/updateDataViews";
 import Header from "@applocale/ui/header";
 import Footer from "@applocale/ui/footer";
-import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
-import MyPagination from "@/app/[locale]/components/ui/mypagination";
+import LoadingComp from "@applocale/components/ui/loadingcomp";
+import MyPagination from "@applocale/components/ui/mypagination";
 
 export default function UserPage() {
   const t = useTranslations("pages.UsersPage");
   const newsSuffix = useMySuffix("news");
 
   const locale = useLocale();
+  const router = useRouter();
   const { id } = useParams();
+  
   const [users, setUsers] = useState(null as unknown as User);
   const [news, setNews] = useState([] as Posts[]);
   const [isLoading, setIsLoading] = useState(true);
@@ -34,12 +39,7 @@ export default function UserPage() {
 
   useEffect(() => {
     async function fetchUsers() {
-      const curindex =
-        pageSize == 1
-          ? page > parseInt("" + id, 0)
-            ? page
-            : parseInt("" + id, 0)
-          : page;
+      const curindex = pageSize == 1 ? page > parseInt("" + id, 0) ? page : parseInt("" + id, 0) : page;
       const params = `?page=${curindex}&pageSize=${pageSize}`;
       const idq = id !== "" ? "/" + parseInt("" + id, 0) : "/";
       const data = await FetchMultipleData([
@@ -86,6 +86,33 @@ export default function UserPage() {
       ""
     );
   };
+
+  const getPathPost = (cid: number, pid: number) => {
+    const qparamspost = parseInt("" + spage, 0) >= 0 ? `?page=${parseInt("" + spage, 0)}` : "";
+    const pthpost = `/${locale}/${newsSuffix}/${cid}/${pid}${qparamspost}`;
+    return pthpost;
+  }
+
+  const redirectToPost = async (e: any, newsi: Posts) => {
+    e.preventDefault();
+    const pthpost = getPathPost(newsi.categoryId, newsi.postId);
+
+    const data: PostsViews = {
+        postId: newsi.postId,
+        viewsCounter: parseInt("" + (newsi.viewsCounter! + 1)),
+        views: parseInt("" + (newsi.viewsCounter! + 1))
+    };
+
+    saveToStorage("viewsInfo", JSON.stringify(data));
+    
+    await updateDataViews(data).then(x => {
+        console.log(x);
+        router.push(pthpost);
+    }).catch(e => {
+        console.error(e);
+        router.push(pthpost);
+    });
+};
 
   return (
     <>
@@ -257,9 +284,11 @@ export default function UserPage() {
                                           </div>
 
                                           <Link
+                                            type="button"
                                             href={`/${newsSuffix}/${post.categoryId}/${post.postId}`}
-                                            locale={locale ?? getDefLocale()}
                                             className="btn btn-primary mt-3"
+                                            locale={locale ?? getDefLocale()}
+                                            onClick={(e) => redirectToPost(e, post)}
                                           >
                                             {t("display.btnreadmore") ??
                                               "Read more"}

@@ -15,12 +15,12 @@ import { getDefLocale } from "@applocale/helpers/defLocale";
 import { useMySuffix } from "@applocale/hooks/suffixes";
 import { FetchMultipleDataAxios } from "@applocale/utils/fetchdataaxios";
 import { updateDataViews } from "@applocale/utils/data/updateDataViews";
-import MyEditorPost from "@/app/[locale]/components/ui/editor/myeditorpost";
-import CarouselNews from "@/app/[locale]/components/ui/carouselnews";
-import MyPagination from "@/app/[locale]/components/ui/mypagination";
-import Views from "@/app/[locale]/components/ui/views";
-import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
-import Comments from "@/app/[locale]/components/ui/comments";
+import MyEditorPost from "@applocale/components/ui/editor/myeditorpost";
+import CarouselNews from "@applocale/components/ui/carouselnews";
+import MyPagination from "@applocale/components/ui/mypagination";
+import Views from "@applocale/components/ui/views";
+import LoadingComp from "@applocale/components/ui/loadingcomp";
+import Comments from "@applocale/components/ui/comments";
 
 export interface NewsProps {
     cid: number;
@@ -35,7 +35,7 @@ export default function News({ cid, pid, tagname, locale }: NewsProps) {
     const newsSuffix = useMySuffix("news");
 
     const enabledViews = true;
-    const isVisitorViewing = true;
+    const isAutoUpdateViewsEnabled = true;
     const isEnabledMultiCols = true;
     const pageSize: number = 10;
     const [news, setNews] = useState(new Array<Posts>());
@@ -127,36 +127,38 @@ export default function News({ cid, pid, tagname, locale }: NewsProps) {
 
     useEffect(() => {
         async function autoUpdateViews() {
-            if(isVisitorViewing) {
-                console.log("Auto Update Views is enabled!");
+            if(cid >= 1 && pid >= 1) {
+                if(isAutoUpdateViewsEnabled) {
+                    console.log("Auto Update Views is enabled!");
 
-                const id = setInterval(async () => {
-                    const inc = counter + 1;
-                    setCounter(inc);
+                    const id = setInterval(async () => {
+                        const inc = counter + 1;
+                        setCounter(inc);
 
-                    const data: PostsViews = {
-                        postId: pid,
-                        viewsCounter: parseInt("" + inc),
-                        views: parseInt("" + inc)
-                    };
+                        const data: PostsViews = {
+                            postId: pid,
+                            viewsCounter: parseInt("" + inc),
+                            views: parseInt("" + inc)
+                        };
 
-                    saveToStorage("viewsInfo", JSON.stringify(data));
+                        saveToStorage("viewsInfo", JSON.stringify(data));
 
-                    await updateDataViews(data).then(x => {
-                        console.log(x);
-                    }).catch(e => {
-                        console.error(e);
-                    });
-                }, 1000 * 60 * 60 * 24);
+                        await updateDataViews(data).then(x => {
+                            console.log(x);
+                        }).catch(e => {
+                            console.error(e);
+                        });
+                    }, 1000 * 60 * 60 * 24);
 
-                return () => clearInterval(id);
-            } else {
-                console.log("Auto Update Views is disabled!");
+                    return () => clearInterval(id);
+                } else {
+                    console.log("Auto Update Views is disabled!");
+                }
             }
         }
 
         autoUpdateViews();
-    }, [counter, isVisitorViewing, pid]);
+    }, [counter, isAutoUpdateViewsEnabled, cid, pid]);
 
     if (loading) {
         return (
@@ -180,16 +182,15 @@ export default function News({ cid, pid, tagname, locale }: NewsProps) {
         ) : "";
     };
 
-    const setPathPost = (cid: number, pid: number) => {
+    const getPathPost = (cid: number, pid: number) => {
         const qparamspost = parseInt("" + spage, 0) >= 0 ? `?page=${parseInt("" + spage, 0)}` : "";
         const pthpost = `/${locale}/${newsSuffix}/${cid}/${pid}${qparamspost}`;
-        saveToStorage("hiddenViews", pathname == pthpost ? "false" : "true");
         return pthpost;
     }
 
     const redirectToPost = async (e: any, newsi: Posts) => {
         e.preventDefault();
-        const pthpost = setPathPost(newsi.categoryId, newsi.postId);
+        const pthpost = getPathPost(newsi.categoryId, newsi.postId);
 
         const data: PostsViews = {
             postId: newsi.postId,
@@ -199,7 +200,9 @@ export default function News({ cid, pid, tagname, locale }: NewsProps) {
 
         setCounter(parseInt("" + data.viewsCounter));
         setHiddenViews(getFromStorage("hiddenViews")! == "false" ? false : true);
+        saveToStorage("hiddenViews", pathname == pthpost ? "false" : "true");
         saveToStorage("viewsInfo", JSON.stringify(data));
+
         await updateDataViews(data).then(x => {
             console.log(x);
             router.push(pthpost);
