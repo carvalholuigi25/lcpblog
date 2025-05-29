@@ -7,7 +7,7 @@ import { Link } from '@/app/i18n/navigation';
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import dynamic from 'next/dynamic';
-import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
+import LoadingComp from "@applocale/components/ui/loadingcomp";
 import * as config from "@applocale/utils/config";
 
 const isRounded = config.getConfigSync().isBordered;

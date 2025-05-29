@@ -11,8 +11,8 @@ import { buildMyConnection, sendMessage } from "@applocale/functions/functions";
 import { useLocale, useTranslations } from "next-intl";
 import { DataToastsProps } from "@applocale/interfaces/toasts";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
-import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
-import Toasts from "@/app/[locale]/components/ui/toasts/toasts";
+import LoadingComp from "@applocale/components/ui/loadingcomp";
+import Toasts from "@applocale/components/ui/toasts/toasts";
 
 const DeleteNewsForm = ({ id, data }: { id: number, data: Posts }) => {
     const t = useTranslations("ui.forms.crud.news.delete");

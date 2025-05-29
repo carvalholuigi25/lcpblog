@@ -10,8 +10,8 @@ import AdminSidebarDashboard from "@applocale/components/admin/dashboard/adbside
 import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavbar";
 import Footer from "@applocale/ui/footer";
 import withAuth from "@applocale/utils/withAuth";
-import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
-import VideoPlayer from "@/app/[locale]/components/ui/video/player";
+import LoadingComp from "@applocale/components/ui/loadingcomp";
+import VideoPlayer from "@applocale/components/ui/video/player";
 
 const videoJsOptions = {
     controls: true,

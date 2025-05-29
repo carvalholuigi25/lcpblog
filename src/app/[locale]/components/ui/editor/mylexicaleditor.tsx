@@ -9,8 +9,8 @@ import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
-import ToolbarPlugin from "@/app/[locale]/components/ui/editor/plugins/toolbarplugins";
-import HtmlPlugin from "@/app/[locale]/components/ui/editor/plugins/htmlplugin";
+import ToolbarPlugin from "@applocale/components/ui/editor/plugins/toolbarplugins";
+import HtmlPlugin from "@applocale/components/ui/editor/plugins/htmlplugin";
 import SanitizeHTML from "@applocale/utils/sanitizehtml";
 
 interface MyLexicalEditorProps {

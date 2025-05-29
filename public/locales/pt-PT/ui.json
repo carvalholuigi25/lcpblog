@@ -20,7 +20,8 @@
       },
       "search": {
         "title": "Pesquisar",
-        "lblsrchfor": "Você está à procura de: {search}"
+        "lblsrchfor": "Você está à procura de: {search}",
+        "lblsrchnodata": "Sem dados!"
       }
     },
     "events": {

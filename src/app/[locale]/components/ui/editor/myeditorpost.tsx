@@ -24,10 +24,10 @@ import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPl
 import { TabIndentationPlugin } from '@lexical/react/LexicalTabIndentationPlugin';
 import { TablePlugin } from '@lexical/react/LexicalTablePlugin';
 import { AutoLinkPlugin as LexicalAutoLinkPlugin } from '@lexical/react/LexicalAutoLinkPlugin'
-import { TRANSFORMERS } from '@/app/[locale]/components/ui/editor/transformers/markdowntransformer';
-import ToolbarPlugin from '@/app/[locale]/components/ui/editor/plugins/toolbarplugins';
-import LoadingComp from '@/app/[locale]/components/ui/loadingcomp';
-import ExampleTheme from '@/app/[locale]/components/ui/editor/ExampleTheme';
+import { TRANSFORMERS } from '@applocale/components/ui/editor/transformers/markdowntransformer';
+import ToolbarPlugin from '@applocale/components/ui/editor/plugins/toolbarplugins';
+import LoadingComp from '@applocale/components/ui/loadingcomp';
+import ExampleTheme from '@applocale/components/ui/editor/ExampleTheme';
   
 export const URL_MATCHER =
   /((https?:\/\/(www\.)?)|(www\.))[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;

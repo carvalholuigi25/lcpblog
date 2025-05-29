@@ -12,8 +12,8 @@ import AdminSidebarDashboard from "@applocale/components/admin/dashboard/adbside
 import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavbar";
 import Footer from "@applocale/ui/footer";
 import withAuth from "@applocale/utils/withAuth";
-import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
-import ShowAlert from "@/app/[locale]/components/ui/alerts";
+import LoadingComp from "@applocale/components/ui/loadingcomp";
+import ShowAlert from "@applocale/components/ui/alerts";
 import axios from "axios";
 import { useTranslations } from "next-intl";
 

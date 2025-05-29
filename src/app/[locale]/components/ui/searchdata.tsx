@@ -12,13 +12,12 @@ import LoadingComp from "@applocale/components/ui/loadingcomp";
 export default function SearchData({locale}: {locale: string}) {
     const t = useTranslations("ui.modals.search");
     const newsSuffix = useMySuffix("news");
-    
-    const alocale = locale ?? getDefLocale();
-    
-    const [news, setNews] = useState(new Array<Posts>());
-    const [loading, setLoading] = useState(true);
     const sparams = useSearchParams();
     const search = sparams.get('search');
+    const alocale = locale ?? getDefLocale();
+
+    const [news, setNews] = useState(new Array<Posts>());
+    const [loading, setLoading] = useState(false);
     
     useEffect(() => {
         async function fetchSearch() {
@@ -30,12 +29,19 @@ export default function SearchData({locale}: {locale: string}) {
 
             if(data.data) {
                 setNews(JSON.parse(JSON.stringify(data.data)));
-                setLoading(false);
             }
+
+            setLoading(false);
         }
 
         fetchSearch();
-    }, [loading, search]);
+    }, [search]);
+    
+    if (loading || !search) {
+        return (
+            <LoadingComp type="icon" icontype="ring" />
+        );
+    }
 
     const fetchSearchItems = (): any => {
         const items: any[] = [];
@@ -56,29 +62,22 @@ export default function SearchData({locale}: {locale: string}) {
 
         return ( 
             <>
-                <div>
-                    {search && (
-                        <>
-                            <p>{t("lblsrchfor", {search: ""+search}) ?? `You are searching for: ${search}`}</p>
-                            {items}
-                        </>
-                    )}
-
-                    {!search && (
-                        <LoadingComp type="icon" icontype="ring" />
-                    )}
-                </div>
+                {items && (
+                    <div>
+                        <p>{t("lblsrchfor", {search: ""+search}) ?? `You are searching for: ${search}`}</p>
+                        {items}
+                    </div>
+                )}
             </>
         );
     }
 
     return (
-        <Suspense>
-            {!loading && fetchSearchItems()}
-
-            {!!loading && (
-                <LoadingComp type="icon" icontype="ring" />
-            )}
-        </Suspense>
+        <>
+            <Suspense fallback={<LoadingComp type="icon" icontype="ring" />}>
+                {!news || news.length == 0 && <p>{t("lblsrchnodata") ?? "No data!"}</p>}
+                {!!news && news.length > 0 && fetchSearchItems()}
+            </Suspense>
+        </>
     );
 }

@@ -15,9 +15,9 @@ import { Categories } from "@applocale/interfaces/categories";
 import { getImagePath } from "@applocale/functions/functions";
 import Footer from "@applocale/ui/footer";
 import Header from "@applocale/ui/header";
-import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
-import MyPagination from "@/app/[locale]/components/ui/mypagination";
-import { useMySuffix } from "@/app/[locale]/hooks/suffixes";
+import LoadingComp from "@applocale/components/ui/loadingcomp";
+import MyPagination from "@applocale/components/ui/mypagination";
+import { useMySuffix } from "@applocale/hooks/suffixes";
 
 export const getYearList = (): any => {
     const yitem: any[] = [];

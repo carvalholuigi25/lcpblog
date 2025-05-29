@@ -45,13 +45,13 @@
     "dompurify": "^3.2.6",
     "eslint-plugin-risxss": "^2.1.0",
     "flag-icons": "^7.3.2",
-    "framer-motion": "^12.12.2",
+    "framer-motion": "^12.15.0",
     "isomorphic-dompurify": "^2.25.0",
     "jsdom": "^26.1.0",
     "ldrs": "^1.1.7",
     "lexical": "^0.31.2",
     "luxon": "^3.6.1",
-    "moment-timezone": "^0.5.48",
+    "moment-timezone": "^0.6.0",
     "next": "15.3.2",
     "next-intl": "^4.1.0",
     "react": "^19.1.0",
@@ -62,7 +62,7 @@
     "react-hook-form": "^7.56.4",
     "rss": "^1.2.2",
     "rtl-detect": "^1.1.2",
-    "zod": "^3.25.23"
+    "zod": "^3.25.36"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

@@ -9,9 +9,9 @@ import { Link } from '@/app/i18n/navigation';
 import { useLocale, useTranslations } from "next-intl";
 import Header from "@applocale/ui/header";
 import Footer from "@applocale/ui/footer";
-import DeleteTagsForm from "@/app/[locale]/components/ui/forms/crud/tags/delete/delete";
+import DeleteTagsForm from "@applocale/components/ui/forms/crud/tags/delete/delete";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
-import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
+import LoadingComp from "@applocale/components/ui/loadingcomp";
 
 export default function DeleteTags() {
   const t = useTranslations("ui.forms.crud.tags.delete");

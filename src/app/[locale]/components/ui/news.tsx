@@ -62,6 +62,41 @@ export default function News({ cid, pid, tagname, locale }: NewsProps) {
         setCounter(getFromStorage("viewsInfo")! ? parseInt(JSON.parse(getFromStorage("viewsInfo")!).viewsCounter) : 0);
     }, [locale, newsSuffix, cid, pid, pathname]);
 
+    const loadAutoViews = useCallback(async () => {
+        if(isAutoUpdateViewsEnabled) {
+            if(cid >= 1 && pid >= 1) {
+                if(new Date().getHours() >= 0 && new Date().getHours() <= 23) {
+                    console.log("Auto Update Views is enabled!");
+
+                    const id = setInterval(async () => {
+                        const inc = counter + 1;
+                        setCounter(inc);
+
+                        const data: PostsViews = {
+                            postId: pid,
+                            viewsCounter: parseInt("" + inc),
+                            views: parseInt("" + inc)
+                        };
+
+                        saveToStorage("viewsInfo", JSON.stringify(data));
+
+                        await updateDataViews(data).then(x => {
+                            console.log(x);
+                        }).catch(e => {
+                            console.error(e);
+                        });
+                    }, 1000 * 60 * 60 * 24); //86400000 miliseconds = 1 hour
+
+                    return () => {
+                        clearInterval(id);
+                    }
+                }
+            }
+        } else {
+            console.log("Auto Update Views is disabled!");
+        }
+    }, [cid, counter, isAutoUpdateViewsEnabled, pid]);
+
     useEffect(() => {
         async function fetchNews() {
             const curindex = pageSize == 1 ? (page > pid ? page : pid) : page;
@@ -121,44 +156,10 @@ export default function News({ cid, pid, tagname, locale }: NewsProps) {
         if(loading) {
             loadMyRealData({ hubname: "datahub", skipNegotiation: false, fetchData: fetchNews });
             loadMyCounter();
+            loadAutoViews();
             setMyEditorKey(Date.now().toString());
         }
-    }, [cid, pid, page, spage, enabledViews, locale, pathname, loading, searchParams, loadMyCounter, tagname]);
-
-    useEffect(() => {
-        async function autoUpdateViews() {
-            if(cid >= 1 && pid >= 1) {
-                if(isAutoUpdateViewsEnabled) {
-                    console.log("Auto Update Views is enabled!");
-
-                    const id = setInterval(async () => {
-                        const inc = counter + 1;
-                        setCounter(inc);
-
-                        const data: PostsViews = {
-                            postId: pid,
-                            viewsCounter: parseInt("" + inc),
-                            views: parseInt("" + inc)
-                        };
-
-                        saveToStorage("viewsInfo", JSON.stringify(data));
-
-                        await updateDataViews(data).then(x => {
-                            console.log(x);
-                        }).catch(e => {
-                            console.error(e);
-                        });
-                    }, 1000 * 60 * 60 * 24);
-
-                    return () => clearInterval(id);
-                } else {
-                    console.log("Auto Update Views is disabled!");
-                }
-            }
-        }
-
-        autoUpdateViews();
-    }, [counter, isAutoUpdateViewsEnabled, cid, pid]);
+    }, [cid, pid, page, spage, enabledViews, locale, pathname, loading, searchParams, loadMyCounter, loadAutoViews, tagname]);
 
     if (loading) {
         return (

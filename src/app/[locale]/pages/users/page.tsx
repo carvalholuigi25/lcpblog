@@ -7,7 +7,7 @@ import { User } from '@applocale/interfaces/user';
 import { getDefLocale } from '@applocale/helpers/defLocale';
 import Image from 'next/image';
 import FetchData from '@applocale/utils/fetchdata';
-import LoadingComp from '@/app/[locale]/components/ui/loadingcomp';
+import LoadingComp from '@applocale/components/ui/loadingcomp';
 import Header from '@applocale/ui/header';
 import Footer from '@applocale/ui/footer';
 

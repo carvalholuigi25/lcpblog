@@ -10,9 +10,9 @@ import { getFromStorage } from "@applocale/hooks/localstorage";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { buildMyConnection, sendMessage } from "@applocale/functions/functions";
 import { DataToastsProps } from "@applocale/interfaces/toasts";
-import Toasts from "@/app/[locale]/components/ui/toasts/toasts";
+import Toasts from "@applocale/components/ui/toasts/toasts";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
-import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
+import LoadingComp from "@applocale/components/ui/loadingcomp";
 
 const DeleteCommentsForm = ({ commentId, data }: { commentId: number, data: Comments }) => {
     const t = useTranslations("ui.forms.crud.comments.delete");

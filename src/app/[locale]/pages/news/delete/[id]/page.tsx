@@ -9,9 +9,9 @@ import { getDefLocale } from "@applocale/helpers/defLocale";
 import { useLocale } from "next-intl";
 import Header from "@applocale/ui/header";
 import Footer from "@applocale/ui/footer";
-import DeleteNewsForm from "@/app/[locale]/components/ui/forms/crud/news/delete/delete";
+import DeleteNewsForm from "@applocale/components/ui/forms/crud/news/delete/delete";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
-import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
+import LoadingComp from "@applocale/components/ui/loadingcomp";
 
 export default function DeleteNews() {
   const locale = useLocale();

@@ -15,9 +15,9 @@ import { getImagePath } from "@applocale/functions/functions";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { DataToastsProps } from "@applocale/interfaces/toasts";
 import FetchDataAxios, { FetchMultipleDataAxios } from "@applocale/utils/fetchdataaxios";
-import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
-import ShowAlert from "@/app/[locale]/components/ui/alerts";
-import Toasts from "@/app/[locale]/components/ui/toasts/toasts";
+import LoadingComp from "@applocale/components/ui/loadingcomp";
+import ShowAlert from "@applocale/components/ui/alerts";
+import Toasts from "@applocale/components/ui/toasts/toasts";
 import * as config from "@applocale/utils/config";
 
 export interface CommentsProps {

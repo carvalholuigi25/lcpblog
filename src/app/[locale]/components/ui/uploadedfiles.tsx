@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 import { FilesMetadata } from "@applocale/interfaces/filesmetadata";
 import { getImagePath } from "@applocale/functions/functions";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
-import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
+import LoadingComp from "@applocale/components/ui/loadingcomp";
 
 export default function UploadedFiles() {
     const t = useTranslations("pages.AdminPages.MediaPage");

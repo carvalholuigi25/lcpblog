@@ -10,8 +10,8 @@ import { Link } from '@/app/i18n/navigation';
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { DataToastsProps } from "@applocale/interfaces/toasts";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
-import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
-import Toasts from "@/app/[locale]/components/ui/toasts/toasts";
+import LoadingComp from "@applocale/components/ui/loadingcomp";
+import Toasts from "@applocale/components/ui/toasts/toasts";
 
 const DeleteUsersForm = ({ id, data }: { id: number, data: User }) => {
     const t = useTranslations("ui.forms.crud.users.delete");

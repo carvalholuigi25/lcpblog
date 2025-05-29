@@ -1,4 +1,4 @@
-import MyEditor from "@/app/[locale]/components/ui/editor/myeditor";
+import MyEditor from "@applocale/components/ui/editor/myeditor";
 import styles from "@applocale/page.module.scss";
 import Footer from "@applocale/ui/footer";
 import Header from "@applocale/ui/header";

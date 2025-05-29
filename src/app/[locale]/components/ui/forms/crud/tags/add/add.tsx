@@ -11,10 +11,10 @@ import { useMySchemaTags, type TFormTags } from "@applocale/schemas/formSchemas"
 import { Link } from '@/app/i18n/navigation';
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { DataToastsProps } from "@applocale/interfaces/toasts";
-import Toasts from "@/app/[locale]/components/ui/toasts/toasts";
-import ShowAlert from "@/app/[locale]/components/ui/alerts";
+import Toasts from "@applocale/components/ui/toasts/toasts";
+import ShowAlert from "@applocale/components/ui/alerts";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
-import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
+import LoadingComp from "@applocale/components/ui/loadingcomp";
 
 const AddTagsForm = () => {
     const t = useTranslations("ui.forms.crud.tags.add");

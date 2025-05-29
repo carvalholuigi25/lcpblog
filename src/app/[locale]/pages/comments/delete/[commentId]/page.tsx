@@ -9,9 +9,9 @@ import { getDefLocale } from "@applocale/helpers/defLocale";
 import { useLocale, useTranslations } from "next-intl";
 import Header from "@applocale/ui/header";
 import Footer from "@applocale/ui/footer";
-import DeleteCommentsForm from "@/app/[locale]/components/ui/forms/crud/comments/delete/delete";
+import DeleteCommentsForm from "@applocale/components/ui/forms/crud/comments/delete/delete";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
-import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
+import LoadingComp from "@applocale/components/ui/loadingcomp";
 
 export default function DeleteComments() {
   const t = useTranslations("pages.DeleteCommentsPage");

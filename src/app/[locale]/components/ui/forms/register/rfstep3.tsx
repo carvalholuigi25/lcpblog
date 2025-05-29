@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMySchemaRegStep3, type TFormRegDataStep3 } from "@applocale/schemas/formSchemas";
 import { useTranslations } from "next-intl";
-import ShowAlert from "@/app/[locale]/components/ui/alerts";
+import ShowAlert from "@applocale/components/ui/alerts";
 
 const RegFormStep3 = ({ onFinish, onBack, onClear, onChange }: any) => {
   const t = useTranslations("ui.forms.auth.register.step3");

@@ -13,10 +13,10 @@ import { getFromStorage } from "@applocale/hooks/localstorage";
 import { Comments } from "@applocale/interfaces/comments";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { DataToastsProps } from "@applocale/interfaces/toasts";
-import ShowAlert from "@/app/[locale]/components/ui/alerts";
+import ShowAlert from "@applocale/components/ui/alerts";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
-import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
-import Toasts from "@/app/[locale]/components/ui/toasts/toasts";
+import LoadingComp from "@applocale/components/ui/loadingcomp";
+import Toasts from "@applocale/components/ui/toasts/toasts";
 
 const EditCommentsForm = ({ commentid, data }: { commentid: number, data: Comments }) => {
     const t = useTranslations("ui.forms.crud.comments.edit");

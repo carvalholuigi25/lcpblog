@@ -15,13 +15,13 @@ import { buildMyConnection, getImagePath, sendMessage } from "@applocale/functio
 import { Link } from '@/app/i18n/navigation';
 import { Categories } from "@applocale/interfaces/categories";
 import { getDefLocale } from "@applocale/helpers/defLocale";
-import ShowAlert from "@/app/[locale]/components/ui/alerts";
+import ShowAlert from "@applocale/components/ui/alerts";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
-import MyEditorPost from "@/app/[locale]/components/ui/editor/myeditorpost";
-import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
+import MyEditorPost from "@applocale/components/ui/editor/myeditorpost";
+import LoadingComp from "@applocale/components/ui/loadingcomp";
 import { useLocale, useTranslations } from "next-intl";
-import Toasts from "@/app/[locale]/components/ui/toasts/toasts";
-import { DataToastsProps } from "@/app/[locale]/interfaces/toasts";
+import Toasts from "@applocale/components/ui/toasts/toasts";
+import { DataToastsProps } from "@applocale/interfaces/toasts";
 
 const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
     const t = useTranslations("ui.forms.crud.news.edit");

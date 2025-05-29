@@ -9,9 +9,9 @@ import { Link } from '@/app/i18n/navigation';
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import Header from "@applocale/ui/header";
 import Footer from "@applocale/ui/footer";
-import EditTagsForm from "@/app/[locale]/components/ui/forms/crud/tags/edit/edit";
+import EditTagsForm from "@applocale/components/ui/forms/crud/tags/edit/edit";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
-import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
+import LoadingComp from "@applocale/components/ui/loadingcomp";
 
 export default function EditTags() {
   const t = useTranslations("ui.forms.crud.tags.edit");

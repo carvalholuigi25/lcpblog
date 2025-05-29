@@ -2,7 +2,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { useTheme } from "@/app/[locale]/components/ui/context/themecontext";
+import { useTheme } from "@applocale/components/ui/context/themecontext";
 import * as config from "@applocale/utils/config";
 
 export interface ThemesModel {

@@ -4,8 +4,8 @@ import React, { useCallback, useState } from "react";
 import ReactDOM from "react-dom";
 import Image from 'next/image';
 import { ToastsProps } from "@applocale/interfaces/toasts";
-import { getFromStorage } from "@/app/[locale]/hooks/localstorage";
-import { getImagePath } from "@/app/[locale]/functions/functions";
+import { getFromStorage } from "@applocale/hooks/localstorage";
+import { getImagePath } from "@applocale/functions/functions";
 import { useTranslations } from "next-intl";
 
 export default function Toasts({ id, data }: ToastsProps) {

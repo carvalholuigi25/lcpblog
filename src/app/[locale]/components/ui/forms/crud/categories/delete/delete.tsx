@@ -11,8 +11,8 @@ import { getDefLocale } from "@applocale/helpers/defLocale";
 import { DataToastsProps } from "@applocale/interfaces/toasts";
 import { buildMyConnection, sendMessage } from "@applocale/functions/functions";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
-import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
-import Toasts from "@/app/[locale]/components/ui/toasts/toasts";
+import LoadingComp from "@applocale/components/ui/loadingcomp";
+import Toasts from "@applocale/components/ui/toasts/toasts";
 
 const DeleteCategoriesForm = ({ id, data }: { id: number, data: Categories }) => {
     const t = useTranslations("ui.forms.crud.categories.delete");

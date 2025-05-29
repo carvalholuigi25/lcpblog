@@ -2,7 +2,7 @@
 "use client";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
-import SearchData from "@/app/[locale]/components/ui/searchdata";
+import SearchData from "@applocale/components/ui/searchdata";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { useLocale, useTranslations } from "next-intl";
 
@@ -36,14 +36,13 @@ export default function ModalSearch({ onClose, statusModal }: any) {
         
         setTimeout(() => {
             onClose();
-        }, 500);
+        }, 100);
     };
 
-    const searchCl = `modal modalsearch animate__animated ${(statusModal ? (isClosed ? 'animate__fadeOut' : 'animate__fadeIn') + ' show' : 'animate__fadeOut hidden')}`;
-    const ahidden = !!statusModal ? "false" : "true";
+    const searchCl = `modal modalsearch animate__animated ${(statusModal ? (isClosed ? 'animate__fadeOut' : 'animate__fadeIn') + ' animate__faster show' : 'animate__fadeOut hidden')}`;
 
     const modalContent = (
-        <div ref={modalSearchRef} className={searchCl} id="modalsearch" data-bs-backdrop="true" data-bs-focus="true" data-bs-keyboard="true" tabIndex={-1} aria-labelledby="modalsearchLbl" aria-hidden={ahidden} role="dialog" onMouseOver={close} onKeyDown={close}>
+        <div ref={modalSearchRef} className={searchCl} id="modalsearch" data-bs-backdrop="true" data-bs-focus="true" data-bs-keyboard="true" tabIndex={-1} aria-labelledby="modalsearchLbl" aria-hidden="false" role="dialog" onMouseOver={close} onKeyDown={close}>
             <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div className="modal-content">
                     <div className="modal-header justify-content-between">

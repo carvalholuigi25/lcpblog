@@ -2,7 +2,7 @@
 import { useLocale, useTranslations } from 'next-intl';
 import {Link} from '@/app/i18n/navigation';
 import styles from "@applocale/page.module.scss";
-import RegForm from "@/app/[locale]/components/ui/forms/register/regform";
+import RegForm from "@applocale/components/ui/forms/register/regform";
 import { getDefLocale } from '@applocale/helpers/defLocale';
 
 export default function Register() {

@@ -1,5 +1,5 @@
 import styles from "@applocale/page.module.scss";
-import AddTagsForm from "@/app/[locale]/components/ui/forms/crud/tags/add/add";
+import AddTagsForm from "@applocale/components/ui/forms/crud/tags/add/add";
 import Header from "@applocale/ui/header";
 import Footer from "@applocale/ui/footer";
 import { getDefLocale } from "@applocale/helpers/defLocale";

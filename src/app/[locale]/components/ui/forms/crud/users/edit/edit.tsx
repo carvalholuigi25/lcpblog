@@ -15,10 +15,10 @@ import { getDefLocale } from "@applocale/helpers/defLocale";
 import { Link } from '@/app/i18n/navigation';
 import { User } from "@applocale/interfaces/user";
 import { DataToastsProps } from "@applocale/interfaces/toasts";
-import ShowAlert from "@/app/[locale]/components/ui/alerts";
+import ShowAlert from "@applocale/components/ui/alerts";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
-import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
-import Toasts from "@/app/[locale]/components/ui/toasts/toasts";
+import LoadingComp from "@applocale/components/ui/loadingcomp";
+import Toasts from "@applocale/components/ui/toasts/toasts";
 
 const EditUsersForm = ({id, data}: {id: number, data: User}) => {
     const t = useTranslations("ui.forms.crud.users.edit");

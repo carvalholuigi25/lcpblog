@@ -12,7 +12,7 @@ import { Categories } from "@applocale/interfaces/categories";
 import { Posts } from "@applocale/interfaces/posts";
 import { Tags } from "@applocale/interfaces/tags";
 import { User } from "@applocale/interfaces/user";
-import { useTheme } from "@/app/[locale]/components/ui/context/themecontext";
+import { useTheme } from "@applocale/components/ui/context/themecontext";
 import { GetChartTypes } from "@applocale/functions/chartfunctions";
 import { Schedules } from "@applocale/interfaces/schedules";
 import AdminSidebarDashboard from "@applocale/components/admin/dashboard/adbsidebar";
@@ -21,9 +21,9 @@ import ChartData from "@applocale/components/admin/dashboard/chartdata";
 import TableData from "@applocale/components/admin/dashboard/tabledata";
 import Footer from "@applocale/ui/footer";
 import withAuth from "@applocale/utils/withAuth";
-import MyPagination from "@/app/[locale]/components/ui/mypagination";
-import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
-import Schedule from "@/app/[locale]/components/ui/schedule";
+import MyPagination from "@applocale/components/ui/mypagination";
+import LoadingComp from "@applocale/components/ui/loadingcomp";
+import Schedule from "@applocale/components/ui/schedule";
 
 const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
     const t = useTranslations('pages.AdminPages.Dashboard');

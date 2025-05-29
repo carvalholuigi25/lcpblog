@@ -731,6 +731,7 @@ footer {
 
 .cardnews {
   border: 0;
+  box-shadow: 2px 4px 6px !important;
 
   .card-footer {
     margin: 15px -15px -15px -15px;
@@ -1340,6 +1341,12 @@ a.fc-event:hover {
       box-shadow: 0px 0px 0px !important;
       border-radius: 0px;
     }
+  }
+}
+
+.nav-tabs {
+  .nav-link {
+    color: black;
   }
 }
 

@@ -14,9 +14,9 @@ import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavba
 import TableData from "@applocale/components/admin/dashboard/tabledata";
 import Footer from "@applocale/ui/footer";
 import withAuth from "@applocale/utils/withAuth";
-import MyPagination from "@/app/[locale]/components/ui/mypagination";
-import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
-import AdvancedSearchPosts from "@/app/[locale]/components/ui/forms/search/posts/advsearchposts";
+import MyPagination from "@applocale/components/ui/mypagination";
+import LoadingComp from "@applocale/components/ui/loadingcomp";
+import AdvancedSearchPosts from "@applocale/components/ui/forms/search/posts/advsearchposts";
 
 const AdminPosts = () => {
     const locale = useLocale();

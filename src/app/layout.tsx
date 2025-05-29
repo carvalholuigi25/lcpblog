@@ -44,8 +44,7 @@ export default async function RootLayout({
   const messages = await getMessages({ locale: locale });
   const themeCl = (await config.getConfig()).theme;
   const effects3DCl = (await config.getConfig()).is3DEffectsEnabled ? "effects3D" : "";
-  const headerList = headers();
-  const pathname = (await headerList).get("x-current-path");
+  const pathname = (await headers()).get("x-current-path");
 
   const stuffconfig = `${themeCl} ${effects3DCl}`;
   const fonts = `${poppins.variable} ${roboto.variable} ${orbitron.variable}`;

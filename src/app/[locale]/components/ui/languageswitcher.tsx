@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { LanguagesLocales, localesary } from "@/app/i18n/locales";
-import { useLanguage } from "@/app/[locale]/components/ui/context/languagecontext";
+import { useLanguage } from "@applocale/components/ui/context/languagecontext";
 import { useRouter } from "next/navigation";
 import * as config from "@applocale/utils/config";
 

@@ -30,6 +30,12 @@
         }
     }
 
+    .nav-tabs {
+        .nav-link {
+            color: $fgcolorprimary;
+        }
+    }
+
     .navbar {
         --background: #{$bgcolorprimary};
 

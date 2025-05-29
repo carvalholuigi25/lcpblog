@@ -13,7 +13,7 @@ import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavba
 import TableData from "@applocale/components/admin/dashboard/tabledata";
 import Footer from "@applocale/ui/footer";
 import withAuth from "@applocale/utils/withAuth";
-import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
+import LoadingComp from "@applocale/components/ui/loadingcomp";
 
 const AdminUsers = () => {
     const locale = useLocale();

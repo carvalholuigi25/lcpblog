@@ -9,9 +9,9 @@ import { getDefLocale } from "@applocale/helpers/defLocale";
 import { useLocale } from "next-intl";
 import Header from "@applocale/ui/header";
 import Footer from "@applocale/ui/footer";
-import EditCommentsForm from "@/app/[locale]/components/ui/forms/crud/comments/edit/edit";
+import EditCommentsForm from "@applocale/components/ui/forms/crud/comments/edit/edit";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
-import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
+import LoadingComp from "@applocale/components/ui/loadingcomp";
 
 export default function EditComments() {
   const locale = useLocale();

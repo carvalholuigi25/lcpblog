@@ -10,12 +10,12 @@ import { Categories } from "@applocale/interfaces/categories";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import withAuth from "@applocale/utils/withAuth"
 import FetchData from "@applocale/utils/fetchdata";
-import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
+import LoadingComp from "@applocale/components/ui/loadingcomp";
 import Footer from "@applocale/ui/footer";
 import TableData from "@applocale/components/admin/dashboard/tabledata";
 import AdminSidebarDashboard from "@applocale/components/admin/dashboard/adbsidebar";
 import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavbar";
-import MyPagination from "@/app/[locale]/components/ui/mypagination";
+import MyPagination from "@applocale/components/ui/mypagination";
 
 const AdminCategories = () => {
     const locale = useLocale() ?? getDefLocale();

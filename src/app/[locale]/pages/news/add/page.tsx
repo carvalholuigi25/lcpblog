@@ -1,5 +1,5 @@
 import styles from "@applocale/page.module.scss";
-import AddNewsForm from "@/app/[locale]/components/ui/forms/crud/news/add/add";
+import AddNewsForm from "@applocale/components/ui/forms/crud/news/add/add";
 import Header from "@applocale/ui/header";
 import Footer from "@applocale/ui/footer";
 import { getDefLocale } from "@applocale/helpers/defLocale";

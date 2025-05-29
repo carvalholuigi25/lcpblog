@@ -8,13 +8,13 @@ import { useLocale, useTranslations } from "next-intl";
 import { getFromStorage, saveToStorage } from "@applocale/hooks/localstorage";
 import AdminSidebarDashboard from "@applocale/components/admin/dashboard/adbsidebar";
 import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavbar";
-import FileSingleUploadForm from "@/app/[locale]/components/ui/forms/upload/singleupload";
-import FileMultiUploadForm from "@/app/[locale]/components/ui/forms/upload/multiupload";
-import FileDragDropUploadForm from "@/app/[locale]/components/ui/forms/upload/dragdropupload";
-import UploadedFiles from "@/app/[locale]/components/ui/uploadedfiles";
+import FileSingleUploadForm from "@applocale/components/ui/forms/upload/singleupload";
+import FileMultiUploadForm from "@applocale/components/ui/forms/upload/multiupload";
+import FileDragDropUploadForm from "@applocale/components/ui/forms/upload/dragdropupload";
+import UploadedFiles from "@applocale/components/ui/uploadedfiles";
 import Footer from "@applocale/ui/footer";
 import withAuth from "@applocale/utils/withAuth";
-import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
+import LoadingComp from "@applocale/components/ui/loadingcomp";
 
 const AdminMedia = () => {
     const locale = useLocale();

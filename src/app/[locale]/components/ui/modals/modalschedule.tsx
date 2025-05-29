@@ -42,10 +42,8 @@ export default function ModalSchedule({ data, statusModal, onClose }: ModalSched
 
     const scheduleCl = `modal modalschedule animate__animated ${(statusModal ? (isClosed ? 'animate__fadeOut' : 'animate__fadeIn') + ' show' : 'animate__fadeOut hidden')}`;
 
-    const ahidden = !!statusModal ? "false" : "true";
-
     const modalContent = (
-        <div ref={modalScheduleRef} className={scheduleCl} id="modalschedule" data-bs-backdrop="true" data-bs-focus="true" data-bs-keyboard="true" tabIndex={-1} aria-labelledby="modalscheduleLbl" aria-hidden={ahidden} role="dialog" onMouseOver={close} onKeyDown={close}>
+        <div ref={modalScheduleRef} className={scheduleCl} id="modalschedule" data-bs-backdrop="true" data-bs-focus="true" data-bs-keyboard="true" tabIndex={-1} aria-labelledby="modalscheduleLbl" aria-hidden="false" role="dialog" onMouseOver={close} onKeyDown={close}>
             <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div className="modal-content">
                     <div className="modal-header">

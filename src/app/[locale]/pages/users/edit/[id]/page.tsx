@@ -9,9 +9,9 @@ import { Link } from '@/app/i18n/navigation';
 import { useLocale } from "next-intl";
 import Header from "@applocale/ui/header";
 import Footer from "@applocale/ui/footer";
-import EditUsersForm from "@/app/[locale]/components/ui/forms/crud/users/edit/edit";
+import EditUsersForm from "@applocale/components/ui/forms/crud/users/edit/edit";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
-import LoadingComp from "@/app/[locale]/components/ui/loadingcomp";
+import LoadingComp from "@applocale/components/ui/loadingcomp";
 
 export default function EditUsers() {
   const locale = useLocale();

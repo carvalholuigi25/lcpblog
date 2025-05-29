@@ -11,7 +11,7 @@ import { useMySchemaLogin, type TFormLogData } from "@applocale/schemas/formSche
 import { useLocale, useTranslations } from "next-intl";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { Link } from '@/app/i18n/navigation';
-import ShowAlert from "@/app/[locale]/components/ui/alerts";
+import ShowAlert from "@applocale/components/ui/alerts";
 import Image from "next/image";
 import axios from "axios";
 

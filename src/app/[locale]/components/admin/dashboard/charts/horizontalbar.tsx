@@ -12,7 +12,7 @@ import { Bar } from 'react-chartjs-2';
 import { getColorGrid, getColorTxt } from '@applocale/functions/chartfunctions';
 import { Dataset } from '@applocale/interfaces/dataset';
 import FetchData from '@applocale/utils/fetchdata';
-import LoadingComp from '@/app/[locale]/components/ui/loadingcomp';
+import LoadingComp from '@applocale/components/ui/loadingcomp';
 import { useLocale, useTranslations } from 'next-intl';
 
 ChartJS.register(

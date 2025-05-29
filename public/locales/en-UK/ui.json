@@ -20,7 +20,8 @@
             },
             "search": {
                 "title": "Search",
-                "lblsrchfor": "You are searching for: {search}"
+                "lblsrchfor": "You are searching for: {search}",
+                "lblsrchnodata": "No data!"
             }
         },
         "events": {
