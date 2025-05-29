@@ -11,8 +11,11 @@ import { useTranslations } from "next-intl";
 export default function Toasts({ id, data }: ToastsProps) {
     const t = useTranslations("ui.toasts.data");
     const [isClosed, setIsClosed] = useState(data.statusToast ? false : true);
+    const status = !!data.statusToast ? "show" : "hidden";
+    const mtype = data.type ? `${data.type}` : "";
+    const modeType = 1; // 0 - blog name 1 - display name
 
-     const close = useCallback((event: any) => {
+    const close = useCallback((event: any) => {
         if (event.key === "Escape" && !!data.statusToast) {
             setIsClosed(true);
         }
@@ -25,10 +28,6 @@ export default function Toasts({ id, data }: ToastsProps) {
             setIsClosed(true);
         }
     };
-
-    const modeType = 1; // 0 - blog name 1 - display name
-    const status = !!data.statusToast ? "show" : "hidden";
-    const mtype = data.type ? `${data.type}` : "";
 
     const getAvatar = () => {
         return getFromStorage("logInfo") ? JSON.parse(getFromStorage("logInfo")!)[0].avatar : null;
@@ -59,7 +58,7 @@ export default function Toasts({ id, data }: ToastsProps) {
                         </div>
 
                         <div className="d-flex justify-content-end align-items-center">
-                            <button type="button" className="btn btnclose p-0" data-bs-dismiss="toast" aria-label={"Closed"} onClick={handleCloseClick}>
+                            <button type="button" className="btn btn-tp btnclosetoast p-0" data-bs-dismiss="toast" aria-label={"Closed"} onClick={handleCloseClick}>
                                 <i className="bi bi-x-lg"></i>
                             </button>
                         </div>

@@ -9,7 +9,10 @@ import { Link } from "@/app/i18n/navigation";
 import { User } from "@applocale/interfaces/user";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { FetchMultipleData } from "@applocale/utils/fetchdata";
-import { getImagePath } from "@applocale/functions/functions";
+import {
+  getImagePath,
+  shortenLargeNumber,
+} from "@applocale/functions/functions";
 import { useMySuffix } from "@applocale/hooks/suffixes";
 import { Posts, PostsViews } from "@applocale/interfaces/posts";
 import { saveToStorage } from "@applocale/hooks/localstorage";
@@ -26,7 +29,7 @@ export default function UserPage() {
   const locale = useLocale();
   const router = useRouter();
   const { id } = useParams();
-  
+
   const [users, setUsers] = useState(null as unknown as User);
   const [news, setNews] = useState([] as Posts[]);
   const [isLoading, setIsLoading] = useState(true);
@@ -98,21 +101,21 @@ export default function UserPage() {
     const pthpost = getPathPost(newsi.categoryId, newsi.postId);
 
     const data: PostsViews = {
-        postId: newsi.postId,
-        viewsCounter: parseInt("" + (newsi.viewsCounter! + 1)),
-        views: parseInt("" + (newsi.viewsCounter! + 1))
+      postId: newsi.postId,
+      viewsCounter: parseInt("" + (newsi.viewsCounter! + 1)),
+      views: parseInt("" + (newsi.viewsCounter! + 1))
     };
 
     saveToStorage("viewsInfo", JSON.stringify(data));
-    
+
     await updateDataViews(data).then(x => {
-        console.log(x);
-        router.push(pthpost);
+      console.log(x);
+      router.push(pthpost);
     }).catch(e => {
-        console.error(e);
-        router.push(pthpost);
+      console.error(e);
+      router.push(pthpost);
     });
-};
+  };
 
   return (
     <>
@@ -195,7 +198,7 @@ export default function UserPage() {
                         >
                           {t("display.lblposts") ?? "Posts"}
                           <span className="badge text-bg-secondary ms-2 rounded-circle">
-                            {news.length ?? 0}
+                            {shortenLargeNumber(news.length ?? 0, 1)}
                           </span>
                         </button>
                       </li>
@@ -231,68 +234,83 @@ export default function UserPage() {
                                     key={post.postId}
                                     className="col-12 col-sm-12 col-md-6 col-lg-4"
                                   >
-                                    <div className="card cardnews bshadow rounded mb-3">
-                                      <div className="card-sbody text-center">
-                                        {getFeaturedItem(i)}
-                                        <Image
-                                          src={getImagePath(post.image)}
-                                          className="card-img-top rounded mx-auto d-block img-fluid"
-                                          width={800}
-                                          height={400}
-                                          alt={"blog image "}
-                                          priority
-                                        />
-                                        <div className="card-text p-3">
-                                          <h5 className="card-title mt-3">
-                                            {post.title}
-                                          </h5>
+                                    <div className="card cardnews cardlg bshadow rounded mb-3">
+                                      {getFeaturedItem(i)}
 
-                                          <div className="row justify-content-center align-items-center mt-3">
-                                            <div className="col-auto">
-                                              <div className="postdate">
-                                                <i className="bi bi-clock icodate"></i>
-                                                <span
-                                                  className="ms-2 txtdate"
-                                                  title={"" + post.createdAt}
-                                                >
-                                                  {new Date(
-                                                    post.createdAt
-                                                  ).toLocaleDateString(
-                                                    undefined,
-                                                    {
-                                                      year: "numeric",
-                                                      month: "2-digit",
-                                                      day: "2-digit",
-                                                      weekday: undefined,
-                                                      hour: "2-digit",
-                                                      hour12: false,
-                                                      minute: "2-digit",
-                                                      second: "2-digit",
-                                                    }
-                                                  )}
-                                                </span>
+                                      <Image
+                                        src={getImagePath(post.image)}
+                                        className="card-img-top rounded mx-auto d-block img-fluid"
+                                        width={800}
+                                        height={400}
+                                        alt={"blog image "}
+                                        priority
+                                      />
+
+                                      <div className="card-body text-center">
+                                        <div className="scard-body">
+                                          <div className={"card-info"}>
+                                            <div className="card-text p-3">
+                                              <h5 className="card-title mt-3">
+                                                {post.title}
+                                              </h5>
+
+                                              <div className="row justify-content-center align-items-center mt-3">
+                                                <div className="col-auto">
+                                                  <div className="postdate">
+                                                    <i className="bi bi-clock icodate"></i>
+                                                    <span
+                                                      className="ms-2 txtdate"
+                                                      title={
+                                                        "" + post.createdAt
+                                                      }
+                                                    >
+                                                      {new Date(
+                                                        post.createdAt
+                                                      ).toLocaleDateString(
+                                                        undefined,
+                                                        {
+                                                          year: "numeric",
+                                                          month: "2-digit",
+                                                          day: "2-digit",
+                                                          weekday: undefined,
+                                                          hour: "2-digit",
+                                                          hour12: false,
+                                                          minute: "2-digit",
+                                                          second: "2-digit",
+                                                        }
+                                                      )}
+                                                    </span>
+                                                  </div>
+                                                </div>
+                                                <div className="col-auto">
+                                                  <div className="postviews">
+                                                    <i className="bi bi-eye icoviews"></i>
+                                                    <span className="ms-2 txtviews">
+                                                      {shortenLargeNumber(
+                                                        post.views!,
+                                                        1
+                                                      )}
+                                                    </span>
+                                                  </div>
+                                                </div>
                                               </div>
-                                            </div>
-                                            <div className="col-auto">
-                                              <div className="postviews">
-                                                <i className="bi bi-eye icoviews"></i>
-                                                <span className="ms-2 txtviews">
-                                                  {post.views}
-                                                </span>
-                                              </div>
+
+                                              <Link
+                                                type="button"
+                                                href={`/${newsSuffix}/${post.categoryId}/${post.postId}`}
+                                                className="btn btn-primary mt-3"
+                                                locale={
+                                                  locale ?? getDefLocale()
+                                                }
+                                                onClick={(e) =>
+                                                  redirectToPost(e, post)
+                                                }
+                                              >
+                                                {t("display.btnreadmore") ??
+                                                  "Read more"}
+                                              </Link>
                                             </div>
                                           </div>
-
-                                          <Link
-                                            type="button"
-                                            href={`/${newsSuffix}/${post.categoryId}/${post.postId}`}
-                                            className="btn btn-primary mt-3"
-                                            locale={locale ?? getDefLocale()}
-                                            onClick={(e) => redirectToPost(e, post)}
-                                          >
-                                            {t("display.btnreadmore") ??
-                                              "Read more"}
-                                          </Link>
                                         </div>
                                       </div>
                                     </div>
