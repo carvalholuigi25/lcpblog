@@ -5,9 +5,11 @@ import axios from "axios";
 import { useEffect, useState } from 'react';
 import { Link } from '@/app/i18n/navigation';
 import { useRouter } from "next/navigation";
+import { useLocale, useTranslations } from 'next-intl';
 import { getFromStorage } from "@applocale/hooks/localstorage";
 import { getDefLocale } from '@applocale/helpers/defLocale';
-import { useLocale, useTranslations } from 'next-intl';
+import { DataToastsProps } from "@applocale/interfaces/toasts";
+import Toasts from "@applocale/components/ui/toasts/toasts";
 import RegFormStep1 from "./rfstep1";
 import RegFormStep2 from "./rfstep2";
 import RegFormStep3 from "./rfstep3";
@@ -18,6 +20,13 @@ const RegForm = () => {
   
   const t = useTranslations("ui.forms.auth.register");
   const tbtn = useTranslations("ui.buttons");
+  
+  const [dataToast, setDataToast] = useState({ 
+    type: "", 
+    message: "", 
+    statusToast: false, 
+    displayName: "" 
+  } as DataToastsProps);
   
   const [formData, setFormData] = useState({
     username: '',
@@ -85,7 +94,8 @@ const RegForm = () => {
         }];
 
         console.log(datax);
-        alert("You've been registered as " + (displayName ?? username ?? email));
+        const aname = displayName ?? username ?? email;
+        setDataToast({type: "success", message: t("apimessages.success", {username: aname}) ?? `You've been registered as ${aname}`, statusToast: true, displayName: aname});
         clearForm();
 
         setTimeout(() => {
@@ -93,9 +103,13 @@ const RegForm = () => {
         }, 500);
       }).catch((err) => {
         console.error(err);
+        setDataToast({type: "error", message: t("apimessages.error", {message: ""+err.message}) ?? `Failed to register your new account! Message: ${err.message}`, statusToast: true, displayName: formData.email});
+        location.reload();
       });
     } catch (error) {
       console.error(error);
+      setDataToast({type: "error", message: t("apimessages.errorapi", {message: ""+error}) ?? `Error when trying to register your new account! Message: ${error}`, statusToast: true, displayName: formData.email});
+      location.reload();
     }
   };
 
@@ -105,6 +119,8 @@ const RegForm = () => {
 
   return (
     <>
+      {dataToast.statusToast && <Toasts id={"toastRegisterFrm"} data={dataToast} />}
+    
       {!!isLoggedIn && (
         <div className="col-12 mx-auto">
           <div className="card">

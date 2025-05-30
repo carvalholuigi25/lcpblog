@@ -232,6 +232,11 @@
                             "lblreqpassword": "Password is required.",
                             "lblinvemail": "Invalid email"
                         }
+                    },
+                    "apimessages": {
+                        "success": "Logged in as {username}!",
+                        "error": "Failed to login! Message: {message}",
+                        "errorapi": "Error when trying to login! Message: {message}"
                     }
                 },
                 "register": {
@@ -295,6 +300,11 @@
                         "errors": {
                             "lblloggedin": "You already logged in as {displayName}!"
                         }
+                    },
+                    "apimessages": {
+                        "success": "You've been registered as {username}",
+                        "error": "Failed to register your new account! Message: {message}",
+                        "errorapi": "Error when trying to register your new account! Message: {message}"
                     }
                 }
             },

@@ -232,6 +232,11 @@
               "lblreqpassword": "Le mot de passe est requis.",
               "lblinvemail": "E-mail invalide"
             }
+          },
+          "apimessages": {
+            "success": "Connecté sous {username}!",
+            "error": "Échec de la connexion! Message: {message}",
+            "errorapi": "Erreur lors de la tentative de connexion! Message: {message}"
           }
         },
         "register": {
@@ -295,6 +300,11 @@
             "errors": {
               "lblloggedin": "Vous êtes déjà connecté en tant que {displayName}!"
             }
+          },
+          "apimessages": {
+            "success": "Vous avez été enregistré sous {username}",
+            "error": "Échec de l'enregistrement de votre nouveau compte! Message: {message}",
+            "errorapi": "Erreur lors de l'enregistrement de votre nouveau compte! Message: {message}"
           }
         }
       },

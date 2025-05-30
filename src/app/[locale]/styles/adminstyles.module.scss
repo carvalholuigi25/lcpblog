@@ -4,6 +4,10 @@
 #admdashboard {
     display: block;
 
+    &.mpage {
+        padding-top: 4rem !important;
+    }
+
     .navbartopadmdb {
         display: inherit;
         position: fixed;
@@ -48,7 +52,7 @@
         }
 
         &.rounded {
-            border-radius: 15px !important;
+            border-radius: calc(15px + 0px) !important;
         }
         
         &.anim {

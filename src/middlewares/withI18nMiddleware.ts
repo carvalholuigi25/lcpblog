@@ -24,8 +24,6 @@ export function withI18nMiddleware(middleware: CustomMiddleware) {
         event: NextFetchEvent,
         response: NextResponse
     ) => {
-        const headers = new Headers(request.headers);
-
         const pathname = request.nextUrl.pathname;
         const pathnameIsMissingLocale = routing.locales.every(
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -44,7 +42,6 @@ export function withI18nMiddleware(middleware: CustomMiddleware) {
             return NextResponse.redirect(redirectURL.toString())
         }
 
-        headers.set("x-current-path", pathname);
         return middleware(request, event, response);
     };
 }

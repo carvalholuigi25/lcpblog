@@ -231,6 +231,11 @@
               "lblreqpassword": "Palavra-passe é obrigatória.",
               "lblinvemail": "E-mail inválido"
             }
+          },
+          "apimessages": {
+            "success": "Ligado como {username}!",
+            "error": "Falha ao efetuar o login! Mensagem: {message}",
+            "errorapi": "Erro ao tentar efetuar o login! Mensagem: {message}"
           }
         },
         "register": {
@@ -294,6 +299,11 @@
             "errors": {
               "lblloggedin": "Já está logado como {displayName}!"
             }
+          },
+          "apimessages": {
+            "success": "Foi registado como {username}",
+            "error": "Falha ao registar a sua nova conta! Mensagem: {message}",
+            "errorapi": "Erro ao tentar registar a sua nova conta! Mensagem: {message}"
           }
         }
       },

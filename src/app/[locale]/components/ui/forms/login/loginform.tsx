@@ -1,19 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import styles from "@applocale/page.module.scss";
+import Image from "next/image";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
+import { Link } from '@/app/i18n/navigation';
+import { useLocale, useTranslations } from "next-intl";
 import { getFromStorage, delFromStorage, saveToStorage } from "@applocale/hooks/localstorage";
 import { useMySchemaLogin, type TFormLogData } from "@applocale/schemas/formSchemas";
-import { useLocale, useTranslations } from "next-intl";
 import { getDefLocale } from "@applocale/helpers/defLocale";
-import { Link } from '@/app/i18n/navigation';
+import { DataToastsProps } from "@applocale/interfaces/toasts";
 import ShowAlert from "@applocale/components/ui/alerts";
-import Image from "next/image";
-import axios from "axios";
+import Toasts from "@applocale/components/ui/toasts/toasts";
 
 const LoginForm = () => {
     const t = useTranslations("ui.forms.auth.login");
@@ -30,6 +32,13 @@ const LoginForm = () => {
     const [isResetedForm, setIsResetedForm] = useState(false);
     const [logInfo, setLogInfo] = useState(getFromStorage("logInfo"));
     const [avatarUser, setAvatarUser] = useState("avatars/guest.png");
+    const [dataToast, setDataToast] = useState({ 
+        type: "", 
+        message: "", 
+        statusToast: false, 
+        displayName: "" 
+    } as DataToastsProps);
+    
     const { push } = useRouter();
     
     const {
@@ -75,12 +84,12 @@ const LoginForm = () => {
 
         try {
             if(formData.email.length == 0) {
-                alert(t('errors.lblreqemail') ?? "Please provide your email");
+                setDataToast({type: "error", message: t('errors.lblreqemail') ?? "Please provide your email", statusToast: true, displayName: formData.email ?? ""});
                 return false;
             }
             
             if(formData.password.length == 0) {
-                alert(t('errors.lblreqpassword') ?? "Please provide your password");
+                setDataToast({type: "error", message: t('errors.lblreqpassword') ?? "Please provide your password", statusToast: true, displayName: formData.email});
                 return false;
             }
 
@@ -102,6 +111,8 @@ const LoginForm = () => {
 
                 setAvatarUser(avatar);
 
+                setDataToast({type: "success", message: t("apimessages.success", {username: username}) ?? `Logged in as ${username}!`, statusToast: true, displayName: displayName});
+
                 setTimeout(() => {
                     setIsLoggedIn(true);
                     setLogInfo(datax);
@@ -109,11 +120,15 @@ const LoginForm = () => {
                     push("/"+locale);
                 }, 200);
             }).catch((err) => {
-                setIsLoggedIn(false);
                 console.error(err);
+                setIsLoggedIn(false);
+                setDataToast({type: "error", message: t("apimessages.error", {message: ""+err.message}) ?? `Failed to login! Message: ${err.message}`, statusToast: true, displayName: formData.email});
+                location.reload();
             });
         } catch (error) {
             console.error(error);
+            setDataToast({type: "error", message: t("apimessages.errorapi", {message: ""+error}) ?? `Error when trying to login! Message: ${error}`, statusToast: true, displayName: formData.email});
+            location.reload();
         }
     };
 
@@ -123,6 +138,8 @@ const LoginForm = () => {
 
     return (
         <>
+            {dataToast.statusToast && <Toasts id={"toastLoginFrm"} data={dataToast} />}
+
             {!!isLoggedIn && (
                 <>
                     <div className="col-12 mx-auto">
@@ -142,7 +159,7 @@ const LoginForm = () => {
             )}
 
             {!isLoggedIn && (
-                <>
+                <>                    
                     <form className={styles.frmlog}>
                         <motion.div
                             whileHover={{ scale: 1.2 }}

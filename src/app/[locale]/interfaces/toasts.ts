@@ -7,4 +7,5 @@ export interface DataToastsProps {
     type?: string;
     message?: string;
     statusToast?: boolean;
+    displayName?: string;
 }

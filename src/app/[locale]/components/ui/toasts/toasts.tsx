@@ -30,11 +30,11 @@ export default function Toasts({ id, data }: ToastsProps) {
     };
 
     const getAvatar = () => {
-        return getFromStorage("logInfo") ? JSON.parse(getFromStorage("logInfo")!)[0].avatar : null;
+        return getFromStorage("logInfo") ? JSON.parse(getFromStorage("logInfo")!)[0].avatar : "/images/avatars/guest.png";
     }
 
     const getDisplayName = () => {
-        return getFromStorage("logInfo") ? JSON.parse(getFromStorage("logInfo")!)[0].displayName : null;
+        return getFromStorage("logInfo") ? JSON.parse(getFromStorage("logInfo")!)[0].displayName : (data.displayName ?? "guest");
     }
 
     const toastContent = (

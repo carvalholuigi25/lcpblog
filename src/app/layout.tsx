@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import { Poppins, Roboto, Orbitron } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
+import { headers } from "next/headers";
 import { getLangDir } from "rtl-detect";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import Dependencies from "@applocale/dependencies/dependencies";
 import * as config from "@applocale/utils/config";
 import "@applocale/globals.scss";
-import { headers } from "next/headers";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -46,14 +46,14 @@ export default async function RootLayout({
   const effects3DCl = (await config.getConfig()).is3DEffectsEnabled ? "effects3D" : "";
   const pathname = (await headers()).get("x-current-path");
 
+  const dir = getLangDir(locale) ?? "ltr";
   const stuffconfig = `${themeCl} ${effects3DCl}`;
   const fonts = `${poppins.variable} ${roboto.variable} ${orbitron.variable}`;
-  const dir = getLangDir(locale) ?? "ltr";
-  const fixedCl = !["auth/login", "auth/register", "auth/forgot-password"].includes(pathname!) ? "fixed" : "";
+  const fixedAdmCl = pathname && pathname.includes("admin") ? "fixedadm" : "";
 
   return (
     <html lang={locale} dir={dir} data-bs-theme="system" suppressHydrationWarning={true}>
-      <body className={`${fonts} ${stuffconfig} ${fixedCl} mybkgpage`}>
+      <body className={`${fonts} ${stuffconfig} ${fixedAdmCl} mybkgpage`}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <div className="modal-root" id="modal-root"></div>
           <div id="toast-root"></div>

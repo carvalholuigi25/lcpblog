@@ -27,12 +27,12 @@ body {
   padding-right: 0 !important;
 }
 
-.fixed {
-  padding-top: 3rem !important;
+.fixedadm {
+  padding-top: 1rem !important;
+}
 
-  .mpage {
-    padding-top: 3rem !important;
-  }
+.mpage {
+  padding-top: 3rem !important;
 }
 
 .mybkgpage {
@@ -109,7 +109,7 @@ section {
   }
 
   &.rounded {
-    border-radius: 15px !important;
+    border-radius: calc(15px + 0px) !important;
   }
 }
 
@@ -326,7 +326,7 @@ footer {
   }
 
   &.roundedfooter {
-    border-radius: 15px !important;
+    border-radius: calc(15px + 0px) !important;
   }
 }
 

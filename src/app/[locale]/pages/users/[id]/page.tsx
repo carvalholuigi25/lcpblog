@@ -232,9 +232,9 @@ export default function UserPage() {
                                 {news.map((post, i) => (
                                   <div
                                     key={post.postId}
-                                    className="col-12 col-sm-12 col-md-6 col-lg-4"
+                                    className="col-12 col-sm-12 col-md-6 col-lg-4 mt-3 mb-3"
                                   >
-                                    <div className="card cardnews cardlg bshadow rounded mb-3">
+                                    <div className="card cardnews cardlg bshadow rounded">
                                       {getFeaturedItem(i)}
 
                                       <Image
