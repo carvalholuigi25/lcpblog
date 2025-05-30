@@ -17,17 +17,19 @@ import { DataToastsProps } from "@applocale/interfaces/toasts";
 import ShowAlert from "@applocale/components/ui/alerts";
 import Toasts from "@applocale/components/ui/toasts/toasts";
 
+interface LoginStatus {
+    attempts: number;
+    status: string;
+    dateLock?: Date | string;
+    dateLockTimestamp?: number;
+}
+
 const LoginForm = () => {
+    const test = true;
+    const { push } = useRouter();
     const t = useTranslations("ui.forms.auth.login");
     const tbtn = useTranslations("ui.buttons");
     const locale = useLocale() ?? getDefLocale();
-
-    const test = true;
-    const [formData, setFormData] = useState({
-        email: test ? 'luiscarvalho239@gmail.com' : '',
-        password: test ? '1234' : ''
-    });
-
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isResetedForm, setIsResetedForm] = useState(false);
     const [logInfo, setLogInfo] = useState(getFromStorage("logInfo"));
@@ -38,8 +40,12 @@ const LoginForm = () => {
         statusToast: false, 
         displayName: "" 
     } as DataToastsProps);
-    
-    const { push } = useRouter();
+    const [formData, setFormData] = useState({
+        email: test ? 'luiscarvalho239@gmail.com' : '',
+        password: test ? '1234' : ''
+    });
+    const [attempts, setAttempts] = useState<number>(0);
+    const maxAttempts = 5;
     
     const {
         register,
@@ -49,6 +55,10 @@ const LoginForm = () => {
     });
 
     useEffect(() => {
+        if(getFromStorage("loginStatus")) {
+            setAttempts(parseInt(""+(JSON.parse(getFromStorage("loginStatus")!).attempts+1)));
+        }
+
         if(!!isResetedForm) {
             setFormData({
                 email: "",
@@ -59,7 +69,7 @@ const LoginForm = () => {
         if(logInfo) {
             setIsLoggedIn(true);
         }
-    }, [isResetedForm, logInfo]);
+    }, [isResetedForm, logInfo, attempts]);
 
     const handleChange = (e: any) => {
         const { name, value } = e.target;
@@ -81,15 +91,63 @@ const LoginForm = () => {
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
+        const statusAttempt = attempts >= maxAttempts ? "locked" : "unlocked";
+
+        if(attempts >= maxAttempts) {
+            const today = new Date();
+            today.setHours(today.getHours()+1);
+
+            const loginStatus: LoginStatus = {
+                attempts: attempts, 
+                status: statusAttempt,
+                dateLock: today,
+                dateLockTimestamp: today.getTime()
+            };
+
+            const dateFrm = new Date(loginStatus.dateLockTimestamp!).toLocaleDateString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit', weekday: undefined, hour: '2-digit', hour12: false, minute: '2-digit', second: '2-digit' })
+
+            setDataToast({
+                type: "error", 
+                message: t('validation.errors.lblmaxattempts', {dateLock: ""+dateFrm}) ?? `Max attempts reached. Login will be unlocked in 1 hour. (Date: ${loginStatus.dateLock})`, 
+                statusToast: true,
+                displayName: formData.email ?? ""
+            });
+
+            if(loginStatus.status == "locked" && new Date().getHours() == new Date(""+loginStatus.dateLock).getHours()) {
+                setAttempts(0);
+                saveToStorage("loginStatus", JSON.stringify({
+                    attempts: 0, 
+                    status: "unlocked"
+                }));
+            } else {
+                saveToStorage("loginStatus", JSON.stringify(loginStatus));
+            }
+
+            setTimeout(() => {
+                location.reload();
+            }, 500);
+            
+            return false;
+        }
 
         try {
             if(formData.email.length == 0) {
-                setDataToast({type: "error", message: t('errors.lblreqemail') ?? "Please provide your email", statusToast: true, displayName: formData.email ?? ""});
+                setDataToast({
+                    type: "error", 
+                    message: t('errors.lblreqemail') ?? "Please provide your email", 
+                    statusToast: true, 
+                    displayName: formData.email ?? ""
+                });
                 return false;
             }
             
             if(formData.password.length == 0) {
-                setDataToast({type: "error", message: t('errors.lblreqpassword') ?? "Please provide your password", statusToast: true, displayName: formData.email});
+                setDataToast({
+                    type: "error", 
+                    message: t('errors.lblreqpassword') ?? "Please provide your password", 
+                    statusToast: true, 
+                    displayName: formData.email
+                });
                 return false;
             }
 
@@ -98,7 +156,13 @@ const LoginForm = () => {
                 method: 'post',
                 data: formData
             }).then((r) => {
+                setAttempts(1);
                 const { id, displayName, username, email, jwtToken, avatar, role } = r.data;
+                const loginStatus: LoginStatus = {
+                    attempts: attempts, 
+                    status: statusAttempt
+                };
+                
                 const datax: any = [{
                     id: id,
                     displayName: displayName,
@@ -108,10 +172,16 @@ const LoginForm = () => {
                     role: role,
                     jwtToken: jwtToken
                 }];
-
+                
+                saveToStorage("loginStatus", JSON.stringify(loginStatus));
                 setAvatarUser(avatar);
 
-                setDataToast({type: "success", message: t("apimessages.success", {username: username}) ?? `Logged in as ${username}!`, statusToast: true, displayName: displayName});
+                setDataToast({
+                    type: "success", 
+                    message: t("apimessages.success", {username: username}) ?? `Logged in as ${username}!`, 
+                    statusToast: true, 
+                    displayName: displayName
+                });
 
                 setTimeout(() => {
                     setIsLoggedIn(true);
@@ -122,13 +192,53 @@ const LoginForm = () => {
             }).catch((err) => {
                 console.error(err);
                 setIsLoggedIn(false);
-                setDataToast({type: "error", message: t("apimessages.error", {message: ""+err.message}) ?? `Failed to login! Message: ${err.message}`, statusToast: true, displayName: formData.email});
-                location.reload();
+
+                if(attempts < maxAttempts) {
+                    setAttempts(attempts+1);
+
+                    const loginStatus: LoginStatus = {
+                        attempts: attempts, 
+                        status: statusAttempt
+                    };
+
+                    saveToStorage("loginStatus", JSON.stringify(loginStatus));
+
+                    setDataToast({
+                        type: "error", 
+                        message: t("apimessages.error", {attempts: attempts, maxAttempts: maxAttempts, message: ""+err.message}) ?? `Failed to login (${attempts}/${maxAttempts})! Message: ${err.message}`, 
+                        statusToast: true, 
+                        displayName: formData.email
+                    });
+                }
+
+                setTimeout(() => {
+                    location.reload();
+                }, 1000 * 1);
             });
         } catch (error) {
             console.error(error);
-            setDataToast({type: "error", message: t("apimessages.errorapi", {message: ""+error}) ?? `Error when trying to login! Message: ${error}`, statusToast: true, displayName: formData.email});
-            location.reload();
+
+            if(attempts < maxAttempts) {
+                setAttempts(attempts+1);
+                
+                const loginStatus: LoginStatus = {
+                    attempts: attempts, 
+                    status: statusAttempt
+                };
+
+                saveToStorage("loginStatus", JSON.stringify(loginStatus));
+
+                setDataToast({
+                    type: "error", 
+                    message: t("apimessages.errorapi", {attempts: attempts, maxAttempts: maxAttempts, message: ""+error}) ?? `Error when trying to login (${attempts}/${maxAttempts})! Message: ${error}`, 
+                    statusToast: true, 
+                    displayName: formData.email
+                });
+            }
+
+            setTimeout(() => {
+                location.reload();
+            }, 1000 * 1);
         }
     };
 

@@ -230,13 +230,14 @@
             "errors": {
               "lblreqemail": "L'e-mail est obligatoire.",
               "lblreqpassword": "Le mot de passe est requis.",
-              "lblinvemail": "E-mail invalide"
+              "lblinvemail": "E-mail invalide",
+              "lblmaxattempts": "Nombre maximal de tentatives atteint. La connexion sera déverrouillée dans 1 heure. (Date: {dateLock})"
             }
           },
           "apimessages": {
             "success": "Connecté sous {username}!",
-            "error": "Échec de la connexion! Message: {message}",
-            "errorapi": "Erreur lors de la tentative de connexion! Message: {message}"
+            "error": "Échec de la connexion ({attempts}/{maxAttempts})! Message: {message}",
+            "errorapi": "Erreur lors de la tentative de connexion ({attempts}/{maxAttempts})! Message: {message}"
           }
         },
         "register": {

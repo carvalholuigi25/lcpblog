@@ -230,13 +230,14 @@
                         "errors": {
                             "lblreqemail": "Email is required.",
                             "lblreqpassword": "Password is required.",
-                            "lblinvemail": "Invalid email"
+                            "lblinvemail": "Invalid email",
+                            "lblmaxattempts": "Max attempts reached. Login will be unlocked in 1 hour. (Date: {dateLock})"
                         }
                     },
                     "apimessages": {
                         "success": "Logged in as {username}!",
-                        "error": "Failed to login! Message: {message}",
-                        "errorapi": "Error when trying to login! Message: {message}"
+                        "error": "Failed to login ({attempts}/{maxAttempts})! Message: {message}",
+                        "errorapi": "Error when trying to login ({attempts}/{maxAttempts})! Message: {message}"
                     }
                 },
                 "register": {

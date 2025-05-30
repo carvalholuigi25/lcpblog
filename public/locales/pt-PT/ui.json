@@ -229,13 +229,14 @@
             "errors": {
               "lblreqemail": "E-mail é obrigatório.",
               "lblreqpassword": "Palavra-passe é obrigatória.",
-              "lblinvemail": "E-mail inválido"
+              "lblinvemail": "E-mail inválido",
+              "lblmaxattempts": "Máximo de tentativas atingido. O login será desbloqueado dentro de 1 hora. (Data: {dateLock})"
             }
           },
           "apimessages": {
             "success": "Ligado como {username}!",
-            "error": "Falha ao efetuar o login! Mensagem: {message}",
-            "errorapi": "Erro ao tentar efetuar o login! Mensagem: {message}"
+            "error": "Falha ao efetuar o login ({attempts}/{maxAttempts})! Mensagem: {message}",
+            "errorapi": "Erro ao tentar efetuar o login ({attempts}/{maxAttempts})! Mensagem: {message}"
           }
         },
         "register": {
