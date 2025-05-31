@@ -948,6 +948,19 @@ footer {
   justify-content: center;
   align-items: center;
   margin: 15px auto;
+
+  &.frmdisabled {
+    filter: blur(16px);
+    
+    input:disabled {
+      background-color: beige;
+      cursor: not-allowed !important;
+    }
+
+    button:disabled {
+      cursor: not-allowed !important;
+    }
+  }
 }
 
 form {
