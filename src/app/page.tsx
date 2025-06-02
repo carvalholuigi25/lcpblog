@@ -1,6 +1,8 @@
 "use client";
 import { redirect } from "next/navigation";
+import * as config from "@applocale/utils/config";
 
 export default function RootPage() {
-  redirect("/en-UK");  
+  const langdef = config.getConfigSync().language;
+  redirect("/"+langdef);  
 }

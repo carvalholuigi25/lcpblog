@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import styles from "@applocale/page.module.scss";
-import { useEffect, useState } from 'react';
-import { useLocale, useTranslations } from 'next-intl';
+import { use, useEffect, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { Link } from '@/app/i18n/navigation';
 import { User } from '@applocale/interfaces/user';
 import { getDefLocale } from '@applocale/helpers/defLocale';
@@ -11,9 +12,9 @@ import LoadingComp from '@applocale/components/ui/loadingcomp';
 import Header from '@applocale/ui/header';
 import Footer from '@applocale/ui/footer';
 
-export default function AllUsersPage() {
+export default function AllUsersPage({ params }: { params: any }) {
+  const {locale}: any = use(params);
   const t = useTranslations("pages.UsersPage");
-  const locale = useLocale();
   const [users, setUsers] = useState(new Array<User>());
 
   useEffect(() => {

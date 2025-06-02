@@ -94,7 +94,7 @@ const AdminPosts = () => {
     ];
 
     return (
-        <div className={"mpage " + astyles.admdashboard} id="admdashboard">
+        <div className={"admpage " + astyles.admdashboard} id="admdashboard">
             {!!isAuthorized && (
                 <AdminNavbarDashboard logInfo={logInfo} navbarStatus={barToggle} toggleNavbar={toggleSidebar} locale={locale ?? getDefLocale()} />
             )}

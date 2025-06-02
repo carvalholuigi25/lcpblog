@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import styles from "@applocale/page.module.scss";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useParams, usePathname } from "next/navigation";
 import { Tags } from "@applocale/interfaces/tags";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { Link } from '@/app/i18n/navigation';
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import Header from "@applocale/ui/header";
@@ -13,11 +13,12 @@ import EditTagsForm from "@applocale/components/ui/forms/crud/tags/edit/edit";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import LoadingComp from "@applocale/components/ui/loadingcomp";
 
-export default function EditTags() {
+export default function EditTags({ params }: { params: any }) {
+  const {locale}: any = use(params);
   const t = useTranslations("ui.forms.crud.tags.edit");
   const tbtn = useTranslations("ui.buttons");
 
-  const locale = useLocale();
+  // const locale = useLocale();
   const { tagId } = useParams();
   const [tags, setTags] = useState(null as unknown as Tags);
   const [loading, setLoading] = useState(true);
@@ -63,7 +64,7 @@ export default function EditTags() {
   };
 
   return (
-    <div className={"mpage " + styles.page} id="edittagsmpage">
+    <div className={"admpage " + styles.page} id="edittagsmpage">
       <Header locale={locale ?? getDefLocale()} />
       <section className={styles.section + " " + styles.pstretch}>
         {!tags && getEmptyTags(pathname)}

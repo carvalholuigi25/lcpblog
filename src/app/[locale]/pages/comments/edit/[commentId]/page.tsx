@@ -68,7 +68,7 @@ export default function EditComments() {
   };
 
   return (
-    <div className={"mpage " + styles.page} id="editCommentsmpage">
+    <div className={"npage " + styles.page} id="editCommentsmpage">
       <Header locale={locale ?? getDefLocale()} />
       <section className={styles.section + " " + styles.pstretch}>
         {!Comments && getEmptyComments(pathname)}

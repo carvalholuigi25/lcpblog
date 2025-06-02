@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import styles from "@applocale/page.module.scss";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useParams, usePathname } from "next/navigation";
-import { useLocale } from "next-intl";
 import { User } from "@applocale/interfaces/user";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { Link } from '@/app/i18n/navigation';
@@ -13,8 +12,8 @@ import DeleteUsersForm from "@applocale/components/ui/forms/crud/users/delete/de
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import LoadingComp from "@applocale/components/ui/loadingcomp";
 
-export default function DeleteUsers() {
-  const locale = useLocale();
+export default function DeleteUsers({ params }: { params: any }) {
+  const {locale}: any = use(params);
   const { id } = useParams();
   const [users, setUsers] = useState(null as unknown as User);
   const [loading, setLoading] = useState(true);
@@ -68,7 +67,7 @@ export default function DeleteUsers() {
   };
 
   return (
-    <div className={"mpage " + styles.page} id="deleteusersmpage">
+    <div className={"npage " + styles.page} id="deleteusersmpage">
       <Header locale={locale ?? getDefLocale()} />
       <section className={styles.section + " " + styles.pstretch}>
         {!users && getEmptyUsers(pathname)}

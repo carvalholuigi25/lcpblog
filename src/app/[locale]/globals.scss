@@ -10,6 +10,12 @@
   --animate-duration: 0.5s;
 }
 
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
 html,
 body {
   max-width: 100%;
@@ -31,19 +37,18 @@ body {
   padding-top: 1rem !important;
 }
 
-.mpage {
-  padding-top: 3rem !important;
-}
-
 .mybkgpage {
   background-color: var(--background);
   color: var(--foreground);
+  padding-top: 1rem;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+.admpage {
+  padding-top: 1rem;
+}
+
+.npage {
+  padding-top: calc(1rem + 1rem);
 }
 
 a {
@@ -770,6 +775,7 @@ footer {
     text-align: inherit;
 
     .card-title {
+      font-size: clamp(1.3rem, 2.5vw, 1.5rem);
       padding: 0 15px;
     }
 
@@ -1574,6 +1580,12 @@ a.fc-event:hover {
 
       .bi { order: 0; }
       .card-text { order: 1; margin-top: 15px; }
+    }
+  }
+
+  .cardarch {
+    .card-author .row > * {
+      margin-top: 15px;
     }
   }
 }

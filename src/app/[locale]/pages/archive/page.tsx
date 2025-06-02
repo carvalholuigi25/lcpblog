@@ -4,7 +4,7 @@
 import styles from "@applocale/page.module.scss";
 import Link from "next/link";
 import Image from "next/image";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, use, useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { getDefLocale } from "@applocale/helpers/defLocale";
@@ -12,15 +12,15 @@ import { FetchMultipleDataAxios } from "@applocale/utils/fetchdataaxios";
 import { Posts } from "@applocale/interfaces/posts";
 import { User } from "@applocale/interfaces/user";
 import { Categories } from "@applocale/interfaces/categories";
-import { getImagePath } from "@applocale/functions/functions";
+import { getImagePath, shortenLargeNumber } from "@applocale/functions/functions";
+import { useMySuffix } from "@applocale/hooks/suffixes";
 import Footer from "@applocale/ui/footer";
 import Header from "@applocale/ui/header";
 import LoadingComp from "@applocale/components/ui/loadingcomp";
 import MyPagination from "@applocale/components/ui/mypagination";
-import { useMySuffix } from "@applocale/hooks/suffixes";
 
-export const getYearList = (): any => {
-    const yitem: any[] = [];
+const getYearList = () => {
+    const yitem = [];
     const actyear = new Date().getFullYear();
 
     for (let i = actyear; i <= (actyear + 10); i++) {
@@ -30,8 +30,8 @@ export const getYearList = (): any => {
     return yitem;
 }
 
-export const getMonthList = (lblm: any): any => {
-    const keys: any[] = [];
+const getMonthList = (lblm: any) => {
+    const keys = [];
     const itemsmonths: any[] = [];
 
     for(let i = 1; i <= 12; i++) {
@@ -50,7 +50,8 @@ export const getMonthList = (lblm: any): any => {
     return itemsmonths;
 }
 
-export default function Archive({ locale }: { locale: string }) {
+const Archive = ({ params }: { params: any }) => {
+    const {locale}: any = use(params);
     const t = useTranslations('ui.buttons');
     const tpag = useTranslations('pages.ArchivePage');
     const lblm = useTranslations('pages.ArchivePage.lblmonths') as any;
@@ -63,8 +64,8 @@ export default function Archive({ locale }: { locale: string }) {
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
-    const yearlist: any[] = getYearList();
-    const monthlist: any[] = getMonthList(lblm);
+    const yearlist = getYearList();
+    const monthlist = getMonthList(lblm);
     const pageSize: number = 10;
     const router = useRouter();
     const pathname = usePathname();
@@ -187,46 +188,50 @@ export default function Archive({ locale }: { locale: string }) {
                     if (newsi.userId == useri.userId) {
                         if (newsi.categoryId == categoryi.categoryId) {
                             items.push(
-                                <div className={`col-12 mt-3 mb-4`} key={"news" + i}>
+                                <div className={`col-12 mt-4 mb-4`} key={"news" + i}>
                                     <div className={"card cardarch bshadow rounded"}>
-                                        <div className="row justify-content-center align-items-center">
-                                            <div className="col-md-6 col-lg-4">
+                                        <div className="row justify-content-center align-items-stretch">
+                                            <div className="col-12 col-md-6 col-lg-4 col-xl-3">
                                                 <Image
                                                     src={getImagePath(newsi.image)}
                                                     className="card-img-top rounded mx-auto d-block img-fluid"
                                                     width={800}
                                                     height={400}
-                                                    alt={"blog image "}
+                                                    alt={"blog image"}
                                                     priority
                                                 />
                                             </div>
-                                            <div className="col-md-6 col-lg-8">
-                                                <div className={"card-body"}>
+                                            <div className="col-12 col-md-6 col-lg-8 col-xl-9 p-3">
+                                                <div className={"card-body mt-3 mb-3"}>
                                                     <h5 className="card-title mt-3">{newsi.title}</h5>
                                                     <div className={"card-author card-text mt-3"}>
                                                         <div className="container">
                                                             <div className="row justify-content-center align-items-center">
-                                                                <div className="col-12 col-md-12 col-lg-auto mt-3">
+                                                                <div className="col-12 col-md-12 col-lg-auto">
                                                                     <Image src={getImagePath(useri.avatar)} className="rounded img-fluid img-author" width={30} height={30} alt={useri.displayName + "'s avatar"} />
-                                                                    <Link href={"/pages/users/" + newsi.userId} locale={locale ?? getDefLocale()} className="ms-2 txt-author">
+                                                                    <Link href={"/"+(locale ?? getDefLocale())+"/pages/users/" + newsi.userId} className="ms-2 txt-author">
                                                                         {useri.displayName}
                                                                     </Link>
                                                                 </div>
-                                                                <div className="col-12 col-md-12 col-lg-auto mt-3">
+                                                                <div className="col-12 col-md-12 col-lg-auto">
                                                                     <i className="bi bi-clock icodate"></i>
                                                                     <span className="ms-2 txtdate" title={"" + newsi.createdAt}>
                                                                         {new Date(newsi.createdAt).toLocaleDateString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit', weekday: undefined, hour: '2-digit', hour12: false, minute: '2-digit', second: '2-digit' })}
                                                                     </span>
                                                                 </div>
-                                                                <div className="col-12 col-md-12 col-lg-auto mt-3">
+                                                                <div className="col-12 col-md-12 col-lg-auto">
                                                                     <i className="bi bi-bookmark"></i>
                                                                     <Link href={"/" + newsSuffix + newsi.categoryId} locale={locale ?? getDefLocale()} className="txtcategory ms-2" title={"Categoria: " + categoryi.name}>
                                                                         {categoryi.name}
                                                                     </Link>
                                                                 </div>
-                                                                <div className="col-12 col-md-12 col-lg-auto mt-3">
+                                                                <div className="col-12 col-md-12 col-lg-auto">
                                                                     <i className="bi bi-chat icocomments"></i>
-                                                                    <span className="numcomments ms-2">{totalComments}</span>
+                                                                    <span className="numcomments ms-2">{shortenLargeNumber(totalComments, 1)}</span>
+                                                                </div>
+                                                                <div className="col-12 col-md-12 col-lg-auto">
+                                                                    <i className="bi bi-eye icoviews"></i>
+                                                                    <span className="numviews ms-2">{shortenLargeNumber(newsi.views!, 1)}</span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -292,7 +297,7 @@ export default function Archive({ locale }: { locale: string }) {
     }
 
     return (
-        <div className={"mpage " + styles.page} id="marchivepage">
+        <div className={"npage " + styles.page} id="marchivepage">
             <Header locale={locale ?? getDefLocale()} />
             <section>
                 <Suspense fallback={<LoadingComp type="icon" icontype="ring" />}>
@@ -320,3 +325,5 @@ export default function Archive({ locale }: { locale: string }) {
         </div>
     )
 }
+
+export default Archive;

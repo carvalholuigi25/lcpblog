@@ -2,6 +2,7 @@
     "config": {
         "theme": "glassmorphism",
         "is3DEffectsEnabled": false,
-        "isBordered": true
+        "isBordered": true,
+        "language": "pt-PT"
     }
 }

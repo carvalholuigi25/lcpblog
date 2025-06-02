@@ -1,23 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import styles from "@applocale/page.module.scss";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useParams, usePathname } from "next/navigation";
 import { Categories } from "@applocale/interfaces/categories";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { Link } from '@/app/i18n/navigation';
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import Header from "@applocale/ui/header";
 import Footer from "@applocale/ui/footer";
 import DeleteCategoriesForm from "@applocale/components/ui/forms/crud/categories/delete/delete";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import LoadingComp from "@applocale/components/ui/loadingcomp";
 
-export default function DeleteCategories() {
+export default function DeleteCategories({ params }: { params: any }) {
+  const {locale}: any = use(params);
   const t = useTranslations("ui.forms.crud.categories.delete");
   const tbtn = useTranslations("ui.buttons");
 
-  const locale = useLocale();
   const { categoryId } = useParams();
   const [categories, setCategories] = useState(null as unknown as Categories);
   const [loading, setLoading] = useState(true);
@@ -73,7 +73,7 @@ export default function DeleteCategories() {
   };
 
   return (
-    <div className={"mpage " + styles.page} id="DeleteCategoriesmpage">
+    <div className={"admpage " + styles.page} id="DeleteCategoriesmpage">
       <Header locale={locale ?? getDefLocale()} />
       <section className={styles.section + " " + styles.pstretch}>
         {!categories && getEmptyCategories(pathname)}

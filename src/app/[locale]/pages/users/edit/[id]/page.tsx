@@ -1,20 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import styles from "@applocale/page.module.scss";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useParams, usePathname } from "next/navigation";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { User } from "@applocale/interfaces/user";
 import { Link } from '@/app/i18n/navigation';
-import { useLocale } from "next-intl";
 import Header from "@applocale/ui/header";
 import Footer from "@applocale/ui/footer";
 import EditUsersForm from "@applocale/components/ui/forms/crud/users/edit/edit";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import LoadingComp from "@applocale/components/ui/loadingcomp";
 
-export default function EditUsers() {
-  const locale = useLocale();
+export default function EditUsers({ params }: { params: any }) {
+  const {locale}: any = use(params);
   const { id } = useParams();
   const [users, setUsers] = useState(null as unknown as User);
   const [loading, setLoading] = useState(true);
@@ -68,7 +67,7 @@ export default function EditUsers() {
   };
 
   return (
-    <div className={"mpage " + styles.page} id="editusersmpage">
+    <div className={"npage " + styles.page} id="editusersmpage">
       <Header locale={locale ?? getDefLocale()} />
       <section className={styles.section + " " + styles.pstretch}>
         {!users && getEmptyUsers(pathname)}

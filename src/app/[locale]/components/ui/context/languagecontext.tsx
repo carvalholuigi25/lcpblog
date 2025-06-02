@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import * as config from "@applocale/utils/config";
 
 interface LanguageContextType {
     language: string;
@@ -11,15 +12,16 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-    const pathname = usePathname();
-    const [language, setLanguageState] = useState<string>("en-UK");
+    const langdef = config.getConfigSync().language;
+    const pathname = usePathname();    
+    const [language, setLanguageState] = useState<string>(langdef);
 
     useEffect(() => {
-        const savedLanguage = pathname.split('/')[1] || localStorage.getItem("language") || "en-UK";
+        const savedLanguage = pathname.split('/')[1] || localStorage.getItem("language") || langdef;
         setLanguageState(savedLanguage);
         localStorage.setItem("language", savedLanguage);
         document.documentElement.setAttribute("lang", savedLanguage);
-    }, [pathname]);
+    }, [pathname, langdef]);
 
     const setLanguage = (newLanguage: string) => {
         setLanguageState(newLanguage);

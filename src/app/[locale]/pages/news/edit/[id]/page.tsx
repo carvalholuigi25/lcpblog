@@ -1,20 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import styles from "@applocale/page.module.scss";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useParams, usePathname } from "next/navigation";
 import { Link } from '@/app/i18n/navigation';
 import { Posts } from "@applocale/interfaces/posts";
 import { getDefLocale } from "@applocale/helpers/defLocale";
-import { useLocale } from "next-intl";
+// import { useLocale } from "next-intl";
 import Header from "@applocale/ui/header";
 import Footer from "@applocale/ui/footer";
 import EditNewsForm from "@applocale/components/ui/forms/crud/news/edit/edit";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import LoadingComp from "@applocale/components/ui/loadingcomp";
 
-export default function EditNews() {
-  const locale = useLocale();
+export default function EditNews({ params }: { params: any }) {
+  const {locale}: any = use(params);
+  // const locale = useLocale();
   const { id } = useParams();
   const [news, setNews] = useState(null as unknown as Posts);
   const [loading, setLoading] = useState(true);
@@ -68,7 +69,7 @@ export default function EditNews() {
   };
 
   return (
-    <div className={"mpage " + styles.page} id="editnewsmpage">
+    <div className={"npage " + styles.page} id="editnewsmpage">
       <Header locale={locale ?? getDefLocale()} />
       <section className={styles.section + " " + styles.pstretch}>
         {!news && getEmptyNews(pathname)}

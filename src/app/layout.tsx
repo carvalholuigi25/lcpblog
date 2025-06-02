@@ -40,10 +40,11 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const locale = await getLocale() ?? getDefLocale() ?? 'en-UK';
-  const messages = await getMessages({ locale: locale });
+  const langdef = (await config.getConfig()).language;
   const themeCl = (await config.getConfig()).theme;
   const effects3DCl = (await config.getConfig()).is3DEffectsEnabled ? "effects3D" : "";
+  const locale = await getLocale() ?? getDefLocale() ?? langdef;
+  const messages = await getMessages({ locale: locale });
   const pathname = (await headers()).get("x-current-path");
 
   const dir = getLangDir(locale) ?? "ltr";

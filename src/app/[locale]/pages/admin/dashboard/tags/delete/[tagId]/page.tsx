@@ -1,23 +1,24 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import styles from "@applocale/page.module.scss";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useParams, usePathname } from "next/navigation";
 import { Tags } from "@applocale/interfaces/tags";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { Link } from '@/app/i18n/navigation';
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import Header from "@applocale/ui/header";
 import Footer from "@applocale/ui/footer";
 import DeleteTagsForm from "@applocale/components/ui/forms/crud/tags/delete/delete";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import LoadingComp from "@applocale/components/ui/loadingcomp";
 
-export default function DeleteTags() {
+export default function DeleteTags({ params }: { params: any }) {
+  const {locale}: any = use(params);
   const t = useTranslations("ui.forms.crud.tags.delete");
   const tbtn = useTranslations("ui.buttons");
 
-  const locale = useLocale();
+  // const locale = useLocale();
   const { tagId } = useParams();
   const [tags, setTags] = useState(null as unknown as Tags);
   const [loading, setLoading] = useState(true);
@@ -73,7 +74,7 @@ export default function DeleteTags() {
   };
 
   return (
-    <div className={"mpage " + styles.page} id="DeleteTagsmpage">
+    <div className={"admpage " + styles.page} id="DeleteTagsmpage">
       <Header locale={locale ?? getDefLocale()} />
       <section className={styles.section + " " + styles.pstretch}>
         {!tags && getEmptyTags(pathname)}
