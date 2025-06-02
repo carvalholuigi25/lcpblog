@@ -60,6 +60,7 @@
                     "commitslink": "Commits log"
                 }
             },
+            "settingslink": "Settings",
             "logoutlink": "Logout"
         },
         "buttons": {
@@ -697,6 +698,13 @@
                                 "btncancel": "No"
                             }
                         }
+                    }
+                }
+            },
+            "settings": {
+                "validation": {
+                    "errors": {
+                        "lblsettingtheme": "Please write here the theme name (e.g: glassmorphism)"
                     }
                 }
             },

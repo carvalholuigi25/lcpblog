@@ -95,7 +95,7 @@ export const links = (t: any): AdminSidebarLinksProps[] => {
             id: 6,
             name: t("developers.title") ?? "Developers",
             link: "/developers",
-            icon: "bi-gear-fill",
+            icon: "bi-file-code",
             sublinks: [
                 {
                     id: 1,
@@ -104,6 +104,13 @@ export const links = (t: any): AdminSidebarLinksProps[] => {
                     icon: "bi-journal-richtext"
                 }
             ]
+        },
+        {
+            id: 7,
+            name: t("settingslink") ?? "Settings",
+            link: "/settings",
+            icon: "bi-gear-fill",
+            sublinks: []
         }
     ];
 };

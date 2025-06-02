@@ -205,6 +205,27 @@
             },
             "VideosPage": {
                 "title": "Videos"
+            },
+            "SettingsPage": {
+                "title": "Settings",
+                "form": {
+                    "lblensettings": "Is Settings Enabled?",
+                    "inpensettings": "Toggle the settings",
+                    "lbltheme": "Theme",
+                    "inptheme": "Write the theme name here... (e.g: glassmorphism)",
+                    "lbl3deffects": "Is 3D Effects Enabled?",
+                    "inp3deffects": "Check the 3D effects",
+                    "lblbordered": "Is Bordered Enabled?",
+                    "inpbordered": "Check the bordered effect",
+                    "lbllanguage": "Language",
+                    "inplanguage": "Write the language name here (e.g: pt-PT)...",
+                    "btnreset": "Reset",
+                    "btnupdate": "Update",
+                    "apimessages": {
+                        "success": "Updated the new settings!",
+                        "errorapi": "Failed to update the settings! Message: {message}"
+                    }
+                }
             }
         },
         "AuthPage": {

@@ -1,8 +1,8 @@
 {
-    "config": {
-        "theme": "glassmorphism",
-        "is3DEffectsEnabled": false,
-        "isBordered": true,
-        "language": "pt-PT"
-    }
+  "config": {
+    "theme": "glassmorphism",
+    "is3DEffectsEnabled": false,
+    "isBordered": true,
+    "language": "pt-PT"
+  }
 }

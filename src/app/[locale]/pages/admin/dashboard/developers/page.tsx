@@ -61,7 +61,7 @@ const AdminDevs = ({ locale }: { locale?: string }) => {
                                 </div>
                                 <div className={"col-12 col-md-12 col-lg-12"}>
                                     <h3 className="text-center titlep">
-                                        <i className="bi bi-gear-fill me-2"></i>
+                                        <i className="bi bi-file-code me-2"></i>
                                         {t("title") ?? "Developers"}
                                     </h3>
                                 </div>

@@ -205,6 +205,27 @@
       },
       "VideosPage": {
         "title": "Videos"
+      },
+      "SettingsPage": {
+        "title": "Definições",
+        "form": {
+          "lblensettings": "As definições estão ativadas?",
+          "inpensettings": "Alternar as definições",
+          "lbltheme": "Tema",
+          "inptheme": "Escreve aqui o nome do tema... (ex.: glassmorphism)",
+          "lbl3deffects": "Os efeitos 3D estão activados?",
+          "inp3deffects": "Verificar efeitos 3D",
+          "lblbordered": "A opção Bordas está ativada?",
+          "inpbordered": "Verificar o efeito de borda",
+          "lbllanguage": "Língua",
+          "inplanguage": "Escreva aqui o nome da língua (ex.: pt-PT)...",
+          "btnreset": "Repor",
+          "btnupdate": "Atualizar",
+          "apimessages": {
+            "success": "Novas definições atualizadas!",
+            "errorapi": "Falha ao atualizar as definições! Mensagem: {message}"
+          }
+        }
       }
     },
     "AuthPage": {

@@ -60,6 +60,7 @@
           "commitslink": "Journal des commits"
         }
       },
+      "settingslink": "Paramètres",
       "logoutlink": "Déconnexion"
     },
     "buttons": {
@@ -697,6 +698,13 @@
                 "btncancel": "Non"
               }
             }
+          }
+        }
+      },
+      "settings": {
+        "validation": {
+          "errors": {
+            "lblsettingtheme": "Veuillez écrire ici le nom du thème (par exemple : glassmorphism)"
           }
         }
       },

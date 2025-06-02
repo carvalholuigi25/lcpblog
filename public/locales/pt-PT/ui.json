@@ -60,6 +60,7 @@
           "commitslink": "Registro de commits"
         }
       },
+      "settingslink": "Definições",
       "logoutlink": "Sair"
     },
     "buttons": {
@@ -696,6 +697,13 @@
                 "btncancel": "Não"
               }
             }
+          }
+        }
+      },
+      "settings": {
+        "validation": {
+          "errors": {
+            "lblsettingtheme": "Por favor, escreva aqui o nome do tema (ex.: glassmorphism)"
           }
         }
       },

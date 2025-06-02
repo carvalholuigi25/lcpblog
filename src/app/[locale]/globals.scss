@@ -405,6 +405,23 @@ footer {
   position: relative;
 }
 
+.frmensettings, .frmsettings {
+  input[type=checkbox] {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    top: 5px;
+    left: 5px;
+    appearance: auto;
+  }
+
+  input {
+    width: auto;
+    margin: 0 auto;
+  }
+}
+
 .frmuplfilesingle,
 .frmuplfilesmult {
   .lblfile {
