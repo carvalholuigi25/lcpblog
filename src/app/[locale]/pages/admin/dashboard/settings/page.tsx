@@ -53,10 +53,10 @@ const AdminSettings = () => {
 
         if (!!isResetedForm) {
             setFormData({
-                theme: "glassmorphism",
-                is3DEffectsEnabled: false,
-                isBordered: true,
-                language: "pt-PT"
+                theme: config.getConfigSync().theme ?? "glassmorphism",
+                is3DEffectsEnabled: config.getConfigSync().is3DEffectsEnabled ?? false,
+                isBordered: config.getConfigSync().isBordered ?? true,
+                language: config.getConfigSync().language ?? "pt-PT"
             });
         }
 
@@ -114,10 +114,25 @@ const AdminSettings = () => {
             data: JSON.stringify(formData)
         }).then((r) => {
             console.log(r);
-            setDataToast({type: "success", message: t("form.apimessages.success") ?? "Updated the new settings!", statusToast: true});
+            setDataToast({
+                type: "success", 
+                message: t("form.apimessages.success") ?? "Updated the new settings!", 
+                statusToast: true
+            });
+            setTimeout(() => {
+                location.reload();
+            }, 1000);
         }).catch((e) => {
             console.log(e);
-            setDataToast({type: "error", message: t("form.apimessages.error", {message: ""+e.message}) ?? `Failed to update the settings! Message: ${e.message}`, statusToast: true});
+            const msg = e.response.data.error ?? e.message;
+            setDataToast({
+                type: "error", 
+                message: t("form.apimessages.error", {message: msg}) ?? `Failed to update the settings! Message: ${msg}`, 
+                statusToast: true
+            });
+            setTimeout(() => {
+                location.reload();
+            }, 1000);
         });
     }
 
@@ -191,7 +206,7 @@ const AdminSettings = () => {
                                                     <button className="btn btn-secondary btnreset btn-rounded" type="reset" onClick={handleReset}>
                                                         {t('form.btnreset') ?? "Reset"}
                                                     </button>
-                                                    <button className="btn btn-primary btnlog btn-rounded ms-3" type="submit" disabled={isSubmitting}>
+                                                    <button className="btn btn-primary btnupdate btn-rounded ms-3" type="submit" disabled={isSubmitting}>
                                                         {t('form.btnupdate') ?? "Update"}
                                                     </button>
                                                 </div>

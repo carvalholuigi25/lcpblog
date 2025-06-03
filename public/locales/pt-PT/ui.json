@@ -705,6 +705,11 @@
           "errors": {
             "lblsettingtheme": "Por favor, escreva aqui o nome do tema (ex.: glassmorphism)"
           }
+        },
+        "messages": {
+          "themenotfound": "Falha ao encontrar o tema {themeName}.",
+          "langnotfound": "Falha ao encontrar o idioma {languageName}.",
+          "langinvalidformat": "O nome do idioma deve conter este formato pela ISO 639: (set1)-(set2) (ex: pt-PT)"
         }
       },
       "search": {

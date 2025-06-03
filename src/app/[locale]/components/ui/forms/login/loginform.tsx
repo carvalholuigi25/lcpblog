@@ -16,6 +16,7 @@ import { getDefLocale } from "@applocale/helpers/defLocale";
 import { DataToastsProps } from "@applocale/interfaces/toasts";
 import ShowAlert from "@applocale/components/ui/alerts";
 import Toasts from "@applocale/components/ui/toasts/toasts";
+import CountdownLogin from "@/app/[locale]/components/ui/countdowns/countdownlogin";
 
 interface LoginStatus {
     attempts: number;
@@ -35,6 +36,8 @@ const LoginForm = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isLoginLocked, setIsLoginLocked] = useState(false);
     const [isResetedForm, setIsResetedForm] = useState(false);
+    const [attempts, setAttempts] = useState<number>(1);
+    const [dateCur, setDateCur] = useState(new Date().toISOString());
     const [logInfo, setLogInfo] = useState(getFromStorage("logInfo"));
     const [avatarUser, setAvatarUser] = useState("avatars/guest.png");
     const [dataToast, setDataToast] = useState({
@@ -47,7 +50,6 @@ const LoginForm = () => {
         email: test ? 'luiscarvalho239@gmail.com' : '',
         password: test ? '1234' : ''
     });
-    const [attempts, setAttempts] = useState<number>(1);
 
     const {
         register,
@@ -60,6 +62,7 @@ const LoginForm = () => {
     useEffect(() => {
         if (getFromStorage("loginStatus")) {
             setAttempts(parseInt("" + (JSON.parse(getFromStorage("loginStatus")!).attempts + 1)));
+            setDateCur(JSON.parse(getFromStorage("loginStatus")!).dateLock);
 
             if (!disableLoginLockCheck) {
                 setIsLoginLocked(JSON.parse(getFromStorage("loginStatus")!).status == "locked" ? true : false);
@@ -96,6 +99,20 @@ const LoginForm = () => {
         }
     };
 
+    const onFinish = () => {
+        if(getFromStorage("loginStatus")) {
+            const loginStatus = JSON.parse(getFromStorage("loginStatus")!);
+            if(attempts >= maxAttempts && loginStatus.status == "locked" && new Date().getHours() >= new Date("" + loginStatus.dateLock).getHours()) {
+                setAttempts(0);
+                saveToStorage("loginStatus", JSON.stringify({
+                    attempts: 0,
+                    status: "unlocked"
+                }));
+                location.reload();
+            }
+        }
+    }
+
     const onSubmit = async () => {
         if (!isLoginLocked) {
             const statusAttempt = attempts >= maxAttempts ? "locked" : "unlocked";
@@ -120,15 +137,16 @@ const LoginForm = () => {
                     displayName: formData.email ?? ""
                 });
 
-                if (loginStatus.status == "locked" && new Date().getHours() == new Date("" + loginStatus.dateLock).getHours()) {
+                if (loginStatus.status == "locked" && new Date().getHours() <= new Date("" + loginStatus.dateLock).getHours()) {
                     setAttempts(0);
                 }
-
-                saveToStorage("loginStatus", JSON.stringify(loginStatus));
 
                 if (!disableLoginLockCheck) {
                     setIsLoginLocked(true);
                 }
+
+                saveToStorage("loginStatus", JSON.stringify(loginStatus));
+                setIsResetedForm(true);
 
                 setTimeout(() => {
                     location.reload();
@@ -323,7 +341,11 @@ const LoginForm = () => {
                     </form>
 
                     {isLoginLocked && getFromStorage("loginStatus")! && (
-                        <p className="text-center">{t('validation.errors.lblmaxattempts', { dateLock: JSON.parse(getFromStorage("loginStatus")!).dateLock }) ?? `Max attempts reached. Login will be unlocked in 1 hour. (Date: ${JSON.parse(getFromStorage("loginStatus")!).dateLock})`}</p>
+                        <>
+                            <p className="text-center">{t('validation.errors.lblmaxattempts', { dateLock: JSON.parse(getFromStorage("loginStatus")!).dateLock }) ?? `Max attempts reached. Login will be unlocked in 1 hour. (Date: ${JSON.parse(getFromStorage("loginStatus")!).dateLock})`}</p>
+
+                            <CountdownLogin datecur={dateCur} onFinish={onFinish} />
+                        </>
                     )}
 
                     <Link href="/auth/register" className="text-center mt-3" locale={locale}>

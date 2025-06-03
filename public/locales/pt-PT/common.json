@@ -223,7 +223,7 @@
           "btnupdate": "Atualizar",
           "apimessages": {
             "success": "Novas definições atualizadas!",
-            "errorapi": "Falha ao atualizar as definições! Mensagem: {message}"
+            "error": "Falha ao atualizar as definições! Mensagem: {message}"
           }
         }
       }

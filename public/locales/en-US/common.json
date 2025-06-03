@@ -223,7 +223,7 @@
                     "btnupdate": "Update",
                     "apimessages": {
                         "success": "Updated the new settings!",
-                        "errorapi": "Failed to update the settings! Message: {message}"
+                        "error": "Failed to update the settings! Message: {message}"
                     }
                 }
             }
