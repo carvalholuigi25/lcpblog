@@ -119,16 +119,17 @@ const LoginForm = () => {
 
             if (attempts >= maxAttempts) {
                 const today = new Date();
-                today.setUTCHours(today.getHours() + 1);
+                today.setUTCHours(today.getUTCHours() + 1);
+                // today.setTime(today.getTime() + (1*60*60*1000));
 
                 const loginStatus: LoginStatus = {
                     attempts: attempts,
                     status: statusAttempt,
-                    dateLock: today,
+                    dateLock: today.toISOString(),
                     dateLockTimestamp: today.getTime()
                 };
 
-                const dateFrm = new Date(loginStatus.dateLockTimestamp!).toLocaleDateString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit', weekday: undefined, hour: '2-digit', hour12: false, minute: '2-digit', second: '2-digit' })
+                const dateFrm = new Date(loginStatus.dateLockTimestamp!).toLocaleDateString(getDefLocale() ?? "pt-PT", { year: 'numeric', month: '2-digit', day: '2-digit', weekday: undefined, hour: '2-digit', hour12: false, minute: '2-digit', second: '2-digit' })
 
                 setDataToast({
                     type: "error",

@@ -51,10 +51,11 @@ export default async function RootLayout({
   const stuffconfig = `${themeCl} ${effects3DCl}`;
   const fonts = `${poppins.variable} ${roboto.variable} ${orbitron.variable}`;
   const fixedAdmCl = pathname && pathname.includes("admin") ? "fixedadm" : "";
+  const authCl = pathname && pathname.includes("auth") ? "authp" : "";
 
   return (
     <html lang={locale} dir={dir} data-bs-theme="system" suppressHydrationWarning={true}>
-      <body className={`${fonts} ${stuffconfig} ${fixedAdmCl} mybkgpage`}>
+      <body className={`${fonts} ${stuffconfig} ${fixedAdmCl} ${authCl} mybkgpage`}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <div className="modal-root" id="modal-root"></div>
           <div id="toast-root"></div>

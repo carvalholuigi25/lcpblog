@@ -15,7 +15,9 @@ export default function CountdownLogin({datecur, onFinish}: CountdownLoginProps)
 
   useEffect(() => {
     const updateProgress = () => {
-      if(progress == 100) {
+      setLoading(false);
+
+      if(progress == 100 && !loading) {
         setTimeLeft("Finished!");
         onFinish();
         return false;
@@ -39,7 +41,6 @@ export default function CountdownLogin({datecur, onFinish}: CountdownLoginProps)
       }
     };
 
-    setLoading(false);
     const interval = setInterval(updateProgress, 1000);
     return () => clearInterval(interval);
   }, [startDate, endDate, progress, loading, onFinish]);

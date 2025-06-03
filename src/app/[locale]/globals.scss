@@ -40,6 +40,11 @@ body {
 .mybkgpage {
   background-color: var(--background);
   color: var(--foreground);
+  padding-top: 1rem;
+}
+
+.authp {
+  padding-top: 0 !important;
 }
 
 .admpage {
