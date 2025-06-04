@@ -11,7 +11,7 @@ using lcpblogapi.Context;
 namespace lcpblogapi.Migrations.SQLite
 {
     [DbContext(typeof(MyDBContextSQLite))]
-    [Migration("20250523155743_InitialCreateSQLite")]
+    [Migration("20250604101827_InitialCreateSQLite")]
     partial class InitialCreateSQLite
     {
         /// <inheritdoc />
@@ -49,29 +49,29 @@ namespace lcpblogapi.Migrations.SQLite
                         new
                         {
                             CategoryId = 1,
-                            CreatedAt = new DateTimeOffset(new DateTime(2025, 5, 23, 16, 57, 42, 173, DateTimeKind.Unspecified).AddTicks(7236), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2025, 6, 4, 11, 18, 25, 691, DateTimeKind.Unspecified).AddTicks(7864), new TimeSpan(0, 1, 0, 0, 0)),
                             Name = "Geral",
                             Slug = "/geral",
                             Status = 0,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2025, 5, 23, 16, 57, 42, 173, DateTimeKind.Unspecified).AddTicks(7587), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2025, 6, 4, 11, 18, 25, 691, DateTimeKind.Unspecified).AddTicks(8494), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             CategoryId = 2,
-                            CreatedAt = new DateTimeOffset(new DateTime(2025, 5, 23, 16, 57, 42, 173, DateTimeKind.Unspecified).AddTicks(7927), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2025, 6, 4, 11, 18, 25, 691, DateTimeKind.Unspecified).AddTicks(9055), new TimeSpan(0, 1, 0, 0, 0)),
                             Name = "Tecnologia",
                             Slug = "/tecnologia",
                             Status = 0,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2025, 5, 23, 16, 57, 42, 173, DateTimeKind.Unspecified).AddTicks(7929), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2025, 6, 4, 11, 18, 25, 691, DateTimeKind.Unspecified).AddTicks(9059), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             CategoryId = 3,
-                            CreatedAt = new DateTimeOffset(new DateTime(2025, 5, 23, 16, 57, 42, 173, DateTimeKind.Unspecified).AddTicks(7938), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2025, 6, 4, 11, 18, 25, 691, DateTimeKind.Unspecified).AddTicks(9073), new TimeSpan(0, 1, 0, 0, 0)),
                             Name = "Outros",
                             Slug = "/outros",
                             Status = 0,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2025, 5, 23, 16, 57, 42, 173, DateTimeKind.Unspecified).AddTicks(7940), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2025, 6, 4, 11, 18, 25, 691, DateTimeKind.Unspecified).AddTicks(9078), new TimeSpan(0, 1, 0, 0, 0))
                         });
                 });
 
@@ -136,6 +136,43 @@ namespace lcpblogapi.Migrations.SQLite
                     b.ToTable("FilesMetadata");
                 });
 
+            modelBuilder.Entity("lcpblogapi.Models.LoginAttempts", b =>
+                {
+                    b.Property<int>("LoginAttemptId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Attempts")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("DateLock")
+                        .HasColumnType("TEXT");
+
+                    b.Property<long?>("DateLockTimestamp")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("Status")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("LoginAttemptId");
+
+                    b.ToTable("LoginAttempts");
+
+                    b.HasData(
+                        new
+                        {
+                            LoginAttemptId = 1,
+                            Attempts = 0,
+                            DateLock = new DateTime(2025, 6, 4, 11, 18, 25, 692, DateTimeKind.Utc).AddTicks(6975),
+                            DateLockTimestamp = 1749035905L,
+                            Status = 1,
+                            UserId = 1
+                        });
+                });
+
             modelBuilder.Entity("lcpblogapi.Models.Post", b =>
                 {
                     b.Property<int>("PostId")
@@ -190,13 +227,13 @@ namespace lcpblogapi.Migrations.SQLite
                             PostId = 1,
                             CategoryId = 1,
                             Content = "Welcome to LCPBlog!",
-                            CreatedAt = new DateTimeOffset(new DateTime(2025, 5, 23, 16, 57, 42, 173, DateTimeKind.Unspecified).AddTicks(40), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2025, 6, 4, 11, 18, 25, 690, DateTimeKind.Unspecified).AddTicks(4531), new TimeSpan(0, 1, 0, 0, 0)),
                             Image = "blog.jpg",
                             Slug = "/",
                             Status = 0,
                             Tags = "[\"#geral\"]",
                             Title = "Welcome to LCPBlog!",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2025, 5, 23, 16, 57, 42, 173, DateTimeKind.Unspecified).AddTicks(396), new TimeSpan(0, 1, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2025, 6, 4, 11, 18, 25, 690, DateTimeKind.Unspecified).AddTicks(5107), new TimeSpan(0, 1, 0, 0, 0)),
                             UserId = 1,
                             Views = 0,
                             ViewsCounter = 0
@@ -331,7 +368,7 @@ namespace lcpblogapi.Migrations.SQLite
                             Cover = "covers/luis.jpg",
                             DisplayName = "Luis Carvalho",
                             Email = "luiscarvalho239@gmail.com",
-                            Password = "$2a$10$K0NWF8TH8Tw7msDNKZzLP.TOBEvjhWoj/gUa/CAE4DTN.0Um0Kr9W",
+                            Password = "$2a$10$cXs7l55h.pOg/4.q7FwCBeys8IzORF3LtszGN6VVFpHhmFbFARUiC",
                             Privacy = 0,
                             Role = 6,
                             Username = "admin",

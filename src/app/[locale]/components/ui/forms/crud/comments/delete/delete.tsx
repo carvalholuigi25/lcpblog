@@ -93,7 +93,7 @@ const DeleteCommentsForm = ({ commentId, data }: { commentId: number, data: Comm
 
     return (
         <div className="container">
-            {dataToast.statusToast && <Toasts id={"toastDeleteCommentsForm"} data={dataToast} />}
+            {dataToast.statusToast && <Toasts id={"toastDeleteCommentsForm"} data={dataToast} modeType={1} />}
 
             {!isLoggedIn && (
                 <>

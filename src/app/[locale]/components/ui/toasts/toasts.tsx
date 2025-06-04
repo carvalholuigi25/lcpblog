@@ -8,12 +8,11 @@ import { getFromStorage } from "@applocale/hooks/localstorage";
 import { getImagePath } from "@applocale/functions/functions";
 import { useTranslations } from "next-intl";
 
-export default function Toasts({ id, data }: ToastsProps) {
+export default function Toasts({ id, data, modeType }: ToastsProps) {
     const t = useTranslations("ui.toasts.data");
     const [isClosed, setIsClosed] = useState(data.statusToast ? false : true);
     const status = !!data.statusToast ? "show" : "hidden";
     const mtype = data.type ? `${data.type}` : "";
-    const modeType = 1; // 0 - blog name 1 - display name
 
     const close = useCallback((event: any) => {
         if (event.key === "Escape" && !!data.statusToast) {
@@ -47,14 +46,13 @@ export default function Toasts({ id, data }: ToastsProps) {
                                 <>
                                     <Image src={getImagePath(getAvatar())} className="rounded img-fluid img-author me-2" width={20} height={20} alt={getDisplayName() + "'s avatar"} />
                                     <strong className={getDisplayName().length > 5 ? "longname" : "name"}>{getDisplayName()}</strong>
+                                    <small className="text-body-secondary ms-1">
+                                        {t("timestatus") ?? `has posted few seconds ago...`}
+                                    </small>
                                 </>
                             ) : (
                                 <strong>LCPBlog</strong>
                             )}
-
-                            <small className="text-body-secondary ms-1">
-                                {t("timestatus") ?? `has posted few seconds ago...`}
-                            </small>
                         </div>
 
                         <div className="d-flex justify-content-end align-items-center">

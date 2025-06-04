@@ -23,6 +23,7 @@ public class MyDBContext : DbContext
     public DbSet<PostTag> PostTags { get; set; } = null!;
     public DbSet<FileMetadata> FilesMetadata { get; set; } = null!;
     public DbSet<Schedules> Schedule { get; set; } = null!;
+    public DbSet<LoginAttempts> LoginAttempts { get; set; } = null!;
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

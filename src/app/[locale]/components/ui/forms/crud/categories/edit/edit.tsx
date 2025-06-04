@@ -141,7 +141,7 @@ const EditCategoriesForm = ({categoryid, data}: {categoryid: number, data: Categ
 
     return (
         <div className="container">
-            {dataToast.statusToast && <Toasts id={"toastEditCategoriesForm"} data={dataToast} />}
+            {dataToast.statusToast && <Toasts id={"toastEditCategoriesForm"} data={dataToast} modeType={1} />}
 
             {!isLoggedIn && (
                 <>

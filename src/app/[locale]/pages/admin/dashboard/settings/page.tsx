@@ -138,7 +138,7 @@ const AdminSettings = () => {
 
     return (
         <div className={"admpage " + astyles.admdashboard} id="admdashboard">
-            {dataToast.statusToast && <Toasts id={"toastUpdateSettings"} data={dataToast} />}
+            {dataToast.statusToast && <Toasts id={"toastUpdateSettings"} data={dataToast} modeType={1} />}
             
             {!!isAuthorized && (
                 <AdminNavbarDashboard logInfo={logInfo} navbarStatus={barToggle} toggleNavbar={toggleSidebar} locale={locale ?? getDefLocale()} />

@@ -128,7 +128,7 @@ const EditTagsForm = ({tagId, data}: {tagId: number, data: Tags}) => {
 
     return (
         <div className="container">
-            {dataToast.statusToast && <Toasts id={"toastEditTagsForm"} data={dataToast} />}
+            {dataToast.statusToast && <Toasts id={"toastEditTagsForm"} data={dataToast} modeType={1} />}
 
             {!isLoggedIn && (
                 <>

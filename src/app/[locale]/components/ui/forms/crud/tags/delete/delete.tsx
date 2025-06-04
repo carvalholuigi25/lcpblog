@@ -67,7 +67,7 @@ const DeleteTagsForm = ({ id, data }: { id: number, data: Tags }) => {
 
     return (
         <div className="container">
-            {dataToast.statusToast && <Toasts id={"toastDeleteTagsForm"} data={dataToast} />}
+            {dataToast.statusToast && <Toasts id={"toastDeleteTagsForm"} data={dataToast} modeType={1} />}
 
             {!isLoggedIn && (
                 <>

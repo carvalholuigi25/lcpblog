@@ -158,7 +158,7 @@ export default function Schedule({ data }: { data?: Schedules[] }) {
 
     return (
         <>
-            {dataToast.statusToast && <Toasts id={"toastSchedule"} data={dataToast} />}
+            {dataToast.statusToast && <Toasts id={"toastSchedule"} data={dataToast} modeType={1} />}
             {showModal && <ModalSchedule statusModal={showModal} onClose={closeModal} data={dataModal} />}
             <div className={"myschedule"}>
                 <FullCalendar ref={calendarRef} {...calendarOptions} />

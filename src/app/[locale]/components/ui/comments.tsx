@@ -289,7 +289,7 @@ export default function Comments({ userId, postId, categoryId, isCommentFormShow
     const getMyFormComments = () => {
         return !!isCommentFormShown && isLoggedIn && (
             <>
-                {dataToast.statusToast && <Toasts id={"toastAddNewComments"} data={dataToast} />}
+                {dataToast.statusToast && <Toasts id={"toastAddNewComments"} data={dataToast} modeType={1} />}
                 <div className="frmcommentsblk mt-3 mb-3">
                     <div className="frmcommentscol1">
                         <Image src={getImagePath(JSON.parse(logInfo!)[0].avatar!)} className="rounded img-fluid img-author" width={50} height={50} alt={t("inputs.lblphavatar", {displayName: JSON.parse(logInfo!)[0].displayName!}) ?? JSON.parse(logInfo!)[0].displayName! + "'s avatar"} />

@@ -119,7 +119,7 @@ const RegForm = () => {
 
   return (
     <>
-      {dataToast.statusToast && <Toasts id={"toastRegisterFrm"} data={dataToast} />}
+      {dataToast.statusToast && <Toasts id={"toastRegisterFrm"} data={dataToast} modeType={0} />}
     
       {!!isLoggedIn && (
         <div className="col-12 mx-auto">

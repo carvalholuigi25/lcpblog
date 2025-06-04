@@ -116,7 +116,7 @@ const EditUsersForm = ({id, data}: {id: number, data: User}) => {
 
     return (
         <div className="container">
-            {dataToast.statusToast && <Toasts id={"toastEditUsersForm"} data={dataToast} />}
+            {dataToast.statusToast && <Toasts id={"toastEditUsersForm"} data={dataToast} modeType={1} />}
 
             {!isLoggedIn && (
                 <>

@@ -56,24 +56,28 @@ public class UsersRepo : ControllerBase, IUsersRepo
         return user;
     }
 
-    public async Task<ActionResult<UserAvatarSearchResp>> GetAvatarUser(UserAvatarSearch userAvatarSearch) 
+    public async Task<ActionResult<UserAvatarSearchResp>> GetAvatarUser(UserAvatarSearch userAvatarSearch)
     {
-        if(string.IsNullOrEmpty(userAvatarSearch.Email)) {
+        if (string.IsNullOrEmpty(userAvatarSearch.Email))
+        {
             return BadRequest("Please provide your email.");
         }
 
         var datasrch = await _context.Users.Where(x => x.Email! == userAvatarSearch.Email).Select(x => x.Avatar).FirstOrDefaultAsync();
 
-        if(datasrch == null) {
+        if (datasrch == null)
+        {
             return (
-                new UserAvatarSearchResp {
+                new UserAvatarSearchResp
+                {
                     Avatar = "avatars/guest.png"
                 }
             );
         }
 
         return Ok(
-            new UserAvatarSearchResp {
+            new UserAvatarSearchResp
+            {
                 Avatar = datasrch
             }
         );

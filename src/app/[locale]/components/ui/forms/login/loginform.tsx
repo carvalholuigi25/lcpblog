@@ -3,9 +3,10 @@
 import styles from "@applocale/page.module.scss";
 import Image from "next/image";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { DateTime } from "luxon";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
 import { Link } from '@/app/i18n/navigation';
@@ -16,13 +17,15 @@ import { getDefLocale } from "@applocale/helpers/defLocale";
 import { DataToastsProps } from "@applocale/interfaces/toasts";
 import ShowAlert from "@applocale/components/ui/alerts";
 import Toasts from "@applocale/components/ui/toasts/toasts";
-import CountdownLogin from "@/app/[locale]/components/ui/countdowns/countdownlogin";
+import CountdownLogin from "@applocale/components/ui/countdowns/countdownlogin";
 
 interface LoginStatus {
+    loginAttemptId?: number;
     attempts: number;
     status: string;
     dateLock?: Date | string;
     dateLockTimestamp?: number;
+    userId?: number;
 }
 
 const LoginForm = () => {
@@ -37,6 +40,7 @@ const LoginForm = () => {
     const [isLoginLocked, setIsLoginLocked] = useState(false);
     const [isResetedForm, setIsResetedForm] = useState(false);
     const [attempts, setAttempts] = useState<number>(1);
+    const [isAttemptsUpdated, setIsAttemptsUpdated] = useState(false);
     const [dateCur, setDateCur] = useState(new Date().toISOString());
     const [logInfo, setLogInfo] = useState(getFromStorage("logInfo"));
     const [avatarUser, setAvatarUser] = useState("avatars/guest.png");
@@ -59,14 +63,72 @@ const LoginForm = () => {
         resolver: zodResolver(useMySchemaLogin()),
     });
 
+    const loadAttemptsIfLoginStatusIsDeleted = useCallback(async () => {
+        if(!getFromStorage("loginStatus")) {
+            await axios({
+                url: `${process.env.apiURL}/api/loginattempts`,
+                method: 'get'
+            }).then((r) => {
+                console.log(r);
+                const data = r.data;
+                
+                if(data && data.length > 0) {
+                    const nlogattempts: LoginStatus = {
+                        loginAttemptId: data.loginAttemptId,
+                        attempts: data.attempts,
+                        status: data.status,
+                        dateLock: data.dateLock,
+                        dateLockTimestamp: data.dateLockTimestamp,
+                        userId: data.userId
+                    };
+
+                    saveToStorage("loginStatus", JSON.stringify(nlogattempts));
+                }
+            }).catch((e) => {
+                console.log(e);
+            });
+        }
+    }, []);
+
+    const doLoginAttemptsIntoDB = useCallback(async (loginStatus: LoginStatus) => {
+        if(isAttemptsUpdated) {
+            const typem = getFromStorage("loginStatus") ? "update" : "create";
+            const method = typem == "create" ? "post" : getFromStorage("loginStatus") ? "put" : "post";
+            const uid = typem == "create" ? "" : method == "put" ? "/"+getUserId() : "";
+            const today = DateTime.now().setLocale(getDefLocale()).set({hour: new Date().getHours()+1});
+
+            await axios({
+                url: `${process.env.apiURL}/api/loginattempts${uid}`,
+                method: method,
+                data: {
+                    loginAttemptId: loginStatus.loginAttemptId ?? 1,
+                    attempts: loginStatus.attempts ?? attempts,
+                    status: loginStatus.attempts >= maxAttempts ? "locked" : "unlocked",
+                    dateLock: loginStatus.dateLock ?? today.toISO()!,
+                    dateLockTimestamp: loginStatus.dateLockTimestamp ?? today.toMillis(),
+                    userId: getUserId()
+                }
+            }).then((r) => {
+                console.log(r);
+            }).catch((e) => {
+                console.log(e);
+            });
+        }
+    }, [attempts, isAttemptsUpdated]);
+
     useEffect(() => {
+        loadAttemptsIfLoginStatusIsDeleted();
+        
         if (getFromStorage("loginStatus")) {
-            setAttempts(parseInt("" + (JSON.parse(getFromStorage("loginStatus")!).attempts + 1)));
-            setDateCur(JSON.parse(getFromStorage("loginStatus")!).dateLock);
+            const loginStatus = JSON.parse(getFromStorage("loginStatus")!);
 
             if (!disableLoginLockCheck) {
-                setIsLoginLocked(JSON.parse(getFromStorage("loginStatus")!).status == "locked" ? true : false);
+                setIsLoginLocked(loginStatus.status == "locked" ? true : false);
             }
+
+            setAttempts(parseInt("" + (loginStatus.attempts + 1)));
+            setDateCur(loginStatus.dateLock);
+            doLoginAttemptsIntoDB(loginStatus);
         }
 
         if (!!isResetedForm) {
@@ -79,7 +141,7 @@ const LoginForm = () => {
         if (logInfo) {
             setIsLoggedIn(true);
         }
-    }, [isResetedForm, logInfo, attempts, disableLoginLockCheck]);
+    }, [isResetedForm, logInfo, attempts, disableLoginLockCheck, loadAttemptsIfLoginStatusIsDeleted, doLoginAttemptsIntoDB]);
 
     const handleChange = (e: any) => {
         const { name, value } = e.target;
@@ -99,16 +161,25 @@ const LoginForm = () => {
         }
     };
 
-    const onFinish = () => {
+    const onFinish = async () => {
         if(getFromStorage("loginStatus")) {
             const loginStatus = JSON.parse(getFromStorage("loginStatus")!);
-            if(attempts >= maxAttempts && loginStatus.status == "locked" && new Date().getHours() >= new Date("" + loginStatus.dateLock).getHours()) {
-                setAttempts(0);
-                saveToStorage("loginStatus", JSON.stringify({
+            if(attempts >= maxAttempts && loginStatus.status == "locked" && new Date().getHours() <= new Date("" + loginStatus.dateLock).getHours()) {
+                if (!disableLoginLockCheck) {
+                    setIsLoginLocked(false);
+                }
+
+                const nloginStatus: LoginStatus = {
                     attempts: 0,
-                    status: "unlocked"
-                }));
-                location.reload();
+                    status: "unlocked",
+                    dateLock: "",
+                    dateLockTimestamp: 0,
+                    userId: getUserId()
+                };
+
+                setAttempts(0);
+                saveToStorage("loginStatus", JSON.stringify(nloginStatus));
+                setIsAttemptsUpdated(true);
             }
         }
     }
@@ -116,20 +187,17 @@ const LoginForm = () => {
     const onSubmit = async () => {
         if (!isLoginLocked) {
             const statusAttempt = attempts >= maxAttempts ? "locked" : "unlocked";
+            const today = DateTime.now().setLocale(getDefLocale()).set({hour: new Date().getHours()+1});
+            const loginStatus: LoginStatus = {
+                attempts: attempts,
+                status: statusAttempt,
+                dateLock: today.toISO()!,
+                dateLockTimestamp: today.toMillis(),
+                userId: getUserId()
+            };
 
             if (attempts >= maxAttempts) {
-                const today = new Date();
-                today.setUTCHours(today.getUTCHours() + 1);
-                // today.setTime(today.getTime() + (1*60*60*1000));
-
-                const loginStatus: LoginStatus = {
-                    attempts: attempts,
-                    status: statusAttempt,
-                    dateLock: today.toISOString(),
-                    dateLockTimestamp: today.getTime()
-                };
-
-                const dateFrm = new Date(loginStatus.dateLockTimestamp!).toLocaleDateString(getDefLocale() ?? "pt-PT", { year: 'numeric', month: '2-digit', day: '2-digit', weekday: undefined, hour: '2-digit', hour12: false, minute: '2-digit', second: '2-digit' })
+                const dateFrm = today.toLocaleString(DateTime.DATETIME_FULL);
 
                 setDataToast({
                     type: "error",
@@ -183,10 +251,14 @@ const LoginForm = () => {
                     data: formData
                 }).then((r) => {
                     setAttempts(0);
+
                     const { id, displayName, username, email, jwtToken, avatar, role } = r.data;
                     const loginStatus: LoginStatus = {
                         attempts: attempts > 0 ? (attempts - attempts) : 0,
-                        status: "unlocked"
+                        status: "unlocked",
+                        dateLock: today.toISO()!,
+                        dateLockTimestamp: today.toMillis(),
+                        userId: getUserId()
                     };
 
                     const datax: any = [{
@@ -199,12 +271,11 @@ const LoginForm = () => {
                         jwtToken: jwtToken
                     }];
 
-                    saveToStorage("loginStatus", JSON.stringify(loginStatus));
-
                     if (!disableLoginLockCheck) {
                         setIsLoginLocked(false);
                     }
 
+                    saveToStorage("loginStatus", JSON.stringify(loginStatus));
                     setAvatarUser(avatar);
 
                     setDataToast({
@@ -215,11 +286,12 @@ const LoginForm = () => {
                     });
 
                     setTimeout(() => {
+                        setIsAttemptsUpdated(true);
                         setIsLoggedIn(true);
                         setLogInfo(datax);
                         saveToStorage("logInfo", JSON.stringify(datax));
                         push("/" + locale);
-                    }, 200);
+                    }, 1000);
                 }).catch((err) => {
                     console.error(err);
                     setIsLoggedIn(false);
@@ -229,10 +301,14 @@ const LoginForm = () => {
 
                         const loginStatus: LoginStatus = {
                             attempts: attempts,
-                            status: attempts >= maxAttempts ? "locked" : "unlocked"
+                            status: attempts >= maxAttempts ? "locked" : "unlocked",
+                            dateLock: today.toISO()!,
+                            dateLockTimestamp: today.toMillis(),
+                            userId: getUserId()
                         };
 
                         saveToStorage("loginStatus", JSON.stringify(loginStatus));
+                        setIsAttemptsUpdated(true);
 
                         setDataToast({
                             type: "error",
@@ -244,7 +320,7 @@ const LoginForm = () => {
 
                     setTimeout(() => {
                         location.reload();
-                    }, 1000 * 1);
+                    }, 1000);
                 });
             } catch (error) {
                 console.error(error);
@@ -254,10 +330,14 @@ const LoginForm = () => {
 
                     const loginStatus: LoginStatus = {
                         attempts: attempts,
-                        status: attempts >= maxAttempts ? "locked" : "unlocked"
+                        status: attempts >= maxAttempts ? "locked" : "unlocked",
+                        dateLock: today.toISO()!,
+                        dateLockTimestamp: today.toMillis(),
+                        userId: getUserId()
                     };
 
                     saveToStorage("loginStatus", JSON.stringify(loginStatus));
+                    setIsAttemptsUpdated(true);
 
                     setDataToast({
                         type: "error",
@@ -269,7 +349,7 @@ const LoginForm = () => {
 
                 setTimeout(() => {
                     location.reload();
-                }, 1000 * 1);
+                }, 1000);
             }
         }
     };
@@ -278,9 +358,13 @@ const LoginForm = () => {
         return getFromStorage("logInfo") ? JSON.parse(getFromStorage("logInfo")!)[0].displayName : null;
     };
 
+    const getUserId = () => {
+        return getFromStorage("logInfo") ? JSON.parse(getFromStorage("logInfo")!)[0].userId : 1;
+    };
+
     return (
         <>
-            {dataToast.statusToast && <Toasts id={"toastLoginFrm"} data={dataToast} />}
+            {dataToast.statusToast && <Toasts id={"toastLoginFrm"} data={dataToast} modeType={0} />}
 
             {!!isLoggedIn && (
                 <>

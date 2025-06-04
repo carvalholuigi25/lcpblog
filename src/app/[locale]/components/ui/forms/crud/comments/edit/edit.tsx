@@ -130,7 +130,7 @@ const EditCommentsForm = ({ commentid, data }: { commentid: number, data: Commen
 
     return (
         <div className="container">
-            {dataToast.statusToast && <Toasts id={"toastEditCommentsForm"} data={dataToast} />}
+            {dataToast.statusToast && <Toasts id={"toastEditCommentsForm"} data={dataToast} modeType={1} />}
         
             {!isLoggedIn && (
                 <>

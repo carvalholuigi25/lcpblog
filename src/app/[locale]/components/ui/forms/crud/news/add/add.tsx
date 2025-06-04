@@ -226,7 +226,7 @@ const AddNewsForm = () => {
 
             {!!isLoggedIn && (
                 <>
-                    {dataToast.statusToast && <Toasts id={"toastAddNews"} data={dataToast} />}
+                    {dataToast.statusToast && <Toasts id={"toastAddNews"} data={dataToast} modeType={1} />}
 
                     <h3 className="title mx-auto text-center">
                         {t('title') ?? 'Add news'}

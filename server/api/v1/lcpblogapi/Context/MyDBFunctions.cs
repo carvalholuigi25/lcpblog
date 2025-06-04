@@ -4,8 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace lcpblogapi.Context;
 
-public static class MyDBFunctions {
-    public static void GenSeedData(DbContext context, bool _) 
+public static class MyDBFunctions
+{
+    public static void GenSeedData(DbContext context, bool _)
     {
         var newdata = context.Set<User>().FirstOrDefault(b => b.Username == "admin");
         if (newdata == null)
@@ -13,11 +14,12 @@ public static class MyDBFunctions {
             context.Set<User>().AddRange(GetNewUsersData());
             context.Set<Post>().AddRange(GetNewPostsData());
             context.Set<Category>().AddRange(GetNewCategoriesData());
+            context.Set<LoginAttempts>().AddRange(GetNewLoginAttemptsStatsData());
             context.SaveChanges();
         }
     }
 
-    public static async Task GenSeedAsyncData(DbContext context, bool _, CancellationToken cancellationToken) 
+    public static async Task GenSeedAsyncData(DbContext context, bool _, CancellationToken cancellationToken)
     {
         var newdata = await context.Set<User>().FirstOrDefaultAsync(b => b.Username == "admin", cancellationToken);
         if (newdata == null)
@@ -25,6 +27,7 @@ public static class MyDBFunctions {
             context.Set<User>().AddRange(GetNewUsersData());
             context.Set<Post>().AddRange(GetNewPostsData());
             context.Set<Category>().AddRange(GetNewCategoriesData());
+            context.Set<LoginAttempts>().AddRange(GetNewLoginAttemptsStatsData());
             await context.SaveChangesAsync(cancellationToken);
         }
     }
@@ -47,7 +50,8 @@ public static class MyDBFunctions {
         ];
     }
 
-    public static Post[] GetNewPostsData() {
+    public static Post[] GetNewPostsData()
+    {
         return [
             new Post() {
                 PostId = 1,
@@ -65,7 +69,8 @@ public static class MyDBFunctions {
         ];
     }
 
-    public static Category[] GetNewCategoriesData() {
+    public static Category[] GetNewCategoriesData()
+    {
         return [
             new Category() {
                 CategoryId = 1,
@@ -90,6 +95,19 @@ public static class MyDBFunctions {
                 Status = ECategoryStatus.all,
                 CreatedAt = DateTimeOffset.Now,
                 UpdatedAt = DateTimeOffset.Now
+            }
+        ];
+    }
+    
+    public static LoginAttempts[] GetNewLoginAttemptsStatsData() {
+        return [
+            new LoginAttempts() {
+                LoginAttemptId = 1,
+                Attempts = 0,
+                Status = ELoginAttemptsStatus.unlocked,
+                DateLock = DateTime.UtcNow.AddHours(1),
+                DateLockTimestamp = new DateTimeOffset(DateTime.UtcNow.AddHours(1)).ToUnixTimeSeconds(),
+                UserId = 1
             }
         ];
     }

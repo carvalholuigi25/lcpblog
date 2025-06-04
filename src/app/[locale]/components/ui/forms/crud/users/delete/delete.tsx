@@ -68,7 +68,7 @@ const DeleteUsersForm = ({ id, data }: { id: number, data: User }) => {
 
     return (
         <div className="container">
-            {dataToast.statusToast && <Toasts id={"toastDeleteUsersForm"} data={dataToast} />}
+            {dataToast.statusToast && <Toasts id={"toastDeleteUsersForm"} data={dataToast} modeType={1} />}
 
             {!isLoggedIn && (
                 <>

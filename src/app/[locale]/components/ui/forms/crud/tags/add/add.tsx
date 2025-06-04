@@ -148,7 +148,7 @@ const AddTagsForm = () => {
 
             {!!isLoggedIn && (
                 <>
-                    {dataToast.statusToast && <Toasts id={"toastAddTags"} data={dataToast} />}
+                    {dataToast.statusToast && <Toasts id={"toastAddTags"} data={dataToast} modeType={1} />}
 
                     <h3 className="title mx-auto text-center">
                         {t('title') ?? 'Add tags'}

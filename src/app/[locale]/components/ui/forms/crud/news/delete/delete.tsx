@@ -112,7 +112,7 @@ const DeleteNewsForm = ({ id, data }: { id: number, data: Posts }) => {
 
             {!!isLoggedIn && (
                 <>
-                    {dataToast.statusToast && <Toasts id={"toastDelNews"} data={dataToast} />}
+                    {dataToast.statusToast && <Toasts id={"toastDelNews"} data={dataToast} modeType={1} />}
 
                     <h3 className="title mx-auto text-center">
                         {t("title") ?? "Delete news"}

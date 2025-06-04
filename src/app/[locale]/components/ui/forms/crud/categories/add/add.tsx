@@ -140,7 +140,7 @@ const AddCategoriesForm = () => {
 
     return (
         <div className="container">
-            {dataToast.statusToast && <Toasts id={"toastAddCategoriesForm"} data={dataToast} />}
+            {dataToast.statusToast && <Toasts id={"toastAddCategoriesForm"} data={dataToast} modeType={1} />}
 
             {!isLoggedIn && (
                 <>
