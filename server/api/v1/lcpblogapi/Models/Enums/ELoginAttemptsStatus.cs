@@ -5,7 +5,7 @@ using Newtonsoft.Json.Converters;
 namespace lcpblogapi.Models.Enums;
 
 [JsonConverter(typeof(StringEnumConverter))]
-public enum ELoginAttemptsStatus {
+public enum ELoginStatusStatus {
     [EnumMember(Value = "locked")]
     locked = 0,
     [EnumMember(Value = "unlocked")]

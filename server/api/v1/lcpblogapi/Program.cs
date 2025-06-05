@@ -139,7 +139,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<IFileMetadataRepo, FileMetadataRepo>();
 builder.Services.AddScoped<ISchedulesRepo, SchedulesRepo>();
-builder.Services.AddScoped<ILoginAttemptsRepo, LoginAttemptsRepo>();
+builder.Services.AddScoped<ILoginStatusRepo, LoginStatusRepo>();
 
 builder.Services.AddSingleton<LocalizationMiddleware>();
 builder.Services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();

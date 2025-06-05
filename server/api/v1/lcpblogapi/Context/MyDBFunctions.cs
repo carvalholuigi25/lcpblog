@@ -14,7 +14,7 @@ public static class MyDBFunctions
             context.Set<User>().AddRange(GetNewUsersData());
             context.Set<Post>().AddRange(GetNewPostsData());
             context.Set<Category>().AddRange(GetNewCategoriesData());
-            context.Set<LoginAttempts>().AddRange(GetNewLoginAttemptsStatsData());
+            context.Set<LoginStatus>().AddRange(GetNewLoginStatusData());
             context.SaveChanges();
         }
     }
@@ -27,7 +27,7 @@ public static class MyDBFunctions
             context.Set<User>().AddRange(GetNewUsersData());
             context.Set<Post>().AddRange(GetNewPostsData());
             context.Set<Category>().AddRange(GetNewCategoriesData());
-            context.Set<LoginAttempts>().AddRange(GetNewLoginAttemptsStatsData());
+            context.Set<LoginStatus>().AddRange(GetNewLoginStatusData());
             await context.SaveChangesAsync(cancellationToken);
         }
     }
@@ -98,15 +98,19 @@ public static class MyDBFunctions
             }
         ];
     }
-    
-    public static LoginAttempts[] GetNewLoginAttemptsStatsData() {
+
+    public static LoginStatus[] GetNewLoginStatusData()
+    {
         return [
-            new LoginAttempts() {
-                LoginAttemptId = 1,
+            new LoginStatus() {
+                LoginStatusId = 1,
                 Attempts = 0,
-                Status = ELoginAttemptsStatus.unlocked,
-                DateLock = DateTime.UtcNow.AddHours(1),
-                DateLockTimestamp = new DateTimeOffset(DateTime.UtcNow.AddHours(1)).ToUnixTimeSeconds(),
+                Status = ELoginStatusStatus.unlocked,
+                DateLock = null,
+                DateLockTimestamp = 0,
+                Type = ELoginSessionType.permanent,
+                ModeTimer = ELoginSessionTimeType.none,
+                ValueTimer = null,
                 UserId = 1
             }
         ];

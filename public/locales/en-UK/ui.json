@@ -227,6 +227,24 @@
                     "lblrecoveraccount": "Dont have an account? Register here",
                     "btnback": "Back to Home",
                     "lblloggedin": "You already logged in as {displayName}!",
+                    "lblsessionstype": "Session type",
+                    "lblsessionsmodetimer": "Session mode timer",
+                    "lblsessionsvaltimer": "Session value timer (date)",
+                    "inpsessionstype": {
+                        "options": {
+                            "sel": "Select the option of the session type",
+                            "permanent": "Permanent",
+                            "temporary": "Temporary"
+                        }
+                    },
+                    "inpsessionsmodetimer": {
+                        "options": {
+                            "sel": "Select the option of session mode timer",
+                            "week": "1 week",
+                            "month": "1 month",
+                            "custom": "Custom"
+                        }
+                    },
                     "validation": {
                         "errors": {
                             "lblreqemail": "Email is required.",

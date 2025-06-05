@@ -226,6 +226,24 @@
           "lblrecoveraccount": "Não tem conta? Registe-se aqui",
           "btnback": "Voltar para casa",
           "lblloggedin": "Já está logado como {displayName}!",
+          "lblsessionstype": "Tipo de sessão",
+          "lblsessionsmodetimer": "Temporizador do modo de sessão",
+          "lblsessionsvaltimer": "Temporizador do valor da sessão (data)",
+          "inpsessionstype": {
+            "options": {
+              "sel": "Selecione a opção do tipo de sessão",
+              "permanent": "Permanente",
+              "temporary": "Temporário"
+            }
+          },
+          "inpsessionsmodetimer": {
+            "options": {
+              "sel": "Selecione a opção do temporizador do modo de sessão",
+              "week": "1 semana",
+              "month": "1 mês",
+              "custom": "Personalizado"
+            }
+          },
           "validation": {
             "errors": {
               "lblreqemail": "E-mail é obrigatório.",

@@ -1,5 +1,6 @@
-namespace lcpblogapi.Models.UsersAuth;
 using System.ComponentModel.DataAnnotations;
+
+namespace lcpblogapi.Models.UsersAuth;
 
 public class AuthenticateRequest
 {

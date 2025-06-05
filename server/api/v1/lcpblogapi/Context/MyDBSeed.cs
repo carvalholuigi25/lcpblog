@@ -1,5 +1,4 @@
 using lcpblogapi.Models;
-using lcpblogapi.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace lcpblogapi.Context;
@@ -20,7 +19,7 @@ public class MyDBSeed
             _modelBuilder.Entity<User>().HasData(MyDBFunctions.GetNewUsersData());
             _modelBuilder.Entity<Post>().HasData(MyDBFunctions.GetNewPostsData());
             _modelBuilder.Entity<Category>().HasData(MyDBFunctions.GetNewCategoriesData());
-            _modelBuilder.Entity<LoginAttempts>().HasData(MyDBFunctions.GetNewLoginAttemptsStatsData());
+            _modelBuilder.Entity<LoginStatus>().HasData(MyDBFunctions.GetNewLoginStatusData());
         }
     }
 }

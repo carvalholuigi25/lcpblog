@@ -44,7 +44,10 @@ export const useMySchemaLogin = () => {
     
     const floginSchema = z.object({
         email: z.coerce.string().email({ message: t("lblinvemail") ?? "Invalid email" }),
-        password: z.coerce.string().min(1, { message: t("lblreqpassword") ?? "The password is required" })
+        password: z.coerce.string().min(1, { message: t("lblreqpassword") ?? "The password is required" }),
+        type: z.coerce.string().optional(),
+        modeTimer: z.coerce.string().optional(),
+        valueTimer: z.coerce.date().optional()
     });
 
     return floginSchema;

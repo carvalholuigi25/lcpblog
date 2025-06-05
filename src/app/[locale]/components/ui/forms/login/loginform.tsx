@@ -7,35 +7,29 @@ import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { DateTime } from "luxon";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from '@/app/i18n/navigation';
 import { useLocale, useTranslations } from "next-intl";
 import { getFromStorage, delFromStorage, saveToStorage } from "@applocale/hooks/localstorage";
 import { useMySchemaLogin, type TFormLogData } from "@applocale/schemas/formSchemas";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { DataToastsProps } from "@applocale/interfaces/toasts";
+import { LoginStatus, UserSessionsTypes, UserSessionsTypesTimes } from "@applocale/interfaces/user";
 import ShowAlert from "@applocale/components/ui/alerts";
 import Toasts from "@applocale/components/ui/toasts/toasts";
 import CountdownLogin from "@applocale/components/ui/countdowns/countdownlogin";
-
-interface LoginStatus {
-    loginAttemptId?: number;
-    attempts: number;
-    status: string;
-    dateLock?: Date | string;
-    dateLockTimestamp?: number;
-    userId?: number;
-}
 
 const LoginForm = () => {
     const test = true;
     const maxAttempts = 5;
     const disableLoginLockCheck = false;
-    const { push } = useRouter();
+
     const t = useTranslations("ui.forms.auth.login");
     const tbtn = useTranslations("ui.buttons");
     const locale = useLocale() ?? getDefLocale();
+    const { push } = useRouter();
+
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isLoginLocked, setIsLoginLocked] = useState(false);
     const [isResetedForm, setIsResetedForm] = useState(false);
@@ -44,15 +38,21 @@ const LoginForm = () => {
     const [dateCur, setDateCur] = useState(new Date().toISOString());
     const [logInfo, setLogInfo] = useState(getFromStorage("logInfo"));
     const [avatarUser, setAvatarUser] = useState("avatars/guest.png");
+    const isEnabledSessionType = false;
+    
     const [dataToast, setDataToast] = useState({
         type: "",
         message: "",
         statusToast: false,
         displayName: ""
     } as DataToastsProps);
+
     const [formData, setFormData] = useState({
         email: test ? 'luiscarvalho239@gmail.com' : '',
-        password: test ? '1234' : ''
+        password: test ? '1234' : '',
+        type: UserSessionsTypes.Permanent,
+        modeTimer: UserSessionsTypesTimes.None,
+        valueTimer: new Date()
     });
 
     const {
@@ -66,7 +66,7 @@ const LoginForm = () => {
     const loadAttemptsIfLoginStatusIsDeleted = useCallback(async () => {
         if(!getFromStorage("loginStatus")) {
             await axios({
-                url: `${process.env.apiURL}/api/loginattempts`,
+                url: `${process.env.apiURL}/api/loginstatus`,
                 method: 'get'
             }).then((r) => {
                 console.log(r);
@@ -74,11 +74,14 @@ const LoginForm = () => {
                 
                 if(data && data.length > 0) {
                     const nlogattempts: LoginStatus = {
-                        loginAttemptId: data.loginAttemptId,
+                        loginStatId: data.loginStatId,
                         attempts: data.attempts,
                         status: data.status,
                         dateLock: data.dateLock,
                         dateLockTimestamp: data.dateLockTimestamp,
+                        type: data.type,
+                        modeTimer: data.modeTimer,
+                        valueTimer: data.valueTimer,
                         userId: data.userId
                     };
 
@@ -90,7 +93,7 @@ const LoginForm = () => {
         }
     }, []);
 
-    const doLoginAttemptsIntoDB = useCallback(async (loginStatus: LoginStatus) => {
+    const doLoginStatusIntoDB = useCallback(async (loginStatus: LoginStatus) => {
         if(isAttemptsUpdated) {
             const typem = getFromStorage("loginStatus") ? "update" : "create";
             const method = typem == "create" ? "post" : getFromStorage("loginStatus") ? "put" : "post";
@@ -98,14 +101,17 @@ const LoginForm = () => {
             const today = DateTime.now().setLocale(getDefLocale()).set({hour: new Date().getHours()+1});
 
             await axios({
-                url: `${process.env.apiURL}/api/loginattempts${uid}`,
+                url: `${process.env.apiURL}/api/loginstatus${uid}`,
                 method: method,
                 data: {
-                    loginAttemptId: loginStatus.loginAttemptId ?? 1,
+                    loginStatId: loginStatus.loginStatId ?? 1,
                     attempts: loginStatus.attempts ?? attempts,
                     status: loginStatus.attempts >= maxAttempts ? "locked" : "unlocked",
                     dateLock: loginStatus.dateLock ?? today.toISO()!,
                     dateLockTimestamp: loginStatus.dateLockTimestamp ?? today.toMillis(),
+                    type: loginStatus.type ?? UserSessionsTypes.Permanent,
+                    modeTimer: loginStatus.modeTimer ?? UserSessionsTypesTimes.None,
+                    valueTimer: loginStatus.valueTimer ?? new Date(),
                     userId: getUserId()
                 }
             }).then((r) => {
@@ -128,20 +134,23 @@ const LoginForm = () => {
 
             setAttempts(parseInt("" + (loginStatus.attempts + 1)));
             setDateCur(loginStatus.dateLock);
-            doLoginAttemptsIntoDB(loginStatus);
+            doLoginStatusIntoDB(loginStatus);
         }
 
         if (!!isResetedForm) {
             setFormData({
                 email: "",
-                password: ""
+                password: "",
+                type: UserSessionsTypes.Permanent,
+                modeTimer: UserSessionsTypesTimes.None,
+                valueTimer: new Date()
             });
         }
 
         if (logInfo) {
             setIsLoggedIn(true);
         }
-    }, [isResetedForm, logInfo, attempts, disableLoginLockCheck, loadAttemptsIfLoginStatusIsDeleted, doLoginAttemptsIntoDB]);
+    }, [isResetedForm, logInfo, attempts, disableLoginLockCheck, loadAttemptsIfLoginStatusIsDeleted, doLoginStatusIntoDB]);
 
     const handleChange = (e: any) => {
         const { name, value } = e.target;
@@ -174,6 +183,9 @@ const LoginForm = () => {
                     status: "unlocked",
                     dateLock: "",
                     dateLockTimestamp: 0,
+                    type: loginStatus.type ?? UserSessionsTypes.Permanent,
+                    modeTimer: loginStatus.modeTimer ?? UserSessionsTypesTimes.None,
+                    valueTimer: loginStatus.valueTimer ?? new Date(),
                     userId: getUserId()
                 };
 
@@ -193,6 +205,9 @@ const LoginForm = () => {
                 status: statusAttempt,
                 dateLock: today.toISO()!,
                 dateLockTimestamp: today.toMillis(),
+                type: formData.type,
+                modeTimer: formData.modeTimer,
+                valueTimer: formData.valueTimer,
                 userId: getUserId()
             };
 
@@ -258,6 +273,9 @@ const LoginForm = () => {
                         status: "unlocked",
                         dateLock: today.toISO()!,
                         dateLockTimestamp: today.toMillis(),
+                        type: formData.type,
+                        modeTimer: formData.modeTimer,
+                        valueTimer: formData.valueTimer,
                         userId: getUserId()
                     };
 
@@ -268,7 +286,10 @@ const LoginForm = () => {
                         email: email,
                         avatar: avatar,
                         role: role,
-                        jwtToken: jwtToken
+                        jwtToken: jwtToken,
+                        sessionsTypes: formData.type,
+                        sessionsModeTimer: formData.modeTimer,
+                        sessionsValueTimer: formData.valueTimer
                     }];
 
                     if (!disableLoginLockCheck) {
@@ -304,6 +325,9 @@ const LoginForm = () => {
                             status: attempts >= maxAttempts ? "locked" : "unlocked",
                             dateLock: today.toISO()!,
                             dateLockTimestamp: today.toMillis(),
+                            type: formData.type,
+                            modeTimer: formData.modeTimer,
+                            valueTimer: formData.valueTimer,
                             userId: getUserId()
                         };
 
@@ -333,6 +357,9 @@ const LoginForm = () => {
                         status: attempts >= maxAttempts ? "locked" : "unlocked",
                         dateLock: today.toISO()!,
                         dateLockTimestamp: today.toMillis(),
+                        type: formData.type,
+                        modeTimer: formData.modeTimer,
+                        valueTimer: formData.valueTimer,
                         userId: getUserId()
                     };
 
@@ -423,6 +450,40 @@ const LoginForm = () => {
                                 {t('btnlogin') ?? "Login"}
                             </button>
                         </div>
+                        
+                        {isEnabledSessionType && (
+                            <>
+                                <div className={"form-group mt-3 text-center" + (isLoginLocked ? " hidden" : "")}>
+                                    <label htmlFor="type">{t("lblsessionstype") ?? "Session type"}</label>
+                                    <select {...register("type")} id="type" name="type" className={"form-control type mt-3 " + styles.sformgroupinp} value={formData.type} onChange={handleChange} disabled={isLoginLocked}>
+                                        <option disabled>{t('inpsessionstype.options.sel') ?? "Select the option of session type"}</option>
+                                        <option value={"permanent"}>{t('inpsessionstype.options.permanent') ?? "Permanent"}</option>
+                                        <option value={"temporary"}>{t('inpsessionstype.options.temporary') ?? "Temporary"}</option>
+                                    </select>
+                                </div>
+
+                                {formData.type == "temporary" && (
+                                    <>
+                                        <div className={"form-group mt-3 text-center" + (isLoginLocked ? " hidden" : "")}>
+                                            <label htmlFor="modeTimer">{t('lblsessionsmodetimer') ?? "Session mode timer"}</label>
+                                            <select {...register("modeTimer")} id="modeTimer" name="modeTimer" className={"form-control modeTimer mt-3 " + styles.sformgroupinp} value={formData.modeTimer} onChange={handleChange} disabled={isLoginLocked}>
+                                                <option disabled>{t('inpsessionsmodetimer.options.sel') ?? "Select the option of session mode timer"}</option>
+                                                <option value={"week"}>{t('inpsessionsmodetimer.options.week') ?? "1 week"}</option>
+                                                <option value={"month"}>{t('inpsessionsmodetimer.options.month') ?? "1 month"}</option>
+                                                <option value={"custom"}>{t('inpsessionsmodetimer.options.custom') ?? "Custom"}</option>
+                                            </select>
+                                        </div>
+
+                                        {formData.modeTimer == "custom" && (
+                                            <div className={"form-group mt-3 text-center" + (isLoginLocked ? " hidden" : "")}>
+                                                <label htmlFor="valueTimer">{t('lblsessionsvaltimer') ?? 'Session value timer (date)'}</label>
+                                                <input {...register("valueTimer")} type="datetime-local" step={1} name="valueTimer" id="valueTimer" className={"form-control valueTimer mt-3 " + styles.sformgroupinp} value={formData.valueTimer.toString()} onChange={handleChange} disabled={isLoginLocked} />
+                                            </div>
+                                        )}
+                                    </>
+                                )}
+                            </>
+                        )}
                     </form>
 
                     {isLoginLocked && getFromStorage("loginStatus")! && (

@@ -10,25 +10,21 @@ public class MyDBRelationships {
     }
 
     public void DoIt() {
-        // User to Posts - One to Many
         _modelBuilder.Entity<Post>()
             .HasOne(p => p.User)
             .WithMany(u => u.Posts)
             .HasForeignKey(p => p.UserId);
 
-        // User to Comments - One to Many
         _modelBuilder.Entity<Comment>()
             .HasOne(c => c.User)
             .WithMany(u => u.Comments)
             .HasForeignKey(c => c.UserId);
 
-        // Post to Comments - One to Many
         _modelBuilder.Entity<Comment>()
             .HasOne(c => c.Post)
             .WithMany(p => p.Comments)
             .HasForeignKey(c => c.PostId);
 
-        // Post to Categories - Many to Many
         _modelBuilder.Entity<PostCategory>()
             .HasKey(pc => new { pc.PostId, pc.CategoryId });
 
@@ -42,7 +38,6 @@ public class MyDBRelationships {
             .WithMany(c => c.PostCategories)
             .HasForeignKey(pc => pc.CategoryId);
 
-        // Post to Tags - Many to Many
         _modelBuilder.Entity<PostTag>()
             .HasKey(pt => new { pt.PostId, pt.TagId });
 
