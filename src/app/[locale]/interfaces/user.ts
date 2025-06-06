@@ -30,14 +30,14 @@ export interface UserLoginData {
 }
 
 export interface LoginStatus {
-  loginStatId?: number;
+  loginStatusId?: number;
   attempts: number;
   status: string;
   dateLock?: Date | string;
   dateLockTimestamp?: number;
   type?: UserSessionsTypes;
   modeTimer?: UserSessionsTypesTimes;
-  valueTimer?: Date;
+  valueTimer?: Date | string;
   userId?: number;
 }
 
@@ -47,8 +47,11 @@ export enum UserSessionsTypes {
 }
 
 export enum UserSessionsTypesTimes {
-  Week = "week",
+  Year = "year",
   Month = "month",
+  Week = "week",
+  Day = "day",
+  Hour = "hour",
   Custom = "custom",
   None = "none"
 }

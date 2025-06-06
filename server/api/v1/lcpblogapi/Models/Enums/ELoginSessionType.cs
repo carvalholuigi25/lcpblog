@@ -16,12 +16,18 @@ public enum ELoginSessionType
 [JsonConverter(typeof(StringEnumConverter))]
 public enum ELoginSessionTimeType
 {
-    [EnumMember(Value = "week")]
-    week = 0,
+    [EnumMember(Value = "year")]
+    year = 0,
     [EnumMember(Value = "month")]
     month = 1,
+    [EnumMember(Value = "week")]
+    week = 2,
+    [EnumMember(Value = "day")]
+    day = 3,
+    [EnumMember(Value = "hour")]
+    hour = 4,
     [EnumMember(Value = "custom")]
-    custom = 2,
+    custom = 5,
     [EnumMember(Value = "none")]
-    none = 3
+    none = 6
 }

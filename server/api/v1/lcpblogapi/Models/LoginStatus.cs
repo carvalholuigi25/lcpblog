@@ -27,7 +27,7 @@ public class LoginStatus
     [DefaultValue(ELoginSessionTimeType.week)]
     public ELoginSessionTimeType? ModeTimer { get; set; } = ELoginSessionTimeType.week;
 
-    public DateTime? ValueTimer { get; set; } = DateTime.UtcNow;
+    public string? ValueTimer { get; set; } = DateTime.UtcNow.ToString();
 
     [DefaultValue(1)]
     public int? UserId { get; set; } = 1;

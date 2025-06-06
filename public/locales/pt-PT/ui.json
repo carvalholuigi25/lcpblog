@@ -22,6 +22,24 @@
         "title": "Pesquisar",
         "lblsrchfor": "Você está à procura de: {search}",
         "lblsrchnodata": "Sem dados!"
+      },
+      "session": {
+        "title": "Sessão (tempo de login)"
+      }
+    },
+    "countdowns": {
+      "session": {
+        "title": "A sua sessão expira em: {dateEnd}",
+        "endSession": "Esta sessão terminou!",
+        "labelsDate": {
+          "years": "anos",
+          "months": "meses",
+          "weeks": "semanas",
+          "days": "dias",
+          "hours": "horas",
+          "minutes": "minutos",
+          "seconds": "segundos"
+        }
       }
     },
     "events": {
@@ -239,8 +257,11 @@
           "inpsessionsmodetimer": {
             "options": {
               "sel": "Selecione a opção do temporizador do modo de sessão",
+              "year": "1 ano",
               "week": "1 semana",
               "month": "1 mês",
+              "day": "1 dia",
+              "hour": "1 hora",
               "custom": "Personalizado"
             }
           },

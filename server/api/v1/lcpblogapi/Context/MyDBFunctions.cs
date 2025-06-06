@@ -110,7 +110,7 @@ public static class MyDBFunctions
                 DateLockTimestamp = 0,
                 Type = ELoginSessionType.permanent,
                 ModeTimer = ELoginSessionTimeType.none,
-                ValueTimer = null,
+                ValueTimer = "",
                 UserId = 1
             }
         ];

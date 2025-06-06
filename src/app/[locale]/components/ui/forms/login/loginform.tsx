@@ -23,7 +23,9 @@ import CountdownLogin from "@applocale/components/ui/countdowns/countdownlogin";
 const LoginForm = () => {
     const test = true;
     const maxAttempts = 5;
+    const isEnabledSessionType = true;
     const disableLoginLockCheck = false;
+    const defSessionModeTimer = UserSessionsTypesTimes.Week;
 
     const t = useTranslations("ui.forms.auth.login");
     const tbtn = useTranslations("ui.buttons");
@@ -38,7 +40,6 @@ const LoginForm = () => {
     const [dateCur, setDateCur] = useState(new Date().toISOString());
     const [logInfo, setLogInfo] = useState(getFromStorage("logInfo"));
     const [avatarUser, setAvatarUser] = useState("avatars/guest.png");
-    const isEnabledSessionType = false;
     
     const [dataToast, setDataToast] = useState({
         type: "",
@@ -51,8 +52,8 @@ const LoginForm = () => {
         email: test ? 'luiscarvalho239@gmail.com' : '',
         password: test ? '1234' : '',
         type: UserSessionsTypes.Permanent,
-        modeTimer: UserSessionsTypesTimes.None,
-        valueTimer: new Date()
+        modeTimer: defSessionModeTimer,
+        valueTimer: ""
     });
 
     const {
@@ -74,7 +75,7 @@ const LoginForm = () => {
                 
                 if(data && data.length > 0) {
                     const nlogattempts: LoginStatus = {
-                        loginStatId: data.loginStatId,
+                        loginStatusId: data.loginStatusId,
                         attempts: data.attempts,
                         status: data.status,
                         dateLock: data.dateLock,
@@ -95,24 +96,25 @@ const LoginForm = () => {
 
     const doLoginStatusIntoDB = useCallback(async (loginStatus: LoginStatus) => {
         if(isAttemptsUpdated) {
+            const uid = getUserId();
             const typem = getFromStorage("loginStatus") ? "update" : "create";
             const method = typem == "create" ? "post" : getFromStorage("loginStatus") ? "put" : "post";
-            const uid = typem == "create" ? "" : method == "put" ? "/"+getUserId() : "";
+            const qparams = typem == "create" ? "" : method == "put" ? "/"+uid : "";
             const today = DateTime.now().setLocale(getDefLocale()).set({hour: new Date().getHours()+1});
 
             await axios({
-                url: `${process.env.apiURL}/api/loginstatus${uid}`,
+                url: `${process.env.apiURL}/api/loginstatus${qparams}`,
                 method: method,
                 data: {
-                    loginStatId: loginStatus.loginStatId ?? 1,
+                    loginStatusId: loginStatus.loginStatusId ?? 1,
                     attempts: loginStatus.attempts ?? attempts,
                     status: loginStatus.attempts >= maxAttempts ? "locked" : "unlocked",
                     dateLock: loginStatus.dateLock ?? today.toISO()!,
                     dateLockTimestamp: loginStatus.dateLockTimestamp ?? today.toMillis(),
                     type: loginStatus.type ?? UserSessionsTypes.Permanent,
-                    modeTimer: loginStatus.modeTimer ?? UserSessionsTypesTimes.None,
-                    valueTimer: loginStatus.valueTimer ?? new Date(),
-                    userId: getUserId()
+                    modeTimer: loginStatus.modeTimer ?? UserSessionsTypesTimes.Week,
+                    valueTimer: loginStatus.valueTimer ?? "",
+                    userId: uid
                 }
             }).then((r) => {
                 console.log(r);
@@ -123,7 +125,19 @@ const LoginForm = () => {
     }, [attempts, isAttemptsUpdated]);
 
     useEffect(() => {
-        loadAttemptsIfLoginStatusIsDeleted();
+        if (!!isResetedForm) {
+            setFormData({
+                email: "",
+                password: "",
+                type: UserSessionsTypes.Permanent,
+                modeTimer: defSessionModeTimer,
+                valueTimer: ""
+            });
+        }
+
+        if (logInfo) {
+            setIsLoggedIn(true);
+        }
         
         if (getFromStorage("loginStatus")) {
             const loginStatus = JSON.parse(getFromStorage("loginStatus")!);
@@ -137,20 +151,8 @@ const LoginForm = () => {
             doLoginStatusIntoDB(loginStatus);
         }
 
-        if (!!isResetedForm) {
-            setFormData({
-                email: "",
-                password: "",
-                type: UserSessionsTypes.Permanent,
-                modeTimer: UserSessionsTypesTimes.None,
-                valueTimer: new Date()
-            });
-        }
-
-        if (logInfo) {
-            setIsLoggedIn(true);
-        }
-    }, [isResetedForm, logInfo, attempts, disableLoginLockCheck, loadAttemptsIfLoginStatusIsDeleted, doLoginStatusIntoDB]);
+        loadAttemptsIfLoginStatusIsDeleted();
+    }, [isResetedForm, logInfo, attempts, disableLoginLockCheck, defSessionModeTimer, loadAttemptsIfLoginStatusIsDeleted, doLoginStatusIntoDB]);
 
     const handleChange = (e: any) => {
         const { name, value } = e.target;
@@ -178,15 +180,16 @@ const LoginForm = () => {
                     setIsLoginLocked(false);
                 }
 
+                const uid = getUserId();
                 const nloginStatus: LoginStatus = {
                     attempts: 0,
                     status: "unlocked",
                     dateLock: "",
                     dateLockTimestamp: 0,
                     type: loginStatus.type ?? UserSessionsTypes.Permanent,
-                    modeTimer: loginStatus.modeTimer ?? UserSessionsTypesTimes.None,
-                    valueTimer: loginStatus.valueTimer ?? new Date(),
-                    userId: getUserId()
+                    modeTimer: loginStatus.modeTimer ?? defSessionModeTimer,
+                    valueTimer: loginStatus.valueTimer ?? "",
+                    userId: uid
                 };
 
                 setAttempts(0);
@@ -199,7 +202,19 @@ const LoginForm = () => {
     const onSubmit = async () => {
         if (!isLoginLocked) {
             const statusAttempt = attempts >= maxAttempts ? "locked" : "unlocked";
-            const today = DateTime.now().setLocale(getDefLocale()).set({hour: new Date().getHours()+1});
+            const ndt = DateTime.now().setLocale(getDefLocale());
+            const nhr = new Date().getHours()+1;
+            const today = ndt.set({hour: nhr});
+
+            const valueTimer = formData.type == UserSessionsTypes.Temporary ? 
+            formData.modeTimer == UserSessionsTypesTimes.Year ? ndt.plus({years: 1}).toISO() : 
+            formData.modeTimer == UserSessionsTypesTimes.Month ? ndt.plus({months: 1}).toISO() : 
+            formData.modeTimer == UserSessionsTypesTimes.Week ? ndt.plus({weeks: 1}).toISO() :
+            formData.modeTimer == UserSessionsTypesTimes.Day ? ndt.plus({days: 1}).toISO() :
+            formData.modeTimer == UserSessionsTypesTimes.Hour ? ndt.plus({hours: 1}).toISO() :
+            formData.modeTimer == UserSessionsTypesTimes.Custom ? formData.valueTimer :
+            ndt.toISO() : "";
+
             const loginStatus: LoginStatus = {
                 attempts: attempts,
                 status: statusAttempt,
@@ -207,7 +222,7 @@ const LoginForm = () => {
                 dateLockTimestamp: today.toMillis(),
                 type: formData.type,
                 modeTimer: formData.modeTimer,
-                valueTimer: formData.valueTimer,
+                valueTimer: valueTimer,
                 userId: getUserId()
             };
 
@@ -275,7 +290,7 @@ const LoginForm = () => {
                         dateLockTimestamp: today.toMillis(),
                         type: formData.type,
                         modeTimer: formData.modeTimer,
-                        valueTimer: formData.valueTimer,
+                        valueTimer: valueTimer,
                         userId: getUserId()
                     };
 
@@ -286,10 +301,7 @@ const LoginForm = () => {
                         email: email,
                         avatar: avatar,
                         role: role,
-                        jwtToken: jwtToken,
-                        sessionsTypes: formData.type,
-                        sessionsModeTimer: formData.modeTimer,
-                        sessionsValueTimer: formData.valueTimer
+                        jwtToken: jwtToken
                     }];
 
                     if (!disableLoginLockCheck) {
@@ -327,7 +339,7 @@ const LoginForm = () => {
                             dateLockTimestamp: today.toMillis(),
                             type: formData.type,
                             modeTimer: formData.modeTimer,
-                            valueTimer: formData.valueTimer,
+                            valueTimer: valueTimer,
                             userId: getUserId()
                         };
 
@@ -359,7 +371,7 @@ const LoginForm = () => {
                         dateLockTimestamp: today.toMillis(),
                         type: formData.type,
                         modeTimer: formData.modeTimer,
-                        valueTimer: formData.valueTimer,
+                        valueTimer: valueTimer,
                         userId: getUserId()
                     };
 
@@ -386,7 +398,7 @@ const LoginForm = () => {
     };
 
     const getUserId = () => {
-        return getFromStorage("logInfo") ? JSON.parse(getFromStorage("logInfo")!)[0].userId : 1;
+        return getFromStorage("loginStatus") ? parseInt(JSON.parse(getFromStorage("loginStatus")!).userId) : getFromStorage("logInfo") ? JSON.parse(getFromStorage("logInfo")!)[0].userId : 1;
     };
 
     return (
@@ -468,8 +480,11 @@ const LoginForm = () => {
                                             <label htmlFor="modeTimer">{t('lblsessionsmodetimer') ?? "Session mode timer"}</label>
                                             <select {...register("modeTimer")} id="modeTimer" name="modeTimer" className={"form-control modeTimer mt-3 " + styles.sformgroupinp} value={formData.modeTimer} onChange={handleChange} disabled={isLoginLocked}>
                                                 <option disabled>{t('inpsessionsmodetimer.options.sel') ?? "Select the option of session mode timer"}</option>
-                                                <option value={"week"}>{t('inpsessionsmodetimer.options.week') ?? "1 week"}</option>
+                                                <option value={"year"}>{t('inpsessionsmodetimer.options.year') ?? "1 year"}</option>
                                                 <option value={"month"}>{t('inpsessionsmodetimer.options.month') ?? "1 month"}</option>
+                                                <option value={"week"}>{t('inpsessionsmodetimer.options.week') ?? "1 week"}</option>
+                                                <option value={"day"}>{t('inpsessionsmodetimer.options.day') ?? "1 day"}</option>
+                                                <option value={"hour"}>{t('inpsessionsmodetimer.options.hour') ?? "1 hour"}</option>
                                                 <option value={"custom"}>{t('inpsessionsmodetimer.options.custom') ?? "Custom"}</option>
                                             </select>
                                         </div>

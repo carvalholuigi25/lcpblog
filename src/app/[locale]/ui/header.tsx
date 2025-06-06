@@ -9,6 +9,8 @@ import Image from "next/image";
 import dynamic from 'next/dynamic';
 import LoadingComp from "@applocale/components/ui/loadingcomp";
 import * as config from "@applocale/utils/config";
+import { LoginStatus, UserSessionsTypes } from "../interfaces/user";
+import ModalSession from "../components/ui/modals/modalsession";
 
 const isRounded = config.getConfigSync().isBordered;
 const is3DEffectsEnabled = config.getConfigSync().is3DEffectsEnabled; 
@@ -116,9 +118,35 @@ const HeaderMenu = ({ locale }: { locale: string }) => {
 const Header = ({ locale }: { locale: string }) => {
     const roundedcl = isRounded ? "rounded" : "";
     const [isNavbarToggled, setisNavbarToggled] = useState(false);
+    const [showSessionModal, setShowSessionModal] = useState(false);
+    const [logStatus, setLogStatus] = useState<LoginStatus>();
+
+    useEffect(() => {
+        if(!logStatus) {
+            setLogStatus({
+                loginStatusId: JSON.parse(getFromStorage("loginStatus")!).loginStatusId,
+                attempts: JSON.parse(getFromStorage("loginStatus")!).attempts,
+                status: JSON.parse(getFromStorage("loginStatus")!).status,
+                dateLock: JSON.parse(getFromStorage("loginStatus")!).dateLock,
+                dateLockTimestamp: JSON.parse(getFromStorage("loginStatus")!).dateLockTimestamp,
+                type: JSON.parse(getFromStorage("loginStatus")!).type,
+                modeTimer: JSON.parse(getFromStorage("loginStatus")!).modeTimer,
+                valueTimer: JSON.parse(getFromStorage("loginStatus")!).valueTimer,
+                userId: JSON.parse(getFromStorage("loginStatus")!).userId
+            });
+        }
+    }, [logStatus]);
 
     const toggleNavbar = () => {
         setisNavbarToggled(!isNavbarToggled)
+    }
+
+    const toggleSessionModal = () => {
+        setShowSessionModal(!showSessionModal);
+    }
+
+    const closeModal = () => {
+        setShowSessionModal(false);
     }
 
     return (
@@ -151,6 +179,12 @@ const Header = ({ locale }: { locale: string }) => {
                             </ul>
                             <ul className="navbar-nav ms-auto me-0">
                                 <li className="nav-item">
+                                    {logStatus && logStatus.type == UserSessionsTypes.Temporary.toString() && (
+                                        <button className="btn btn-tp btn-rounded btnsessiontime me-2" type="button" onClick={toggleSessionModal}>
+                                            <i className="bi bi-clock-fill"></i>
+                                        </button>
+                                    )}
+
                                     <button className="btn btn-tp btn-rounded" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuHeader" aria-controls="menuHeader">
                                         <i className="bi bi-gear"></i>
                                     </button>
@@ -160,6 +194,7 @@ const Header = ({ locale }: { locale: string }) => {
                     </div>
                 </nav>
             </div>
+            {showSessionModal && <ModalSession statusModal={showSessionModal} onClose={closeModal} />}
         </>
 
     );
