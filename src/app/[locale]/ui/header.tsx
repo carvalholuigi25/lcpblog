@@ -1,33 +1,29 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
+import Image from "next/image";
+import dynamic from 'next/dynamic';
 import styles from "@applocale/page.module.scss";
 import React, { useEffect, useState } from 'react';
 import { delFromStorage, getFromStorage } from '@applocale/hooks/localstorage';
 import { getDefLocale } from '@applocale/helpers/defLocale';
 import { Link } from '@/app/i18n/navigation';
 import { useTranslations } from "next-intl";
-import Image from "next/image";
-import dynamic from 'next/dynamic';
+import { LoginStatus, UserSessionsTypes } from "@applocale/interfaces/user";
 import LoadingComp from "@applocale/components/ui/loadingcomp";
+import ModalSession from "@applocale/components/ui/modals/modalsession";
 import * as config from "@applocale/utils/config";
-import { LoginStatus, UserSessionsTypes } from "../interfaces/user";
-import ModalSession from "../components/ui/modals/modalsession";
 
 const isRounded = config.getConfigSync().isBordered;
 const is3DEffectsEnabled = config.getConfigSync().is3DEffectsEnabled; 
 const SearchComponent = dynamic(() => import('./search'), { ssr: false })
 
-const HeaderMenu = ({ locale }: { locale: string }) => {
+const HeaderMenu = ({ logInfo, locale, handleLogout }: { logInfo: any, locale: string, handleLogout: any }) => {
     const t = useTranslations('ui.offcanvas');
-    const [logInfo, setLogInfo] = useState("");
     const [loading, setLoading] = useState(true);
     const [loadLinkAuth, setLoadLinkAuth] = useState(false);
     const roundedcl = isRounded ? "rounded" : "";
 
     useEffect(() => {
-        if (!logInfo) {
-            setLogInfo(getFromStorage("logInfo")!);
-        }
-
         setLoadLinkAuth(!logInfo ? true : false);
         setLoading(false);
     }, [logInfo]);
@@ -53,13 +49,6 @@ const HeaderMenu = ({ locale }: { locale: string }) => {
     const getUserRole = () => {
         return logInfo ? JSON.parse(logInfo)[0].role : "guest";
     }
-
-    const handleLogout = () => {
-        if (logInfo) {
-            delFromStorage("logInfo");
-            setLogInfo("");
-        }
-    };
 
     return (
         <div className={"offcanvas offcanvas-start " + roundedcl} tabIndex={-1} id="menuHeader" aria-labelledby="menuHeaderLabel">
@@ -120,22 +109,39 @@ const Header = ({ locale }: { locale: string }) => {
     const [isNavbarToggled, setisNavbarToggled] = useState(false);
     const [showSessionModal, setShowSessionModal] = useState(false);
     const [logStatus, setLogStatus] = useState<LoginStatus>();
+    const [logInfo, setLogInfo] = useState("");
 
     useEffect(() => {
-        if(!logStatus) {
-            setLogStatus({
-                loginStatusId: JSON.parse(getFromStorage("loginStatus")!).loginStatusId,
-                attempts: JSON.parse(getFromStorage("loginStatus")!).attempts,
-                status: JSON.parse(getFromStorage("loginStatus")!).status,
-                dateLock: JSON.parse(getFromStorage("loginStatus")!).dateLock,
-                dateLockTimestamp: JSON.parse(getFromStorage("loginStatus")!).dateLockTimestamp,
-                type: JSON.parse(getFromStorage("loginStatus")!).type,
-                modeTimer: JSON.parse(getFromStorage("loginStatus")!).modeTimer,
-                valueTimer: JSON.parse(getFromStorage("loginStatus")!).valueTimer,
-                userId: JSON.parse(getFromStorage("loginStatus")!).userId
-            });
+        if(!logInfo) {
+            setLogInfo(getFromStorage("logInfo")!);
         }
-    }, [logStatus]);
+
+        if(!logStatus) {
+            if(getFromStorage("loginStatus")!) {
+                const lso = JSON.parse(getFromStorage("loginStatus")!);
+
+                setLogStatus({
+                    loginStatusId: lso.loginStatusId,
+                    attempts: lso.attempts,
+                    status: lso.status,
+                    dateLock: lso.dateLock,
+                    dateLockTimestamp: lso.dateLockTimestamp,
+                    type: lso.type,
+                    modeTimer: lso.modeTimer,
+                    valueTimer: lso.valueTimer,
+                    userId: lso.userId
+                });
+
+                if(lso.status == "unlocked" && lso.attempts == 0 && new Date(lso.valueTimer).getTime() <= new Date().getTime()) {
+                    setShowSessionModal(true);
+                    // delFromStorage("loginStatus");
+                    // delFromStorage("logInfo");
+                    // setLogInfo("");
+                    // location.reload();
+                }
+            }
+        }
+    }, [logInfo, logStatus]);
 
     const toggleNavbar = () => {
         setisNavbarToggled(!isNavbarToggled)
@@ -149,9 +155,17 @@ const Header = ({ locale }: { locale: string }) => {
         setShowSessionModal(false);
     }
 
+    const handleLogout = () => {
+        if (logInfo) {
+            delFromStorage("logInfo");
+            delFromStorage("loginStatus");
+            setLogInfo("");
+        }
+    };
+
     return (
         <>
-            <HeaderMenu locale={locale ?? getDefLocale()} />
+            <HeaderMenu logInfo={logInfo} locale={locale ?? getDefLocale()} handleLogout={handleLogout} />
             <div className='header'>
                 <nav className={"navbar ps-0 pe-0 navbar-expand-lg bg-body-tertiary fixed-top " + roundedcl}>
                     <div className={"navbar-container"}></div>
@@ -179,7 +193,7 @@ const Header = ({ locale }: { locale: string }) => {
                             </ul>
                             <ul className="navbar-nav ms-auto me-0">
                                 <li className="nav-item">
-                                    {logStatus && logStatus.type == UserSessionsTypes.Temporary.toString() && (
+                                    {logInfo && logStatus && logStatus.type == UserSessionsTypes.Temporary.toString() && (
                                         <button className="btn btn-tp btn-rounded btnsessiontime me-2" type="button" onClick={toggleSessionModal}>
                                             <i className="bi bi-clock-fill"></i>
                                         </button>

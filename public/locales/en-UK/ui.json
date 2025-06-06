@@ -271,7 +271,8 @@
                             "lblreqemail": "Email is required.",
                             "lblreqpassword": "Password is required.",
                             "lblinvemail": "Invalid email",
-                            "lblmaxattempts": "Max attempts reached. Login will be unlocked in 1 hour. (Date: {dateLock})"
+                            "lblmaxattempts": "Max attempts reached. Login will be unlocked in 1 hour. (Date: {dateLock})",
+                            "lblinvalidvtimer": "Can't select or write the past or equal time to today! Please select different one."
                         }
                     },
                     "apimessages": {

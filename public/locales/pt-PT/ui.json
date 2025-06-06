@@ -270,7 +270,8 @@
               "lblreqemail": "E-mail é obrigatório.",
               "lblreqpassword": "Palavra-passe é obrigatória.",
               "lblinvemail": "E-mail inválido",
-              "lblmaxattempts": "Máximo de tentativas atingido. O login será desbloqueado dentro de 1 hora. (Data: {dateLock})"
+              "lblmaxattempts": "Máximo de tentativas atingido. O login será desbloqueado dentro de 1 hora. (Data: {dateLock})",
+              "lblinvalidvtimer": "Não é possível selecionar ou escrever o passado ou o tempo equivalente ao dia de hoje! Selecione um horário diferente."
             }
           },
           "apimessages": {

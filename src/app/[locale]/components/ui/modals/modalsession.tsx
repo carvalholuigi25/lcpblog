@@ -24,9 +24,10 @@ export default function ModalSession({ onClose, statusModal }: any) {
 
     useEffect(() => {
         if(getFromStorage("loginStatus")) {
-            setDateSession(JSON.parse(getFromStorage("loginStatus")!).valueTimer);
+            const vtimer = JSON.parse(getFromStorage("loginStatus")!).valueTimer;
+            setDateSession(vtimer);
         }
-        
+
         if (modalSessionRef.current) {
             // Focus the modal when it opens
             modalSessionRef.current.focus();

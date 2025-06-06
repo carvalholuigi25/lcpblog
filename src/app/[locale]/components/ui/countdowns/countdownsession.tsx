@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
+import { delFromStorage } from "@applocale/hooks/localstorage";
 import LoadingComp from "@applocale/components/ui/loadingcomp";
 
 interface CountdownSessionProps {
@@ -23,6 +24,9 @@ export default function CountdownSession({dateSession, onFinish}: CountdownSessi
       if(progress == 100 && !loading) {
         setTimeLeft(t("endSession") ?? "This session is now finished!");
         onFinish();
+        delFromStorage("loginStatus");
+        delFromStorage("logInfo");
+        location.reload();
         return false;
       }
 
@@ -41,13 +45,13 @@ export default function CountdownSession({dateSession, onFinish}: CountdownSessi
         const minutes = Math.floor((remainingTime / (1000 * 60)) % 60);
         const seconds = Math.floor((remainingTime / 1000) % 60);
 
-        const lblyears = years + " " + (t("labelsDate.years") ?? "years");
-        const lblmonths = months + " " + (t("labelsDate.months") ?? "months");
-        const lblweeks = weeks + " " + (t("labelsDate.weeks") ?? "weeks");
-        const lbldays = days + " " + (t("labelsDate.days") ?? "days");
-        const lblhours = hours + " " + (t("labelsDate.hours") ?? "hours");
-        const lblminutes = minutes + " " + (t("labelsDate.minutes") ?? "minutes");
-        const lblseconds = seconds + " " + (t("labelsDate.seconds") ?? "seconds");
+        const lblyears = years.toString().padStart(2, '0') + " " + (t("labelsDate.years") ?? "years");
+        const lblmonths = months.toString().padStart(2, '0') + " " + (t("labelsDate.months") ?? "months");
+        const lblweeks = weeks.toString().padStart(2, '0') + " " + (t("labelsDate.weeks") ?? "weeks");
+        const lbldays = days.toString().padStart(2, '0') + " " + (t("labelsDate.days") ?? "days");
+        const lblhours = hours.toString().padStart(2, '0') + " " + (t("labelsDate.hours") ?? "hours");
+        const lblminutes = minutes.toString().padStart(2, '0') + " " + (t("labelsDate.minutes") ?? "minutes");
+        const lblseconds = seconds.toString().padStart(2, '0') + " " + (t("labelsDate.seconds") ?? "seconds");
 
         setProgress(percentage);
         setTimeLeft(`${lblyears} ${lblmonths} ${lblweeks} ${lbldays} ${lblhours} ${lblminutes} ${lblseconds}`);

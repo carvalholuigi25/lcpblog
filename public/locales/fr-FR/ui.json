@@ -271,7 +271,8 @@
               "lblreqemail": "L'e-mail est obligatoire.",
               "lblreqpassword": "Le mot de passe est requis.",
               "lblinvemail": "E-mail invalide",
-              "lblmaxattempts": "Nombre maximal de tentatives atteint. La connexion sera déverrouillée dans 1 heure. (Date: {dateLock})"
+              "lblmaxattempts": "Nombre maximal de tentatives atteint. La connexion sera déverrouillée dans 1 heure. (Date: {dateLock})",
+              "lblinvalidvtimer": "Impossible de sélectionner ou d'écrire le passé ou l'équivalent d'aujourd'hui! Veuillez en sélectionner un autre."
             }
           },
           "apimessages": {

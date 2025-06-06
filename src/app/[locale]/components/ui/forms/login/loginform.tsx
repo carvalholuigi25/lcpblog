@@ -166,6 +166,7 @@ const LoginForm = () => {
     const handleLogout = () => {
         if (logInfo) {
             delFromStorage("logInfo");
+            delFromStorage("loginStatus");
             setAvatarUser("avatars/guest.png");
             setLogInfo(null);
             setIsLoggedIn(false);
@@ -175,26 +176,28 @@ const LoginForm = () => {
     const onFinish = async () => {
         if(getFromStorage("loginStatus")) {
             const loginStatus = JSON.parse(getFromStorage("loginStatus")!);
-            if(attempts >= maxAttempts && loginStatus.status == "locked" && new Date().getHours() <= new Date("" + loginStatus.dateLock).getHours()) {
-                if (!disableLoginLockCheck) {
-                    setIsLoginLocked(false);
+            if(loginStatus.status == "locked") {
+                if(attempts >= maxAttempts && new Date().getHours() <= new Date("" + loginStatus.dateLock).getHours()) {
+                    if (!disableLoginLockCheck) {
+                        setIsLoginLocked(false);
+                    }
+
+                    const uid = getUserId();
+                    const nloginStatus: LoginStatus = {
+                        attempts: 0,
+                        status: "unlocked",
+                        dateLock: "",
+                        dateLockTimestamp: 0,
+                        type: loginStatus.type ?? UserSessionsTypes.Permanent,
+                        modeTimer: loginStatus.modeTimer ?? defSessionModeTimer,
+                        valueTimer: loginStatus.valueTimer ?? "",
+                        userId: uid
+                    };
+
+                    saveToStorage("loginStatus", JSON.stringify(nloginStatus));
+                    setAttempts(0);
+                    setIsAttemptsUpdated(true);
                 }
-
-                const uid = getUserId();
-                const nloginStatus: LoginStatus = {
-                    attempts: 0,
-                    status: "unlocked",
-                    dateLock: "",
-                    dateLockTimestamp: 0,
-                    type: loginStatus.type ?? UserSessionsTypes.Permanent,
-                    modeTimer: loginStatus.modeTimer ?? defSessionModeTimer,
-                    valueTimer: loginStatus.valueTimer ?? "",
-                    userId: uid
-                };
-
-                setAttempts(0);
-                saveToStorage("loginStatus", JSON.stringify(nloginStatus));
-                setIsAttemptsUpdated(true);
             }
         }
     }
@@ -225,6 +228,16 @@ const LoginForm = () => {
                 valueTimer: valueTimer,
                 userId: getUserId()
             };
+
+            if(loginStatus.status == "unlocked" && new Date(""+loginStatus.valueTimer).getTime() <= new Date().getTime()) {
+                setDataToast({
+                    type: "error",
+                    message: t('validation.errors.lblinvalidvtimer') ?? `Can't select or write the past or equal time to today! Please select different one.`,
+                    statusToast: true,
+                    displayName: formData.email ?? ""
+                });
+                return false;
+            }
 
             if (attempts >= maxAttempts) {
                 const dateFrm = today.toLocaleString(DateTime.DATETIME_FULL);
