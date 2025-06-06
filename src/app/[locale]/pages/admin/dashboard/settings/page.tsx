@@ -161,15 +161,27 @@ const AdminSettings = () => {
                                         <div className="col-12">
                                             <form className="frmensettings">
                                                 <div className={"form-group mt-3 text-center"}>
-                                                    <label htmlFor="ensettings">{t('form.lblensettings') ?? "Is Settings Enabled?"}</label>
-                                                    <input type="checkbox" id="inpensettings" name="inpensettings" className={"form-control inpensettings mt-3 sformgroupinp"} placeholder={t('form.inpensettings') ?? "Toggle the settings"} checked={isSettingsEnabled} width={50} height={50} onChange={toggleSettings} />
+                                                    <div className="form-check form-switch">
+                                                        <div className="colleft">
+                                                            <label className="form-check-label" htmlFor="ensettings">{t('form.lblensettings') ?? "Is Settings Enabled?"}</label>
+                                                        </div>
+                                                        <div className="colright">
+                                                            <input type="checkbox" role="switch" id="inpensettings" name="inpensettings" className={"form-control form-check-input inpensettings sformgroupinp"} placeholder={t('form.inpensettings') ?? "Toggle the settings"} checked={isSettingsEnabled} onChange={toggleSettings} />
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </form>
 
                                             <form className={"frmsettings " + (!isSettingsEnabled ? "hidden" : "")} onSubmit={handleSubmit(onSubmit)}>
                                                 <div className={"form-group mt-3 text-center"}>
-                                                    <label htmlFor="theme">{t('form.lbltheme') ?? "Theme"}</label>
-                                                    <input {...register("theme")} type="text" id="theme" name="theme" className={"form-control theme mt-3 sformgroupinp"} placeholder={t('form.inptheme') ?? "Write the theme name here... (e.g: glassmorphism)"} value={formData.theme} onChange={handleChange} required />
+                                                    <div className="formsel">
+                                                        <div className="colleft">
+                                                            <label htmlFor="theme">{t('form.lbltheme') ?? "Theme"}</label>
+                                                        </div>
+                                                        <div className="colright">
+                                                            <input {...register("theme")} type="text" id="theme" name="theme" className={"form-control theme w-auto mt-3 sformgroupinp"} placeholder={t('form.inptheme') ?? "Write the theme name here... (e.g: glassmorphism)"} value={formData.theme} onChange={handleChange} required />
+                                                        </div>
+                                                    </div>
 
                                                     {errors.theme && ShowAlert("danger", errors.theme.message)}
                                                 </div>
@@ -177,16 +189,28 @@ const AdminSettings = () => {
                                                 <div className="row">
                                                     <div className="col-12">
                                                         <div className={"form-group mt-3 text-center"}>
-                                                            <label htmlFor="3deffects">{t('form.lbl3deffects') ?? "Is 3D Effects Enabled?"}</label>
-                                                            <input {...register("is3DEffectsEnabled")} type="checkbox" id="inp3deffects" name="inp3deffects" className={"form-control inp3deffects mt-3 sformgroupinp"} placeholder={t('form.inp3deffects') ?? "Check the 3D effects"} checked={formData.is3DEffectsEnabled} width={50} height={50} onChange={toggle3DEffects} />
+                                                            <div className="form-check form-switch">
+                                                                <div className="colleft">
+                                                                    <label className="form-check-label" htmlFor="3deffects">{t('form.lbl3deffects') ?? "Is 3D Effects Enabled?"}</label>
+                                                                </div>
+                                                                <div className="colright">
+                                                                    <input {...register("is3DEffectsEnabled")} type="checkbox" role="switch" id="inp3deffects" name="inp3deffects" className={"form-control form-check-input inp3deffects sformgroupinp"} placeholder={t('form.inp3deffects') ?? "Check the 3D effects"} checked={formData.is3DEffectsEnabled} onChange={toggle3DEffects} />
+                                                                </div>
+                                                            </div>
 
                                                             {errors.is3DEffectsEnabled && ShowAlert("danger", errors.is3DEffectsEnabled.message)}
                                                         </div>
                                                     </div>
                                                     <div className="col-12">
                                                         <div className={"form-group mt-3 text-center"}>
-                                                            <label htmlFor="isBordered">{t('form.lblbordered') ?? "Is Bordered Enabled?"}</label>
-                                                            <input {...register("isBordered")} type="checkbox" id="inpbordered" name="inpbordered" className={"form-control inpbordered mt-3 sformgroupinp"} placeholder={t('form.inpbordered') ?? "Check the bordered effect"} checked={formData.isBordered} width={50} height={50} onChange={toggleBorderedEffect} />
+                                                            <div className="form-check form-switch">
+                                                                <div className="colleft">
+                                                                    <label className="form-check-label" htmlFor="isBordered">{t('form.lblbordered') ?? "Is Bordered Enabled?"}</label>
+                                                                </div>
+                                                                <div className="colright">
+                                                                    <input {...register("isBordered")} type="checkbox" role="switch" id="inpbordered" name="inpbordered" className={"form-control form-check-input inpbordered sformgroupinp"} placeholder={t('form.inpbordered') ?? "Check the bordered effect"} checked={formData.isBordered} onChange={toggleBorderedEffect} />
+                                                                </div>
+                                                            </div>
 
                                                             {errors.isBordered && ShowAlert("danger", errors.isBordered.message)}
                                                         </div>
@@ -196,8 +220,14 @@ const AdminSettings = () => {
                                                 <div className="clearfix"></div>
 
                                                 <div className={"form-group mt-3 text-center"}>
-                                                    <label htmlFor="language">{t('form.lbllanguage') ?? "Language"}</label>
-                                                    <input {...register("language")} type="text" id="language" name="language" className={"form-control language mt-3 sformgroupinp"} placeholder={t('form.inplanguage') ?? "Write the language name here (e.g: pt-PT)..."} value={formData.language} onChange={handleChange} />
+                                                    <div className="formsel">
+                                                        <div className="colleft">
+                                                            <label htmlFor="language">{t('form.lbllanguage') ?? "Language"}</label>
+                                                        </div>
+                                                        <div className="colright">
+                                                            <input {...register("language")} type="text" id="language" name="language" className={"form-control language w-auto mt-3 sformgroupinp"} placeholder={t('form.inplanguage') ?? "Write the language name here (e.g: pt-PT)..."} value={formData.language} onChange={handleChange} />
+                                                        </div>
+                                                    </div>
 
                                                     {errors.language && ShowAlert("danger", errors.language.message)}
                                                 </div>

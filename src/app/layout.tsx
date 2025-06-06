@@ -48,14 +48,16 @@ export default async function RootLayout({
   const pathname = (await headers()).get("x-current-path");
 
   const dir = getLangDir(locale) ?? "ltr";
-  const stuffconfig = `${themeCl} ${effects3DCl}`;
   const fonts = `${poppins.variable} ${roboto.variable} ${orbitron.variable}`;
-  const fixedAdmCl = pathname && pathname.includes("admin") ? "fixedadm" : "";
-  const authCl = pathname && pathname.includes("auth") ? "authp" : "";
+  const stuffconfig = ` ${themeCl} ${effects3DCl}`;
+  const fixedAdmCl = pathname && pathname.includes("admin") ? " fixedadm" : "";
+  const authCl = pathname && pathname.includes("auth") ? " authp" : "";
+  const pagesCl = pathname && !["pages", "paginas"].includes(pathname) ? " pagesp" : "";
+  const padpageCl = `mybkgpage ${fixedAdmCl} ${authCl} ${pagesCl}`;
 
   return (
     <html lang={locale} dir={dir} data-bs-theme="system" suppressHydrationWarning={true}>
-      <body className={`${fonts} ${stuffconfig} ${fixedAdmCl} ${authCl} mybkgpage`}>
+      <body className={`${fonts} ${stuffconfig} ${padpageCl}`}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <div className="modal-root" id="modal-root"></div>
           <div id="toast-root"></div>

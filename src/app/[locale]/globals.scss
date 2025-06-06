@@ -33,13 +33,17 @@ body {
   padding-right: 0 !important;
 }
 
+.mybkgpage {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
 .fixedadm {
   padding-top: 1rem !important;
 }
 
-.mybkgpage {
-  background-color: var(--background);
-  color: var(--foreground);
+.pagesp {
+  padding-top: 1rem !important;
 }
 
 .authp {
@@ -47,7 +51,7 @@ body {
 }
 
 .admpage {
-  padding-top: 1rem;
+  padding-top: 1rem !important;
 }
 
 .npage {
@@ -409,7 +413,47 @@ footer {
 }
 
 .frmensettings, .frmsettings {
-  input[type=checkbox] {
+  .form-group {
+    padding: 5px 0;
+  }
+
+  .form-switch, .formsel {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  .colleft {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: calc(100% - 10%);
+    max-width: 100%;
+
+    * {
+      margin: 0;
+    }
+  }
+
+  .colright {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    width: calc(100% - 90%);
+    max-width: 100%;
+
+    * {
+      margin: 0;
+    }
+  }
+
+  .chkbox {
     position: relative;
     display: inline-block;
     width: 20px;
@@ -421,6 +465,7 @@ footer {
 
   input {
     width: auto;
+    max-width: 100%;
     margin: 0 auto;
   }
 }
@@ -1606,6 +1651,20 @@ a.fc-event:hover {
   .cardarch {
     .card-author .row > * {
       margin-top: 15px;
+    }
+  }
+
+  .frmensettings, .frmsettings {
+    .form-switch, .formsel {
+      flex-direction: column;
+    }
+
+    .colleft, .colright {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      max-width: 100%;
     }
   }
 }
