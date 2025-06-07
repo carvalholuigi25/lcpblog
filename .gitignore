@@ -82,3 +82,7 @@ package-lock.json
 .vs/
 **/.vs/
 .vscode/settings.json
+
+/server/api/v1/lcpblogapi/SSL/Certs/
+/server/api/v1/lcpblogapi/SSL/Keys/
+/server/api/v1/lcpblogapi/SSL/old/

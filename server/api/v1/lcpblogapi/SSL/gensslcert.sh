@@ -2,7 +2,7 @@
 
 getNumDays() {
     ya=$(date +%Y)
-    numy=10
+    numy=1
     ((!($ya % 4) && ($ya % 100 || !($ya % 400)))) && echo $((366 * $numy)) || echo $((365 * $numy))
 }
 
