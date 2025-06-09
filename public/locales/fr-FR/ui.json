@@ -21,7 +21,7 @@
         "inp3deffects": "Vérifiez les effets 3D",
         "lblbordered": "Les bordures sont-elles activées?",
         "inpbordered": "Vérifiez l'effet de bordure",
-        "lbllanguage": "Langue",
+        "lbllanguage": "Langue par défaut",
         "inplanguage": "Écrivez le nom de la langue ici (ex.: pt-PT)...",
         "btnreset": "Réinitialiser",
         "btnupdate": "Mettre à jour",

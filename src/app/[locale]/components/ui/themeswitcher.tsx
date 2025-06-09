@@ -60,6 +60,23 @@ export function GetMyCustomThemes(): any {
     return [...new Map(ary.map(item => [item.id, item])).values()];
 }
 
+export function GetMySpecialCustomThemes(): any {
+    const ary = [
+        {
+            id: 1,
+            title: "Glassmorphism",
+            theme: "glassmorphism",
+        },
+        {
+            id: 2,
+            title: "Neomorphism",
+            theme: "neomorphism"
+        }
+    ];
+
+    return [...new Map(ary.map(item => [item.id, item])).values()];
+}
+
 const ThemeSwitcher = () => {
     const setMyTheme = (e: any, x: ThemesModel): any => {
         e.preventDefault();
@@ -90,7 +107,7 @@ const ThemeSwitcher = () => {
                 <div className="dropdown mt-3 mb-3">
                     <button
                         type="button"
-                        className={"btn btn-secondary dropdown-toggle btn-rounded " + (is3DEffectsEnabled ? "btn3D-box" : "")}
+                        className={"btn btn-secondary dropdown-toggle btn-rounded " + (is3DEffectsEnabled ? "btn3Dbox" : "")}
                         data-bs-toggle="dropdown"
                         aria-expanded="false"
                     >

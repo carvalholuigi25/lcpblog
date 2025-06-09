@@ -353,10 +353,10 @@ export default function Comments({ userId, postId, categoryId, isCommentFormShow
                             </div>
 
                             <div className="d-inline-block mx-auto mt-3">
-                                <button className={"btn btn-secondary btnreset btn-rounded " + (is3DEffectsEnabled ? "btn3D-box" : "")} type="reset" onClick={handleReset}>
+                                <button className={"btn btn-secondary btnreset btn-rounded " + (is3DEffectsEnabled ? "btn3Dbox" : "")} type="reset" onClick={handleReset}>
                                     {t("inputs.btnreset") ?? "Reset"}
                                 </button>
-                                <button className={"btn btn-primary btnadd btn-rounded ms-3 " + (is3DEffectsEnabled ? "btn3D-box" : "")} type="button" onClick={handleSubmit} disabled={isSubmitting}>
+                                <button className={"btn btn-primary btnadd btn-rounded ms-3 " + (is3DEffectsEnabled ? "btn3Dbox" : "")} type="button" onClick={handleSubmit} disabled={isSubmitting}>
                                     {t("inputs.btnadd") ?? "Add"}
                                 </button>
                             </div>

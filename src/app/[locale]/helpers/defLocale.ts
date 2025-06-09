@@ -2,7 +2,7 @@ import { getFromStorage } from "@applocale/hooks/localstorage";
 import * as config from "@applocale/utils/config";
 
 export const getDefLocale = () => {
-    return getFromStorage("language") ?? config.getConfigSync().language;
+    return config.getConfigSync().language ?? getFromStorage("language");
 }
 
 export const getLinkLocale = () => {

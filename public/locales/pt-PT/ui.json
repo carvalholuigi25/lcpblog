@@ -21,8 +21,8 @@
         "inp3deffects": "Verificar efeitos 3D",
         "lblbordered": "A opção Bordas está ativada?",
         "inpbordered": "Verificar o efeito de borda",
-        "lbllanguage": "Língua",
-        "inplanguage": "Escreva aqui o nome da língua (ex.: pt-PT)...",
+        "lbllanguage": "Idioma padrão",
+        "inplanguage": "Escreva aqui o nome do idioma (ex.: pt-PT)...",
         "btnreset": "Repor",
         "btnupdate": "Atualizar",
         "apimessages": {

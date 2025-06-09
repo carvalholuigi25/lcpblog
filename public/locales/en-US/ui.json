@@ -21,7 +21,7 @@
                 "inp3deffects": "Check the 3D effects",
                 "lblbordered": "Is Bordered Enabled?",
                 "inpbordered": "Check the bordered effect",
-                "lbllanguage": "Language",
+                "lbllanguage": "Default language",
                 "inplanguage": "Write the language name here (e.g: pt-PT)...",
                 "btnreset": "Reset",
                 "btnupdate": "Update",

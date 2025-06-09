@@ -4,7 +4,7 @@ import {routing} from './routing';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default getRequestConfig(async ({requestLocale}: any) => {
   // This typically corresponds to the `[locale]` segment
-  let locale = await requestLocale;
+  let locale = (await requestLocale) ?? "pt-PT";
  
   // Ensure that a valid locale is used
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

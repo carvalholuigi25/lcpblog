@@ -37,12 +37,14 @@ export async function PUT(req: Request) {
         return NextResponse.json({ error: await GetMsgTranslated("themenotfound", {themeName: ""+data.theme}) }, {status: 500});
       }
 
-      if(checkIfValuesNotExistLocales(data.language)) {
-        return NextResponse.json({ error: await GetMsgTranslated("langnotfound", {languageName: ""+data.language}) }, {status: 500});
-      }
-
-      if(data.language && !regex.test(data.language)) {
-        return NextResponse.json({ error: await GetMsgTranslated("langinvalidformat") }, {status: 500});
+      if(data.language) {
+        if(checkIfValuesNotExistLocales(data.language)) {
+          return NextResponse.json({ error: await GetMsgTranslated("langnotfound", {languageName: ""+data.language}) }, {status: 500});
+        }
+      
+        if(!regex.test(data.language)) {
+          return NextResponse.json({ error: await GetMsgTranslated("langinvalidformat") }, {status: 500});
+        }
       }
       
       fs.mkdirSync(path.dirname(filePath), { recursive: true });

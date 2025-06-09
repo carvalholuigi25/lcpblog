@@ -1,26 +1,36 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { useTranslations } from "next-intl";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { TFormSettings, useMySchemaSettings } from "@applocale/schemas/formSchemas";
 import { DataToastsProps } from "@applocale/interfaces/toasts";
+import { saveToStorage } from "@applocale/hooks/localstorage";
+import { getMyCustomLanguages } from "@applocale/components/ui/languageswitcher";
+import { LanguagesLocales } from "@/app/i18n/locales";
+import { TFormSettings, useMySchemaSettings } from "@applocale/schemas/formSchemas";
+import { GetMySpecialCustomThemes, ThemesModel } from "./themeswitcher";
 import ShowAlert from "@applocale/components/ui/alerts";
 import Toasts from "@applocale/components/ui/toasts/toasts";
 import LoadingComp from "@applocale/components/ui/loadingcomp";
 import * as config from "@applocale/utils/config";
-import { saveToStorage } from "../../hooks/localstorage";
 
 export default function SettingsComp() {
     const t = useTranslations("ui.settings");
 
     const [isSettingsEnabled, setIsSettingsEnabled] = useState(true);
     const [isResetedForm, setIsResetedForm] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-    const [isChanged, setIsChanged] = useState(false);
-    const [isFinishedTyping, setIsFinishedTyping] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    const [isAutoSaved, setIsAutoSaved] = useState(false);
+    const specialthemes: ThemesModel[] = GetMySpecialCustomThemes();
+    const languagesary: LanguagesLocales[] = getMyCustomLanguages();
+    const router = useRouter();
+
+    const formRef = useRef<any>(null);
+    const delay = 1000 * 5;
+    let typingTimer: any;
 
     const [formData, setFormData] = useState({
         theme: config.getConfigSync().theme ?? "glassmorphism",
@@ -44,12 +54,22 @@ export default function SettingsComp() {
         resolver: zodResolver(useMySchemaSettings()),
     });
 
-    const formRef = useRef<any>(null);
-    const delay = 1000;
-    const delayTyping = 1000;
-    let timer: string | number | NodeJS.Timeout | undefined;
+    const autoSubmitAfterTyping = useCallback(() => {
+        if(!isLoading && isAutoSaved) {
+            const refid = setTimeout(() => {
+                formRef.current.requestSubmit();
+            }, delay);
+
+            return () => {
+                clearTimeout(refid);
+                clearTimeout(typingTimer);
+            }
+        }
+    }, [isAutoSaved, isLoading, typingTimer, delay]);
 
     useEffect(() => {
+        setIsLoading(false);
+
         if (!!isResetedForm) {
             setFormData({
                 theme: config.getConfigSync().theme ?? "glassmorphism",
@@ -60,16 +80,8 @@ export default function SettingsComp() {
             });
         }
 
-        setIsLoading(false);
-
-        if(!isLoading) {
-            if(isChanged) {
-                setTimeout(() => {
-                    formRef.current.requestSubmit();
-                }, delay);
-            }
-        }
-    }, [isResetedForm, isLoading, isChanged]);
+        autoSubmitAfterTyping();
+    }, [isResetedForm, isLoading, isAutoSaved, typingTimer, router, autoSubmitAfterTyping]);
 
     if (isLoading) {
         return (
@@ -81,14 +93,14 @@ export default function SettingsComp() {
         setIsSettingsEnabled(e.target.checked);
     }
 
-     const toggleAutoSaveSetting = (e: any) => {
-        setIsChanged(true);
+    const toggleAutoSaveSetting = (e: any) => {
+        setIsAutoSaved(true);
         setFormData({ ...formData, ["isAutoSaveEnabled"]: e.target.checked });
     }
 
     const toggle3DEffects = (e: any) => {
         if(formData.isAutoSaveEnabled) {
-            setIsChanged(true);
+            setIsAutoSaved(true);
         }
         
         setFormData({ ...formData, ["is3DEffectsEnabled"]: e.target.checked });
@@ -96,7 +108,7 @@ export default function SettingsComp() {
 
     const toggleBorderedEffect = (e: any) => {
         if(formData.isAutoSaveEnabled) {
-            setIsChanged(true);
+            setIsAutoSaved(true);
         }
 
         setFormData({ ...formData, ["isBordered"]: e.target.checked });
@@ -111,35 +123,45 @@ export default function SettingsComp() {
 
         setFormData({ ...formData, [name]: value });
 
-        if(name == "language" && formData.language.length > 0 && isFinishedTyping) {
-            saveToStorage("language", ""+formData.language);
-        }
-        
-        if(formData.isAutoSaveEnabled && isFinishedTyping) {
-            setIsChanged(true);
+        if(formData.isAutoSaveEnabled) {
+            setIsAutoSaved(true);
         }
     };
 
-    const handleKeyUp = (e: any) => {
+     const handleUpdKeyTheme = (e: any) => {
         e.preventDefault();
 
-        if(formData.isAutoSaveEnabled) {
-            clearTimeout(timer);
-            timer = setTimeout(() => {
-                setIsFinishedTyping(true);
-            }, delayTyping);
+        if(specialthemes.length > 0) {
+            if (formData.theme && specialthemes.filter(x => x.theme.includes(formData.theme)).length == 1) {
+                clearTimeout(typingTimer);
+                typingTimer = setTimeout(() => {
+                    setIsAutoSaved(true);
+                }, delay);
+            }
+        }
+    }
+
+    const handleUpdKeyLang = (e: any) => {
+        e.preventDefault();
+
+        if (languagesary.length > 0) {
+            if (formData.language && languagesary.filter(x => x.value.includes(formData.language)).length == 1) {
+                clearTimeout(typingTimer);
+                typingTimer = setTimeout(() => {
+                    setIsAutoSaved(true);
+                }, delay);
+            }
         }
     }
 
     const onSubmit = async () => {
-        console.log(formData);
-
         if(formData.theme.length == 0) {
             setDataToast({
                 type: "error",
                 message: t("form.apimessages.error", { message: "The theme name should be provided." }) ?? `Failed to update the settings! Message: The theme name should be provided.`,
                 statusToast: true
             });
+            location.reload();
             return false;
         }
 
@@ -149,6 +171,7 @@ export default function SettingsComp() {
                 message: t("form.apimessages.error", { message: "The language name should be provided." }) ?? `Failed to update the settings! Message: The language name should be provided.`,
                 statusToast: true
             });
+            location.reload();
             return false;
         }
 
@@ -162,25 +185,26 @@ export default function SettingsComp() {
             data: JSON.stringify(formData)
         }).then((r) => {
             console.log(r);
+            saveToStorage("language", ""+formData.language);
+            
             setDataToast({
                 type: "success",
                 message: t("form.apimessages.success") ?? "Updated the new settings!",
                 statusToast: true
             });
-            setTimeout(() => {
-                location.reload();
-            }, 500);
+
+            router.push("/");
         }).catch((e) => {
             console.log(e);
             const msg = e.response.data.error ?? e.message;
+            
             setDataToast({
                 type: "error",
                 message: t("form.apimessages.error", { message: msg }) ?? `Failed to update the settings! Message: ${msg}`,
                 statusToast: true
             });
-            setTimeout(() => {
-                location.reload();
-            }, 500);
+
+            router.push("/");
         });
     }
 
@@ -219,11 +243,15 @@ export default function SettingsComp() {
                                 <label htmlFor="theme">{t('form.lbltheme') ?? "Theme"}</label>
                             </div>
                             <div className="colright">
-                                <input {...register("theme")} type="text" id="theme" name="theme" list="dttheme" className={"form-control theme w-auto mt-3 sformgroupinp"} placeholder={t('form.inptheme') ?? "Write the theme name here... (e.g: glassmorphism)"} value={formData.theme} onChange={handleChange} onKeyUp={handleKeyUp} required />
-                                <datalist id="dttheme">
-                                    <option value="glassmorphism">glassmorphism</option>
-                                    <option value="neomorphism">neomorphism</option>
-                                </datalist>
+                                <input {...register("theme")} type="text" id="theme" name="theme" list="dttheme" className={"form-control theme w-auto mt-3 sformgroupinp"} placeholder={t('form.inptheme') ?? "Write the theme name here... (e.g: glassmorphism)"} value={formData.theme} onChange={handleChange} onInput={handleUpdKeyTheme} required />
+
+                                {specialthemes && (
+                                    <datalist id="dttheme">
+                                        {specialthemes.map((x, i) => (
+                                            <option key={i} value={x.theme}>{x.theme}</option>
+                                        ))}
+                                    </datalist>
+                                )}
                             </div>
                         </div>
 
@@ -269,11 +297,14 @@ export default function SettingsComp() {
                                 <label htmlFor="language">{t('form.lbllanguage') ?? "Language"}</label>
                             </div>
                             <div className="colright">
-                                <input {...register("language")} type="text" id="language" name="language" list="dtlang" className={"form-control language w-auto mt-3 sformgroupinp"} placeholder={t('form.inplanguage') ?? "Write the language name here (e.g: pt-PT)..."} value={formData.language} onChange={handleChange} onKeyUp={handleKeyUp} />
-                                <datalist id="dtlang">
-                                    <option value="pt-PT">pt-PT</option>
-                                    <option value="en-UK">en-UK</option>
-                                </datalist>
+                                <input {...register("language")} type="text" id="language" name="language" list="dtlang" className={"form-control language w-auto mt-3 sformgroupinp"} placeholder={t('form.inplanguage') ?? "Write the language name here (e.g: pt-PT)..."} value={formData.language} onChange={handleChange} onInput={handleUpdKeyLang} />
+                                {languagesary && (
+                                    <datalist id="dtlang">
+                                        {languagesary.map((x, i) => (
+                                            <option key={i} value={x.value}>{x.value}</option>
+                                        ))}
+                                    </datalist>
+                                )}
                             </div>
                         </div>
 

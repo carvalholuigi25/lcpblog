@@ -205,18 +205,18 @@ const LoginForm = () => {
     const onSubmit = async () => {
         if (!isLoginLocked) {
             const statusAttempt = attempts >= maxAttempts ? "locked" : "unlocked";
-            const ndt = DateTime.now().setLocale(getDefLocale());
-            const nhr = new Date().getHours()+1;
+            const ndt = DateTime.now().setLocale(getDefLocale()).setZone("system");
+            const nhr = ndt.isInDST ? ndt.get("hour") + 1 : ndt.get("hour");
             const today = ndt.set({hour: nhr});
 
             const valueTimer = formData.type == UserSessionsTypes.Temporary ? 
-            formData.modeTimer == UserSessionsTypesTimes.Year ? ndt.plus({years: 1}).toISO() : 
-            formData.modeTimer == UserSessionsTypesTimes.Month ? ndt.plus({months: 1}).toISO() : 
-            formData.modeTimer == UserSessionsTypesTimes.Week ? ndt.plus({weeks: 1}).toISO() :
-            formData.modeTimer == UserSessionsTypesTimes.Day ? ndt.plus({days: 1}).toISO() :
-            formData.modeTimer == UserSessionsTypesTimes.Hour ? ndt.plus({hours: 1}).toISO() :
+            formData.modeTimer == UserSessionsTypesTimes.Year ? today.plus({years: 1}).toISO() : 
+            formData.modeTimer == UserSessionsTypesTimes.Month ? today.plus({months: 1}).toISO() : 
+            formData.modeTimer == UserSessionsTypesTimes.Week ? today.plus({weeks: 1}).toISO() :
+            formData.modeTimer == UserSessionsTypesTimes.Day ? today.plus({days: 1}).toISO() :
+            formData.modeTimer == UserSessionsTypesTimes.Hour ? today.plus({hours: 1}).toISO() :
             formData.modeTimer == UserSessionsTypesTimes.Custom ? formData.valueTimer :
-            ndt.toISO() : "";
+            today.toISO() : "";
 
             const loginStatus: LoginStatus = {
                 attempts: attempts,
@@ -225,7 +225,7 @@ const LoginForm = () => {
                 dateLockTimestamp: today.toMillis(),
                 type: formData.type,
                 modeTimer: formData.modeTimer,
-                valueTimer: valueTimer,
+                valueTimer: ""+valueTimer,
                 userId: getUserId()
             };
 
@@ -303,7 +303,7 @@ const LoginForm = () => {
                         dateLockTimestamp: today.toMillis(),
                         type: formData.type,
                         modeTimer: formData.modeTimer,
-                        valueTimer: valueTimer,
+                        valueTimer: ""+valueTimer,
                         userId: getUserId()
                     };
 
@@ -352,7 +352,7 @@ const LoginForm = () => {
                             dateLockTimestamp: today.toMillis(),
                             type: formData.type,
                             modeTimer: formData.modeTimer,
-                            valueTimer: valueTimer,
+                            valueTimer: ""+valueTimer,
                             userId: getUserId()
                         };
 
@@ -384,7 +384,7 @@ const LoginForm = () => {
                         dateLockTimestamp: today.toMillis(),
                         type: formData.type,
                         modeTimer: formData.modeTimer,
-                        valueTimer: valueTimer,
+                        valueTimer: ""+valueTimer,
                         userId: getUserId()
                     };
 

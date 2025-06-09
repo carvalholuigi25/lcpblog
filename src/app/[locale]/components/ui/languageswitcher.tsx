@@ -44,7 +44,7 @@ const LanguageSwitcher = () => {
             {!!languagesary && (
                 <div className="dropdown mt-3 mb-3">
                     <button
-                        className={"btn btn-secondary dropdown-toggle btn-rounded " + (is3DEffectsEnabled ? "btn3D-box" : "")}
+                        className={"btn btn-secondary dropdown-toggle btn-rounded " + (is3DEffectsEnabled ? "btn3Dbox" : "")}
                         type="button"
                         data-bs-toggle="dropdown"
                         aria-expanded="false"
@@ -56,7 +56,7 @@ const LanguageSwitcher = () => {
                         {languagesary.map(x => (
                             <li key={x.id}>
                                 <button 
-                                    className={"dropdown-item btnlanguage" + x.prefix + activeLanguage(x.value) + " " + (is3DEffectsEnabled ? "btn3D-box" : "")} 
+                                    className={"dropdown-item btnlanguage" + x.prefix + activeLanguage(x.value) + " " + (is3DEffectsEnabled ? "btn3Dbox" : "")} 
                                     onClick={(e) => setMyLanguage(e, x)}
                                 >
                                     {getLanguageFlag(x.prefix)}
