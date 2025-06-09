@@ -9,6 +9,28 @@
         "timestatus": "postou há alguns segundos atrás..."
       }
     },
+    "settings": {
+      "form": {
+        "lblensettings": "As definições estão ativadas?",
+        "inpensettings": "Alternar as definições",
+        "lblautosavesetting": "O salvamento automático está ativado?",
+        "inpautosavesetting": "Alternar a configuração de guardar automaticamente",
+        "lbltheme": "Tema",
+        "inptheme": "Escreve aqui o nome do tema... (ex.: glassmorphism)",
+        "lbl3deffects": "Os efeitos 3D estão activados?",
+        "inp3deffects": "Verificar efeitos 3D",
+        "lblbordered": "A opção Bordas está ativada?",
+        "inpbordered": "Verificar o efeito de borda",
+        "lbllanguage": "Língua",
+        "inplanguage": "Escreva aqui o nome da língua (ex.: pt-PT)...",
+        "btnreset": "Repor",
+        "btnupdate": "Atualizar",
+        "apimessages": {
+          "success": "Novas definições atualizadas!",
+          "error": "Falha ao atualizar as definições! Mensagem: {message}"
+        }
+      }
+    },
     "modals": {
       "schedule": {
         "title": "Agenda",
@@ -56,6 +78,7 @@
       "loginlink": "Iniciar sessão",
       "archlink": "Arquivo",
       "dashboardlink": "Painel",
+      "settingslink": "Definições",
       "logoutlink": "Sair"
     },
     "offcanvasAdmin": {

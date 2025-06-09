@@ -16,6 +16,7 @@ import TableData from "@applocale/components/admin/dashboard/tabledata";
 import AdminSidebarDashboard from "@applocale/components/admin/dashboard/adbsidebar";
 import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavbar";
 import MyPagination from "@applocale/components/ui/mypagination";
+import { onlyAdmins } from "@/app/[locale]/functions/functions";
 
 const AdminCategories = () => {
     const locale = useLocale() ?? getDefLocale();
@@ -59,7 +60,7 @@ const AdminCategories = () => {
             setLogInfo(getFromStorage("logInfo")!);
         }
 
-        setIsAuthorized(logInfo && JSON.parse(logInfo)[0].role == "admin" ? true : false);
+        setIsAuthorized(logInfo && onlyAdmins.includes(JSON.parse(logInfo)[0].role) ? true : false);
         fetchCategories();
     }, [page, spage, logInfo, isAuthorized]);
 
@@ -157,4 +158,4 @@ const AdminCategories = () => {
     );
 }
 
-export default withAuth(AdminCategories, ["admin"]);
+export default withAuth(AdminCategories, onlyAdmins);

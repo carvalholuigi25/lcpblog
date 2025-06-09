@@ -15,6 +15,7 @@ import UploadedFiles from "@applocale/components/ui/uploadedfiles";
 import Footer from "@applocale/ui/footer";
 import withAuth from "@applocale/utils/withAuth";
 import LoadingComp from "@applocale/components/ui/loadingcomp";
+import { onlyAdmins } from "@applocale/functions/functions";
 
 const AdminMedia = () => {
     const locale = useLocale();
@@ -32,7 +33,7 @@ const AdminMedia = () => {
             setLogInfo(getFromStorage("logInfo")!);
         }
 
-        setIsAuthorized(logInfo && JSON.parse(logInfo)[0].role == "admin" ? true : false);
+        setIsAuthorized(logInfo && onlyAdmins.includes(JSON.parse(logInfo)[0].role) ? true : false);
         setShowUpload(getFromStorage("showUpload")! == "true" ? true : false);
         setTypeUpload(getFromStorage("typeUpload")!);
         setLoading(false);
@@ -146,4 +147,4 @@ const AdminMedia = () => {
     )
 }
 
-export default withAuth(AdminMedia, ["admin"]);
+export default withAuth(AdminMedia, onlyAdmins);

@@ -207,25 +207,7 @@
                 "title": "Vidéos"
             },
             "SettingsPage": {
-                "title": "Paramètres",
-                "form": {
-                    "lblensettings": "Les paramètres sont-ils activés?",
-                    "inpensettings": "Activer/désactiver les paramètres",
-                    "lbltheme": "Thème",
-                    "inptheme": "Écrivez le nom du thème ici... (ex.: glassmorphism)",
-                    "lbl3deffects": "Les effets 3D sont-ils activés?",
-                    "inp3deffects": "Vérifiez les effets 3D",
-                    "lblbordered": "Les bordures sont-elles activées?",
-                    "inpbordered": "Vérifiez l'effet de bordure",
-                    "lbllanguage": "Langue",
-                    "inplanguage": "Écrivez le nom de la langue ici (ex.: pt-PT)...",
-                    "btnreset": "Réinitialiser",
-                    "btnupdate": "Mettre à jour",
-                    "apimessages": {
-                        "success": "Mise à jour des nouveaux paramètres!",
-                        "error": "Échec de la mise à jour des paramètres! Message: {message}"
-                    }
-                }
+                "title": "Paramètres"
             }
         },
         "AuthPage": {
@@ -268,6 +250,10 @@
             "totalusers": "Nombre total d'utilisateurs: {count}",
             "btnviewprofile": "Voir ce profil",
             "btnback": "Retour"
+        },
+        "SettingsPage": {
+            "title": "Paramètres",
+            "btnBack": "Back"
         },
         "Error": {
             "title": "Erreur",

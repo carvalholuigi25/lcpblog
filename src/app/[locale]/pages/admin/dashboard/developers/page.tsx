@@ -10,6 +10,7 @@ import Footer from "@applocale/ui/footer";
 import withAuth from "@applocale/utils/withAuth";
 import LoadingComp from "@applocale/components/ui/loadingcomp";
 import { useTranslations } from "next-intl";
+import { onlyAdminsAndDevs } from "@/app/[locale]/functions/functions";
 
 const AdminDevs = ({ locale }: { locale?: string }) => {
     const t = useTranslations("pages.AdminPages.DevelopersPage");
@@ -24,7 +25,7 @@ const AdminDevs = ({ locale }: { locale?: string }) => {
             setLogInfo(getFromStorage("logInfo")!);
         }
 
-        setIsAuthorized(logInfo && ["admin", "dev"].includes(JSON.parse(logInfo)[0].role) ? true : false);
+        setIsAuthorized(logInfo && onlyAdminsAndDevs.includes(JSON.parse(logInfo)[0].role) ? true : false);
         setLoading(false);
     }, [logInfo, isAuthorized]);
 
@@ -84,4 +85,4 @@ const AdminDevs = ({ locale }: { locale?: string }) => {
     )
 }
 
-export default withAuth(AdminDevs, ["admin", "dev"]);
+export default withAuth(AdminDevs, onlyAdminsAndDevs);

@@ -17,8 +17,8 @@ export default function Home() {
     <div className={styles.page} id="home">
       <Header locale={locale} />
       <main className={styles.main}>
-        <h1 className={"logo " + (is3DEffectsEnabled ? "logo-3D" : "")}>LCP Blog</h1>
-        <h2 className={"mt-2 " + (is3DEffectsEnabled ? "title-3D" : "")}>{t('title') ?? "Welcome to LCPBlog!"}</h2>
+        <h1 className={"logo " + (is3DEffectsEnabled ? "logo3D" : "")}>LCP Blog</h1>
+        <h2 className={"mt-2 " + (is3DEffectsEnabled ? "title3D" : "")}>{t('title') ?? "Welcome to LCPBlog!"}</h2>
       </main>
       <section className={styles.section + " " + styles.pstretch}>
         <Suspense>

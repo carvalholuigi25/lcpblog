@@ -16,6 +16,7 @@ import LoadingComp from "@applocale/components/ui/loadingcomp";
 import ShowAlert from "@applocale/components/ui/alerts";
 import axios from "axios";
 import { useTranslations } from "next-intl";
+import { onlyAdminsAndDevs } from "@/app/[locale]/functions/functions";
 
 const AdminCommitsLog = ({ locale }: { locale?: string }) => {
     const t = useTranslations("pages.AdminPages.DevelopersPage");
@@ -55,7 +56,7 @@ const AdminCommitsLog = ({ locale }: { locale?: string }) => {
             });
         }
 
-        setIsAuthorized(logInfo && ["admin", "dev"].includes(JSON.parse(logInfo)[0].role) ? true : false);
+        setIsAuthorized(logInfo && onlyAdminsAndDevs.includes(JSON.parse(logInfo)[0].role) ? true : false);
         setLoading(false);
     }, [logInfo, isAuthorized, isResetedForm]);
 
@@ -260,4 +261,4 @@ const AdminCommitsLog = ({ locale }: { locale?: string }) => {
     )
 }
 
-export default withAuth(AdminCommitsLog, ["admin", "dev"]);
+export default withAuth(AdminCommitsLog, onlyAdminsAndDevs);

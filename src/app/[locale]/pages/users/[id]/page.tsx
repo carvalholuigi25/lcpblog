@@ -120,10 +120,7 @@ export default function UserPage() {
   return (
     <>
       <Header locale={locale ?? getDefLocale()} />
-      <div
-        className="container"
-        style={{ paddingTop: "5rem", paddingBottom: "5rem" }}
-      >
+      <div className="npage container">
         {!users.userId && (
           <div className="row justify-content-center align-items-center p-3">
             <div className="col-12 card p-3 text-center">

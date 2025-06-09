@@ -24,6 +24,7 @@ import withAuth from "@applocale/utils/withAuth";
 import MyPagination from "@applocale/components/ui/mypagination";
 import LoadingComp from "@applocale/components/ui/loadingcomp";
 import Schedule from "@applocale/components/ui/schedule";
+import { onlyAdmins } from "@/app/[locale]/functions/functions";
 
 const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
     const t = useTranslations('pages.AdminPages.Dashboard');
@@ -131,7 +132,7 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
         }
 
         setChartTypeSelVal(getFromStorage("mychart")!);
-        setIsAuthorized(logInfo && JSON.parse(logInfo)[0].role == "admin" ? true : false);
+        setIsAuthorized(logInfo && onlyAdmins.includes(JSON.parse(logInfo)[0].role) ? true : false);
         fetchPosts();
         fetchSchedules();
         setLoading(false);
@@ -296,4 +297,4 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
     )
 }
 
-export default withAuth(AdminHomeDashboard, ["admin"]);
+export default withAuth(AdminHomeDashboard, onlyAdmins);

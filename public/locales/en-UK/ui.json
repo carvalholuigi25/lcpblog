@@ -27,6 +27,28 @@
                 "title": "Session (time of login)"
             }
         },
+        "settings": {
+            "form": {
+                "lblensettings": "Is Settings Enabled?",
+                "inpensettings": "Toggle the settings",
+                "lblautosavesetting": "Is Auto Save Enabled?",
+                "inpautosavesetting": "Toggle the auto save setting",
+                "lbltheme": "Theme",
+                "inptheme": "Write the theme name here... (e.g: glassmorphism)",
+                "lbl3deffects": "Is 3D Effects Enabled?",
+                "inp3deffects": "Check the 3D effects",
+                "lblbordered": "Is Bordered Enabled?",
+                "inpbordered": "Check the bordered effect",
+                "lbllanguage": "Language",
+                "inplanguage": "Write the language name here (e.g: pt-PT)...",
+                "btnreset": "Reset",
+                "btnupdate": "Update",
+                "apimessages": {
+                    "success": "Updated the new settings!",
+                    "error": "Failed to update the settings! Message: {message}"
+                }
+            }
+        },
         "countdowns": {
             "session": {
                 "title": "Your session expires in: {dateEnd}",
@@ -56,6 +78,7 @@
             "loginlink": "Login",
             "archlink": "Archive",
             "dashboardlink": "Dashboard",
+            "settingslink": "Settings", 
             "logoutlink": "Logout"
         },
         "offcanvasAdmin": {

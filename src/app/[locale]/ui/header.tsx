@@ -53,7 +53,7 @@ const HeaderMenu = ({ logInfo, locale, handleLogout }: { logInfo: any, locale: s
     return (
         <div className={"offcanvas offcanvas-start " + roundedcl} tabIndex={-1} id="menuHeader" aria-labelledby="menuHeaderLabel">
             <div className="offcanvas-header">
-                <h5 className={"offcanvas-title" + (is3DEffectsEnabled ? " navbar-3D" : "")} id="menuHeaderLabel">LCPBlog</h5>
+                <h5 className={"offcanvas-title" + (is3DEffectsEnabled ? " navbar3D" : "")} id="menuHeaderLabel">LCPBlog</h5>
                 <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label={t("btnclose") ?? "Close"} title={t("btnclose") ?? "Close"}></button>
             </div>
             <div className="offcanvas-body">
@@ -85,6 +85,11 @@ const HeaderMenu = ({ logInfo, locale, handleLogout }: { logInfo: any, locale: s
                                     <span>{t("dashboardlink") ?? "Dashboard"}</span>
                                 </Link>
                             )}
+
+                            <Link href={"/pages/settings"} locale={locale ?? getDefLocale()} className='nav-link p-3'>
+                                <i className="bi bi-gear-fill me-2"></i>
+                                <span>{t("settingslink") ?? "Settings"}</span>
+                            </Link>
 
                             <div className="d-flex justify-content-between align-items-center nav-link navlinklogin p-3">
                                 <Link href={"/pages/users/" + getUserId()} locale={locale ?? getDefLocale()}>
@@ -170,7 +175,7 @@ const Header = ({ locale }: { locale: string }) => {
                 <nav className={"navbar ps-0 pe-0 navbar-expand-lg bg-body-tertiary fixed-top " + roundedcl}>
                     <div className={"navbar-container"}></div>
                     <div className="container-fluid">
-                        <Link className={"navbar-brand" + (is3DEffectsEnabled ? " navbar-3D" : "")} href="/#home" locale={locale ?? getDefLocale()}>
+                        <Link className={"navbar-brand" + (is3DEffectsEnabled ? " navbar3D" : "")} href="/#home" locale={locale ?? getDefLocale()}>
                             LCP Blog
                         </Link>
                         <button

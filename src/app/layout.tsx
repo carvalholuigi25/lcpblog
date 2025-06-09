@@ -1,3 +1,4 @@
+import "@applocale/globals.scss";
 import type { Metadata } from "next";
 import { Poppins, Roboto, Orbitron } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
@@ -7,7 +8,6 @@ import { getLangDir } from "rtl-detect";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import Dependencies from "@applocale/dependencies/dependencies";
 import * as config from "@applocale/utils/config";
-import "@applocale/globals.scss";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -30,6 +30,12 @@ const orbitron = Orbitron({
   weight: ['400', '500', '700']
 });
 
+const getPadPagCl = (pathname: string) => {
+  return pathname && pathname.includes("auth") ? "authp" : 
+  pathname.includes("admin") ? "fixedadm" : 
+  pathname.includes("pages") || pathname.includes("paginas") ? "pagesp" : "pt-1";
+}
+
 export const metadata: Metadata = {
   title: "LCP Blog",
   description: "Created by Luis Carvalho @2025 - LCP",
@@ -45,19 +51,17 @@ export default async function RootLayout({
   const effects3DCl = (await config.getConfig()).is3DEffectsEnabled ? "effects3D" : "";
   const locale = await getLocale() ?? getDefLocale() ?? langdef;
   const messages = await getMessages({ locale: locale });
-  const pathname = (await headers()).get("x-current-path");
-
+  const qheaders = await headers();
+  const pathname = qheaders.get("x-current-path") || "";
   const dir = getLangDir(locale) ?? "ltr";
-  const fonts = `${poppins.variable} ${roboto.variable} ${orbitron.variable}`;
-  const stuffconfig = ` ${themeCl} ${effects3DCl}`;
-  const fixedAdmCl = pathname && pathname.includes("admin") ? " fixedadm" : "";
-  const authCl = pathname && pathname.includes("auth") ? " authp" : "";
-  const pagesCl = pathname && !["pages", "paginas"].includes(pathname) ? " pagesp" : "";
-  const padpageCl = `mybkgpage ${fixedAdmCl} ${authCl} ${pagesCl}`;
+  const padpagCl = getPadPagCl(pathname);
+  const fontsCl = `${poppins.variable} ${roboto.variable} ${orbitron.variable}`;
+  const layoutCl = `${themeCl} ${effects3DCl} ${padpagCl}`;
+  const bodyCl = `${fontsCl} ${layoutCl} mybkgpage`;
 
   return (
-    <html lang={locale} dir={dir} data-bs-theme="system" suppressHydrationWarning={true}>
-      <body className={`${fonts} ${stuffconfig} ${padpageCl}`}>
+    <html lang={locale} dir={dir} data-bs-theme={themeCl ?? "system"} suppressHydrationWarning={true}>
+      <body className={bodyCl}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <div className="modal-root" id="modal-root"></div>
           <div id="toast-root"></div>

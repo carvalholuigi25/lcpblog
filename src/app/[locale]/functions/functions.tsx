@@ -1,4 +1,5 @@
-import { MyHubData } from '../interfaces/myhubdata';
+import { UserRole } from '@applocale/interfaces/user';
+import { MyHubData } from '@applocale/interfaces/myhubdata';
 import * as signalR from '@microsoft/signalr';
 
 export async function buildMyConnection(hubname: string, skipNegotiation: boolean) {
@@ -62,3 +63,7 @@ export async function sendMessage(connection: signalR.HubConnection, message: st
     await connection.send("SendMessage", message);
   }
 }
+
+export const allUsers: UserRole[] = ["admin", "moderator", "user"];
+export const onlyAdmins: UserRole[] = ["admin"];
+export const onlyAdminsAndDevs: UserRole[] = ["admin", "dev"];

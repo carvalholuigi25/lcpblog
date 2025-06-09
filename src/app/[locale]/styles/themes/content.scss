@@ -30,6 +30,14 @@
         }
     }
 
+    .effects3D {
+        .logo {
+            &.logo3D {
+                color: $fgcolorprimary;
+            }
+        }
+    }
+
     .nav-tabs {
         .nav-link {
             color: $fgcolorprimary;
@@ -89,11 +97,11 @@
         }
     }
 
-    .navbar-3D, .logo-3D {
+    .navbar3D, .logo3D {
         @include m.gen3dtext($themename);
     }
 
-    .btn-3D-box {
+    .btn3D-box {
         $type: "box";
         $color: black;
 
@@ -158,6 +166,13 @@
         .allbcavatar {
             box-shadow: 2px 4px 6px $fgcolorprimary !important;
         }
+    }
+
+    .progress, .progress-stacked {
+        --bs-progress-bar-bg: #{$bgcolorsecondary + "80"};
+        --bs-progress-bar-color: $fgcolorprimary;
+        background-color: var(--bs-progress-bar-bg);
+        color: var(--bs-progress-bar-color);
     }
 
     .modal {

@@ -41,7 +41,7 @@ export default function AllUsersPage({ params }: { params: any }) {
   return (
     <>
     <Header locale={locale ?? getDefLocale()} />
-    <div className='container' style={{paddingTop: '5rem', paddingBottom: '5rem'}}>
+    <div className='npage container'>
       {!users || users.length == 0 && ( 
         <div className='row justify-content-center align-items-center p-3'>
           <div className='col-12 card p-3 text-center'>

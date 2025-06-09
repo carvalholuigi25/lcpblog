@@ -2,7 +2,7 @@
 
 .effects3D {
     .logo {
-        .logo-3D {
+        .logo3D {
             font-weight: bold;
             font-size: 2.5rem;
             line-height: 2.5rem;
@@ -11,7 +11,7 @@
         }
     }
 
-    .btn-3D-box {
+    .btn3D-box {
         $type: "box";
         $color: inherit;
 
@@ -25,7 +25,7 @@
     }
 
     .navbar-brand {
-        .navbar-3D {
+        .navbar3D {
             font-weight: bold;
             @include m.gen3dtext("system");
         }

@@ -151,14 +151,15 @@ export const useMySchemaComments = () => {
     return fcommentsSchema;
 }
 
-export const useMySchemaAdmSettings = () => {
+export const useMySchemaSettings = () => {
     const t = useTranslations("ui.forms.settings.validation.errors");
 
     const fconfigSchema = z.object({
         theme: z.coerce.string().min(1, { message: t("lblsettingtheme") ?? "Please write here the theme name (e.g: glassmorphism)"}),
-        is3DEffectsEnabled: z.coerce.boolean().optional(),
+        language: z.coerce.string().optional(),
         isBordered: z.coerce.boolean().optional(),
-        language: z.coerce.string().optional()
+        is3DEffectsEnabled: z.coerce.boolean().optional(),
+        isAutoSaveEnabled: z.coerce.boolean().optional()
     });
 
     return fconfigSchema;
@@ -175,4 +176,4 @@ export type TFormCategories = z.infer<ReturnType<typeof useMySchemaCategories>>;
 export type TFormUsers = z.infer<ReturnType<typeof useMySchemaUsers>>;
 export type TFormCommits = z.infer<ReturnType<typeof useMySchemaCommits>>;
 export type TFormComments = z.infer<ReturnType<typeof useMySchemaComments>>;
-export type TFormAdmSettings = z.infer<ReturnType<typeof useMySchemaAdmSettings>>;
+export type TFormSettings = z.infer<ReturnType<typeof useMySchemaSettings>>;

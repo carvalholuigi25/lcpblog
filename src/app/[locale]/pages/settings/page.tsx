@@ -1,67 +1,47 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import astyles from "@applocale/styles/adminstyles.module.scss";
 import { getFromStorage } from "@applocale/hooks/localstorage";
 import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from '@/app/i18n/navigation';
 import { getDefLocale } from "@applocale/helpers/defLocale";
-import { onlyAdmins } from "@applocale/functions/functions";
-import AdminSidebarDashboard from "@applocale/components/admin/dashboard/adbsidebar";
-import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavbar";
+import { allUsers } from "@applocale/functions/functions";
+import Header from "@applocale/ui/header";
 import Footer from "@applocale/ui/footer";
 import withAuth from "@applocale/utils/withAuth";
 import LoadingComp from "@applocale/components/ui/loadingcomp";
 import SettingsComp from "@applocale/components/ui/settings";
 
-const AdminSettings = () => {
-    const locale = useLocale();
-    const t = useTranslations("pages.AdminPages.SettingsPage");
+const UsersSettings = () => {
+    const locale = useLocale() ?? getDefLocale();
+    const t = useTranslations("pages.SettingsPage");
     const tbtn = useTranslations("ui.buttons");
     const [logInfo, setLogInfo] = useState("");
     const [isAuthorized, setIsAuthorized] = useState(false);
     const [loading, setLoading] = useState(true);
-    const [barToggle, setBarToggle] = useState(true);
 
     useEffect(() => {
         if (!logInfo) {
             setLogInfo(getFromStorage("logInfo")!);
         }
 
-        setIsAuthorized(logInfo && onlyAdmins.includes(JSON.parse(logInfo)[0].role) ? true : false);
+        setIsAuthorized(logInfo && allUsers.includes(JSON.parse(logInfo)[0].role) ? true : false);
         setLoading(false);
     }, [logInfo, isAuthorized]);
 
     if (loading) {
         return (
-            <div className={astyles.admdashboard}>
-                <LoadingComp type="icon" icontype="ring" />
-            </div>
+            <LoadingComp type="icon" icontype="ring" />
         );
     }
 
-    const closeSidebar = () => {
-        setBarToggle(true);
-    }
-
-    const toggleSidebar = (e: any) => {
-        e.preventDefault();
-        setBarToggle(!barToggle);
-    }
-
     return (
-        <div className={"admpage " + astyles.admdashboard} id="admdashboard">            
-            {!!isAuthorized && (
-                <AdminNavbarDashboard logInfo={logInfo} navbarStatus={barToggle} toggleNavbar={toggleSidebar} locale={locale ?? getDefLocale()} />
-            )}
-
+        <div className={"npage userssettingspage"} id="userssettingspage">            
             <div className="container">
                 <div className="row p-3">
+                    <Header locale={locale} />
+
                     {!!isAuthorized && (
                         <>
-                            <div className={"col-12 col-md-12 col-lg-12"}>
-                                <AdminSidebarDashboard sidebarStatus={barToggle} toggleSidebar={toggleSidebar} locale={locale ?? getDefLocale()} onClose={closeSidebar} />
-                            </div>
                             <div className={"col-12 col-md-12 col-lg-12"}>
                                 <h3 className="text-center titlep">
                                     <i className="bi bi-gear-fill me-2"></i>
@@ -92,4 +72,4 @@ const AdminSettings = () => {
     )
 }
 
-export default withAuth(AdminSettings, onlyAdmins);
+export default withAuth(UsersSettings, allUsers);

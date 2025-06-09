@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
+import astyles from "@applocale/styles/adminstyles.module.scss";
 import { getFromStorage } from "@applocale/hooks/localstorage";
 import { useEffect, useState } from "react";
 import { Posts } from "@applocale/interfaces/posts";
@@ -7,7 +8,7 @@ import { Link } from '@/app/i18n/navigation';
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { useLocale, useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
-import astyles from "@applocale/styles/adminstyles.module.scss";
+import { onlyAdmins } from "@applocale/functions/functions";
 import FetchData from "@applocale/utils/fetchdata";
 import AdminSidebarDashboard from "@applocale/components/admin/dashboard/adbsidebar";
 import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavbar";
@@ -63,7 +64,7 @@ const AdminPosts = () => {
             setLogInfo(getFromStorage("logInfo")!);
         }
 
-        setIsAuthorized(logInfo && JSON.parse(logInfo)[0].role == "admin" ? true : false);
+        setIsAuthorized(logInfo && onlyAdmins.includes(JSON.parse(logInfo)[0].role) ? true : false);
         fetchPosts();
     }, [logInfo, isAuthorized, isSearchEnabled, page, spage, search, sortby, sortorder]);
 
@@ -171,4 +172,4 @@ const AdminPosts = () => {
     )
 }
 
-export default withAuth(AdminPosts, ["admin"]);
+export default withAuth(AdminPosts, onlyAdmins);

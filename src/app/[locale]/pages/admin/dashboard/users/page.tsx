@@ -14,6 +14,7 @@ import TableData from "@applocale/components/admin/dashboard/tabledata";
 import Footer from "@applocale/ui/footer";
 import withAuth from "@applocale/utils/withAuth";
 import LoadingComp from "@applocale/components/ui/loadingcomp";
+import { onlyAdmins } from "@/app/[locale]/functions/functions";
 
 const AdminUsers = () => {
     const locale = useLocale();
@@ -44,7 +45,7 @@ const AdminUsers = () => {
             setLogInfo(getFromStorage("logInfo")!);
         }
 
-        setIsAuthorized(logInfo && JSON.parse(logInfo)[0].role == "admin" ? true : false);
+        setIsAuthorized(logInfo && onlyAdmins.includes(JSON.parse(logInfo)[0].role) ? true : false);
         fetchUsers();
     }, [logInfo, isAuthorized]);
 
@@ -136,4 +137,4 @@ const AdminUsers = () => {
     )
 }
 
-export default withAuth(AdminUsers, ["admin"]);
+export default withAuth(AdminUsers, onlyAdmins);

@@ -17,6 +17,7 @@ import withAuth from "@applocale/utils/withAuth";
 import MyPagination from "@applocale/components/ui/mypagination";
 import LoadingComp from "@applocale/components/ui/loadingcomp";
 import AdvancedSearchTags from "@applocale/components/ui/forms/search/tags/advsearchtags";
+import { onlyAdmins } from "@/app/[locale]/functions/functions";
 
 const AdminTags = () => {
     const locale = useLocale();
@@ -63,7 +64,7 @@ const AdminTags = () => {
             setLogInfo(getFromStorage("logInfo")!);
         }
 
-        setIsAuthorized(logInfo && JSON.parse(logInfo)[0].role == "admin" ? true : false);
+        setIsAuthorized(logInfo && onlyAdmins.includes(JSON.parse(logInfo)[0].role) ? true : false);
         fetchTags();
     }, [logInfo, isAuthorized, isSearchEnabled, page, spage, search, sortby, sortorder]);
 
@@ -169,4 +170,4 @@ const AdminTags = () => {
     )
 }
 
-export default withAuth(AdminTags, ["admin"]);
+export default withAuth(AdminTags, onlyAdmins);

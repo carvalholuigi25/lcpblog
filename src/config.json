@@ -1,8 +1,9 @@
 {
   "config": {
     "theme": "glassmorphism",
-    "is3DEffectsEnabled": false,
+    "language": "en-UK",
     "isBordered": true,
-    "language": "pt-PT"
+    "is3DEffectsEnabled": false,
+    "isAutoSaveEnabled": true
   }
 }
