@@ -68,6 +68,29 @@ namespace lcpblogapi.Migrations.SQLite
                 });
 
             migrationBuilder.CreateTable(
+                name: "Medias",
+                columns: table => new
+                {
+                    MediaId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Src = table.Column<string>(type: "TEXT", nullable: false),
+                    Type = table.Column<string>(type: "TEXT", nullable: false),
+                    Thumbnail = table.Column<string>(type: "TEXT", nullable: true),
+                    Title = table.Column<string>(type: "TEXT", nullable: true),
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    Privacy = table.Column<string>(type: "TEXT", nullable: true),
+                    IsFeatured = table.Column<bool>(type: "INTEGER", nullable: true),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
+                    CategoryId = table.Column<int>(type: "INTEGER", nullable: true),
+                    UserId = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Medias", x => x.MediaId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Schedule",
                 columns: table => new
                 {
@@ -258,25 +281,30 @@ namespace lcpblogapi.Migrations.SQLite
                 columns: new[] { "CategoryId", "CreatedAt", "Name", "Slug", "Status", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { 1, new DateTimeOffset(new DateTime(2025, 6, 6, 9, 50, 23, 34, DateTimeKind.Unspecified).AddTicks(5103), new TimeSpan(0, 1, 0, 0, 0)), "Geral", "/geral", 0, new DateTimeOffset(new DateTime(2025, 6, 6, 9, 50, 23, 34, DateTimeKind.Unspecified).AddTicks(5661), new TimeSpan(0, 1, 0, 0, 0)) },
-                    { 2, new DateTimeOffset(new DateTime(2025, 6, 6, 9, 50, 23, 34, DateTimeKind.Unspecified).AddTicks(6207), new TimeSpan(0, 1, 0, 0, 0)), "Tecnologia", "/tecnologia", 0, new DateTimeOffset(new DateTime(2025, 6, 6, 9, 50, 23, 34, DateTimeKind.Unspecified).AddTicks(6212), new TimeSpan(0, 1, 0, 0, 0)) },
-                    { 3, new DateTimeOffset(new DateTime(2025, 6, 6, 9, 50, 23, 34, DateTimeKind.Unspecified).AddTicks(6234), new TimeSpan(0, 1, 0, 0, 0)), "Outros", "/outros", 0, new DateTimeOffset(new DateTime(2025, 6, 6, 9, 50, 23, 34, DateTimeKind.Unspecified).AddTicks(6238), new TimeSpan(0, 1, 0, 0, 0)) }
+                    { 1, new DateTimeOffset(new DateTime(2025, 6, 11, 11, 33, 28, 889, DateTimeKind.Unspecified).AddTicks(9943), new TimeSpan(0, 1, 0, 0, 0)), "Geral", "/geral", 0, new DateTimeOffset(new DateTime(2025, 6, 11, 11, 33, 28, 890, DateTimeKind.Unspecified).AddTicks(681), new TimeSpan(0, 1, 0, 0, 0)) },
+                    { 2, new DateTimeOffset(new DateTime(2025, 6, 11, 11, 33, 28, 890, DateTimeKind.Unspecified).AddTicks(1311), new TimeSpan(0, 1, 0, 0, 0)), "Tecnologia", "/tecnologia", 0, new DateTimeOffset(new DateTime(2025, 6, 11, 11, 33, 28, 890, DateTimeKind.Unspecified).AddTicks(1317), new TimeSpan(0, 1, 0, 0, 0)) },
+                    { 3, new DateTimeOffset(new DateTime(2025, 6, 11, 11, 33, 28, 890, DateTimeKind.Unspecified).AddTicks(1331), new TimeSpan(0, 1, 0, 0, 0)), "Outros", "/outros", 0, new DateTimeOffset(new DateTime(2025, 6, 11, 11, 33, 28, 890, DateTimeKind.Unspecified).AddTicks(1335), new TimeSpan(0, 1, 0, 0, 0)) }
                 });
 
             migrationBuilder.InsertData(
                 table: "LoginStatus",
                 columns: new[] { "LoginStatusId", "Attempts", "DateLock", "DateLockTimestamp", "ModeTimer", "Status", "Type", "UserId", "ValueTimer" },
-                values: new object[] { 1, 0, null, 0L, 3, 1, 0, 1, "" });
+                values: new object[] { 1, 0, null, 0L, 6, 1, 0, 1, "" });
+
+            migrationBuilder.InsertData(
+                table: "Medias",
+                columns: new[] { "MediaId", "CategoryId", "CreatedAt", "Description", "IsFeatured", "Privacy", "Src", "Thumbnail", "Title", "Type", "UpdatedAt", "UserId" },
+                values: new object[] { 1, 1, new DateTimeOffset(new DateTime(2025, 6, 11, 11, 33, 28, 906, DateTimeKind.Unspecified).AddTicks(4874), new TimeSpan(0, 1, 0, 0, 0)), "This is a demo video", true, "public", "//vjs.zencdn.net/v/oceans.mp4", "videos/thumbnails/default.jpg", "Demo", "video/mp4", new DateTimeOffset(new DateTime(2025, 6, 11, 11, 33, 28, 906, DateTimeKind.Unspecified).AddTicks(5433), new TimeSpan(0, 1, 0, 0, 0)), 1 });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "UserId", "About", "Avatar", "Cover", "DisplayName", "Email", "Password", "Privacy", "Role", "Username", "UsersInfoId" },
-                values: new object[] { 1, "Luis Carvalho", "avatars/luis.jpg", "covers/luis.jpg", "Luis Carvalho", "luiscarvalho239@gmail.com", "$2a$10$TUdvxndhlCpMfAMh1lom9.WNVxAGnAnEKPjsy/MWxXFlfxxXT1Fre", 0, 6, "admin", 1 });
+                values: new object[] { 1, "Luis Carvalho", "avatars/luis.jpg", "covers/luis.jpg", "Luis Carvalho", "luiscarvalho239@gmail.com", "$2a$10$C1pDBkI7qFLR1KvpdVD29OqsezZJ6LlJ3PEr6j4IMBWIIk/XzT8nO", 0, 6, "admin", 1 });
 
             migrationBuilder.InsertData(
                 table: "Posts",
                 columns: new[] { "PostId", "CategoryId", "Content", "CreatedAt", "Image", "Slug", "Status", "Tags", "Title", "UpdatedAt", "UserId", "Views", "ViewsCounter" },
-                values: new object[] { 1, 1, "Welcome to LCPBlog!", new DateTimeOffset(new DateTime(2025, 6, 6, 9, 50, 23, 33, DateTimeKind.Unspecified).AddTicks(3167), new TimeSpan(0, 1, 0, 0, 0)), "blog.jpg", "/", 0, "[\"#geral\"]", "Welcome to LCPBlog!", new DateTimeOffset(new DateTime(2025, 6, 6, 9, 50, 23, 33, DateTimeKind.Unspecified).AddTicks(3738), new TimeSpan(0, 1, 0, 0, 0)), 1, 0, 0 });
+                values: new object[] { 1, 1, "Welcome to LCPBlog!", new DateTimeOffset(new DateTime(2025, 6, 11, 11, 33, 28, 888, DateTimeKind.Unspecified).AddTicks(6054), new TimeSpan(0, 1, 0, 0, 0)), "blog.jpg", "/", 0, "[\"#geral\"]", "Welcome to LCPBlog!", new DateTimeOffset(new DateTime(2025, 6, 11, 11, 33, 28, 888, DateTimeKind.Unspecified).AddTicks(6645), new TimeSpan(0, 1, 0, 0, 0)), 1, 0, 0 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_PostId",
@@ -320,6 +348,9 @@ namespace lcpblogapi.Migrations.SQLite
 
             migrationBuilder.DropTable(
                 name: "LoginStatus");
+
+            migrationBuilder.DropTable(
+                name: "Medias");
 
             migrationBuilder.DropTable(
                 name: "PostCategories");

@@ -247,13 +247,13 @@ export default function Comments({ userId, postId, categoryId, isCommentFormShow
 
                                             <ul className="dropdown-menu">
                                                 <li>
-                                                    <Link className="dropdown-item" href={`/pages/comments/edit/${x.commentId}`}>
+                                                    <Link className="dropdown-item" href={`/${locale}/pages/comments/edit/${x.commentId}`}>
                                                         <i className="bi bi-pen me-1"></i>
                                                         {t("actions.btnedit") ?? "Edit"}
                                                     </Link>
                                                 </li>
                                                 <li>
-                                                    <Link className="dropdown-item" href={`/pages/comments/delete/${x.commentId}`}>
+                                                    <Link className="dropdown-item" href={`/${locale}/pages/comments/delete/${x.commentId}`}>
                                                         <i className="bi bi-trash me-1"></i>
                                                         {t("actions.btndelete") ?? "Delete"}
                                                     </Link>

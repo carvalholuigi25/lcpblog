@@ -63,7 +63,10 @@ const EditCommentsForm = ({ commentid, data }: { commentid: number, data: Commen
                 console.log("message updated");
             });
 
-            return () => connect.stop();
+            return () => {
+                connect.stop();
+                connect.off("ReceiveMessage");
+            };
         }
 
         if (!!isResetedForm) {

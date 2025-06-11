@@ -67,7 +67,10 @@ const AddCategoriesForm = () => {
                 console.log("message added");
             });
         
-            return () => connect.stop();
+            return () => {
+                connect.stop();
+                connect.off("ReceiveMessage");
+            };
         }
 
         setValue("slug", "/");

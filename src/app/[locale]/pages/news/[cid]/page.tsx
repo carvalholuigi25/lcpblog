@@ -8,7 +8,7 @@ import Footer from "@applocale/ui/footer";
 import Header from "@applocale/ui/header";
 import { use } from 'react';
 
-export default function NewsPage({ params }: { params: any }) {
+export default function AllNewsPage({ params }: { params: any }) {
   const {locale}: any = use(params);
   const { cid } = useParams();
 

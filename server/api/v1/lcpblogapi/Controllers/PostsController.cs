@@ -22,7 +22,7 @@ namespace lcpblogapi.Controllers
         /// </summary>
         /// <param name="queryParams"></param>
         /// <returns>Gets all users posts</returns>
-        /// <response code="201">Returns the all categoreies</response>
+        /// <response code="201">Returns the all users posts</response>
         /// <response code="400">If the posts are empty</response>
         [HttpGet]
         [AllowAnonymous]

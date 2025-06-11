@@ -81,7 +81,10 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
                 console.log("message updated");
             });
         
-            return () => connect.stop();
+            return () => {
+                connect.stop();
+                connect.off("ReceiveMessage");
+            };
         }
 
         async function getCategories() {

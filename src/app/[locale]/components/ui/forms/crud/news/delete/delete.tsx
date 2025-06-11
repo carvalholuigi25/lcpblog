@@ -42,7 +42,10 @@ const DeleteNewsForm = ({ id, data }: { id: number, data: Posts }) => {
                 console.log("message deleted");
             });
 
-            return () => connect.stop();
+            return () => {
+                connect.stop();
+                connect.off("ReceiveMessage");
+            };
         }
 
         if (logInfo) {

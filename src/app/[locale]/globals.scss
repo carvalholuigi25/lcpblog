@@ -847,6 +847,17 @@ footer {
   }
 }
 
+.cardvideos {
+  .card-img-top, .img-thumbnail {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    max-height: 40vh;
+    object-fit: cover;
+    border-radius: inherit;
+  }
+}
+
 .cardarch {
   $talign: left;
 

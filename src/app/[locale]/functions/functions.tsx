@@ -19,8 +19,11 @@ export async function loadMyRealData({ hubname, skipNegotiation, fetchData }: My
   const connection = await buildMyConnection(hubname, skipNegotiation);
 
   try {
-    await connection.stop();
-    await connection.start();
+    if(connection.state == signalR.HubConnectionState.Disconnected) {
+      await connection.stop();
+      await connection.start();
+    }
+
     console.log("Connection started");
   } catch (e) {
     console.log(e);
@@ -31,7 +34,10 @@ export async function loadMyRealData({ hubname, skipNegotiation, fetchData }: My
     fetchData();
   });
 
-  return () => connection.stop();
+  return () => {
+    connection.stop();
+    connection.off("ReceiveMessage");
+  };
 }
 
 export function shortenLargeNumber(num: number, digits: number) {
@@ -56,6 +62,11 @@ export const addSlash = (value: string) => {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function getImagePath(img: any, path?: string) {
   return !!["http", "https", "file"].includes(img) ? img : (!img.includes("/images/") ? '/images/' + (!!path && !img.includes(path) ? path + '/' : '') + img : img);
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function getVideoImgPath(img: any, path?: string) {
+  return !!["http", "https", "file"].includes(img) ? img : (!img.includes("/videos/") ? '/videos/' + (!!path && !img.includes(path) ? path + '/' : '') + img : img);
 }
 
 export async function sendMessage(connection: signalR.HubConnection, message: string) {

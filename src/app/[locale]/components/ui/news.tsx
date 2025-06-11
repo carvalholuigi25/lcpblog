@@ -60,7 +60,7 @@ export default function News({ cid, pid, tagname, locale }: NewsProps) {
         saveToStorage("hiddenViews", pathname == pthpost ? "false" : "true");
         setHiddenViews(getFromStorage("hiddenViews")! == "false" ? false : true);
         setCounter(getFromStorage("viewsInfo")! ? parseInt(JSON.parse(getFromStorage("viewsInfo")!).viewsCounter) : 0);
-    }, [locale, newsSuffix, cid, pid, pathname]);
+    }, [locale, cid, pid, newsSuffix, pathname]);
 
     const loadAutoViews = useCallback(async () => {
         if(isAutoUpdateViewsEnabled) {
@@ -148,16 +148,16 @@ export default function News({ cid, pid, tagname, locale }: NewsProps) {
 
             setTotalPages(data[0].totalPages);
             setPage(spage ? parseInt(spage! ?? 1, 0) : 1);
+            setMyEditorKey(Date.now().toString());
+            loadMyCounter();
             setLoading(false);
         }
 
         fetchNews();
 
-        if(loading) {
-            loadMyRealData({ hubname: "datahub", skipNegotiation: false, fetchData: fetchNews });
-            loadMyCounter();
+        if(!loading) {
+            loadMyRealData({ hubname: "datahub", skipNegotiation: false, fetchData: fetchNews });            
             loadAutoViews();
-            setMyEditorKey(Date.now().toString());
         }
     }, [cid, pid, page, spage, enabledViews, locale, pathname, loading, searchParams, loadMyCounter, loadAutoViews, tagname]);
 

@@ -2,7 +2,7 @@
   "config": {
     "theme": "glassmorphism",
     "language": "pt-PT",
-    "isBordered": false,
+    "isBordered": true,
     "is3DEffectsEnabled": false,
     "isAutoSaveEnabled": true
   }

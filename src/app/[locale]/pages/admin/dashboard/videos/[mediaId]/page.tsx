@@ -1,25 +1,35 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import astyles from "@applocale/styles/adminstyles.module.scss";
-import Image from "next/image";
 import { getFromStorage } from "@applocale/hooks/localstorage";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { useSearchParams } from "next/navigation";
 import { Link } from '@/app/i18n/navigation';
 import { getDefLocale } from "@applocale/helpers/defLocale";
-import { getVideoImgPath, onlyAdmins } from "@applocale/functions/functions";
+import { onlyAdmins } from "@applocale/functions/functions";
 import { Media } from "@applocale/interfaces/media";
 import AdminSidebarDashboard from "@applocale/components/admin/dashboard/adbsidebar";
 import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavbar";
 import Footer from "@applocale/ui/footer";
 import withAuth from "@applocale/utils/withAuth";
 import LoadingComp from "@applocale/components/ui/loadingcomp";
+import VideoPlayer from "@applocale/components/ui/video/player";
 import FetchData from "@applocale/utils/fetchdata";
-import MyPagination from "@applocale/components/ui/mypagination";
-import AdvancedSearchMedia from "@applocale/components/ui/forms/search/media/advsearchmedia";
 
-const AdminVideos = () => {
+const videoJsOptions = {
+    controls: true,
+    autoplay: false,
+    responsive: true,
+    fluid: true,
+    preload: 'auto',
+    sources: [{}],
+};
+
+interface admVideosProps {
+    mediaId?: number;
+}
+
+const AdminVideosById = ({mediaId}: admVideosProps) => {
     const locale = useLocale();
     const t = useTranslations("pages.AdminPages.VideosPage");
     const tbtn = useTranslations("ui.buttons");
@@ -28,36 +38,18 @@ const AdminVideos = () => {
     const [loading, setLoading] = useState(true);
     const [barToggle, setBarToggle] = useState(true);
     const [videos, setVideos] = useState(new Array<Media>());
-    const [totalPages, setTotalPages] = useState(1);
-    const [page, setPage] = useState(1);
-    const [isSearchEnabled, setIsSearchEnabled] = useState(false);
-    const searchParams = useSearchParams();
-    const spage = searchParams.get("page");
-    const search = searchParams.get("search") ?? "";
-    const sortorder = searchParams.get("sortorder") ?? "asc";
-    const sortby = searchParams.get("sortby") ?? "mediaId";
-    const pageSize: number = 10;
 
     useEffect(() => {
        async function fetchVideos() {
-            const curindex = page;
-            const sparams = isSearchEnabled ? `&sortBy=${sortby}&sortOrder=${sortorder}&search=${search}` : ``;
-            const params = `?page=${curindex}&pageSize=${pageSize}${sparams}`;
-
             const data = await FetchData({
-                url: 'api/medias' + params,
+                url: 'api/medias?mediaId='+mediaId,
                 method: 'get',
                 reqAuthorize: false
             });
 
             if (data.data) {
                 setVideos(JSON.parse(JSON.stringify(data.data)));
-                setLoading(false);
             }
-
-            setTotalPages(data.totalPages);
-            setPage(spage ? parseInt(spage! ?? 1, 0) : 1);
-            setLoading(false);
         }
        
         if (!logInfo) {
@@ -66,7 +58,8 @@ const AdminVideos = () => {
        
         setIsAuthorized(logInfo && onlyAdmins.includes(JSON.parse(logInfo)[0].role) ? true : false);
         fetchVideos();
-    }, [logInfo, isAuthorized, page, isSearchEnabled, sortby, sortorder, search, spage]);
+        setLoading(false);
+    }, [logInfo, isAuthorized, mediaId]);
 
     if (loading) {
         return (
@@ -105,22 +98,7 @@ const AdminVideos = () => {
                                 </h3>
                                 <div className="container mt-3">
                                     <div className="row">
-                                        <div className="col-12">
-                                            <div className="btn-group btngroupmedia" role="group" aria-label="Media data actions">
-                                                <button type="button" className="btn btn-primary btn-rounded ms-3" onClick={() => setIsSearchEnabled(!isSearchEnabled)} title={(isSearchEnabled ? (t('btnadvfsearch.disable') ?? " Disable") : (t('btnadvfsearch.enable') ?? " Enable")) + " " + (t("btnadvfsearch.title") ?? 'Advanced filter search').toLowerCase()}>
-                                                    <i className="bi bi-search"></i>
-                                                    <span className="ms-2 hidden">
-                                                        {(isSearchEnabled ? (t('btnadvfsearch.disable') ?? " Disable") : (t('btnadvfsearch.enable') ?? " Enable")) + " " + (t("btnadvfsearch.title") ?? 'Advanced filter search').toLowerCase()}
-                                                    </span>
-                                                </button>
-                                            </div>
-                                        </div>
-
-                                        {isSearchEnabled && (
-                                            <AdvancedSearchMedia isSearchEnabled={isSearchEnabled} pageIndex={page} pageSize={pageSize} />
-                                        )}
-
-                                        {!videos || videos.length == 0 && (
+                                        {!videos && (
                                             <div className='col-12 card p-3 mt-3 text-center'>
                                                 <div className='card-body'>
                                                     <i className="bi bi-file-earmark-play" style={{ fontSize: "4rem" }}></i>
@@ -129,22 +107,13 @@ const AdminVideos = () => {
                                             </div>
                                         )}
 
-                                        {videos && videos.length > 0 && (
-                                            <div className="col-12 mt-3">
-                                                {videos.map(x => (
-                                                    <div key={x.mediaId} className="col-12 col-md-6 col-lg-4">
-                                                        <Link href={"/" + locale + "/pages/admin/dashboard/videos/" + x.mediaId}>
-                                                            <div className="card cardvideos">
-                                                                <Image src={getVideoImgPath(x.thumbnail?.replace("videos/", ""))} className="rounded img-fluid img-thumbnail" width={150} height={150} alt={x.title ?? x.description ?? "Video " + x.mediaId} />
-                                                                <div className="card-body">
-                                                                    <p>{x.title}</p>
-                                                                </div>
-                                                            </div>
-                                                        </Link>
-                                                    </div>
-                                                ))}
-
-                                                <MyPagination cid={-1} pid={-1} currentPage={page} totalPages={totalPages} />
+                                        {videos && (
+                                            <div className="col-12">
+                                                <Suspense fallback={<LoadingComp type="icon" icontype="ring" />}>
+                                                    {videos.map(x => (
+                                                        <VideoPlayer key={x.mediaId} src={x.src} type={x.type} options={videoJsOptions} />
+                                                    ))}
+                                                </Suspense>
                                             </div>
                                         )}
                                     </div>
@@ -167,4 +136,4 @@ const AdminVideos = () => {
     )
 }
 
-export default withAuth(AdminVideos, onlyAdmins);
+export default withAuth(AdminVideosById, onlyAdmins);

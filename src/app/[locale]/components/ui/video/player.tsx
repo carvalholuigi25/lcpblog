@@ -5,6 +5,8 @@ import React, { useEffect, useRef } from 'react';
 import videojs from 'video.js';
 
 interface VideoPlayerProps {
+  src: string;
+  type: string;
   options: any;
 }
 
@@ -24,14 +26,14 @@ const getVideoThemeOptions = () => {
   return `vjs-default-skin vjs-${optstheme.name} ${optstheme.size} ${optstheme.bordered ? "bordered" : ""}`;
 }
 
-const VideoPlayer = ({ options }: VideoPlayerProps) => {
+const VideoPlayer = ({ src, type, options }: VideoPlayerProps) => {
   const videoRef = useRef(null);
   const playerRef = useRef<any | null>(null);
   const videoClOpts = getVideoThemeOptions();
 
   useEffect(() => {
     if (videoRef.current && !playerRef.current) {
-      playerRef.current = videojs(videoRef.current, options, () => {
+      playerRef.current = videojs(videoRef.current, {...options, sources: [{ src: src, type: type }]}, () => {
         console.log('Video.js player is ready');
       });
     }
@@ -42,7 +44,7 @@ const VideoPlayer = ({ options }: VideoPlayerProps) => {
         playerRef.current = null;
       }
     };
-  }, [options]);
+  }, [src, type, options]);
 
   return (
     <div data-vjs-player>

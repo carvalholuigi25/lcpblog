@@ -24,6 +24,7 @@ public class MyDBContext : DbContext
     public DbSet<FileMetadata> FilesMetadata { get; set; } = null!;
     public DbSet<Schedules> Schedule { get; set; } = null!;
     public DbSet<LoginStatus> LoginStatus { get; set; } = null!;
+    public DbSet<Media> Medias { get; set; } = null!;
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

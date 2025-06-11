@@ -81,7 +81,10 @@ const AddNewsForm = () => {
                 console.log("message added");
             });
 
-            return () => connect.stop();
+            return () => {
+                connect.stop();
+                connect.off("ReceiveMessage");
+            }
         }
 
         async function getCategories() {

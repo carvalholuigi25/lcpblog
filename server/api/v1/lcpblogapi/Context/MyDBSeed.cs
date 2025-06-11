@@ -20,6 +20,7 @@ public class MyDBSeed
             _modelBuilder.Entity<Post>().HasData(MyDBFunctions.GetNewPostsData());
             _modelBuilder.Entity<Category>().HasData(MyDBFunctions.GetNewCategoriesData());
             _modelBuilder.Entity<LoginStatus>().HasData(MyDBFunctions.GetNewLoginStatusData());
+            _modelBuilder.Entity<Media>().HasData(MyDBFunctions.GetNewMediaData());
         }
     }
 }

@@ -67,7 +67,10 @@ const EditCategoriesForm = ({categoryid, data}: {categoryid: number, data: Categ
                 console.log("message updated");
             });
         
-            return () => connect.stop();
+            return () => {
+                connect.stop();
+                connect.off("ReceiveMessage");
+            };
         }
 
         setValue("slug", "/"+data.name.toLowerCase().replace(/ /g, "-").replace(/[^\w-]+/g, ""));

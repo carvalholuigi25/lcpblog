@@ -817,6 +817,24 @@
                     },
                     "btnreset": "Reset",
                     "btnsearch": "Search"
+                },
+                "media": {
+                    "title": "Advanced filter search:",
+                    "lblsearch": "Search",
+                    "inpsearch": "Search...",
+                    "lblorderby": "Order by",
+                    "lblsortby": "Sort by",
+                    "optsorderby": {
+                        "asc": "Ascending",
+                        "desc": "Descending"
+                    },
+                    "optssortby": {
+                        "mediaId": "Media Id",
+                        "title": "Title",
+                        "src": "Source"
+                    },
+                    "btnreset": "Reset",
+                    "btnsearch": "Search"
                 }
             },
             "news": {

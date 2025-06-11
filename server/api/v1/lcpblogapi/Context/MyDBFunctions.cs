@@ -1,6 +1,7 @@
 using lcpblogapi.Models;
 using lcpblogapi.Models.Enums;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Common;
 
 namespace lcpblogapi.Context;
 
@@ -15,6 +16,7 @@ public static class MyDBFunctions
             context.Set<Post>().AddRange(GetNewPostsData());
             context.Set<Category>().AddRange(GetNewCategoriesData());
             context.Set<LoginStatus>().AddRange(GetNewLoginStatusData());
+            context.Set<Media>().AddRange(GetNewMediaData());
             context.SaveChanges();
         }
     }
@@ -28,6 +30,7 @@ public static class MyDBFunctions
             context.Set<Post>().AddRange(GetNewPostsData());
             context.Set<Category>().AddRange(GetNewCategoriesData());
             context.Set<LoginStatus>().AddRange(GetNewLoginStatusData());
+            context.Set<Media>().AddRange(GetNewMediaData());
             await context.SaveChangesAsync(cancellationToken);
         }
     }
@@ -95,6 +98,24 @@ public static class MyDBFunctions
                 Status = ECategoryStatus.all,
                 CreatedAt = DateTimeOffset.Now,
                 UpdatedAt = DateTimeOffset.Now
+            }
+        ];
+    }
+
+    public static Media[] GetNewMediaData()
+    {
+        return [
+            new Media() {
+                MediaId = 1,
+                Src = "//vjs.zencdn.net/v/oceans.mp4",
+                Type = "video/mp4",
+                Title = "Demo",
+                Description = "This is a demo video",
+                Privacy = "public",
+                IsFeatured = true,
+                CreatedAt = DateTimeOffset.Now,
+                UpdatedAt = DateTimeOffset.Now,
+                UserId = 1
             }
         ];
     }

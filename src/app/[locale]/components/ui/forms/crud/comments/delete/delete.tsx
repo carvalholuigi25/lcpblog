@@ -43,7 +43,10 @@ const DeleteCommentsForm = ({ commentId, data }: { commentId: number, data: Comm
                 console.log("message deleted");
             });
 
-            return () => connect.stop();
+            return () => {
+                connect.stop();
+                connect.off("ReceiveMessage");
+            };
         }
 
         if (logInfo) {
