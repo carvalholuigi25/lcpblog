@@ -1,7 +1,8 @@
 import styles from "@applocale/page.module.scss";
-import { getDefLocale } from '@applocale/helpers/defLocale';
-import { Link } from '@/app/i18n/navigation';
 import { useTranslations } from "next-intl";
+import { Link } from '@/app/i18n/navigation';
+import { getDefLocale } from '@applocale/helpers/defLocale';
+import { formatDate } from '@applocale/functions/functions';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface THeadersModel {
@@ -18,10 +19,6 @@ export interface TableDataProps {
     totalPages?: number;
     linkSuffix?: string;
     tblDataCl?: string;
-}
-
-export function formatDate(mydate: number | string | Date) {
-    return new Date(mydate).toLocaleDateString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit', weekday: undefined, hour: '2-digit', hour12: false, minute: '2-digit', second: '2-digit' });
 }
 
 export default function TableData({ theaders, tdata, namep, locale, currentPage, totalPages, linkSuffix, tblDataCl }: TableDataProps) {

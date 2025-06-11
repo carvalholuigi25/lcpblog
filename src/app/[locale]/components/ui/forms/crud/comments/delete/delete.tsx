@@ -10,6 +10,7 @@ import { getFromStorage } from "@applocale/hooks/localstorage";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { buildMyConnection, sendMessage } from "@applocale/functions/functions";
 import { DataToastsProps } from "@applocale/interfaces/toasts";
+import { formatDate } from '@applocale/functions/functions';
 import Toasts from "@applocale/components/ui/toasts/toasts";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import LoadingComp from "@applocale/components/ui/loadingcomp";
@@ -132,7 +133,6 @@ const DeleteCommentsForm = ({ commentId, data }: { commentId: number, data: Comm
                                             <th>{t("table.header.status") ?? "Status"}</th>
                                             <th>{t("table.header.userId") ?? "User Id"}</th>
                                             <th>{t("table.header.postId") ?? "Post Id"}</th>
-                                            <th>{t("table.header.categoryId") ?? "Category Id"}</th>
                                             <th>{t("table.header.createdAt") ?? "Created At"}</th>
                                             <th>{t("table.header.updatedAt") ?? "Updated At"}</th>
                                         </tr>
@@ -144,9 +144,8 @@ const DeleteCommentsForm = ({ commentId, data }: { commentId: number, data: Comm
                                             <td>{data.status}</td>
                                             <td>{data.userId}</td>
                                             <td>{data.postId}</td>
-                                            <td>{data.categoryId}</td>
-                                            <td>{new Date(data.createdAt!.toString()).toLocaleDateString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit', weekday: undefined, hour: '2-digit', hour12: false, minute: '2-digit', second: '2-digit' })}</td>
-                                            <td>{new Date(data.updatedAt!.toString()).toLocaleDateString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit', weekday: undefined, hour: '2-digit', hour12: false, minute: '2-digit', second: '2-digit' })}</td>
+                                            <td>{formatDate(data.createdAt!)}</td>
+                                            <td>{formatDate(data.updatedAt!)}</td>
                                         </tr>
                                     </tbody>
                                 </table>

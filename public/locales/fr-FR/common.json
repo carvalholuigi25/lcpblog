@@ -280,7 +280,8 @@
     },
     "others": {
         "suffixes": {
-            "news": "pages/nouvelles"
+            "news": "pages/nouvelles",
+            "tagsNews": "pages/balises/nouvelles"
         }
     }
 }

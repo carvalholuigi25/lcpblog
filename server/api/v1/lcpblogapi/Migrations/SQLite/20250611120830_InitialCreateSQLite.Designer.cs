@@ -11,7 +11,7 @@ using lcpblogapi.Context;
 namespace lcpblogapi.Migrations.SQLite
 {
     [DbContext(typeof(MyDBContextSQLite))]
-    [Migration("20250611103330_InitialCreateSQLite")]
+    [Migration("20250611120830_InitialCreateSQLite")]
     partial class InitialCreateSQLite
     {
         /// <inheritdoc />
@@ -49,29 +49,29 @@ namespace lcpblogapi.Migrations.SQLite
                         new
                         {
                             CategoryId = 1,
-                            CreatedAt = new DateTimeOffset(new DateTime(2025, 6, 11, 11, 33, 28, 889, DateTimeKind.Unspecified).AddTicks(9943), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2025, 6, 11, 13, 8, 27, 902, DateTimeKind.Unspecified).AddTicks(5779), new TimeSpan(0, 1, 0, 0, 0)),
                             Name = "Geral",
                             Slug = "/geral",
                             Status = 0,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2025, 6, 11, 11, 33, 28, 890, DateTimeKind.Unspecified).AddTicks(681), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2025, 6, 11, 13, 8, 27, 902, DateTimeKind.Unspecified).AddTicks(6516), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             CategoryId = 2,
-                            CreatedAt = new DateTimeOffset(new DateTime(2025, 6, 11, 11, 33, 28, 890, DateTimeKind.Unspecified).AddTicks(1311), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2025, 6, 11, 13, 8, 27, 902, DateTimeKind.Unspecified).AddTicks(7097), new TimeSpan(0, 1, 0, 0, 0)),
                             Name = "Tecnologia",
                             Slug = "/tecnologia",
                             Status = 0,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2025, 6, 11, 11, 33, 28, 890, DateTimeKind.Unspecified).AddTicks(1317), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2025, 6, 11, 13, 8, 27, 902, DateTimeKind.Unspecified).AddTicks(7102), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             CategoryId = 3,
-                            CreatedAt = new DateTimeOffset(new DateTime(2025, 6, 11, 11, 33, 28, 890, DateTimeKind.Unspecified).AddTicks(1331), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2025, 6, 11, 13, 8, 27, 902, DateTimeKind.Unspecified).AddTicks(7117), new TimeSpan(0, 1, 0, 0, 0)),
                             Name = "Outros",
                             Slug = "/outros",
                             Status = 0,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2025, 6, 11, 11, 33, 28, 890, DateTimeKind.Unspecified).AddTicks(1335), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2025, 6, 11, 13, 8, 27, 902, DateTimeKind.Unspecified).AddTicks(7122), new TimeSpan(0, 1, 0, 0, 0))
                         });
                 });
 
@@ -234,7 +234,7 @@ namespace lcpblogapi.Migrations.SQLite
                         {
                             MediaId = 1,
                             CategoryId = 1,
-                            CreatedAt = new DateTimeOffset(new DateTime(2025, 6, 11, 11, 33, 28, 906, DateTimeKind.Unspecified).AddTicks(4874), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2025, 6, 11, 13, 8, 27, 918, DateTimeKind.Unspecified).AddTicks(2740), new TimeSpan(0, 1, 0, 0, 0)),
                             Description = "This is a demo video",
                             IsFeatured = true,
                             Privacy = "public",
@@ -242,7 +242,7 @@ namespace lcpblogapi.Migrations.SQLite
                             Thumbnail = "videos/thumbnails/default.jpg",
                             Title = "Demo",
                             Type = "video/mp4",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2025, 6, 11, 11, 33, 28, 906, DateTimeKind.Unspecified).AddTicks(5433), new TimeSpan(0, 1, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2025, 6, 11, 13, 8, 27, 918, DateTimeKind.Unspecified).AddTicks(3319), new TimeSpan(0, 1, 0, 0, 0)),
                             UserId = 1
                         });
                 });
@@ -301,13 +301,13 @@ namespace lcpblogapi.Migrations.SQLite
                             PostId = 1,
                             CategoryId = 1,
                             Content = "Welcome to LCPBlog!",
-                            CreatedAt = new DateTimeOffset(new DateTime(2025, 6, 11, 11, 33, 28, 888, DateTimeKind.Unspecified).AddTicks(6054), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2025, 6, 11, 13, 8, 27, 901, DateTimeKind.Unspecified).AddTicks(3288), new TimeSpan(0, 1, 0, 0, 0)),
                             Image = "blog.jpg",
                             Slug = "/",
                             Status = 0,
                             Tags = "[\"#geral\"]",
                             Title = "Welcome to LCPBlog!",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2025, 6, 11, 11, 33, 28, 888, DateTimeKind.Unspecified).AddTicks(6645), new TimeSpan(0, 1, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2025, 6, 11, 13, 8, 27, 901, DateTimeKind.Unspecified).AddTicks(4059), new TimeSpan(0, 1, 0, 0, 0)),
                             UserId = 1,
                             Views = 0,
                             ViewsCounter = 0
@@ -442,7 +442,7 @@ namespace lcpblogapi.Migrations.SQLite
                             Cover = "covers/luis.jpg",
                             DisplayName = "Luis Carvalho",
                             Email = "luiscarvalho239@gmail.com",
-                            Password = "$2a$10$C1pDBkI7qFLR1KvpdVD29OqsezZJ6LlJ3PEr6j4IMBWIIk/XzT8nO",
+                            Password = "$2a$10$bfL8D9eXUGTXHqgzc3vtIukyKP0/wif0GnKeR9zwZdGdf1FiWpbPW",
                             Privacy = 0,
                             Role = 6,
                             Username = "admin",

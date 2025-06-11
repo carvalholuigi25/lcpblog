@@ -33,6 +33,7 @@ export default function News({ cid, pid, tagname, locale }: NewsProps) {
     const t = useTranslations("pages.NewsPage");
     const tbtn = useTranslations("ui.buttons");
     const newsSuffix = useMySuffix("news");
+    const tagsNewsSuffix = useMySuffix("tagsNews");
 
     const enabledViews = true;
     const isAutoUpdateViewsEnabled = true;
@@ -230,8 +231,8 @@ export default function News({ cid, pid, tagname, locale }: NewsProps) {
                             };
 
                             const tagorcatname = i == 0 && cid > -1 && pid == -1 && (
-                                <div className="col-12 text-center mb-3" key={tagname && pathname.includes(`/pages/tags/news/${newsi.categoryId}/${tagname}`) ? `tag${i}` : `category${i}`}>
-                                    {tagname && pathname.includes(`/pages/tags/news/${newsi.categoryId}/${tagname}`) ? (
+                                <div className="col-12 text-center mb-3" key={tagname && pathname.includes(`/${tagsNewsSuffix}/${newsi.categoryId}/${tagname}`) ? `tag${i}` : `category${i}`}>
+                                    {tagname && pathname.includes(`/${tagsNewsSuffix}/${newsi.categoryId}/${tagname}`) ? (
                                         <h2 className="txttagname">{"#" + tagname}</h2>
                                     ) : (
                                         <h2 className="txtcategory">{categoryi.name}</h2>
@@ -328,7 +329,7 @@ export default function News({ cid, pid, tagname, locale }: NewsProps) {
                                                 {cid != -1 && newsi.tags && (
                                                     <div className="form-group mt-3">
                                                         {newsi.tags.sort((a, b) => a.localeCompare(b)).map((tx, itx) => (
-                                                            <Link className="btn btn-info btntaginfo btn-rounded ms-2 me-2" key={itx} href={`/pages/tags/news/${cid}/${tx.split("#")[1]}`}>
+                                                            <Link className="btn btn-info btntaginfo btn-rounded ms-2 me-2" key={itx} href={`/${tagsNewsSuffix}/${cid}/${tx.split("#")[1]}`} locale={locale ?? getDefLocale()}>
                                                                 <i className="bi bi-tag me-1"></i>
                                                                 <span>{tx}</span>
                                                             </Link>

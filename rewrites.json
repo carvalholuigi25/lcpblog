@@ -21,6 +21,22 @@
                     "destination": "/pt-PT/pages/news/:cid/:id"
                 },
                 {
+                    "source": "/pt-PT/paginas/etiquetas",
+                    "destination": "/pt-PT/pages/tags"
+                },
+                {
+                    "source": "/pt-PT/paginas/etiquetas/noticias",
+                    "destination": "/pt-PT/pages/tags/news"
+                },
+                {
+                    "source": "/pt-PT/paginas/etiquetas/noticias/:cid",
+                    "destination": "/pt-PT/pages/tags/news/:cid"
+                },
+                {
+                    "source": "/pt-PT/paginas/etiquetas/noticias/:cid/:tagname",
+                    "destination": "/pt-PT/pages/tags/news/:cid/:tagname"
+                },
+                {
                     "source": "/pt-PT/paginas/arquivo",
                     "destination": "/pt-PT/pages/archive"
                 },
@@ -49,6 +65,22 @@
                 {
                     "source": "/fr-FR/pages/nouvelles/:cid/:id",
                     "destination": "/fr-FR/pages/news/:cid/:id"
+                },
+                {
+                    "source": "/fr-FR/pages/balises",
+                    "destination": "/fr-FR/pages/tags"
+                },
+                {
+                    "source": "/fr-FR/pages/balises/nouvelles",
+                    "destination": "/fr-FR/pages/tags/news"
+                },
+                {
+                    "source": "/fr-FR/pages/balises/nouvelles/:cid",
+                    "destination": "/fr-FR/pages/tags/news/:cid"
+                },
+                {
+                    "source": "/fr-FR/pages/balises/nouvelles/:cid/:tagname",
+                    "destination": "/fr-FR/pages/tags/news/:cid/:tagname"
                 },
                 {
                     "source": "/fr-FR/pages/archive",

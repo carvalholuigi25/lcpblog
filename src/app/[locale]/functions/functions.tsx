@@ -69,6 +69,11 @@ export function getVideoImgPath(img: any, path?: string) {
   return !!["http", "https", "file"].includes(img) ? img : (!img.includes("/videos/") ? '/videos/' + (!!path && !img.includes(path) ? path + '/' : '') + img : img);
 }
 
+
+export function formatDate(mydate: number | string | Date) {
+  return new Date(mydate).toLocaleDateString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit', weekday: undefined, hour: '2-digit', hour12: false, minute: '2-digit', second: '2-digit' });
+}
+
 export async function sendMessage(connection: signalR.HubConnection, message: string) {
   if (connection) {
     await connection.send("SendMessage", message);
