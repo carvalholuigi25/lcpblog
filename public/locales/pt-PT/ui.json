@@ -761,6 +761,109 @@
               }
             }
           }
+        },
+        "videos": {
+          "add": {
+            "title": "Adicionar vídeos",
+            "lblsrc": "URL da fonte",
+            "inpsrc": "Escreva aqui o URL da fonte...",
+            "lbltype": "Tipo de mime",
+            "inptype": "Escreve aqui o tipo (mime) do URL (ex.: vídeo/mp4)...",
+            "lblthumbnail": "URL da miniatura",
+            "inpthumbnail": "Escreva aqui o URL da miniatura...",
+            "lbltitle": "Título",
+            "inptitle": "Escreve aqui o título...",
+            "lbldesc": "Descrição",
+            "inpdesc": "Escreve aqui a descrição...",
+            "lblprivacy": "Privacidade",
+            "selprivacy": {
+              "options": {
+                "optdef": "Selecione a opção de privacidade",
+                "opt1": "Público",
+                "opt2": "Privado"
+              }
+            },
+            "lblisfeatured": "Em destaque?",
+            "inpisfeatured": "Verifique o estado de destaque aqui...",
+            "lblcategoryid": "ID da categoria",
+            "inpcategoryid": "Escreva aqui o ID da categoria...",
+            "lbluserid": "ID do utilizador",
+            "btnreset": "Repor",
+            "btnadd": "Adicionar",
+            "messages": {
+              "unauth": "Não está autorizado a ver esta página!",
+              "success": "As informações dos vídeos foram adicionadas com sucesso!",
+              "error": "Falha ao adicionar a informação dos vídeos! Mensagem: {message}",
+              "errorapi": "Erro ao adicionar a informação dos vídeos! Mensagem: {message}"
+            }
+          },
+          "delete": {
+            "title": "Apagar vídeos",
+            "emptyvideos": "0 vídeos.",
+            "table": {
+              "header": {
+                "mediaId": "Id da mídia",
+                "src": "URL de origem",
+                "type": "Tipo mime",
+                "thumbnail": "Miniatura",
+                "title": "Título",
+                "description": "Descrição",
+                "privacy": "Privacidade",
+                "isFeatured": "Está em destaque?",
+                "createdAt": "Criado em",
+                "updatedAt": "Atualizado em",
+                "categoryId": "ID da categoria",
+                "userId": "ID do utilizador"
+              }
+            },
+            "messages": {
+              "unauth": "Não está autorizado a ver esta página!",
+              "success": "As informações dos vídeos foram apagadas com sucesso!",
+              "error": "Falha ao eliminar este Informação sobre os vídeos! Mensagem: {message}",
+              "errorapi": "Ocorreu um erro ao eliminar a informação deste vídeo! Mensagem: {message}",
+              "confirm": {
+                "title": "Tem a certeza que pretende eliminar este vídeo (id: {mediaId})?",
+                "btnconfirm": "Sim",
+                "btncancel": "Não"
+              }
+            }
+          },
+          "edit": {
+            "title": "Editar vídeos",
+            "lblmediaid": "ID de mídia",
+            "inpmediaid": "Escreva aqui o ID do mídia...",
+            "lblsrc": "URL da fonte",
+            "inpsrc": "Escreva aqui o URL da fonte...",
+            "lbltype": "Tipo de mime",
+            "inptype": "Escreve aqui o tipo (mime) do URL (ex.: video/mp4)...",
+            "lblthumbnail": "URL da miniatura",
+            "inpthumbnail": "Escreva aqui o URL da miniatura...",
+            "lbltitle": "Título",
+            "inptitle": "Escreve aqui o título...",
+            "lbldesc": "Descrição",
+            "inpdesc": "Escreve aqui a descrição...",
+            "lblprivacy": "Privacidade",
+            "selprivacy": {
+              "options": {
+                "optdef": "Selecione a opção de privacidade",
+                "opt1": "Público",
+                "opt2": "Privado"
+              }
+            },
+            "lblisfeatured": "Em destaque?",
+            "inpisfeatured": "Verifique o estado de destaque aqui...",
+            "lblcategoryid": "ID da categoria",
+            "inpcategoryid": "Escreva aqui o ID da categoria...",
+            "lbluserid": "ID do utilizador",
+            "btnreset": "Repor",
+            "btnedit": "Editar",
+            "messages": {
+              "unauth": "Não está autorizado a ver esta página!",
+              "success": "Informações do vídeo editadas com sucesso!",
+              "error": "Erro ao editar a informação do vídeo! Mensagem: {message}",
+              "errorapi": "Ocorreu um erro ao tentar editar a informação do vídeo! Mensagem: {message}"
+            }
+          }
         }
       },
       "settings": {
@@ -923,6 +1026,14 @@
           "statussuccess": "O comentário atual foi {keywordStatus} com sucesso!",
           "statuserror": "Falha ao {keywordStatus} o comentário atual! Mensagem: {message}",
           "statuserrorapi": "Falha ao {keywordStatus} o comentário atual! Mensagem: {message}"
+        }
+      },
+      "videos": {
+        "validation": {
+          "errors": {
+            "lblsrc": "Escreva aqui a URL da fonte",
+            "lbltype": "Escreva aqui a URL do tipo (mime) (ex.: video/mp4)"
+          }
         }
       }
     }

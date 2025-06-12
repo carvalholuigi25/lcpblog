@@ -78,7 +78,7 @@
             "loginlink": "Login",
             "archlink": "Archive",
             "dashboardlink": "Dashboard",
-            "settingslink": "Settings", 
+            "settingslink": "Settings",
             "logoutlink": "Logout"
         },
         "offcanvasAdmin": {
@@ -762,6 +762,109 @@
                             }
                         }
                     }
+                },
+                "videos": {
+                    "add": {
+                        "title": "Add videos",
+                        "lblsrc": "Source url",
+                        "inpsrc": "Write the source url here...",
+                        "lbltype": "Type mime",
+                        "inptype": "Write the type (mime) url here (e.g: video/mp4)...",
+                        "lblthumbnail": "Thumbnail url",
+                        "inpthumbnail": "Write the thumbnail url here...",
+                        "lbltitle": "Title",
+                        "inptitle": "Write the title here...",
+                        "lbldesc": "Description",
+                        "inpdesc": "Write the description here...",
+                        "lblprivacy": "Privacy",
+                        "selprivacy": {
+                            "options": {
+                                "optdef": "Select the option of the privacy",
+                                "opt1": "Public",
+                                "opt2": "Private"
+                            }
+                        },
+                        "lblisfeatured": "Is featured?",
+                        "inpisfeatured": "Check the featured status here...",
+                        "lblcategoryid": "Category id",
+                        "inpcategoryid": "Write the category id here...",
+                        "lbluserid": "User Id",
+                        "btnreset": "Reset",
+                        "btnadd": "Add",
+                        "messages": {
+                            "unauth": "You are not authorized to see this page!",
+                            "success": "The videos info has been added sucessfully!",
+                            "error": "Failed to add videos info! Message: {message}",
+                            "errorapi": "Error when adding videos info! Message: {message}"
+                        }
+                    },
+                    "delete": {
+                        "title": "Delete videos",
+                        "emptyvideos": "0 videos.",
+                        "table": {
+                            "header": {
+                                "mediaId": "Media Id",
+                                "src": "Source url",
+                                "type": "Type mime",
+                                "thumbnail": "Thumbnail",
+                                "title": "Title",
+                                "description": "Description",
+                                "privacy": "Privacy",
+                                "isFeatured": "Is featured?",
+                                "createdAt": "Created at",
+                                "updatedAt": "Updated at",
+                                "categoryId": "Category id",
+                                "userId": "User id"
+                            }
+                        },
+                        "messages": {
+                            "unauth": "You are not authorized to see this page!",
+                            "success": "The videos info has been deleted successfully!",
+                            "error": "Failed to delete this videos info! Message: {message}",
+                            "errorapi": "Occurred an error when delete this videos info! Message: {message}",
+                            "confirm": {
+                                "title": "Are you sure you want to delete this videos (id: {mediaId})?",
+                                "btnconfirm": "Yes",
+                                "btncancel": "No"
+                            }
+                        }
+                    },
+                    "edit": {
+                        "title": "Edit videos",
+                        "lblmediaid": "Media id",
+                        "inpmediaid": "Write the media id here...",
+                        "lblsrc": "Source url",
+                        "inpsrc": "Write the source url here...",
+                        "lbltype": "Type mime",
+                        "inptype": "Write the type (mime) url here (e.g: video/mp4)...",
+                        "lblthumbnail": "Thumbnail url",
+                        "inpthumbnail": "Write the thumbnail url here...",
+                        "lbltitle": "Title",
+                        "inptitle": "Write the title here...",
+                        "lbldesc": "Description",
+                        "inpdesc": "Write the description here...",
+                        "lblprivacy": "Privacy",
+                        "selprivacy": {
+                            "options": {
+                                "optdef": "Select the option of the privacy",
+                                "opt1": "Public",
+                                "opt2": "Private"
+                            }
+                        },
+                        "lblisfeatured": "Is featured?",
+                        "inpisfeatured": "Check the featured status here...",
+                        "lblcategoryid": "Category id",
+                        "inpcategoryid": "Write the category id here...",
+                        "lbluserid": "User Id",
+                        "btnreset": "Reset",
+                        "btnedit": "Edit",
+                        "messages": {
+                            "unauth": "You are not authorized to see this page!",
+                            "success": "Video info edited successfully!",
+                            "error": "Error when editing video info! Message: {message}",
+                            "errorapi": "Occurred an error when trying to edit the video info! Message: {message}"
+                        }
+                    }
                 }
             },
             "settings": {
@@ -924,6 +1027,14 @@
                     "statussuccess": "The current comment has been {keywordStatus} sucessfully!",
                     "statuserror": "Failed to {keywordStatus} current comment! Message: {message}",
                     "statuserrorapi": "Failed to {keywordStatus} current comment! Message: {message}"
+                }
+            },
+            "videos": {
+                "validation": {
+                    "errors": {
+                        "lblsrc": "Please write here the source url",
+                        "lbltype": "Please write here the type (mime) url (e.g: video/mp4)"
+                    }
                 }
             }
         }

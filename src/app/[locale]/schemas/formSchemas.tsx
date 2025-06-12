@@ -165,6 +165,27 @@ export const useMySchemaSettings = () => {
     return fconfigSchema;
 }
 
+export const useMySchemaVideos = () => {
+    const t = useTranslations("ui.forms.videos.validation.errors");
+
+    const fmediaSchema = z.object({
+        mediaId: z.coerce.number().optional(),
+        src: z.coerce.string().min(1, { message: t("lblsrc") ?? "Please write here the source url"}),
+        type: z.coerce.string().min(1, { message: t("lbltype") ?? "Please write here the type (mime) url (e.g: video/mp4)" }).optional(),
+        thumbnail: z.coerce.string().optional(),
+        title: z.coerce.string().optional(),
+        description: z.coerce.string().optional(),
+        privacy: z.coerce.string().optional(),
+        isFeatured: z.coerce.boolean().optional(),
+        createdAt: z.coerce.string().optional(),
+        updatedAt: z.coerce.string().optional(),
+        categoryId: z.coerce.number().optional(),
+        userId: z.coerce.number().optional()
+    });
+
+    return fmediaSchema;
+}
+
 export type TFormRegDataStep1 = z.infer<ReturnType<typeof useMySchemaRegStep1>>;
 export type TFormRegDataStep2 = z.infer<ReturnType<typeof useMySchemaRegStep2>>;
 export type TFormRegDataStep3 = z.infer<ReturnType<typeof useMySchemaRegStep3>>;
@@ -177,3 +198,4 @@ export type TFormUsers = z.infer<ReturnType<typeof useMySchemaUsers>>;
 export type TFormCommits = z.infer<ReturnType<typeof useMySchemaCommits>>;
 export type TFormComments = z.infer<ReturnType<typeof useMySchemaComments>>;
 export type TFormSettings = z.infer<ReturnType<typeof useMySchemaSettings>>;
+export type TFormVideos = z.infer<ReturnType<typeof useMySchemaVideos>>;

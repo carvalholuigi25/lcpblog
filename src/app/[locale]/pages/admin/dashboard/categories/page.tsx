@@ -16,7 +16,7 @@ import TableData from "@applocale/components/admin/dashboard/tabledata";
 import AdminSidebarDashboard from "@applocale/components/admin/dashboard/adbsidebar";
 import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavbar";
 import MyPagination from "@applocale/components/ui/mypagination";
-import { onlyAdmins } from "@/app/[locale]/functions/functions";
+import { onlyAdmins } from "@applocale/functions/functions";
 
 const AdminCategories = () => {
     const locale = useLocale() ?? getDefLocale();

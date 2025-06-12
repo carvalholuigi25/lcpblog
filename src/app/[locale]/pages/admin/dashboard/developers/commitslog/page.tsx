@@ -16,7 +16,7 @@ import LoadingComp from "@applocale/components/ui/loadingcomp";
 import ShowAlert from "@applocale/components/ui/alerts";
 import axios from "axios";
 import { useTranslations } from "next-intl";
-import { onlyAdminsAndDevs } from "@/app/[locale]/functions/functions";
+import { onlyAdminsAndDevs } from "@applocale/functions/functions";
 
 const AdminCommitsLog = ({ locale }: { locale?: string }) => {
     const t = useTranslations("pages.AdminPages.DevelopersPage");

@@ -284,8 +284,8 @@
               "year": "1 année",
               "week": "1 semaine",
               "month": "1 mois",
-              "day" : "1 jour",
-              "hour" : "1 heure",
+              "day": "1 jour",
+              "hour": "1 heure",
               "custom": "Personnalisé"
             }
           },
@@ -762,6 +762,109 @@
               }
             }
           }
+        },
+        "videos": {
+          "add": {
+            "title": "Ajouter des vidéos",
+            "lblsrc": "URL source",
+            "inpsrc": "Saisissez l'URL source ici...",
+            "lbltype": "Type mime",
+            "inptype": "Saisissez le type d'URL (mime) ici (ex: video/mp4)...",
+            "lblthumbnail": "URL de la miniature",
+            "inpthumbnail": "Saisissez l'URL de la miniature ici...",
+            "lbltitle": "Titre",
+            "inptitle": "Saisissez le titre ici...",
+            "lbldesc": "Description",
+            "inpdesc": "Saisissez la description ici...",
+            "lblprivacy": "Confidentialité",
+            "selprivacy": {
+              "options": {
+                "optdef": "Sélectionnez l'option de confidentialité",
+                "opt1": "Public",
+                "opt2": "Privé"
+              }
+            },
+            "lblisfeatured": "Est-elle mise en avant?",
+            "inpisfeatured": "Vérifiez le statut de mise en avant ici...",
+            "lblcategoryid": "Identifiant de la catégorie",
+            "inpcategoryid": "Indiquez l'identifiant de la catégorie ici...",
+            "lbluserid": "Identifiant utilisateur",
+            "btnreset": "Réinitialiser",
+            "btnadd": "Ajouter",
+            "messages": {
+              "unauth": "Vous n'êtes pas autorisé à voir cette page!",
+              "success": "Les informations sur la vidéo ont été ajoutées avec succès!",
+              "error": "Échec de l'ajout des informations sur la vidéo! Message: {message}",
+              "errorapi": "Erreur lors de l'ajout des informations sur la vidéo! Message: {message}"
+            }
+          },
+          "delete": {
+            "title": "Supprimer les vidéos",
+            "emptyvideos": "0 vidéo.",
+            "table": {
+              "header": {
+                "mediaId": "Identifiant du média",
+                "src": "URL source",
+                "type": "Type mime",
+                "thumbnail": "Vignette",
+                "title": "Titre",
+                "description": "Description",
+                "privacy": "Confidentialité",
+                "isFeatured": "Est-il en vedette?",
+                "createdAt": "Créé à",
+                "updatedAt": "Mis à jour à",
+                "categoryId": "ID de catégorie",
+                "userId": "ID utilisateur"
+              }
+            },
+            "messages": {
+              "unauth": "Vous n'êtes pas autorisé à voir cette page!",
+              "success": "Les informations de la vidéo ont été supprimées avec succès!",
+              "error": "Échec de la suppression des informations de cette vidéo! Message: {message}",
+              "errorapi": "Une erreur s'est produite lors de la suppression des informations de cette vidéo! Message: {message}",
+              "confirm": {
+                "title": "Voulez-vous vraiment supprimer cette vidéo (id: {mediaId})?",
+                "btnconfirm": "Oui",
+                "btncancel": "Non"
+              }
+            }
+          },
+          "edit": {
+            "title": "Modifier les vidéos",
+            "lblmediaid": "Identifiant du média",
+            "inpmediaid": "Indiquez l'identifiant du média ici...",
+            "lblsrc": "URL source",
+            "inpsrc": "Saisissez l'URL source ici...",
+            "lbltype": "Type mime",
+            "inptype": "Saisissez le type d'URL (mime) ici (ex: video/mp4)...",
+            "lblthumbnail": "URL de la miniature",
+            "inpthumbnail": "Saisissez l'URL de la miniature ici...",
+            "lbltitle": "Titre",
+            "inptitle": "Saisissez le titre ici...",
+            "lbldesc": "Description",
+            "inpdesc": "Saisissez la description ici...",
+            "lblprivacy": "Confidentialité",
+            "selprivacy": {
+              "options": {
+                "optdef": "Sélectionnez l'option de confidentialité",
+                "opt1": "Public",
+                "opt2": "Privé"
+              }
+            },
+            "lblisfeatured": "Est-elle mise en avant?",
+            "inpisfeatured": "Vérifiez le statut de mise en avant ici...",
+            "lblcategoryid": "Identifiant de la catégorie",
+            "inpcategoryid": "Indiquez l'identifiant de la catégorie ici...",
+            "lbluserid": "Identifiant utilisateur",
+            "btnreset": "Réinitialiser",
+            "btnedit": "Modifier",
+            "messages": {
+              "unauth": "Vous n'êtes pas autorisé à voir cette page!",
+              "success": "Informations vidéo modifiées avec succès!",
+              "error": "Erreur lors de la modification des informations vidéo! Message: {message}",
+              "errorapi": "Une erreur s'est produite lors de la modification des informations vidéo! Message: {message}"
+            }
+          }
         }
       },
       "settings": {
@@ -924,6 +1027,14 @@
           "statussuccess": "Le commentaire actuel a été ajouté avec succès! {keywordStatus}!",
           "statuserror": "Échec de l'ajout du commentaire actuel! {keywordStatus}! Message: {message}",
           "statuserrorapi": "Échec de l'ajout du commentaire actuel! {keywordStatus}! Message: {message}"
+        }
+      },
+      "videos": {
+        "validation": {
+          "errors": {
+            "lblsrc": "Veuillez indiquer ici l'URL source",
+            "lbltype": "Veuillez indiquer ici le type d'URL (mime) (ex. : video/mp4)"
+          }
         }
       }
     }

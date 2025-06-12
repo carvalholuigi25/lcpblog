@@ -14,7 +14,7 @@ import TableData from "@applocale/components/admin/dashboard/tabledata";
 import Footer from "@applocale/ui/footer";
 import withAuth from "@applocale/utils/withAuth";
 import LoadingComp from "@applocale/components/ui/loadingcomp";
-import { onlyAdmins } from "@/app/[locale]/functions/functions";
+import { onlyAdmins } from "@applocale/functions/functions";
 
 const AdminUsers = () => {
     const locale = useLocale();

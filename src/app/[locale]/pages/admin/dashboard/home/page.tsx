@@ -24,7 +24,7 @@ import withAuth from "@applocale/utils/withAuth";
 import MyPagination from "@applocale/components/ui/mypagination";
 import LoadingComp from "@applocale/components/ui/loadingcomp";
 import Schedule from "@applocale/components/ui/schedule";
-import { onlyAdmins } from "@/app/[locale]/functions/functions";
+import { onlyAdmins } from "@applocale/functions/functions";
 
 const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
     const t = useTranslations('pages.AdminPages.Dashboard');

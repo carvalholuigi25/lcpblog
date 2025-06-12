@@ -17,7 +17,7 @@ import withAuth from "@applocale/utils/withAuth";
 import MyPagination from "@applocale/components/ui/mypagination";
 import LoadingComp from "@applocale/components/ui/loadingcomp";
 import AdvancedSearchTags from "@applocale/components/ui/forms/search/tags/advsearchtags";
-import { onlyAdmins } from "@/app/[locale]/functions/functions";
+import { onlyAdmins } from "@applocale/functions/functions";
 
 const AdminTags = () => {
     const locale = useLocale();

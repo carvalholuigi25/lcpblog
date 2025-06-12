@@ -206,6 +206,9 @@
             "VideosPage": {
                 "title": "Videos",
                 "emptyvideos": "0 videos.",
+                "btnaddvideos": "Add video info",
+                "btneditvideos": "Edit video info",
+                "btndelvideos": "Delete video info",
                 "btnadvfsearch": {
                     "enable": "Enable",
                     "disable": "Disable",

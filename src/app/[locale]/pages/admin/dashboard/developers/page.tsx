@@ -10,7 +10,7 @@ import Footer from "@applocale/ui/footer";
 import withAuth from "@applocale/utils/withAuth";
 import LoadingComp from "@applocale/components/ui/loadingcomp";
 import { useTranslations } from "next-intl";
-import { onlyAdminsAndDevs } from "@/app/[locale]/functions/functions";
+import { onlyAdminsAndDevs } from "@applocale/functions/functions";
 
 const AdminDevs = ({ locale }: { locale?: string }) => {
     const t = useTranslations("pages.AdminPages.DevelopersPage");
