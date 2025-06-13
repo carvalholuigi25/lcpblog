@@ -11,7 +11,7 @@ using lcpblogapi.Context;
 namespace lcpblogapi.Migrations.SQLite
 {
     [DbContext(typeof(MyDBContextSQLite))]
-    [Migration("20250611120830_InitialCreateSQLite")]
+    [Migration("20250613094850_InitialCreateSQLite")]
     partial class InitialCreateSQLite
     {
         /// <inheritdoc />
@@ -49,29 +49,29 @@ namespace lcpblogapi.Migrations.SQLite
                         new
                         {
                             CategoryId = 1,
-                            CreatedAt = new DateTimeOffset(new DateTime(2025, 6, 11, 13, 8, 27, 902, DateTimeKind.Unspecified).AddTicks(5779), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2025, 6, 13, 10, 48, 47, 976, DateTimeKind.Unspecified).AddTicks(7240), new TimeSpan(0, 1, 0, 0, 0)),
                             Name = "Geral",
                             Slug = "/geral",
                             Status = 0,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2025, 6, 11, 13, 8, 27, 902, DateTimeKind.Unspecified).AddTicks(6516), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2025, 6, 13, 10, 48, 47, 976, DateTimeKind.Unspecified).AddTicks(7832), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             CategoryId = 2,
-                            CreatedAt = new DateTimeOffset(new DateTime(2025, 6, 11, 13, 8, 27, 902, DateTimeKind.Unspecified).AddTicks(7097), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2025, 6, 13, 10, 48, 47, 976, DateTimeKind.Unspecified).AddTicks(8410), new TimeSpan(0, 1, 0, 0, 0)),
                             Name = "Tecnologia",
                             Slug = "/tecnologia",
                             Status = 0,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2025, 6, 11, 13, 8, 27, 902, DateTimeKind.Unspecified).AddTicks(7102), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2025, 6, 13, 10, 48, 47, 976, DateTimeKind.Unspecified).AddTicks(8416), new TimeSpan(0, 1, 0, 0, 0))
                         },
                         new
                         {
                             CategoryId = 3,
-                            CreatedAt = new DateTimeOffset(new DateTime(2025, 6, 11, 13, 8, 27, 902, DateTimeKind.Unspecified).AddTicks(7117), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2025, 6, 13, 10, 48, 47, 976, DateTimeKind.Unspecified).AddTicks(8430), new TimeSpan(0, 1, 0, 0, 0)),
                             Name = "Outros",
                             Slug = "/outros",
                             Status = 0,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2025, 6, 11, 13, 8, 27, 902, DateTimeKind.Unspecified).AddTicks(7122), new TimeSpan(0, 1, 0, 0, 0))
+                            UpdatedAt = new DateTimeOffset(new DateTime(2025, 6, 13, 10, 48, 47, 976, DateTimeKind.Unspecified).AddTicks(8435), new TimeSpan(0, 1, 0, 0, 0))
                         });
                 });
 
@@ -215,9 +215,12 @@ namespace lcpblogapi.Migrations.SQLite
                     b.Property<string>("Title")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Type")
+                    b.Property<string>("TypeMime")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<int?>("TypeUrl")
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTimeOffset?>("UpdatedAt")
                         .HasColumnType("TEXT");
@@ -234,15 +237,16 @@ namespace lcpblogapi.Migrations.SQLite
                         {
                             MediaId = 1,
                             CategoryId = 1,
-                            CreatedAt = new DateTimeOffset(new DateTime(2025, 6, 11, 13, 8, 27, 918, DateTimeKind.Unspecified).AddTicks(2740), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2025, 6, 13, 10, 48, 47, 992, DateTimeKind.Unspecified).AddTicks(684), new TimeSpan(0, 1, 0, 0, 0)),
                             Description = "This is a demo video",
                             IsFeatured = true,
                             Privacy = "public",
                             Src = "//vjs.zencdn.net/v/oceans.mp4",
                             Thumbnail = "videos/thumbnails/default.jpg",
                             Title = "Demo",
-                            Type = "video/mp4",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2025, 6, 11, 13, 8, 27, 918, DateTimeKind.Unspecified).AddTicks(3319), new TimeSpan(0, 1, 0, 0, 0)),
+                            TypeMime = "video/mp4",
+                            TypeUrl = 0,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2025, 6, 13, 10, 48, 47, 992, DateTimeKind.Unspecified).AddTicks(1384), new TimeSpan(0, 1, 0, 0, 0)),
                             UserId = 1
                         });
                 });
@@ -301,13 +305,13 @@ namespace lcpblogapi.Migrations.SQLite
                             PostId = 1,
                             CategoryId = 1,
                             Content = "Welcome to LCPBlog!",
-                            CreatedAt = new DateTimeOffset(new DateTime(2025, 6, 11, 13, 8, 27, 901, DateTimeKind.Unspecified).AddTicks(3288), new TimeSpan(0, 1, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2025, 6, 13, 10, 48, 47, 975, DateTimeKind.Unspecified).AddTicks(4287), new TimeSpan(0, 1, 0, 0, 0)),
                             Image = "blog.jpg",
                             Slug = "/",
                             Status = 0,
                             Tags = "[\"#geral\"]",
                             Title = "Welcome to LCPBlog!",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2025, 6, 11, 13, 8, 27, 901, DateTimeKind.Unspecified).AddTicks(4059), new TimeSpan(0, 1, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2025, 6, 13, 10, 48, 47, 975, DateTimeKind.Unspecified).AddTicks(4885), new TimeSpan(0, 1, 0, 0, 0)),
                             UserId = 1,
                             Views = 0,
                             ViewsCounter = 0
@@ -442,7 +446,7 @@ namespace lcpblogapi.Migrations.SQLite
                             Cover = "covers/luis.jpg",
                             DisplayName = "Luis Carvalho",
                             Email = "luiscarvalho239@gmail.com",
-                            Password = "$2a$10$bfL8D9eXUGTXHqgzc3vtIukyKP0/wif0GnKeR9zwZdGdf1FiWpbPW",
+                            Password = "$2a$10$xdydNfNi1bDkbu3VXkbsg.WD9R07mat70y1k7pGmbtPhfnM7JpXr6",
                             Privacy = 0,
                             Role = 6,
                             Username = "admin",

@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // components/VideoPlayer.tsx
 'use client';
+import { getVideoThumbnailPath } from '@/app/[locale]/functions/functions';
 import React, { useEffect, useRef } from 'react';
 import videojs from 'video.js';
 
 interface VideoPlayerProps {
   src: string;
   type: string;
+  poster: string;
   options: any;
 }
 
@@ -26,14 +28,14 @@ const getVideoThemeOptions = () => {
   return `vjs-default-skin vjs-${optstheme.name} ${optstheme.size} ${optstheme.bordered ? "bordered" : ""}`;
 }
 
-const VideoPlayer = ({ src, type, options }: VideoPlayerProps) => {
+const VideoPlayer = ({ src, type, poster, options }: VideoPlayerProps) => {
   const videoRef = useRef(null);
   const playerRef = useRef<any | null>(null);
   const videoClOpts = getVideoThemeOptions();
 
   useEffect(() => {
     if (videoRef.current && !playerRef.current) {
-      playerRef.current = videojs(videoRef.current, {...options, sources: [{ src: src, type: type }]}, () => {
+      playerRef.current = videojs(videoRef.current, {...options, sources: [{ src: src, type: type }], poster: getVideoThumbnailPath(poster)}, () => {
         console.log('Video.js player is ready');
       });
     }
@@ -44,7 +46,7 @@ const VideoPlayer = ({ src, type, options }: VideoPlayerProps) => {
         playerRef.current = null;
       }
     };
-  }, [src, type, options]);
+  }, [src, type, poster, options]);
 
   return (
     <div data-vjs-player>

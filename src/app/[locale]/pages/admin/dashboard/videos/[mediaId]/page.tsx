@@ -15,22 +15,21 @@ import withAuth from "@applocale/utils/withAuth";
 import LoadingComp from "@applocale/components/ui/loadingcomp";
 import VideoPlayer from "@applocale/components/ui/video/player";
 import FetchData from "@applocale/utils/fetchdata";
+import { useParams } from "next/navigation";
 
 const videoJsOptions = {
     controls: true,
     autoplay: false,
     responsive: true,
+    posterImage: true,
     fluid: true,
     preload: 'auto',
     sources: [{}],
 };
 
-interface admVideosProps {
-    mediaId?: number;
-}
-
-const AdminVideosById = ({mediaId}: admVideosProps) => {
+const AdminVideosById = () => {
     const locale = useLocale();
+    const {mediaId} = useParams();
     const t = useTranslations("pages.AdminPages.VideosPage");
     const tbtn = useTranslations("ui.buttons");
     const [logInfo, setLogInfo] = useState("");
@@ -111,7 +110,7 @@ const AdminVideosById = ({mediaId}: admVideosProps) => {
                                             <div className="col-12">
                                                 <Suspense fallback={<LoadingComp type="icon" icontype="ring" />}>
                                                     {videos.map(x => (
-                                                        <VideoPlayer key={x.mediaId} src={x.src} type={x.type} options={videoJsOptions} />
+                                                        <VideoPlayer key={x.mediaId} src={x.src} type={x.typeMime} poster={x.thumbnail!} options={videoJsOptions} />
                                                     ))}
                                                 </Suspense>
                                             </div>

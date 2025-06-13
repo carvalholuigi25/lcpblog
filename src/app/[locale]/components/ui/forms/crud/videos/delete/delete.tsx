@@ -128,7 +128,8 @@ const DeleteVideosForm = ({ mediaId, data }: { mediaId: number, data: Media }) =
                                         <tr>
                                             <th>{t("table.header.mediaId") ?? "Media Id"}</th>
                                             <th>{t("table.header.src") ?? "Source url"}</th>
-                                            <th>{t("table.header.type") ?? "Type mime"}</th>
+                                            <th>{t("table.header.typeUrl") ?? "Type url"}</th>
+                                            <th>{t("table.header.typeMime") ?? "Type mime"}</th>
                                             <th>{t("table.header.thumbnail") ?? "Thumbnail"}</th>
                                             <th>{t("table.header.title") ?? "Title"}</th>
                                             <th>{t("table.header.description") ?? "Description"}</th>
@@ -144,10 +145,13 @@ const DeleteVideosForm = ({ mediaId, data }: { mediaId: number, data: Media }) =
                                         <tr>
                                             <td>{data.mediaId}</td>
                                             <td>{data.src}</td>
-                                            <td>{data.type}</td>
+                                            <td>{data.typeUrl}</td>
+                                            <td>{data.typeMime}</td>
                                             <td>{data.thumbnail}</td>
                                             <td>{data.title}</td>
-                                            <td>{data.description}</td>
+                                            <td className="text-truncate">
+                                                {data.description}
+                                            </td>
                                             <td>{data.privacy}</td>
                                             <td>{data.isFeatured!.toString()}</td>
                                             <td>{formatDate(data.createdAt!.toString())}</td>

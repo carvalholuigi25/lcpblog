@@ -84,6 +84,11 @@
         color: #00ff00;
     }
 
+    .vjs-poster img {
+        border-radius: calc(15px + 10px);
+        object-fit: cover;
+    }
+
     .vjs-control-bar {
         background-color: rgba(20, 20, 20, 0.8);
     }

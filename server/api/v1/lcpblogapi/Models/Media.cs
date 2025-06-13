@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using lcpblogapi.Models.Enums;
 
 namespace lcpblogapi.Models;
 
@@ -10,14 +11,17 @@ public class Media
     [Key]
     public int? MediaId { get; set; }
 
+    [DefaultValue(EMediaTypeUrl.local)]
+    public EMediaTypeUrl? TypeUrl { get; set; } = EMediaTypeUrl.local;
+
     [DefaultValue("")]
     public string Src { get; set; } = "";
 
     [DefaultValue("video/mp4")]
-    public string Type { get; set; } = "video/mp4";
+    public string TypeMime { get; set; } = "video/mp4";
 
-    [DefaultValue("videos/thumbnails/default.jpg")]
-    public string? Thumbnail { get; set; } = "videos/thumbnails/default.jpg";
+    [DefaultValue("default.jpg")]
+    public string? Thumbnail { get; set; } = "default.jpg";
 
     [DefaultValue("")]
     public string? Title { get; set; } = "";

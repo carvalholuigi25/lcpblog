@@ -212,6 +212,13 @@ section {
   &.mtable-noshadow {
     box-shadow: 0;
   }
+
+  .text-truncate {
+    max-width: 150px;
+    overflow: auto;
+    white-space: nowrap;
+    display: flex;
+  }
 }
 
 .table {
@@ -903,9 +910,9 @@ footer {
 .cardvideos {
   .card-img-top, .img-thumbnail {
     width: 100%;
-    height: auto;
+    height: auto !important;
     max-width: 100%;
-    max-height: 40vh;
+    max-height: 100%;
     object-fit: cover;
     border-radius: inherit;
   }

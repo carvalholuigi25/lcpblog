@@ -14,7 +14,7 @@ import { motion } from "framer-motion";
 import { EditorState } from "lexical";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { useLocale, useTranslations } from "next-intl";
-import { buildMyConnection, getVideoImgPath, sendMessage } from "@applocale/functions/functions";
+import { buildMyConnection, getVideoThumbnailPath, sendMessage } from "@applocale/functions/functions";
 import { DataToastsProps } from "@applocale/interfaces/toasts";
 import { Media } from "@applocale/interfaces/media";
 import ShowAlert from "@applocale/components/ui/alerts";
@@ -32,12 +32,15 @@ const EditVideosForm = ({mediaId, data}: {mediaId: number, data: Media}) => {
     const tbtn = useTranslations("ui.buttons");
     const locale = useLocale() ?? getDefLocale();
     const defSrc = `//vjs.zencdn.net/v/oceans.mp4`;
+    const defMimeType = "video/mp4";
+    const defTypeUrl = "local";
 
     const [formData, setFormData] = useState({
         mediaId: data.mediaId ?? mediaId,
+        typeUrl: data.typeUrl ?? defTypeUrl,
         src: data.src ?? defSrc,
-        type: data.type ?? mime.getType(defSrc),
-        thumbnail: data.thumbnail ?? "/videos/thumbnails/default.jpg",
+        typeMime: data.typeMime ?? (mime.getType(defSrc) ?? defMimeType),
+        thumbnail: data.thumbnail ?? "default.jpg",
         title: data.title ?? "Demo",
         description: data.description ?? "This is a demo video",
         privacy: data.privacy ?? "public",
@@ -95,15 +98,16 @@ const EditVideosForm = ({mediaId, data}: {mediaId: number, data: Media}) => {
         }
 
         if(getValues("src")) {
-            setValue("type", ""+mime.getType(defSrc));
+            setValue("typeMime", defTypeUrl == "local" ? ""+(mime.getType(defSrc) ?? defMimeType) : "");
         }
 
         if(!!isResetedForm) {
             setFormData({
                 mediaId: data.mediaId ?? mediaId,
+                typeUrl: data.typeUrl ?? defTypeUrl,
                 src: data.src ?? defSrc,
-                type: data.type ?? mime.getType(defSrc),
-                thumbnail: data.thumbnail ?? "/videos/thumbnails/default.jpg",
+                typeMime: data.typeMime ?? (mime.getType(defSrc) ?? defMimeType),
+                thumbnail: data.thumbnail ?? "default.jpg",
                 title: data.title ?? "Demo",
                 description: data.description ?? "This is a demo video",
                 privacy: data.privacy ?? "public",
@@ -138,7 +142,7 @@ const EditVideosForm = ({mediaId, data}: {mediaId: number, data: Media}) => {
         setFormData({ ...formData, [name]: value });
         
         if(name === "src") {
-            setValue("type", ""+mime.getType(value)!);
+            setValue("typeMime", defTypeUrl == "local" ? ""+(mime.getType(value)! ?? defMimeType) : "");
         }
     }
 
@@ -223,6 +227,23 @@ const EditVideosForm = ({mediaId, data}: {mediaId: number, data: Media}) => {
                         </div>
 
                         <div className="form-group mt-3 text-center">
+                            <label htmlFor="typeUrl">
+                                {t('lbltypeurl') || "Type url"}
+                            </label>
+                            <div className={styles.sformgroup}>
+                                <select {...register("typeUrl")} id="typeUrl" name="typeUrl" className={"form-control typeUrl mt-3 " + styles.sformgroupinp} value={formData.typeUrl} onChange={handleChange}>
+                                    <option disabled>{t('seltypeurl.options.optdef') || "Select the option of type url"}</option>
+                                    <option value={"local"}>
+                                        {t('seltypeurl.options.opt1') || "Local"}
+                                    </option>
+                                    <option value={"external"}>
+                                        {t('seltypeurl.options.opt2') || "External"}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div className="form-group mt-3 text-center">
                             <label htmlFor="src">
                                 {t('lblsrc') ?? "Source url"}
                             </label>
@@ -233,16 +254,18 @@ const EditVideosForm = ({mediaId, data}: {mediaId: number, data: Media}) => {
                             {errors.src && ShowAlert("danger", errors.src.message)}
                         </div>
 
-                        <div className="form-group mt-3 text-center">
-                            <label htmlFor="type">
-                                {t('lbltype') ?? "Type"}
-                            </label>
-                            <div className={styles.sformgroup}>
-                                <input {...register("type")} type="text" id="type" name="type" className={"form-control type mt-3 " + styles.sformgroupinp} placeholder={t("inptype") ?? "Write the type (mime) url here (e.g: video/mp4)..."} onChange={handleChange} disabled />
-                            </div>
+                        {formData.typeUrl == "local" && (
+                            <div className="form-group mt-3 text-center">
+                                <label htmlFor="typeMime">
+                                    {t('lbltypemime') ?? "Type mime"}
+                                </label>
+                                <div className={styles.sformgroup}>
+                                    <input {...register("typeMime")} type="text" id="typeMime" name="typeMime" className={"form-control typeMime mt-3 " + styles.sformgroupinp} placeholder={t("inptypemime") ?? "Write the type (mime) url here (e.g: video/mp4)..."} onChange={handleChange} disabled />
+                                </div>
 
-                            {errors.type && ShowAlert("danger", errors.type.message)}
-                        </div>
+                                {errors.typeMime && ShowAlert("danger", errors.typeMime.message)}
+                            </div>
+                        )}
 
                         <div className="form-group mt-3 text-center">
                             <label htmlFor="thumbnail">
@@ -256,7 +279,7 @@ const EditVideosForm = ({mediaId, data}: {mediaId: number, data: Media}) => {
                                     className="d-inline-block mt-3"
                                 >
                                     <Image
-                                        src={getVideoImgPath(formData.thumbnail!.replace("videos/", ""))}
+                                        src={getVideoThumbnailPath(formData.thumbnail!.replace("videos/", ""))}
                                         width="600"
                                         height="300"
                                         alt="Videos thumbnail"

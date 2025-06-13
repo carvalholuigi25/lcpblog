@@ -170,8 +170,9 @@ export const useMySchemaVideos = () => {
 
     const fmediaSchema = z.object({
         mediaId: z.coerce.number().optional(),
+        typeUrl: z.coerce.string().optional(),
         src: z.coerce.string().min(1, { message: t("lblsrc") ?? "Please write here the source url"}),
-        type: z.coerce.string().min(1, { message: t("lbltype") ?? "Please write here the type (mime) url (e.g: video/mp4)" }).optional(),
+        typeMime: z.coerce.string().min(1, { message: t("lbltypemime") ?? "Please write here the type (mime) url (e.g: video/mp4)" }).optional(),
         thumbnail: z.coerce.string().optional(),
         title: z.coerce.string().optional(),
         description: z.coerce.string().optional(),

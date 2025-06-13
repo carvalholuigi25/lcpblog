@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { getDefLocale } from "@applocale/helpers/defLocale";
-import { getVideoImgPath, onlyAdmins } from "@applocale/functions/functions";
+import { getVideoThumbnailPath, onlyAdmins } from "@applocale/functions/functions";
 import { Media } from "@applocale/interfaces/media";
 import AdminSidebarDashboard from "@applocale/components/admin/dashboard/adbsidebar";
 import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavbar";
@@ -85,6 +85,20 @@ const AdminVideos = () => {
         setBarToggle(!barToggle);
     }
 
+    const getFeaturedItem = (i: number) => {
+        return i == 1 ? (
+            <div className="card-info-featured-wrapper">
+                <div className="card-info-featured">
+                    <i className="bi bi-star-fill"></i>
+                </div>
+            </div>
+        ) : "";
+    };
+
+    const getThumbnail = (x: Media) => {
+        return getVideoThumbnailPath(x.thumbnail!.replace("videos/thumbnails/", ""));
+    }
+
     return (
         <div className={"admpage " + astyles.admdashboard} id="admdashboard">
             {!!isAuthorized && (
@@ -141,8 +155,12 @@ const AdminVideos = () => {
                                                 {videos.map(x => (
                                                     <div key={x.mediaId} className="col-12 col-md-6 col-lg-4">
                                                         <div className="card cardvideos cardlg bshadow rounded">
+                                                            {x.isFeatured && (
+                                                                getFeaturedItem(parseInt(""+x.mediaId))
+                                                            )}
+
                                                             <Link href={`/${locale}/pages/admin/dashboard/videos/${x.mediaId}`}>
-                                                                <Image src={getVideoImgPath(x.thumbnail)} className="card-img-top rounded mx-auto d-block img-fluid img-thumbnail p-0" width={150} height={150} alt={x.title ?? x.description ?? "Video " + x.mediaId} />
+                                                                <Image src={getThumbnail(x)} className="card-img-top rounded mx-auto d-block img-fluid img-thumbnail p-0" width={150} height={150} alt={x.title ?? x.description ?? "Video " + x.mediaId} />
                                                             </Link>
 
                                                             <div className="card-body">

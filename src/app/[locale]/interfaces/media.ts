@@ -1,7 +1,8 @@
 export interface Media {
     mediaId?: number;
+    typeUrl: string;
     src: string;
-    type: string;
+    typeMime: string;
     thumbnail?: string;
     title?: string;
     description?: string;

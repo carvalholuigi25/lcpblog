@@ -107,8 +107,10 @@ public static class MyDBFunctions
         return [
             new Media() {
                 MediaId = 1,
+                TypeUrl = EMediaTypeUrl.local,
                 Src = "//vjs.zencdn.net/v/oceans.mp4",
-                Type = "video/mp4",
+                Thumbnail = "default.jpg",
+                TypeMime = "video/mp4",
                 Title = "Demo",
                 Description = "This is a demo video",
                 Privacy = "public",

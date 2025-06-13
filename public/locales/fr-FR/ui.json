@@ -766,10 +766,18 @@
         "videos": {
           "add": {
             "title": "Ajouter des vidéos",
+            "lbltypeurl": "Saisir l'URL",
+            "seltypeurl": {
+              "options": {
+                "optdef": "Sélectionner l'option du type d'URL",
+                "opt1": "Local",
+                "opt2": "Externe"
+              }
+            },
             "lblsrc": "URL source",
-            "inpsrc": "Saisissez l'URL source ici...",
-            "lbltype": "Type mime",
-            "inptype": "Saisissez le type d'URL (mime) ici (ex: video/mp4)...",
+            "inpsrc": "Saisir l'URL source ici...",
+            "lbltypemime": "Saisir le format mime",
+            "inptypemime": "Saisir le type d'URL (mime) ici (ex. : video/mp4)...",
             "lblthumbnail": "URL de la miniature",
             "inpthumbnail": "Saisissez l'URL de la miniature ici...",
             "lbltitle": "Titre",
@@ -804,8 +812,9 @@
             "table": {
               "header": {
                 "mediaId": "Identifiant du média",
-                "src": "URL source",
-                "type": "Type mime",
+                "typeUrl": "Saisir l'URL",
+                "src": "Source de l'URL",
+                "typeMime": "Type mime",
                 "thumbnail": "Vignette",
                 "title": "Titre",
                 "description": "Description",
@@ -833,10 +842,18 @@
             "title": "Modifier les vidéos",
             "lblmediaid": "Identifiant du média",
             "inpmediaid": "Indiquez l'identifiant du média ici...",
+            "lbltypeurl": "Saisir l'URL",
+            "seltypeurl": {
+              "options": {
+                "optdef": "Sélectionner l'option du type d'URL",
+                "opt1": "Local",
+                "opt2": "Externe"
+              }
+            },
             "lblsrc": "URL source",
-            "inpsrc": "Saisissez l'URL source ici...",
-            "lbltype": "Type mime",
-            "inptype": "Saisissez le type d'URL (mime) ici (ex: video/mp4)...",
+            "inpsrc": "Saisir l'URL source ici...",
+            "lbltypemime": "Saisir le format mime",
+            "inptypemime": "Saisir le type d'URL (mime) ici (ex. : video/mp4)...",
             "lblthumbnail": "URL de la miniature",
             "inpthumbnail": "Saisissez l'URL de la miniature ici...",
             "lbltitle": "Titre",
@@ -1033,7 +1050,7 @@
         "validation": {
           "errors": {
             "lblsrc": "Veuillez indiquer ici l'URL source",
-            "lbltype": "Veuillez indiquer ici le type d'URL (mime) (ex. : video/mp4)"
+            "lbltypemime": "Veuillez indiquer ici le type d'URL (mime) (ex.: video/mp4)"
           }
         }
       }

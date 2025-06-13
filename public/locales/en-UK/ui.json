@@ -766,10 +766,18 @@
                 "videos": {
                     "add": {
                         "title": "Add videos",
+                        "lbltypeurl": "Type url",
+                        "seltypeurl": {
+                            "options": {
+                                "optdef": "Select the option of the type url",
+                                "opt1": "Local",
+                                "opt2": "External"
+                            }
+                        },
                         "lblsrc": "Source url",
                         "inpsrc": "Write the source url here...",
-                        "lbltype": "Type mime",
-                        "inptype": "Write the type (mime) url here (e.g: video/mp4)...",
+                        "lbltypemime": "Type mime",
+                        "inptypemime": "Write the type (mime) url here (e.g: video/mp4)...",
                         "lblthumbnail": "Thumbnail url",
                         "inpthumbnail": "Write the thumbnail url here...",
                         "lbltitle": "Title",
@@ -804,8 +812,9 @@
                         "table": {
                             "header": {
                                 "mediaId": "Media Id",
+                                "typeUrl": "Type url",
                                 "src": "Source url",
-                                "type": "Type mime",
+                                "typeMime": "Type mime",
                                 "thumbnail": "Thumbnail",
                                 "title": "Title",
                                 "description": "Description",
@@ -833,10 +842,18 @@
                         "title": "Edit videos",
                         "lblmediaid": "Media id",
                         "inpmediaid": "Write the media id here...",
+                        "lbltypeurl": "Type url",
+                        "seltypeurl": {
+                            "options": {
+                                "optdef": "Select the option of the type url",
+                                "opt1": "Local",
+                                "opt2": "External"
+                            }
+                        },
                         "lblsrc": "Source url",
                         "inpsrc": "Write the source url here...",
-                        "lbltype": "Type mime",
-                        "inptype": "Write the type (mime) url here (e.g: video/mp4)...",
+                        "lbltypemime": "Type mime",
+                        "inptypemime": "Write the type (mime) url here (e.g: video/mp4)...",
                         "lblthumbnail": "Thumbnail url",
                         "inpthumbnail": "Write the thumbnail url here...",
                         "lbltitle": "Title",
@@ -1033,7 +1050,8 @@
                 "validation": {
                     "errors": {
                         "lblsrc": "Please write here the source url",
-                        "lbltype": "Please write here the type (mime) url (e.g: video/mp4)"
+                        "lbltypemime": "Type mime",
+                        "lbltypemime": "Please write here the type (mime) url (e.g: video/mp4)"
                     }
                 }
             }

@@ -65,8 +65,8 @@ export function getImagePath(img: any, path?: string) {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function getVideoImgPath(img: any, path?: string) {
-  return !!["http", "https", "file"].includes(img) ? img : (!img.includes("/videos/") ? '/videos/' + (!!path && !img.includes(path) ? path + '/' : '') + img : img);
+export function getVideoThumbnailPath(vth: any, path?: string) {
+  return !!["http", "https", "file"].includes(vth) ? vth : (!vth.includes("/videos/thumbnails/") ? '/videos/thumbnails/' + (!!path && !vth.includes(path) ? path + '/' : '') + vth : vth);
 }
 
 
