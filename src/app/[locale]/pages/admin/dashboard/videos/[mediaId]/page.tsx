@@ -8,23 +8,23 @@ import { Link } from '@/app/i18n/navigation';
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { onlyAdmins } from "@applocale/functions/functions";
 import { Media } from "@applocale/interfaces/media";
+import { useParams } from "next/navigation";
 import AdminSidebarDashboard from "@applocale/components/admin/dashboard/adbsidebar";
 import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavbar";
 import Footer from "@applocale/ui/footer";
 import withAuth from "@applocale/utils/withAuth";
 import LoadingComp from "@applocale/components/ui/loadingcomp";
 import VideoPlayer from "@applocale/components/ui/video/player";
-import FetchData from "@applocale/utils/fetchdata";
-import { useParams } from "next/navigation";
+import FetchDataAxios from "@/app/[locale]/utils/fetchdataaxios";
 
-const videoJsOptions = {
+export const videoJsOptions = {
     controls: true,
     autoplay: false,
     responsive: true,
     posterImage: true,
     fluid: true,
     preload: 'auto',
-    sources: [{}],
+    sources: [{}]
 };
 
 const AdminVideosById = () => {
@@ -40,14 +40,17 @@ const AdminVideosById = () => {
 
     useEffect(() => {
        async function fetchVideos() {
-            const data = await FetchData({
-                url: 'api/medias?mediaId='+mediaId,
+            const data = await FetchDataAxios({
+                url: 'api/medias/'+mediaId,
                 method: 'get',
                 reqAuthorize: false
             });
 
-            if (data.data) {
-                setVideos(JSON.parse(JSON.stringify(data.data)));
+            const ndata: Media[] = [];
+
+            if(data.data) {
+                ndata.push(data.data);
+                setVideos(ndata);
             }
         }
        
@@ -109,8 +112,8 @@ const AdminVideosById = () => {
                                         {videos && (
                                             <div className="col-12">
                                                 <Suspense fallback={<LoadingComp type="icon" icontype="ring" />}>
-                                                    {videos.map(x => (
-                                                        <VideoPlayer key={x.mediaId} src={x.src} type={x.typeMime} poster={x.thumbnail!} options={videoJsOptions} />
+                                                    {videos.map((x, i) => (
+                                                        <VideoPlayer key={i} id={parseInt(""+x.mediaId)} src={x.src} type={x.typeMime} poster={x.thumbnail!} options={videoJsOptions} />
                                                     ))}
                                                 </Suspense>
                                             </div>

@@ -64,6 +64,14 @@ public class MediasRepo : ControllerBase, IMediasRepo
 
     public async Task<ActionResult<Media>> CreateMedia(Media media)
     {
+        if (!string.IsNullOrEmpty(media.Src) && !string.IsNullOrEmpty(media.Title))
+        {
+            if (_context.Medias.Where(x => x.Src!.ToLower().Equals(media.Src!.ToLower()) || x.Title!.ToLower().Equals(media.Title!.ToLower())).Count() == 1)
+            {
+                return BadRequest("This media already exists in our database!");
+            }   
+        }
+
         _context.Medias.Add(media);
         await _context.SaveChangesAsync();
         await _hub.Clients.All.SendAsync("ReceiveMessage", media);
@@ -76,6 +84,14 @@ public class MediasRepo : ControllerBase, IMediasRepo
         if (id != media.MediaId)
         {
             return BadRequest();
+        }
+
+        if (!string.IsNullOrEmpty(media.Src) && !string.IsNullOrEmpty(media.Title))
+        {
+            if (_context.Medias.Where(x => x.Src!.ToLower().Equals(media.Src!.ToLower()) || x.Title!.ToLower().Equals(media.Title!.ToLower())).Count() == 0)
+            {
+                return BadRequest("This media does not exist in our database!");
+            }   
         }
 
         _context.Entry(media).State = EntityState.Modified;

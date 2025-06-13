@@ -67,6 +67,7 @@
     "rss": "^1.2.2",
     "rtl-detect": "^1.1.2",
     "use-debounce": "^10.0.5",
+    "videojs-youtube": "^3.0.1",
     "zod": "^3.25.63"
   },
   "devDependencies": {

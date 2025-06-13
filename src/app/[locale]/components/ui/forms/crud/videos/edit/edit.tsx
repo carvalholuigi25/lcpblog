@@ -31,9 +31,9 @@ const EditVideosForm = ({mediaId, data}: {mediaId: number, data: Media}) => {
     const t = useTranslations("ui.forms.crud.videos.edit");
     const tbtn = useTranslations("ui.buttons");
     const locale = useLocale() ?? getDefLocale();
-    const defSrc = `//vjs.zencdn.net/v/oceans.mp4`;
-    const defMimeType = "video/mp4";
     const defTypeUrl = "local";
+    const defSrc = defTypeUrl == 'local' ? `//vjs.zencdn.net/v/oceans.mp4` : "https://www.youtube.com/watch?v=Sklc_fQBmcs";
+    const defMimeType = defTypeUrl == "local" ? "video/mp4" : "video/youtube";
 
     const [formData, setFormData] = useState({
         mediaId: data.mediaId ?? mediaId,
@@ -129,7 +129,7 @@ const EditVideosForm = ({mediaId, data}: {mediaId: number, data: Media}) => {
             updateMyRealData();
             setMyEditorKey(Date.now().toString());
         }
-    }, [isResetedForm, logInfo, data, loading, mediaId, defSrc, getValues, setValue]);
+    }, [data, mediaId, isResetedForm, logInfo, loading, defSrc, defMimeType, getValues, setValue]);
 
     if (loading) {
         return (
@@ -142,7 +142,7 @@ const EditVideosForm = ({mediaId, data}: {mediaId: number, data: Media}) => {
         setFormData({ ...formData, [name]: value });
         
         if(name === "src") {
-            setValue("typeMime", defTypeUrl == "local" ? ""+(mime.getType(value)! ?? defMimeType) : "");
+            setValue("typeMime", ""+(mime.getType(value)! ?? defMimeType));
         }
     }
 

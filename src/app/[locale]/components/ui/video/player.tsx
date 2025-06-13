@@ -6,6 +6,7 @@ import React, { useEffect, useRef } from 'react';
 import videojs from 'video.js';
 
 interface VideoPlayerProps {
+  id: number;
   src: string;
   type: string;
   poster: string;
@@ -28,14 +29,32 @@ const getVideoThemeOptions = () => {
   return `vjs-default-skin vjs-${optstheme.name} ${optstheme.size} ${optstheme.bordered ? "bordered" : ""}`;
 }
 
-const VideoPlayer = ({ src, type, poster, options }: VideoPlayerProps) => {
+const VideoPlayer = ({ id, src, type, poster, options }: VideoPlayerProps) => {
   const videoRef = useRef(null);
   const playerRef = useRef<any | null>(null);
   const videoClOpts = getVideoThemeOptions();
 
   useEffect(() => {
     if (videoRef.current && !playerRef.current) {
-      playerRef.current = videojs(videoRef.current, {...options, sources: [{ src: src, type: type }], poster: getVideoThumbnailPath(poster)}, () => {
+      const datasetup = {
+        ...options, 
+        techOrder: ["html5", "youtube"], 
+        sources: [{ 
+          src: src, 
+          type: type 
+        }], 
+        poster: getVideoThumbnailPath(poster),
+        youtube: { 
+          "iv_load_policy": 1,
+          "ytControls": 0,
+          "frameborder": 0,
+          "customVars": { 
+            "wmode": "transparent" 
+          }
+        }
+      };
+
+      playerRef.current = videojs(videoRef.current, datasetup, () => {
         console.log('Video.js player is ready');
       });
     }
@@ -49,7 +68,7 @@ const VideoPlayer = ({ src, type, poster, options }: VideoPlayerProps) => {
   }, [src, type, poster, options]);
 
   return (
-    <div data-vjs-player>
+    <div key={"myvideo"+id} data-vjs-player>
       <video ref={videoRef} className={`video-js ${videoClOpts}`} />
     </div>
   );

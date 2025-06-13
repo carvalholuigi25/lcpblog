@@ -31,14 +31,13 @@ const AddVideosForm = () => {
     const t = useTranslations("ui.forms.crud.videos.add");
     const tbtn = useTranslations("ui.buttons");
     const locale = useLocale() ?? getDefLocale();
-    const defSrc = `//vjs.zencdn.net/v/oceans.mp4`;
-    const defMimeType = "video/mp4";
     const defTypeUrl = "local";
+    const defMimeType = defTypeUrl == "local" ? "video/mp4" : "video/youtube";
 
     const [formData, setFormData] = useState({
-        typeUrl: "local",
-        src: defSrc,
-        typeMime: defTypeUrl == "local" ? ""+(mime.getType(defSrc)! ?? defMimeType) : "",
+        typeUrl: defTypeUrl,
+        src: "",
+        typeMime: "",
         thumbnail: "default.jpg",
         title: "Demo",
         description: "This is a demo video",
@@ -57,9 +56,7 @@ const AddVideosForm = () => {
     const [loading, setLoading] = useState(true);
     const [myEditorKey, setMyEditorKey] = useState("");
     const [dataToast, setDataToast] = useState({ type: "", message: "", statusToast: false } as DataToastsProps);
-
     const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
-
     const { push } = useRouter();
 
     const {
@@ -96,16 +93,20 @@ const AddVideosForm = () => {
                 connect.off("ReceiveMessage");
             }
         }
+            
+        if(getValues("typeUrl")) {
+            setValue("src", getDefSrc(defTypeUrl));
+        }
 
         if(getValues("src")) {
-            setValue("typeMime", defTypeUrl == "local" ? ""+(mime.getType(defSrc)! ?? defMimeType) : "");
+            setValue("typeMime", getValues("typeUrl") == "local" ? ""+(mime.getType(getDefSrc(defTypeUrl))! ?? defMimeType) : "video/youtube");
         }
 
         if (!!isResetedForm) {
             setFormData({
                 typeUrl: defTypeUrl,
-                src: defSrc,
-                typeMime: defTypeUrl == "local" ? ""+(mime.getType(defSrc)! ?? defMimeType) : "",
+                src: getDefSrc(defTypeUrl),
+                typeMime: ""+(mime.getType(getDefSrc(defTypeUrl))! ?? defMimeType),
                 thumbnail: "default.jpg",
                 title: "Demo",
                 description: "This is a demo video",
@@ -127,7 +128,7 @@ const AddVideosForm = () => {
         if (!loading) {
             addMyRealData();
         }
-    }, [isResetedForm, logInfo, loading, t, defSrc, setValue, getValues]);
+    }, [t, isResetedForm, logInfo, loading, defMimeType, setValue, getValues, defTypeUrl]);
 
     if (loading) {
         return (
@@ -135,20 +136,33 @@ const AddVideosForm = () => {
         );
     }
 
+    const getDefSrc = (typeurl: string = "local") => {
+        return typeurl == 'local' ? `//vjs.zencdn.net/v/oceans.mp4` : "https://www.youtube.com/watch?v=Sklc_fQBmcs";
+    };
+
+    const getDefMimeType = (typeurl: string = "local", value: string) => {
+        return typeurl == 'local' ? ""+(mime.getType(value)! ?? defMimeType) : "video/youtube";
+    }
+
     const handleChange = (e: any) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
 
+        if(name === "typeUrl") {
+            setValue("src", getDefSrc(value))
+        }
+
         if(name === "src") {
-            setValue("typeMime", defTypeUrl == "local" ? ""+(mime.getType(value)! ?? defMimeType) : "");
+            setValue("typeMime", getDefMimeType(getValues("typeUrl"), getDefSrc(value)));
         }
     }
 
     const handleReset = (e: any) => {
         e.preventDefault();
         setIsResetedForm(true);
-        setMyEditorKey(Date.now().toString());
+        setValue("typeUrl", defTypeUrl);
         setFormData({ ...formData, ["description"]: formData.description });
+        setMyEditorKey(Date.now().toString());
     }
 
     const handleSubmit = async (e: any) => {
@@ -160,7 +174,11 @@ const AddVideosForm = () => {
             await FetchDataAxios({
                 url: `api/medias`,
                 method: 'post',
-                data: {...formData, type: getValues("typeMime")!},
+                data: {
+                    ...formData, 
+                    ["typeMime"]: getDefMimeType(getValues("typeUrl"), getDefSrc(getValues("typeUrl"))), 
+                    ["src"]: getValues("src")
+                },
                 reqAuthorize: false
             }).then(async (r) => {
                 console.log(r);
@@ -172,7 +190,8 @@ const AddVideosForm = () => {
                     push("/" + locale);
                 }, 1000 * 5);
             }).catch((err) => {
-                setDataToast({ type: "error", message: t("messages.error", { message: "" + err }) ?? `Failed to add video info! Message: ${err}`, statusToast: true });
+                console.log(err.response)
+                setDataToast({ type: "error", message: t("messages.error", { message: "" + (err.response.data ?? err.Message) }) ?? `Failed to add video info! Message: ${err.response.data ?? err.Message}`, statusToast: true });
             });
         } catch (error) {
             setDataToast({ type: "error", message: t("messages.errorapi", { message: "" + error }) ?? `Error when adding video info! Message: ${error}`, statusToast: true });
@@ -239,7 +258,7 @@ const AddVideosForm = () => {
                                 {t('lblsrc') ?? "Source url"}
                             </label>
                             <div className={styles.sformgroup}>
-                                <input {...register("src")} type="text" id="src" name="src" className={"form-control src mt-3 " + styles.sformgroupinp} placeholder={t("inpsrc") ?? "Write the source url here..."} value={formData.src} onChange={handleChange} required />
+                                <input {...register("src")} type="text" id="src" name="src" className={"form-control src mt-3 " + styles.sformgroupinp} placeholder={t("inpsrc") ?? "Write the source url here..."} onChange={handleChange} required />
                             </div>
 
                             {errors.src && ShowAlert("danger", errors.src.message)}

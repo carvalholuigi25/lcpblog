@@ -10,13 +10,14 @@ import "flag-icons/css/flag-icons.min.css";
 import 'video.js/dist/video-js.css';
 import '@styles/videoplayer/lcp.scss';
 import 'animate.css';
+import "videojs-youtube";
 
 export default function Dependencies()
 {
     useEffect(() => {
         import("bootstrap/dist/js/bootstrap.bundle.min.js");
         import("@fortawesome/fontawesome-free/js/all.min.js");
-        import("@applocale/scripts/scripts.js");        
+        import("@applocale/scripts/scripts.js");      
     }, []);
     
     return (

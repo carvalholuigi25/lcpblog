@@ -84,6 +84,10 @@
         color: #00ff00;
     }
 
+    iframe {
+        border-radius: inherit;
+    }
+
     .vjs-poster img {
         border-radius: calc(15px + 10px);
         object-fit: cover;

@@ -151,9 +151,9 @@ const AdminVideos = () => {
                                         )}
 
                                         {videos && videos.length > 0 && (
-                                            <div className="col-12 mt-3">
+                                            <div className="row mt-3">
                                                 {videos.map(x => (
-                                                    <div key={x.mediaId} className="col-12 col-md-6 col-lg-4">
+                                                    <div key={x.mediaId} className="col-12 col-md-6 col-lg-4 p-3">
                                                         <div className="card cardvideos cardlg bshadow rounded">
                                                             {x.isFeatured && (
                                                                 getFeaturedItem(parseInt(""+x.mediaId))
