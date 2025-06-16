@@ -71,6 +71,12 @@
     background: rgba(255, 255, 255, 0.5);
   }
 
+  .cookieconsent {
+    @include m.setBlur(12px, 100%);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.5);
+  }
+
   footer {
     @include m.setBlur(12px, 150%);
   }

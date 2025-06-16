@@ -6,6 +6,7 @@ import { getLocale, getMessages } from "next-intl/server";
 import { headers } from "next/headers";
 import { getLangDir } from "rtl-detect";
 import { getDefLocale } from "@applocale/helpers/defLocale";
+import CookieConsent from "@applocale/components/ui/cookie/cookieconsent";
 import Dependencies from "@applocale/dependencies/dependencies";
 import * as config from "@applocale/utils/config";
 
@@ -66,6 +67,7 @@ export default async function RootLayout({
           <div className="modal-root" id="modal-root"></div>
           <div id="toast-root"></div>
           {children}
+          <CookieConsent />
           <Dependencies />
         </NextIntlClientProvider>
       </body>

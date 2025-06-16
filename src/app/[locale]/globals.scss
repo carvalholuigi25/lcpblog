@@ -1648,7 +1648,80 @@ a.fc-event:hover {
   z-index: 99999;
 }
 
-@media all and (width <=1199px) {
+.cookieconsent {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  width: auto;
+  max-width: 100%;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: auto;
+  padding: 15px;
+  z-index: 99999;
+  background-color: white;
+  border-color: white;
+  color: black;
+  font-size: 1rem;
+
+  &.bordered {
+    border-radius: calc(15px + 10px) !important;
+  }
+
+  .colleft {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .colright {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .colcenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .icocookie {
+    color: #E6CEA0;
+    text-align: left;
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+    margin-right: 0.5rem;
+  }
+
+  .msgcookie {
+    text-align: left;
+    line-height: 2rem;
+    font-size: inherit;
+  }
+
+  .btnaccept, .btndecline {
+    font-size: inherit;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.7);
+    }
+
+    .icoaccept, .icodecline {
+      margin-right: 5px;
+    }
+  }
+
+  .btn {
+    margin-left: 15px;
+  }
+}
+
+@media all and (width <= 1199px) {
   .card-author {
     flex-direction: column;
     margin: 15px auto !important;
@@ -1661,9 +1734,39 @@ a.fc-event:hover {
   .card-author .linesep {
     margin: 15px .5rem;
   }
+
+  .cookieconsent {
+    flex-direction: column;
+
+    .colleft {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .colright {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      width: 100%;
+      max-width: 100%;
+      margin-top: 15px;
+    }
+
+    .msgcookie {
+      text-align: center;
+      margin-top: 5px;
+    }
+  }
 }
 
-@media all and (width <=992px) {
+@media all and (width <= 992px) {
   .navbar-collapse>* {
     margin: 15px auto;
   }
@@ -1743,20 +1846,37 @@ a.fc-event:hover {
       font-size: calc($cfs - 0.4rem);
     }
   }
-}
 
-@media all and (width >=992px) and (width <=1199px) {
-  .cardlg {
+  .cookieconsent {
+    flex-direction: column;
 
-    .colauthorleft,
-    .colauthorcenter,
-    .colauthorright {
-      margin: 0px 0px !important;
+    .colleft {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .colright {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      width: 100%;
+      max-width: 100%;
+      margin-top: 15px;
+    }
+
+    .msgcookie {
+      text-align: center;
+      margin-top: 5px;
     }
   }
-}
 
-@media all and (width <= 992px) {
   .containerstats {
     .card {
       .card-body > * {
@@ -1789,7 +1909,7 @@ a.fc-event:hover {
   }
 }
 
-@media all and (width <=768px) {
+@media all and (width <= 768px) {
   .cardlg {
     .card-author {
       flex-direction: column;
@@ -1816,6 +1936,17 @@ a.fc-event:hover {
       align-items: center;
       width: auto;
       max-width: 100%;
+    }
+  }
+}
+
+@media all and (width >= 992px) and (width <= 1199px) {
+  .cardlg {
+
+    .colauthorleft,
+    .colauthorcenter,
+    .colauthorright {
+      margin: 0px 0px !important;
     }
   }
 }

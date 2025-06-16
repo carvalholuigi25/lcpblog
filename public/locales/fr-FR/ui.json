@@ -1054,6 +1054,13 @@
           }
         }
       }
+    },
+    "cookies": {
+      "consent": {
+        "message": "Nous utilisons des cookies pour améliorer votre expérience. En continuant à utiliser ce site, vous acceptez leur utilisation.",
+        "btnaccept": "J'ai compris",
+        "btndecline": "Refuser"
+      }
     }
   }
 }

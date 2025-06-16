@@ -1053,6 +1053,13 @@
           }
         }
       }
+    },
+    "cookies": {
+      "consent": {
+        "message": "Utilizamos cookies para melhorar a sua experiência. Ao continuar a utilizar este website, concorda com esta utilização.",
+        "btnaccept": "Percebido",
+        "btndecline": "Recusar"
+      }
     }
   }
 }

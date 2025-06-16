@@ -25,7 +25,7 @@
             @include m.applyBkg($themename, 0);
         }
 
-        .card, .mychart, .myschedule, .seltypechart {
+        .card, .mychart, .myschedule, .seltypechart, .cookieconsent {
             @include m.applyBkg($themename, .8);
         }
     }
@@ -115,6 +115,36 @@
 
         &:hover {
             @include m.gen3dbtn($type, $color, 0px, 2px, 0, 0px, outset);
+        }
+    }
+
+    .form-switch {
+        .form-check-input {
+            $colorcl: "000";
+           
+            @if($themename == "system" or $themename == "light" or $themename == "green" or $themename == "yellow") {
+                $colorcl: "0, 0, 0, 0.25";
+            } @else {
+                $colorcl: "255, 255, 255, 0.25";
+            }
+
+            --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%28#{$colorcl}%29'/%3e%3c/svg%3e");
+            background-image: var(--bs-form-switch-bg);
+            background-color: #{$bgcolorprimary + "b3"};
+            border-color: #{$bgcolorprimary + "b3"};
+
+            &:checked {
+                @if($themename == "system" or $themename == "light" or $themename == "green" or $themename == "yellow") {
+                    $colorcl: "0, 0, 0, 1";
+                } @else {
+                    $colorcl: "255, 255, 255, 1";
+                }
+
+                --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%28#{$colorcl}%29'/%3e%3c/svg%3e");
+                background-image: var(--bs-form-switch-bg);
+                background-color: #{$bgcolorprimary + "b3"};
+                border-color: #{$bgcolorprimary + "b3"};
+            }
         }
     }
 
@@ -670,6 +700,18 @@
 
             .mycommentinp {
                 filter: drop-shadow(2px 2px 2px $fgcolorprimary);
+            }
+        }
+    }
+
+    .cookieconsent {
+        background-color: $bgcolorprimary;
+        border-color: $bgcolorprimary;
+        color: $fgcolorprimary;
+
+        .btnaccept, .btndecline {
+            &:hover {
+                background-color: #{$bgcolorprimary + "b3"} !important;
             }
         }
     }

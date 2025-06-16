@@ -24,6 +24,14 @@
         }
     }
 
+    .cookieconsent3D {
+        $type: "box";
+        $color: inherit;
+
+        @include m.gen3dbtn($type, $color, 0px, 5px, 0, 0px, outset);
+        transition: all 0.3s ease;
+    }
+
     .navbar-brand {
         .navbar3D {
             font-weight: bold;
