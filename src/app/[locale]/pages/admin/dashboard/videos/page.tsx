@@ -28,6 +28,7 @@ const AdminVideos = () => {
     const [loading, setLoading] = useState(true);
     const [barToggle, setBarToggle] = useState(true);
     const [videos, setVideos] = useState(new Array<Media>());
+    const [listMediaId, setListMediaId] = useState([1, 2]);
     const [totalPages, setTotalPages] = useState(1);
     const [page, setPage] = useState(1);
     const [isSearchEnabled, setIsSearchEnabled] = useState(false);
@@ -35,13 +36,14 @@ const AdminVideos = () => {
     const spage = searchParams.get("page");
     const search = searchParams.get("search") ?? "";
     const sortorder = searchParams.get("sortorder") ?? "asc";
-    const sortby = searchParams.get("sortby") ?? "mediaId";
+    const sortby = searchParams.get("sortby") ?? "isFeatured";
+    const fieldname = searchParams.get("fieldname") ?? "isFeatured";
     const pageSize: number = 10;
 
     useEffect(() => {
         async function fetchVideos() {
             const curindex = page;
-            const sparams = isSearchEnabled ? `&sortBy=${sortby}&sortOrder=${sortorder}&search=${search}` : ``;
+            const sparams = isSearchEnabled ? `&sortBy=${sortby}&sortOrder=${sortorder}&fieldName=${fieldname}&search=${search}` : ``;
             const params = `?page=${curindex}&pageSize=${pageSize}${sparams}`;
 
             const data = await FetchData({
@@ -51,13 +53,13 @@ const AdminVideos = () => {
             });
 
             if (data.data) {
-                setVideos(JSON.parse(JSON.stringify(data.data)));
-                setLoading(false);
+                const dataf = data.data.sort((x: any, y: any) => { return y.isFeatured - x.isFeatured; });
+                setListMediaId(dataf.map((x: Media) => x.mediaId));
+                setVideos(JSON.parse(JSON.stringify(dataf)));
             }
 
             setTotalPages(data.totalPages);
             setPage(spage ? parseInt(spage! ?? 1, 0) : 1);
-            setLoading(false);
         }
 
         if (!logInfo) {
@@ -66,7 +68,8 @@ const AdminVideos = () => {
 
         setIsAuthorized(logInfo && onlyAdmins.includes(JSON.parse(logInfo)[0].role) ? true : false);
         fetchVideos();
-    }, [logInfo, isAuthorized, page, isSearchEnabled, sortby, sortorder, search, spage]);
+        setLoading(false);
+    }, [logInfo, isAuthorized, page, isSearchEnabled, sortby, sortorder, search, spage, fieldname]);
 
     if (loading) {
         return (
@@ -85,8 +88,8 @@ const AdminVideos = () => {
         setBarToggle(!barToggle);
     }
 
-    const getFeaturedItem = (i: number) => {
-        return i == 1 ? (
+    const getFeaturedItem = (i: number[], mediaId: number) => {
+        return i && i.includes(mediaId) ? (
             <div className="card-info-featured-wrapper">
                 <div className="card-info-featured">
                     <i className="bi bi-star-fill"></i>
@@ -118,8 +121,8 @@ const AdminVideos = () => {
                                     {t("title") ?? "Videos"}
                                 </h3>
                                 <div className="container mt-3">
-                                    <div className="row">
-                                        <div className="col-12">
+                                    <div className="row mx-auto justify-content-center">
+                                        <div className="col-12 ps-3 pe-3">
                                             <div className="btn-group btngroupmedia" role="group" aria-label="Media data actions">
                                                 <Link type="button" href={`/${locale}/pages/admin/dashboard/videos/add`} className="btn btn-primary btn-rounded btnaddvideos" title={t('btnaddvideos') ?? "Add videos info"}>
                                                     <i className="bi bi-plus-circle"></i>
@@ -151,12 +154,12 @@ const AdminVideos = () => {
                                         )}
 
                                         {videos && videos.length > 0 && (
-                                            <div className="row mt-3">
+                                            <div className="row mt-3 mx-auto justify-content-center">
                                                 {videos.map(x => (
                                                     <div key={x.mediaId} className="col-12 col-md-6 col-lg-4 p-3">
                                                         <div className="card cardvideos cardlg bshadow rounded">
                                                             {x.isFeatured && (
-                                                                getFeaturedItem(parseInt(""+x.mediaId))
+                                                                getFeaturedItem(listMediaId, x.mediaId!)
                                                             )}
 
                                                             <Link href={`/${locale}/pages/admin/dashboard/videos/${x.mediaId}`}>

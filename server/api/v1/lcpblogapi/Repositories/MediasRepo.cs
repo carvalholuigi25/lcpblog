@@ -205,6 +205,10 @@ public class MediasRepo : ControllerBase, IMediasRepo
 
                 query = queryParams.FieldName switch
                 {
+                    "isFeatured" => query.Where(i => 
+                    op == OpEnum.equal ? i.IsFeatured == Convert.ToBoolean(queryParams.Search) :
+                    op == OpEnum.notequal ? i.IsFeatured != Convert.ToBoolean(queryParams.Search) :
+                    i.IsFeatured == Convert.ToBoolean(queryParams.Search)),
                     "src" => query.Where(i =>
                     op == OpEnum.contains ? i.Src!.ToLower().Contains(queryParams.Search.ToLower()) :
                     op == OpEnum.notcontains ? !i.Src!.ToLower().Contains(queryParams.Search.ToLower()) :
@@ -252,6 +256,7 @@ public class MediasRepo : ControllerBase, IMediasRepo
             StringComparison strcom = StringComparison.OrdinalIgnoreCase;
             query = queryParams.SortBy.ToLower() switch
             {
+                "isFeatured" => sortorderval.Contains("desc", strcom) ? query.OrderByDescending(i => i.IsFeatured) : query.OrderBy(i => i.IsFeatured),
                 "src" => sortorderval.Contains("desc", strcom) ? query.OrderByDescending(i => i.Src) : query.OrderBy(i => i.Src),
                 "title" => sortorderval.Contains("desc", strcom) ? query.OrderByDescending(i => i.Title) : query.OrderBy(i => i.Title),
                 "userId" => sortorderval.Contains("desc", strcom) ? query.OrderByDescending(i => i.UserId) : query.OrderBy(i => i.UserId),

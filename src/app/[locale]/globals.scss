@@ -907,6 +907,36 @@ footer {
   }
 }
 
+.mlistuplfiles {
+  &::before {
+    content: "List of upload files";
+    display: block;
+    background: #fff;
+    padding: 15px;
+    border-radius: 15px 15px 0px 0px;
+  }
+
+  .mlistuplfilesbody {
+    background: #fff;
+    padding: 15px;
+    border-radius: 0px 0px 15px 15px;
+  }
+
+  .card {
+    cursor: pointer;
+  }
+
+  .selected {
+    .card {
+      border: 2px solid #00eaff !important;
+    }
+  }
+
+  .mlistuplfileimg {
+    height: auto;
+  }
+}
+
 .cardvideos {
   .card-img-top, .img-thumbnail {
     width: 100%;

@@ -16,11 +16,13 @@ import { EditorState } from "lexical";
 import { Link } from '@/app/i18n/navigation';
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { DataToastsProps } from "@applocale/interfaces/toasts";
+import { FilesMetadata } from "@applocale/interfaces/filesmetadata";
 import Toasts from "@applocale/components/ui/toasts/toasts";
 import ShowAlert from "@applocale/components/ui/alerts";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import MyEditorPost from "@applocale/components/ui/editor/myeditorpost";
 import LoadingComp from "@applocale/components/ui/loadingcomp";
+import FetchData from "@applocale/utils/fetchdata";
 import * as signalR from "@microsoft/signalr";
 
 const AddVideosForm = () => {
@@ -29,6 +31,8 @@ const AddVideosForm = () => {
     }
 
     const t = useTranslations("ui.forms.crud.videos.add");
+    const tupl = useTranslations("pages.AdminPages.MediaPage");
+
     const tbtn = useTranslations("ui.buttons");
     const locale = useLocale() ?? getDefLocale();
     const defTypeUrl = "local";
@@ -55,6 +59,9 @@ const AddVideosForm = () => {
     const [logInfo] = useState(getFromStorage("logInfo"));
     const [loading, setLoading] = useState(true);
     const [myEditorKey, setMyEditorKey] = useState("");
+    const [uploadedFiles, setUploadedFiles] = useState([]);
+    const [isUploadedFileSelected, setIsUploadedFileSelected] = useState(false);
+    const [isUploadedFilesShown, setIsUploadedFilesShown] = useState(false);
     const [dataToast, setDataToast] = useState({ type: "", message: "", statusToast: false } as DataToastsProps);
     const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
     const { push } = useRouter();
@@ -93,20 +100,29 @@ const AddVideosForm = () => {
                 connect.off("ReceiveMessage");
             }
         }
-            
-        if(getValues("typeUrl")) {
+
+        async function fetchUploadedFiles() {
+            const response = await FetchData({
+                url: "api/files/list",
+                method: "GET"
+            });
+
+            setUploadedFiles(response);
+        }
+
+        if (getValues("typeUrl")) {
             setValue("src", getDefSrc(defTypeUrl));
         }
 
-        if(getValues("src")) {
-            setValue("typeMime", getValues("typeUrl") == "local" ? ""+(mime.getType(getDefSrc(defTypeUrl))! ?? defMimeType) : "video/youtube");
+        if (getValues("src")) {
+            setValue("typeMime", getValues("typeUrl") == "local" ? "" + (mime.getType(getDefSrc(defTypeUrl))! ?? defMimeType) : "video/youtube");
         }
 
         if (!!isResetedForm) {
             setFormData({
                 typeUrl: defTypeUrl,
                 src: getDefSrc(defTypeUrl),
-                typeMime: ""+(mime.getType(getDefSrc(defTypeUrl))! ?? defMimeType),
+                typeMime: "" + (mime.getType(getDefSrc(defTypeUrl))! ?? defMimeType),
                 thumbnail: "default.jpg",
                 title: "Demo",
                 description: "This is a demo video",
@@ -127,6 +143,7 @@ const AddVideosForm = () => {
 
         if (!loading) {
             addMyRealData();
+            fetchUploadedFiles();
         }
     }, [t, isResetedForm, logInfo, loading, defMimeType, setValue, getValues, defTypeUrl]);
 
@@ -141,18 +158,22 @@ const AddVideosForm = () => {
     };
 
     const getDefMimeType = (typeurl: string = "local", value: string) => {
-        return typeurl == 'local' ? ""+(mime.getType(value)! ?? defMimeType) : "video/youtube";
+        return typeurl == 'local' ? "" + (mime.getType(value)! ?? defMimeType) : "video/youtube";
+    }
+
+    const toggleIsUploadedFilesShown = () => {
+        setIsUploadedFilesShown(!isUploadedFilesShown);
     }
 
     const handleChange = (e: any) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
 
-        if(name === "typeUrl") {
+        if (name === "typeUrl") {
             setValue("src", getDefSrc(value))
         }
 
-        if(name === "src") {
+        if (name === "src") {
             setValue("typeMime", getDefMimeType(getValues("typeUrl"), getDefSrc(value)));
         }
     }
@@ -160,6 +181,7 @@ const AddVideosForm = () => {
     const handleReset = (e: any) => {
         e.preventDefault();
         setIsResetedForm(true);
+        setIsUploadedFileSelected(false);
         setValue("typeUrl", defTypeUrl);
         setFormData({ ...formData, ["description"]: formData.description });
         setMyEditorKey(Date.now().toString());
@@ -175,8 +197,8 @@ const AddVideosForm = () => {
                 url: `api/medias`,
                 method: 'post',
                 data: {
-                    ...formData, 
-                    ["typeMime"]: getDefMimeType(getValues("typeUrl"), getDefSrc(getValues("typeUrl"))), 
+                    ...formData,
+                    ["typeMime"]: getDefMimeType(getValues("typeUrl"), getDefSrc(getValues("typeUrl"))),
                     ["src"]: getValues("src")
                 },
                 reqAuthorize: false
@@ -208,6 +230,19 @@ const AddVideosForm = () => {
         setFormData({ ...formData, ["isFeatured"]: e.target.checked });
     }
 
+    const selUplFile = (e: any, fname: FilesMetadata) => {
+        e.preventDefault();
+        setIsUploadedFileSelected(!isUploadedFileSelected);
+
+        if(!isUploadedFileSelected) {
+            setValue("src", "https://localhost:5000/assets/uploads/" + fname.fileName);
+            setValue("typeMime", getValues("typeUrl") == "local" ? "" + (mime.getType(fname.contentType)! ?? defMimeType) : "video/youtube");
+        } else {
+            setValue("src", getDefSrc(defTypeUrl));
+            setValue("typeMime", getValues("typeUrl") == "local" ? "" + (mime.getType(getDefSrc(defTypeUrl))! ?? defMimeType) : "video/youtube");
+        }
+    }
+
     return (
         <div className="container">
             {!isLoggedIn && (
@@ -235,7 +270,70 @@ const AddVideosForm = () => {
                     <h3 className="title mx-auto text-center">
                         {t('title') ?? 'Add Videos'}
                     </h3>
+
                     <form className={"frmvideos " + styles.frmaddvideos}>
+                        {uploadedFiles && (
+                            <>
+                                <div className="d-inline-block mx-auto mt-3">
+                                    <button type="button" className="btn btn-primary btn-rounded btn-tp w-auto" onClick={toggleIsUploadedFilesShown}>
+                                        Toggle uploads
+                                    </button>
+                                </div>
+
+                                <div className={"mlistuplfiles form-group mt-3 text-center" + (isUploadedFilesShown ? " shown" : " hidden")}>
+                                    <div className={"mlistuplfilesbody " + styles.sformgroup}>
+                                        <div className="row">
+                                            {uploadedFiles.length == 0 && (
+                                                <div className="col-12">
+                                                    <div className="card">
+                                                        <div className="card-body">
+                                                            <i className="bi bi-file-earmark-post" style={{ fontSize: '2rem' }}></i>
+                                                            <p>{tupl('results.nofilesuploaded') ?? "No files uploaded yet."}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )}
+
+                                            {uploadedFiles.length > 0 && uploadedFiles.map((file: FilesMetadata, index) => (
+                                                <div key={"listupl" + index} className={"col-6 col-lg-4" + (isUploadedFileSelected ? " selected" : "")} onClick={(e) => selUplFile(e, file)}>
+                                                     <motion.div
+                                                        whileHover={{ scale: 1.1 }}
+                                                        whileTap={{ scale: 0.9 }}
+                                                        className="d-inline-block"
+                                                    >
+                                                    <div className="card carduplfiles cardlg rounded bshadow">
+                                                        <Image
+                                                            src={getVideoThumbnailPath(formData.thumbnail)}
+                                                            width="400"
+                                                            height="400"
+                                                            alt=""
+                                                            className={"mlistuplfileimg img-fluid"}
+                                                            onError={(event: any) => {
+                                                                event.target.id = "/videos/thumbnails/default.jpg";
+                                                                event.target.srcset = "/videos/thumbnails/default.jpg";
+                                                            }}
+                                                            priority
+                                                        />
+
+                                                        <div className="card-body">
+                                                            <div className="scard-body">
+                                                                <div className={"card-info"}>
+                                                                    <div className="card-text p-3">
+                                                                        <h5 className="card-title">{file.fileName}</h5>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </motion.div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            </>
+                        )}
+
                         <div className="form-group mt-3 text-center">
                             <label htmlFor="typeUrl">
                                 {t('lbltypeurl') || "Type url"}
