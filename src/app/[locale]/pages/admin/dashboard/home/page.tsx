@@ -24,7 +24,7 @@ import withAuth from "@applocale/utils/withAuth";
 import MyPagination from "@applocale/components/ui/mypagination";
 import LoadingComp from "@applocale/components/ui/loadingcomp";
 import Schedule from "@applocale/components/ui/schedule";
-import { onlyAdmins } from "@applocale/functions/functions";
+import { onlyAdmins, shortenLargeNumber } from "@applocale/functions/functions";
 
 const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
     const t = useTranslations('pages.AdminPages.Dashboard');
@@ -192,12 +192,12 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
 
                         <div className={"container" + (!!isContainerFluid ? "-fluid" : "") + " containerstats mt-3 mx-auto text-center p-3"}>
                             <div className="row justify-content-center">
-                                <div className="col-12 col-md-4 col-lg-4 col-xl-3 mt-3">
+                                <div className="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mt-3">
                                     <div className="card p-3 bshadow">
                                         <div className="card-body">
                                             <div className="d-flex justify-content-between align-items-center">
                                                 <span className="card-text">
-                                                    {(postsLength ?? posts.length) + " " + (postsLength != 1 ? (t('stats.lbltotalpostspl') ?? ' Posts') : (t('stats.lbltotalposts') ?? ' Post'))}
+                                                    {shortenLargeNumber((postsLength ?? posts.length), 1) + " " + (postsLength != 1 ? (t('stats.lbltotalpostspl') ?? ' Posts') : (t('stats.lbltotalposts') ?? ' Post'))}
                                                 </span>
                                                 <i className={"bi bi-file-earmark-post " + astyles.ico}></i>
                                             </div>
@@ -205,12 +205,12 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
                                     </div>
                                 </div>
 
-                                <div className="col-12 col-md-4 col-lg-4 col-xl-3 mt-3">
+                                <div className="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mt-3">
                                     <div className="card p-3 bshadow">
                                         <div className="card-body">
                                             <div className="d-flex justify-content-between align-items-center">
                                                 <span className="card-text">
-                                                    {(categoriesLength ?? categories.length) + " " + (categoriesLength != 1 ? (t('stats.lbltotalcategoriespl') ?? ' Categories') : (t('stats.lbltotalcategories') ?? ' Category'))}
+                                                    {shortenLargeNumber((categoriesLength ?? categories.length), 1) + " " + (categoriesLength != 1 ? (t('stats.lbltotalcategoriespl') ?? ' Categories') : (t('stats.lbltotalcategories') ?? ' Category'))}
                                                 </span>
                                                 <i className={"bi bi-bookmark " + astyles.ico}></i>
                                             </div>
@@ -218,12 +218,12 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
                                     </div>
                                 </div>
 
-                                <div className="col-12 col-md-4 col-lg-4 col-xl-3 mt-3">
+                                <div className="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mt-3">
                                     <div className="card p-3 bshadow">
                                         <div className="card-body">
                                             <div className="d-flex justify-content-between align-items-center">
                                                 <span className="card-text">
-                                                    {(tagsLength ?? tags.length) + " " + (tagsLength != 1 ? (t('stats.lbltotaltagspl') ?? ' Tags') : (t('stats.lbltotaltags') ?? ' Tag'))}
+                                                    {shortenLargeNumber((tagsLength ?? tags.length), 1) + " " + (tagsLength != 1 ? (t('stats.lbltotaltagspl') ?? ' Tags') : (t('stats.lbltotaltags') ?? ' Tag'))}
                                                 </span>
                                                 <i className={"bi bi-tag " + astyles.ico}></i>
                                             </div>
@@ -231,12 +231,12 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
                                     </div>
                                 </div>
 
-                                <div className="col-12 col-md-4 col-lg-4 col-xl-3 mt-3">
+                                <div className="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mt-3">
                                     <div className="card p-3 bshadow">
                                         <div className="card-body">
                                             <div className="d-flex justify-content-between align-items-center">
                                                 <span className="card-text">
-                                                    {(usersLength ?? users.length) + " " + (usersLength != 1 ? (t('stats.lbltotaluserspl') ?? ' Users') : (t('stats.lbltotalusers') ?? ' User'))}
+                                                    {shortenLargeNumber((usersLength ?? users.length), 1) + " " + (usersLength != 1 ? (t('stats.lbltotaluserspl') ?? ' Users') : (t('stats.lbltotalusers') ?? ' User'))}
                                                 </span>
                                                 <i className={"bi bi-people " + astyles.ico}></i>
                                             </div>

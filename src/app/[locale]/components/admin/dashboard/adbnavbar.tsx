@@ -2,6 +2,7 @@
 "use client";
 import Image from "next/image";
 import astyles from "@applocale/styles/adminstyles.module.scss";
+import { useState } from "react";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import {Link} from '@/app/i18n/navigation';
 import * as config from "@applocale/utils/config";
@@ -16,6 +17,11 @@ export interface AdminNavbarProps {
 export default function AdminNavbarDashboard({logInfo, navbarStatus, toggleNavbar, locale}: AdminNavbarProps) {
     const isRounded = config.getConfigSync().isBordered;
     const roundedCl = isRounded ? " roundednavbar" : "";
+    const [isNavbarToggled, setisNavbarToggled] = useState(false);
+
+    const toggleMainNavbar = () => {
+        setisNavbarToggled(!isNavbarToggled)
+    }
 
     const getUserId = () => {
         return logInfo ? JSON.parse(logInfo)[0].id : "0";
@@ -42,8 +48,8 @@ export default function AdminNavbarDashboard({logInfo, navbarStatus, toggleNavba
                     </div>
                 </div>
 
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarAdmDashboard" aria-controls="navbarAdmDashboard" aria-expanded="false" aria-label="Toggle navigation">
-                    <i className="bi bi-list iconav"></i>
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarAdmDashboard" aria-controls="navbarAdmDashboard" aria-expanded="false" aria-label="Toggle navigation" onClick={toggleMainNavbar}>
+                    <i className={"bi bi-" + (isNavbarToggled ? "x-lg" : "list") + " iconav"}></i>
                 </button>
                 
                 <div className="collapse navbar-collapse" id="navbarAdmDashboard">

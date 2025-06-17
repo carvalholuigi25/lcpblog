@@ -6,7 +6,7 @@ import Image from "next/image";
 import { getFromStorage } from "@applocale/hooks/localstorage";
 import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { getVideoThumbnailPath, onlyAdmins } from "@applocale/functions/functions";
 import { Media } from "@applocale/interfaces/media";
@@ -32,6 +32,7 @@ const AdminVideos = () => {
     const [totalPages, setTotalPages] = useState(1);
     const [page, setPage] = useState(1);
     const [isSearchEnabled, setIsSearchEnabled] = useState(false);
+    const router = useRouter();
     const searchParams = useSearchParams();
     const spage = searchParams.get("page");
     const search = searchParams.get("search") ?? "";
@@ -89,7 +90,7 @@ const AdminVideos = () => {
     }
 
     const getFeaturedItem = (i: number[], mediaId: number) => {
-        return i && i.includes(mediaId) ? (
+        return i && i[0] == mediaId ? (
             <div className="card-info-featured-wrapper">
                 <div className="card-info-featured">
                     <i className="bi bi-star-fill"></i>
@@ -100,6 +101,16 @@ const AdminVideos = () => {
 
     const getThumbnail = (x: Media) => {
         return getVideoThumbnailPath(x.thumbnail!.replace("videos/thumbnails/", ""));
+    }
+
+    const redirectToEdit = (e: any, x: Media) => {
+        e.preventDefault();
+        return router.push(`/${locale}/pages/admin/dashboard/videos/edit/${x.mediaId}`);
+    }
+
+    const redirectToDel = (e: any, x: Media) => {
+        e.preventDefault();
+        return router.push(`/${locale}/pages/admin/dashboard/videos/delete/${x.mediaId}`);
     }
 
     return (
@@ -157,43 +168,47 @@ const AdminVideos = () => {
                                             <div className="row mt-3 mx-auto justify-content-center">
                                                 {videos.map(x => (
                                                     <div key={x.mediaId} className="col-12 col-md-6 col-lg-4 p-3">
-                                                        <div className="card cardvideos cardlg bshadow rounded">
-                                                            {x.isFeatured && (
-                                                                getFeaturedItem(listMediaId, x.mediaId!)
-                                                            )}
-
-                                                            <Link href={`/${locale}/pages/admin/dashboard/videos/${x.mediaId}`}>
+                                                        <Link href={`/${locale}/pages/admin/dashboard/videos/${x.mediaId}`}>
+                                                            <div className="card cardvideos cardlg bshadow rounded">
                                                                 <Image src={getThumbnail(x)} className="card-img-top rounded mx-auto d-block img-fluid img-thumbnail p-0" width={150} height={150} alt={x.title ?? x.description ?? "Video " + x.mediaId} />
-                                                            </Link>
 
-                                                            <div className="card-body">
-                                                                <div className="scard-body">
-                                                                    <div className={"card-info"}>
-                                                                        <div className="card-text p-3">
-                                                                            <p>{x.title}</p>
-                                                                            
-                                                                            {logInfo && (
-                                                                                <div className="mt-3">
-                                                                                    <Link type="button" href={`/${locale}/pages/admin/dashboard/videos/edit/${x.mediaId}`} className="btn btn-primary btn-rounded btneditvideos" title={t('btneditvideos') ?? "Edit videos info"}>
-                                                                                        <i className="bi bi-pencil"></i>
-                                                                                        <span className="ms-2 hidden">
-                                                                                            {t('btneditvideos') ?? "Edit videos info"}
-                                                                                        </span>
-                                                                                    </Link>
+                                                                <div className="card-header">
+                                                                    {x.isFeatured && (
+                                                                        getFeaturedItem(listMediaId, x.mediaId!)
+                                                                    )}
 
-                                                                                    <Link type="button" href={`/${locale}/pages/admin/dashboard/videos/delete/${x.mediaId}`} className="btn btn-primary btn-rounded btndelvideos ms-1" title={t('btndelvideos') ?? "Delete videos"}>
-                                                                                        <i className="bi bi-x-lg"></i>
-                                                                                        <span className="ms-2 hidden">
-                                                                                            {t('btndelvideos') ?? "Delete videos info"}
-                                                                                        </span>
-                                                                                    </Link>
-                                                                                </div>
-                                                                            )}
+                                                                    {logInfo && (
+                                                                        <div className="card-info-actions-wrapper">
+                                                                            <div className="card-info-actions">
+                                                                                <button type="button" className="btn btn-primary btn-rounded btneditvideos" title={t('btneditvideos') ?? "Edit videos info"} onClick={(e) => redirectToEdit(e, x)}>
+                                                                                    <i className="bi bi-pencil"></i>
+                                                                                    <span className="ms-2 hidden">
+                                                                                        {t('btneditvideos') ?? "Edit videos info"}
+                                                                                    </span>
+                                                                                </button>
+
+                                                                                <button type="button" className="btn btn-primary btn-rounded btndelvideos ms-1" title={t('btndelvideos') ?? "Delete videos"} onClick={(e) => redirectToDel(e, x)}>
+                                                                                    <i className="bi bi-x-lg"></i>
+                                                                                    <span className="ms-2 hidden">
+                                                                                        {t('btndelvideos') ?? "Delete videos info"}
+                                                                                    </span>
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                    )}
+                                                                </div>
+
+                                                                <div className="card-body">
+                                                                    <div className="scard-body">
+                                                                        <div className={"card-info"}>
+                                                                            <div className="card-text p-3">
+                                                                                <p>{x.title}</p>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        </Link>
                                                     </div>
                                                 ))}
 

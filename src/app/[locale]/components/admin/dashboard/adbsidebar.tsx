@@ -160,6 +160,10 @@ export default function AdminSidebarDashboard({ sidebarStatus, toggleSidebar, lo
         return x.id == 0 && pathname.endsWith(prefix) ? " active" : pathname.endsWith(prefix + x.link) ? (i == x.id ? " active" : "") : pathname.endsWith("/") ? " active" : "";
     }
 
+    const getIsActiveSublink = (y: any) => {
+        return pathname.includes(y.link) ? "active" : "";
+    }
+
     const getIsPageCurrent = (pathname: string, prefix: string, i: number, x: any) => {
         return x.id == 0 && pathname.endsWith(prefix) ? "page" : pathname.endsWith(prefix + x.link) ? (i == x.id ? "page" : "true") : pathname.endsWith("/") ? "page" : "true";
     }
@@ -187,6 +191,10 @@ export default function AdminSidebarDashboard({ sidebarStatus, toggleSidebar, lo
         return <Tooltip id="button-tooltip">{text}</Tooltip>;
     };
 
+    const trim = (str: string) => {
+        return str.replace("//", "/");
+    }
+
     const navanimstatuscl = sidebarStatus ? (!isAnimated ? " hidden" : " closed") : " open";
     const slideanimposleft = animType.toLowerCase() == "custom" ? " animate__fadeInLeft" : " slideleft";
     const slideanimposright = animType.toLowerCase() == "custom" ? " animate__fadeInRight" : " slideright";
@@ -203,6 +211,8 @@ export default function AdminSidebarDashboard({ sidebarStatus, toggleSidebar, lo
             msublinks = [];
 
             x.sublinks.map((y, j) => {
+                const isActiveSublink = getIsActiveSublink(y);
+
                 msublinks.push(
                     <li key={"sublink" + j}>
                         {showTooltips ? (
@@ -211,13 +221,13 @@ export default function AdminSidebarDashboard({ sidebarStatus, toggleSidebar, lo
                                 delay={{ show: 250, hide: 400 }}
                                 overlay={renderTooltip(y.name)}
                             >
-                                <Link className={"dropdown-item sublink " + isActive} aria-current={isPageCurrent} href={prefix + x.link + y.link} locale={locale ?? getDefLocale()}>
+                                <Link className={"dropdown-item sublink " + isActiveSublink} aria-current={isPageCurrent} href={trim(prefix + x.link + y.link)} locale={locale ?? getDefLocale()}>
                                     <i className={"bi " + y.icon + " me-2"}></i>
                                     <span className={"navlinkname" + (isSidebarSmall ? " hidden" : "")}>{y.name}</span>
                                 </Link>
                             </OverlayTrigger>
                         ) : (
-                            <Link className={"dropdown-item sublink " + isActive} aria-current={isPageCurrent} href={prefix + x.link + y.link} locale={locale ?? getDefLocale()}>
+                            <Link className={"dropdown-item sublink " + isActiveSublink} aria-current={isPageCurrent} href={trim(prefix + x.link + y.link)} locale={locale ?? getDefLocale()}>
                                 <i className={"bi " + y.icon + " me-2"}></i>
                                 <span className={"navlinkname" + (isSidebarSmall ? " hidden" : "")}>{y.name}</span>
                             </Link>
@@ -261,13 +271,13 @@ export default function AdminSidebarDashboard({ sidebarStatus, toggleSidebar, lo
                             delay={{ show: 250, hide: 400 }}
                             overlay={renderTooltip(x.name)}
                         >
-                            <Link className={"nav-link" + isActive} aria-current={isPageCurrent} href={prefix + x.link} locale={locale ?? getDefLocale()}>
+                            <Link className={"nav-link" + isActive} aria-current={isPageCurrent} href={trim(prefix + x.link)} locale={locale ?? getDefLocale()}>
                                 <i className={"bi " + x.icon + " me-2"}></i>
                                 <span className={"navlinkname" + (isSidebarSmall ? " hidden" : "")}>{x.name}</span>
                             </Link>
                         </OverlayTrigger>
                     ) : (
-                        <Link className={"nav-link" + isActive} aria-current={isPageCurrent} href={prefix + x.link} locale={locale ?? getDefLocale()}>
+                        <Link className={"nav-link" + isActive} aria-current={isPageCurrent} href={trim(prefix + x.link)} locale={locale ?? getDefLocale()}>
                             <i className={"bi " + x.icon + " me-2"}></i>
                             <span className={"navlinkname" + (isSidebarSmall ? " hidden" : "")}>{x.name}</span>
                         </Link>
