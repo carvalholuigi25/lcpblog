@@ -11,7 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { TFormComments, useMySchemaComments } from "@applocale/schemas/formSchemas";
 import { Comments as CT } from "@applocale/interfaces/comments";
 import { User } from "@applocale/interfaces/user";
-import { getImagePath } from "@applocale/functions/functions";
+import { formatDate, getImagePath } from "@applocale/functions/functions";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { DataToastsProps } from "@applocale/interfaces/toasts";
 import FetchDataAxios, { FetchMultipleDataAxios } from "@applocale/utils/fetchdataaxios";
@@ -273,7 +273,7 @@ export default function Comments({ userId, postId, categoryId, isCommentFormShow
                                 <p className="timecomment mt-2">
                                     <i className="bi bi-clock"></i>
                                     <span className="time" title={x.createdAt}>
-                                        {new Date(x.createdAt!).toLocaleDateString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit', weekday: undefined, hour: '2-digit', hour12: false, minute: '2-digit', second: '2-digit' })}
+                                        {formatDate(x.createdAt!)}
                                     </span>
                                 </p>
                             </div>

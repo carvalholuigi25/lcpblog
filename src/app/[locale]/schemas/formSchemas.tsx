@@ -72,6 +72,7 @@ export const useMySchemaNews = () => {
         image: z.coerce.string().optional(),
         slug: z.coerce.string().optional(),
         status: z.coerce.string().optional(),
+        isFeatured: z.coerce.boolean().optional(),
         categoryId: z.coerce.number().optional(),
         userId: z.coerce.number().optional(),
         tags: z.array(z.coerce.string()).optional()

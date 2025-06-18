@@ -256,6 +256,7 @@ public class MediasRepo : ControllerBase, IMediasRepo
             StringComparison strcom = StringComparison.OrdinalIgnoreCase;
             query = queryParams.SortBy.ToLower() switch
             {
+                "mediafeat" => sortorderval.Contains("desc", strcom) ? query.OrderByDescending(i => i.IsFeatured) : query.OrderBy(i => i.IsFeatured),
                 "isFeatured" => sortorderval.Contains("desc", strcom) ? query.OrderByDescending(i => i.IsFeatured) : query.OrderBy(i => i.IsFeatured),
                 "src" => sortorderval.Contains("desc", strcom) ? query.OrderByDescending(i => i.Src) : query.OrderBy(i => i.Src),
                 "title" => sortorderval.Contains("desc", strcom) ? query.OrderByDescending(i => i.Title) : query.OrderBy(i => i.Title),

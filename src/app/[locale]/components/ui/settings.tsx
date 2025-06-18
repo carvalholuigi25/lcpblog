@@ -215,7 +215,7 @@ export default function SettingsComp() {
             <div className="mfrmsettings">
                 <form className="frmensettings">
                     <div className={"form-group mt-3 text-center"}>
-                        <div className="form-check form-switch">
+                        <div className="myformswitch form-check form-switch">
                             <div className="colleft">
                                 <label className="form-check-label" htmlFor="ensettings">{t('form.lblensettings') ?? "Is Settings Enabled?"}</label>
                             </div>
@@ -225,7 +225,7 @@ export default function SettingsComp() {
                         </div>
                     </div>
                     <div className={"form-group mt-3 text-center"}>
-                        <div className="form-check form-switch">
+                        <div className="myformswitch form-check form-switch">
                             <div className="colleft">
                                 <label className="form-check-label" htmlFor="autosavesetting">{t('form.lblautosavesetting') ?? "Auto Save Enabled?"}</label>
                             </div>
@@ -238,7 +238,7 @@ export default function SettingsComp() {
 
                 <form ref={formRef} className={"frmsettings " + (!isSettingsEnabled ? "hidden" : "")} onSubmit={handleSubmit(onSubmit)}>
                     <div className={"form-group mt-3 text-center"}>
-                        <div className="formsel">
+                        <div className="myformswitch formsel">
                             <div className="colleft">
                                 <label htmlFor="theme">{t('form.lbltheme') ?? "Theme"}</label>
                             </div>
@@ -261,7 +261,7 @@ export default function SettingsComp() {
                     <div className="row">
                         <div className="col-12">
                             <div className={"form-group mt-3 text-center"}>
-                                <div className="form-check form-switch">
+                                <div className="myformswitch form-check form-switch">
                                     <div className="colleft">
                                         <label className="form-check-label" htmlFor="3deffects">{t('form.lbl3deffects') ?? "Is 3D Effects Enabled?"}</label>
                                     </div>
@@ -275,7 +275,7 @@ export default function SettingsComp() {
                         </div>
                         <div className="col-12">
                             <div className={"form-group mt-3 text-center"}>
-                                <div className="form-check form-switch">
+                                <div className="myformswitch form-check form-switch">
                                     <div className="colleft">
                                         <label className="form-check-label" htmlFor="isBordered">{t('form.lblbordered') ?? "Is Bordered Enabled?"}</label>
                                     </div>
@@ -292,7 +292,7 @@ export default function SettingsComp() {
                     <div className="clearfix"></div>
 
                     <div className={"form-group mt-3 text-center"}>
-                        <div className="formsel">
+                        <div className="myformswitch formsel">
                             <div className="colleft">
                                 <label htmlFor="language">{t('form.lbllanguage') ?? "Language"}</label>
                             </div>

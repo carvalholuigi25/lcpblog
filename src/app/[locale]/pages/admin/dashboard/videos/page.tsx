@@ -28,7 +28,6 @@ const AdminVideos = () => {
     const [loading, setLoading] = useState(true);
     const [barToggle, setBarToggle] = useState(true);
     const [videos, setVideos] = useState(new Array<Media>());
-    const [listMediaId, setListMediaId] = useState([1, 2]);
     const [totalPages, setTotalPages] = useState(1);
     const [page, setPage] = useState(1);
     const [isSearchEnabled, setIsSearchEnabled] = useState(false);
@@ -36,16 +35,16 @@ const AdminVideos = () => {
     const searchParams = useSearchParams();
     const spage = searchParams.get("page");
     const search = searchParams.get("search") ?? "";
-    const sortorder = searchParams.get("sortorder") ?? "asc";
-    const sortby = searchParams.get("sortby") ?? "isFeatured";
+    const sortby = "mediafeat";
+    const sortorder = searchParams.get("sortorder") ?? "desc";
     const fieldname = searchParams.get("fieldname") ?? "isFeatured";
     const pageSize: number = 10;
 
     useEffect(() => {
         async function fetchVideos() {
             const curindex = page;
-            const sparams = isSearchEnabled ? `&sortBy=${sortby}&sortOrder=${sortorder}&fieldName=${fieldname}&search=${search}` : ``;
-            const params = `?page=${curindex}&pageSize=${pageSize}${sparams}`;
+            const sparams = isSearchEnabled ? `&fieldName=${fieldname}&search=${search}` : ``;
+            const params = `?page=${curindex}&pageSize=${pageSize}${sparams}&sortBy=${sortby}&sortOrder=${sortorder}`;
 
             const data = await FetchData({
                 url: 'api/medias' + params,
@@ -54,9 +53,7 @@ const AdminVideos = () => {
             });
 
             if (data.data) {
-                const dataf = data.data.sort((x: any, y: any) => { return y.isFeatured - x.isFeatured; });
-                setListMediaId(dataf.map((x: Media) => x.mediaId));
-                setVideos(JSON.parse(JSON.stringify(dataf)));
+                setVideos(JSON.parse(JSON.stringify(data.data)));
             }
 
             setTotalPages(data.totalPages);
@@ -89,8 +86,8 @@ const AdminVideos = () => {
         setBarToggle(!barToggle);
     }
 
-    const getFeaturedItem = (i: number[], mediaId: number) => {
-        return i && i[0] == mediaId ? (
+    const getFeaturedItem = (i: number) => {
+        return i == 0 ? (
             <div className="card-info-featured-wrapper">
                 <div className="card-info-featured">
                     <i className="bi bi-star-fill"></i>
@@ -166,7 +163,7 @@ const AdminVideos = () => {
 
                                         {videos && videos.length > 0 && (
                                             <div className="row mt-3 mx-auto justify-content-center">
-                                                {videos.map(x => (
+                                                {videos.map((x, i) => (
                                                     <div key={x.mediaId} className="col-12 col-md-6 col-lg-4 p-3">
                                                         <Link href={`/${locale}/pages/admin/dashboard/videos/${x.mediaId}`}>
                                                             <div className="card cardvideos cardlg bshadow rounded">
@@ -174,7 +171,7 @@ const AdminVideos = () => {
 
                                                                 <div className="card-header">
                                                                     {x.isFeatured && (
-                                                                        getFeaturedItem(listMediaId, x.mediaId!)
+                                                                        getFeaturedItem(i)
                                                                     )}
 
                                                                     {logInfo && (

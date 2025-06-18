@@ -274,11 +274,13 @@ const AddVideosForm = () => {
                     <form className={"frmvideos " + styles.frmaddvideos}>
                         {uploadedFiles && (
                             <>
-                                <div className="d-inline-block mx-auto mt-3">
-                                    <button type="button" className="btn btn-primary btn-rounded btn-tp w-auto" onClick={toggleIsUploadedFilesShown}>
-                                        Toggle uploads
-                                    </button>
-                                </div>
+                                {formData.typeUrl == "local" && (
+                                    <div className="d-inline-block mx-auto mt-3">
+                                        <button type="button" className="btn btn-primary btn-rounded btn-tp w-auto" onClick={toggleIsUploadedFilesShown}>
+                                            Toggle uploads
+                                        </button>
+                                    </div>
+                                )}
 
                                 <div className={"mlistuplfiles form-group mt-3 text-center" + (isUploadedFilesShown ? " shown" : " hidden")}>
                                     <div className={"mlistuplfilesbody " + styles.sformgroup}>
@@ -289,6 +291,9 @@ const AddVideosForm = () => {
                                                         <div className="card-body">
                                                             <i className="bi bi-file-earmark-post" style={{ fontSize: '2rem' }}></i>
                                                             <p>{tupl('results.nofilesuploaded') ?? "No files uploaded yet."}</p>
+                                                            <Link href={"/"+locale+"/pages/admin/dashboard/media"} className="btn btn-primary btn-tp btn-rounded mt-3">
+                                                                Visit here...
+                                                            </Link>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -296,35 +301,35 @@ const AddVideosForm = () => {
 
                                             {uploadedFiles.length > 0 && uploadedFiles.map((file: FilesMetadata, index) => (
                                                 <div key={"listupl" + index} className={"col-6 col-lg-4" + (isUploadedFileSelected ? " selected" : "")} onClick={(e) => selUplFile(e, file)}>
-                                                     <motion.div
+                                                    <motion.div
                                                         whileHover={{ scale: 1.1 }}
                                                         whileTap={{ scale: 0.9 }}
                                                         className="d-inline-block"
                                                     >
-                                                    <div className="card carduplfiles cardlg rounded bshadow">
-                                                        <Image
-                                                            src={getVideoThumbnailPath(formData.thumbnail)}
-                                                            width="400"
-                                                            height="400"
-                                                            alt=""
-                                                            className={"mlistuplfileimg img-fluid"}
-                                                            onError={(event: any) => {
-                                                                event.target.id = "/videos/thumbnails/default.jpg";
-                                                                event.target.srcset = "/videos/thumbnails/default.jpg";
-                                                            }}
-                                                            priority
-                                                        />
+                                                        <div className="card carduplfiles cardlg rounded bshadow">
+                                                            <Image
+                                                                src={getVideoThumbnailPath(formData.thumbnail)}
+                                                                width="400"
+                                                                height="400"
+                                                                alt=""
+                                                                className={"mlistuplfileimg img-fluid"}
+                                                                onError={(event: any) => {
+                                                                    event.target.id = "/videos/thumbnails/default.jpg";
+                                                                    event.target.srcset = "/videos/thumbnails/default.jpg";
+                                                                }}
+                                                                priority
+                                                            />
 
-                                                        <div className="card-body">
-                                                            <div className="scard-body">
-                                                                <div className={"card-info"}>
-                                                                    <div className="card-text p-3">
-                                                                        <h5 className="card-title">{file.fileName}</h5>
+                                                            <div className="card-body">
+                                                                <div className="scard-body">
+                                                                    <div className={"card-info"}>
+                                                                        <div className="card-text p-3">
+                                                                            <h5 className="card-title">{file.fileName}</h5>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
                                                     </motion.div>
                                                 </div>
                                             ))}
@@ -444,7 +449,7 @@ const AddVideosForm = () => {
                         </div>
 
                         <div className="form-group mt-3 text-center">
-                            <div className="form-check form-switch">
+                            <div className="myformswitch form-check form-switch">
                                 <div className="colleft">
                                     <label className="form-check-label" htmlFor="isFeatured">
                                         {t('lblisfeatured') ?? "Is featured?"}

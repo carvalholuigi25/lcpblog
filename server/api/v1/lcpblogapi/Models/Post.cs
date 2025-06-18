@@ -39,6 +39,9 @@ public class Post
     [DefaultValue(EPostStatus.all)]
     public EPostStatus? Status { get; set; } = EPostStatus.all;
 
+    [DefaultValue(false)]
+    public bool? IsFeatured { get; set; } = false; 
+
     [DefaultValue(1)]
     public int? UserId { get; set; } = 1;
 

@@ -9,7 +9,7 @@ import { Categories } from "@applocale/interfaces/categories";
 import { getFromStorage } from "@applocale/hooks/localstorage";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { DataToastsProps } from "@applocale/interfaces/toasts";
-import { buildMyConnection, sendMessage } from "@applocale/functions/functions";
+import { buildMyConnection, formatDate, sendMessage } from "@applocale/functions/functions";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import LoadingComp from "@applocale/components/ui/loadingcomp";
 import Toasts from "@applocale/components/ui/toasts/toasts";
@@ -139,8 +139,8 @@ const DeleteCategoriesForm = ({ id, data }: { id: number, data: Categories }) =>
                                             <td>{data.categoryId}</td>
                                             <td>{data.name}</td>
                                             <td>{data.slug}</td>
-                                            <td>{new Date(data.createdAt!.toString()).toLocaleDateString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit', weekday: undefined, hour: '2-digit', hour12: false, minute: '2-digit', second: '2-digit' })}</td>
-                                            <td>{new Date(data.updatedAt!.toString()).toLocaleDateString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit', weekday: undefined, hour: '2-digit', hour12: false, minute: '2-digit', second: '2-digit' })}</td>
+                                            <td>{formatDate(data.createdAt!.toString())}</td>
+                                            <td>{formatDate(data.updatedAt!.toString())}</td>
                                             <td>{data.status}</td>
                                         </tr>
                                     </tbody>

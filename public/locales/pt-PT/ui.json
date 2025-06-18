@@ -596,6 +596,8 @@
                 "deleted": "Eliminado"
               }
             },
+            "lblisfeatured": "Em destaque?",
+            "inpisfeatured": "Verifique o estado de destaque aqui...",
             "lbluserId": "Utilizador Id",
             "lbltags": "Etiquetas",
             "seltags": "Seleciona a(s) etiqueta(s)",
@@ -661,6 +663,8 @@
                 "deleted": "Eliminado"
               }
             },
+            "lblisfeatured": "Em destaque?",
+            "inpisfeatured": "Verifique o estado de destaque aqui...",
             "lbluserId": "Utilizador Id",
             "lbltags": "Etiquetas",
             "seltags": "Seleciona a(s) etiqueta(s)",

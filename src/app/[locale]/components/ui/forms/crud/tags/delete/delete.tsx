@@ -12,6 +12,7 @@ import { DataToastsProps } from "@applocale/interfaces/toasts";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import LoadingComp from "@applocale/components/ui/loadingcomp";
 import Toasts from "@applocale/components/ui/toasts/toasts";
+import { formatDate } from "@/app/[locale]/functions/functions";
 
 const DeleteTagsForm = ({ id, data }: { id: number, data: Tags }) => {
     const t = useTranslations("ui.forms.crud.tags.delete");
@@ -107,8 +108,8 @@ const DeleteTagsForm = ({ id, data }: { id: number, data: Tags }) => {
                                         <tr>
                                             <td>{data.tagId}</td>
                                             <td>{data.name}</td>
-                                            <td>{new Date(data.createdAt!.toString()).toLocaleDateString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit', weekday: undefined, hour: '2-digit', hour12: false, minute: '2-digit', second: '2-digit' })}</td>
-                                            <td>{new Date(data.updatedAt!.toString()).toLocaleDateString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit', weekday: undefined, hour: '2-digit', hour12: false, minute: '2-digit', second: '2-digit' })}</td>
+                                            <td>{formatDate(data.createdAt!.toString())}</td>
+                                            <td>{formatDate(data.updatedAt!.toString())}</td>
                                             <td>{data.status}</td>
                                         </tr>
                                     </tbody>

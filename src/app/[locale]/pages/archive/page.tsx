@@ -12,7 +12,7 @@ import { FetchMultipleDataAxios } from "@applocale/utils/fetchdataaxios";
 import { Posts } from "@applocale/interfaces/posts";
 import { User } from "@applocale/interfaces/user";
 import { Categories } from "@applocale/interfaces/categories";
-import { getImagePath, shortenLargeNumber } from "@applocale/functions/functions";
+import { formatDate, getImagePath, shortenLargeNumber } from "@applocale/functions/functions";
 import { useMySuffix } from "@applocale/hooks/suffixes";
 import Footer from "@applocale/ui/footer";
 import Header from "@applocale/ui/header";
@@ -216,7 +216,7 @@ const Archive = ({ params }: { params: any }) => {
                                                                 <div className="col-12 col-md-12 col-lg-auto">
                                                                     <i className="bi bi-clock icodate"></i>
                                                                     <span className="ms-2 txtdate" title={"" + newsi.createdAt}>
-                                                                        {new Date(newsi.createdAt).toLocaleDateString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit', weekday: undefined, hour: '2-digit', hour12: false, minute: '2-digit', second: '2-digit' })}
+                                                                        {formatDate(newsi.createdAt)}
                                                                     </span>
                                                                 </div>
                                                                 <div className="col-12 col-md-12 col-lg-auto">

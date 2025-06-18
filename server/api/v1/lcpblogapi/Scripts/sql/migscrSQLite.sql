@@ -92,6 +92,7 @@ CREATE TABLE "Posts" (
     "CreatedAt" TEXT NULL,
     "UpdatedAt" TEXT NULL,
     "Status" INTEGER NULL,
+    "IsFeatured" INTEGER NULL,
     "UserId" INTEGER NULL,
     "Tags" TEXT NULL,
     CONSTRAINT "FK_Posts_Users_UserId" FOREIGN KEY ("UserId") REFERENCES "Users" ("UserId")
@@ -140,15 +141,15 @@ CREATE TABLE "PostTags" (
 );
 
 INSERT INTO "Categories" ("CategoryId", "CreatedAt", "Name", "Slug", "Status", "UpdatedAt")
-VALUES (1, '2025-06-13 11:56:39.6446742+01:00', 'Geral', '/geral', 0, '2025-06-13 11:56:39.6447345+01:00');
+VALUES (1, '2025-06-18 11:31:44.077509+01:00', 'Geral', '/geral', 0, '2025-06-18 11:31:44.07757+01:00');
 SELECT changes();
 
 INSERT INTO "Categories" ("CategoryId", "CreatedAt", "Name", "Slug", "Status", "UpdatedAt")
-VALUES (2, '2025-06-13 11:56:39.6447929+01:00', 'Tecnologia', '/tecnologia', 0, '2025-06-13 11:56:39.6447934+01:00');
+VALUES (2, '2025-06-18 11:31:44.0776261+01:00', 'Tecnologia', '/tecnologia', 0, '2025-06-18 11:31:44.0776265+01:00');
 SELECT changes();
 
 INSERT INTO "Categories" ("CategoryId", "CreatedAt", "Name", "Slug", "Status", "UpdatedAt")
-VALUES (3, '2025-06-13 11:56:39.6447948+01:00', 'Outros', '/outros', 0, '2025-06-13 11:56:39.6447952+01:00');
+VALUES (3, '2025-06-18 11:31:44.077628+01:00', 'Outros', '/outros', 0, '2025-06-18 11:31:44.0776284+01:00');
 SELECT changes();
 
 
@@ -158,17 +159,17 @@ SELECT changes();
 
 
 INSERT INTO "Medias" ("MediaId", "CategoryId", "CreatedAt", "Description", "IsFeatured", "Privacy", "Src", "Thumbnail", "Title", "TypeMime", "TypeUrl", "UpdatedAt", "UserId")
-VALUES (1, 1, '2025-06-13 11:56:39.6598332+01:00', 'This is a demo video', 1, 'public', '//vjs.zencdn.net/v/oceans.mp4', 'default.jpg', 'Demo', 'video/mp4', 0, '2025-06-13 11:56:39.6598968+01:00', 1);
+VALUES (1, 1, '2025-06-18 11:31:44.0921546+01:00', 'This is a demo video', 1, 'public', '//vjs.zencdn.net/v/oceans.mp4', 'default.jpg', 'Demo', 'video/mp4', 0, '2025-06-18 11:31:44.0922106+01:00', 1);
 SELECT changes();
 
 
 INSERT INTO "Users" ("UserId", "About", "Avatar", "Cover", "DisplayName", "Email", "Password", "Privacy", "Role", "Username", "UsersInfoId")
-VALUES (1, 'Luis Carvalho', 'avatars/luis.jpg', 'covers/luis.jpg', 'Luis Carvalho', 'luiscarvalho239@gmail.com', '$2a$10$n.oRmkIKSBDd4C591zLkEe6tWFywLkFU/z.7dFECs297PKhi5vFEq', 0, 6, 'admin', 1);
+VALUES (1, 'Luis Carvalho', 'avatars/luis.jpg', 'covers/luis.jpg', 'Luis Carvalho', 'luiscarvalho239@gmail.com', '$2a$10$Vamc.GlIKMm//qHcEmIGfun3D32eakV9wsOgKVl9uV4oyT0tsKHlK', 0, 6, 'admin', 1);
 SELECT changes();
 
 
-INSERT INTO "Posts" ("PostId", "CategoryId", "Content", "CreatedAt", "Image", "Slug", "Status", "Tags", "Title", "UpdatedAt", "UserId", "Views", "ViewsCounter")
-VALUES (1, 1, 'Welcome to LCPBlog!', '2025-06-13 11:56:39.6433904+01:00', 'blog.jpg', '/', 0, '["#geral"]', 'Welcome to LCPBlog!', '2025-06-13 11:56:39.6434502+01:00', 1, 0, 0);
+INSERT INTO "Posts" ("PostId", "CategoryId", "Content", "CreatedAt", "Image", "IsFeatured", "Slug", "Status", "Tags", "Title", "UpdatedAt", "UserId", "Views", "ViewsCounter")
+VALUES (1, 1, 'Welcome to LCPBlog!', '2025-06-18 11:31:44.0762491+01:00', 'blog.jpg', 1, '/', 0, '["#geral"]', 'Welcome to LCPBlog!', '2025-06-18 11:31:44.0763073+01:00', 1, 0, 0);
 SELECT changes();
 
 
@@ -185,7 +186,7 @@ CREATE INDEX "IX_PostTags_TagId" ON "PostTags" ("TagId");
 CREATE INDEX "IX_RefreshToken_UserId" ON "RefreshToken" ("UserId");
 
 INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
-VALUES ('20250613105641_InitialCreateSQLite', '9.0.0');
+VALUES ('20250618103146_InitialCreateSQLite', '9.0.0');
 
 COMMIT;
 

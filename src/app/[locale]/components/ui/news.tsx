@@ -4,7 +4,7 @@ import styles from "@applocale/page.module.scss";
 import Image from "next/image";
 import { Suspense, useCallback, useEffect, useState } from "react";
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
-import { getImagePath, loadMyRealData } from "@applocale/functions/functions";
+import { formatDate, getImagePath, loadMyRealData } from "@applocale/functions/functions";
 import { getFromStorage, saveToStorage } from "@applocale/hooks/localstorage";
 import { useTranslations } from "next-intl";
 import { Link } from '@/app/i18n/navigation';
@@ -101,7 +101,7 @@ export default function News({ cid, pid, tagname, locale }: NewsProps) {
     useEffect(() => {
         async function fetchNews() {
             const curindex = pageSize == 1 ? (page > pid ? page : pid) : page;
-            const params = `?page=${curindex}&pageSize=${pageSize}`;
+            const params = `?page=${curindex}&pageSize=${pageSize}&sortBy=postfeat&sortOrder=desc`;
 
             const data = await FetchMultipleDataAxios([
                 {
@@ -247,7 +247,9 @@ export default function News({ cid, pid, tagname, locale }: NewsProps) {
                                     {tagorcatname}
 
                                     <div className={`card cardnews ${cardgradient()} bshadow rounded`}>
-                                        {getFeaturedItem(i)}
+                                        {newsi.isFeatured && (
+                                            getFeaturedItem(i)
+                                        )}
 
                                         <Image
                                             src={getImagePath(newsi.image)}
@@ -274,7 +276,7 @@ export default function News({ cid, pid, tagname, locale }: NewsProps) {
                                                                     <div className="col-auto colauthorleft">
                                                                         <i className="bi bi-clock icodate"></i>
                                                                         <span className="ms-2 txtdate" title={"" + newsi.createdAt}>
-                                                                            {new Date(newsi.createdAt).toLocaleDateString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit', weekday: undefined, hour: '2-digit', hour12: false, minute: '2-digit', second: '2-digit' })}
+                                                                            {formatDate(newsi.createdAt!)}
                                                                         </span>
                                                                     </div>
 
@@ -299,7 +301,7 @@ export default function News({ cid, pid, tagname, locale }: NewsProps) {
                                                                 <span className="linesep"></span>
                                                                 <i className="bi bi-clock icodate"></i>
                                                                 <span className="ms-2 txtdate" title={"" + newsi.createdAt}>
-                                                                    {new Date(newsi.createdAt).toLocaleDateString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit', weekday: undefined, hour: '2-digit', hour12: false, minute: '2-digit', second: '2-digit' })}
+                                                                    {formatDate(newsi.createdAt)}
                                                                 </span>
 
                                                                 {cid != -1 && (

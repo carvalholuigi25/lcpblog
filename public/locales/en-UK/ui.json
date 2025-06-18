@@ -597,6 +597,8 @@
                                 "deleted": "Deleted"
                             }
                         },
+                        "lblisfeatured": "Is featured?",
+                        "inpisfeatured": "Check the featured status here...",
                         "lbluserId": "User Id",
                         "lbltags": "Tags",
                         "seltags": "Select the tag(s)",
@@ -646,7 +648,6 @@
                         "inpimage": "Write here the image url",
                         "lblslug": "Slug Url",
                         "inpslug": "Write here the slug url",
-                        "lblstatus": "Status",
                         "lblcategory": "Category",
                         "listcategories": {
                             "options": {
@@ -654,6 +655,7 @@
                                 "general": "General"
                             }
                         },
+                        "lblstatus": "Status",
                         "liststatus": {
                             "options": {
                                 "sel": "Select the option of the state",
@@ -662,6 +664,8 @@
                                 "deleted": "Deleted"
                             }
                         },
+                        "lblisfeatured": "Is featured?",
+                        "inpisfeatured": "Check the featured status here...",
                         "lbluserId": "User Id",
                         "lbltags": "Tags",
                         "seltags": "Select the tag(s)",

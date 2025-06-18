@@ -34,6 +34,7 @@ const AddNewsForm = () => {
         image: "blog.jpg",
         slug: "/news/1",
         status: "0",
+        isFeatured: false,
         categoryId: 1,
         userId: 1,
         tags: ["#geral"]
@@ -131,6 +132,7 @@ const AddNewsForm = () => {
                 image: "blog.jpg",
                 slug: "/news/1",
                 status: "0",
+                isFeatured: false,
                 categoryId: 1,
                 userId: getUserId() ?? 1,
                 tags: ["#geral"]
@@ -155,6 +157,10 @@ const AddNewsForm = () => {
 
     const getUserId = () => {
         return getFromStorage("logInfo") ? JSON.parse(getFromStorage("logInfo")!)[0].userId : null;
+    }
+
+    const toggleIsFeatured = (e: any) => {
+        setFormData({ ...formData, ["isFeatured"]: e.target.checked });
     }
 
     const handleChange = (e: any) => {
@@ -234,7 +240,8 @@ const AddNewsForm = () => {
                     <h3 className="title mx-auto text-center">
                         {t('title') ?? 'Add news'}
                     </h3>
-                    <form className={styles.frmaddnews}>
+
+                    <form className={"frmaddnews"}>
                         <div className="form-group mt-3 text-center">
                             <label htmlFor="title">
                                 {t('lbltitle') ?? "Title"}
@@ -342,13 +349,6 @@ const AddNewsForm = () => {
                             {errors.status && ShowAlert("danger", errors.status.message)}
                         </div>
 
-                        <div className="form-group mt-3 text-center hidden">
-                            <label htmlFor="userId" className="hidden">
-                                {t('lbluserId') ?? "User Id:"}
-                            </label>
-                            <input {...register("userId")} type="number" name="userId" id="userId" className={"form-control userId mt-3 " + styles.sformgroup + " hidden"} value={getUserId() ?? 1} />
-                        </div>
-
                         <div className="form-group mt-3 text-center">
                             <label htmlFor="tags">{t("lbltags") ?? "Tags:"}</label>
                             <select className="form-control tags mt-3 p-3" id="tags" value={tagsVal} multiple onChange={onChangeTagList}>
@@ -361,6 +361,28 @@ const AddNewsForm = () => {
                                     <option key={0} value={"#geral"}>#geral</option>
                                 )}
                             </select>
+                        </div>
+
+                        <div className="form-group mt-3 text-center">
+                            <div className="myformswitch form-check form-switch">
+                                <div className="colleft">
+                                    <label className="form-check-label" htmlFor="isFeatured">
+                                        {t('lblisfeatured') ?? "Is featured?"}
+                                    </label>
+                                </div>
+                                <div className="colright">
+                                    <input {...register("isFeatured")} type="checkbox" role="switch" id="isFeatured" name="isFeatured" className={"form-control form-check-input isFeatured sformgroupinp medium"} placeholder={t("inpisfeatured") ?? "Check the featured status here..."} checked={formData.isFeatured} onChange={toggleIsFeatured} />
+                                </div>
+                            </div>
+
+                            {errors.isFeatured && ShowAlert("danger", errors.isFeatured.message)}
+                        </div>
+
+                        <div className="form-group mt-3 text-center hidden">
+                            <label htmlFor="userId" className="hidden">
+                                {t('lbluserId') ?? "User Id:"}
+                            </label>
+                            <input {...register("userId")} type="number" name="userId" id="userId" className={"form-control userId mt-3 " + styles.sformgroup + " hidden"} value={getUserId() ?? 1} />
                         </div>
 
                         <div className="d-inline-block mx-auto mt-3">

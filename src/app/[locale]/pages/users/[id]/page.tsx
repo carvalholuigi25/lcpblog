@@ -3,16 +3,13 @@
 import styles from "@applocale/page.module.scss";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { Link } from "@/app/i18n/navigation";
 import { User } from "@applocale/interfaces/user";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { FetchMultipleData } from "@applocale/utils/fetchdata";
-import {
-  getImagePath,
-  shortenLargeNumber,
-} from "@applocale/functions/functions";
+import { formatDate, getImagePath, shortenLargeNumber } from "@applocale/functions/functions";
 import { useMySuffix } from "@applocale/hooks/suffixes";
 import { Posts, PostsViews } from "@applocale/interfaces/posts";
 import { saveToStorage } from "@applocale/hooks/localstorage";
@@ -261,20 +258,8 @@ export default function UserPage() {
                                                         "" + post.createdAt
                                                       }
                                                     >
-                                                      {new Date(
+                                                      {formatDate(
                                                         post.createdAt
-                                                      ).toLocaleDateString(
-                                                        undefined,
-                                                        {
-                                                          year: "numeric",
-                                                          month: "2-digit",
-                                                          day: "2-digit",
-                                                          weekday: undefined,
-                                                          hour: "2-digit",
-                                                          hour12: false,
-                                                          minute: "2-digit",
-                                                          second: "2-digit",
-                                                        }
                                                       )}
                                                     </span>
                                                   </div>

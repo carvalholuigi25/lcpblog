@@ -336,7 +336,7 @@ const EditVideosForm = ({mediaId, data}: {mediaId: number, data: Media}) => {
                         </div>
 
                         <div className="form-group mt-3 text-center">
-                            <div className="form-check form-switch">
+                            <div className="myformswitch form-check form-switch">
                                 <div className="colleft">
                                     <label className="form-check-label" htmlFor="isFeatured">
                                         {t('lblisfeatured') ?? "Is featured?"}

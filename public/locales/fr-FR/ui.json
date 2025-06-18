@@ -597,6 +597,8 @@
                 "deleted": "Supprimé"
               }
             },
+            "lblisfeatured": "Est-elle mise en avant?",
+            "inpisfeatured": "Vérifiez le statut de mise en avant ici...",
             "lbluserId": "ID de l'utilisateur",
             "lbltags": "Étiquettes",
             "seltags": "Sélectionnez une(des) étiquette(s)",
@@ -646,7 +648,6 @@
             "inpimage": "Écrivez ici l'url de l'image",
             "lblslug": "Slug Url",
             "inpslug": "Écrivez ici l'URL du slug",
-            "lblstatus": "Statut",
             "lblcategory": "Category",
             "listcategories": {
               "options": {
@@ -654,6 +655,7 @@
                 "general": "Général"
               }
             },
+            "lblstatus": "Statut",
             "liststatus": {
               "options": {
                 "sel": "Sélectionnez l'option de l'état",
@@ -662,6 +664,8 @@
                 "deleted": "Supprimé"
               }
             },
+            "lblisfeatured": "Est-elle mise en avant?",
+            "inpisfeatured": "Vérifiez le statut de mise en avant ici...",
             "lbluserId": "ID de l'utilisateur",
             "lbltags": "Étiquettes",
             "seltags": "Sélectionnez une(des) étiquette(s)",

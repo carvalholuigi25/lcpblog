@@ -346,6 +346,7 @@ public class PostsRepo : ControllerBase, IPostsRepo
             StringComparison strcom = StringComparison.OrdinalIgnoreCase;
             query = queryParams.SortBy.ToLower() switch
             {
+                "postfeat" => sortorderval.Contains("desc", strcom) ? query.OrderByDescending(i => i.IsFeatured) : query.OrderBy(i => i.IsFeatured),
                 "title" => sortorderval.Contains("desc", strcom) ? query.OrderByDescending(i => i.Title) : query.OrderBy(i => i.Title),
                 "userId" => sortorderval.Contains("desc", strcom) ? query.OrderByDescending(i => i.UserId) : query.OrderBy(i => i.UserId),
                 _ => sortorderval.Contains("desc", strcom) ? query.OrderByDescending(i => i.PostId) : query.OrderBy(i => i.PostId),

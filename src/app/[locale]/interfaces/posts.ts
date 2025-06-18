@@ -9,6 +9,7 @@ export interface Posts {
     views?: number;
     viewsCounter?: number;
     status: string;
+    isFeatured?: boolean;
     categoryId: number;
     userId: number;
     tags?: string[];

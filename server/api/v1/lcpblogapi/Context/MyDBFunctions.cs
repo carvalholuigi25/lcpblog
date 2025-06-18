@@ -67,6 +67,7 @@ public static class MyDBFunctions
                 CreatedAt = DateTimeOffset.Now,
                 UpdatedAt = DateTimeOffset.Now,
                 Status = EPostStatus.all,
+                IsFeatured = true,
                 UserId = 1
             }
         ];
