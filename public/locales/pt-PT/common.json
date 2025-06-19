@@ -268,23 +268,23 @@
       "title": "Sobre",
       "txtlogo": "Logótipo do LCPBlog",
       "txtabout": "O LCPBlog é um blog para divulgar notícias e o estado dos meus projectos de LCP para todos.",
-      "txtteam": "A equipa, LCP",
-      "txtlastupdated": "Última data de atualização: {date}"
+      "txtteam": "A equipa, <br />LCP",
+      "txtdateupdated": "Última data de atualização: {date}"
     },
     "PrivacyPolicyPage": {
       "title": "Política de Privacidade",
       "txtlogo": "Logótipo do LCPBlog",
-      "txtlastupdated": "Última data de atualização: {date}"
+      "txtdateupdated": "Última data de atualização: {date}"
     },
     "TermsOfUsePolicyPage": {
       "title": "Termos de Utilização",
       "txtlogo": "Logótipo do LCPBlog",
-      "txtlastupdated": "Última data de atualização: {date}"
+      "txtdateupdated": "Última data de atualização: {date}"
     },
     "CookiesPolicyPage": {
       "title": "Cookies",
       "txtlogo": "Logótipo do LCPBlog",
-      "txtlastupdated": "Última data de atualização: {date}"
+      "txtdateupdated": "Última data de atualização: {date}"
     },
     "Error": {
       "title": "Erro",

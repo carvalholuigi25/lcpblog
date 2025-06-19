@@ -11,7 +11,7 @@ export interface ThemesModel {
     theme: string;
 }
 
-export function GetMyCustomThemes(): any {
+export function GetMyCustomThemes(): ThemesModel[] {
     const t = useTranslations("ui.footer.themes.options");
 
     const ary = [
@@ -89,12 +89,12 @@ const ThemeSwitcher = () => {
     }
 
     const GetDefaultTheme = () => {
-        return ["pt", "pt-PT", "pt-BR"].includes(useLocale()) ? "Sistema" : "System";
+        return ["pt", "pt-PT", "pt-BR"].includes(useLocale()) ? "sistema" : "system";
     }
 
     const { theme, setTheme } = useTheme();
     const themesary: ThemesModel[] = GetMyCustomThemes();
-    const [themeName, setThemeName] = useState<string>(GetDefaultTheme() ?? "");
+    const [themeName, setThemeName] = useState<string>(GetDefaultTheme() ?? "system");
     const is3DEffectsEnabled = config.getConfigSync().is3DEffectsEnabled;
 
     useEffect(() => {

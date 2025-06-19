@@ -320,6 +320,10 @@ section {
   }
 }
 
+ol, ul {
+  padding: 0;
+}
+
 footer {
   --bs-bg-opacity: 1;
   --background: initial;
@@ -342,6 +346,10 @@ footer {
 
   .colfooter2 {
     text-align: center;
+  }
+
+  .listlinks {
+    list-style-position: inside;
   }
 
   &.roundedfooter {
@@ -842,6 +850,146 @@ footer {
     .card-img-top:not(.rounded) {
       border-bottom-left-radius: 0 !important;
       border-bottom-right-radius: 0 !important;
+    }
+  }
+}
+
+#mabout {
+  .aboutpage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    min-height: 100vh;
+
+    .card-img-top {
+      width: 100%;
+      height: 40vh;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: cover;
+      border-radius: 15px 15px 0px 0px;
+      margin: 0 auto;
+
+      &.logo {
+        object-fit: contain !important;
+      }
+    }
+
+    .card-body {
+      text-align: center;
+      
+      .txtabout {
+        text-align: justify;
+        line-height: 2rem;
+        padding: 15px;
+      }
+    }
+  }
+}
+
+#mcookiespolicy {
+  .cookiespolicypage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    min-height: 100vh;
+
+    .card-img-top {
+      width: 100%;
+      height: 40vh;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: cover;
+      border-radius: 15px;
+      margin: 0 auto;
+
+      &.logo {
+        object-fit: contain !important;
+      }
+    }
+
+    .card-body {
+      text-align: center;
+
+      .txtcookies {
+        text-align: justify;
+        line-height: 2rem;
+        padding: 15px;
+      }
+    }
+  }
+}
+
+#mtermsofuse {
+  .termsofusepage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    min-height: 100vh;
+
+    .card-img-top {
+      width: 100%;
+      height: 40vh;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: cover;
+      border-radius: 15px;
+      margin: 0 auto;
+
+      &.logo {
+        object-fit: contain !important;
+      }
+    }
+
+    .card-body {
+      text-align: center;
+
+      .txtterms {
+        text-align: justify;
+        line-height: 2rem;
+        padding: 15px;
+      }
+    }
+  }
+}
+
+#mprivacypolicy {
+  .privacypolicypage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    min-height: 100vh;
+
+    .card-img-top {
+      width: 100%;
+      height: 40vh;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: cover;
+      border-radius: 15px 15px 0px 0px;
+      margin: 0 auto;
+
+      &.logo {
+        object-fit: contain !important;
+      }
+    }
+
+    .card-body {
+      text-align: center;
+
+      .txtprivacy {
+        text-align: justify;
+        line-height: 2rem;
+        padding: 15px;
+      }
     }
   }
 }
