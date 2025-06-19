@@ -118,6 +118,13 @@
     },
     "footer": {
       "title": "Criado por",
+      "links": {
+        "title": "Links úteis",
+        "linkabout": "Sobre",
+        "linkprivacypolicy": "Política de privacidade",
+        "linktermsofusepolicy": "Termos de utilização",
+        "linkcookiespolicy": "Política de cookies"
+      },
       "themes": {
         "options": {
           "light": {

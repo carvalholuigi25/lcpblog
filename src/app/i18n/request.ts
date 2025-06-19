@@ -14,12 +14,14 @@ export default getRequestConfig(async ({requestLocale}: any) => {
 
   const common = (await import(`@assets/locales/${locale}/common.json`)).default;
   const ui = (await import(`@assets/locales/${locale}/ui.json`)).default;
+  const policies = location.pathname.includes("policies") ? (await import(`@assets/locales/${locale}/policies/ui.json`)).default : null;
  
   return {
     locale,
     messages: {
       ...common,
-      ...ui
+      ...ui,
+      ...policies
     }
   };
 });

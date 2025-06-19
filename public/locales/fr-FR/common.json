@@ -264,6 +264,28 @@
             "title": "Paramètres",
             "btnBack": "Back"
         },
+        "AboutPage": {
+            "title": "À propos",
+            "txtlogo": "Logo de LCPBlog",
+            "txtabout": "LCPBlog est un blog qui permet à tous de suivre l'actualité et l'état d'avancement de mes projets LCP.",
+            "txtteam": "L'équipe, LCP",
+            "txtlastupdated": "Date de dernière mise à jour: {date}"
+        },
+        "PrivacyPolicyPage": {
+            "title": "Politique de confidentialité",
+            "txtlogo": "Logo de LCPBlog",
+            "txtlastupdated": "Date de dernière mise à jour: {date}"
+        },
+        "TermsOfUsePolicyPage": {
+            "title": "Conditions d'utilisation",
+            "txtlogo": "Logo de LCPBlog",
+            "txtlastupdated": "Date de dernière mise à jour: {date}"
+        },
+        "CookiesPolicyPage": {
+            "title": "Cookies",
+            "txtlogo": "Logo de LCPBlog",
+            "txtlastupdated": "Dernière mise à jour: {date}"
+        },
         "Error": {
             "title": "Erreur",
             "msgerror": "Une erreur ${statusCode} s'est produite sur le serveur",
