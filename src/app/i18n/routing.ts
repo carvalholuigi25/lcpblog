@@ -1,13 +1,13 @@
 import { defineRouting } from 'next-intl/routing';
 import { getValuesLocales } from './locales';
-import * as config from "@applocale/utils/config";
+import { getDefLocale } from '../[locale]/helpers/defLocale';
 
 export const routing = defineRouting({
   // A list of all locales that are supported
   locales: getValuesLocales(),
   // Used when no locale matches
-  defaultLocale: config.getConfigSync().language ?? "pt-PT",
+  defaultLocale: getDefLocale(),
   localePrefix: {
     mode: 'as-needed'
-  },
+  }
 });

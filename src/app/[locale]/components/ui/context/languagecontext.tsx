@@ -2,7 +2,8 @@
 
 import { usePathname } from "next/navigation";
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import * as config from "@applocale/utils/config";
+import { getFromStorage, saveToStorage } from "@/app/[locale]/hooks/localstorage";
+import { getDefLocale } from "@/app/[locale]/helpers/defLocale";
 
 interface LanguageContextType {
     language: string;
@@ -12,21 +13,21 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-    const langdef = config.getConfigSync().language;
+    const langdef = getDefLocale();
     const pathname = usePathname();    
     const [language, setLanguageState] = useState<string>(langdef);
 
     useEffect(() => {
-        const savedLanguage = pathname.split('/')[1] || localStorage.getItem("language") || langdef;
+        const savedLanguage = pathname.split('/')[1] || getFromStorage("language") || langdef;
         setLanguageState(savedLanguage);
-        localStorage.setItem("language", savedLanguage);
+        saveToStorage("language", savedLanguage);
         document.documentElement.setAttribute("lang", savedLanguage);
     }, [pathname, langdef]);
 
-    const setLanguage = (newLanguage: string) => {
+    const setLanguage = async (newLanguage: string) => {
         setLanguageState(newLanguage);
-        localStorage.setItem("language", newLanguage);
-        document.documentElement.setAttribute("lang", newLanguage)
+        saveToStorage("language", newLanguage);
+        document.documentElement.setAttribute("lang", newLanguage);
     };
 
     return (

@@ -30,6 +30,7 @@ const AboutPage = ({ params }: { params: any }) => {
                                         {t("txtabout") ?? "LCPBlog is a blog about giving news and status of my LCP Projects to everyone."}
                                     </p>
                                     <div className="textformatted mt-3" dangerouslySetInnerHTML={{__html: SanitizeHTML(t.markup("txtteam") ?? "The team, <br /> LCP")}}></div>
+                                    <Image src={getImagePath("logos/lcplogo.svg")} alt={"LCP's logo"} width={180} height={180} className="card-img-top img-fluid lcplogo" />
                                     <p className="textformatted mt-3">
                                         {t("txtdateupdated", { date: datefrm }) ?? `Last date updated: ${datefrm}`}
                                     </p>

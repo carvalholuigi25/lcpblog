@@ -1,8 +1,8 @@
 "use client";
 import { redirect } from "next/navigation";
-import * as config from "@applocale/utils/config";
+import { getDefLocale } from "./[locale]/helpers/defLocale";
 
 export default function RootPage() {
-  const langdef = config.getConfigSync().language;
+  const langdef = getDefLocale();
   redirect("/"+langdef);  
 }

@@ -47,12 +47,12 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const qheaders = await headers();
   const langdef = (await config.getConfig()).language;
   const themeCl = (await config.getConfig()).theme;
   const effects3DCl = (await config.getConfig()).is3DEffectsEnabled ? "effects3D" : "";
   const locale = await getLocale() ?? getDefLocale() ?? langdef;
   const messages = await getMessages({ locale: locale });
-  const qheaders = await headers();
   const pathname = qheaders.get("x-current-path") || "";
   const dir = getLangDir(locale) ?? "ltr";
   const padpagCl = getPadPagCl(pathname);

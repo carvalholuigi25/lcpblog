@@ -320,10 +320,6 @@ section {
   }
 }
 
-ol, ul {
-  padding: 0;
-}
-
 footer {
   --bs-bg-opacity: 1;
   --background: initial;
@@ -350,6 +346,8 @@ footer {
 
   .listlinks {
     list-style-position: inside;
+    padding: 0;
+    margin: 15px 0px;
   }
 
   &.roundedfooter {
@@ -845,6 +843,10 @@ footer {
   object-position: left center;
 }
 
+ul, ol {
+  margin-bottom: 0;
+}
+
 #mallnewspage {
   .cardnews {
     .card-img-top:not(.rounded) {
@@ -863,28 +865,56 @@ footer {
     padding: 15px;
     min-height: 100vh;
 
+    .card {
+      padding: 15px;
+    }
+
     .card-img-top {
-      width: 100%;
-      height: 40vh;
+      width: auto;
+      height: auto;
       max-width: 100%;
       max-height: 100%;
       object-fit: cover;
       border-radius: 15px 15px 0px 0px;
-      margin: 0 auto;
+      margin: 15px auto;
 
       &.logo {
         object-fit: contain !important;
+      }
+
+      &.lcplogo {
+        width: 230px;
+        height: 230px;
+        object-fit: contain;
       }
     }
 
     .card-body {
       text-align: center;
+
+      .titlep {
+        font-size: clamp(1.5rem, 2.5vw, 2rem);
+      }
+
+      .textformatted {
+        text-align: inherit;
+        line-height: 2rem;
+      }
       
       .txtabout {
         text-align: justify;
         line-height: 2rem;
         padding: 15px;
       }
+    }
+
+    ol, ul {
+      padding: 0;
+      margin: 0;
+    }
+
+    ol {
+      li { font-weight: bold; }
     }
   }
 }
@@ -898,14 +928,18 @@ footer {
     padding: 15px;
     min-height: 100vh;
 
+    .card {
+      padding: 15px;
+    }
+
     .card-img-top {
-      width: 100%;
-      height: 40vh;
+      width: auto;
+      height: auto;
       max-width: 100%;
       max-height: 100%;
       object-fit: cover;
-      border-radius: 15px;
-      margin: 0 auto;
+      border-radius: 15px 15px 0px 0px;
+      margin: 15px auto;
 
       &.logo {
         object-fit: contain !important;
@@ -915,11 +949,35 @@ footer {
     .card-body {
       text-align: center;
 
+      .titlep {
+        font-size: clamp(1.5rem, 2.5vw, 2rem);
+      }
+
+      .textformatted {
+        text-align: inherit;
+        line-height: 2rem;
+      }
+
       .txtcookies {
         text-align: justify;
         line-height: 2rem;
         padding: 15px;
       }
+
+      .table {
+        table-layout: auto;
+        overflow: auto;
+        white-space: nowrap;
+      }
+    }
+
+    ol, ul {
+      padding: 0;
+      margin: 15px 0px 0px 0px;
+    }
+    
+    ol {
+      li { font-weight: bold; }
     }
   }
 }
@@ -933,14 +991,18 @@ footer {
     padding: 15px;
     min-height: 100vh;
 
+    .card {
+      padding: 15px;
+    }
+
     .card-img-top {
-      width: 100%;
-      height: 40vh;
+      width: auto;
+      height: auto;
       max-width: 100%;
       max-height: 100%;
       object-fit: cover;
-      border-radius: 15px;
-      margin: 0 auto;
+      border-radius: 15px 15px 0px 0px;
+      margin: 15px auto;
 
       &.logo {
         object-fit: contain !important;
@@ -950,11 +1012,35 @@ footer {
     .card-body {
       text-align: center;
 
+      .titlep {
+        font-size: clamp(1.5rem, 2.5vw, 2rem);
+      }
+
+      .textformatted {
+        text-align: inherit;
+        line-height: 2rem;
+      }
+
       .txtterms {
         text-align: justify;
         line-height: 2rem;
         padding: 15px;
       }
+
+      .table {
+        table-layout: auto;
+        overflow: auto;
+        white-space: nowrap;
+      }
+    }
+
+    ol, ul {
+      padding: 0;
+      margin: 15px 0px 0px 0px;
+    }
+
+    ol {
+      li { font-weight: bold; }
     }
   }
 }
@@ -968,14 +1054,18 @@ footer {
     padding: 15px;
     min-height: 100vh;
 
+    .card {
+      padding: 15px;
+    }
+
     .card-img-top {
-      width: 100%;
-      height: 40vh;
+      width: auto;
+      height: auto;
       max-width: 100%;
       max-height: 100%;
       object-fit: cover;
       border-radius: 15px 15px 0px 0px;
-      margin: 0 auto;
+      margin: 15px auto;
 
       &.logo {
         object-fit: contain !important;
@@ -985,11 +1075,35 @@ footer {
     .card-body {
       text-align: center;
 
+      .titlep {
+        font-size: clamp(1.5rem, 2.5vw, 2rem);
+      }
+
+      .textformatted {
+        text-align: inherit;
+        line-height: 2rem;
+      }
+
       .txtprivacy {
         text-align: justify;
         line-height: 2rem;
         padding: 15px;
       }
+
+      .table {
+        table-layout: auto;
+        overflow: auto;
+        white-space: nowrap;
+      }
+    }
+
+    ol, ul {
+      padding: 0;
+      margin: 15px 0px 0px 0px;
+    }
+
+    ol {
+      li { font-weight: bold; }
     }
   }
 }

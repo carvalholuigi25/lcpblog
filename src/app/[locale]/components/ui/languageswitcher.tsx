@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
+import axios from "axios";
 import { LanguagesLocales, localesary } from "@/app/i18n/locales";
 import { useLanguage } from "@applocale/components/ui/context/languagecontext";
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import * as config from "@applocale/utils/config";
 
 export function getMyCustomLanguages() {
@@ -12,15 +13,35 @@ export function getMyCustomLanguages() {
 }
 
 const LanguageSwitcher = () => {
-    const router = useRouter();
     const { language, setLanguage } = useLanguage();
     const languagesary: LanguagesLocales[] = getMyCustomLanguages();
     const is3DEffectsEnabled = config.getConfigSync().is3DEffectsEnabled;
 
-    const setMyLanguage = (e: any, x: LanguagesLocales): any => {
+    const setMyLanguage = async (e: any, x: LanguagesLocales): Promise<any> => {
         e.preventDefault();
         setLanguage(x.value);
-        router.push(!x.value.includes('/') ? '/' + x.value : x.value);
+
+        await axios({
+            url: `/api/config`,
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json; charset=utf-8',
+                'Content-Type': 'application/json; charset=utf-8'
+            },
+            data: JSON.stringify({
+                theme: config.getConfigSync().theme ?? "glassmorphism",
+                language: x.value,
+                isBordered: config.getConfigSync().isBordered ?? true,
+                is3DEffectsEnabled: config.getConfigSync().is3DEffectsEnabled ?? false,
+                isAutoSaveEnabled: config.getConfigSync().isAutoSaveEnabled ?? false
+            })
+        }).then((r) => {
+            console.log(r);
+            redirect(!x.value.includes('/') ? '/' + x.value : x.value)
+        }).catch((e) => {
+            console.log(e);
+            location.reload();
+        });
     }
 
     const activeLanguage = (x: string) => {
@@ -56,6 +77,7 @@ const LanguageSwitcher = () => {
                         {languagesary.map(x => (
                             <li key={x.id}>
                                 <button 
+                                    type="button"
                                     className={"dropdown-item btnlanguage" + x.prefix + activeLanguage(x.value) + " " + (is3DEffectsEnabled ? "btn3Dbox" : "")} 
                                     onClick={(e) => setMyLanguage(e, x)}
                                 >
