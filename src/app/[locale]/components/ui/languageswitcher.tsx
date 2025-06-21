@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import axios from "axios";
+// import axios from "axios";
 import { LanguagesLocales, localesary } from "@/app/i18n/locales";
 import { useLanguage } from "@applocale/components/ui/context/languagecontext";
 import { redirect } from "next/navigation";
 import * as config from "@applocale/utils/config";
+import { setCookie } from 'cookies-next';
 
 export function getMyCustomLanguages() {
     const ary = localesary.sort((x, y) => x.value.toLowerCase().localeCompare(y.value.toLowerCase()));
@@ -20,28 +21,30 @@ const LanguageSwitcher = () => {
     const setMyLanguage = async (e: any, x: LanguagesLocales): Promise<any> => {
         e.preventDefault();
         setLanguage(x.value);
+        setCookie('NEXT_LOCALE', x.value);
+        redirect(!x.value.includes('/') ? '/' + x.value : x.value);
 
-        await axios({
-            url: `/api/config`,
-            method: 'PUT',
-            headers: {
-                'Accept': 'application/json; charset=utf-8',
-                'Content-Type': 'application/json; charset=utf-8'
-            },
-            data: JSON.stringify({
-                theme: config.getConfigSync().theme ?? "glassmorphism",
-                language: x.value,
-                isBordered: config.getConfigSync().isBordered ?? true,
-                is3DEffectsEnabled: config.getConfigSync().is3DEffectsEnabled ?? false,
-                isAutoSaveEnabled: config.getConfigSync().isAutoSaveEnabled ?? false
-            })
-        }).then((r) => {
-            console.log(r);
-            redirect(!x.value.includes('/') ? '/' + x.value : x.value)
-        }).catch((e) => {
-            console.log(e);
-            location.reload();
-        });
+        // await axios({
+        //     url: `/api/config`,
+        //     method: 'PUT',
+        //     headers: {
+        //         'Accept': 'application/json; charset=utf-8',
+        //         'Content-Type': 'application/json; charset=utf-8'
+        //     },
+        //     data: JSON.stringify({
+        //         theme: config.getConfigSync().theme ?? "glassmorphism",
+        //         language: x.value,
+        //         isBordered: config.getConfigSync().isBordered ?? true,
+        //         is3DEffectsEnabled: config.getConfigSync().is3DEffectsEnabled ?? false,
+        //         isAutoSaveEnabled: config.getConfigSync().isAutoSaveEnabled ?? false
+        //     })
+        // }).then((r) => {
+        //     console.log(r);
+        //     redirect(!x.value.includes('/') ? '/' + x.value : x.value)
+        // }).catch((e) => {
+        //     console.log(e);
+        //     location.reload();
+        // });
     }
 
     const activeLanguage = (x: string) => {

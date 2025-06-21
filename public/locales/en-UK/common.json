@@ -269,7 +269,7 @@
             "txtlogo": "LCPBlog's logo",
             "txtabout": "LCPBlog is a blog about giving news and status of my LCP Projects to everyone.",
             "txtteam": "The team, <br />LCP",
-            "txtlastupdated": "Last date updated: {date}"
+            "txtdateupdated": "Last date updated: {date}"
         },
         "PrivacyPolicyPage": {
             "title": "Privacy policy",

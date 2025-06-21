@@ -19,28 +19,15 @@
 
 import { chain } from '@/middlewares/chain';
 import { withI18nMiddleware } from '@/middlewares/withI18nMiddleware';
-import { NextRequest, NextResponse } from 'next/server';
-import { getDefLocale } from './app/[locale]/helpers/defLocale';
+import { withMyHeaders } from '@/middlewares/withMyHeaders';
 
-export function middleware(request: NextRequest) {
-  const headers = new Headers(request.headers);
-  headers.set("x-current-path", request.nextUrl.pathname);
-  headers.set("x-current-href", request.nextUrl.href);
-  headers.set("x-current-lang", getDefLocale());
-  return NextResponse.next({
-    request: {
-      headers: headers,
-    },
-  });
-}
-
-export default chain([withI18nMiddleware]);
+export default chain([withI18nMiddleware, withMyHeaders]);
 
 export const config = {
   // Match only internationalized pathnames
   matcher: [
     '/',
     '/((?!api|trpc|_next|_vercel|favicon.ico|images|.*\\..*).*)',
-    '/(en|pt|en-UK|pt-PT)/:path*',
+    '/(en|pt|fr|en-UK|pt-PT|fr-FR)/:path*',
   ],
 };

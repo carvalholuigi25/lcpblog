@@ -5,6 +5,7 @@ import { routing } from '../app/i18n/routing';
 import { match as matchLocale } from '@formatjs/intl-localematcher';
 import { CustomMiddleware } from './chain';
 import Negotiator from 'negotiator';
+import { getDefLocale } from '@/app/[locale]/helpers/defLocale';
 
 function getLocale(request: NextRequest): string | undefined {
     const negotiatorHeaders: Record<string, string> = {};
@@ -31,15 +32,16 @@ export function withI18nMiddleware(middleware: CustomMiddleware) {
         );
 
         if (pathnameIsMissingLocale) {
-            const locale = getLocale(request)
-            const redirectURL = new URL(request.url)
+            const locale = getLocale(request) ?? getDefLocale();
+            const redirectURL = request.nextUrl;
+
             if (locale) {
-                redirectURL.pathname = `/${locale}${pathname.startsWith('/') ? '' : '/'}${pathname}`
+                redirectURL.pathname = `/${locale}${pathname.startsWith("/") ? "" : "/"}${pathname}`;
             }
 
-            // Preserve query parameters
-            redirectURL.search = request.nextUrl.search
-            return NextResponse.redirect(redirectURL.toString())
+            redirectURL.search = request.nextUrl.search;
+
+            return NextResponse.redirect(redirectURL);
         }
 
         return middleware(request, event, response);

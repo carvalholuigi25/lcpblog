@@ -1,10 +1,12 @@
 import {getRequestConfig} from 'next-intl/server';
 import {routing} from './routing';
+import { cookies } from 'next/headers';
  
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default getRequestConfig(async ({requestLocale}: any) => {
   // // This typically corresponds to the `[locale]` segment
-  let locale = await requestLocale;
+  // let locale = await requestLocale;
+  let locale = (await cookies()).get("NEXT_LOCALE")?.value ?? await requestLocale;
 
   // Ensure that a valid locale is used
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
