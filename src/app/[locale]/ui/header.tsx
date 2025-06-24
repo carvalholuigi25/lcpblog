@@ -182,7 +182,7 @@ const Header = ({ locale }: { locale: string }) => {
                             <Image src={getImagePath("logos/logosm.svg")} alt={"LCPBlog's logo"} width={100} height={100} className="card-img-top img-fluid logosm" />
                         </Link>
                         <button
-                            className="navbar-toggler"
+                            className={"navbar-toggler" + (is3DEffectsEnabled ? " navbartoggler3D" : "")}
                             type="button"
                             data-bs-toggle="collapse"
                             data-bs-target="#navbarMain"

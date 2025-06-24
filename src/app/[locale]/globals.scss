@@ -848,11 +848,12 @@ ul, ol {
 }
 
 .logosm {
-  width: 100px !important;
-  height: auto !important;
-  object-fit: contain;
+  width: 95px;
+  height: auto;
+  object-fit: cover;
   max-width: 100%;
   max-height: 100%;
+  padding: 0.8rem 0;
 }
 
 .logo {
@@ -1534,6 +1535,11 @@ form {
 .card.card-transparent {
   background-color: transparent;
   border-color: transparent;
+}
+
+.icoloading {
+  font-size: 4rem;
+  color: black;
 }
 
 .navbar-brand {

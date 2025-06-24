@@ -31,9 +31,27 @@
     }
 
     .effects3D {
+        // .logo {
+        //     &.logo3D {
+        //         color: $fgcolorprimary;
+        //     }
+        // }
+
+        .logosm {
+            filter: none;
+            filter: drop-shadow(2px 2px 0px $fgcolorprimary);
+            
+            &:hover {
+                filter: drop-shadow(2px 0px 0px $fgcolorprimary);
+            }
+        }
+
         .logo {
-            &.logo3D {
-                color: $fgcolorprimary;
+            filter: none;
+            filter: drop-shadow(5px 5px 0px $fgcolorprimary);
+            
+            &:hover {
+                filter: drop-shadow(5px 2px 0px $fgcolorprimary);
             }
         }
     }
@@ -42,6 +60,10 @@
         .nav-link {
             color: $fgcolorprimary;
         }
+    }
+
+    .icoloading {
+        color: $fgcolorprimary;
     }
 
     .navbar {

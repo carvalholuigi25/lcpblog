@@ -81,7 +81,7 @@ const LanguageSwitcher = () => {
                             <li key={x.id}>
                                 <button 
                                     type="button"
-                                    className={"dropdown-item btnlanguage" + x.prefix + activeLanguage(x.value) + " " + (is3DEffectsEnabled ? "btn3Dbox" : "")} 
+                                    className={"dropdown-item btnlanguage" + x.prefix + activeLanguage(x.value)} 
                                     onClick={(e) => setMyLanguage(e, x)}
                                 >
                                     {getLanguageFlag(x.prefix)}

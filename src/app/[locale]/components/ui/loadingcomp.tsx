@@ -26,7 +26,7 @@ export default function LoadingComp({type, icontype}: LoadingCompProps) {
         return (
             <div className='col-12 card p-3 text-center'>
                 <div className='card-body'>
-                    <i className="bi-clock" style={{ fontSize: "4rem" }}></i>
+                    <i className="bi bi-clock icoloading"></i>
                     <p>{t('title') ?? "Loading..."}</p>
                 </div>
             </div>

@@ -4,25 +4,50 @@
     $type: "box";
     $color: inherit;
 
+    .logosm {
+        filter: drop-shadow(2px 2px 0px rgba(0, 0, 0, 1));
+        transition: all 0.3s ease;
+        
+        &:hover {
+            filter: drop-shadow(2px 0px 0px rgba(0, 0, 0, 1));
+            transform: translateY(4px);
+        }
+    }
+
     .logo {
-        .logo3D {
+        filter: drop-shadow(5px 5px 0px rgba(0, 0, 0, 1));
+        transition: all 0.3s ease;
+        
+        &:hover {
+            filter: drop-shadow(5px 2px 0px rgba(0, 0, 0, 1));
+            transform: translateY(4px);
+        }
+    }
+
+    .navbar-brand {
+        .navbar3D {
             font-weight: bold;
-            font-size: 2.5rem;
-            line-height: 2.5rem;
-            letter-spacing: 0rem;
             @include m.gen3dtext("system");
         }
     }
 
+    .navbartoggler3D {
+        @include m.gen3dbtn($type, $color, 0px, 5px, 0, 0px, outset);
+        transition: all 0.3s ease;
+
+        &:hover {
+            @include m.gen3dbtn($type, $color, 0px, 2px, 0, 0px, outset);
+            transform: translateY(4px);
+        }
+    }
+
     .frmsearch {
-        .inpsearch {
-            @include m.gen3dbtn($type, $color, 0px, 5px, 0, 0px, outset);
-            transition: all 0.3s ease;
-            
-            &:hover {
-                @include m.gen3dbtn($type, $color, 0px, 2px, 0, 0px, outset);
-                transform: translateY(4px);
-            }
+        @include m.gen3dbtn($type, $color, 0px, 5px, 0, 0px, outset);
+        transition: all 0.3s ease;
+        
+        &:hover {
+            @include m.gen3dbtn($type, $color, 0px, 2px, 0, 0px, outset);
+            transform: translateY(4px);
         }
     }
 
@@ -46,15 +71,22 @@
         }
     }
 
+    .offcanvas {
+        .mysuboffcanvas {
+            .btn:last-child {
+                @include m.gen3dbtn($type, $color, 0px, 5px, 0, 0px, outset);
+                transition: all 0.3s ease;
+
+                &:hover {
+                    @include m.gen3dbtn($type, $color, 0px, 2px, 0, 0px, outset);
+                    transform: translateY(4px);
+                }
+            }
+        }
+    }
+
     .cookieconsent3D {
         @include m.gen3dbtn($type, $color, 0px, 5px, 0, 0px, outset);
         transition: all 0.3s ease;
-    }
-
-    .navbar-brand {
-        .navbar3D {
-            font-weight: bold;
-            @include m.gen3dtext("system");
-        }
     }
 }
