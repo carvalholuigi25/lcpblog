@@ -40,7 +40,11 @@
         @if($position == inset) {
             box-shadow: $position $color $offsetx $offsety $blur $spread;
         } @else {
-            box-shadow: $color $offsetx $offsety $blur $spread;
+            @if($color == inherit) {
+                box-shadow: $offsetx $offsety $blur $spread;
+            } @else {
+                box-shadow: $color $offsetx $offsety $blur $spread;
+            }
         }
     } @else {
         filter: drop-shadow($color $offsetx $offsety $blur);

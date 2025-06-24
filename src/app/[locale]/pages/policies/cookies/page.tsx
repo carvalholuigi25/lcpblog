@@ -29,7 +29,7 @@ const CookiesPolicyPage = ({ params }: { params: any }) => {
                     <div className="row">
                         <div className="col-12">
                             <div className="card">
-                                <Image src={getImagePath("logos/logo.svg")} alt={t("txtlogo") ?? "LCPBlog's logo"} width={200} height={200} className="card-img-top img-fluid logo" />
+                                <Image src={getImagePath("logos/logo.svg")} alt={t("txtlogo") ?? "LCPBlog's logo"} width={345} height={79} className="card-img-top img-fluid logo" />
                                 <div className="card-body">
                                     <h3 className="titlep">{t("title") ?? "Cookies Policy"}</h3>
                                     <div className='txtcookies'>

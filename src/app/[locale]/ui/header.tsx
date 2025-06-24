@@ -12,6 +12,7 @@ import { LoginStatus, UserSessionsTypes } from "@applocale/interfaces/user";
 import LoadingComp from "@applocale/components/ui/loadingcomp";
 import ModalSession from "@applocale/components/ui/modals/modalsession";
 import * as config from "@applocale/utils/config";
+import { getImagePath } from "../functions/functions";
 
 const isRounded = config.getConfigSync().isBordered;
 const is3DEffectsEnabled = config.getConfigSync().is3DEffectsEnabled; 
@@ -53,7 +54,9 @@ const HeaderMenu = ({ logInfo, locale, handleLogout }: { logInfo: any, locale: s
     return (
         <div className={"offcanvas offcanvas-start " + roundedcl} tabIndex={-1} id="menuHeader" aria-labelledby="menuHeaderLabel">
             <div className="offcanvas-header">
-                <h5 className={"offcanvas-title" + (is3DEffectsEnabled ? " navbar3D" : "")} id="menuHeaderLabel">LCPBlog</h5>
+                <div className={"offcanvas-title" + (is3DEffectsEnabled ? " navbar3D" : "")} id="menuHeaderLabel">
+                    <Image src={getImagePath("logos/logosm.svg")} alt={"LCPBlog's logo"} width={100} height={100} className="card-img-top img-fluid logosm" />
+                </div>
                 <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label={t("btnclose") ?? "Close"} title={t("btnclose") ?? "Close"}></button>
             </div>
             <div className="offcanvas-body">
@@ -176,7 +179,7 @@ const Header = ({ locale }: { locale: string }) => {
                     <div className={"navbar-container"}></div>
                     <div className="container-fluid">
                         <Link className={"navbar-brand" + (is3DEffectsEnabled ? " navbar3D" : "")} href="/#home" locale={locale ?? getDefLocale()}>
-                            LCP Blog
+                            <Image src={getImagePath("logos/logosm.svg")} alt={"LCPBlog's logo"} width={100} height={100} className="card-img-top img-fluid logosm" />
                         </Link>
                         <button
                             className="navbar-toggler"
@@ -204,7 +207,7 @@ const Header = ({ locale }: { locale: string }) => {
                                         </button>
                                     )}
 
-                                    <button className="btn btn-tp btn-rounded" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuHeader" aria-controls="menuHeader">
+                                    <button className="btn btn-tp btn-rounded btnshowheader" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuHeader" aria-controls="menuHeader">
                                         <i className="bi bi-gear"></i>
                                     </button>
                                 </li>

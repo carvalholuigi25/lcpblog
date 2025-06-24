@@ -1,6 +1,9 @@
 @use "../../mixins.scss" as m;
 
 .effects3D {
+    $type: "box";
+    $color: inherit;
+
     .logo {
         .logo3D {
             font-weight: bold;
@@ -11,10 +14,29 @@
         }
     }
 
-    .btn3Dbox {
-        $type: "box";
-        $color: inherit;
+    .frmsearch {
+        .inpsearch {
+            @include m.gen3dbtn($type, $color, 0px, 5px, 0, 0px, outset);
+            transition: all 0.3s ease;
+            
+            &:hover {
+                @include m.gen3dbtn($type, $color, 0px, 2px, 0, 0px, outset);
+                transform: translateY(4px);
+            }
+        }
+    }
 
+    .btnshowheader {
+        @include m.gen3dbtn($type, $color, 0px, 5px, 0, 0px, outset);
+        transition: all 0.3s ease;
+
+        &:hover {
+            @include m.gen3dbtn($type, $color, 0px, 2px, 0, 0px, outset);
+            transform: translateY(4px);
+        }
+    }
+
+    .btn3Dbox {
         @include m.gen3dbtn($type, $color, 0px, 5px, 0, 0px, outset);
         transition: all 0.3s ease;
 
@@ -25,9 +47,6 @@
     }
 
     .cookieconsent3D {
-        $type: "box";
-        $color: inherit;
-
         @include m.gen3dbtn($type, $color, 0px, 5px, 0, 0px, outset);
         transition: all 0.3s ease;
     }
