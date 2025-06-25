@@ -1,14 +1,14 @@
 "use client";
+import styles from "@applocale/page.module.scss";
 import Image from 'next/image';
 import { Suspense } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { getDefLocale } from "@applocale/helpers/defLocale";
+import { getImagePath } from "./functions/functions";
 import Footer from "@applocale/ui/footer";
 import Header from "@applocale/ui/header";
 import News from "@applocale/components/ui/news";
 import * as config from "@applocale/utils/config";
-import { getImagePath } from "./functions/functions";
-import styles from "@applocale/page.module.scss";
 
 export default function Home() {
   const is3DEffectsEnabled = config.getConfigSync().is3DEffectsEnabled;

@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "clearbuild": "rmdir /s /q .next && next build",
+    "clearbuildlinux": "rm -rf .next && next build",
     "start": "next start",
     "lint": "next lint",
     "api": "cd server/api/v1/lcpblogapi && dotnet run -lp https",

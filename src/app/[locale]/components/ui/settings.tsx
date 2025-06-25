@@ -155,57 +155,76 @@ export default function SettingsComp() {
     }
 
     const onSubmit = async () => {
-        if(formData.theme.length == 0) {
+        try {
+            if(formData.theme.length == 0) {
+                setDataToast({
+                    type: "error",
+                    message: t("form.apimessages.error", { message: "The theme name should be provided." }) ?? `Failed to update the settings! Message: The theme name should be provided.`,
+                    statusToast: true
+                });
+                location.reload();
+                return false;
+            }
+
+            if(formData.language.length == 0) {
+                setDataToast({
+                    type: "error",
+                    message: t("form.apimessages.error", { message: "The language name should be provided." }) ?? `Failed to update the settings! Message: The language name should be provided.`,
+                    statusToast: true
+                });
+                location.reload();
+                return false;
+            }
+
+            await axios({
+                url: `/api/config`,
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json; charset=utf-8',
+                    'Content-Type': 'application/json; charset=utf-8',
+                    "Cache-Control": "no-cache, no-store, must-revalidate",
+                    "Pragma": "no-cache",
+                    "Expires": "0",
+                },
+                params: {
+                    timestamp: Date.now()
+                },
+                data: JSON.stringify(formData)
+            }).then((r) => {
+                console.log(r);
+                saveToStorage("language", ""+formData.language);
+
+                setDataToast({
+                    type: "success",
+                    message: t("form.apimessages.success") ?? "Updated the new settings!",
+                    statusToast: true
+                });
+
+                setTimeout(() => {
+                    router.push("/");
+                }, 1500);
+            }).catch((e) => {
+                console.log(e);
+                const msg = e.response.data.error ?? e.message;
+                
+                setDataToast({
+                    type: "error",
+                    message: t("form.apimessages.error", { message: msg }) ?? `Failed to update the settings! Message: ${msg}`,
+                    statusToast: true
+                });
+
+                setTimeout(() => {
+                    router.push("/");
+                }, 1500);
+            });
+        } catch (error) {
+            console.error("Error updating settings:", error);
             setDataToast({
                 type: "error",
-                message: t("form.apimessages.error", { message: "The theme name should be provided." }) ?? `Failed to update the settings! Message: The theme name should be provided.`,
+                message: t("form.apimessages.error", { message: "An unexpected error occurred while updating the settings." }) ?? "Failed to update the settings! Message: An unexpected error occurred.",
                 statusToast: true
             });
-            location.reload();
-            return false;
         }
-
-        if(formData.language.length == 0) {
-            setDataToast({
-                type: "error",
-                message: t("form.apimessages.error", { message: "The language name should be provided." }) ?? `Failed to update the settings! Message: The language name should be provided.`,
-                statusToast: true
-            });
-            location.reload();
-            return false;
-        }
-
-        await axios({
-            url: `/api/config`,
-            method: 'PUT',
-            headers: {
-                'Accept': 'application/json; charset=utf-8',
-                'Content-Type': 'application/json; charset=utf-8'
-            },
-            data: JSON.stringify(formData)
-        }).then((r) => {
-            console.log(r);
-            saveToStorage("language", ""+formData.language);
-            
-            setDataToast({
-                type: "success",
-                message: t("form.apimessages.success") ?? "Updated the new settings!",
-                statusToast: true
-            });
-
-            router.push("/");
-        }).catch((e) => {
-            console.log(e);
-            const msg = e.response.data.error ?? e.message;
-            
-            setDataToast({
-                type: "error",
-                message: t("form.apimessages.error", { message: msg }) ?? `Failed to update the settings! Message: ${msg}`,
-                statusToast: true
-            });
-
-            router.push("/");
-        });
     }
 
     return (

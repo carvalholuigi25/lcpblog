@@ -2,22 +2,10 @@
 // components/VideoPlayer.tsx
 'use client';
 import { getVideoThumbnailPath } from '@/app/[locale]/functions/functions';
+import { VideoThemePlayerProps, VideoPlayerProps } from '@/app/[locale]/interfaces/videoplayer';
 import React, { useEffect, useRef } from 'react';
 import videojs from 'video.js';
 
-interface VideoPlayerProps {
-  id: number;
-  src: string;
-  type: string;
-  poster: string;
-  options: any;
-}
-
-interface VideoThemePlayerProps {
-  name: string;
-  size: string;
-  bordered: boolean;
-}
 
 const optstheme: VideoThemePlayerProps = {
   name: "lcp",
@@ -45,11 +33,11 @@ const VideoPlayer = ({ id, src, type, poster, options }: VideoPlayerProps) => {
         }], 
         poster: getVideoThumbnailPath(poster),
         youtube: { 
-          "iv_load_policy": 1,
-          "ytControls": 0,
-          "frameborder": 0,
-          "customVars": { 
-            "wmode": "transparent" 
+          iv_load_policy: 1,
+          ytControls: 0,
+          frameborder: 0,
+          customVars: { 
+            wmode: "transparent" 
           }
         }
       };

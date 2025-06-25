@@ -8,6 +8,7 @@ import { Link } from '@/app/i18n/navigation';
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import { onlyAdmins } from "@applocale/functions/functions";
 import { Media } from "@applocale/interfaces/media";
+import { VideoJsOptions } from "@applocale/interfaces/videoplayer";
 import { useParams } from "next/navigation";
 import AdminSidebarDashboard from "@applocale/components/admin/dashboard/adbsidebar";
 import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavbar";
@@ -15,17 +16,7 @@ import Footer from "@applocale/ui/footer";
 import withAuth from "@applocale/utils/withAuth";
 import LoadingComp from "@applocale/components/ui/loadingcomp";
 import VideoPlayer from "@applocale/components/ui/video/player";
-import FetchDataAxios from "@/app/[locale]/utils/fetchdataaxios";
-
-export const videoJsOptions = {
-    controls: true,
-    autoplay: false,
-    responsive: true,
-    posterImage: true,
-    fluid: true,
-    preload: 'auto',
-    sources: [{}]
-};
+import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 
 const AdminVideosById = () => {
     const locale = useLocale();
@@ -37,6 +28,16 @@ const AdminVideosById = () => {
     const [loading, setLoading] = useState(true);
     const [barToggle, setBarToggle] = useState(true);
     const [videos, setVideos] = useState(new Array<Media>());
+
+    const videoJsOptions: VideoJsOptions = {
+        controls: true,
+        autoplay: false,
+        responsive: true,
+        posterImage: true,
+        fluid: true,
+        preload: 'auto',
+        sources: [{}]
+    };
 
     useEffect(() => {
        async function fetchVideos() {
