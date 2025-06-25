@@ -258,7 +258,7 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
                                 {t("lblcontent") ?? "Content"}
                             </label>
                             <div className={styles.sformgroup}>
-                                <MyEditorPost {...register("content")} keyid={myEditorKey} value={formData.content ?? editorState} editable={true} onChange={onChangeEditor} isCleared={isResetedForm} content={data.content} />
+                                <MyEditorPost {...register("content")} keyid={myEditorKey} value={formData.content ?? editorState} editable={true} onChange={onChangeEditor} isCleared={isResetedForm} content={data.content} showStatus={true} />
                             </div>
 
                             {errors.content && ShowAlert("danger", errors.content.message)}
@@ -298,7 +298,7 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
                                 {t("lblslug") ?? "Slug Url:"}
                             </label>
                             <div className={styles.sformgroup}>
-                                <input {...register("slug")} type="text" id="slug" name="slug" className={"form-control slug mt-3 " + styles.sformgroupinp} placeholder={t("inpslug") ?? "Write the slug url here..."} value={formData.slug} onChange={handleChange} />
+                                <input {...register("slug")} type="text" id="slug" name="slug" className={"form-control slug mt-3 " + styles.sformgroupinp} placeholder={t("inpslug") ?? "Write the slug url here..."} value={formData.slug} onChange={handleChange} disabled />
                             </div>
 
                             {errors.slug && ShowAlert("danger", errors.slug.message)}

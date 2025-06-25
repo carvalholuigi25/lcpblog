@@ -60,6 +60,15 @@
     border-bottom-right-radius: 10px;
   }
 
+  .editor-footer {
+    margin-top: 1rem;
+    text-align: right;
+
+    .status {
+      font-size: calc(0.875rem - 0.075rem);
+    }
+  }
+
   .editorresblkhtml, .editorresblkjson {
     display: block;
     overflow: auto;

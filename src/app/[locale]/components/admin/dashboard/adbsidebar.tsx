@@ -11,6 +11,7 @@ import { useTranslations } from "next-intl";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import * as config from "@applocale/utils/config";
+import { getImagePath } from "@/app/[locale]/functions/functions";
 
 export interface AdminSidebarProps {
     sidebarStatus: boolean;
@@ -290,7 +291,9 @@ export default function AdminSidebarDashboard({ sidebarStatus, toggleSidebar, lo
     return ( 
         <ul ref={sidebarRef} className={"nav flex-column nav-pills fixed-top " + astyles.navlinksadmdb + roundedcl + navanimcl} id="navlinksadmdb" data-bs-backdrop="true" data-bs-focus="true" data-bs-keyboard="true" tabIndex={-1} aria-hidden={!!sidebarStatus ? "true" : "false"} role="dialog" onMouseOver={close} onKeyDown={close}>
             <li className={"nav-item mnavbrand d-flex justify-content-between align-items-center mb-3"}>
-                <Link className={"navbar-brand" + (isSidebarSmall ? " hidden" : "")} href="/" locale={locale ?? getDefLocale()}>LCPBlog</Link>
+                <Link className={"navbar-brand" + (isSidebarSmall ? " hidden" : "")} href="/" locale={locale ?? getDefLocale()}>
+                    <Image src={getImagePath("logos/logosm.svg")} alt={"LCPBlog's logo"} width={100} height={100} className="card-img-top img-fluid logosm" />
+                </Link>
                 <button type="button" className={"nav-link " + astyles.btnshside + " btnclosenav"} onClick={toggleSidebar} title={t("btnclose") ?? "Close"}>
                     {!!sidebarStatus ? <i className="bi bi-list"></i> : <i className="bi bi-x-lg"></i>}
                 </button>

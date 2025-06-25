@@ -425,7 +425,7 @@ const AddVideosForm = () => {
                                 {t('lbldesc') ?? "Description"}
                             </label>
                             <div className={styles.sformgroup}>
-                                <MyEditorPost {...register("description")} keyid={myEditorKey} value={formData.description ?? editorState} editable={true} onChange={onChangeEditor} isCleared={isResetedForm} />
+                                <MyEditorPost {...register("description")} keyid={myEditorKey} value={formData.description ?? editorState} editable={true} onChange={onChangeEditor} isCleared={isResetedForm} showStatus={true} />
                             </div>
 
                             {errors.description && ShowAlert("danger", errors.description.message)}

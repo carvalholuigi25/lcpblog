@@ -6,6 +6,7 @@ import { useState } from "react";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import {Link} from '@/app/i18n/navigation';
 import * as config from "@applocale/utils/config";
+import { getImagePath } from "@/app/[locale]/functions/functions";
 
 export interface AdminNavbarProps {
     logInfo: string;
@@ -38,7 +39,9 @@ export default function AdminNavbarDashboard({logInfo, navbarStatus, toggleNavba
     return (
         <nav className={"navbar navbar-expand-lg bg-body-tertiary " + astyles.navbartopadmdb + roundedCl} id="navbartopadmdb">
             <div className="container-fluid">
-                <Link className={"navbar-brand"} href="/" locale={locale ?? getDefLocale()}>LCPBlog</Link>
+                <Link className={"navbar-brand"} href="/" locale={locale ?? getDefLocale()}>
+                    <Image src={getImagePath("logos/logosm.svg")} alt={"LCPBlog's logo"} width={100} height={100} className="card-img-top img-fluid logosm" />
+                </Link>
 
                 <div className="navbar-nav me-auto">
                     <div className={!navbarStatus ? "hidden" : "d-flex justify-content-center"}>

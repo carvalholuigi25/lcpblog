@@ -15,24 +15,26 @@ import { EditorState } from "lexical";
 import { Link } from '@/app/i18n/navigation';
 import { Categories } from "@applocale/interfaces/categories";
 import { getDefLocale } from "@applocale/helpers/defLocale";
+import { DataToastsProps } from "@applocale/interfaces/toasts";
 import Toasts from "@applocale/components/ui/toasts/toasts";
 import ShowAlert from "@applocale/components/ui/alerts";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
 import MyEditorPost from "@applocale/components/ui/editor/myeditorpost";
 import LoadingComp from "@applocale/components/ui/loadingcomp";
 import * as signalR from "@microsoft/signalr";
-import { DataToastsProps } from "@applocale/interfaces/toasts";
 
 const AddNewsForm = () => {
     const t = useTranslations("ui.forms.crud.news.add");
     const tbtn = useTranslations("ui.buttons");
     const locale = useLocale() ?? getDefLocale();
 
+    const [slugId, setSlugId] = useState(0);
+
     const [formData, setFormData] = useState({
         title: "",
         content: "",
         image: "blog.jpg",
-        slug: "/news/1",
+        slug: "/news/" + slugId,
         status: "0",
         isFeatured: false,
         categoryId: 1,
@@ -88,6 +90,30 @@ const AddNewsForm = () => {
             }
         }
 
+        async function getSlugIdByPosts() {
+            if(!slugId) {
+                try {
+                    await FetchDataAxios({
+                        url: `api/posts`,
+                        method: 'get',
+                        reqAuthorize: false
+                    }).then((r) => {
+                        console.log(r.data.data.length+1)
+                        setSlugId(r.data.data.length+1);
+                        setFormData({...formData, ["slug"]: "/news/" + (r.data.data.length+1)});
+                    }).catch((err) => {
+                        console.log(`Failed to fetch slug. Message: ${err}`);
+                        setSlugId(0);
+                        setFormData({...formData, ["slug"]: "/news/" + 1});
+                    });
+                } catch (error) {
+                    console.log(`An error occurred while fetching slug! Message: ${error}`);
+                    setSlugId(0);
+                    setFormData({...formData, ["slug"]: "/news/" + 1});
+                }
+            }
+        }
+
         async function getCategories() {
             try {
                 await FetchDataAxios({
@@ -122,15 +148,17 @@ const AddNewsForm = () => {
             }
         }
 
+        getSlugIdByPosts();
         getCategories();
         getTags();
+
 
         if (!!isResetedForm) {
             setFormData({
                 title: "",
                 content: "",
                 image: "blog.jpg",
-                slug: "/news/1",
+                slug: "/news/" + slugId,
                 status: "0",
                 isFeatured: false,
                 categoryId: 1,
@@ -147,7 +175,7 @@ const AddNewsForm = () => {
         if (!loading) {
             addMyRealData();
         }
-    }, [isResetedForm, logInfo, loading, t]);
+    }, [isResetedForm, logInfo, loading, t, slugId, formData]);
 
     if (loading) {
         return (
@@ -258,7 +286,7 @@ const AddNewsForm = () => {
                                 {t('lblcontent') ?? "Content"}
                             </label>
                             <div className={styles.sformgroup}>
-                                <MyEditorPost {...register("content")} keyid={myEditorKey} value={formData.content ?? editorState} editable={true} onChange={onChangeEditor} isCleared={isResetedForm} />
+                                <MyEditorPost {...register("content")} keyid={myEditorKey} value={formData.content ?? editorState} editable={true} onChange={onChangeEditor} isCleared={isResetedForm} showStatus={true} />
                             </div>
 
                             {errors.content && ShowAlert("danger", errors.content.message)}
@@ -298,7 +326,7 @@ const AddNewsForm = () => {
                                 {t('lblslug') ?? "Slug Url:"}
                             </label>
                             <div className={styles.sformgroup}>
-                                <input {...register("slug")} type="text" id="slug" name="slug" className={"form-control slug mt-3 " + styles.sformgroupinp} placeholder={t("inpslug") ?? "Write the slug url here..."} value={formData.slug} onChange={handleChange} />
+                                <input {...register("slug")} type="text" id="slug" name="slug" className={"form-control slug mt-3 " + styles.sformgroupinp} placeholder={t("inpslug") ?? "Write the slug url here..."} value={formData.slug} onChange={handleChange} disabled />
                             </div>
 
                             {errors.slug && ShowAlert("danger", errors.slug.message)}

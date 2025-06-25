@@ -28,7 +28,11 @@ import { TRANSFORMERS } from '@applocale/components/ui/editor/transformers/markd
 import ToolbarPlugin from '@applocale/components/ui/editor/plugins/toolbarplugins';
 import LoadingComp from '@applocale/components/ui/loadingcomp';
 import ExampleTheme from '@applocale/components/ui/editor/ExampleTheme';
-  
+import { $getRoot } from "lexical";
+
+export let TXTLEN: number = 0;
+export let LINELEN: number = 0;
+
 export const URL_MATCHER =
   /((https?:\/\/(www\.)?)|(www\.))[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;
 
@@ -56,6 +60,7 @@ interface MyLexicalEditorPostProps {
     onChange: (e: any) => void;
     isCleared?: boolean;
     content?: string;
+    showStatus?: boolean;
 }
 
 function MyOnChangePlugin({ onChange }: any) {
@@ -63,12 +68,20 @@ function MyOnChangePlugin({ onChange }: any) {
     useEffect(() => {
         return editor.registerUpdateListener(({ editorState }) => {
             onChange(editorState);
+
+            editorState.read(() => {
+                const root = $getRoot();
+                const txtCount = root.getTextContent().trim().length;
+                const lineCount = root.getChildren().length;
+                TXTLEN = txtCount;
+                LINELEN = lineCount;
+            });
         });
     }, [editor, onChange]);
     return null;
 }
 
-export default function MyEditorPost({ keyid, value, editable, onChange, isCleared, content }: MyLexicalEditorPostProps) {
+export default function MyEditorPost({ keyid, value, editable, onChange, isCleared, content, showStatus }: MyLexicalEditorPostProps) {
     const t = useTranslations("ui.editors");
     const objeditp = value.includes('children') ? value : '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"' + value + '","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}';
     const objeditpem = '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}';
@@ -144,6 +157,12 @@ export default function MyEditorPost({ keyid, value, editable, onChange, isClear
                                 {editable && (getPlugins())}
                                 <MyOnChangePlugin onChange={onChange} />
                             </div>
+
+                            {showStatus && (
+                                <div className="editor-footer">
+                                    <small className='status'>Nº of Lines: {LINELEN} || Nº of Words: {TXTLEN}</small>
+                                </div>
+                            )}
                         </div>
                     </LexicalComposer>
                 </Suspense>

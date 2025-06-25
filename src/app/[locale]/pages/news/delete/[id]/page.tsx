@@ -24,22 +24,45 @@ export default function DeleteNews({ params }: { params: any }) {
 
   useEffect(() => {
     async function fetchNews() {
-      const ndata = await FetchDataAxios({
-        url: 'api/posts/' + id,
-        method: 'get',
-        reqAuthorize: false
-      });
+      try {
+        const ndata = await FetchDataAxios({
+          url: 'api/posts/' + id,
+          method: 'get',
+          reqAuthorize: false
+        });
 
-      const newsdata = ndata.data ?? ndata;
-      setNews(JSON.parse(JSON.stringify(newsdata)));
-      setLoading(false);
+        const newsdata = ndata.data ?? ndata;
+        setNews(JSON.parse(JSON.stringify(newsdata)));
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching news:", error);
+        setNews(null as unknown as Posts);
+        setLoading(false);
+      }
     }
+
     fetchNews()
   }, [id, loading]);
 
   if (loading) {
     return (
       <LoadingComp type="icon" icontype="ring" />
+    );
+  }
+
+  if (!news) {
+    return (
+      <div className='col-12'>
+        <div className="card p-3 text-center">
+          <div className='card-body'>
+            <i className="bi-exclamation-triangle" style={{ fontSize: "4rem" }}></i>
+            <p>News not found</p>
+            {pathname !== "/" && (
+              <Link className='btn btn-primary btn-rounded card-btn mt-3' href={`/`} locale={locale ?? getDefLocale()}>Back</Link>
+            )}
+          </div>
+        </div>
+      </div>
     );
   }
 

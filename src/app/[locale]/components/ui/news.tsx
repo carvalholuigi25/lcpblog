@@ -321,7 +321,7 @@ export default function News({ cid, pid, tagname, locale }: NewsProps) {
                                                 <h5 className="card-title text-center mt-3">{newsi.title}</h5>
 
                                                 {pid != -1 && (
-                                                    <MyEditorPost keyid={myEditorKey} value={newsi.content} editable={false} onChange={() => { }} isCleared={false} />
+                                                    <MyEditorPost keyid={myEditorKey} value={newsi.content} editable={false} onChange={() => { }} isCleared={false} showStatus={false} />
                                                 )}
 
                                                 {pid == -1 && (
