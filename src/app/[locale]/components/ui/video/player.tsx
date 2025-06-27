@@ -45,6 +45,13 @@ const VideoPlayer = ({ id, src, type, poster, options }: VideoPlayerProps) => {
       playerRef.current = videojs(videoRef.current, datasetup, () => {
         console.log('Video.js player is ready');
       });
+    } else {
+      playerRef.current?.src({
+        src: src,
+        type: type
+      });
+      playerRef.current?.poster(getVideoThumbnailPath(poster));
+      playerRef.current?.load();
     }
 
     return () => {

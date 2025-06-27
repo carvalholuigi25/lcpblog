@@ -10,6 +10,7 @@
     "start": "next start",
     "lint": "next lint",
     "api": "cd server/api/v1/lcpblogapi && dotnet run -lp https",
+    "apiprod": "cd server/api/v1/lcpblogapi && dotnet run -lp production",
     "wapi": "cd server/api/v1/lcpblogapi && dotnet watch run -lp https",
     "wapiprod": "cd server/api/v1/lcpblogapi && dotnet watch run -lp production",
     "apitestunits": "cd server/api/v1/lcpblogapi.tests && dotnet test",
@@ -20,7 +21,7 @@
     "analyze": "concurrently \"npm run wapiprod\" \"cross-env ANALYZE=true npm run build\"",
     "startall": "concurrently \"npm run api\" \"npm run dev\"",
     "startwall": "concurrently \"npm run wapi\" \"npm run dev\"",
-    "startprodall": "concurrently \"npm run api\" \"npm run start\"",
+    "startprodall": "concurrently \"npm run apiprod\" \"npm run start\"",
     "startprodwall": "concurrently \"npm run wapiprod\" \"npm run start\"",
     "updatedeps": "ncu -u",
     "clear_cache": "npm cache clean --force && npm cache verify"

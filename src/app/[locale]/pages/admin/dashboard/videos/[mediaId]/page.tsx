@@ -15,8 +15,22 @@ import AdminNavbarDashboard from "@applocale/components/admin/dashboard/adbnavba
 import Footer from "@applocale/ui/footer";
 import withAuth from "@applocale/utils/withAuth";
 import LoadingComp from "@applocale/components/ui/loadingcomp";
-import VideoPlayer from "@applocale/components/ui/video/player";
 import FetchDataAxios from "@applocale/utils/fetchdataaxios";
+import dynamic from "next/dynamic";
+
+const VideoPlayer = dynamic(() => import("@applocale/components/ui/video/player"), {
+  ssr: false, // Disable SSR for this component
+});
+
+const videoJsOptions: VideoJsOptions = {
+    controls: true,
+    autoplay: false,
+    responsive: true,
+    posterImage: true,
+    fluid: true,
+    preload: 'auto',
+    sources: [{}]
+};
 
 const AdminVideosById = () => {
     const locale = useLocale();
@@ -29,22 +43,14 @@ const AdminVideosById = () => {
     const [barToggle, setBarToggle] = useState(true);
     const [videos, setVideos] = useState(new Array<Media>());
 
-    const videoJsOptions: VideoJsOptions = {
-        controls: true,
-        autoplay: false,
-        responsive: true,
-        posterImage: true,
-        fluid: true,
-        preload: 'auto',
-        sources: [{}]
-    };
+  
 
     useEffect(() => {
        async function fetchVideos() {
             const data = await FetchDataAxios({
                 url: 'api/medias/'+mediaId,
                 method: 'get',
-                reqAuthorize:  process.env.NODE_ENV === "production" ? true : false
+                reqAuthorize: process.env.NODE_ENV === "production" ? true : false
             });
 
             const ndata: Media[] = [];
