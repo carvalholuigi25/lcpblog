@@ -1,38 +1,45 @@
 ## LCP Blog
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+### About
 
-## Getting Started
+![LCP Blog Logo](https://github.com/carvalholuigi25/lcpblog/blob/main/public/images/logos/logo.svg)
 
-First, run the development server:
+LCPBlog is a blog about giving news and status of my LCP Projects to everyone.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Create, update and delete news / comments and others
+- Upload images / videos
+- Search posts
+- Change theme and language
+- Etc...
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### List of commands
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+|     Command Name         |      Description      |
+|     :---:                |      :---:      | 
+|     dev                  |      Starts the dev environment      |
+|     build                |      Generates build for production      |
+|     clearbuild           |      Removes the existent build and generates a new one      |
+|     start                |      Starts the production environment      |
+|     lint                 |      Checks and fixes the typings of typescript / javascript files      |
+|     api                  |      Starts the api server for dev environment      |
+|     apiprod              |      Starts the api server for production environment      |
+|     wapi                 |      Starts and watches any changes for the api server in dev environment      |
+|     wapiprod             |      Starts and watches any changes for the api server in production environment      |
+|     apitestunits         |      Checks the test units for the api server      |
+|     apicodecoverage      |      Checks and generates the code coverage for the api server      |
+|     apicodecoveragehtml  |      Checks and generates the code coverage as html page for the api server      |
+|     restore_api          |      Cleans and rebuild the api project      |
+|     trust_ssl_api        |      Cleans any old ssl certificates and trust them for new certificates      |
+|     startall             |      Starts the api server and project as dev environment      |
+|     startwall            |      Starts the api server, watches and project in dev environment      |
+|     startprodall         |      Starts the api server and project in production environment      |
+|     startprodwall        |      Starts the api server and project and watch in production environment      |
+|     updatedeps           |      Updates all dependencies to their latest versions      |
+|     clear_cache          |      Verify and removes all the cache of project      |
 
-## Learn More
+### Feedback
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Do you to want to contribute of my project? 
+Create an [https://github.com/carvalholuigi25/lcpblog/issues](issue) or send a [email to me](mailto:luiscarvalho239@gmail.com).
