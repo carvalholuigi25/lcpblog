@@ -22,7 +22,7 @@ export default function AllUsersPage({ params }: { params: any }) {
       const data = await FetchData({
         url: 'api/users',
         method: 'get',
-        reqAuthorize: true
+        reqAuthorize:  process.env.NODE_ENV === "production" ? true : false
       });
 
       if(data.data) {

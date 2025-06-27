@@ -73,22 +73,22 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
             const data = await FetchMultipleData([{
                 url: 'api/posts'+params,
                 method: 'get',
-                reqAuthorize: false
+                reqAuthorize:  process.env.NODE_ENV === "production" ? true : false
             },
             {
                 url: 'api/categories',
                 method: 'get',
-                reqAuthorize: false
+                reqAuthorize:  process.env.NODE_ENV === "production" ? true : false
             },
             {
                 url: 'api/tags',
                 method: 'get',
-                reqAuthorize: false
+                reqAuthorize:  process.env.NODE_ENV === "production" ? true : false
             },
             {
                 url: 'api/users',
                 method: 'get',
-                reqAuthorize: true
+                reqAuthorize:  process.env.NODE_ENV === "production" ? true : false
             }]);
 
             if (data[0].data) {
@@ -119,7 +119,7 @@ const AdminHomeDashboard = ({ locale }: { locale?: string }) => {
             const data = await FetchMultipleData([{
                 url: 'api/schedules',
                 method: 'get',
-                reqAuthorize: false
+                reqAuthorize:  process.env.NODE_ENV === "production" ? true : false
             }]);
 
             if(data[0].data) {

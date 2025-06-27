@@ -44,7 +44,7 @@ const AdminCategories = () => {
             const data = await FetchData({
                 url: 'api/categories' + params,
                 method: 'get',
-                reqAuthorize: true
+                reqAuthorize:  process.env.NODE_ENV === "production" ? true : false
             });
 
             if (data.data) {

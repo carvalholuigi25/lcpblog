@@ -35,7 +35,7 @@ export const BubbleChart = ({ theme }: { theme: string }) => {
             const data = await FetchData({
                 url: `api/posts/dataset?lang=${locale}`,
                 method: 'get',
-                reqAuthorize: false
+                reqAuthorize:  process.env.NODE_ENV === "production" ? true : false
             });
 
             setChdata(JSON.parse(JSON.stringify(data)));

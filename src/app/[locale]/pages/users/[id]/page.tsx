@@ -46,12 +46,12 @@ export default function UserPage() {
         {
           url: `api/users${idq}`,
           method: "get",
-          reqAuthorize: true,
+          reqAuthorize:  process.env.NODE_ENV === "production" ? true : false,
         },
         {
           url: `api/posts/users${idq}${params}`,
           method: "get",
-          reqAuthorize: true,
+          reqAuthorize:  process.env.NODE_ENV === "production" ? true : false,
         },
       ]);
 

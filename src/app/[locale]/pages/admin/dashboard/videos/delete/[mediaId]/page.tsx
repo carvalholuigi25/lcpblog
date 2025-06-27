@@ -34,7 +34,7 @@ const AdminDeleteVideos = () => {
             const data = await FetchData({
                 url: 'api/medias/'+mediaId,
                 method: 'get',
-                reqAuthorize: false
+                reqAuthorize:  process.env.NODE_ENV === "production" ? true : false
             });
 
             if (data) {

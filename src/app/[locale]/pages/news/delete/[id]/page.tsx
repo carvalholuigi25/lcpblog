@@ -28,7 +28,7 @@ export default function DeleteNews({ params }: { params: any }) {
         const ndata = await FetchDataAxios({
           url: 'api/posts/' + id,
           method: 'get',
-          reqAuthorize: false
+          reqAuthorize:  process.env.NODE_ENV === "production" ? true : false
         });
 
         const newsdata = ndata.data ?? ndata;

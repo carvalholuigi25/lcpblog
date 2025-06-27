@@ -30,7 +30,7 @@ export default function EditCategories({ params }: { params: any }) {
       const ndata = await FetchDataAxios({
         url: 'api/categories/' + categoryId,
         method: 'get',
-        reqAuthorize: false
+        reqAuthorize:  process.env.NODE_ENV === "production" ? true : false
       });
 
       const categoriesdata = ndata.data ?? ndata;

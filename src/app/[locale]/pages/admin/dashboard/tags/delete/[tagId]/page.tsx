@@ -29,7 +29,7 @@ export default function DeleteTags({ params }: { params: any }) {
       const ndata = await FetchDataAxios({
         url: 'api/tags/' + tagId,
         method: 'get',
-        reqAuthorize: false
+        reqAuthorize:  process.env.NODE_ENV === "production" ? true : false
       });
 
       const tagsdata = ndata.data ?? ndata;

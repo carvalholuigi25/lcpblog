@@ -49,7 +49,7 @@ const AdminVideos = () => {
             const data = await FetchData({
                 url: 'api/medias' + params,
                 method: 'get',
-                reqAuthorize: false
+                reqAuthorize:  process.env.NODE_ENV === "production" ? true : false
             });
 
             if (data.data) {

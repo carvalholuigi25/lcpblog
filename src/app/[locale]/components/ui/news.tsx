@@ -107,22 +107,22 @@ export default function News({ cid, pid, tagname, locale }: NewsProps) {
                 {
                     url: `api/posts${params}`,
                     method: 'get',
-                    reqAuthorize: false
+                    reqAuthorize:  process.env.NODE_ENV === "production" ? true : false
                 },
                 {
                     url: 'api/categories',
                     method: 'get',
-                    reqAuthorize: false
+                    reqAuthorize:  process.env.NODE_ENV === "production" ? true : false
                 },
                 {
                     url: 'api/users',
                     method: 'get',
-                    reqAuthorize: false
+                    reqAuthorize:  process.env.NODE_ENV === "production" ? true : false
                 },
                 {
                     url: `api/comments/posts/${pid}`,
                     method: 'get',
-                    reqAuthorize: false
+                    reqAuthorize:  process.env.NODE_ENV === "production" ? true : false
                 }
             ]);
 

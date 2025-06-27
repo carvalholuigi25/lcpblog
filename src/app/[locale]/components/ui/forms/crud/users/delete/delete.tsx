@@ -45,7 +45,7 @@ const DeleteUsersForm = ({ id, data }: { id: number, data: User }) => {
                 url: `api/users/${id}`,
                 method: 'delete',
                 data: data,
-                reqAuthorize: true,
+                reqAuthorize:  process.env.NODE_ENV === "production" ? true : false,
             }).then(async (r) => {
                 console.log(r);
 

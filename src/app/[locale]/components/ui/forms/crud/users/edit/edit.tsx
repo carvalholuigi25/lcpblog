@@ -98,7 +98,7 @@ const EditUsersForm = ({id, data}: {id: number, data: User}) => {
                 url: `api/users/${id}`,
                 method: 'put',
                 data: formData,
-                reqAuthorize: true,
+                reqAuthorize:  process.env.NODE_ENV === "production" ? true : false,
             }).then(async (r) => {
                 console.log(r);
                 setDataToast({ type: "success", message: t("messages.success", {id}) ?? `The user (id: ${id}) has been updated sucessfully!`, statusToast: true });

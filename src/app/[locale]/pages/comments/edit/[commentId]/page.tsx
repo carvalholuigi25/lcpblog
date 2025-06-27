@@ -25,7 +25,7 @@ export default function EditComments() {
       const ndata = await FetchDataAxios({
         url: 'api/comments/' + commentId,
         method: 'get',
-        reqAuthorize: false
+        reqAuthorize:  process.env.NODE_ENV === "production" ? true : false
       });
 
       const Commentsdata = ndata.data ?? ndata;

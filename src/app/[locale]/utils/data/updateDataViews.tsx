@@ -5,7 +5,7 @@ export const updateDataViews = async (data: PostsViews) => {
     return await FetchDataAxios({
         url: `api/posts/views/${data.postId}`,
         method: 'put',
-        reqAuthorize: false,
+        reqAuthorize:  process.env.NODE_ENV === "production" ? true : false,
         data: data
     });
 }

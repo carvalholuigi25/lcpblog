@@ -68,12 +68,12 @@ export default function Comments({ userId, postId, categoryId, isCommentFormShow
                 {
                     url: `api/comments/posts/${postId}`,
                     method: 'get',
-                    reqAuthorize: false
+                    reqAuthorize:  process.env.NODE_ENV === "production" ? true : false
                 },
                 {
                     url: `api/users`,
                     method: 'get',
-                    reqAuthorize: false
+                    reqAuthorize:  process.env.NODE_ENV === "production" ? true : false
                 }
             ]);
 
@@ -130,7 +130,7 @@ export default function Comments({ userId, postId, categoryId, isCommentFormShow
                 url: `api/comments`,
                 method: 'post',
                 data: formData,
-                reqAuthorize: false
+                reqAuthorize:  process.env.NODE_ENV === "production" ? true : false
             }).then(async (r) => {
                 console.log(r);
                 setDataToast({type: "success", message: t("apimessages.success") ?? "The new comment has been added sucessfully!", statusToast: true});
@@ -171,7 +171,7 @@ export default function Comments({ userId, postId, categoryId, isCommentFormShow
             await FetchDataAxios({
                 url: `api/comments/posts/${commentId}/${postId}?status=${status}`,
                 method: 'put',
-                reqAuthorize: true,
+                reqAuthorize:  process.env.NODE_ENV === "production" ? true : false,
                 data: {
                     postId: postId,
                     commentId: commentId,

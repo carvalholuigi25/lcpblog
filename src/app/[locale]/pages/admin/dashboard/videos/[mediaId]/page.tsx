@@ -44,7 +44,7 @@ const AdminVideosById = () => {
             const data = await FetchDataAxios({
                 url: 'api/medias/'+mediaId,
                 method: 'get',
-                reqAuthorize: false
+                reqAuthorize:  process.env.NODE_ENV === "production" ? true : false
             });
 
             const ndata: Media[] = [];

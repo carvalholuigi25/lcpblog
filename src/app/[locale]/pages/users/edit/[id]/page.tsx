@@ -24,7 +24,7 @@ export default function EditUsers({ params }: { params: any }) {
       const ndata = await FetchDataAxios({
         url: 'api/users/' + id,
         method: 'get',
-        reqAuthorize: false
+        reqAuthorize:  process.env.NODE_ENV === "production" ? true : false
       });
 
       const usersdata = ndata.data ?? ndata;

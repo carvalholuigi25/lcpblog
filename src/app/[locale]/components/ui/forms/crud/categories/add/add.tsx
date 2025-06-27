@@ -124,7 +124,7 @@ const AddCategoriesForm = () => {
                     slug: getValues("slug")!,
                     status: formData.status
                 },
-                reqAuthorize: false
+                reqAuthorize:  process.env.NODE_ENV === "production" ? true : false
             }).then(async (r) => {
                 console.log(r);
                 setDataToast({type: "success", message: t("messages.success") ?? "The new category has been added sucessfully!", statusToast: true});

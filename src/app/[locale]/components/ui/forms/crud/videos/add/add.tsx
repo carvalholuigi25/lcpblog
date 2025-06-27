@@ -201,7 +201,7 @@ const AddVideosForm = () => {
                     ["typeMime"]: getDefMimeType(getValues("typeUrl"), getDefSrc(getValues("typeUrl"))),
                     ["src"]: getValues("src")
                 },
-                reqAuthorize: false
+                reqAuthorize:  process.env.NODE_ENV === "production" ? true : false
             }).then(async (r) => {
                 console.log(r);
                 setMyEditorKey(Date.now().toString());

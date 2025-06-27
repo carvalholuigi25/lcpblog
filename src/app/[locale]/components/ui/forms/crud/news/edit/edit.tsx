@@ -93,7 +93,7 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
                 await FetchDataAxios({
                     url: `api/categories`,
                     method: 'get',
-                    reqAuthorize: false
+                    reqAuthorize:  process.env.NODE_ENV === "production" ? true : false
                 }).then((r) => {
                     setListCategories(r.data.data ?? r.data);
                 }).catch((err) => {
@@ -110,7 +110,7 @@ const EditNewsForm = ({id, data}: {id: number, data: Posts}) => {
                 await FetchDataAxios({
                     url: `api/tags`,
                     method: 'get',
-                    reqAuthorize: false
+                    reqAuthorize:  process.env.NODE_ENV === "production" ? true : false
                 }).then((r) => {
                     console.log("Fetched tags successfully");
                     setListTags(r.data.data ?? r.data);

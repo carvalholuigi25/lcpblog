@@ -184,7 +184,7 @@ export default function SettingsComp() {
                     'Content-Type': 'application/json; charset=utf-8',
                     "Cache-Control": "no-cache, no-store, must-revalidate",
                     "Pragma": "no-cache",
-                    "Expires": "0",
+                    "Expires": "0"
                 },
                 params: {
                     timestamp: Date.now()

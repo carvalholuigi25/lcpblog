@@ -90,7 +90,7 @@ const AddUsersForm = () => {
                 url: `api/users`,
                 method: 'post',
                 data: formData,
-                reqAuthorize: false
+                reqAuthorize:  process.env.NODE_ENV === "production" ? true : false
             }).then(async (r) => {
                 console.log(r);
                 setDataToast({type: "success", message: t("messages.success") ?? "The user has been added sucessfully!", statusToast: true});

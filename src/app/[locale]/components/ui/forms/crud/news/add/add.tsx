@@ -96,7 +96,7 @@ const AddNewsForm = () => {
                     await FetchDataAxios({
                         url: `api/posts`,
                         method: 'get',
-                        reqAuthorize: false
+                        reqAuthorize:  process.env.NODE_ENV === "production" ? true : false
                     }).then((r) => {
                         console.log(r.data.data.length+1)
                         setSlugId(r.data.data.length+1);
@@ -119,7 +119,7 @@ const AddNewsForm = () => {
                 await FetchDataAxios({
                     url: `api/categories`,
                     method: 'get',
-                    reqAuthorize: false
+                    reqAuthorize:  process.env.NODE_ENV === "production" ? true : false
                 }).then((r) => {
                     console.log(t("messages.success") ?? "Fetched categories successfully!");
                     setListCategories(r.data.data ?? r.data);
@@ -136,7 +136,7 @@ const AddNewsForm = () => {
                 await FetchDataAxios({
                     url: `api/tags`,
                     method: 'get',
-                    reqAuthorize: false
+                    reqAuthorize:  process.env.NODE_ENV === "production" ? true : false
                 }).then((r) => {
                     console.log("Fetched tags successfully");
                     setListTags(r.data.data ?? r.data);
@@ -210,7 +210,7 @@ const AddNewsForm = () => {
                 url: `api/posts`,
                 method: 'post',
                 data: formData,
-                reqAuthorize: false
+                reqAuthorize:  process.env.NODE_ENV === "production" ? true : false
             }).then(async (r) => {
                 console.log(r);
                 setMyEditorKey(Date.now().toString());

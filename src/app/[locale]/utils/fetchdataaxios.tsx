@@ -17,7 +17,8 @@ export function getHeadersAxios(isReqAuthorize: boolean = false, methodReq: stri
         "Authorization": !!isReqAuthorize && getFromStorage("logInfo") ? `Bearer ${JSON.parse(getFromStorage("logInfo")!)[0].jwtToken}` : "",
         "Cache-Control": !!enableCacheNoStore && !["get", "post", "put", "delete"].includes(methodReq) ? "no-cache, no-store, must-revalidate" : "",
         "Pragma": !!enableCacheNoStore && !["get", "post", "put", "delete"].includes(methodReq) ? "no-cache" : "",
-        "Expires": !!enableCacheNoStore && !["get", "post", "put", "delete"].includes(methodReq) ? "0" : ""
+        "Expires": !!enableCacheNoStore && !["get", "post", "put", "delete"].includes(methodReq) ? "0" : "",
+        "crossOrigin": true,
     }
 }
 

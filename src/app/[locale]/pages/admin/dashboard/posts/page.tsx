@@ -48,7 +48,7 @@ const AdminPosts = () => {
             const data = await FetchData({
                 url: 'api/posts' + params,
                 method: 'get',
-                reqAuthorize: false
+                reqAuthorize:  process.env.NODE_ENV === "production" ? true : false
             });
 
             if (data.data) {

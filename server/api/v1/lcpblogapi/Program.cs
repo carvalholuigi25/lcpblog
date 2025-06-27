@@ -187,7 +187,7 @@ else
 
 app.UseCors(x => x
     .SetIsOriginAllowed(origin => true)
-    .WithOrigins("https://localhost:5000", "http://localhost:5001", "http://localhost:3000", "https://localhost:3000")
+    .WithOrigins("https://localhost:5000", "http://localhost:5000", "https://localhost:5001", "http://localhost:5001", "https://localhost:3000", "http://localhost:3000")
     .AllowAnyHeader()
     .AllowAnyMethod()
     .AllowCredentials());

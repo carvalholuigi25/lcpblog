@@ -85,22 +85,22 @@ const Archive = ({ params }: { params: any }) => {
                 {
                     url: `api/posts${params}`,
                     method: 'get',
-                    reqAuthorize: false
+                    reqAuthorize:  process.env.NODE_ENV === "production" ? true : false
                 },
                 {
                     url: 'api/categories',
                     method: 'get',
-                    reqAuthorize: false
+                    reqAuthorize:  process.env.NODE_ENV === "production" ? true : false
                 },
                 {
                     url: 'api/users',
                     method: 'get',
-                    reqAuthorize: false
+                    reqAuthorize:  process.env.NODE_ENV === "production" ? true : false
                 },
                 {
                     url: `api/comments`,
                     method: 'get',
-                    reqAuthorize: false
+                    reqAuthorize:  process.env.NODE_ENV === "production" ? true : false
                 }
             ]);
 
