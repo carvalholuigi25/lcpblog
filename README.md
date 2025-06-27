@@ -42,4 +42,4 @@ LCPBlog is a blog about giving news and status of my LCP Projects to everyone.
 ### Feedback
 
 Do you to want to contribute of my project? 
-Create an [https://github.com/carvalholuigi25/lcpblog/issues](issue) or send a [email to me](mailto:luiscarvalho239@gmail.com).
+Create an [issue](https://github.com/carvalholuigi25/lcpblog/issues) or send a [email to me](mailto:luiscarvalho239@gmail.com).
