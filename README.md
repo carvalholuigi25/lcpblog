@@ -1,12 +1,12 @@
-## LCP Blog
+# LCP Blog
 
-### About
+## About
 
 ![LCP Blog Logo](https://github.com/carvalholuigi25/lcpblog/blob/main/public/images/logos/logo.svg)
 
 LCPBlog is a blog about giving news and status of my LCP Projects to everyone.
 
-### Features
+## Features
 
 - Create, update and delete news / comments and others
 - Upload images / videos
@@ -14,10 +14,10 @@ LCPBlog is a blog about giving news and status of my LCP Projects to everyone.
 - Change theme and language
 - Etc...
 
-### List of commands
+## List of commands
 
 |     Command Name         |      Description      |
-|     :---:                |      :---:      | 
+|     :---:                |      :---:      |
 |     dev                  |      Starts the dev environment      |
 |     build                |      Generates build for production      |
 |     clearbuild           |      Removes the existent build and generates a new one      |
@@ -39,7 +39,7 @@ LCPBlog is a blog about giving news and status of my LCP Projects to everyone.
 |     updatedeps           |      Updates all dependencies to their latest versions      |
 |     clear_cache          |      Verify and removes all the cache of project      |
 
-### Feedback
+## Feedback
 
-Do you to want to contribute of my project? 
+Do you to want to contribute of my project?
 Create an [issue](https://github.com/carvalholuigi25/lcpblog/issues) or send a [email to me](mailto:luiscarvalho239@gmail.com).

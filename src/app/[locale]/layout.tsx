@@ -9,7 +9,7 @@ import { getDefLocale } from "@applocale/helpers/defLocale";
 
 export const metadata: Metadata = {
   title: "LCP Blog",
-  description: "Created by Luis Carvalho @2025 - LCP",
+  description: `Created by Luis Carvalho &copy;${new Date().getFullYear()} - LCP`,
 };
 
 export default async function LocaleLayout({

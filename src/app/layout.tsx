@@ -6,9 +6,9 @@ import { getLocale, getMessages } from "next-intl/server";
 import { headers } from "next/headers";
 import { getLangDir } from "rtl-detect";
 import { getDefLocale } from "@applocale/helpers/defLocale";
+import { getIs3DEffectsEnabledSetting, getLangSetting, getThemeSetting } from "./[locale]/hooks/settingsvals";
 import CookieConsent from "@applocale/components/ui/cookie/cookieconsent";
 import Dependencies from "@applocale/dependencies/dependencies";
-import * as config from "@applocale/utils/config";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -39,7 +39,7 @@ const getPadPagCl = (pathname: string) => {
 
 export const metadata: Metadata = {
   title: "LCP Blog",
-  description: "Created by Luis Carvalho @2025 - LCP",
+  description: `Created by Luis Carvalho &copy;${new Date().getFullYear()} - LCP`,
 };
 
 export default async function RootLayout({
@@ -48,11 +48,11 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const qheaders = await headers();
-  const langdef = (await config.getConfig()).language;
-  const themeCl = (await config.getConfig()).theme;
-  const effects3DCl = (await config.getConfig()).is3DEffectsEnabled ? "effects3D" : "";
-  const locale = await getLocale() ?? getDefLocale() ?? langdef;
+  const locale = await getLocale() ?? getDefLocale() ?? getLangSetting();
   const messages = await getMessages({ locale: locale });
+  const themeCl = getThemeSetting();
+  const effects3DCl = getIs3DEffectsEnabledSetting() ? "effects3D" : "";
+
   const pathname = qheaders.get("x-current-path") || "";
   const dir = getLangDir(locale) ?? "ltr";
   const padpagCl = getPadPagCl(pathname);

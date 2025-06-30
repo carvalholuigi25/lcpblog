@@ -10,8 +10,8 @@ import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
-import * as config from "@applocale/utils/config";
 import { getImagePath } from "@/app/[locale]/functions/functions";
+import { getIsBorderedSetting } from "@/app/[locale]/hooks/settingsvals";
 
 export interface AdminSidebarProps {
     sidebarStatus: boolean;
@@ -128,7 +128,7 @@ export default function AdminSidebarDashboard({ sidebarStatus, toggleSidebar, lo
     const isSidebarSmallEnabled = true;
     const isAnimated = true;
     const animType = "original";
-    const isRounded = config.getConfigSync().isBordered;
+    const isRounded = getIsBorderedSetting();
     const sidebarRef = useRef<any>(null);
 
     const mlinks: any = [];

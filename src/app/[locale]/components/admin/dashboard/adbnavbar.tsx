@@ -5,8 +5,8 @@ import astyles from "@applocale/styles/adminstyles.module.scss";
 import { useState } from "react";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import {Link} from '@/app/i18n/navigation';
-import * as config from "@applocale/utils/config";
 import { getImagePath } from "@/app/[locale]/functions/functions";
+import { getIsBorderedSetting } from "@/app/[locale]/hooks/settingsvals";
 
 export interface AdminNavbarProps {
     logInfo: string;
@@ -16,7 +16,7 @@ export interface AdminNavbarProps {
 }
 
 export default function AdminNavbarDashboard({logInfo, navbarStatus, toggleNavbar, locale}: AdminNavbarProps) {
-    const isRounded = config.getConfigSync().isBordered;
+    const isRounded = getIsBorderedSetting();
     const roundedCl = isRounded ? " roundednavbar" : "";
     const [isNavbarToggled, setisNavbarToggled] = useState(false);
 

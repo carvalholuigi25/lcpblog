@@ -9,19 +9,19 @@ import { getDefLocale } from '@applocale/helpers/defLocale';
 import { Link } from '@/app/i18n/navigation';
 import { useTranslations } from "next-intl";
 import { LoginStatus, UserSessionsTypes } from "@applocale/interfaces/user";
+import { getIs3DEffectsEnabledSetting, getIsBorderedSetting } from "../hooks/settingsvals";
+import { getImagePath } from "../functions/functions";
 import LoadingComp from "@applocale/components/ui/loadingcomp";
 import ModalSession from "@applocale/components/ui/modals/modalsession";
-import * as config from "@applocale/utils/config";
-import { getImagePath } from "../functions/functions";
 
-const isRounded = config.getConfigSync().isBordered;
-const is3DEffectsEnabled = config.getConfigSync().is3DEffectsEnabled; 
 const SearchComponent = dynamic(() => import('./search'), { ssr: false })
 
 const HeaderMenu = ({ logInfo, locale, handleLogout }: { logInfo: any, locale: string, handleLogout: any }) => {
     const t = useTranslations('ui.offcanvas');
     const [loading, setLoading] = useState(true);
     const [loadLinkAuth, setLoadLinkAuth] = useState(false);
+    const is3DEffectsEnabled = getIs3DEffectsEnabledSetting(); 
+    const isRounded = getIsBorderedSetting();
     const roundedcl = isRounded ? "rounded" : "";
 
     useEffect(() => {
@@ -113,7 +113,10 @@ const HeaderMenu = ({ logInfo, locale, handleLogout }: { logInfo: any, locale: s
 }
 
 const Header = ({ locale }: { locale: string }) => {
+    const is3DEffectsEnabled = getIs3DEffectsEnabledSetting(); 
+    const isRounded = getIsBorderedSetting();
     const roundedcl = isRounded ? "rounded" : "";
+    
     const [isNavbarToggled, setisNavbarToggled] = useState(false);
     const [showSessionModal, setShowSessionModal] = useState(false);
     const [logStatus, setLogStatus] = useState<LoginStatus>();

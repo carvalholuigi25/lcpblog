@@ -16,6 +16,15 @@ import ShowAlert from "@applocale/components/ui/alerts";
 import Toasts from "@applocale/components/ui/toasts/toasts";
 import LoadingComp from "@applocale/components/ui/loadingcomp";
 import * as config from "@applocale/utils/config";
+import { getDefaultSettings, setDefaultSettings } from "../../hooks/settingsvals";
+
+export interface Settings {
+    theme: string;
+    language: string;
+    isBordered: boolean;
+    is3DEffectsEnabled: boolean;
+    isAutoSaveEnabled: boolean;
+}
 
 export default function SettingsComp() {
     const t = useTranslations("ui.settings");
@@ -38,21 +47,13 @@ export default function SettingsComp() {
         isBordered: config.getConfigSync().isBordered ?? true,
         is3DEffectsEnabled: config.getConfigSync().is3DEffectsEnabled ?? false,
         isAutoSaveEnabled: config.getConfigSync().isAutoSaveEnabled ?? false
-    });
+    } as Settings);
 
     const [dataToast, setDataToast] = useState({
         type: "",
         message: "",
         statusToast: false
     } as DataToastsProps);
-
-    const {
-        register,
-        handleSubmit,
-        formState: { errors, isSubmitting },
-    } = useForm<TFormSettings>({
-        resolver: zodResolver(useMySchemaSettings()),
-    });
 
     const autoSubmitAfterTyping = useCallback(() => {
         if(!isLoading && isAutoSaved) {
@@ -67,17 +68,29 @@ export default function SettingsComp() {
         }
     }, [isAutoSaved, isLoading, typingTimer, delay]);
 
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isSubmitting },
+    } = useForm<TFormSettings>({
+        resolver: zodResolver(useMySchemaSettings()),
+    });
+    
     useEffect(() => {
+        if(getDefaultSettings()) {
+            setFormData({
+                theme: getDefaultSettings().theme,
+                language: getDefaultSettings().language,
+                isBordered: getDefaultSettings().isBordered,
+                is3DEffectsEnabled: getDefaultSettings().is3DEffectsEnabled,
+                isAutoSaveEnabled: getDefaultSettings().isAutoSaveEnabled
+            });
+        }
+        
         setIsLoading(false);
 
         if (!!isResetedForm) {
-            setFormData({
-                theme: config.getConfigSync().theme ?? "glassmorphism",
-                language: config.getConfigSync().language ?? "pt-PT",
-                isBordered: config.getConfigSync().isBordered ?? true,
-                is3DEffectsEnabled: config.getConfigSync().is3DEffectsEnabled ?? false,
-                isAutoSaveEnabled: config.getConfigSync().isAutoSaveEnabled ?? false
-            });
+            setFormData(getDefaultSettings() as Settings);
         }
 
         autoSubmitAfterTyping();
@@ -96,6 +109,7 @@ export default function SettingsComp() {
     const toggleAutoSaveSetting = (e: any) => {
         setIsAutoSaved(true);
         setFormData({ ...formData, ["isAutoSaveEnabled"]: e.target.checked });
+        setDefaultSettings({ ...formData, ["isAutoSaveEnabled"]: e.target.checked });
     }
 
     const toggle3DEffects = (e: any) => {
@@ -104,6 +118,7 @@ export default function SettingsComp() {
         }
         
         setFormData({ ...formData, ["is3DEffectsEnabled"]: e.target.checked });
+        setDefaultSettings({ ...formData, ["is3DEffectsEnabled"]: e.target.checked });
     }
 
     const toggleBorderedEffect = (e: any) => {
@@ -112,6 +127,7 @@ export default function SettingsComp() {
         }
 
         setFormData({ ...formData, ["isBordered"]: e.target.checked });
+        setDefaultSettings({ ...formData, ["isBordered"]: e.target.checked });
     }
 
     const handleReset = () => {
@@ -202,6 +218,7 @@ export default function SettingsComp() {
 
                 setTimeout(() => {
                     router.push("/");
+                    router.refresh();
                 }, 1500);
             }).catch((e) => {
                 console.log(e);
@@ -215,6 +232,7 @@ export default function SettingsComp() {
 
                 setTimeout(() => {
                     router.push("/");
+                    router.refresh();
                 }, 1500);
             });
         } catch (error) {

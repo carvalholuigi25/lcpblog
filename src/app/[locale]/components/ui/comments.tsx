@@ -18,7 +18,7 @@ import FetchDataAxios, { FetchMultipleDataAxios } from "@applocale/utils/fetchda
 import LoadingComp from "@applocale/components/ui/loadingcomp";
 import ShowAlert from "@applocale/components/ui/alerts";
 import Toasts from "@applocale/components/ui/toasts/toasts";
-import * as config from "@applocale/utils/config";
+import { getIs3DEffectsEnabledSetting } from "../../hooks/settingsvals";
 
 export interface CommentsProps {
     content?: string;
@@ -30,7 +30,7 @@ export interface CommentsProps {
 }
 
 export default function Comments({ userId, postId, categoryId, isCommentFormShown }: CommentsProps) {
-    const is3DEffectsEnabled = config.getConfigSync().is3DEffectsEnabled;
+    const is3DEffectsEnabled = getIs3DEffectsEnabledSetting();
     const t = useTranslations("ui.forms.comments");
     const locale = useLocale() ?? getDefLocale();
 
