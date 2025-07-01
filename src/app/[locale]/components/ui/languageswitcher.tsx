@@ -4,7 +4,7 @@ import { LanguagesLocales, localesary } from "@/app/i18n/locales";
 import { useLanguage } from "@applocale/components/ui/context/languagecontext";
 import { redirect } from "next/navigation";
 import { setCookie } from 'cookies-next';
-import { getIs3DEffectsEnabledSetting } from "../../hooks/settingsvals";
+import { getConfigSync } from "../../utils/config";
 
 export function getMyCustomLanguages() {
     const ary = localesary.sort((x, y) => x.value.toLowerCase().localeCompare(y.value.toLowerCase()));
@@ -15,7 +15,7 @@ export function getMyCustomLanguages() {
 const LanguageSwitcher = () => {
     const { language, setLanguage } = useLanguage();
     const languagesary: LanguagesLocales[] = getMyCustomLanguages();
-    const is3DEffectsEnabled = getIs3DEffectsEnabledSetting();
+    const is3DEffectsEnabled = getConfigSync().is3DEffectsEnabled;
 
     const setMyLanguage = async (e: any, x: LanguagesLocales): Promise<any> => {
         e.preventDefault();

@@ -9,20 +9,19 @@ import { getDefLocale } from '@applocale/helpers/defLocale';
 import { Link } from '@/app/i18n/navigation';
 import { useTranslations } from "next-intl";
 import { LoginStatus, UserSessionsTypes } from "@applocale/interfaces/user";
-import { getIs3DEffectsEnabledSetting, getIsBorderedSetting } from "../hooks/settingsvals";
 import { getImagePath } from "../functions/functions";
 import LoadingComp from "@applocale/components/ui/loadingcomp";
 import ModalSession from "@applocale/components/ui/modals/modalsession";
+import { getConfigSync } from "../utils/config";
 
-const SearchComponent = dynamic(() => import('./search'), { ssr: false })
+const MySearchComp = dynamic(() => import('./search'), { ssr: false });
 
 const HeaderMenu = ({ logInfo, locale, handleLogout }: { logInfo: any, locale: string, handleLogout: any }) => {
     const t = useTranslations('ui.offcanvas');
     const [loading, setLoading] = useState(true);
     const [loadLinkAuth, setLoadLinkAuth] = useState(false);
-    const is3DEffectsEnabled = getIs3DEffectsEnabledSetting(); 
-    const isRounded = getIsBorderedSetting();
-    const roundedcl = isRounded ? "rounded" : "";
+    const is3DEffectsEnabled = getConfigSync().is3DEffectsEnabled; 
+const isRounded = getConfigSync().isBordered;
 
     useEffect(() => {
         setLoadLinkAuth(!logInfo ? true : false);
@@ -50,6 +49,8 @@ const HeaderMenu = ({ logInfo, locale, handleLogout }: { logInfo: any, locale: s
     const getUserRole = () => {
         return logInfo ? JSON.parse(logInfo)[0].role : "guest";
     }
+
+    const roundedcl = isRounded ? "rounded" : "";
 
     return (
         <div className={"offcanvas offcanvas-start " + roundedcl} tabIndex={-1} id="menuHeader" aria-labelledby="menuHeaderLabel">
@@ -113,14 +114,12 @@ const HeaderMenu = ({ logInfo, locale, handleLogout }: { logInfo: any, locale: s
 }
 
 const Header = ({ locale }: { locale: string }) => {
-    const is3DEffectsEnabled = getIs3DEffectsEnabledSetting(); 
-    const isRounded = getIsBorderedSetting();
-    const roundedcl = isRounded ? "rounded" : "";
-    
     const [isNavbarToggled, setisNavbarToggled] = useState(false);
     const [showSessionModal, setShowSessionModal] = useState(false);
     const [logStatus, setLogStatus] = useState<LoginStatus>();
     const [logInfo, setLogInfo] = useState("");
+    const is3DEffectsEnabled = getConfigSync().is3DEffectsEnabled; 
+const isRounded = getConfigSync().isBordered;
 
     useEffect(() => {
         if(!logInfo) {
@@ -145,10 +144,6 @@ const Header = ({ locale }: { locale: string }) => {
 
                 if(lso.status == "unlocked" && lso.attempts == 0 && new Date(lso.valueTimer).getTime() <= new Date().getTime()) {
                     setShowSessionModal(true);
-                    // delFromStorage("loginStatus");
-                    // delFromStorage("logInfo");
-                    // setLogInfo("");
-                    // location.reload();
                 }
             }
         }
@@ -173,6 +168,8 @@ const Header = ({ locale }: { locale: string }) => {
             setLogInfo("");
         }
     };
+
+    const roundedcl = isRounded ? "rounded" : "";
 
     return (
         <>
@@ -199,7 +196,7 @@ const Header = ({ locale }: { locale: string }) => {
                         <div className="collapse navbar-collapse" id="navbarMain">
                             <ul className="navbar-nav mx-auto me-0">
                                 <li className="nav-item">
-                                    <SearchComponent />
+                                    <MySearchComp />
                                 </li>
                             </ul>
                             <ul className="navbar-nav ms-auto me-0">

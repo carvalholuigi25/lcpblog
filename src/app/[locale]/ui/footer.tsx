@@ -6,12 +6,12 @@ import { Link } from '@/app/i18n/navigation';
 import { getDefLocale } from '@applocale/helpers/defLocale';
 import ThemeSwitcher from '@applocale/components/ui/themeswitcher';
 import LanguageSwitcher from '@applocale/components/ui/languageswitcher';
-import { getIsBorderedSetting } from '../hooks/settingsvals';
+import { getConfigSync } from '../utils/config';
 
 const Footer = () => {
     const locale = useLocale() ?? getDefLocale();
     const t = useTranslations('ui.footer');
-    const isRounded = getIsBorderedSetting();
+    const isRounded = getConfigSync().isBordered;
     const roundedCl = isRounded ? "roundedfooter " : " ";
 
     return (

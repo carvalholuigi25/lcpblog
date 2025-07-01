@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { useTheme } from "@applocale/components/ui/context/themecontext";
-import { getIs3DEffectsEnabledSetting } from "../../hooks/settingsvals";
+import { getConfigSync } from "../../utils/config";
 
 export interface ThemesModel {
     id: number;
@@ -95,7 +95,7 @@ const ThemeSwitcher = () => {
     const { theme, setTheme } = useTheme();
     const themesary: ThemesModel[] = GetMyCustomThemes();
     const [themeName, setThemeName] = useState<string>(GetDefaultTheme() ?? "system");
-    const is3DEffectsEnabled = getIs3DEffectsEnabledSetting();
+    const is3DEffectsEnabled = getConfigSync().is3DEffectsEnabled;
 
     useEffect(() => {
         setThemeName(themesary.filter(x => x.theme == theme)[0].title);

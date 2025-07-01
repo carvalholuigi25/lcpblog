@@ -8,10 +8,10 @@ import { getImagePath } from "./functions/functions";
 import Footer from "@applocale/ui/footer";
 import Header from "@applocale/ui/header";
 import News from "@applocale/components/ui/news";
-import { getIs3DEffectsEnabledSetting } from "./hooks/settingsvals";
+import { getConfigSync } from "./utils/config";
 
 export default function Home() {
-  const is3DEffectsEnabled = getIs3DEffectsEnabledSetting();
+  const is3DEffectsEnabled = getConfigSync().is3DEffectsEnabled;
   const locale = useLocale() ?? getDefLocale();
   const t = useTranslations('pages.HomePage');
   

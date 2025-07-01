@@ -6,9 +6,9 @@ import { getLocale, getMessages } from "next-intl/server";
 import { headers } from "next/headers";
 import { getLangDir } from "rtl-detect";
 import { getDefLocale } from "@applocale/helpers/defLocale";
-import { getIs3DEffectsEnabledSetting, getLangSetting, getThemeSetting } from "./[locale]/hooks/settingsvals";
 import CookieConsent from "@applocale/components/ui/cookie/cookieconsent";
 import Dependencies from "@applocale/dependencies/dependencies";
+import { getConfigSync } from "./[locale]/utils/config";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -48,10 +48,10 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const qheaders = await headers();
-  const locale = await getLocale() ?? getDefLocale() ?? getLangSetting();
+  const locale = await getLocale() ?? getDefLocale() ??  getConfigSync().language;
   const messages = await getMessages({ locale: locale });
-  const themeCl = getThemeSetting();
-  const effects3DCl = getIs3DEffectsEnabledSetting() ? "effects3D" : "";
+  const themeCl = getConfigSync().theme;
+  const effects3DCl = getConfigSync().is3DEffectsEnabled ? "effects3D" : "";
 
   const pathname = qheaders.get("x-current-path") || "";
   const dir = getLangDir(locale) ?? "ltr";

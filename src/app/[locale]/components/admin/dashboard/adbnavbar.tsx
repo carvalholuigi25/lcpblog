@@ -6,7 +6,7 @@ import { useState } from "react";
 import { getDefLocale } from "@applocale/helpers/defLocale";
 import {Link} from '@/app/i18n/navigation';
 import { getImagePath } from "@/app/[locale]/functions/functions";
-import { getIsBorderedSetting } from "@/app/[locale]/hooks/settingsvals";
+import { getConfigSync } from "@/app/[locale]/utils/config";
 
 export interface AdminNavbarProps {
     logInfo: string;
@@ -16,7 +16,7 @@ export interface AdminNavbarProps {
 }
 
 export default function AdminNavbarDashboard({logInfo, navbarStatus, toggleNavbar, locale}: AdminNavbarProps) {
-    const isRounded = getIsBorderedSetting();
+    const isRounded = getConfigSync().isBordered;
     const roundedCl = isRounded ? " roundednavbar" : "";
     const [isNavbarToggled, setisNavbarToggled] = useState(false);
 
