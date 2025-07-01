@@ -11,12 +11,12 @@ import { saveToStorage } from "@applocale/hooks/localstorage";
 import { getMyCustomLanguages } from "@applocale/components/ui/languageswitcher";
 import { LanguagesLocales } from "@/app/i18n/locales";
 import { TFormSettings, useMySchemaSettings } from "@applocale/schemas/formSchemas";
-import { GetMySpecialCustomThemes, ThemesModel } from "./themeswitcher";
+import { GetMySpecialCustomThemes, ThemesModel } from "@applocale/components/ui/themeswitcher";
+import { getDefaultSettings, setDefaultSettings } from "@applocale/hooks/settingsvals";
 import ShowAlert from "@applocale/components/ui/alerts";
 import Toasts from "@applocale/components/ui/toasts/toasts";
 import LoadingComp from "@applocale/components/ui/loadingcomp";
 import * as config from "@applocale/utils/config";
-import { getDefaultSettings, setDefaultSettings } from "../../hooks/settingsvals";
 
 export interface Settings {
     theme: string;
@@ -197,10 +197,7 @@ export default function SettingsComp() {
                 method: 'PUT',
                 headers: {
                     'Accept': 'application/json; charset=utf-8',
-                    'Content-Type': 'application/json; charset=utf-8',
-                    "Cache-Control": "no-cache, no-store, must-revalidate",
-                    "Pragma": "no-cache",
-                    "Expires": "0"
+                    'Content-Type': 'application/json; charset=utf-8'
                 },
                 params: {
                     timestamp: Date.now()
@@ -219,7 +216,7 @@ export default function SettingsComp() {
                 setTimeout(() => {
                     router.push("/");
                     router.refresh();
-                }, 1500);
+                }, 500);
             }).catch((e) => {
                 console.log(e);
                 const msg = e.response.data.error ?? e.message;
@@ -233,7 +230,7 @@ export default function SettingsComp() {
                 setTimeout(() => {
                     router.push("/");
                     router.refresh();
-                }, 1500);
+                }, 500);
             });
         } catch (error) {
             console.error("Error updating settings:", error);
